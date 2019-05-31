@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <item android:title="@string/menu_myaccount">
+
+        <menu>
+            <group android:checkableBehavior="single">
+
+                <item
+                    android:id="@+id/nav_akun_saya"
+                    android:icon="@drawable/ic_informasi_pribadi"
+                    android:title="@string/menu_akun_saya"/>
+                <item
+                    android:id="@+id/nav_personalInfo"
+                    android:icon="@drawable/ic_assignment"
+                    android:title="@string/menu_personalInfo" />
+                <item
+                    android:id="@+id/nav_infoPekerjaan"
+                    android:icon="@drawable/ic_work"
+                    android:title="@string/menu_workInfo" />
+                <item
+                    android:id="@+id/nav_datapendukung"
+                    android:icon="@drawable/ic_informasi_keuangan"
+                    android:title="@string/menu_dataPendukung" />
+
+            </group>
+
+        </menu>
+
+    </item>
+
+    <item
+        android:id="@+id/nav_logout"
+        android:icon="@drawable/ic_logout"
+        android:title="@string/menu_logout"/>
+
+</menu>

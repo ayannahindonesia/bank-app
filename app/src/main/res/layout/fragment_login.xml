@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/logoBank"
+        android:src="@drawable/kaya_credit_logo"
+        android:layout_width="360dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="120dp"
+        android:layout_height="65dp" />
+
+    <LinearLayout
+        android:layout_below="@+id/logoBank"
+        android:orientation="vertical"
+        android:id="@+id/lyLogin"
+        android:padding="@dimen/dp10"
+        android:layout_marginTop="@dimen/margin16dp"
+        android:layout_width="285dp"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:text="+62"
+                android:textColor="@android:color/black"
+                android:padding="5dp"
+                android:textSize="@dimen/fontLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:id="@+id/etPhone"
+                android:hint="Nomor ponsel"
+                android:maxLength="13"
+                android:textSize="@dimen/fontLarge"
+                android:textColor="@android:color/black"
+                android:inputType="phone"
+                android:imeOptions="actionNext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+
+        <EditText
+            android:id="@+id/etPassword"
+            android:hint="Kata Sandi"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="20dp"
+            android:textSize="@dimen/fontLarge"
+            android:maxLength="25"
+            android:textColor="@android:color/black"
+            android:inputType="textPassword"
+            android:paddingStart="@dimen/dp10"
+            android:paddingEnd="@dimen/dp10"
+            android:imeOptions="actionDone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+
+        <TextView
+            android:text="Lupa kata sandi?"
+            android:textColor="@color/colorPrimaryDark"
+            android:textAlignment="textEnd"
+            android:textSize="@dimen/fontNormal"
+            android:textStyle="bold"
+            android:layout_marginTop="@dimen/margin10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/lyButton"
+        android:layout_below="@+id/lyLogin"
+        android:padding="@dimen/dp10"
+        android:layout_marginTop="40dp"
+        android:layout_width="220dp"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btnLogin"
+            android:background="@drawable/button_login"
+            android:text="Masuk"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/btnRegister"
+            android:background="@drawable/button_register"
+            android:text="Daftar"
+            android:textStyle="bold"
+            android:layout_marginTop="@dimen/margin20dp"
+            android:textColor="@android:color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:background="@color/colorPrimaryDark"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:padding="7dp"
+            android:layout_alignParentEnd="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:textColor="@android:color/white"
+                android:text="Powered by"
+                android:textSize="@dimen/fontSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:src="@drawable/ayannah_dark_logo"
+                android:layout_width="100dp"
+                android:layout_height="30dp" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

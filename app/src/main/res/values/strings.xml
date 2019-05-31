@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name">prototypeApp</string>
+    <string name="title_activity_register">RegisterActivity</string>
+    <string name="title_activity_main_menu">MainMenuActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+    <string name="loading">Mohon tunggu…</string>
+    <string name="pin_wrong">PIN salah</string>
+
+    <!--Facebook credential-->
+    <string name="facebook_app_id">431689680982071</string>
+    <string name="fb_login_protocol_scheme">fb431689680982071</string>
+
+    <string name="menu_personalInfo">Informasi pribadi</string>
+    <!--<string name="menu_homoeAddress">Alamat rumah</string>-->
+    <string name="menu_workInfo">Pekerjaan dan Keuangan</string>
+    <!--<string name="menu_infoKeuangan">Informasi keuangan</string>-->
+    <string name="menu_dataPendukung">Data pendukung</string>
+    <string name="menu_logout">Keluar</string>
+
+
+    <string name="menu_myaccount">Profil saya</string>
+    <string name="menu_akun_saya">Akun saya</string>
+    <string name="title_activity_verification_otp">VerificationOTPActivity</string>
+    <string name="title_activity_rincian_alamat_rumah">RincianAlamatRumahActivity</string>
+    <string name="title_activity_info_work_finance">InfoWorkFinanceActivity</string>
+
+    <string name="empty_pinjaman_value">Rp -</string>
+    <string name="default_currency_amount">Rp 0</string>
+
+    <string name="disclaimer_paragraph1">Perhitungan ini merupakan alat bantu berupa simulasi yang digunakan untuk memberikan perkiraan plafond kredit, jumlah dana yang diterima dan angsuran setiap bulannya, dan oleh karena itu tidak mengikat pihak PT. Bank X dan/atau pihak-pihak lainnya atas penggunaan simulasi angsuran kredit ini.</string>
+    <string name="disclaimer_paragraph2">Hasil perhitungan dari simulasi kredit ini tidak dapat digunakan sebagai landasan oleh pihak manapun untuk mengajukan complain/keluhan/keberatan/tuntutan hukum, baik kepada Bank X, manajemen dan karyawan/ti-nya apabila terjadi perbedaan hasil perhitungan antara simulasi dengan realisasinya ataupun hal lainnya yang mungkin dapat menimbulkan kerugian secara materiil dan/atau immateriil atas pihak-pihak yang menggunakan simulasi angsuran kredit ini.</string>
+    <string name="desc_example">Ini adalah contoh berita dan promo terbaru yang dapat ditampilkan kapanpun pada aplikasi untuk membuat pengguna aplikasi semakin tertarik menggunakan.</string>
+</resources>

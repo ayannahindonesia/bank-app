@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <LinearLayout
+        android:padding="@dimen/dp16"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/titleVerification"
+            android:text="Masukkan kode verifikasi yang kami kirimkman ke nomor ponsel Anda"
+            android:textColor="@android:color/black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/secretDummyCode"
+            android:layout_marginTop="@dimen/dp12"
+            android:text="Kode OTP yang benar: 181818"
+            android:textSize="@dimen/fontSmall"
+            android:visibility="gone"
+            android:textColor="@color/colorPrimaryDark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+        <com.ayannah.bantenbank.custom.PinEntryEditText
+            android:id="@+id/etPin"
+            android:inputType="number"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="15dp"
+            android:maxLength="6"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:id="@+id/loadingProgress"
+            android:orientation="vertical"
+            android:layout_marginTop="20dp"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ProgressBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:text="@string/loading"
+                android:textAlignment="center"
+                android:textSize="@dimen/fontNormal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/successIndicator"
+            android:orientation="vertical"
+            android:layout_marginTop="20dp"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:src="@drawable/success"
+                android:layout_width="match_parent"
+                android:layout_height="50dp" />
+
+            <TextView
+                android:text="Diterima"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:textAlignment="center"
+                android:textSize="@dimen/fontNormal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/errorIndicator"
+            android:orientation="vertical"
+            android:layout_marginTop="20dp"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:src="@drawable/ic_error"
+                android:layout_width="match_parent"
+                android:layout_height="50dp" />
+
+            <TextView
+                android:text="PIN salah"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:textAlignment="center"
+                android:textSize="@dimen/fontNormal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

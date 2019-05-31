@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+        android:layout_height="match_parent"/>
+
+    <!--<RelativeLayout-->
+        <!--android:layout_below="@+id/appbar"-->
+        <!--android:background="@android:color/white"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
+
+        <!--<LinearLayout-->
+            <!--android:padding="@dimen/dp16"-->
+            <!--android:orientation="vertical"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content">-->
+
+            <!--<LinearLayout-->
+                <!--android:weightSum="2"-->
+                <!--android:orientation="horizontal"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content">-->
+
+                <!--<TextView-->
+                    <!--android:text="Jumlah pinjaman"-->
+                    <!--android:textSize="@dimen/fontLarge"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:textColor="@android:color/black"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content" />-->
+
+                <!--<TextView-->
+                    <!--android:id="@+id/nominalPinjaman"-->
+                    <!--android:text="Rp 0"-->
+                    <!--android:textSize="@dimen/fontSuperLarge"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:textStyle="bold"-->
+                    <!--android:textColor="@android:color/holo_green_dark"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content" />-->
+
+            <!--</LinearLayout>-->
+
+            <!--<SeekBar-->
+                <!--android:id="@+id/seekbarJumlahPinjaman"-->
+                <!--android:layout_marginTop="@dimen/dp12"-->
+                <!--android:progressDrawable="@drawable/seekbar_style"-->
+                <!--android:thumb="@drawable/custom_thumb"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:max="9"/>-->
+
+            <!--<LinearLayout-->
+                <!--android:weightSum="2"-->
+                <!--android:layout_marginTop="@dimen/dp16"-->
+                <!--android:orientation="horizontal"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content">-->
+
+                <!--<TextView-->
+                    <!--android:text="Tenor Cicilan"-->
+                    <!--android:textSize="@dimen/fontLarge"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:textColor="@android:color/black"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content" />-->
+
+                <!--<TextView-->
+                    <!--android:id="@+id/tenorCicilan"-->
+                    <!--android:text="0"-->
+                    <!--android:textSize="@dimen/fontSuperLarge"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:textStyle="bold"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content" />-->
+
+            <!--</LinearLayout>-->
+
+            <!--<SeekBar-->
+                <!--android:id="@+id/seekbarTenorCicilan"-->
+                <!--android:layout_marginTop="@dimen/dp12"-->
+                <!--android:progressDrawable="@drawable/seekbar_style"-->
+                <!--android:thumb="@drawable/custom_thumb"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:max="9"/>-->
+
+            <!--<LinearLayout-->
+                <!--android:weightSum="2"-->
+                <!--android:padding="5dp"-->
+                <!--android:layout_marginTop="@dimen/margin14dp"-->
+                <!--android:orientation="horizontal"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content">-->
+
+                <!--<TextView-->
+                    <!--android:text="Biaya Admin"-->
+                    <!--android:textSize="@dimen/fontNormal"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:textColor="@android:color/black"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content" />-->
+
+                <!--<TextView-->
+                    <!--android:id="@+id/biayaAdmin"-->
+                    <!--android:text="Rp -"-->
+                    <!--android:textSize="@dimen/fontNormal"-->
+                    <!--android:textAlignment="textEnd"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:textColor="@android:color/black"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content" />-->
+
+            <!--</LinearLayout>-->
+
+            <!--<LinearLayout-->
+                <!--android:weightSum="2"-->
+                <!--android:padding="5dp"-->
+                <!--android:orientation="horizontal"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content">-->
+
+                <!--<TextView-->
+                    <!--android:text="Bunga"-->
+                    <!--android:textSize="@dimen/fontNormal"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:textColor="@android:color/black"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content" />-->
+
+                <!--<TextView-->
+                    <!--android:id="@+id/amountBunga"-->
+                    <!--android:text="Rp -"-->
+                    <!--android:textSize="@dimen/fontNormal"-->
+                    <!--android:textAlignment="textEnd"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:textColor="@android:color/black"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content" />-->
+
+            <!--</LinearLayout>-->
+
+            <!--<LinearLayout-->
+                <!--android:weightSum="2"-->
+                <!--android:padding="5dp"-->
+                <!--android:orientation="horizontal"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content">-->
+
+                <!--<TextView-->
+                    <!--android:text="Angsuran perbulan"-->
+                    <!--android:textSize="@dimen/fontNormal"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:textColor="@android:color/black"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content" />-->
+
+                <!--<TextView-->
+                    <!--android:id="@+id/angsuranPerbulan"-->
+                    <!--android:text="Rp -"-->
+                    <!--android:textSize="@dimen/fontNormal"-->
+                    <!--android:textAlignment="textEnd"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:textColor="@android:color/holo_green_dark"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content" />-->
+
+            <!--</LinearLayout>-->
+
+            <!--<LinearLayout-->
+                <!--android:weightSum="2"-->
+                <!--android:padding="5dp"-->
+                <!--android:orientation="horizontal"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content">-->
+
+                <!--<TextView-->
+                    <!--android:text="Saldo Pokok Pinjaman"-->
+                    <!--android:textSize="@dimen/fontNormal"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:textColor="@android:color/black"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content" />-->
+
+                <!--<TextView-->
+                    <!--android:id="@+id/saldoPokokPinjaman"-->
+                    <!--android:text="Rp -"-->
+                    <!--android:textStyle="bold"-->
+                    <!--android:textSize="@dimen/fontNormal"-->
+                    <!--android:textAlignment="textEnd"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:textColor="@android:color/black"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content" />-->
+
+            <!--</LinearLayout>-->
+
+            <!--<LinearLayout-->
+                <!--android:weightSum="2"-->
+                <!--android:padding="5dp"-->
+                <!--android:orientation="horizontal"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content">-->
+
+                <!--<TextView-->
+                    <!--android:text="Jatuh tempo"-->
+                    <!--android:textSize="@dimen/fontNormal"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:textColor="@android:color/black"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content" />-->
+
+                <!--<TextView-->
+                    <!--android:id="@+id/tenor"-->
+                    <!--android:text="15 Mei 2019"-->
+                    <!--android:textSize="@dimen/fontNormal"-->
+                    <!--android:textAlignment="textEnd"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:textColor="@android:color/black"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content" />-->
+
+            <!--</LinearLayout>-->
+
+            <!--&lt;!&ndash;<LinearLayout&ndash;&gt;-->
+                <!--&lt;!&ndash;android:weightSum="2"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:padding="5dp"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:orientation="horizontal"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_height="wrap_content">&ndash;&gt;-->
+
+                <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:text="Cashback/Voucher"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:textSize="@dimen/fontNormal"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_weight="1"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:textColor="@android:color/black"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_height="wrap_content" />&ndash;&gt;-->
+
+                <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:id="@+id/cashback"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:text="Rp -"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:textSize="@dimen/fontNormal"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:textAlignment="textEnd"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_weight="1"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:textColor="@android:color/holo_green_dark"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_height="wrap_content" />&ndash;&gt;-->
+
+            <!--&lt;!&ndash;</LinearLayout>&ndash;&gt;-->
+
+            <!--<TextView-->
+                <!--android:text="Apa alasan anda mengajukan peminjaman?"-->
+                <!--android:textStyle="bold"-->
+                <!--android:textSize="@dimen/fontLarge"-->
+                <!--android:textColor="@android:color/black"-->
+                <!--android:layout_marginTop="@dimen/dp20"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content" />-->
+
+            <!--<Spinner-->
+                <!--android:id="@+id/spAlasanPinjam"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"/>-->
+
+
+            <!--<LinearLayout-->
+                <!--android:id="@+id/lyAlasanLain"-->
+                <!--android:orientation="vertical"-->
+                <!--android:visibility="gone"-->
+                <!--android:layout_marginTop="@dimen/dp12"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content">-->
+
+                <!--<TextView-->
+                    <!--android:text="Mohon masukkan alasan anda meminjam"-->
+                    <!--android:textSize="@dimen/fontNormal"-->
+                    <!--android:textColor="@android:color/black"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content" />-->
+
+                <!--<EditText-->
+                    <!--android:id="@+id/etAlasan"-->
+                    <!--android:hint="Ketik disini..."-->
+                    <!--android:textSize="@dimen/fontNormal"-->
+                    <!--android:paddingStart="@dimen/dp10"-->
+                    <!--android:paddingEnd="@dimen/margin10dp"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content" />-->
+
+            <!--</LinearLayout>-->
+
+            <!--<EditText-->
+                <!--android:id="@+id/etTujuan"-->
+                <!--android:textSize="@dimen/fontNormal"-->
+                <!--android:inputType="text"-->
+                <!--android:hint="Tuliskan detail tujuan"-->
+                <!--android:paddingStart="10dp"-->
+                <!--android:paddingEnd="10dp"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content" />-->
+
+        <!--</LinearLayout>-->
+
+        <!--<Button-->
+            <!--android:id="@+id/buttonPinjam"-->
+            <!--android:background="@color/colorAccent"-->
+            <!--android:text="Proses"-->
+            <!--android:textColor="@android:color/white"-->
+            <!--android:layout_alignParentBottom="true"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content" />-->
+
+    <!--</RelativeLayout>-->
+
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

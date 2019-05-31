@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/customeTextSpinner"
+    android:paddingStart="5dp"
+    android:paddingTop="@dimen/dp12"
+    android:paddingBottom="@dimen/dp12"
+    android:textSize="@dimen/fontNormal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+</TextView>

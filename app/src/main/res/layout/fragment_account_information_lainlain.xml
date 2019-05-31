@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/graybackground"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:id="@+id/scrollview"
+        android:layout_above="@id/buttonNext"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <View
+                android:id="@+id/indicator"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="25dp"
+                android:layout_marginTop="35dp"
+                android:background="@color/darkgreybackground"
+                android:layout_width="match_parent"
+                android:layout_height="15dp"/>
+
+            <View
+                android:id="@+id/indicator2"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="25dp"
+                android:layout_marginTop="35dp"
+                android:background="@color/colorPrimaryDark"
+                android:layout_width="330dp"
+                android:layout_height="15dp"/>
+
+            <TextView
+                android:id="@+id/dataPemohon"
+                android:text="Data Tambahan Lain-lain"
+                android:textAlignment="center"
+                android:layout_below="@+id/indicator"
+                android:layout_marginTop="@dimen/dp10"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/fontNormal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:id="@+id/container1"
+                android:orientation="vertical"
+                android:layout_marginTop="@dimen/dp20"
+                android:layout_marginStart="@dimen/dp20"
+                android:layout_marginEnd="@dimen/dp20"
+                android:layout_below="@+id/dataPemohon"
+                android:padding="@dimen/dp16"
+                android:background="@android:color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="Lain-lain"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/fontSuperLarge"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:text="Nama Orang tidak serumah yang dapat dihubungi"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/fontLarge"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <EditText
+                    android:inputType="text"
+                    android:paddingStart="@dimen/dp12"
+                    android:paddingEnd="@dimen/dp12"
+                    android:imeOptions="actionNext"
+                    android:hint="John Doe"
+                    android:textSize="@dimen/fontNormal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:ignore="Autofill" />
+
+                <TextView
+                    android:text="Hubungan"
+                    android:textSize="@dimen/fontLarge"
+                    android:textColor="@android:color/black"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <Spinner
+                    android:id="@+id/spHubungan"
+                    android:inputType="textPersonName"
+                    android:imeOptions="actionNext"
+                    android:textSize="@dimen/fontNormal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:ignore="Autofill" />
+
+                <TextView
+                    android:text="Alamat rumah"
+                    android:layout_marginTop="@dimen/dp10"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/fontLarge"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <EditText
+                    android:inputType="textMultiLine"
+                    android:lines="2"
+                    android:hint="Tulis alamat"
+                    android:gravity="top"
+                    android:paddingStart="@dimen/dp12"
+                    android:paddingEnd="@dimen/dp12"
+                    android:imeOptions="actionNext"
+                    android:textSize="@dimen/fontNormal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:ignore="Autofill" />
+
+                <TextView
+                    android:text="No.Telp"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/fontLarge"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <EditText
+                    android:inputType="phone"
+                    android:paddingStart="@dimen/dp12"
+                    android:paddingEnd="@dimen/dp12"
+                    android:hint="02112345678"
+                    android:imeOptions="actionNext"
+                    android:textSize="@dimen/fontNormal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:ignore="Autofill" />
+
+                <TextView
+                    android:text="No. HP"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/fontLarge"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <EditText
+                    android:inputType="phone"
+                    android:paddingStart="@dimen/dp12"
+                    android:paddingEnd="@dimen/dp12"
+                    android:imeOptions="actionNext"
+                    android:hint="081234567890"
+                    android:textSize="@dimen/fontNormal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:ignore="Autofill" />
+
+            </LinearLayout>
+
+
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+
+
+    <Button
+        android:id="@+id/buttonNext"
+        android:text="Selanjutnya"
+        android:background="@color/colorAccent"
+        android:textColor="@android:color/white"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</RelativeLayout>
