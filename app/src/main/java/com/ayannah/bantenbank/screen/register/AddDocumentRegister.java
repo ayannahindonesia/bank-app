@@ -131,6 +131,7 @@ public class AddDocumentRegister extends Fragment {
 //            ft.commit();
 //        }
 
+        //sdkjfhsjdhf
         FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.fragment_container, fragment);
         ft.addToBackStack(null);
