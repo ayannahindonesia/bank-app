@@ -201,20 +201,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
-        <TextView
-            android:id="@+id/titlePinjamanSaya"
-            android:text="Aplikasi Pinjaman Saya"
-            android:textSize="@dimen/fontLarge"
-            android:padding="@dimen/dp14"
-            android:layout_below="@+id/rvBeritaPromo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+        <!--<TextView-->
+            <!--android:id="@+id/titlePinjamanSaya"-->
+            <!--android:text="Aplikasi Pinjaman Saya"-->
+            <!--android:textSize="@dimen/fontLarge"-->
+            <!--android:padding="@dimen/dp14"-->
+            <!--android:layout_below="@+id/rvBeritaPromo"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content" />-->
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewPinjaman"
-            android:layout_below="@+id/titlePinjamanSaya"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+        <!--<androidx.recyclerview.widget.RecyclerView-->
+            <!--android:id="@+id/recyclerViewPinjaman"-->
+            <!--android:layout_below="@+id/titlePinjamanSaya"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"/>-->
 
     </RelativeLayout>
 

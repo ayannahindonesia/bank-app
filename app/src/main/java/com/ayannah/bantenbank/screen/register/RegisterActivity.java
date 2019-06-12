@@ -35,14 +35,17 @@ public class RegisterActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.add(R.id.fragment_container, fragment);
+        ft.addToBackStack(null);
+        ft.commit();
 
-        if(purpose.equals("continueRegist")){
-            ft.add(R.id.fragment_container, fragment2);
-            ft.commit();
-        }else {
-            ft.add(R.id.fragment_container, fragment);
-            ft.commit();
-        }
+//        if(purpose.equals("continueRegist")){
+//            ft.add(R.id.fragment_container, fragment2);
+//            ft.commit();
+//        }else {
+//            ft.add(R.id.fragment_container, fragment);
+//            ft.commit();
+//        }
 
     }
 

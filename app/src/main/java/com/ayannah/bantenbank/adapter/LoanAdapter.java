@@ -91,11 +91,17 @@ public class LoanAdapter extends RecyclerView.Adapter<LoanAdapter.LoadViewHolder
             typeLoan.setText(param.getLoanType());
 
             switch (param.getStatus()){
-                case "DITERIMA":
-                    status.setTextColor(Color.GREEN);
+                case "Diterima":
+                    status.setBackgroundResource(R.drawable.badge_diterima);
                     break;
-                case "TIDAK LENGKAP":
-                    status.setTextColor(mContext.getResources().getColor(R.color.colorAccent));
+                case "Tidak lengkap":
+                    status.setBackgroundResource(R.drawable.badge_tidak_lengkap);
+                    break;
+                case "Tertunda":
+                    status.setBackgroundResource(R.drawable.badge_tertunda);
+                    break;
+                case "Ditolak":
+                    status.setBackgroundResource(R.drawable.badge_ditolak);
                     break;
             }
             status.setText(param.getStatus());

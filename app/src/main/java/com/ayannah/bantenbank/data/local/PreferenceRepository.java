@@ -44,5 +44,16 @@ public interface PreferenceRepository {
 
     String getUserNIP();
 
+    void setUserPrimaryIncome(String userIncome);
+
+    String getUserPrimaryIncome();
+
+    void setUserOtherIncome(String otherIncome);
+
+    String getUserOtherIncome();
+
+    void setuserOtherSourceIncome(String otherSourceIncome);
+
+    String getUserOtherSourceIncome();
 
 }

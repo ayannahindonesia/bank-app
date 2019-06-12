@@ -2,8 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/graybackground">
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/title"
@@ -21,57 +20,5 @@
         android:layout_below="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
-
-    <LinearLayout
-        android:id="@+id/bank"
-        android:layout_marginTop="@dimen/dp10"
-        android:visibility="gone"
-        android:padding="@dimen/dp12"
-        android:layout_below="@+id/rvBank"
-        android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:src="@drawable/ic_bank"
-            android:layout_width="match_parent"
-            android:layout_height="50dp" />
-
-        <TextView
-            android:text="Bank X"
-            android:textStyle="bold"
-            android:textSize="@dimen/fontSuperLarge"
-            android:textAlignment="center"
-            android:layout_marginTop="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:text="Masukkan nomor rekening bank"
-            android:textColor="@android:color/black"
-            android:padding="@dimen/dp12"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <EditText
-            android:hint="contoh:837165489"
-            android:textColor="@android:color/black"
-            android:padding="@dimen/dp12"
-            android:inputType="number"
-            android:textSize="@dimen/fontNormal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/buttonNext"
-        android:visibility="gone"
-        android:layout_alignParentBottom="true"
-        android:background="@color/colorAccent"
-        android:text="Selanjutnya"
-        android:textColor="@android:color/white"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
 
 </RelativeLayout>

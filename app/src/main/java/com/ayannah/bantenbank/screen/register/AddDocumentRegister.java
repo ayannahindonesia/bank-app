@@ -16,10 +16,12 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.ayannah.bantenbank.R;
+import com.ayannah.bantenbank.dialog.BottomSheetInstructionDialog;
 
 import java.io.File;
 
@@ -44,13 +46,12 @@ public class AddDocumentRegister extends Fragment {
     @BindView(R.id.editNPWP)
     ImageView editNpwp;
 
-    CameraManager mCameraManager;
-
     File fileKtp, fileNpwp;
     private static final int KTP = 9;
     private static final int NPWP = 10;
 
     private FormEmailPhone fragment = new FormEmailPhone();
+    private BottomSheetInstructionDialog bottomDialog;
 
     public AddDocumentRegister(){}
 
@@ -58,14 +59,30 @@ public class AddDocumentRegister extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_add_doc_regist, container, false);
+        ButterKnife.bind(this, view);
 
+        //check permission to access camera and gallery photo
         needPermission(new String[]{
                 Manifest.permission.CAMERA,
                 Manifest.permission.READ_EXTERNAL_STORAGE,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE
         });
 
-        ButterKnife.bind(this, view);
+
+        ///show dialog instruction
+        bottomDialog = new BottomSheetInstructionDialog().show(getActivity().getSupportFragmentManager(),
+                "Upload kartu identitas anda",
+                "Silahkan menambahkan foto kartu identitas pribadi anda seperti KTP dan NPWP (opsional) pribadi anda",
+                R.drawable.identity_card);
+        bottomDialog.setOnClickBottomSheetInstruction(new BottomSheetInstructionDialog.BottomSheetInstructionListener() {
+            @Override
+            public void onClickButtonDismiss() {
+
+                bottomDialog.dismiss();
+
+            }
+        });
+
         return view;
     }
 
@@ -105,14 +122,20 @@ public class AddDocumentRegister extends Fragment {
     @OnClick(R.id.btnNext)
     void onClickNext(){
 
-        if(fileKtp == null){
-            Toast.makeText(getContext(), "Mohon tambahkan foto KTP anda", Toast.LENGTH_SHORT).show();
-        }else {
-            FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.fragment_container, fragment);
-            ft.addToBackStack(null);
-            ft.commit();
-        }
+//        if(fileKtp == null){
+//            Toast.makeText(getContext(), "Mohon tambahkan foto KTP anda", Toast.LENGTH_SHORT).show();
+//        }else {
+//            FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+//            ft.replace(R.id.fragment_container, fragment);
+//            ft.addToBackStack(null);
+//            ft.commit();
+//        }
+
+        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.fragment_container, fragment);
+        ft.addToBackStack(null);
+        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        ft.commit();
     }
 
     private void showDialogPicker(int type){
@@ -170,6 +193,7 @@ public class AddDocumentRegister extends Fragment {
                             Bitmap bitmap = BitmapFactory.decodeFile(fileKtp.getAbsolutePath());
                             imgKtp.setScaleType(ImageView.ScaleType.CENTER_CROP);
                             imgKtp.setImageBitmap(bitmap);
+//                            imgKtp.setBackgroundResource(R.drawable.border_selected_image);
                             editKtp.setVisibility(View.VISIBLE);
 
                             break;
@@ -179,6 +203,7 @@ public class AddDocumentRegister extends Fragment {
                             fileNpwp = imageFile;
                             Bitmap bitmapnpwp = BitmapFactory.decodeFile(fileNpwp.getAbsolutePath());
                             imgNpwp.setScaleType(ImageView.ScaleType.CENTER_CROP);
+//                            imgNpwp.setBackgroundResource(R.drawable.border_selected_image);
                             imgNpwp.setImageBitmap(bitmapnpwp);
                             editNpwp.setVisibility(View.VISIBLE);
 

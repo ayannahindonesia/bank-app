@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
-    android:weightSum="4"
+    android:weightSum="3"
     android:background="@android:color/white"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-
-    <View
-        android:background="@color/colorAccent"
-        android:layout_width="7dp"
-        android:layout_weight="0.2"
-        android:layout_height="wrap_content"/>
 
     <LinearLayout
         android:orientation="vertical"
@@ -62,10 +57,14 @@
 
         <TextView
             android:id="@+id/status"
-            android:text="TERTUNDA"
+            android:padding="5dp"
+            android:layout_gravity="end"
+            tools:text="Tertunda"
+            android:textColor="@android:color/white"
+            android:background="@drawable/badge_tertunda"
             android:textAlignment="textEnd"
             android:textSize="@dimen/fontNormal"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <TextView
@@ -73,7 +72,8 @@
             android:textStyle="bold"
             android:textColor="@color/colorPrimaryDark"
             android:text="Rp 3.000.000"
-            android:textSize="@dimen/fontSuperLarge"
+            android:layout_marginTop="5dp"
+            android:textSize="@dimen/fontLarge"
             android:textAlignment="textEnd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

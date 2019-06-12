@@ -22,6 +22,11 @@ public class PreferenceDataSource implements PreferenceRepository {
     private static final String PREF_USER_PROFILE_= "USER_PROFILE";
     private static final String PREF_USER_BANK = "USER_BANK";
     private static final String PREF_USER_NIP = "USER_NIP";
+    private static final String PREF_USER_PRIMARY_INCOME = "USER_PRIMARY_INCOME";
+    private static final String PREF_USER_OTHER_INCOME = "USER_OTHER_INCOME";
+    private static final String PREF_USER_OTHER_SOURCE_INCOME = "USER_OTHER_SOURCE_INCOME";
+
+
 
     @Inject
     PreferenceDataSource(Application application){
@@ -145,5 +150,43 @@ public class PreferenceDataSource implements PreferenceRepository {
     @Override
     public String getUserNIP() {
         return mPreferences.getString(PREF_USER_NIP, "");
+    }
+
+    @Override
+    public void setUserPrimaryIncome(String userIncome) {
+
+        mPreferences.edit().putString(PREF_USER_PRIMARY_INCOME, userIncome).apply();
+    }
+
+    @Override
+    public String getUserPrimaryIncome() {
+
+        return mPreferences.getString(PREF_USER_PRIMARY_INCOME, "");
+    }
+
+    @Override
+    public void setUserOtherIncome(String otherIncome) {
+
+        mPreferences.edit().putString(PREF_USER_OTHER_INCOME, otherIncome).apply();
+
+    }
+
+    @Override
+    public String getUserOtherIncome() {
+        return mPreferences.getString(PREF_USER_OTHER_INCOME, "");
+    }
+
+    @Override
+    public void setuserOtherSourceIncome(String otherSourceIncome) {
+
+        mPreferences.edit().putString(PREF_USER_OTHER_SOURCE_INCOME, otherSourceIncome).apply();
+
+    }
+
+    @Override
+    public String getUserOtherSourceIncome() {
+
+        return mPreferences.getString(PREF_USER_OTHER_SOURCE_INCOME, "");
+
     }
 }

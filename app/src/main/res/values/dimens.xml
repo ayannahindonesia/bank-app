@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <dimen name="dp5">5dp</dimen>
     <dimen name="dp10">10dp</dimen>
     <dimen name="dp12">12dp</dimen>
     <dimen name="dp14">14dp</dimen>
     <dimen name="dp16">16dp</dimen>
+    <dimen name="dp18">18dp</dimen>
     <dimen name="dp20">20dp</dimen>
 
     <dimen name="fontSmaller">9sp</dimen>

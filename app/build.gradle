@@ -46,6 +46,7 @@ dependencies {
 
     //butterknife
     implementation "com.jakewharton:butterknife:$butterknife"
+    implementation 'com.google.android.material:material:1.0.0'
     annotationProcessor "com.jakewharton:butterknife-compiler:$butterknife"
 
     //rx2android fast networking amitshekhar

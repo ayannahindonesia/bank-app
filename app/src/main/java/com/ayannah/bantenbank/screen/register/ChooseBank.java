@@ -37,14 +37,8 @@ public class ChooseBank extends Fragment {
     @BindView(R.id.rvBank)
     RecyclerView recyclerView;
 
-    @BindView(R.id.bank)
-    LinearLayout lyBank;
-
-    @BindView(R.id.buttonNext)
-    Button btnNext;
-
 //    private FormEmailPhone fragment = new FormEmailPhone();
-    private AddDocumentRegister fragmentadd = new AddDocumentRegister();
+    private AddAccountBank fragmentadd = new AddAccountBank();
 
     public ChooseBank(){
 
@@ -58,32 +52,32 @@ public class ChooseBank extends Fragment {
 
         listBanks = new ArrayList<>();
         Bank bank = new Bank();
-        bank.setName("Bank A");
+        bank.setName("Bank Jakarta");
         bank.setLogo(0);
         listBanks.add(bank);
 
         Bank bank2 = new Bank();
-        bank2.setName("Bank B");
+        bank2.setName("Bank Bogor");
         bank2.setLogo(0);
         listBanks.add(bank2);
 
         Bank bank3 = new Bank();
-        bank3.setName("Bank C");
+        bank3.setName("Bank Palu");
         bank3.setLogo(0);
         listBanks.add(bank3);
 
         Bank bank4 = new Bank();
-        bank4.setName("Bank D");
+        bank4.setName("Bank Ngawi");
         bank4.setLogo(0);
         listBanks.add(bank4);
 
         Bank bank5 = new Bank();
-        bank5.setName("Bank E");
+        bank5.setName("Bank Yogya");
         bank5.setLogo(0);
         listBanks.add(bank5);
 
         Bank bank6 = new Bank();
-        bank6.setName("Bank F");
+        bank6.setName("Bank Buton");
         bank6.setLogo(0);
         listBanks.add(bank6);
 
@@ -95,10 +89,17 @@ public class ChooseBank extends Fragment {
         mAdapter.setOnClickBankListener(new ChooseBankAdapter.ChooseBankListener() {
             @Override
             public void onClickItemBank(Bank bank) {
-                title.setVisibility(View.GONE);
-                recyclerView.setVisibility(View.GONE);
-                lyBank.setVisibility(View.VISIBLE);
-                btnNext.setVisibility(View.VISIBLE);
+
+                Bundle bundle = new Bundle();
+                bundle.putString(AddAccountBank.BANK_NAME, bank.getName());
+
+                fragmentadd.setArguments(bundle);
+
+                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.fragment_container, fragmentadd);
+                ft.addToBackStack(null);
+                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                ft.commit();
 
             }
         });
@@ -106,13 +107,4 @@ public class ChooseBank extends Fragment {
         return view;
     }
 
-    @OnClick(R.id.buttonNext)
-    void onClick(){
-
-        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.fragment_container, fragmentadd);
-        ft.addToBackStack(null);
-        ft.commit();
-
-    }
 }

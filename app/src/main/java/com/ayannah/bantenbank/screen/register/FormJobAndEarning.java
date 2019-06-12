@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -86,25 +87,35 @@ public class FormJobAndEarning extends Fragment {
     @OnClick(R.id.buttonNext)
     void onClickNext(){
 
-//        Intent verification = new Intent(getContext(), VerificationOTPActivity.class);
-//        verification.putExtra("purpose", "regist");
-//        startActivity(verification);
-//        getActivity().finish();
+        checkEarningUser();
+
+    }
+
+    private void checkEarningUser() {
+
+        String gaji_bulanan = etGajiBulanan.getText().toString().replaceAll("[.,]", "");
+        String pendapatan_lain = etPendapatanLain.getText().toString().replaceAll("[.,]", "");
+        String sumber_pendapatan_lain = etSumberPendaptanLain.getText().toString().replaceAll("[.,]", "");
+
+        Toast.makeText(getContext(), "gajibulanan: "+gaji_bulanan+", pendaptan: "+pendapatan_lain, Toast.LENGTH_SHORT).show();
+
+//        if(gaji_bulanan.isEmpty() ||
+//                pendapatan_lain.isEmpty()){
+//
+//            Toast.makeText(getContext(), "Pastikan Gaji Bulanan dan Pendaptan lain teriisi.", Toast.LENGTH_SHORT).show();
+//            etGajiBulanan.requestFocus();
+//
+//        }else {
+//
+//            FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+//            ft.replace(R.id.fragment_container, fragment);
+//            ft.commit();
+//
+//        }
 
         FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.fragment_container, fragment);
         ft.commit();
-
-//        DialogSuccess dialogSuccess = new DialogSuccess();
-//        dialogSuccess.setTitleDialog("Pendaftaran Berhasil");
-//        dialogSuccess.showNow(getActivity().getSupportFragmentManager(), "TAG");
-//        dialogSuccess.setOnClick(() -> {
-//            dialogSuccess.dismiss();
-//
-//            Intent login = new Intent(getContext(), LoginActivity.class);
-//            startActivity(login);
-//            getActivity().finish();
-//        });
 
     }
 }
