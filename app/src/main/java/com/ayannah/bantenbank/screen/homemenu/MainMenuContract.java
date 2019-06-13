@@ -4,6 +4,7 @@ import com.ayannah.bantenbank.base.BasePresenter;
 import com.ayannah.bantenbank.base.BaseView;
 import com.ayannah.bantenbank.data.model.BeritaPromo;
 import com.ayannah.bantenbank.data.model.Loans;
+import com.ayannah.bantenbank.data.model.MenuProduct;
 
 import java.util.List;
 
@@ -13,7 +14,7 @@ public interface MainMenuContract {
 
         void showErrorMessage(String message);
 
-        void showMainMenu();
+        void showMainMenu(List<MenuProduct> results);
 
         void showPromoAndNews(List<BeritaPromo> results);
 

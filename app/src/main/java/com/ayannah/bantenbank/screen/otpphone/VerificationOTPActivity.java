@@ -131,7 +131,7 @@ public class VerificationOTPActivity extends AppCompatActivity {
                         case PINJAMAN:
 
                             DialogSuccess  dialogSuccess2 = new DialogSuccess();
-                            dialogSuccess2.setTitleDialog("Aplikasi anda sedang diproses");
+                            dialogSuccess2.setTitleDialog("Aplikasi anda sedang diproses. Silakan cek menu Pinjaman Saya untuk melihat status pinjaman.");
                             dialogSuccess2.showNow(getSupportFragmentManager(), "Success");
                             dialogSuccess2.setOnClick(() -> {
                                 dialogSuccess2.dismiss();

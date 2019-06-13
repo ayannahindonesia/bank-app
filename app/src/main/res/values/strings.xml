@@ -17,7 +17,7 @@
 
     <string name="menu_personalInfo">Informasi pribadi</string>
     <!--<string name="menu_homoeAddress">Alamat rumah</string>-->
-    <string name="menu_workInfo">Pekerjaan dan Keuangan</string>
+    <string name="menu_workInfo">Pekerjaan &amp; Keuangan</string>
     <!--<string name="menu_infoKeuangan">Informasi keuangan</string>-->
     <string name="menu_dataPendukung">Data pendukung</string>
     <string name="menu_logout">Keluar</string>

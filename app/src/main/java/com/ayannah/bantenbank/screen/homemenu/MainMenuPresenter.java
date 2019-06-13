@@ -5,6 +5,7 @@ import android.app.Application;
 import com.ayannah.bantenbank.R;
 import com.ayannah.bantenbank.data.model.BeritaPromo;
 import com.ayannah.bantenbank.data.model.Loans;
+import com.ayannah.bantenbank.data.model.MenuProduct;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +38,41 @@ public class MainMenuPresenter implements MainMenuContract.Presenter {
 
     @Override
     public void getMainMenu() {
+
+        List<MenuProduct> menus = new ArrayList<>();
+
+        MenuProduct pinjamanPns = new MenuProduct();
+        pinjamanPns.setName("Pinjaman PNS");
+        pinjamanPns.setLogoProduct(R.drawable.ic_menu_pns);
+
+        MenuProduct pinjamanPersonal = new MenuProduct();
+        pinjamanPersonal.setName("Pinjaman\nPersonal");
+        pinjamanPersonal.setLogoProduct(R.drawable.ic_menu_personal);
+
+        MenuProduct pinjamanPensiunan = new MenuProduct();
+        pinjamanPensiunan.setName("Pinjaman\nPensiunan");
+        pinjamanPensiunan.setLogoProduct(R.drawable.ic_menu_pensiunan);
+
+        MenuProduct pinjamanUmkm = new MenuProduct();
+        pinjamanUmkm.setName("Pinjaman\nUMKM");
+        pinjamanUmkm.setLogoProduct(R.drawable.ic_menu_umkm);
+
+        MenuProduct pinjamanMicro = new MenuProduct();
+        pinjamanMicro.setName("Pinjaman\nMikro");
+        pinjamanMicro.setLogoProduct(R.drawable.ic_menu_micro);
+
+        MenuProduct lainlain = new MenuProduct();
+        lainlain.setName("Lain-lain");
+        lainlain.setLogoProduct(R.drawable.loan);
+
+        menus.add(pinjamanPns);
+        menus.add(pinjamanPersonal);
+        menus.add(pinjamanPensiunan);
+        menus.add(pinjamanUmkm);
+        menus.add(pinjamanMicro);
+        menus.add(lainlain);
+
+        mView.showMainMenu(menus);
 
     }
 

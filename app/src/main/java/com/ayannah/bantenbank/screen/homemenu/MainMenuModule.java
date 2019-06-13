@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.ayannah.bantenbank.adapter.BeritaPromoAdapter;
 import com.ayannah.bantenbank.adapter.LoanAdapter;
+import com.ayannah.bantenbank.adapter.MenuProductAdapter;
 import com.ayannah.bantenbank.di.ActivityScoped;
 import com.ayannah.bantenbank.di.FragmentScoped;
 
@@ -33,5 +34,11 @@ public abstract class MainMenuModule {
     @ActivityScoped
     static BeritaPromoAdapter beritaPromoAdapter(Application application){
         return new BeritaPromoAdapter(application);
+    }
+
+    @Provides
+    @ActivityScoped
+    static MenuProductAdapter menuAdapter(Application application){
+        return new MenuProductAdapter(application);
     }
 }

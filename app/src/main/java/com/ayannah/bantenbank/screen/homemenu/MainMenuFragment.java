@@ -10,6 +10,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -19,9 +20,12 @@ import androidx.core.view.GravityCompat;
 import androidx.core.view.MenuItemCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.ayannah.bantenbank.adapter.MenuProductAdapter;
+import com.ayannah.bantenbank.data.model.MenuProduct;
 import com.ayannah.bantenbank.screen.earninginfo.EarningActivity;
 import com.ayannah.bantenbank.screen.historyloan.HistoryLoanActivity;
 import com.ayannah.bantenbank.screen.navigationmenu.datapendukung.DataPendukungActivity;
@@ -58,6 +62,9 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
 //    @BindView(R.id.recyclerViewPinjaman)
 //    RecyclerView recyclerViewPinjaman;
 
+    @BindView(R.id.recycler_menuproducts)
+    RecyclerView recycler_menuproducts;
+
     @BindView(R.id.rvBeritaPromo)
     RecyclerView recyclerViewBeritaPromo;
 
@@ -72,6 +79,9 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
 
     @Inject
     BeritaPromoAdapter mAdapterNewsPromo;
+
+    @Inject
+    MenuProductAdapter mAdapterMenu;
 
     private TextView pinjamanSaya;
 
@@ -96,6 +106,7 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
 
         mPresenter.loadPromoAndNews();
 //        mPresenter.loadLoanhistory();
+        mPresenter.getMainMenu();
 
     }
 
@@ -132,6 +143,10 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
 //        recyclerViewPinjaman.setHasFixedSize(true);
 //        recyclerViewPinjaman.addItemDecoration(new DividerItemDecoration(parentActivity(), DividerItemDecoration.VERTICAL));
 //        recyclerViewPinjaman.setAdapter(mAdapter);
+
+        recycler_menuproducts.setLayoutManager(new GridLayoutManager(parentActivity(), 3));
+        recycler_menuproducts.setHasFixedSize(true);
+        recycler_menuproducts.setAdapter(mAdapterMenu);
 
         recyclerViewBeritaPromo.setLayoutManager(new LinearLayoutManager(parentActivity(), RecyclerView.HORIZONTAL, false));
         recyclerViewBeritaPromo.setHasFixedSize(true);
@@ -170,7 +185,32 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
     }
 
     @Override
-    public void showMainMenu() {
+    public void showMainMenu(List<MenuProduct> results) {
+
+        mAdapterMenu.setMenuProducts(results);
+
+        mAdapterMenu.setOnClickListener(menuProduct -> {
+
+            switch (menuProduct.getLogoProduct()){
+
+                case R.drawable.ic_menu_pns:
+
+                    Intent intent = new Intent(parentActivity(), EarningActivity.class);
+                    startActivity(intent);
+
+                    break;
+
+                case R.drawable.ic_menu_personal:
+
+                    break;
+
+                case R.drawable.ic_menu_pensiunan:
+
+                    break;
+            }
+
+
+        });
 
     }
 
