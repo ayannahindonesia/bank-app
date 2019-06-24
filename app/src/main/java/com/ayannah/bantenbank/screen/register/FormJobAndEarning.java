@@ -23,7 +23,7 @@ import butterknife.OnClick;
 
 public class FormJobAndEarning extends Fragment {
 
-    private FragmentRegisterOthers fragment = new FragmentRegisterOthers();
+    private FormRegisterOthers fragment = new FormRegisterOthers();
 
     @BindView(R.id.spJenisPekerjaan)
     Spinner spJenisPekerjaan;

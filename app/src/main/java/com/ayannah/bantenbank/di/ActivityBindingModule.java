@@ -16,6 +16,9 @@ import com.ayannah.bantenbank.screen.navigationmenu.datapendukung.DataPendukungA
 import com.ayannah.bantenbank.screen.navigationmenu.datapendukung.DataPendukungModule;
 import com.ayannah.bantenbank.screen.navigationmenu.infokeuangan.InformasiKeuanganActivity;
 import com.ayannah.bantenbank.screen.navigationmenu.infokeuangan.InformasiKeuanganModule;
+import com.ayannah.bantenbank.screen.register.RegisterActivity;
+import com.ayannah.bantenbank.screen.register.choosebank.ChooseBankModule;
+import com.ayannah.bantenbank.screen.register.formBorrower.FormBorrowerModule;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
@@ -55,4 +58,10 @@ abstract class ActivityBindingModule {
     @ContributesAndroidInjector(modules = HistoryLoanModule.class)
     abstract HistoryLoanActivity historyLoanActivity();
 
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = {
+            FormBorrowerModule.class,
+            ChooseBankModule.class
+    })
+    abstract RegisterActivity registerActivity();
 }

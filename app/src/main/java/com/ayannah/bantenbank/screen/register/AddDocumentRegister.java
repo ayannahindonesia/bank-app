@@ -24,6 +24,8 @@ import com.ayannah.bantenbank.R;
 import com.ayannah.bantenbank.dialog.BottomSheetInstructionDialog;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -71,6 +73,7 @@ public class AddDocumentRegister extends Fragment {
 
         ///show dialog instruction
         bottomDialog = new BottomSheetInstructionDialog().show(getActivity().getSupportFragmentManager(),
+                BottomSheetInstructionDialog.KTP_NPWP,
                 "Upload kartu identitas anda",
                 "Silahkan menambahkan foto kartu identitas pribadi anda seperti KTP dan NPWP (opsional) pribadi anda",
                 R.drawable.identity_card);
@@ -80,6 +83,11 @@ public class AddDocumentRegister extends Fragment {
 
                 bottomDialog.dismiss();
 
+            }
+
+            @Override
+            public void onClickButtonYes() {
+                //Noo
             }
         });
 
@@ -121,7 +129,6 @@ public class AddDocumentRegister extends Fragment {
 
     @OnClick(R.id.btnNext)
     void onClickNext(){
-
 //        if(fileKtp == null){
 //            Toast.makeText(getContext(), "Mohon tambahkan foto KTP anda", Toast.LENGTH_SHORT).show();
 //        }else {

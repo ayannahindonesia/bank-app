@@ -53,6 +53,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         <EditText
+            android:id="@+id/regist_email"
             android:hint="adrian@lorenzo.com"
             android:inputType="textEmailAddress"
             android:paddingStart="@dimen/dp12"
@@ -82,6 +83,7 @@
                 android:layout_height="wrap_content" />
 
             <EditText
+                android:id="@+id/regist_phone"
                 android:hint="contoh: 82123456789"
                 android:inputType="phone"
                 android:textSize="@dimen/fontNormal"
@@ -99,6 +101,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         <EditText
+            android:id="@+id/regist_pass"
             android:hint="Password"
             android:inputType="textPassword"
             android:paddingStart="@dimen/dp12"
@@ -116,6 +119,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         <EditText
+            android:id="@+id/regist_pass_retype"
             android:hint="Password"
             android:inputType="textPassword"
             android:paddingStart="@dimen/dp12"

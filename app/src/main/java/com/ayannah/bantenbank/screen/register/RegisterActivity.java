@@ -3,30 +3,41 @@ package com.ayannah.bantenbank.screen.register;
 import android.os.Bundle;
 
 import com.ayannah.bantenbank.R;
+import com.ayannah.bantenbank.data.model.UserRegister;
+import com.ayannah.bantenbank.screen.register.choosebank.ChooseBank;
+import com.ayannah.bantenbank.util.ActivityUtils;
 
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.view.Menu;
-import android.view.MenuItem;
+import android.util.Log;
 
-public class RegisterActivity extends AppCompatActivity {
+import javax.inject.Inject;
 
-    ChooseBank fragment = new ChooseBank();
-    FormBorrowerIdentity fragment2 = new FormBorrowerIdentity();
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+import dagger.android.support.DaggerAppCompatActivity;
 
-    String purpose = null;
+public class RegisterActivity extends DaggerAppCompatActivity implements RegisterListener {
+
+//    ChooseBank chooseBank = new ChooseBank();
+
+    @Inject
+    ChooseBank mFragment;
+
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+
+    private Unbinder mUnbinder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        mUnbinder = ButterKnife.bind(this);
         setSupportActionBar(toolbar);
-
-        purpose = getIntent().getStringExtra("purpose");
 
         ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
@@ -34,41 +45,27 @@ public class RegisterActivity extends AppCompatActivity {
         actionBar.setTitle("Pendaftaran");
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.add(R.id.fragment_container, fragment);
-        ft.addToBackStack(null);
-        ft.commit();
+//        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+//        ft.add(R.id.fragment_container, chooseBank);
+//        ft.addToBackStack(null);
+//        ft.commit();
+        ChooseBank chooseBank = (ChooseBank)getSupportFragmentManager()
+                .findFragmentById(R.id.fragment_container);
+        if(chooseBank == null){
+            chooseBank = mFragment;
+            ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), chooseBank, R.id.fragment_container);
 
-//        if(purpose.equals("continueRegist")){
-//            ft.add(R.id.fragment_container, fragment2);
-//            ft.commit();
-//        }else {
-//            ft.add(R.id.fragment_container, fragment);
-//            ft.commit();
-//        }
-
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        return super.onOptionsItemSelected(item);
-
+        }
 
     }
+
 
     @Override
     public boolean onSupportNavigateUp() {
         if(getSupportFragmentManager().getBackStackEntryCount() > 0){
             getSupportFragmentManager().popBackStackImmediate();
         }else {
-            super.onBackPressed();
+            finish();
         }
         return super.onSupportNavigateUp();
     }
@@ -80,5 +77,23 @@ public class RegisterActivity extends AppCompatActivity {
         }else {
             super.onBackPressed();
         }
+        super.onBackPressed();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mUnbinder.unbind();
+    }
+
+    @Override
+    public void onDataPass(UserRegister register) {
+
+
+        Log.d("register", "accountBank: "+register.getBankAccountnumber());
+        Log.d("register", "email: "+register.getEmail());
+        Log.d("register", "phoneNum: "+register.getPhone());
+        Log.d("register", "pass: "+register.getPassword());
+
     }
 }

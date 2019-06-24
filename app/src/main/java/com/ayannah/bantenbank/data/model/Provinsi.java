@@ -1,9 +1,12 @@
 package com.ayannah.bantenbank.data.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 public class Provinsi extends BaseResponse {
 
+    @SerializedName("semuaprovinsi")
     private List<Data> semuaprovinsi;
 
     public List<Data> getSemuaprovinsi() {
@@ -12,7 +15,10 @@ public class Provinsi extends BaseResponse {
 
     public static class Data{
 
+        @SerializedName("id")
         private String id;
+
+        @SerializedName("nama")
         private String nama;
 
         public String getId() {
@@ -23,12 +29,5 @@ public class Provinsi extends BaseResponse {
             return nama;
         }
 
-        public void setId(String id) {
-            this.id = id;
-        }
-
-        public void setNama(String nama) {
-            this.nama = nama;
-        }
     }
 }

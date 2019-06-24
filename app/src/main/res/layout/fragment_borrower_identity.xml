@@ -64,6 +64,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
                 <EditText
+                    android:id="@+id/regist_name"
                     android:hint="Adrian Lorenzo"
                     android:inputType="textPersonName"
                     android:paddingStart="@dimen/dp12"
@@ -82,7 +83,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
                 <RadioGroup
-                    android:id="@+id/spJenisKelamin"
+                    android:id="@+id/rgJenisKelamin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -102,8 +103,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
-
-
                 </RadioGroup>
 
                 <TextView
@@ -112,7 +111,9 @@
                     android:textColor="@android:color/black"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
+
                 <EditText
+                    android:id="@+id/regist_ktp"
                     android:hint="1234567890123456"
                     android:inputType="number"
                     android:paddingStart="@dimen/dp12"
@@ -132,7 +133,7 @@
                     android:layout_height="wrap_content" />
 
                 <TextView
-                    android:id="@+id/dateBirth"
+                    android:id="@+id/regist_dateBirth"
                     android:drawablePadding="5dp"
                     android:gravity="center_vertical"
                     android:drawableStart="@drawable/ic_calendar"
@@ -150,6 +151,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
                 <EditText
+                    android:id="@+id/regist_tempatLahir"
                     android:hint="Jakarta"
                     android:inputType="textPersonName"
                     android:paddingStart="@dimen/dp12"
@@ -166,16 +168,7 @@
                     android:textColor="@android:color/black"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
-                <!--<EditText-->
-                    <!--android:hint="College level"-->
-                    <!--android:inputType="textPersonName"-->
-                    <!--android:paddingStart="@dimen/dp12"-->
-                    <!--android:paddingEnd="@dimen/dp12"-->
-                    <!--android:imeOptions="actionNext"-->
-                    <!--android:textSize="@dimen/fontNormal"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--tools:ignore="Autofill" />-->
+
                 <Spinner
                     android:id="@+id/spCollageLevel"
                     android:inputType="textPersonName"
@@ -191,7 +184,9 @@
                     android:textSize="@dimen/fontLarge"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
+
                 <EditText
+                    android:id="@+id/regist_namaIbu"
                     android:hint="Maria Dela Cruz"
                     android:inputType="textPersonName"
                     android:paddingStart="@dimen/dp12"
@@ -222,6 +217,7 @@
                     android:textColor="@android:color/black"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
+
                 <Spinner
                     android:id="@+id/spPerkawinan"
                     android:inputType="textPersonName"
@@ -236,7 +232,9 @@
                     android:textSize="@dimen/fontLarge"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
+
                 <EditText
+                    android:id="@+id/regist_spouseName"
                     android:hint="Maria Dela Cruz"
                     android:inputType="textPersonName"
                     android:paddingStart="@dimen/dp12"
@@ -256,7 +254,7 @@
                     android:layout_height="wrap_content" />
 
                 <TextView
-                    android:id="@+id/dateBirthSpouse"
+                    android:id="@+id/regist_dateBirthSpouse"
                     android:text="dd-mm-yyyy"
                     android:drawablePadding="5dp"
                     android:gravity="center_vertical"
@@ -319,14 +317,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
-
                 <TextView
                     android:text="Alamat domisili"
                     android:textColor="@android:color/black"
                     android:textSize="@dimen/fontLarge"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
+
                 <EditText
+                    android:id="@+id/regist_alamatDomisili"
                     android:inputType="textMultiLine"
                     android:lines="2"
                     android:hint="Tulis disini..."
@@ -355,8 +354,10 @@
                     tools:ignore="Autofill" />
 
                 <TextView
+                    android:id="@+id/tvKota"
                     android:text="Kota"
                     android:layout_marginTop="15dp"
+                    android:visibility="gone"
                     android:textSize="@dimen/fontLarge"
                     android:textColor="@android:color/black"
                     android:layout_width="match_parent"
@@ -364,91 +365,105 @@
                 <Spinner
                     android:id="@+id/spKota"
                     android:textSize="@dimen/fontNormal"
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     tools:ignore="Autofill" />
 
                 <TextView
+                    android:id="@+id/tvKecamatan"
                     android:text="Kecamatan"
                     android:textColor="@android:color/black"
                     android:layout_marginTop="15dp"
+                    android:visibility="gone"
                     android:textSize="@dimen/fontLarge"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
                 <Spinner
                     android:id="@+id/spKecamatan"
                     android:textSize="@dimen/fontNormal"
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     tools:ignore="Autofill" />
 
                 <TextView
+                    android:id="@+id/tvKelurahan"
                     android:text="Kelurahan"
                     android:layout_marginTop="15dp"
+                    android:visibility="gone"
                     android:textColor="@android:color/black"
                     android:textSize="@dimen/fontLarge"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
                 <Spinner
                     android:id="@+id/spKelurahan"
-                    android:imeOptions="actionNext"
                     android:textSize="@dimen/fontNormal"
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     tools:ignore="Autofill" />
 
                 <LinearLayout
-                    android:orientation="horizontal"
-                    android:weightSum="2"
+                    android:id="@+id/lyRayon"
+                    android:visibility="gone"
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <TextView
-                        android:text="RT"
-                        android:textColor="@android:color/black"
-                        android:layout_weight="1"
-                        android:textSize="@dimen/fontLarge"
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:weightSum="2"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content">
 
-                    <TextView
-                        android:text="RW"
-                        android:textColor="@android:color/black"
-                        android:layout_weight="1"
-                        android:textSize="@dimen/fontLarge"
+                        <TextView
+                            android:text="RT"
+                            android:textColor="@android:color/black"
+                            android:layout_weight="1"
+                            android:textSize="@dimen/fontLarge"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:text="RW"
+                            android:textColor="@android:color/black"
+                            android:layout_weight="1"
+                            android:textSize="@dimen/fontLarge"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:weightSum="2"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content">
 
+                        <EditText
+                            android:id="@+id/regist_rt"
+                            android:hint="001"
+                            android:inputType="number"
+                            android:layout_weight="1"
+                            android:textSize="@dimen/fontNormal"
+                            android:imeOptions="actionNext"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
 
+                        <EditText
+                            android:id="@+id/regist_rw"
+                            android:hint="001"
+                            android:inputType="number"
+                            android:layout_weight="1"
+                            android:textSize="@dimen/fontNormal"
+                            android:imeOptions="actionNext"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
 
-                </LinearLayout>
-
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:weightSum="2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <EditText
-                        android:id="@+id/rt"
-                        android:hint="001"
-                        android:inputType="number"
-                        android:layout_weight="1"
-                        android:textSize="@dimen/fontNormal"
-                        android:imeOptions="actionNext"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-
-                    <EditText
-                        android:id="@+id/rw"
-                        android:hint="001"
-                        android:inputType="number"
-                        android:layout_weight="1"
-                        android:textSize="@dimen/fontNormal"
-                        android:imeOptions="actionNext"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-
+                    </LinearLayout>
 
 
                 </LinearLayout>
@@ -460,7 +475,9 @@
                     android:textSize="@dimen/fontLarge"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
+
                 <EditText
+                    android:id="@+id/regist_phoneBorrower"
                     android:inputType="phone"
                     android:paddingStart="@dimen/dp12"
                     android:paddingEnd="@dimen/dp12"
@@ -483,6 +500,7 @@
                     android:layout_height="wrap_content">
 
                     <EditText
+                        android:id="@+id/regist_lamaMenempatiRumah"
                         android:inputType="number"
                         android:hint="0"
                         android:paddingStart="@dimen/dp12"
@@ -520,344 +538,6 @@
                     tools:ignore="Autofill" />
 
             </LinearLayout>
-
-            <!--<LinearLayout-->
-                <!--android:id="@+id/container4"-->
-                <!--android:orientation="vertical"-->
-                <!--android:layout_marginTop="@dimen/dp20"-->
-                <!--android:layout_marginStart="@dimen/dp20"-->
-                <!--android:layout_marginEnd="@dimen/dp20"-->
-                <!--android:layout_below="@+id/container3"-->
-                <!--android:padding="@dimen/dp16"-->
-                <!--android:background="@android:color/white"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content">-->
-
-                <!--<TextView-->
-                    <!--android:text="Info Pekerjaan Pemohon"-->
-                    <!--android:textColor="@android:color/black"-->
-                    <!--android:textSize="@dimen/fontSuperLarge"-->
-                    <!--android:textStyle="bold"-->
-                    <!--android:layout_marginBottom="10dp"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content" />-->
-
-                <!--<TextView-->
-                    <!--android:text="Jenis Pekerjaan"-->
-                    <!--android:layout_marginTop="15dp"-->
-                    <!--android:textColor="@android:color/black"-->
-                    <!--android:textSize="@dimen/fontLarge"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content" />-->
-                <!--<Spinner-->
-                    <!--android:id="@+id/spJenisPekerjaan"-->
-                    <!--android:textSize="@dimen/fontNormal"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--tools:ignore="Autofill" />-->
-
-                <!--<TextView-->
-                    <!--android:text="No. Induk Pegawai"-->
-                    <!--android:textColor="@android:color/black"-->
-                    <!--android:textSize="@dimen/fontLarge"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content" />-->
-                <!--<EditText-->
-                    <!--android:hint="16000939877399"-->
-                    <!--android:inputType="number"-->
-                    <!--android:paddingStart="@dimen/dp12"-->
-                    <!--android:paddingEnd="@dimen/dp12"-->
-                    <!--android:imeOptions="actionNext"-->
-                    <!--android:textSize="@dimen/fontNormal"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--tools:ignore="Autofill" />-->
-
-                <!--<TextView-->
-                    <!--android:text="Nama Instansi"-->
-                    <!--android:textColor="@android:color/black"-->
-                    <!--android:textSize="@dimen/fontLarge"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content" />-->
-                <!--<EditText-->
-                    <!--android:inputType="text"-->
-                    <!--android:paddingStart="@dimen/dp12"-->
-                    <!--android:paddingEnd="@dimen/dp12"-->
-                    <!--android:imeOptions="actionNext"-->
-                    <!--android:textSize="@dimen/fontNormal"-->
-                    <!--android:hint="PT ABC"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--tools:ignore="Autofill" />-->
-
-                <!--<TextView-->
-                    <!--android:text="Lama bekerja"-->
-                    <!--android:textColor="@android:color/black"-->
-                    <!--android:layout_marginTop="15dp"-->
-                    <!--android:textSize="@dimen/fontLarge"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content" />-->
-                <!--<LinearLayout-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content">-->
-
-                    <!--<EditText-->
-                        <!--android:inputType="number"-->
-                        <!--android:hint="0"-->
-                        <!--android:paddingStart="@dimen/dp12"-->
-                        <!--android:paddingEnd="@dimen/dp12"-->
-                        <!--android:imeOptions="actionNext"-->
-                        <!--android:textSize="@dimen/fontNormal"-->
-                        <!--android:layout_width="60dp"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--tools:ignore="Autofill" />-->
-
-                    <!--<TextView-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_marginStart="6dp"-->
-                        <!--android:layout_gravity="center_vertical"-->
-                        <!--android:text="Tahun"-->
-                        <!--android:textColor="@android:color/black"-->
-                        <!--android:textSize="@dimen/fontLarge" />-->
-
-                <!--</LinearLayout>-->
-
-                <!--<TextView-->
-                    <!--android:text="Alamat kantor"-->
-                    <!--android:textColor="@android:color/black"-->
-                    <!--android:textSize="@dimen/fontLarge"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content" />-->
-                <!--<EditText-->
-                    <!--android:id="@+id/etAlamatKantor"-->
-                    <!--android:inputType="textMultiLine"-->
-                    <!--android:lines="2"-->
-                    <!--android:hint="Tulis disini..."-->
-                    <!--android:gravity="top"-->
-                    <!--android:paddingStart="@dimen/dp12"-->
-                    <!--android:paddingEnd="@dimen/dp12"-->
-                    <!--android:imeOptions="actionNext"-->
-                    <!--android:textSize="@dimen/fontNormal"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--tools:ignore="Autofill" />-->
-
-                <!--<TextView-->
-                    <!--android:text="No telepon kantor"-->
-                    <!--android:textSize="@dimen/fontLarge"-->
-                    <!--android:textColor="@android:color/black"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content" />-->
-                <!--<EditText-->
-                    <!--android:id="@+id/etPhone"-->
-                    <!--android:inputType="phone"-->
-                    <!--android:paddingStart="@dimen/dp12"-->
-                    <!--android:paddingEnd="@dimen/dp12"-->
-                    <!--android:hint="02112345678"-->
-                    <!--android:imeOptions="actionNext"-->
-                    <!--android:textSize="@dimen/fontNormal"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--tools:ignore="Autofill" />-->
-
-                <!--<TextView-->
-                    <!--android:text="Nama Atasan"-->
-                    <!--android:textColor="@android:color/black"-->
-                    <!--android:textSize="@dimen/fontLarge"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content" />-->
-                <!--<EditText-->
-                    <!--android:inputType="text"-->
-                    <!--android:paddingStart="@dimen/dp12"-->
-                    <!--android:paddingEnd="@dimen/dp12"-->
-                    <!--android:text="John Doe"-->
-                    <!--android:imeOptions="actionNext"-->
-                    <!--android:textSize="@dimen/fontNormal"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--tools:ignore="Autofill" />-->
-
-                <!--<TextView-->
-                    <!--android:text="Jabatan"-->
-                    <!--android:textColor="@android:color/black"-->
-                    <!--android:textSize="@dimen/fontLarge"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content" />-->
-                <!--<EditText-->
-                    <!--android:inputType="text"-->
-                    <!--android:paddingStart="@dimen/dp12"-->
-                    <!--android:paddingEnd="@dimen/dp12"-->
-                    <!--android:imeOptions="actionNext"-->
-                    <!--android:textSize="@dimen/fontNormal"-->
-                    <!--android:hint="CEO"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--tools:ignore="Autofill" />-->
-
-
-            <!--</LinearLayout>-->
-
-            <!--<LinearLayout-->
-                <!--android:id="@+id/container5"-->
-                <!--android:orientation="vertical"-->
-                <!--android:layout_marginTop="@dimen/dp20"-->
-                <!--android:layout_marginStart="@dimen/dp20"-->
-                <!--android:layout_marginEnd="@dimen/dp20"-->
-                <!--android:layout_below="@+id/container4"-->
-                <!--android:padding="@dimen/dp16"-->
-                <!--android:background="@android:color/white"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content">-->
-
-                <!--<TextView-->
-                    <!--android:text="Info Pendapatan Pemohon"-->
-                    <!--android:textSize="@dimen/fontSuperLarge"-->
-                    <!--android:textColor="@android:color/black"-->
-                    <!--android:textStyle="bold"-->
-                    <!--android:layout_marginBottom="10dp"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content" />-->
-
-
-                <!--<TextView-->
-                    <!--android:text="Gaji perbulan"-->
-                    <!--android:textSize="@dimen/fontLarge"-->
-                    <!--android:textColor="@android:color/black"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content" />-->
-                <!--<EditText-->
-                    <!--android:id="@+id/etGajiBulanan"-->
-                    <!--android:inputType="number"-->
-                    <!--android:paddingStart="@dimen/dp12"-->
-                    <!--android:paddingEnd="@dimen/dp12"-->
-                    <!--android:imeOptions="actionNext"-->
-                    <!--android:hint="0"-->
-                    <!--android:textSize="@dimen/fontNormal"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--tools:ignore="Autofill" />-->
-
-
-                <!--<TextView-->
-                    <!--android:text="Pendapatan lain-lain (bila ada)"-->
-                    <!--android:textSize="@dimen/fontLarge"-->
-                    <!--android:textColor="@android:color/black"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content" />-->
-                <!--<EditText-->
-                    <!--android:id="@+id/etPendapatanLain"-->
-                    <!--android:inputType="number"-->
-                    <!--android:paddingStart="@dimen/dp12"-->
-                    <!--android:paddingEnd="@dimen/dp12"-->
-                    <!--android:imeOptions="actionNext"-->
-                    <!--android:textSize="@dimen/fontNormal"-->
-                    <!--android:hint="0"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--tools:ignore="Autofill" />-->
-
-                <!--<TextView-->
-                    <!--android:text="Sumber pendapatan lain"-->
-                    <!--android:textSize="@dimen/fontLarge"-->
-                    <!--android:textColor="@android:color/black"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content" />-->
-                <!--<EditText-->
-                    <!--android:id="@+id/etSumberPendapatanLain"-->
-                    <!--android:inputType="text"-->
-                    <!--android:paddingStart="@dimen/dp12"-->
-                    <!--android:paddingEnd="@dimen/dp12"-->
-                    <!--android:imeOptions="actionNext"-->
-                    <!--android:textSize="@dimen/fontNormal"-->
-                    <!--android:hint="Sumber pendapatan lain"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--tools:ignore="Autofill" />-->
-
-            <!--</LinearLayout>-->
-
-            <!--<LinearLayout-->
-                <!--android:id="@+id/container6"-->
-                <!--android:orientation="vertical"-->
-                <!--android:layout_marginTop="@dimen/dp20"-->
-                <!--android:layout_marginStart="@dimen/dp20"-->
-                <!--android:layout_marginEnd="@dimen/dp20"-->
-                <!--android:layout_below="@+id/container5"-->
-                <!--android:padding="@dimen/dp16"-->
-                <!--android:background="@android:color/white"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content">-->
-
-
-                <!--<TextView-->
-                    <!--android:text="Nama Orang tidak serumah yang dapat dihubungi"-->
-                    <!--android:textSize="@dimen/fontLarge"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:textColor="@android:color/black"-->
-                    <!--android:layout_height="wrap_content" />-->
-                <!--<EditText-->
-                    <!--android:inputType="text"-->
-                    <!--android:paddingStart="@dimen/dp12"-->
-                    <!--android:paddingEnd="@dimen/dp12"-->
-                    <!--android:imeOptions="actionNext"-->
-                    <!--android:textSize="@dimen/fontNormal"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--tools:ignore="Autofill" />-->
-
-
-                <!--<TextView-->
-                    <!--android:text="Alamat rumah"-->
-                    <!--android:textSize="@dimen/fontLarge"-->
-                    <!--android:textColor="@android:color/black"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content" />-->
-                <!--<EditText-->
-                    <!--android:inputType="textMultiLine"-->
-                    <!--android:lines="3"-->
-                    <!--android:gravity="top"-->
-                    <!--android:paddingStart="@dimen/dp12"-->
-                    <!--android:paddingEnd="@dimen/dp12"-->
-                    <!--android:imeOptions="actionNext"-->
-                    <!--android:textSize="@dimen/fontNormal"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--tools:ignore="Autofill" />-->
-
-                <!--<TextView-->
-                    <!--android:text="No.Telp"-->
-                    <!--android:textSize="@dimen/fontLarge"-->
-                    <!--android:textColor="@android:color/black"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content" />-->
-                <!--<EditText-->
-                    <!--android:inputType="phone"-->
-                    <!--android:paddingStart="@dimen/dp12"-->
-                    <!--android:paddingEnd="@dimen/dp12"-->
-                    <!--android:imeOptions="actionNext"-->
-                    <!--android:textSize="@dimen/fontNormal"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--tools:ignore="Autofill" />-->
-
-                <!--<TextView-->
-                    <!--android:text="No. HP"-->
-                    <!--android:textSize="@dimen/fontLarge"-->
-                    <!--android:textColor="@android:color/black"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content" />-->
-                <!--<EditText-->
-                    <!--android:inputType="phone"-->
-                    <!--android:paddingStart="@dimen/dp12"-->
-                    <!--android:paddingEnd="@dimen/dp12"-->
-                    <!--android:imeOptions="actionNext"-->
-                    <!--android:textSize="@dimen/fontNormal"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--tools:ignore="Autofill" />-->
-
-            <!--</LinearLayout>-->
 
         </RelativeLayout>
 

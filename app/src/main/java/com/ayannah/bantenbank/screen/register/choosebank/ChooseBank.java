@@ -1,4 +1,4 @@
-package com.ayannah.bantenbank.screen.register;
+package com.ayannah.bantenbank.screen.register.choosebank;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -17,19 +17,26 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ayannah.bantenbank.R;
 import com.ayannah.bantenbank.adapter.ChooseBankAdapter;
+import com.ayannah.bantenbank.base.BaseFragment;
 import com.ayannah.bantenbank.data.model.Bank;
+import com.ayannah.bantenbank.screen.register.AddAccountBank;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ChooseBank extends Fragment {
+public class ChooseBank extends BaseFragment implements ChooseBankContract.View {
 
     ChooseBankAdapter mAdapter;
     List<Bank> listBanks;
+
+    @Inject
+    ChooseBankContract.Presenter mPresenter;
 
     @BindView(R.id.title)
     TextView title;
@@ -37,18 +44,27 @@ public class ChooseBank extends Fragment {
     @BindView(R.id.rvBank)
     RecyclerView recyclerView;
 
-//    private FormEmailPhone fragment = new FormEmailPhone();
     private AddAccountBank fragmentadd = new AddAccountBank();
 
+    @Inject
     public ChooseBank(){
 
     }
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_choose_bank, container, false);
-        ButterKnife.bind(this, view);
+    protected int getLayoutView() {
+        return R.layout.fragment_choose_bank;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mPresenter.takeView(this);
+
+    }
+
+    @Override
+    protected void initView(Bundle state) {
 
         listBanks = new ArrayList<>();
         Bank bank = new Bank();
@@ -104,7 +120,11 @@ public class ChooseBank extends Fragment {
             }
         });
 
-        return view;
     }
 
+
+    @Override
+    public void showErrorMessage(String message) {
+
+    }
 }

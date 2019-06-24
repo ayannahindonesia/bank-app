@@ -118,8 +118,8 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
         ActionBar actionBar = parentActivity().getSupportActionBar();
         assert actionBar != null;
         actionBar.setDisplayShowTitleEnabled(false);
-        actionBar.setDisplayUseLogoEnabled(true);
-        actionBar.setLogo(R.drawable.kaya_credit_logo);
+//        actionBar.setDisplayUseLogoEnabled(true);
+//        actionBar.setLogo(R.drawable.asira_logo);
 
         pinjamanSaya = (TextView) MenuItemCompat.getActionView(navigationView.getMenu().findItem(R.id.nav_pinjaman_saya));
 
@@ -173,7 +173,30 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
         int id = item.getItemId();
 
         if(id == R.id.action_settings){
-            return true;
+
+            Toast.makeText(parentActivity(), "Settings", Toast.LENGTH_SHORT).show();
+
+//            return true;
+        }else{
+
+            BottomSheetDialogLogout logout = new BottomSheetDialogLogout();
+            logout.showNow(parentActivity().getSupportFragmentManager(), "TAG");
+            logout.setOnClickListener(new BottomSheetDialogLogout.BottomSheetDialofLogoutListener() {
+                @Override
+                public void onClickYes() {
+                    logout.dismiss();
+                    Intent logout = new Intent(parentActivity(), LoginActivity.class);
+                    startActivity(logout);
+                    parentActivity().finish();
+                }
+
+                @Override
+                public void onClickNo() {
+
+                    logout.dismiss();
+                }
+            });
+            
         }
 
         return super.onOptionsItemSelected(item);
@@ -254,27 +277,29 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
             Intent datapendukung = new Intent(parentActivity(), DataPendukungActivity.class);
             startActivity(datapendukung);
 
-        } else if (id == R.id.nav_logout) {
-
-            BottomSheetDialogLogout logout = new BottomSheetDialogLogout();
-            logout.showNow(parentActivity().getSupportFragmentManager(), "TAG");
-            logout.setOnClickListener(new BottomSheetDialogLogout.BottomSheetDialofLogoutListener() {
-                @Override
-                public void onClickYes() {
-                    logout.dismiss();
-                    Intent logout = new Intent(parentActivity(), LoginActivity.class);
-                    startActivity(logout);
-                    parentActivity().finish();
-                }
-
-                @Override
-                public void onClickNo() {
-
-                    logout.dismiss();
-                }
-            });
-
-        } else if (id == R.id.nav_akun_saya){
+        }
+//        else if (id == R.id.nav_logout) {
+//
+//            BottomSheetDialogLogout logout = new BottomSheetDialogLogout();
+//            logout.showNow(parentActivity().getSupportFragmentManager(), "TAG");
+//            logout.setOnClickListener(new BottomSheetDialogLogout.BottomSheetDialofLogoutListener() {
+//                @Override
+//                public void onClickYes() {
+//                    logout.dismiss();
+//                    Intent logout = new Intent(parentActivity(), LoginActivity.class);
+//                    startActivity(logout);
+//                    parentActivity().finish();
+//                }
+//
+//                @Override
+//                public void onClickNo() {
+//
+//                    logout.dismiss();
+//                }
+//            });
+//
+//        }
+        else if (id == R.id.nav_akun_saya){
 
             Intent akusaya  = new Intent(parentActivity(), AkunSayaActivity.class);
             startActivity(akusaya);

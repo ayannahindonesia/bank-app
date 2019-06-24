@@ -1,12 +1,17 @@
 package com.ayannah.bantenbank.data.model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class BaseResponse {
 
-    private boolean error;
+    @SerializedName("error")
+    private boolean success;
+
+    @SerializedName("message")
     private String message;
 
-    public boolean isError() {
-        return error;
+    public boolean isSuccess() {
+        return success;
     }
 
     public String getMessage() {

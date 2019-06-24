@@ -1,10 +1,13 @@
 package com.ayannah.bantenbank.data;
 
+import android.app.Application;
+
 import com.ayannah.bantenbank.data.local.PreferenceDataSource;
 import com.ayannah.bantenbank.data.local.PreferenceRepository;
 import com.ayannah.bantenbank.data.remote.RemoteDataSource;
 import com.ayannah.bantenbank.data.remote.RemoteRepository;
 import com.ayannah.bantenbank.data.remote.RemoteService;
+import com.ayannah.bantenbank.data.remote.interceptor.RefreshTokenInterceptor;
 
 import javax.inject.Singleton;
 
@@ -23,8 +26,15 @@ public abstract class RepositoryModule {
 
     @Provides
     @Singleton
-    static RemoteService remoteService(){
-        return new RemoteService();
+    static RefreshTokenInterceptor refreshTokenInterceptor(Application application,
+                                                           PreferenceRepository preferenceRepository){
+        return new RefreshTokenInterceptor(application, preferenceRepository);
+    }
+
+    @Provides
+    @Singleton
+    static RemoteService remoteService(RefreshTokenInterceptor interceptor){
+        return new RemoteService(interceptor);
     }
 
 

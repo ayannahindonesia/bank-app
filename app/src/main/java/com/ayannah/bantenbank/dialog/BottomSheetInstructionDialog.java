@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -25,6 +26,9 @@ public class BottomSheetInstructionDialog extends BottomSheetDialogFragment {
     public static final String TITLE = "TITLE";
     public static final String DESCRRIPTION = "DESCRRIPTION";
     public static final String IMG = "IMG";
+    public static final String KTP_NPWP = "KTP_NPWP";
+    public static final String HAVE_ACC_BANK = "HAVE_ACC_BANK";
+    public static final String TYPE = "TYPE";
 
     private BottomSheetInstructionListener listener;
 
@@ -40,10 +44,17 @@ public class BottomSheetInstructionDialog extends BottomSheetDialogFragment {
     @BindView(R.id.buttonDialog)
     Button btnOk;
 
-    public BottomSheetInstructionDialog show(FragmentManager fragmentManager, String title, String desc, int imgInstruction){
+
+    @BindView(R.id.lyButton)
+    LinearLayout lyButton;
+
+    private String mode = null;
+
+    public BottomSheetInstructionDialog show(FragmentManager fragmentManager, String type, String title, String desc, int imgInstruction){
 
         Bundle args = new Bundle();
         args.putString(TITLE, title);
+        args.putString(TYPE, type);
         args.putString(DESCRRIPTION, desc);
         args.putInt(IMG, imgInstruction);
 
@@ -66,9 +77,29 @@ public class BottomSheetInstructionDialog extends BottomSheetDialogFragment {
         View view = inflater.inflate(R.layout.dialog_bottom_sheet_instruction, container, false);
         ButterKnife.bind(this, view);
 
-        tvTitle.setText(getArguments().getString(TITLE));
-        ivInsrtuction.setImageResource(getArguments().getInt(IMG, 0));
-        desc.setText(getArguments().getString(DESCRRIPTION));
+        mode = getArguments().getString(TYPE);
+
+        switch (mode){
+
+            case KTP_NPWP:
+
+                tvTitle.setText(getArguments().getString(TITLE));
+                ivInsrtuction.setImageResource(getArguments().getInt(IMG, 0));
+                desc.setText(getArguments().getString(DESCRRIPTION));
+                lyButton.setVisibility(View.GONE);
+
+                break;
+            case HAVE_ACC_BANK:
+
+                tvTitle.setText(getArguments().getString(TITLE));
+                ivInsrtuction.setImageResource(getArguments().getInt(IMG, 0));
+                desc.setText(getArguments().getString(DESCRRIPTION));
+                btnOk.setVisibility(View.GONE);
+                lyButton.setVisibility(View.VISIBLE);
+
+                break;
+        }
+
 
         return view;
     }
@@ -80,9 +111,23 @@ public class BottomSheetInstructionDialog extends BottomSheetDialogFragment {
 
     }
 
+    @OnClick(R.id.btnYa)
+    public void onClickYa(){
+
+        listener.onClickButtonYes();
+    }
+
+    @OnClick(R.id.btnBelum)
+    public void onClickBelum(){
+
+        listener.onClickButtonDismiss();
+    }
+
     public interface BottomSheetInstructionListener{
 
         void onClickButtonDismiss();
+
+        void onClickButtonYes();
     }
 
 

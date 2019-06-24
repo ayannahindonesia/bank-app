@@ -10,6 +10,9 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "API_URL", API_URL)
+        buildConfigField("String", "API_INDONESIA_LOC", API_INDONESIA_LOC)
     }
     buildTypes {
         release {
@@ -17,6 +20,21 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    flavorDimensions "api"
+    productFlavors {
+
+        stag{
+            dimension "api"
+        }
+
+
+        prod{
+            dimension "api"
+//            buildConfigField("String", )
+        }
+    }
+
     //Butterknife requires Java 8.
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8

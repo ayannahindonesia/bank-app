@@ -37,4 +37,5 @@
     <string name="disclaimer_paragraph2">Hasil perhitungan dari simulasi kredit ini tidak dapat digunakan sebagai landasan oleh pihak manapun untuk mengajukan complain/keluhan/keberatan/tuntutan hukum, baik kepada Bank X, manajemen dan karyawan/ti-nya apabila terjadi perbedaan hasil perhitungan antara simulasi dengan realisasinya ataupun hal lainnya yang mungkin dapat menimbulkan kerugian secara materiil dan/atau immateriil atas pihak-pihak yang menggunakan simulasi angsuran kredit ini.</string>
     <string name="desc_example">Ini adalah contoh berita dan promo terbaru yang dapat ditampilkan kapanpun pada aplikasi untuk membuat pengguna aplikasi semakin tertarik menggunakan.</string>
     <string name="title_activity_history_loan">HistoryLoanActivity</string>
+    <string name="title_activity_testing">TestingActivity</string>
 </resources>

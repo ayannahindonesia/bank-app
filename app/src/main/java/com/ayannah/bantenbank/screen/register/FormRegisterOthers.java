@@ -19,14 +19,14 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class FragmentRegisterOthers extends Fragment {
+public class FormRegisterOthers extends Fragment {
 
     @BindView(R.id.spHubungan)
     Spinner spHubungan;
 
     private String[] siblings = {"Saudara", "Teman", "Keluarga Kandung"};
 
-    public FragmentRegisterOthers(){}
+    public FormRegisterOthers(){}
 
     @Nullable
     @Override
