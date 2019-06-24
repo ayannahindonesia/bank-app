@@ -257,9 +257,9 @@
                     android:id="@+id/regist_dateBirthSpouse"
                     android:text="dd-mm-yyyy"
                     android:drawablePadding="5dp"
+                    android:layout_marginTop="5dp"
                     android:gravity="center_vertical"
                     android:drawableStart="@drawable/ic_calendar"
-                    android:textColor="@android:color/black"
                     android:textSize="@dimen/fontNormal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -269,6 +269,7 @@
                     android:text="Pendidikan"
                     android:textColor="@android:color/black"
                     android:textSize="@dimen/fontLarge"
+                    android:layout_marginTop="15dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
                 <Spinner

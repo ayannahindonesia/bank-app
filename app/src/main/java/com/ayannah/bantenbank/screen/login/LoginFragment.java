@@ -30,6 +30,8 @@ public class LoginFragment extends BaseFragment implements LoginContract.View {
     public void onResume() {
         super.onResume();
         mPresenter.takeView(this);
+
+        mPresenter.testCredential();
     }
 
     @Override

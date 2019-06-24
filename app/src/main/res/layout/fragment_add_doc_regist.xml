@@ -47,6 +47,29 @@
                     android:layout_height="40dp" />
 
             </RelativeLayout>
+            
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_marginTop="10dp"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="Input Nomor KTP"
+                    android:textSize="@dimen/fontNormal"
+                    android:textColor="@android:color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <EditText
+                    android:id="@+id/etKTP"
+                    android:hint="1500099923888"
+                    android:inputType="number"
+                    android:imeOptions="actionNext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
 
             <TextView
                 android:text="Tambahkan foto NPWP anda (optional)"
@@ -81,6 +104,29 @@
                     android:layout_height="40dp" />
 
             </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_marginTop="10dp"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="Input Nomor NPWP"
+                    android:textSize="@dimen/fontNormal"
+                    android:textColor="@android:color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <EditText
+                    android:id="@+id/etNPWP"
+                    android:hint="180009937700"
+                    android:inputType="number"
+                    android:imeOptions="actionNext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
             
         </LinearLayout>
         

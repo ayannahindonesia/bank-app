@@ -1,6 +1,7 @@
 package com.ayannah.bantenbank.data.remote.interceptor;
 
 import android.app.Application;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.ayannah.bantenbank.data.local.PreferenceRepository;
@@ -43,11 +44,9 @@ public class RefreshTokenInterceptor implements Interceptor {
 
             if(!usertoken.isEmpty() && !userid.isEmpty()){
 
-                String credential = Credentials.basic("androkey", "androsecret");
-
                 Request refreshTokenRequest = originRequest.newBuilder()
                         .url("https://asira.ayannah.com/clientauth")
-                        .header("Authorization", credential)
+                        .header("Authorization", Credentials.basic("androkey", "androsecret"))
                         .build();
 
                 Response refreshTokenResponse = chain.proceed(refreshTokenRequest);
@@ -77,9 +76,8 @@ public class RefreshTokenInterceptor implements Interceptor {
             if(response.body() != null){
 
                 JSONObject object = new JSONObject(response.body().toString());
-                String message = object.optString("message");
 
-                Toast.makeText(application, "Token Renew: "+message, Toast.LENGTH_SHORT).show();
+                Log.d("RefreshTokenKevin", "expires_in: "+object.optString("expires_in"));
                 preferenceRepository.setUserToken(object.optString("token"));
 
             }

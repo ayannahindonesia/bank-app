@@ -121,7 +121,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
 
                 amountLoan.setText( CommonUtils.setRupiahCurrency(loanRepo[progress]) );
 
-                installmentTenor = (installment.getVerticalScrollbarPosition()+1) * 6;
+                installmentTenor = (installment.getVerticalScrollbarPosition()) * 6;
 
                 //calculate biaya admin
                 double administration = (loanAmount * 1.5) / 100;

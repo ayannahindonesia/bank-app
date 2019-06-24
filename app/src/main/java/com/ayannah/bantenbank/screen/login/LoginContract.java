@@ -15,5 +15,7 @@ public interface LoginContract {
 
         void doLogin(String phone, String password);
 
+        void testCredential();
+
     }
 }
