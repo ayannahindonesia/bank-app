@@ -136,7 +136,7 @@
 
         <TextView
             android:id="@+id/no"
-            android:text="No"
+            android:text="Tidak"
             android:background="?attr/selectableItemBackground"
             android:textAlignment="center"
             android:clickable="true"
@@ -151,7 +151,7 @@
 
         <TextView
             android:id="@+id/yes"
-            android:text="Yes"
+            android:text="Ya"
             android:background="?attr/selectableItemBackground"
             android:clickable="true"
             android:focusable="true"
