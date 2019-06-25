@@ -46,7 +46,7 @@ public class AddAccountBankFragment extends BaseFragment implements AddAccountBa
     @Override
     protected void initView(Bundle state) {
 
-        Bundle bundle = getArguments();
+        Bundle bundle = parentActivity().getIntent().getExtras();
         assert bundle != null;
         bName = bundle.getString(BANK_NAME);
         bankName.setText(bName);

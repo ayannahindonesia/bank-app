@@ -98,8 +98,8 @@ public class ChooseBankFragment extends BaseFragment implements ChooseBankContra
             @Override
             public void onClickItemBank(Bank bank) {
 
-//                Bundle bundle = new Bundle();
-//                bundle.putString(AddAccountBankFragment.BANK_NAME, bank.getName());
+                Bundle bundle = new Bundle();
+                bundle.putString(AddAccountBankFragment.BANK_NAME, bank.getName());
 //
 //                fragmentadd.setArguments(bundle);
 //
@@ -111,6 +111,7 @@ public class ChooseBankFragment extends BaseFragment implements ChooseBankContra
 
                 Intent adddbank = new Intent(parentActivity(), AddAccountBankActivity.class);
                 adddbank.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                adddbank.putExtras(bundle);
                 startActivity(adddbank);
 
             }
