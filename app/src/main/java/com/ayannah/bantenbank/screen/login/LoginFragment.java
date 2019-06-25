@@ -7,6 +7,7 @@ import com.ayannah.bantenbank.screen.homemenu.MainMenuActivity;
 import com.ayannah.bantenbank.R;
 import com.ayannah.bantenbank.base.BaseFragment;
 import com.ayannah.bantenbank.screen.register.addaccountbank.AddAccountBankActivity;
+import com.ayannah.bantenbank.screen.register.choosebank.ChooseBankActivity;
 
 import javax.inject.Inject;
 
@@ -49,8 +50,7 @@ public class LoginFragment extends BaseFragment implements LoginContract.View {
     @OnClick(R.id.btnRegister)
     void onClickRegister(){
 
-        Intent regist = new Intent(parentActivity(), AddAccountBankActivity.class);
-        regist.putExtra("purpose", "newRegist");
+        Intent regist = new Intent(parentActivity(), ChooseBankActivity.class);
         startActivity(regist);
     }
 

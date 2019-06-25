@@ -1,5 +1,6 @@
 package com.ayannah.bantenbank.screen.register.addaccountbank;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -9,6 +10,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.ayannah.bantenbank.R;
 import com.ayannah.bantenbank.base.BaseFragment;
 import com.ayannah.bantenbank.dialog.BottomSheetInstructionDialog;
+import com.ayannah.bantenbank.screen.register.adddoc.AddDocumentActivity;
 import com.ayannah.bantenbank.screen.register.adddoc.AddDocumentFragment;
 
 import javax.inject.Inject;
@@ -77,7 +79,9 @@ public class AddAccountBankFragment extends BaseFragment implements AddAccountBa
     @OnClick(R.id.buttonNext)
     void onClick(){
 
-
+        Intent doc = new Intent(parentActivity(), AddDocumentActivity.class);
+        doc.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(doc);
 
     }
 }

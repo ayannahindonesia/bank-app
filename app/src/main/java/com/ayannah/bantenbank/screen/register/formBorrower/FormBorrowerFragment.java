@@ -2,6 +2,7 @@ package com.ayannah.bantenbank.screen.register.formBorrower;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -20,6 +21,7 @@ import com.ayannah.bantenbank.data.model.Kecamatan;
 import com.ayannah.bantenbank.data.model.Kelurahan;
 import com.ayannah.bantenbank.data.model.Provinsi;
 import com.ayannah.bantenbank.data.model.UserRegister;
+import com.ayannah.bantenbank.screen.register.formjobearning.FormJobEarningActivity;
 import com.ayannah.bantenbank.screen.register.formjobearning.FormJobEarningFragment;
 import com.github.florent37.singledateandtimepicker.SingleDateAndTimePicker;
 import com.github.florent37.singledateandtimepicker.dialog.SingleDateAndTimePickerDialog;
@@ -179,29 +181,33 @@ public class FormBorrowerFragment extends BaseFragment implements FormBorrowerCo
 
         UserRegister user = new UserRegister();
 
-        user.setEmployerName(etNameBorrower.getText().toString().trim());
-        user.setGender(etNameBorrower.getText().toString().trim());
+//        user.setEmployerName(etNameBorrower.getText().toString().trim());
+//        user.setGender(etNameBorrower.getText().toString().trim());
 //        user.setIdcardNumber(etNameBorrower.getText().toString().trim());
-        user.setBirthday(etNameBorrower.getText().toString().trim());
-        user.setLastEducation(etNameBorrower.getText().toString().trim());
-
-        user.setMotherName(etNameBorrower.getText().toString().trim());
-        user.setMarriageStatus(etNameBorrower.getText().toString().trim());
-        user.setSpouseName(etNameBorrower.getText().toString().trim());
-        user.setSpouseBirthday(etNameBorrower.getText().toString().trim());
-        user.setSpouseLasteducation(etNameBorrower.getText().toString().trim());
+//        user.setBirthday(etNameBorrower.getText().toString().trim());
+//        user.setLastEducation(etNameBorrower.getText().toString().trim());
+//
+//        user.setMotherName(etNameBorrower.getText().toString().trim());
+//        user.setMarriageStatus(etNameBorrower.getText().toString().trim());
+//        user.setSpouseName(etNameBorrower.getText().toString().trim());
+//        user.setSpouseBirthday(etNameBorrower.getText().toString().trim());
+//        user.setSpouseLasteducation(etNameBorrower.getText().toString().trim());
 //        user.setDependants(etNameBorrower.getText().toString().trim()); //
-
-        user.setEmployerAddress(etNameBorrower.getText().toString().trim());
-        user.setProvince(etNameBorrower.getText().toString().trim());
-        user.setCity(etNameBorrower.getText().toString().trim());
-        user.setSubdistrict(etNameBorrower.getText().toString().trim()); //kecamatan
-        user.setUrbanVillage(etNameBorrower.getText().toString().trim()); //kelurahan
+//
+//        user.setEmployerAddress(etNameBorrower.getText().toString().trim());
+//        user.setProvince(etNameBorrower.getText().toString().trim());
+//        user.setCity(etNameBorrower.getText().toString().trim());
+//        user.setSubdistrict(etNameBorrower.getText().toString().trim()); //kecamatan
+//        user.setUrbanVillage(etNameBorrower.getText().toString().trim()); //kelurahan
 //        user.setNeighbourAssociation(etNameBorrower.getText().toString().trim()); //rt
 //        user.setHamlets(etNameBorrower.getText().toString().trim()); //rw
 //        user.setHomePhonenumber(etNameBorrower.getText().toString().trim());
 //        user.setLivedFor(etNameBorrower.getText().toString().trim());
-        user.setHomeOwnership(etNameBorrower.getText().toString().trim());
+//        user.setHomeOwnership(etNameBorrower.getText().toString().trim());
+
+        Intent formjob = new Intent(parentActivity(), FormJobEarningActivity.class);
+        formjob.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(formjob);
 
     }
 

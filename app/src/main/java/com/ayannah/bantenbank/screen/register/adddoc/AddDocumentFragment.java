@@ -20,6 +20,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.ayannah.bantenbank.R;
 import com.ayannah.bantenbank.base.BaseFragment;
 import com.ayannah.bantenbank.dialog.BottomSheetInstructionDialog;
+import com.ayannah.bantenbank.screen.register.formemailphone.FormEmailPhoneActivity;
 import com.ayannah.bantenbank.screen.register.formemailphone.FormEmailPhoneFragment;
 
 import java.io.File;
@@ -142,6 +143,10 @@ public class AddDocumentFragment extends BaseFragment {
 //        ft.addToBackStack(null);
 //        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
 //        ft.commit();
+
+        Intent formemail = new Intent(parentActivity(), FormEmailPhoneActivity.class);
+        formemail.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(formemail);
     }
 
     private void showDialogPicker(int type){

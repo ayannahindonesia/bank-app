@@ -1,5 +1,6 @@
 package com.ayannah.bantenbank.screen.register.choosebank;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -11,6 +12,7 @@ import com.ayannah.bantenbank.R;
 import com.ayannah.bantenbank.adapter.ChooseBankAdapter;
 import com.ayannah.bantenbank.base.BaseFragment;
 import com.ayannah.bantenbank.data.model.Bank;
+import com.ayannah.bantenbank.screen.register.addaccountbank.AddAccountBankActivity;
 import com.ayannah.bantenbank.screen.register.addaccountbank.AddAccountBankFragment;
 
 import java.util.ArrayList;
@@ -96,16 +98,20 @@ public class ChooseBankFragment extends BaseFragment implements ChooseBankContra
             @Override
             public void onClickItemBank(Bank bank) {
 
-                Bundle bundle = new Bundle();
-                bundle.putString(AddAccountBankFragment.BANK_NAME, bank.getName());
+//                Bundle bundle = new Bundle();
+//                bundle.putString(AddAccountBankFragment.BANK_NAME, bank.getName());
+//
+//                fragmentadd.setArguments(bundle);
+//
+//                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+//                ft.replace(R.id.fragment_container, fragmentadd);
+//                ft.addToBackStack(null);
+//                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+//                ft.commit();
 
-                fragmentadd.setArguments(bundle);
-
-                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.fragment_container, fragmentadd);
-                ft.addToBackStack(null);
-                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                ft.commit();
+                Intent adddbank = new Intent(parentActivity(), AddAccountBankActivity.class);
+                adddbank.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(adddbank);
 
             }
         });

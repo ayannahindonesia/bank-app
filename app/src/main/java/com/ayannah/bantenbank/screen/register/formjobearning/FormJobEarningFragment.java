@@ -1,5 +1,6 @@
 package com.ayannah.bantenbank.screen.register.formjobearning;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.ayannah.bantenbank.R;
 import com.ayannah.bantenbank.base.BaseFragment;
+import com.ayannah.bantenbank.screen.register.formothers.FormOtherActivity;
 import com.ayannah.bantenbank.screen.register.formothers.FormOtherFragment;
 import com.ayannah.bantenbank.util.NumberSeparatorTextWatcher;
 
@@ -50,19 +52,11 @@ public class FormJobEarningFragment extends BaseFragment {
 
     @Override
     protected int getLayoutView() {
-        return 0;
+        return R.layout.fragment_form_job_earning;
     }
 
     @Override
     protected void initView(Bundle state) {
-
-    }
-
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_form_job_earning, container, false);
-        ButterKnife.bind(this, view);
 
         mAdapterPekerjaan = new ArrayAdapter<>(getContext(), R.layout.item_custom_spinner, pekerjaan);
         spJenisPekerjaan.setAdapter(mAdapterPekerjaan);
@@ -95,8 +89,6 @@ public class FormJobEarningFragment extends BaseFragment {
                 }
             }
         });
-
-        return view;
     }
 
     @OnClick(R.id.buttonNext)
@@ -112,8 +104,6 @@ public class FormJobEarningFragment extends BaseFragment {
         String pendapatan_lain = etPendapatanLain.getText().toString().replaceAll("[.,]", "");
         String sumber_pendapatan_lain = etSumberPendaptanLain.getText().toString().replaceAll("[.,]", "");
 
-        Toast.makeText(getContext(), "gajibulanan: "+gaji_bulanan+", pendaptan: "+pendapatan_lain, Toast.LENGTH_SHORT).show();
-
 //        if(gaji_bulanan.isEmpty() ||
 //                pendapatan_lain.isEmpty()){
 //
@@ -128,9 +118,13 @@ public class FormJobEarningFragment extends BaseFragment {
 //
 //        }
 
-        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.fragment_container, fragment);
-        ft.commit();
+//        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+//        ft.replace(R.id.fragment_container, fragment);
+//        ft.commit();
+
+        Intent intent = new Intent(parentActivity(), FormOtherActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
 
     }
 }
