@@ -39,6 +39,14 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".screen.detailloan.DetailTransaksiActivity" />
         <activity android:name=".screen.loan.LoanActivity" />
+        <activity android:name=".screen.register.addaccountbank.AddAccountBankActivity"/>
+        <activity android:name=".screen.register.choosebank.ChooseBankActivity"/>
+        <activity android:name=".screen.register.formBorrower.FormBorrowerActivity"/>
+        <activity android:name=".screen.register.adddoc.AddDocumentActivity"/>
+        <activity android:name=".screen.register.formemailphone.FormEmailPhoneActivity"/>
+        <activity android:name=".screen.register.formjobearning.FormJobEarningActivity"/>
+        <activity android:name=".screen.register.formothers.FormOtherActivity"/>
+
         <activity
             android:name=".screen.homemenu.MainMenuActivity"
             android:label="@string/title_activity_main_menu"
@@ -48,10 +56,6 @@
             android:name="com.google.firebase.ml.vision.DEPENDENCIES"
             android:value="ocr" />
 
-        <activity
-            android:name=".screen.register.RegisterActivity"
-            android:label="@string/title_activity_register"
-            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".screen.login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

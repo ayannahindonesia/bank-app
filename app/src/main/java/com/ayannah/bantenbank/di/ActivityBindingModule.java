@@ -16,9 +16,19 @@ import com.ayannah.bantenbank.screen.navigationmenu.datapendukung.DataPendukungA
 import com.ayannah.bantenbank.screen.navigationmenu.datapendukung.DataPendukungModule;
 import com.ayannah.bantenbank.screen.navigationmenu.infokeuangan.InformasiKeuanganActivity;
 import com.ayannah.bantenbank.screen.navigationmenu.infokeuangan.InformasiKeuanganModule;
-import com.ayannah.bantenbank.screen.register.RegisterActivity;
+import com.ayannah.bantenbank.screen.register.addaccountbank.AddAccountBankActivity;
+import com.ayannah.bantenbank.screen.register.addaccountbank.AddAccountBankModule;
+import com.ayannah.bantenbank.screen.register.adddoc.AddDocumentActivity;
+import com.ayannah.bantenbank.screen.register.adddoc.AddDocumentModule;
+import com.ayannah.bantenbank.screen.register.choosebank.ChooseBankActivity;
 import com.ayannah.bantenbank.screen.register.choosebank.ChooseBankModule;
 import com.ayannah.bantenbank.screen.register.formBorrower.FormBorrowerModule;
+import com.ayannah.bantenbank.screen.register.formemailphone.FormEmailPhoneActivity;
+import com.ayannah.bantenbank.screen.register.formemailphone.FormEmailPhoneModule;
+import com.ayannah.bantenbank.screen.register.formjobearning.FormJobEarningActivity;
+import com.ayannah.bantenbank.screen.register.formjobearning.FormJobEarningModule;
+import com.ayannah.bantenbank.screen.register.formothers.FormOtherActivity;
+import com.ayannah.bantenbank.screen.register.formothers.FormOtherModule;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
@@ -29,6 +39,18 @@ abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = LoginModule.class)
     abstract LoginActivity loginActivity();
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = AddAccountBankModule.class)
+    abstract AddAccountBankActivity addAccountBankActivity();
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = ChooseBankModule.class)
+    abstract ChooseBankActivity chooseBankActivity();
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = AddDocumentModule.class)
+    abstract AddDocumentActivity addDocumentActivity();
 
     @ActivityScoped
     @ContributesAndroidInjector(modules = MainMenuModule.class)
@@ -59,9 +81,17 @@ abstract class ActivityBindingModule {
     abstract HistoryLoanActivity historyLoanActivity();
 
     @ActivityScoped
-    @ContributesAndroidInjector(modules = {
-            FormBorrowerModule.class,
-            ChooseBankModule.class
-    })
-    abstract RegisterActivity registerActivity();
+    @ContributesAndroidInjector(modules = FormEmailPhoneModule.class)
+    abstract FormEmailPhoneActivity formEmailPhoneActivity();
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = FormJobEarningModule.class)
+    abstract FormJobEarningActivity formJobEarningActivity();
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = FormOtherModule.class)
+    abstract FormOtherActivity formOtherActivity();
+
+
+
 }

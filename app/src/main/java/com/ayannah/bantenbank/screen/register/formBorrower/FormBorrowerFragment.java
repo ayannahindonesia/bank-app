@@ -3,9 +3,7 @@ package com.ayannah.bantenbank.screen.register.formBorrower;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -15,11 +13,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-
 import com.ayannah.bantenbank.R;
 import com.ayannah.bantenbank.base.BaseFragment;
 import com.ayannah.bantenbank.data.model.Kabupaten;
@@ -27,20 +20,12 @@ import com.ayannah.bantenbank.data.model.Kecamatan;
 import com.ayannah.bantenbank.data.model.Kelurahan;
 import com.ayannah.bantenbank.data.model.Provinsi;
 import com.ayannah.bantenbank.data.model.UserRegister;
-import com.ayannah.bantenbank.screen.register.FormJobAndEarning;
-import com.ayannah.bantenbank.screen.register.RegisterListener;
+import com.ayannah.bantenbank.screen.register.formjobearning.FormJobEarningFragment;
 import com.github.florent37.singledateandtimepicker.SingleDateAndTimePicker;
 import com.github.florent37.singledateandtimepicker.dialog.SingleDateAndTimePickerDialog;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -48,7 +33,6 @@ import java.util.Locale;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class FormBorrowerFragment extends BaseFragment implements FormBorrowerContract.View{
@@ -134,13 +118,11 @@ public class FormBorrowerFragment extends BaseFragment implements FormBorrowerCo
     @BindView(R.id.spStatusHome)
     Spinner spStatusHome;
 
-    private FormJobAndEarning fragment = new FormJobAndEarning();
+    private FormJobEarningFragment fragment = new FormJobEarningFragment();
 
     private DatePickerDialog datePickerDialog;
 
-    private SimpleDateFormat sdf;
-
-    RegisterListener listener;
+    SimpleDateFormat sdf;
 
     private String[] educationRepo = {"S2", "S1", "SMA/SMK", "SMP", "Tidak ada status pendidikan"};
     private String[] statusPerkawinan = {"Belum Menikah", "Menikah", "Duda", "Janda"};
@@ -158,7 +140,6 @@ public class FormBorrowerFragment extends BaseFragment implements FormBorrowerCo
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        listener = (RegisterListener)context;
     }
 
     @Override
@@ -221,13 +202,6 @@ public class FormBorrowerFragment extends BaseFragment implements FormBorrowerCo
 //        user.setHomePhonenumber(etNameBorrower.getText().toString().trim());
 //        user.setLivedFor(etNameBorrower.getText().toString().trim());
         user.setHomeOwnership(etNameBorrower.getText().toString().trim());
-
-
-        listener.onDataPass(user);
-
-        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.fragment_container, fragment);
-        ft.commit();
 
     }
 

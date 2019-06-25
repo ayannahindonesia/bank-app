@@ -1,4 +1,4 @@
-package com.ayannah.bantenbank.screen.register;
+package com.ayannah.bantenbank.screen.register.formothers;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,18 +15,21 @@ import androidx.fragment.app.Fragment;
 import com.ayannah.bantenbank.R;
 import com.ayannah.bantenbank.screen.otpphone.VerificationOTPActivity;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class FormRegisterOthers extends Fragment {
+public class FormOtherFragment extends Fragment {
 
     @BindView(R.id.spHubungan)
     Spinner spHubungan;
 
     private String[] siblings = {"Saudara", "Teman", "Keluarga Kandung"};
 
-    public FormRegisterOthers(){}
+    @Inject
+    public FormOtherFragment(){}
 
     @Nullable
     @Override

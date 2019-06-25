@@ -1,40 +1,37 @@
-package com.ayannah.bantenbank.screen.register;
+package com.ayannah.bantenbank.screen.register.adddoc;
 
 import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.hardware.camera2.CameraManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.ayannah.bantenbank.R;
+import com.ayannah.bantenbank.base.BaseFragment;
 import com.ayannah.bantenbank.dialog.BottomSheetInstructionDialog;
+import com.ayannah.bantenbank.screen.register.formemailphone.FormEmailPhoneFragment;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import pl.aprilapps.easyphotopicker.DefaultCallback;
 import pl.aprilapps.easyphotopicker.EasyImage;
-import pub.devrel.easypermissions.EasyPermissions;
 
-public class AddDocumentRegister extends Fragment {
+public class AddDocumentFragment extends BaseFragment {
 
     @BindView(R.id.imgKTP)
     ImageView imgKtp;
@@ -52,16 +49,20 @@ public class AddDocumentRegister extends Fragment {
     private static final int KTP = 9;
     private static final int NPWP = 10;
 
-    private FormEmailPhone fragment = new FormEmailPhone();
+    private FormEmailPhoneFragment fragment = new FormEmailPhoneFragment();
     private BottomSheetInstructionDialog bottomDialog;
 
-    public AddDocumentRegister(){}
+    @Inject
+    public AddDocumentFragment(){}
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_add_doc_regist, container, false);
-        ButterKnife.bind(this, view);
+    protected int getLayoutView() {
+        return R.layout.fragment_add_doc_regist;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
 
         //check permission to access camera and gallery photo
         needPermission(new String[]{
@@ -69,6 +70,11 @@ public class AddDocumentRegister extends Fragment {
                 Manifest.permission.READ_EXTERNAL_STORAGE,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE
         });
+
+    }
+
+    @Override
+    protected void initView(Bundle state) {
 
 
         ///show dialog instruction
@@ -91,14 +97,6 @@ public class AddDocumentRegister extends Fragment {
             }
         });
 
-        return view;
-    }
-
-    private void needPermission(String[] permissions) {
-        if(!EasyPermissions.hasPermissions(getContext(), permissions)){
-            EasyPermissions.requestPermissions(this, "Application need some permission to access features",
-                    100, permissions);
-        }
     }
 
     @OnClick(R.id.imgKTP)
@@ -139,11 +137,11 @@ public class AddDocumentRegister extends Fragment {
 //        }
 
         //sdkjfhsjdhf
-        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.fragment_container, fragment);
-        ft.addToBackStack(null);
-        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-        ft.commit();
+//        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+//        ft.replace(R.id.fragment_container, fragment);
+//        ft.addToBackStack(null);
+//        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+//        ft.commit();
     }
 
     private void showDialogPicker(int type){

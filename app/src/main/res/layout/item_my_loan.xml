@@ -24,7 +24,7 @@
             android:id="@+id/numLoan"
             android:textStyle="bold"
             android:textColor="@android:color/black"
-            android:text="Nomor Aplikasi Pinjaman"
+            android:text="ID Pinjaman"
             android:textSize="@dimen/fontLarge"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

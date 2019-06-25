@@ -1,4 +1,4 @@
-package com.ayannah.bantenbank.screen.register;
+package com.ayannah.bantenbank.screen.register.formjobearning;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,15 +15,19 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.ayannah.bantenbank.R;
+import com.ayannah.bantenbank.base.BaseFragment;
+import com.ayannah.bantenbank.screen.register.formothers.FormOtherFragment;
 import com.ayannah.bantenbank.util.NumberSeparatorTextWatcher;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class FormJobAndEarning extends Fragment {
+public class FormJobEarningFragment extends BaseFragment {
 
-    private FormRegisterOthers fragment = new FormRegisterOthers();
+    private FormOtherFragment fragment = new FormOtherFragment();
 
     @BindView(R.id.spJenisPekerjaan)
     Spinner spJenisPekerjaan;
@@ -41,7 +45,18 @@ public class FormJobAndEarning extends Fragment {
     private String[] pekerjaan = {"Pilih...", "Pemerintahan", "CPNS", "Pegawai Swasta", "Pegawai Pemerintah Nasional", "Pegawai Pemerintah Daerah"};
     private ArrayAdapter<String> mAdapterPekerjaan;
 
-    public FormJobAndEarning(){}
+    @Inject
+    public FormJobEarningFragment(){}
+
+    @Override
+    protected int getLayoutView() {
+        return 0;
+    }
+
+    @Override
+    protected void initView(Bundle state) {
+
+    }
 
     @Nullable
     @Override

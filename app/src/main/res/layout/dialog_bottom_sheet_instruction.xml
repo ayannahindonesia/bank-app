@@ -54,13 +54,13 @@
         <Button
             android:id="@+id/btnYa"
             android:layout_weight="0.5"
-            android:text="Punya"
+            android:text="Ya"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <Button
             android:id="@+id/btnBelum"
-            android:text="Belum"
+            android:text="Tidak"
             android:layout_weight="0.5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

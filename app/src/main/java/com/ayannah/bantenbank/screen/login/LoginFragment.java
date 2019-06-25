@@ -6,7 +6,7 @@ import android.os.Bundle;
 import com.ayannah.bantenbank.screen.homemenu.MainMenuActivity;
 import com.ayannah.bantenbank.R;
 import com.ayannah.bantenbank.base.BaseFragment;
-import com.ayannah.bantenbank.screen.register.RegisterActivity;
+import com.ayannah.bantenbank.screen.register.addaccountbank.AddAccountBankActivity;
 
 import javax.inject.Inject;
 
@@ -49,7 +49,7 @@ public class LoginFragment extends BaseFragment implements LoginContract.View {
     @OnClick(R.id.btnRegister)
     void onClickRegister(){
 
-        Intent regist = new Intent(parentActivity(), RegisterActivity.class);
+        Intent regist = new Intent(parentActivity(), AddAccountBankActivity.class);
         regist.putExtra("purpose", "newRegist");
         startActivity(regist);
     }

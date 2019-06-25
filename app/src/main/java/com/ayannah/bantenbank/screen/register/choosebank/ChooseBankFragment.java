@@ -1,16 +1,8 @@
 package com.ayannah.bantenbank.screen.register.choosebank;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,7 +11,7 @@ import com.ayannah.bantenbank.R;
 import com.ayannah.bantenbank.adapter.ChooseBankAdapter;
 import com.ayannah.bantenbank.base.BaseFragment;
 import com.ayannah.bantenbank.data.model.Bank;
-import com.ayannah.bantenbank.screen.register.AddAccountBank;
+import com.ayannah.bantenbank.screen.register.addaccountbank.AddAccountBankFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,10 +19,8 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 
-public class ChooseBank extends BaseFragment implements ChooseBankContract.View {
+public class ChooseBankFragment extends BaseFragment implements ChooseBankContract.View {
 
     ChooseBankAdapter mAdapter;
     List<Bank> listBanks;
@@ -44,10 +34,10 @@ public class ChooseBank extends BaseFragment implements ChooseBankContract.View 
     @BindView(R.id.rvBank)
     RecyclerView recyclerView;
 
-    private AddAccountBank fragmentadd = new AddAccountBank();
+    private AddAccountBankFragment fragmentadd = new AddAccountBankFragment();
 
     @Inject
-    public ChooseBank(){
+    public ChooseBankFragment(){
 
     }
 
@@ -107,7 +97,7 @@ public class ChooseBank extends BaseFragment implements ChooseBankContract.View 
             public void onClickItemBank(Bank bank) {
 
                 Bundle bundle = new Bundle();
-                bundle.putString(AddAccountBank.BANK_NAME, bank.getName());
+                bundle.putString(AddAccountBankFragment.BANK_NAME, bank.getName());
 
                 fragmentadd.setArguments(bundle);
 

@@ -1,4 +1,4 @@
-package com.ayannah.bantenbank.screen.register.choosebank;
+package com.ayannah.bantenbank.screen.register.addaccountbank;
 
 import com.ayannah.bantenbank.di.ActivityScoped;
 import com.ayannah.bantenbank.di.FragmentScoped;
@@ -8,14 +8,14 @@ import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 
 @Module
-public abstract class ChooseBankModule {
+public abstract class AddAccountBankModule {
 
     @FragmentScoped
     @ContributesAndroidInjector
-    abstract ChooseBankFragment requestFragment();
+    abstract AddAccountBankFragment requestFragment();
 
     @ActivityScoped
     @Binds
-    abstract ChooseBankContract.Presenter requestPresenter(ChooseBankPresenter presenter);
+    abstract AddAccountBankContract.Presenter requestPresenter(AddAccountBankPresenter presenter);
 
 }

@@ -1,29 +1,24 @@
-package com.ayannah.bantenbank.screen.register;
+package com.ayannah.bantenbank.screen.register.addaccountbank;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.ayannah.bantenbank.R;
-import com.ayannah.bantenbank.data.model.UserRegister;
+import com.ayannah.bantenbank.base.BaseFragment;
 import com.ayannah.bantenbank.dialog.BottomSheetInstructionDialog;
+import com.ayannah.bantenbank.screen.register.adddoc.AddDocumentFragment;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class AddAccountBank extends Fragment {
+public class AddAccountBankFragment extends BaseFragment implements AddAccountBankContract.View {
 
-    private AddDocumentRegister fragmentadd = new AddDocumentRegister();
+    private AddDocumentFragment fragmentadd = new AddDocumentFragment();
 
     public static final String BANK_NAME = "BANK_NAME";
 
@@ -36,26 +31,20 @@ public class AddAccountBank extends Fragment {
     @BindView(R.id.regist_accNumber)
     EditText accNumber;
 
-    RegisterListener listener;
+    @Inject
+    public AddAccountBankFragment(){
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        listener = (RegisterListener) context;
     }
 
-    private void onDataPass(UserRegister data){
-        listener.onDataPass(data);
+    @Override
+    protected int getLayoutView() {
+        return R.layout.fragment_add_account_bank;
     }
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_add_account_bank, container, false);
-        ButterKnife.bind(this, view);
+    protected void initView(Bundle state) {
 
         Bundle bundle = getArguments();
-
         assert bundle != null;
         bName = bundle.getString(BANK_NAME);
         bankName.setText(bName);
@@ -83,24 +72,12 @@ public class AddAccountBank extends Fragment {
             }
         });
 
-
-
-        return view;
     }
 
     @OnClick(R.id.buttonNext)
     void onClick(){
 
-        UserRegister param = new UserRegister();
-        param.setBankAccountnumber(accNumber.getText().toString().trim());
 
-        listener.onDataPass(param);
-
-        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.fragment_container, fragmentadd);
-        ft.addToBackStack(null);
-        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-        ft.commit();
 
     }
 }
