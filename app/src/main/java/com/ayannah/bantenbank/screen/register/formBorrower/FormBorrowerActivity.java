@@ -42,7 +42,9 @@ public class FormBorrowerActivity extends DaggerAppCompatActivity {
         FormBorrowerFragment formBorrowerFragment = (FormBorrowerFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.fragment_container);
         if(formBorrowerFragment == null){
+
             formBorrowerFragment = mFragment;
+
             ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), formBorrowerFragment, R.id.fragment_container);
         }
 

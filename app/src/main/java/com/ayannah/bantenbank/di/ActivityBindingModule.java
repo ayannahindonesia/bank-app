@@ -22,6 +22,7 @@ import com.ayannah.bantenbank.screen.register.adddoc.AddDocumentActivity;
 import com.ayannah.bantenbank.screen.register.adddoc.AddDocumentModule;
 import com.ayannah.bantenbank.screen.register.choosebank.ChooseBankActivity;
 import com.ayannah.bantenbank.screen.register.choosebank.ChooseBankModule;
+import com.ayannah.bantenbank.screen.register.formBorrower.FormBorrowerActivity;
 import com.ayannah.bantenbank.screen.register.formBorrower.FormBorrowerModule;
 import com.ayannah.bantenbank.screen.register.formemailphone.FormEmailPhoneActivity;
 import com.ayannah.bantenbank.screen.register.formemailphone.FormEmailPhoneModule;
@@ -87,6 +88,10 @@ abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = FormJobEarningModule.class)
     abstract FormJobEarningActivity formJobEarningActivity();
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = FormBorrowerModule.class)
+    abstract FormBorrowerActivity formBorrowerActivity();
 
     @ActivityScoped
     @ContributesAndroidInjector(modules = FormOtherModule.class)
