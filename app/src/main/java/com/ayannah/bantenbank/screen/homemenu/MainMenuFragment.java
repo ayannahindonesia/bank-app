@@ -1,13 +1,17 @@
 package com.ayannah.bantenbank.screen.homemenu;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.Layout;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -121,10 +125,13 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
 //        actionBar.setDisplayUseLogoEnabled(true);
 //        actionBar.setLogo(R.drawable.asira_logo);
 
+        Resources r = getContext().getResources();
+        int px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 15, r.getDisplayMetrics());
+
         pinjamanSaya = (TextView) MenuItemCompat.getActionView(navigationView.getMenu().findItem(R.id.nav_pinjaman_saya));
 
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(65, 65) ;
-        params.setMargins(0, 30, 0,0);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT) ;
+        params.setMargins(0,px,0,0);
 
         pinjamanSaya.setLayoutParams(params);
         pinjamanSaya.setGravity(Gravity.CENTER);
