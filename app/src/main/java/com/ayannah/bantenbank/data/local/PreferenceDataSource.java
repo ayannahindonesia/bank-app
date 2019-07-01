@@ -12,6 +12,7 @@ public class PreferenceDataSource implements PreferenceRepository {
 
     private SharedPreferences mPreferences;
 
+    private static final String PREF_TOKEN_PUBLIC = "TOKEN_PUBLIC";
     private static final String PREF_USER_TOKEN = "USER_TOKEN";
     private static final String PREF_IS_LOGGED = "IS_LOGGED";
     private static final String PREF_USER_SETUP = "USER_SETUP";
@@ -48,6 +49,16 @@ public class PreferenceDataSource implements PreferenceRepository {
     public void clearAll() {
 
         mPreferences.edit().clear().apply();
+    }
+
+    @Override
+    public void setPublicToken(String token) {
+        mPreferences.edit().putString(PREF_TOKEN_PUBLIC, token).apply();
+    }
+
+    @Override
+    public String getPublicToken() {
+        return mPreferences.getString(PREF_TOKEN_PUBLIC, "");
     }
 
     @Override

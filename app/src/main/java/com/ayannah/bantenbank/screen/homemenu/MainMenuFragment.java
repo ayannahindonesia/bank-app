@@ -109,7 +109,7 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
         mPresenter.takeView(this);
 
         mPresenter.loadPromoAndNews();
-//        mPresenter.loadLoanhistory();
+
         mPresenter.getMainMenu();
 
     }
@@ -122,8 +122,6 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
         ActionBar actionBar = parentActivity().getSupportActionBar();
         assert actionBar != null;
         actionBar.setDisplayShowTitleEnabled(false);
-//        actionBar.setDisplayUseLogoEnabled(true);
-//        actionBar.setLogo(R.drawable.asira_logo);
 
         Resources r = getContext().getResources();
         int px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 15, r.getDisplayMetrics());
@@ -145,11 +143,6 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
-
-//        recyclerViewPinjaman.setLayoutManager(new LinearLayoutManager(parentActivity()));
-//        recyclerViewPinjaman.setHasFixedSize(true);
-//        recyclerViewPinjaman.addItemDecoration(new DividerItemDecoration(parentActivity(), DividerItemDecoration.VERTICAL));
-//        recyclerViewPinjaman.setAdapter(mAdapter);
 
         recycler_menuproducts.setLayoutManager(new GridLayoutManager(parentActivity(), 3));
         recycler_menuproducts.setHasFixedSize(true);
@@ -183,7 +176,6 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
 
             Toast.makeText(parentActivity(), "Settings", Toast.LENGTH_SHORT).show();
 
-//            return true;
         }else{
 
             BottomSheetDialogLogout logout = new BottomSheetDialogLogout();
@@ -192,9 +184,10 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
                 @Override
                 public void onClickYes() {
                     logout.dismiss();
-                    Intent logout = new Intent(parentActivity(), LoginActivity.class);
-                    startActivity(logout);
-                    parentActivity().finish();
+//                    Intent logout = new Intent(parentActivity(), LoginActivity.class);
+//                    startActivity(logout);
+//                    parentActivity().finish();
+                    mPresenter.logout();
                 }
 
                 @Override
@@ -253,19 +246,20 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
     @Override
     public void showLoandHistory(List<Loans> results) {
 
-//        mAdapter.setLoanData(results);
-//        mAdapter.setLoanListener(new LoanAdapter.LoansAdapterListener() {
-//            @Override
-//            public void onClickItem(Loans loans) {
-//                Intent intent = new Intent(parentActivity(), DetailTransaksiActivity.class);
-//                startActivity(intent);
-//            }
-//        });
+    }
+
+    @Override
+    public void showLogoutComplete() {
+
+        Intent logout = new Intent(parentActivity(), LoginActivity.class);
+        startActivity(logout);
+        parentActivity().finish();
     }
 
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+
         // Handle navigation view item clicks here.
         int id = menuItem.getItemId();
 
@@ -285,27 +279,6 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
             startActivity(datapendukung);
 
         }
-//        else if (id == R.id.nav_logout) {
-//
-//            BottomSheetDialogLogout logout = new BottomSheetDialogLogout();
-//            logout.showNow(parentActivity().getSupportFragmentManager(), "TAG");
-//            logout.setOnClickListener(new BottomSheetDialogLogout.BottomSheetDialofLogoutListener() {
-//                @Override
-//                public void onClickYes() {
-//                    logout.dismiss();
-//                    Intent logout = new Intent(parentActivity(), LoginActivity.class);
-//                    startActivity(logout);
-//                    parentActivity().finish();
-//                }
-//
-//                @Override
-//                public void onClickNo() {
-//
-//                    logout.dismiss();
-//                }
-//            });
-//
-//        }
         else if (id == R.id.nav_akun_saya){
 
             Intent akusaya  = new Intent(parentActivity(), AkunSayaActivity.class);
@@ -321,3 +294,4 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
         return false;
     }
 }
+;

@@ -97,6 +97,4 @@ abstract class ActivityBindingModule {
     @ContributesAndroidInjector(modules = FormOtherModule.class)
     abstract FormOtherActivity formOtherActivity();
 
-
-
 }

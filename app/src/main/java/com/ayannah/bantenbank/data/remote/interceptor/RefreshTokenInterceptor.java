@@ -39,21 +39,44 @@ public class RefreshTokenInterceptor implements Interceptor {
         Response response = chain.proceed(originRequest);
 
         if(response.code() == HttpURLConnection.HTTP_UNAUTHORIZED){
-            String usertoken = preferenceRepository.getUserToken();
-            String userid = preferenceRepository.getIdUser();
+            String usertoken = preferenceRepository.getPublicToken();
 
-            if(!usertoken.isEmpty() && !userid.isEmpty()){
+            Log.d("abceds", usertoken);
 
-                Request refreshTokenRequest = originRequest.newBuilder()
+            if(!usertoken.isEmpty()){
+
+                ///request token public to asira
+                Request refreshTokenPublic = originRequest.newBuilder()
                         .url("https://asira.ayannah.com/clientauth")
                         .header("Authorization", Credentials.basic("androkey", "androsecret"))
                         .build();
 
-                Response refreshTokenResponse = chain.proceed(refreshTokenRequest);
-
+                Response refreshTokenResponse = chain.proceed(refreshTokenPublic);
                 updateUserToken(refreshTokenResponse);
 
-                String newToken = preferenceRepository.getUserToken();
+                //getToken public
+//                String tokenPublic = null;
+//
+//                try {
+//
+//                    JSONObject obj = new JSONObject(refreshTokenPublic.toString());
+//                    tokenPublic = obj.optString("token");
+//
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//
+//                //request token client for borrower
+//                Request refreshTokenClient = originRequest.newBuilder()
+//                        .url("https://asira.ayannah.com/client/borrowe_login")
+//                        .header("Authorization", tokenPublic)
+//                        .build();
+//
+//                //update token client then update it to SharedPreferences
+//                Response refreshTokenClientResponse = chain.proceed(refreshTokenClient);
+//                updateUserToken(refreshTokenClientResponse);
+
+                String newToken = preferenceRepository.getPublicToken();
                 if(newToken.isEmpty()){
                     Request newOriginRequest = originRequest.newBuilder()
                             .removeHeader("Authorization")
@@ -78,7 +101,9 @@ public class RefreshTokenInterceptor implements Interceptor {
                 JSONObject object = new JSONObject(response.body().toString());
 
                 Log.d("RefreshTokenKevin", "expires_in: "+object.optString("expires_in"));
-                preferenceRepository.setUserToken(object.optString("token"));
+                preferenceRepository.setPublicToken(object.optString("token"));
+
+                Log.d("abceds", preferenceRepository.getPublicToken());
 
             }
         } catch (JSONException e) {

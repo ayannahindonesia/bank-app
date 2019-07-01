@@ -3,9 +3,9 @@
 
     <item>
         <shape android:shape="rectangle">
-            <size android:width="100dp" android:height="40dp"/>
+            <size android:width="@dimen/_100sdp" android:height="@dimen/_40sdp"/>
             <solid android:color="@color/colorPrimaryDark"/>
-            <corners android:radius="40dp"/>
+            <corners android:radius="@dimen/_40sdp"/>
         </shape>
     </item>
 

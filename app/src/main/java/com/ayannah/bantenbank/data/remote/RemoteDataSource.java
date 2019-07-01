@@ -8,6 +8,8 @@ import com.ayannah.bantenbank.data.model.Kecamatan;
 import com.ayannah.bantenbank.data.model.Kelurahan;
 import com.ayannah.bantenbank.data.model.Provinsi;
 import com.ayannah.bantenbank.data.model.Token;
+import com.ayannah.bantenbank.data.model.UserProfile;
+import com.google.gson.JsonObject;
 import com.rx2androidnetworking.Rx2AndroidNetworking;
 
 import javax.inject.Inject;
@@ -70,6 +72,25 @@ public class RemoteDataSource implements RemoteRepository {
                 .setPriority(Priority.MEDIUM)
                 .build()
                 .getObjectSingle(Token.class);
+    }
+
+    @Override
+    public Single<Token> getTokenClient(JsonObject json) {
+        return Rx2AndroidNetworking.post(BuildConfig.API_URL + "client/borrower_login")
+                .addHeaders("Authorization", preferenceRepository.getPublicToken())
+                .addApplicationJsonBody(json)
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getObjectSingle(Token.class);
+    }
+
+    @Override
+    public Single<UserProfile> getUserLogin() {
+        return Rx2AndroidNetworking.get(BuildConfig.API_URL + "borrower/profile")
+                .addHeaders("Authorization", preferenceRepository.getUserToken())
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getObjectSingle(UserProfile.class);
     }
 
 

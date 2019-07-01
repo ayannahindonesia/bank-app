@@ -46,7 +46,6 @@
         <activity android:name=".screen.register.formemailphone.FormEmailPhoneActivity"/>
         <activity android:name=".screen.register.formjobearning.FormJobEarningActivity"/>
         <activity android:name=".screen.register.formothers.FormOtherActivity"/>
-
         <activity
             android:name=".screen.homemenu.MainMenuActivity"
             android:label="@string/title_activity_main_menu"

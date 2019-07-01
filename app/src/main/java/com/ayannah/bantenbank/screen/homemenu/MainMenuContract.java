@@ -20,6 +20,8 @@ public interface MainMenuContract {
 
         void showLoandHistory(List<Loans> results);
 
+        void showLogoutComplete();
+
     }
 
     interface Presenter extends BasePresenter<View>{
@@ -31,5 +33,7 @@ public interface MainMenuContract {
         void loadPromoAndNews();
 
         void loadLoanhistory();
+
+        void logout();
     }
 }

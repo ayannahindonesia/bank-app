@@ -5,8 +5,8 @@ import com.ayannah.bantenbank.data.model.Kecamatan;
 import com.ayannah.bantenbank.data.model.Kelurahan;
 import com.ayannah.bantenbank.data.model.Provinsi;
 import com.ayannah.bantenbank.data.model.Token;
-
-import javax.inject.Singleton;
+import com.ayannah.bantenbank.data.model.UserProfile;
+import com.google.gson.JsonObject;
 
 import io.reactivex.Single;
 
@@ -21,4 +21,8 @@ public interface RemoteRepository {
     Single<Kelurahan> getKelurahan(String idKecamatan);
 
     Single<Token> getToken();
+
+    Single<Token> getTokenClient(JsonObject json);
+
+    Single<UserProfile> getUserLogin();
 }

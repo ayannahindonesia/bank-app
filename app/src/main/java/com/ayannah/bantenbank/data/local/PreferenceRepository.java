@@ -8,6 +8,10 @@ public interface PreferenceRepository {
 
     void clearAll();
 
+    void setPublicToken(String token);
+
+    String getPublicToken();
+
     void setUserToken(String token);
 
     String getUserToken();

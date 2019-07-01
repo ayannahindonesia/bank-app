@@ -3,6 +3,7 @@ package com.ayannah.bantenbank.screen.homemenu;
 import android.app.Application;
 
 import com.ayannah.bantenbank.R;
+import com.ayannah.bantenbank.data.local.PreferenceRepository;
 import com.ayannah.bantenbank.data.model.BeritaPromo;
 import com.ayannah.bantenbank.data.model.Loans;
 import com.ayannah.bantenbank.data.model.MenuProduct;
@@ -17,13 +18,13 @@ public class MainMenuPresenter implements MainMenuContract.Presenter {
 
     private Application application;
     private MainMenuContract.View mView;
+    private PreferenceRepository prefRepo;
 
 
     @Inject
-    MainMenuPresenter(Application application){
+    MainMenuPresenter(Application application, PreferenceRepository prefRepo){
         this.application = application;
-
-
+        this.prefRepo = prefRepo;
     }
 
     @Override
@@ -142,5 +143,14 @@ public class MainMenuPresenter implements MainMenuContract.Presenter {
         results.add(loans5);
 
         mView.showLoandHistory(results);
+    }
+
+    @Override
+    public void logout() {
+
+        prefRepo.clearAll();
+
+        mView.showLogoutComplete();
+
     }
 }

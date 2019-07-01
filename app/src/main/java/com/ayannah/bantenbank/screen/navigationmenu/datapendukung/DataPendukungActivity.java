@@ -9,20 +9,22 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import com.ayannah.bantenbank.R;
+import com.ayannah.bantenbank.util.ActivityUtils;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import dagger.android.support.DaggerAppCompatActivity;
 
-public class DataPendukungActivity extends AppCompatActivity {
+public class DataPendukungActivity extends DaggerAppCompatActivity {
+
+    @Inject
+    DataPendukungFragment mFragment;
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-
-    @BindView(R.id.spHubungan)
-    Spinner spHub;
-
-    private String[] siblings = {"Saudara Kandung", "Suami/Istri", "Saudara"};
 
     private Unbinder mUnbinder;
 
@@ -39,9 +41,12 @@ public class DataPendukungActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle("Data Pendukung");
 
-        ArrayAdapter<String> mAdapter = new ArrayAdapter<>(this, R.layout.item_custom_spinner, siblings);
-        spHub.setAdapter(mAdapter);
-
+        DataPendukungFragment fragment = (DataPendukungFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.fragment_container);
+        if(fragment == null){
+            fragment = mFragment;
+            ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), fragment, R.id.fragment_container);
+        }
 
     }
 

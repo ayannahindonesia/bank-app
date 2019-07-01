@@ -1,16 +1,25 @@
 package com.ayannah.bantenbank.screen.navigationmenu.datapendukung;
 
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import com.ayannah.bantenbank.R;
 import com.ayannah.bantenbank.base.BaseFragment;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
+
 public class DataPendukungFragment extends BaseFragment implements DataPendukungContract.View {
 
     @Inject
     DataPendukungContract.Presenter mPresenter;
+
+    @BindView(R.id.spHubungan)
+    Spinner spHub;
+
+    private String[] siblings = {"Saudara Kandung", "Suami/Istri", "Saudara"};
 
     @Inject
     public DataPendukungFragment(){}
@@ -28,6 +37,9 @@ public class DataPendukungFragment extends BaseFragment implements DataPendukung
 
     @Override
     protected void initView(Bundle state) {
+
+        ArrayAdapter<String> mAdapter = new ArrayAdapter<>(parentActivity(), R.layout.item_custom_spinner, siblings);
+        spHub.setAdapter(mAdapter);
 
     }
 

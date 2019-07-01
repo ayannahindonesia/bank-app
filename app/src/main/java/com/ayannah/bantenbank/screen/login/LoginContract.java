@@ -9,13 +9,15 @@ public interface LoginContract {
 
         void showErrorMessage(String message);
 
+        void loginComplete();
+
     }
 
     interface Presenter extends BasePresenter<View>{
 
-        void doLogin(String phone, String password);
+        void getClientToken(String phone, String pass);
 
-        void testCredential();
+        void setUserIdentity();
 
     }
 }
