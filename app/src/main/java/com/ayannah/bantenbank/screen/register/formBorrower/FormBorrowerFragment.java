@@ -20,7 +20,7 @@ import com.ayannah.bantenbank.data.model.Kabupaten;
 import com.ayannah.bantenbank.data.model.Kecamatan;
 import com.ayannah.bantenbank.data.model.Kelurahan;
 import com.ayannah.bantenbank.data.model.Provinsi;
-import com.ayannah.bantenbank.data.model.UserRegister;
+import com.ayannah.bantenbank.data.model.UserProfile;
 import com.ayannah.bantenbank.screen.register.formjobearning.FormJobEarningActivity;
 import com.ayannah.bantenbank.screen.register.formjobearning.FormJobEarningFragment;
 import com.github.florent37.singledateandtimepicker.SingleDateAndTimePicker;
@@ -179,7 +179,7 @@ public class FormBorrowerFragment extends BaseFragment implements FormBorrowerCo
     @OnClick(R.id.buttonNext)
     void onClickNext(){
 
-        UserRegister user = new UserRegister();
+        UserProfile user = new UserProfile();
 
 //        user.setEmployerName(etNameBorrower.getText().toString().trim());
 //        user.setGender(etNameBorrower.getText().toString().trim());
