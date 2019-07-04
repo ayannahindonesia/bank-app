@@ -18,6 +18,7 @@ import com.ayannah.bantenbank.base.BaseFragment;
 import com.ayannah.bantenbank.data.model.UserRegister;
 import com.ayannah.bantenbank.screen.register.formBorrower.FormBorrowerActivity;
 import com.ayannah.bantenbank.screen.register.formBorrower.FormBorrowerFragment;
+import com.ayannah.bantenbank.screen.register.formothers.FormOtherFragment;
 
 import javax.inject.Inject;
 
@@ -55,9 +56,16 @@ public class FormEmailPhoneFragment extends BaseFragment {
 
     @OnClick(R.id.buttonNext)
     void onClickNext(){
+        Bundle bundle = parentActivity().getIntent().getExtras();
+        assert bundle != null;
+        bundle.putString(FormOtherFragment.EMAIL, email.getText().toString());
+        bundle.putString(FormOtherFragment.PHONE, phone.getText().toString());
+        bundle.putString(FormOtherFragment.PASS, pass.getText().toString());
+        bundle.putString(FormOtherFragment.CONF_PASS, passRetype.getText().toString());
 
         Intent form = new Intent(parentActivity(), FormBorrowerActivity.class);
         form.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        form.putExtras(bundle);
         startActivity(form);
     }
 }

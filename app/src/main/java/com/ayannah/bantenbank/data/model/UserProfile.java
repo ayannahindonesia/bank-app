@@ -11,10 +11,10 @@ public class UserProfile {
 	private String relatedPhonenumber;
 
 	@SerializedName("taxid_number")
-	private int taxidNumber;
+	private String taxidNumber;
 
 	@SerializedName("idcard_number")
-	private long idcardNumber;
+	private String idcardNumber;
 
 	@SerializedName("occupation")
 	private String occupation;
@@ -38,19 +38,19 @@ public class UserProfile {
 	private String employerName;
 
 	@SerializedName("hamlets")
-	private int hamlets;
+	private String hamlets;
 
 	@SerializedName("related_homenumber")
 	private String relatedHomenumber;
 
 	@SerializedName("neighbour_association")
-	private int neighbourAssociation;
+	private String neighbourAssociation;
 
 	@SerializedName("spouse_name")
 	private String spouseName;
 
-	@SerializedName("bank")
-	private int bank;
+//	@SerializedName("bank")
+//	private Integer bank;
 
 	@SerializedName("password")
 	private String password;
@@ -83,7 +83,7 @@ public class UserProfile {
 	private int otherIncome;
 
 	@SerializedName("home_phonenumber")
-	private int homePhonenumber;
+	private String homePhonenumber;
 
 	@SerializedName("monthly_income")
 	private int monthlyIncome;
@@ -122,7 +122,7 @@ public class UserProfile {
 	private String subdistrict;
 
 	@SerializedName("employee_id")
-	private int employeeId;
+	private String employeeId;
 
 	@SerializedName("other_incomesource")
 	private String otherIncomesource;
@@ -152,19 +152,19 @@ public class UserProfile {
 		return relatedPhonenumber;
 	}
 
-	public void setTaxidNumber(int taxidNumber){
+	public void setTaxidNumber(String taxidNumber){
 		this.taxidNumber = taxidNumber;
 	}
 
-	public int getTaxidNumber(){
+	public String getTaxidNumber(){
 		return taxidNumber;
 	}
 
-	public void setIdcardNumber(long idcardNumber){
+	public void setIdcardNumber(String idcardNumber){
 		this.idcardNumber = idcardNumber;
 	}
 
-	public long getIdcardNumber(){
+	public String getIdcardNumber(){
 		return idcardNumber;
 	}
 
@@ -224,11 +224,11 @@ public class UserProfile {
 		return employerName;
 	}
 
-	public void setHamlets(int hamlets){
+	public void setHamlets(String hamlets){
 		this.hamlets = hamlets;
 	}
 
-	public int getHamlets(){
+	public String getHamlets(){
 		return hamlets;
 	}
 
@@ -240,11 +240,11 @@ public class UserProfile {
 		return relatedHomenumber;
 	}
 
-	public void setNeighbourAssociation(int neighbourAssociation){
+	public void setNeighbourAssociation(String neighbourAssociation){
 		this.neighbourAssociation = neighbourAssociation;
 	}
 
-	public int getNeighbourAssociation(){
+	public String getNeighbourAssociation(){
 		return neighbourAssociation;
 	}
 
@@ -256,13 +256,13 @@ public class UserProfile {
 		return spouseName;
 	}
 
-	public void setBank(int bank){
-		this.bank = bank;
-	}
-
-	public int getBank(){
-		return bank;
-	}
+//	public void setBank(Integer bank){
+//		this.bank = bank;
+//	}
+//
+//	public Integer getBank(){
+//		return bank;
+//	}
 
 	public void setPassword(String password){
 		this.password = password;
@@ -344,11 +344,11 @@ public class UserProfile {
 		return otherIncome;
 	}
 
-	public void setHomePhonenumber(int homePhonenumber){
+	public void setHomePhonenumber(String homePhonenumber){
 		this.homePhonenumber = homePhonenumber;
 	}
 
-	public int getHomePhonenumber(){
+	public String getHomePhonenumber(){
 		return homePhonenumber;
 	}
 
@@ -448,11 +448,11 @@ public class UserProfile {
 		return subdistrict;
 	}
 
-	public void setEmployeeId(int employeeId){
+	public void setEmployeeId(String employeeId){
 		this.employeeId = employeeId;
 	}
 
-	public int getEmployeeId(){
+	public String getEmployeeId(){
 		return employeeId;
 	}
 
@@ -507,7 +507,7 @@ public class UserProfile {
 			",related_homenumber = '" + relatedHomenumber + '\'' + 
 			",neighbour_association = '" + neighbourAssociation + '\'' + 
 			",spouse_name = '" + spouseName + '\'' + 
-			",bank = '" + bank + '\'' + 
+//			",bank = '" + bank + '\'' +
 			",password = '" + password + '\'' + 
 			",field_of_work = '" + fieldOfWork + '\'' + 
 			",province = '" + province + '\'' + 

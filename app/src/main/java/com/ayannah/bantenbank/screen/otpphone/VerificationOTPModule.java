@@ -1,4 +1,4 @@
-package com.ayannah.bantenbank.screen.register.formothers;
+package com.ayannah.bantenbank.screen.otpphone;
 
 import com.ayannah.bantenbank.di.ActivityScoped;
 import com.ayannah.bantenbank.di.FragmentScoped;
@@ -8,13 +8,13 @@ import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 
 @Module
-public abstract class FormOtherModule {
+public abstract class VerificationOTPModule {
 
     @FragmentScoped
     @ContributesAndroidInjector
-    abstract FormOtherFragment formOtherFragment();
+    abstract VerificationOTPFragment verificationOTPFragment();
 
     @ActivityScoped
     @Binds
-    abstract FormOtherContract.Presenter requestPresenter(FormOtherPresenter presenter);
+    abstract VerificationOTPContract.Presenter verificationContract(VerificationOTPPresenter presenter);
 }

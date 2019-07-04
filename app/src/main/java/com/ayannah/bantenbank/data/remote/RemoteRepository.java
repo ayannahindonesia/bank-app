@@ -9,6 +9,8 @@ import com.ayannah.bantenbank.data.model.UserProfile;
 import com.google.gson.JsonObject;
 
 import io.reactivex.Single;
+import io.reactivex.disposables.Disposable;
+import okhttp3.Response;
 
 public interface RemoteRepository {
 
@@ -25,4 +27,10 @@ public interface RemoteRepository {
     Single<Token> getTokenClient(JsonObject json);
 
     Single<UserProfile> getUserLogin();
+
+    Single<Response> postBorrowerRegister(JsonObject jsonObject);
+
+    void postOTPRequestBorrower(JsonObject json);
+
+    Single<Response> postVerifyOTP(JsonObject jsonObject);
 }

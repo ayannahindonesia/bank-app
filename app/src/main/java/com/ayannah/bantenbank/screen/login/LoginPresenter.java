@@ -92,7 +92,7 @@ public class LoginPresenter implements LoginContract.Presenter {
             preferenceRepository.setUserPrimaryIncome(String.valueOf(response.getMonthlyIncome()));
             preferenceRepository.setUserOtherIncome(String.valueOf(response.getOtherIncome()));
             preferenceRepository.setuserOtherSourceIncome(response.getOtherIncomesource());
-            preferenceRepository.setUserBank(String.valueOf(response.getBank()));
+//            preferenceRepository.setUserBank(String.valueOf(resp onse.getBank()));
 
             preferenceRepository.setUserSetup(true);
 

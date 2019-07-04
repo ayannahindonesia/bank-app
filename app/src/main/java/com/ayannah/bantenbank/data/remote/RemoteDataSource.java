@@ -1,6 +1,13 @@
 package com.ayannah.bantenbank.data.remote;
 
+import android.app.Application;
+import android.widget.Toast;
+
+import com.androidnetworking.AndroidNetworking;
+import com.androidnetworking.common.ANConstants;
 import com.androidnetworking.common.Priority;
+import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.ayannah.bantenbank.BuildConfig;
 import com.ayannah.bantenbank.data.local.PreferenceRepository;
 import com.ayannah.bantenbank.data.model.Kabupaten;
@@ -12,18 +19,24 @@ import com.ayannah.bantenbank.data.model.UserProfile;
 import com.google.gson.JsonObject;
 import com.rx2androidnetworking.Rx2AndroidNetworking;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import javax.inject.Inject;
 
 import io.reactivex.Single;
 import okhttp3.Credentials;
+import okhttp3.Response;
 
 public class RemoteDataSource implements RemoteRepository {
 
     private PreferenceRepository preferenceRepository;
+    private Application application;
 
     @Inject
-    RemoteDataSource(PreferenceRepository preferenceRepository){
+    RemoteDataSource(PreferenceRepository preferenceRepository, Application application){
         this.preferenceRepository = preferenceRepository;
+        this.application = application;
     }
 
     @Override
@@ -91,6 +104,62 @@ public class RemoteDataSource implements RemoteRepository {
                 .setPriority(Priority.MEDIUM)
                 .build()
                 .getObjectSingle(UserProfile.class);
+    }
+
+    @Override
+    public Single<Response> postBorrowerRegister(JsonObject jsonObject) {
+        return Rx2AndroidNetworking.post(BuildConfig.API_URL  + "client/register_borrower")
+                .addHeaders("Authorization", preferenceRepository.getPublicToken())
+                .addApplicationJsonBody(jsonObject)
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getObjectSingle(Response.class);
+    }
+
+    @Override
+    public void postOTPRequestBorrower(JsonObject json) {
+        AndroidNetworking.post(BuildConfig.API_URL + "unverified_borrower/otp_request")
+                .addHeaders("Authorization", preferenceRepository.getPublicToken())
+                .addApplicationJsonBody(json)
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getAsJSONObject(new JSONObjectRequestListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                    }
+
+                    @Override
+                    public void onError(ANError anError) {
+                        if(anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
+//                            mView.showErrorMessage("Connection Error");
+                            Toast.makeText(application, "Connection Error", Toast.LENGTH_LONG).show();
+                        }else {
+
+                            if(anError.getErrorBody() != null){
+
+                                JSONObject jsonObject = null;
+                                try {
+                                    jsonObject = new JSONObject(anError.getErrorBody());
+                                    Toast.makeText(application, jsonObject.optString("message"), Toast.LENGTH_LONG).show();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+//                                mView.showErrorMessage(jsonObject.optString("message"));
+                            }
+                        }
+                    }
+                });
+    }
+
+    @Override
+    public Single<Response> postVerifyOTP(JsonObject jsonObject) {
+        return Rx2AndroidNetworking.post(BuildConfig.API_URL + "unverified_borrower/otp_verify")
+                .addHeaders("Authorization", preferenceRepository.getPublicToken())
+                .addApplicationJsonBody(jsonObject)
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getObjectSingle(Response.class);
     }
 
 
