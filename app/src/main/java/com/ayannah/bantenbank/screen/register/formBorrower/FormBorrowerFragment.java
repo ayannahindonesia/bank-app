@@ -23,7 +23,7 @@ import com.ayannah.bantenbank.data.model.Kabupaten;
 import com.ayannah.bantenbank.data.model.Kecamatan;
 import com.ayannah.bantenbank.data.model.Kelurahan;
 import com.ayannah.bantenbank.data.model.Provinsi;
-import com.ayannah.bantenbank.data.model.UserRegister;
+import com.ayannah.bantenbank.data.model.UserProfile;
 import com.ayannah.bantenbank.screen.register.formjobearning.FormJobEarningActivity;
 import com.ayannah.bantenbank.screen.register.formjobearning.FormJobEarningFragment;
 import com.ayannah.bantenbank.screen.register.formothers.FormOtherFragment;
@@ -280,9 +280,6 @@ public class FormBorrowerFragment extends BaseFragment implements FormBorrowerCo
     void onClickDateBirthSpouse(){
 
         new SingleDateAndTimePickerDialog.Builder(parentActivity())
-
-
-                   .displayMinutes(false)
                 .displayHours(false)
                 .displayDays(false)
                 .displayMonth(true)

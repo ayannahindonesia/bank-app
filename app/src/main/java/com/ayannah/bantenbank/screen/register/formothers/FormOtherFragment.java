@@ -18,7 +18,6 @@ import com.ayannah.bantenbank.R;
 import com.ayannah.bantenbank.base.BaseFragment;
 import com.ayannah.bantenbank.data.local.PreferenceRepository;
 import com.ayannah.bantenbank.data.model.UserProfile;
-import com.ayannah.bantenbank.data.model.UserRegister;
 import com.ayannah.bantenbank.data.remote.RemoteRepository;
 import com.ayannah.bantenbank.screen.otpphone.VerificationOTPActivity;
 import com.google.gson.JsonObject;
