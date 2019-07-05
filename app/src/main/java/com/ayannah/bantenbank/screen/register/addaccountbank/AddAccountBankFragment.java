@@ -2,8 +2,10 @@ package com.ayannah.bantenbank.screen.register.addaccountbank;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.FragmentTransaction;
 
@@ -13,13 +15,18 @@ import com.ayannah.bantenbank.dialog.BottomSheetInstructionDialog;
 import com.ayannah.bantenbank.screen.register.adddoc.AddDocumentActivity;
 import com.ayannah.bantenbank.screen.register.adddoc.AddDocumentFragment;
 import com.ayannah.bantenbank.screen.register.formothers.FormOtherFragment;
+import com.mobsandgeeks.saripaar.ValidationError;
+import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.annotation.NotEmpty;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class AddAccountBankFragment extends BaseFragment implements AddAccountBankContract.View {
+public class AddAccountBankFragment extends BaseFragment implements AddAccountBankContract.View, Validator.ValidationListener {
 
     private AddDocumentFragment fragmentadd = new AddDocumentFragment();
 
@@ -29,8 +36,11 @@ public class AddAccountBankFragment extends BaseFragment implements AddAccountBa
     TextView bankName;
     String bName = null;
 
+    @NotEmpty(message = "Masukan nomor rekening")
     @BindView(R.id.regist_accNumber)
     EditText accNumber;
+
+    private Validator validator;
 
     @Inject
     public AddAccountBankFragment(){
@@ -44,6 +54,8 @@ public class AddAccountBankFragment extends BaseFragment implements AddAccountBa
 
     @Override
     protected void initView(Bundle state) {
+        validator = new Validator(this);
+        validator.setValidationListener(this);
 
         Bundle bundle = parentActivity().getIntent().getExtras();
         assert bundle != null;
@@ -75,6 +87,11 @@ public class AddAccountBankFragment extends BaseFragment implements AddAccountBa
 
     @OnClick(R.id.buttonNext)
     void onClick(){
+        validator.validate();
+    }
+
+    @Override
+    public void onValidationSucceeded() {
         Bundle bundle = new Bundle();
         bundle.putString(FormOtherFragment.ACC_NUMBER, accNumber.getText().toString());
 
@@ -82,6 +99,20 @@ public class AddAccountBankFragment extends BaseFragment implements AddAccountBa
         doc.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         doc.putExtras(bundle);
         startActivity(doc);
+    }
 
+    @Override
+    public void onValidationFailed(List<ValidationError> errors) {
+        for (ValidationError error : errors) {
+            View view = error.getView();
+            String message = error.getCollatedErrorMessage(parentActivity());
+
+            // Display error messages ;)
+            if (view instanceof EditText) {
+                ((EditText) view).setError(message);
+            } else {
+                Toast.makeText(parentActivity(), message, Toast.LENGTH_LONG).show();
+            }
+        }
     }
 }

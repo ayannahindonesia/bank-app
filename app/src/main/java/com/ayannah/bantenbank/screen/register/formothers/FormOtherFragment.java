@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -21,7 +22,11 @@ import com.ayannah.bantenbank.data.model.UserProfile;
 import com.ayannah.bantenbank.data.remote.RemoteRepository;
 import com.ayannah.bantenbank.screen.otpphone.VerificationOTPActivity;
 import com.google.gson.JsonObject;
+import com.mobsandgeeks.saripaar.ValidationError;
+import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 
+import java.util.List;
 import java.util.Objects;
 
 import javax.inject.Inject;
@@ -31,7 +36,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.disposables.CompositeDisposable;
 
-public class FormOtherFragment extends BaseFragment implements FormOtherContract.View {
+public class FormOtherFragment extends BaseFragment implements FormOtherContract.View, Validator.ValidationListener {
 
     @Inject
     FormOtherContract.Presenter mPresenter;
@@ -86,15 +91,19 @@ public class FormOtherFragment extends BaseFragment implements FormOtherContract
     private RemoteRepository remotRepo;
     private PreferenceRepository preferenceRepository;
 
+    private Validator validator;
+
     @BindView(R.id.spHubungan)
     Spinner spHubungan;
 
+    @NotEmpty(message = "Masukan No Handphone Kerabat Anda")
     @BindView(R.id.etRelatedHP)
     EditText etRelatedHP;
 
     @BindView(R.id.etRelatedPhone)
     EditText etRelatedPhone;
 
+    @NotEmpty(message = "Masukan Nama Kerabat Anda")
     @BindView(R.id.etRelatedName)
     EditText etRelatedName;
 
@@ -120,6 +129,9 @@ public class FormOtherFragment extends BaseFragment implements FormOtherContract
 
     @Override
     protected void initView(Bundle state) {
+        validator = new Validator(this);
+        validator.setValidationListener(this);
+
         ArrayAdapter<String> mAdapter = new ArrayAdapter<>(parentActivity(), R.layout.item_custom_spinner, siblings);
         spHubungan.setAdapter(mAdapter);
 
@@ -137,6 +149,41 @@ public class FormOtherFragment extends BaseFragment implements FormOtherContract
 
     @OnClick(R.id.buttonNext)
     void onClickNext(){
+        validator.validate();
+
+//        mPresenter.postBorrowerOTPRequest("123");
+
+    }
+
+    @Override
+    public void showErrorMessage(String message) {
+        Toast.makeText(parentActivity(), "Error: "+message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public  void registerComplete() {
+
+        Bundle bundle = Objects.requireNonNull(parentActivity()).getIntent().getExtras();
+        assert bundle != null;
+//        mPresenter.postBorrowerOTPRequest("123");
+        mPresenter.postBorrowerOTPRequest(bundle.getString(PHONE));
+
+    }
+
+    @Override
+    public void successGetOTP() {
+        Bundle bundle = Objects.requireNonNull(parentActivity()).getIntent().getExtras();
+        assert bundle != null;
+
+        Intent verification = new Intent(parentActivity(), VerificationOTPActivity.class);
+        verification.putExtra("purpose", "regist");
+        verification.putExtra("phone", bundle.getString(PHONE));
+        startActivity(verification);
+        parentActivity().finish();
+    }
+
+    @Override
+    public void onValidationSucceeded() {
         Bundle bundle = Objects.requireNonNull(parentActivity()).getIntent().getExtras();
         assert bundle != null;
 
@@ -188,36 +235,22 @@ public class FormOtherFragment extends BaseFragment implements FormOtherContract
         userProfleRequest.addProperty("employer_number", bundle.getString(COMPANY_PHONE));
 
         mPresenter.postRegisterBorrower(userProfleRequest);
-
-//        mPresenter.postBorrowerOTPRequest("123");
-
     }
 
     @Override
-    public void showErrorMessage(String message) {
-        Toast.makeText(parentActivity(), "Error: "+message, Toast.LENGTH_SHORT).show();
+    public void onValidationFailed(List<ValidationError> errors) {
+        for (ValidationError error : errors) {
+            View view = error.getView();
+            String message = error.getCollatedErrorMessage(parentActivity());
+
+            // Display error messages ;)
+            if (view instanceof EditText) {
+                ((EditText) view).setError(message);
+            } else if (view instanceof Spinner) {
+                ((TextView) ((Spinner) view).getSelectedView()).setError(message);
+            } else {
+                Toast.makeText(parentActivity(), message, Toast.LENGTH_LONG).show();
+            }
+        }
     }
-
-    @Override
-    public  void registerComplete() {
-
-        Bundle bundle = Objects.requireNonNull(parentActivity()).getIntent().getExtras();
-        assert bundle != null;
-//        mPresenter.postBorrowerOTPRequest("123");
-        mPresenter.postBorrowerOTPRequest(bundle.getString(PHONE));
-
-    }
-
-    @Override
-    public void successGetOTP() {
-        Bundle bundle = Objects.requireNonNull(parentActivity()).getIntent().getExtras();
-        assert bundle != null;
-
-        Intent verification = new Intent(parentActivity(), VerificationOTPActivity.class);
-        verification.putExtra("purpose", "regist");
-        verification.putExtra("phone", bundle.getString(PHONE));
-        startActivity(verification);
-        parentActivity().finish();
-    }
-
 }
