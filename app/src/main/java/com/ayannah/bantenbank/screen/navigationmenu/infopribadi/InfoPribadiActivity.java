@@ -5,10 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 
 import com.ayannah.bantenbank.R;
+import com.ayannah.bantenbank.data.local.PreferenceRepository;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,13 +23,52 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import dagger.android.support.DaggerAppCompatActivity;
 
-public class InfoPribadiActivity extends AppCompatActivity {
+public class InfoPribadiActivity extends DaggerAppCompatActivity implements InfoPribadiContract.View {
+
+    @Inject
+    InfoPribadiContract.Presenter mPresenter;
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
+
+    @BindView(R.id.etName)
+    EditText ip_name;
+
+    @BindView(R.id.rbMale)
+    RadioButton rbMale;
+
+    @BindView(R.id.rbFemale)
+    RadioButton rbFemale;
+
+    @BindView(R.id.etKTP)
+    EditText etKTP;
+
+    @BindView(R.id.etMomsName)
+    EditText etMomsName;
+
+    @BindView(R.id.etLamaMenempatiRumah)
+    EditText etLamaMenempatiRumah;
+
+    @BindView(R.id.etSpouseName)
+    EditText etSpouseName;
+
+    @BindView(R.id.etAddressBorrower)
+    EditText etAddressBorrower;
+
+    @BindView(R.id.rt)
+    EditText rt;
+
+    @BindView(R.id.rw)
+    EditText rw;
+
+    @BindView(R.id.etHomeNumber)
+    EditText etHomeNumber;
 
     @BindView(R.id.spCollageLevel)
     Spinner spCollageLevel;
@@ -253,5 +296,34 @@ public class InfoPribadiActivity extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         finish();
         return super.onSupportNavigateUp();
+    }
+
+    @Override
+    public void loadInfoPribadi(PreferenceRepository data) {
+
+        ip_name.setText(data.getUserName());
+
+        if(data.getUserGender().equals("M")){
+            rbMale.setChecked(true);
+        }else {
+            rbFemale.setChecked(true);
+        }
+
+        etKTP.setText(data.getIdCard());
+
+        etMomsName.setText(data.getUserMotherName());
+
+        etLamaMenempatiRumah.setText(data.getLivedFor());
+
+        etSpouseName.setText(data.getUserSpouseName());
+
+        etAddressBorrower.setText(data.getUserAddress());
+
+        rt.setText(data.getUserNeighbourAssociation());
+
+        rw.setText(data.getUserHamlets());
+
+        etHomeNumber.setText(data.getUserHomePhoneNumber());
+
     }
 }

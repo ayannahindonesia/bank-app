@@ -73,7 +73,7 @@ public class LoginFragment extends BaseFragment implements LoginContract.View {
         }else {
 
             progressLogin.setVisibility(View.VISIBLE);
-            mPresenter.getPublicToken("081234567890", "password");
+            mPresenter.getPublicToken(phone, pass);
 
         }
     }

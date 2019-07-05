@@ -30,7 +30,7 @@
             android:orientation="vertical"
             android:padding="@dimen/dp16"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <androidx.cardview.widget.CardView
                 app:cardCornerRadius="3dp"
@@ -53,7 +53,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                     <EditText
-                        android:text="Adrian Lorenzo"
+                        android:id="@+id/etName"
                         android:inputType="textPersonName"
                         android:textSize="@dimen/fontNormal"
                         android:hint="Nama lengkap sesuai KTP"
@@ -73,6 +73,7 @@
                         android:layout_height="wrap_content">
 
                         <RadioButton
+                            android:id="@+id/rbMale"
                             android:text="Laki-laki"
                             android:checked="true"
                             android:textSize="@dimen/fontNormal"
@@ -80,6 +81,7 @@
                             android:layout_height="wrap_content" />
 
                         <RadioButton
+                            android:id="@+id/rbFemale"
                             android:text="Perempuan"
                             android:textSize="@dimen/fontNormal"
                             android:layout_width="match_parent"
@@ -94,7 +96,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                     <EditText
-                        android:text="135000993888392993"
+                        android:id="@+id/etKTP"
                         android:textSize="@dimen/fontNormal"
                         android:inputType="number"
                         android:hint="nomor KTP"
@@ -109,7 +111,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                     <EditText
-                        android:text="08-11-1990"
+                        android:id="@+id/etDateBirth"
                         android:textSize="@dimen/fontNormal"
                         android:hint="dd/mm/yyyy"
                         android:layout_width="match_parent"
@@ -123,7 +125,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                     <EditText
-                        android:text="Jakarta"
+                        android:id="@+id/etBirthPlace"
                         android:textSize="@dimen/fontNormal"
                         android:hint="Twmpat lahir sesuai KTP"
                         android:layout_width="match_parent"
@@ -149,6 +151,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                     <EditText
+                        android:id="@+id/etMomsName"
                         android:hint="Maria Dela Cruz"
                         android:inputType="textPersonName"
                         android:paddingStart="@dimen/dp12"
@@ -201,6 +204,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                     <EditText
+                        android:id="@+id/etSpouseName"
                         android:hint="Maria Dela Cruz"
                         android:inputType="textPersonName"
                         android:paddingStart="@dimen/dp12"
@@ -301,6 +305,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                     <EditText
+                        android:id="@+id/etAddressBorrower"
                         android:inputType="textMultiLine"
                         android:lines="2"
                         android:hint="Tulis disini..."
@@ -423,8 +428,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
 
-
-
                     </LinearLayout>
 
                     <TextView
@@ -435,6 +438,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                     <EditText
+                        android:id="@+id/etHomeNumber"
                         android:inputType="phone"
                         android:paddingStart="@dimen/dp12"
                         android:paddingEnd="@dimen/dp12"
@@ -457,6 +461,7 @@
                         android:layout_height="wrap_content">
 
                         <EditText
+                            android:id="@+id/etLamaMenempatiRumah"
                             android:inputType="number"
                             android:hint="0"
                             android:paddingStart="@dimen/dp12"
