@@ -12,22 +12,59 @@ public class PreferenceDataSource implements PreferenceRepository {
 
     private SharedPreferences mPreferences;
 
+    //token purposes
     private static final String PREF_TOKEN_PUBLIC = "TOKEN_PUBLIC";
     private static final String PREF_USER_TOKEN = "USER_TOKEN";
+
+    //for login privilledge purposes
     private static final String PREF_IS_LOGGED = "IS_LOGGED";
     private static final String PREF_USER_SETUP = "USER_SETUP";
+
+    //user attributes
     private static final String PREF_ID_USER = "ID_USER";
-    private static final String PREF_USER_PHONE = "USER_PHONE";
-    private static final String PREF_USER_EMAIL = "USER_EMAIL";
     private static final String PREF_USER_NAME = "USER_NAME";
-    private static final String PREF_USER_PROFILE_= "USER_PROFILE";
-    private static final String PREF_USER_BANK = "USER_BANK";
+    private static final String PREF_USER_GEMDER = "GENDER";
+    private static final String PREF_USER_IDCARD = "IDCARD";
+    private static final String PREF_USER_TAXCARD = "TAXCARD";
+    private static final String PREF_USER_EMAIL = "EMAIL";
+    private static final String PREF_USER_PHONE = "PHONE";
+    private static final String PREF_USER_BIRTHDAY = "BIRTHDAY";
+    private static final String PREF_USER_BIRTHPLACE = "BIRTHPLACE";
     private static final String PREF_USER_NIP = "USER_NIP";
+    private static final String PREF_USER_LASTEDUCATION = "LASTEDUCATION";
+    private static final String PREF_USER_MOTHERNAME = "MOTHERNAME";
+    private static final String PREF_USER_MARRIAGESTATUS = "MARRIAGESTATUS";
+    private static final String PREF_USER_SPOUSENAME = "SPOUSENAME";
+    private static final String PREF_USER_SPOUSEBIRTHDATE = "SPOUSEBIRTHDATE";
+    private static final String PREF_USER_ADDRESS = "ADDRESS";
+    private static final String PREF_USER_PROVINCE = "PROVINCE";
+    private static final String PREF_USER_CITY = "CITY";
+    private static final String PREF_USER_NEIGHBOURASSOCIATION = "NEIGHBOURASSOCIATION";
+    private static final String PREF_USER_HAMLETS = "HAMLETS";
+    private static final String PREF_USER_HOMEPHONENUMBER = "HOMEPHONENUMBER";
+    private static final String PREF_USER_SUBDISTRICT = "SUBDISTRICT";
+    private static final String PREF_USER_URBANVILLAGE = "URBANVILLAGE";
+    private static final String PREF_USER_HOMEOWNERSHIP = "HOMEOWNERSHIP";
+    private static final String PREF_USER_LIVEDFOR = "LIVEDFOR";
+    private static final String PREF_USER_OCCUPATION = "OCCUPATION";
+    private static final String PREF_USER_EMPLOYEEID = "EMPLOYEEID";
+    private static final String PREF_USER_EMPLOYERNAME = "EMPLOYERNAME";
+    private static final String PREF_USER_EMPLOYERADDRESS = "EMPLOYERADDRESS";
+    private static final String PREF_USER_DEPARTMENT = "DEPARTMENT";
+    private static final String PREF_USER_BEENWORKINGFOR = "BEENWORKINGFOR";
+    private static final String PREF_USER_DIRECT_SUPERIORNAME = "DIRECT_SUPERIORNAME";
+    private static final String PREF_USER_EMPLYOYERNUMBER = "EMPLYOYERNUMBER";
+    private static final String PREF_USER_FIELD_TO_WORK = "FIELD_TO_WORK";
+    private static final String PREF_USER_RELATED_PERSONNAME = "RELATED_PERSONNAME";
+    private static final String PREF_USER_RELATED_RELATION = "RELATED_RELATION";
+    private static final String PREF_USER_RELATED_PHONENUMBER = "RELATED_PHONENUMBER";
+    private static final String PREF_USER_RELATED_HOMENUMBER= "RELATED_HOMENUMBER";
+    private static final String PREF_USER_RELATED_BANKACCOUNTNUMBER = "RELATED_BANKACCOUNTNUMBER";
+
+    //user income
     private static final String PREF_USER_PRIMARY_INCOME = "USER_PRIMARY_INCOME";
     private static final String PREF_USER_OTHER_INCOME = "USER_OTHER_INCOME";
     private static final String PREF_USER_OTHER_SOURCE_INCOME = "USER_OTHER_SOURCE_INCOME";
-
-
 
     @Inject
     PreferenceDataSource(Application application){
@@ -129,27 +166,6 @@ public class PreferenceDataSource implements PreferenceRepository {
         return mPreferences.getString(PREF_USER_NAME, "");
     }
 
-    @Override
-    public void setUserBank(String bankName) {
-
-        mPreferences.edit().putString(PREF_USER_BANK, bankName).apply();
-    }
-
-    @Override
-    public String getUserBank() {
-        return mPreferences.getString(PREF_USER_BANK, "");
-    }
-
-    @Override
-    public void setUserProfileImage(String profileImage) {
-
-        mPreferences.edit().putString(PREF_USER_PROFILE_, profileImage).apply();
-    }
-
-    @Override
-    public String getUserProfile() {
-        return mPreferences.getString(PREF_USER_PROFILE_, "");
-    }
 
     @Override
     public void setUserNIP(String userNIP) {
@@ -199,5 +215,385 @@ public class PreferenceDataSource implements PreferenceRepository {
 
         return mPreferences.getString(PREF_USER_OTHER_SOURCE_INCOME, "");
 
+    }
+
+    @Override
+    public void setUserGender(String gender) {
+
+        mPreferences.edit().putString(PREF_USER_GEMDER, gender).apply();
+
+    }
+
+    @Override
+    public String getUserGender() {
+        return mPreferences.getString(PREF_USER_GEMDER, "");
+    }
+
+    @Override
+    public void setIdCardUser(String idCarf) {
+
+        mPreferences.edit().putString(PREF_USER_IDCARD, idCarf).apply();
+
+    }
+
+    @Override
+    public String getIdCard() {
+        return mPreferences.getString(PREF_USER_IDCARD, "");
+    }
+
+    @Override
+    public void setTaxCard(String taxCard) {
+
+        mPreferences.edit().putString(PREF_USER_TAXCARD, taxCard).apply();
+    }
+
+    @Override
+    public String getTaxCard() {
+        return mPreferences.getString(PREF_USER_TAXCARD, "");
+    }
+
+    @Override
+    public void setUserBirtday(String birthdate) {
+
+        mPreferences.edit().putString(PREF_USER_BIRTHDAY, birthdate).apply();
+    }
+
+    @Override
+    public String getUserBirthdate() {
+        return mPreferences.getString(PREF_USER_BIRTHDAY, "");
+    }
+
+    @Override
+    public void setUserBirthPlace(String place) {
+
+        mPreferences.edit().putString(PREF_USER_BIRTHPLACE, "").apply();
+
+    }
+
+    @Override
+    public String getUserBirthplace() {
+        return mPreferences.getString(PREF_USER_BIRTHPLACE, "");
+    }
+
+    @Override
+    public void setUserLastEducation(String education) {
+
+        mPreferences.edit().putString(PREF_USER_LASTEDUCATION, education).apply();
+    }
+
+    @Override
+    public String getUserLastEducation() {
+        return mPreferences.getString(PREF_USER_LASTEDUCATION, "");
+    }
+
+    @Override
+    public void setUserMotherName(String motherName) {
+
+        mPreferences.edit().putString(PREF_USER_MOTHERNAME, motherName).apply();
+    }
+
+    @Override
+    public String getUserMotherName() {
+        return mPreferences.getString(PREF_USER_MOTHERNAME, "");
+    }
+
+    @Override
+    public void setUserMarriageStatus(String marriageStatus) {
+
+        mPreferences.edit().putString(PREF_USER_MARRIAGESTATUS, marriageStatus).apply();
+
+    }
+
+    @Override
+    public String getUserMarriageStatus() {
+        return mPreferences.getString(PREF_USER_MARRIAGESTATUS, "");
+    }
+
+    @Override
+    public void setUserSpouseName(String spouseName) {
+
+        mPreferences.edit().putString(PREF_USER_SPOUSENAME, spouseName).apply();
+    }
+
+    @Override
+    public String getUserSpouseName() {
+        return mPreferences.getString(PREF_USER_SPOUSENAME, "");
+    }
+
+    @Override
+    public void setSpouseBirthDate(String spouseBirthDate) {
+        mPreferences.edit().putString(PREF_USER_SPOUSEBIRTHDATE, spouseBirthDate).apply();
+    }
+
+    @Override
+    public String getSpouserBirthdate() {
+        return mPreferences.getString(PREF_USER_SPOUSEBIRTHDATE, "");
+    }
+
+    @Override
+    public void setUserAddress(String address) {
+
+        mPreferences.edit().putString(PREF_USER_ADDRESS, address).apply();
+    }
+
+    @Override
+    public String getUserAddress() {
+        return mPreferences.getString(PREF_USER_ADDRESS, "");
+    }
+
+    @Override
+    public void setUserProvince(String province) {
+
+        mPreferences.edit().putString(PREF_USER_PROVINCE, province).apply();
+    }
+
+    @Override
+    public String getuserProvince() {
+        return mPreferences.getString(PREF_USER_PROVINCE, "");
+    }
+
+    @Override
+    public void setUserCity(String city) {
+
+        mPreferences.edit().putString(PREF_USER_CITY, city).apply();
+    }
+
+    @Override
+    public String getUserCity() {
+        return mPreferences.getString(PREF_USER_CITY, "");
+    }
+
+    @Override
+    public void setUserNeighbourAssociation(String neighbourAssociation) {
+
+        mPreferences.edit().putString(PREF_USER_NEIGHBOURASSOCIATION, neighbourAssociation).apply();
+    }
+
+    @Override
+    public String getUserNeighbourAssociation() {
+        return mPreferences.getString(PREF_USER_NEIGHBOURASSOCIATION, "");
+    }
+
+    @Override
+    public void setUserHamlets(String hamlets) {
+
+        mPreferences.edit().putString(PREF_USER_HAMLETS, hamlets).apply();
+    }
+
+    @Override
+    public String getUserHamlets() {
+        return mPreferences.getString(PREF_USER_HAMLETS, "");
+    }
+
+    @Override
+    public void setUserHomePhoneNumber(String homePhoneNumber) {
+
+        mPreferences.edit().putString(PREF_USER_HOMEPHONENUMBER, homePhoneNumber).apply();
+    }
+
+    @Override
+    public String getUserHomePhoneNumber() {
+        return mPreferences.getString(PREF_USER_HOMEPHONENUMBER, "");
+    }
+
+    @Override
+    public void setSubDistrict(String subDistrict) {
+
+        mPreferences.edit().putString(PREF_USER_SUBDISTRICT, subDistrict).apply();
+    }
+
+    @Override
+    public String getSubDistrict() {
+        return mPreferences.getString(PREF_USER_SUBDISTRICT, "");
+    }
+
+    @Override
+    public void setUrbanVillage(String urbanVillage) {
+
+        mPreferences.edit().putString(PREF_USER_URBANVILLAGE, urbanVillage).apply();
+    }
+
+    @Override
+    public String getUrbanVillage() {
+        return mPreferences.getString(PREF_USER_URBANVILLAGE, "");
+    }
+
+    @Override
+    public void setHomeOwnerShip(String homeOwnerShip) {
+
+        mPreferences.edit().putString(PREF_USER_HOMEOWNERSHIP, homeOwnerShip).apply();
+    }
+
+    @Override
+    public String getHomeOwnerShip() {
+        return mPreferences.getString(PREF_USER_HOMEOWNERSHIP, "");
+    }
+
+    @Override
+    public void setLivedFor(String livedFor) {
+
+        mPreferences.edit().putString(PREF_USER_LIVEDFOR, livedFor).apply();
+    }
+
+    @Override
+    public String getLivedFor() {
+        return mPreferences.getString(PREF_USER_LIVEDFOR, "");
+    }
+
+    @Override
+    public void setOccupation(String occupation) {
+
+        mPreferences.edit().putString(PREF_USER_OCCUPATION, occupation).apply();
+    }
+
+    @Override
+    public String getOccupation() {
+        return mPreferences.getString(PREF_USER_OCCUPATION, "");
+    }
+
+    @Override
+    public void setEmployeeId(String employeeId) {
+
+        mPreferences.edit().putString(PREF_USER_EMPLOYEEID, employeeId).apply();
+    }
+
+    @Override
+    public String getEmployeeId() {
+        return mPreferences.getString(PREF_USER_EMPLOYEEID, "");
+    }
+
+    @Override
+    public void setEmployerName(String employerName) {
+
+        mPreferences.edit().putString(PREF_USER_EMPLOYERNAME, employerName).apply();
+    }
+
+    @Override
+    public String getEmployerName() {
+        return mPreferences.getString(PREF_USER_EMPLOYERNAME, "");
+    }
+
+    @Override
+    public void setEmployerAddress(String employerAddress) {
+        mPreferences.edit().putString(PREF_USER_EMPLOYERADDRESS, employerAddress).apply();
+    }
+
+    @Override
+    public String getEmployerAddress() {
+        return mPreferences.getString(PREF_USER_EMPLOYERADDRESS, "");
+    }
+
+    @Override
+    public void setDepartment(String department) {
+
+        mPreferences.edit().putString(PREF_USER_DEPARTMENT, department).apply();
+    }
+
+    @Override
+    public String getDepartment() {
+        return mPreferences.getString(PREF_USER_DEPARTMENT, "");
+    }
+
+    @Override
+    public void setBeenWorkingFor(String beenWorkingFor) {
+
+        mPreferences.edit().putString(PREF_USER_BEENWORKINGFOR, beenWorkingFor).apply();
+
+    }
+
+    @Override
+    public String getBeenWorkingFor() {
+        return mPreferences.getString(PREF_USER_BEENWORKINGFOR, "");
+    }
+
+    @Override
+    public void setDirectSuperiorName(String superiorName) {
+
+        mPreferences.edit().putString(PREF_USER_DIRECT_SUPERIORNAME, superiorName).apply();
+
+    }
+
+    @Override
+    public String getDirectSuperiorName() {
+        return mPreferences.getString(PREF_USER_DIRECT_SUPERIORNAME, "");
+    }
+
+    @Override
+    public void setEmployerNumber(String employerNumber) {
+
+        mPreferences.edit().putString(PREF_USER_EMPLYOYERNUMBER, employerNumber).apply();
+    }
+
+    @Override
+    public String getEmployerNumber() {
+        return mPreferences.getString(PREF_USER_EMPLYOYERNUMBER, "");
+    }
+
+    @Override
+    public void setFieldToWork(String fieldToWork) {
+
+        mPreferences.edit().putString(PREF_USER_FIELD_TO_WORK, fieldToWork).apply();
+    }
+
+    @Override
+    public String getFieldToWork() {
+        return mPreferences.getString(PREF_USER_FIELD_TO_WORK, "");
+    }
+
+    @Override
+    public void setUserRelatedPhoneNumber(String relatedPhoneNumber) {
+
+        mPreferences.edit().putString(PREF_USER_RELATED_PHONENUMBER, relatedPhoneNumber).apply();
+    }
+
+    @Override
+    public String getUserRelatePhoneNumber() {
+        return mPreferences.getString(PREF_USER_RELATED_PHONENUMBER, "");
+    }
+
+    @Override
+    public void setUserRelatedPersonName(String relatedPersonName) {
+
+        mPreferences.edit().putString(PREF_USER_RELATED_PERSONNAME, relatedPersonName).apply();
+    }
+
+    @Override
+    public String getUserRelatedPersonName() {
+        return mPreferences.getString(PREF_USER_RELATED_PERSONNAME, "");
+    }
+
+    @Override
+    public void setUserRelatedRelation(String userRelatedRelation) {
+
+        mPreferences.edit().putString(PREF_USER_RELATED_RELATION, userRelatedRelation).apply();
+
+    }
+
+    @Override
+    public String getUserRelatedRelation() {
+        return mPreferences.getString(PREF_USER_RELATED_RELATION, "");
+    }
+
+    @Override
+    public void setUserRelatedHomeNumber(String relatedHomeNumber) {
+
+        mPreferences.edit().putString(PREF_USER_RELATED_HOMENUMBER, relatedHomeNumber).apply();
+    }
+
+    @Override
+    public String getUserRelatedHomeNumber() {
+        return mPreferences.getString(PREF_USER_RELATED_HOMENUMBER, "");
+    }
+
+    @Override
+    public void setUserRelatedBankAccountNumber(String relatedBankAccountNumber) {
+
+        mPreferences.edit().putString(PREF_USER_RELATED_BANKACCOUNTNUMBER, relatedBankAccountNumber).apply();
+    }
+
+    @Override
+    public String getUserRelatedBankAccountNumber() {
+
+        return mPreferences.getString(PREF_USER_RELATED_BANKACCOUNTNUMBER, "");
     }
 }

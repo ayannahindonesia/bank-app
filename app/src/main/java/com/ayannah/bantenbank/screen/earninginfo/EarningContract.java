@@ -9,10 +9,13 @@ public interface EarningContract {
 
         void showErrorMessage(String message);
 
+        void loadPenghasilan(String pendapatan, String pendapatanLain, String sumberLain);
+
     }
 
     interface Presenter extends BasePresenter<View>{
 
+        void getPenghasilan();
 
     }
 }

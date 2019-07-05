@@ -3,7 +3,6 @@ package com.ayannah.bantenbank.screen.homemenu;
 import com.ayannah.bantenbank.base.BasePresenter;
 import com.ayannah.bantenbank.base.BaseView;
 import com.ayannah.bantenbank.data.model.BeritaPromo;
-import com.ayannah.bantenbank.data.model.Loans;
 import com.ayannah.bantenbank.data.model.MenuProduct;
 
 import java.util.List;
@@ -18,7 +17,7 @@ public interface MainMenuContract {
 
         void showPromoAndNews(List<BeritaPromo> results);
 
-        void showLoandHistory(List<Loans> results);
+        void displayUserIdentity(String name, String email);
 
         void showLogoutComplete();
 
@@ -26,13 +25,11 @@ public interface MainMenuContract {
 
     interface Presenter extends BasePresenter<View>{
 
+        void getCurrentUserIdentity();
+
         void getMainMenu();
 
-        void checkLoginStatus();
-
         void loadPromoAndNews();
-
-        void loadLoanhistory();
 
         void logout();
     }

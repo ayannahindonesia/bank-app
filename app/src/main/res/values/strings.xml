@@ -11,6 +11,9 @@
     <string name="loading">Mohon tunggu…</string>
     <string name="pin_wrong">PIN salah</string>
 
+    <string name="laoding">Mohon tunggu…</string>
+    <string name="connection_bad">Pastikan koneksi internet kamu aktif</string>
+
     <!--Facebook credential-->
     <string name="facebook_app_id">431689680982071</string>
     <string name="fb_login_protocol_scheme">fb431689680982071</string>

@@ -5,7 +5,6 @@ import android.app.Application;
 import com.ayannah.bantenbank.R;
 import com.ayannah.bantenbank.data.local.PreferenceRepository;
 import com.ayannah.bantenbank.data.model.BeritaPromo;
-import com.ayannah.bantenbank.data.model.Loans;
 import com.ayannah.bantenbank.data.model.MenuProduct;
 
 import java.util.ArrayList;
@@ -78,11 +77,6 @@ public class MainMenuPresenter implements MainMenuContract.Presenter {
     }
 
     @Override
-    public void checkLoginStatus() {
-
-    }
-
-    @Override
     public void loadPromoAndNews() {
 
         List<BeritaPromo> listBeritaPromo = new ArrayList<>();
@@ -103,46 +97,9 @@ public class MainMenuPresenter implements MainMenuContract.Presenter {
     }
 
     @Override
-    public void loadLoanhistory() {
-        List<Loans> results = new ArrayList<>();
+    public void getCurrentUserIdentity() {
 
-        Loans loans1 = new Loans();
-        loans1.setAmount(5000000);
-        loans1.setLoanType("Multiguna");
-        loans1.setNoLoan(1888228827);
-        loans1.setStatus("TERTUNDA");
-
-        Loans loans2 = new Loans();
-        loans2.setAmount(45000000);
-        loans2.setLoanType("Mikro");
-        loans2.setNoLoan(1888228828);
-        loans2.setStatus("TIDAK LENGKAP");
-
-        Loans loans3 = new Loans();
-        loans3.setAmount(5000000);
-        loans3.setLoanType("Multiguna");
-        loans3.setNoLoan(1888228830);
-        loans3.setStatus("DITERIMA");
-
-        Loans loans4 = new Loans();
-        loans4.setAmount(25000000);
-        loans4.setLoanType("Mikro");
-        loans4.setNoLoan(1900000907);
-        loans4.setStatus("DITERIMA");
-
-        Loans loans5 = new Loans();
-        loans5.setAmount(10000000);
-        loans5.setLoanType("Multiguna");
-        loans5.setNoLoan(1900000909);
-        loans5.setStatus("DITERIMA");
-
-        results.add(loans1);
-        results.add(loans2);
-        results.add(loans3);
-        results.add(loans4);
-        results.add(loans5);
-
-        mView.showLoandHistory(results);
+        mView.displayUserIdentity(prefRepo.getUserName(), prefRepo.getUserEmail());
     }
 
     @Override

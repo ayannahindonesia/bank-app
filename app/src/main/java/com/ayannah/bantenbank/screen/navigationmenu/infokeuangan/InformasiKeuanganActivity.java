@@ -24,7 +24,6 @@ import dagger.android.support.DaggerAppCompatActivity;
 
 public class InformasiKeuanganActivity extends DaggerAppCompatActivity {
 
-
     @Inject
     InformasiKeuanganFragment mFragment;
 

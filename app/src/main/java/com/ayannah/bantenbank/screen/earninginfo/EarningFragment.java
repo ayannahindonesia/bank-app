@@ -7,6 +7,7 @@ import android.text.TextWatcher;
 import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ayannah.bantenbank.R;
 import com.ayannah.bantenbank.base.BaseFragment;
@@ -29,11 +30,15 @@ public class EarningFragment extends BaseFragment implements EarningContract.Vie
     @Inject
     EarningContract.Presenter mPresenter;
 
-    @BindView(R.id.penghasilam)
-    TextView penghasilam;
+//    @BindView(R.id.penghasilam)
+//    TextView penghasilam;
 
-    @BindView(R.id.seekbarPenghasilan)
-    SeekBar seekBar;
+//    @BindView(R.id.seekbarPenghasilan)
+//    SeekBar seekBar;
+
+    @BindView(R.id.etpenghasilam)
+    EditText etPenghasilan;
+    private String originalPenghaislan;
 
     @BindView(R.id.etPendapatanLain)
     EditText etPendapatanLain;
@@ -60,6 +65,8 @@ public class EarningFragment extends BaseFragment implements EarningContract.Vie
     public void onResume() {
         super.onResume();
         mPresenter.takeView(this);
+
+        mPresenter.getPenghasilan();
     }
 
     @Override
@@ -67,32 +74,77 @@ public class EarningFragment extends BaseFragment implements EarningContract.Vie
 
         setUpPopUp();
 
-        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        etPendapatanLain.setText("10000000");
+
+//        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+//            @Override
+//            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+//
+//
+//                if(progress > 0){
+//                    int x = progress * 1000000;
+//
+//                    penghasilam.setText(CommonUtils.setRupiahCurrency(x));
+//
+//                }else {
+//
+//                    penghasilam.setText(getResources().getString(R.string.default_currency_amount));
+//
+//                }
+//
+//
+//            }
+//
+//            @Override
+//            public void onStartTrackingTouch(SeekBar seekBar) {
+//
+//            }
+//
+//            @Override
+//            public void onStopTrackingTouch(SeekBar seekBar) {
+//
+//            }
+//        });
+
+        etPenghasilan.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+            }
 
-                if(progress > 0){
-                    int x = progress * 1000000;
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                    penghasilam.setText(CommonUtils.setRupiahCurrency(x));
+            }
 
-                }else {
+            @Override
+            public void afterTextChanged(Editable s) {
 
-                    penghasilam.setText(getResources().getString(R.string.default_currency_amount));
+                etPenghasilan.removeTextChangedListener(this);
 
+                try {
+
+                    originalPenghaislan = s.toString();
+
+                    long longval;
+                    if(originalPenghaislan.contains(",")){
+                        originalPenghaislan = originalPenghaislan.replaceAll(",", "");
+                    }
+                    longval = Long.parseLong(originalPenghaislan);
+
+                    DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance(Locale.getDefault());
+                    formatter.applyPattern("#,###,###,###");
+                    String formattedString = formatter.format(longval);
+
+                    //setting text after format to edittext
+                    etPenghasilan.setText(formattedString);
+                    etPenghasilan.setSelection(etPenghasilan.getText().length());
+
+                } catch (NumberFormatException nfe){
+                    nfe.printStackTrace();
                 }
 
-
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
+                etPenghasilan.addTextChangedListener(this);
 
             }
         });
@@ -201,6 +253,20 @@ public class EarningFragment extends BaseFragment implements EarningContract.Vie
 
     @Override
     public void showErrorMessage(String message) {
+
+        Toast.makeText(parentActivity(), message, Toast.LENGTH_SHORT).show();
+
+    }
+
+    @Override
+    public void loadPenghasilan(String pendapatan, String pendapatanLain, String sumberLain) {
+
+//        penghasilam.setText(CommonUtils.setRupiahCurrency(Integer.parseInt(pendapatan)));
+        etPenghasilan.setText(pendapatan);
+
+        etPendapatanLain.setText(pendapatanLain);
+
+        etSumberPendapatanLain.setText(sumberLain);
 
     }
 

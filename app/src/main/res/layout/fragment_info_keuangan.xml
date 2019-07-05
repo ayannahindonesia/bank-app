@@ -64,6 +64,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                     <EditText
+                        android:id="@+id/noPegawai"
                         android:hint="16000939877399"
                         android:inputType="number"
                         android:paddingStart="@dimen/dp12"
@@ -81,6 +82,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                     <EditText
+                        android:id="@+id/namaInstansi"
                         android:inputType="text"
                         android:paddingStart="@dimen/dp12"
                         android:paddingEnd="@dimen/dp12"
@@ -103,6 +105,7 @@
                         android:layout_height="wrap_content">
 
                         <EditText
+                            android:id="@+id/lamaBekerja"
                             android:inputType="number"
                             android:hint="0"
                             android:paddingStart="@dimen/dp12"
@@ -169,6 +172,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                     <EditText
+                        android:id="@+id/namaAtasan"
                         android:inputType="text"
                         android:paddingStart="@dimen/dp12"
                         android:paddingEnd="@dimen/dp12"
@@ -186,6 +190,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                     <EditText
+                        android:id="@+id/jabatan"
                         android:inputType="text"
                         android:paddingStart="@dimen/dp12"
                         android:paddingEnd="@dimen/dp12"
@@ -286,7 +291,7 @@
         android:layout_alignParentBottom="true"
         android:background="@color/colorAccent"
         android:textColor="@android:color/white"
-        android:text="Update"
+        android:text="Ubah"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

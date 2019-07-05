@@ -6,6 +6,7 @@ import com.ayannah.bantenbank.data.local.PreferenceRepository;
 import com.ayannah.bantenbank.data.model.Kabupaten;
 import com.ayannah.bantenbank.data.model.Kecamatan;
 import com.ayannah.bantenbank.data.model.Kelurahan;
+import com.ayannah.bantenbank.data.model.Loans.Loans;
 import com.ayannah.bantenbank.data.model.Provinsi;
 import com.ayannah.bantenbank.data.model.Token;
 import com.ayannah.bantenbank.data.model.UserProfile;
@@ -91,6 +92,21 @@ public class RemoteDataSource implements RemoteRepository {
                 .setPriority(Priority.MEDIUM)
                 .build()
                 .getObjectSingle(UserProfile.class);
+
+    }
+
+    @Override
+    public Single<Loans> getAllLoans() {
+        return Rx2AndroidNetworking.get(BuildConfig.API_URL + "borrower/loan")
+                .addHeaders("Authorization", preferenceRepository.getUserToken())
+                .addQueryParameter("rows", "")
+                .addQueryParameter("page", "")
+                .addQueryParameter("sort", "asc")
+                .addQueryParameter("status", "")
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getObjectSingle(Loans.class);
+
     }
 
 

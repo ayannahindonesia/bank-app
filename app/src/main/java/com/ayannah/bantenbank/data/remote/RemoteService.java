@@ -9,6 +9,7 @@ import com.ayannah.bantenbank.BuildConfig;
 import com.ayannah.bantenbank.data.remote.interceptor.RefreshTokenInterceptor;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.rx2androidnetworking.Rx2AndroidNetworking;
 
 import javax.inject.Inject;
 
@@ -34,9 +35,7 @@ public class RemoteService {
                 .create();
 
         AndroidNetworking.initialize(application, okHttpClient);
-
         AndroidNetworking.setParserFactory(new GsonParserFactory(gson));
-
         if(BuildConfig.DEBUG){
 
             AndroidNetworking.enableLogging(HttpLoggingInterceptor.Level.HEADERS);

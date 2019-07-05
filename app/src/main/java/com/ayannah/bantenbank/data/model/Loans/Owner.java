@@ -1,8 +1,8 @@
-package com.ayannah.bantenbank.data.model;
+package com.ayannah.bantenbank.data.model.Loans;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Bank{
+public class Owner{
 
 	@SerializedName("Int64")
 	private int int64;

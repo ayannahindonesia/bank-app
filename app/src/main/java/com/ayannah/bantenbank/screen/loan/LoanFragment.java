@@ -82,6 +82,14 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        mPresenter.takeView(this);
+
+
+    }
+
+    @Override
     protected void initView(Bundle state) {
 
         calculateDefaultValue();
@@ -108,15 +116,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
         sbJumlahPinjaman.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-//                if(progress > 0){
-//                    loanAmount = Double.parseDouble(String.valueOf(loanRepo[progress]));
-//
-//                    amountLoan.setText( CommonUtils.setRupiahCurrency(loanRepo[progress]) );
-//                }else {
-//                    loanAmount = Double.parseDouble(String.valueOf(loanRepo[progress]));
-//
-//                    amountLoan.setText("Rp0");
-//                }
+
                 loanAmount = Double.parseDouble(String.valueOf(loanRepo[progress]));
 
                 amountLoan.setText( CommonUtils.setRupiahCurrency(loanRepo[progress]) );
@@ -159,40 +159,6 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
         installment.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-
-//                if(progress > 0) {
-//
-//                    installmentTenor = progress;
-//
-//                    //calculate biaya admin
-//                    double administration = (loanAmount * 1.5) / 100;
-//
-//                    //calculate bunga
-//                    double bunga = ((loanAmount * 13) / 100) / (installmentTenor * 12);
-//
-//                    //calculate angsuran perbulan
-//                    angsurnaPerbulan = (loanAmount / (installmentTenor * 12)) + bunga;
-//
-//                    //calculate saldo pinjaman
-//                    double primaryBalance = loanAmount - (loanAmount / (installmentTenor*12));
-//
-//
-//                    tvInstallment.setText(String.format("%s tahun", installmentTenor));
-//                    biayaAdmin.setText(CommonUtils.setRupiahCurrency((int) Math.floor(administration)));
-//                    tvBunga.setText(CommonUtils.setRupiahCurrency((int) Math.floor(bunga)));
-//                    tvAngsuran.setText(CommonUtils.setRupiahCurrency((int) Math.floor(angsurnaPerbulan)));
-//                    saldoPokokPinjaman.setText(CommonUtils.setRupiahCurrency((int) Math.floor(primaryBalance)));
-//                }else {
-//
-//                    installmentTenor = progress;
-//
-//                    tvInstallment.setText("-");
-//                    biayaAdmin.setText(getResources().getString(R.string.empty_pinjaman_value));
-//                    tvBunga.setText(getResources().getString(R.string.empty_pinjaman_value));
-//                    tvAngsuran.setText(getResources().getString(R.string.empty_pinjaman_value));
-//                    saldoPokokPinjaman.setText(getResources().getString(R.string.empty_pinjaman_value));
-//
-//                }
                 installmentTenor = (progress+1) * 6;
 
                 //calculate biaya admin

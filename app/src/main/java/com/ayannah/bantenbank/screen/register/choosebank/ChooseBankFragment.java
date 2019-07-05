@@ -12,6 +12,7 @@ import com.ayannah.bantenbank.R;
 import com.ayannah.bantenbank.adapter.ChooseBankAdapter;
 import com.ayannah.bantenbank.base.BaseFragment;
 import com.ayannah.bantenbank.data.model.Bank;
+import com.ayannah.bantenbank.data.model.BankDummy;
 import com.ayannah.bantenbank.screen.register.addaccountbank.AddAccountBankActivity;
 import com.ayannah.bantenbank.screen.register.addaccountbank.AddAccountBankFragment;
 
@@ -25,7 +26,7 @@ import butterknife.BindView;
 public class ChooseBankFragment extends BaseFragment implements ChooseBankContract.View {
 
     ChooseBankAdapter mAdapter;
-    List<Bank> listBanks;
+    List<BankDummy> listBanks;
 
     @Inject
     ChooseBankContract.Presenter mPresenter;
@@ -59,32 +60,32 @@ public class ChooseBankFragment extends BaseFragment implements ChooseBankContra
     protected void initView(Bundle state) {
 
         listBanks = new ArrayList<>();
-        Bank bank = new Bank();
+        BankDummy bank = new BankDummy();
         bank.setName("Bank Jakarta");
         bank.setLogo(0);
         listBanks.add(bank);
 
-        Bank bank2 = new Bank();
+        BankDummy bank2 = new BankDummy();
         bank2.setName("Bank Bogor");
         bank2.setLogo(0);
         listBanks.add(bank2);
 
-        Bank bank3 = new Bank();
+        BankDummy bank3 = new BankDummy();
         bank3.setName("Bank Palu");
         bank3.setLogo(0);
         listBanks.add(bank3);
 
-        Bank bank4 = new Bank();
+        BankDummy bank4 = new BankDummy();
         bank4.setName("Bank Ngawi");
         bank4.setLogo(0);
         listBanks.add(bank4);
 
-        Bank bank5 = new Bank();
+        BankDummy bank5 = new BankDummy();
         bank5.setName("Bank Yogya");
         bank5.setLogo(0);
         listBanks.add(bank5);
 
-        Bank bank6 = new Bank();
+        BankDummy bank6 = new BankDummy();
         bank6.setName("Bank Buton");
         bank6.setLogo(0);
         listBanks.add(bank6);
@@ -96,7 +97,7 @@ public class ChooseBankFragment extends BaseFragment implements ChooseBankContra
         recyclerView.setAdapter(mAdapter);
         mAdapter.setOnClickBankListener(new ChooseBankAdapter.ChooseBankListener() {
             @Override
-            public void onClickItemBank(Bank bank) {
+            public void onClickItemBank(BankDummy bank) {
 
                 Bundle bundle = new Bundle();
                 bundle.putString(AddAccountBankFragment.BANK_NAME, bank.getName());

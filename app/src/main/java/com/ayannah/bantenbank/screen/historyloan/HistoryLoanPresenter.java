@@ -4,12 +4,18 @@ import android.app.Application;
 
 import androidx.annotation.Nullable;
 
-import com.ayannah.bantenbank.data.model.Loans;
+import com.androidnetworking.common.ANConstants;
+import com.androidnetworking.error.ANError;
+import com.ayannah.bantenbank.data.remote.RemoteRepository;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.json.JSONObject;
 
 import javax.inject.Inject;
+import javax.net.ssl.HttpsURLConnection;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class HistoryLoanPresenter implements HistoryLoanContract.Presenter {
 
@@ -17,11 +23,15 @@ public class HistoryLoanPresenter implements HistoryLoanContract.Presenter {
     private HistoryLoanContract.View mView;
 
     private Application application;
+    private RemoteRepository remoteRepository;
+    private CompositeDisposable mComposite;
 
     @Inject
-    HistoryLoanPresenter(Application application){
-
+    HistoryLoanPresenter(Application application, RemoteRepository remoteRepository){
+        this.remoteRepository = remoteRepository;
         this.application = application;
+
+        mComposite = new CompositeDisposable();
     }
 
     @Override
@@ -31,45 +41,33 @@ public class HistoryLoanPresenter implements HistoryLoanContract.Presenter {
             return;
         }
 
-        List<Loans> results = new ArrayList<>();
+        mComposite.add(remoteRepository.getAllLoans()
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(response ->{
 
-        Loans loans1 = new Loans();
-        loans1.setAmount(5000000);
-        loans1.setLoanType("Multiguna");
-        loans1.setNoLoan(1888228827);
-        loans1.setStatus("Tertunda");
+            mView.showAllTransaction(response.getData());
 
-        Loans loans2 = new Loans();
-        loans2.setAmount(45000000);
-        loans2.setLoanType("Mikro");
-        loans2.setNoLoan(1888228828);
-        loans2.setStatus("Tidak lengkap");
+        }, error ->{
 
-        Loans loans3 = new Loans();
-        loans3.setAmount(5000000);
-        loans3.setLoanType("Multiguna");
-        loans3.setNoLoan(1888228830);
-        loans3.setStatus("Diterima");
+            ANError anError = (ANError) error;
+            if(anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
+                mView.showErrorMessage("Connection Error");
+            }else {
 
-        Loans loans4 = new Loans();
-        loans4.setAmount(25000000);
-        loans4.setLoanType("Mikro");
-        loans4.setNoLoan(1900000907);
-        loans4.setStatus("Diterima");
+                if(anError.getErrorBody() != null){
 
-        Loans loans5 = new Loans();
-        loans5.setAmount(10000000);
-        loans5.setLoanType("Multiguna");
-        loans5.setNoLoan(1900000909);
-        loans5.setStatus("Ditolak");
+                    JSONObject jsonObject = new JSONObject(anError.getErrorBody());
+                    mView.showErrorMessage(jsonObject.optString("message"));
+                }
+            }
 
-        results.add(loans1);
-        results.add(loans2);
-        results.add(loans3);
-        results.add(loans4);
-        results.add(loans5);
+        }));
 
-        mView.showAllTransaction(results);
+    }
+
+    @Override
+    public void sortHistoryBy(String status) {
 
     }
 

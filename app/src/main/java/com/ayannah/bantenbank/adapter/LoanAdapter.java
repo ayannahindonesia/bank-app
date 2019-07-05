@@ -1,7 +1,6 @@
 package com.ayannah.bantenbank.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ayannah.bantenbank.R;
-import com.ayannah.bantenbank.data.model.Loans;
+import com.ayannah.bantenbank.data.model.Loans.DataItem;
+import com.ayannah.bantenbank.data.model.Loans.Loans;
 import com.ayannah.bantenbank.util.CommonUtils;
 
 import java.util.ArrayList;
@@ -22,8 +22,12 @@ import butterknife.ButterKnife;
 
 public class LoanAdapter extends RecyclerView.Adapter<LoanAdapter.LoadViewHolder> {
 
+    private final static String STATUS_PROCESSING = "processing";
+    private final static String STATUS_ACCEPTED = "accepted";
+    private final static String STATUS_REJECTED = "rejected";
+
     private Context mContext;
-    private List<Loans> loans;
+    private List<DataItem> loans;
     private LoansAdapterListener listener;
 
     public LoanAdapter(Context mContext){
@@ -36,7 +40,7 @@ public class LoanAdapter extends RecyclerView.Adapter<LoanAdapter.LoadViewHolder
         this.listener = listener;
     }
 
-    public void setLoanData(List<Loans> results){
+    public void setLoanData(List<DataItem> results){
         loans.clear();
 
         loans = results;
@@ -84,36 +88,33 @@ public class LoanAdapter extends RecyclerView.Adapter<LoanAdapter.LoadViewHolder
             ButterKnife.bind(this, itemView);
         }
 
-        private void bind(Loans param){
+        private void bind(DataItem param){
 
-            numLoan.setText(String.valueOf(param.getNoLoan()));
+            numLoan.setText(String.valueOf(param.getId()));
 
-            typeLoan.setText(param.getLoanType());
+            typeLoan.setText("-");
 
             switch (param.getStatus()){
-                case "Diterima":
+                case STATUS_ACCEPTED:
                     status.setBackgroundResource(R.drawable.badge_diterima);
                     break;
-                case "Tidak lengkap":
+                case STATUS_PROCESSING:
                     status.setBackgroundResource(R.drawable.badge_tidak_lengkap);
                     break;
-                case "Tertunda":
-                    status.setBackgroundResource(R.drawable.badge_tertunda);
-                    break;
-                case "Ditolak":
+                case STATUS_REJECTED:
                     status.setBackgroundResource(R.drawable.badge_ditolak);
                     break;
             }
             status.setText(param.getStatus());
 
-            amount.setText(CommonUtils.setRupiahCurrency(param.getAmount()));
+            amount.setText(CommonUtils.setRupiahCurrency(param.getTotalLoan()));
 
             itemView.setOnClickListener(view -> listener.onClickItem(param));
         }
     }
 
     public interface LoansAdapterListener{
-        void onClickItem(Loans loans);
+        void onClickItem(DataItem loans);
     }
 
 }

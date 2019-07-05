@@ -2,7 +2,9 @@ package com.ayannah.bantenbank.screen.login;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.ayannah.bantenbank.screen.homemenu.MainMenuActivity;
@@ -15,6 +17,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import butterknife.OnTextChanged;
 
 public class LoginFragment extends BaseFragment implements LoginContract.View {
 
@@ -26,6 +29,9 @@ public class LoginFragment extends BaseFragment implements LoginContract.View {
 
     @BindView(R.id.etPassword)
     EditText etPassword;
+
+    @BindView(R.id.progressLogin)
+    LinearLayout progressLogin;
 
     @Inject
     public LoginFragment(){}
@@ -40,6 +46,11 @@ public class LoginFragment extends BaseFragment implements LoginContract.View {
     public void onResume() {
         super.onResume();
         mPresenter.takeView(this);
+
+        if(mPresenter.isUserLogged()){
+            Toast.makeText(parentActivity(), "udah pernah login", Toast.LENGTH_SHORT).show();
+            loginComplete();
+        }
     }
 
     @Override
@@ -61,7 +72,8 @@ public class LoginFragment extends BaseFragment implements LoginContract.View {
 
         }else {
 
-            mPresenter.getClientToken("081234567890", "password");
+            progressLogin.setVisibility(View.VISIBLE);
+            mPresenter.getPublicToken("081234567890", "password");
 
         }
     }
@@ -77,6 +89,15 @@ public class LoginFragment extends BaseFragment implements LoginContract.View {
     public void showErrorMessage(String message) {
 
         Toast.makeText(parentActivity(), "Error: "+message, Toast.LENGTH_SHORT).show();
+
+        progressLogin.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void completeCreateUserToken() {
+
+        mPresenter.setUserIdentity();
+
     }
 
     @Override
@@ -86,6 +107,10 @@ public class LoginFragment extends BaseFragment implements LoginContract.View {
         Intent login = new Intent(parentActivity(), MainMenuActivity.class);
         login.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(login);
+
+        progressLogin.setVisibility(View.GONE);
+
         parentActivity().finish();
+
     }
 }

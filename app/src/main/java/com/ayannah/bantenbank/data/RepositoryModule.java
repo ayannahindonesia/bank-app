@@ -26,9 +26,9 @@ public abstract class RepositoryModule {
 
     @Provides
     @Singleton
-    static RefreshTokenInterceptor refreshTokenInterceptor(Application application,
-                                                           PreferenceRepository preferenceRepository){
-        return new RefreshTokenInterceptor(application, preferenceRepository);
+    static RefreshTokenInterceptor refreshTokenInterceptor(PreferenceRepository preferenceRepository){
+
+        return new RefreshTokenInterceptor(preferenceRepository);
     }
 
     @Provides

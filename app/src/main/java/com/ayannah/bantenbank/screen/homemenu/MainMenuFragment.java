@@ -5,13 +5,12 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.text.Layout;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.ViewGroup;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,23 +22,21 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.core.view.MenuItemCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ayannah.bantenbank.adapter.MenuProductAdapter;
+import com.ayannah.bantenbank.data.model.Loans.Loans;
 import com.ayannah.bantenbank.data.model.MenuProduct;
 import com.ayannah.bantenbank.screen.earninginfo.EarningActivity;
 import com.ayannah.bantenbank.screen.historyloan.HistoryLoanActivity;
 import com.ayannah.bantenbank.screen.navigationmenu.datapendukung.DataPendukungActivity;
-import com.ayannah.bantenbank.screen.detailloan.DetailTransaksiActivity;
 import com.ayannah.bantenbank.R;
 import com.ayannah.bantenbank.adapter.BeritaPromoAdapter;
 import com.ayannah.bantenbank.adapter.LoanAdapter;
 import com.ayannah.bantenbank.base.BaseFragment;
 import com.ayannah.bantenbank.data.model.BeritaPromo;
-import com.ayannah.bantenbank.data.model.Loans;
 import com.ayannah.bantenbank.dialog.BottomSheetDialogLogout;
 import com.ayannah.bantenbank.screen.login.LoginActivity;
 import com.ayannah.bantenbank.screen.navigationmenu.akunsaya.AkunSayaActivity;
@@ -108,6 +105,8 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
         super.onResume();
         mPresenter.takeView(this);
 
+        mPresenter.getCurrentUserIdentity();
+
         mPresenter.loadPromoAndNews();
 
         mPresenter.getMainMenu();
@@ -136,7 +135,7 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
         pinjamanSaya.setTypeface(null, Typeface.BOLD);
         pinjamanSaya.setTextColor(Color.WHITE);
         pinjamanSaya.setBackgroundResource(R.drawable.badge_navigation_menu_bg);
-        pinjamanSaya.setText("5");
+        pinjamanSaya.setText("!");
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 parentActivity(), drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -244,16 +243,23 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
     }
 
     @Override
-    public void showLoandHistory(List<Loans> results) {
-
-    }
-
-    @Override
     public void showLogoutComplete() {
 
         Intent logout = new Intent(parentActivity(), LoginActivity.class);
         startActivity(logout);
         parentActivity().finish();
+    }
+
+    @Override
+    public void displayUserIdentity(String name, String email) {
+
+        View headerViewNav = navigationView.getHeaderView(0);
+        TextView navName = headerViewNav.findViewById(R.id.navHeader_name);
+        TextView navEmail = headerViewNav.findViewById(R.id.navHeader_email);
+
+        navName.setText(name);
+        navEmail.setText(email);
+
     }
 
 
