@@ -12,6 +12,7 @@ import com.ayannah.bantenbank.base.BaseFragment;
 import com.ayannah.bantenbank.dialog.BottomSheetInstructionDialog;
 import com.ayannah.bantenbank.screen.register.adddoc.AddDocumentActivity;
 import com.ayannah.bantenbank.screen.register.adddoc.AddDocumentFragment;
+import com.ayannah.bantenbank.screen.register.formothers.FormOtherFragment;
 
 import javax.inject.Inject;
 
@@ -21,8 +22,6 @@ import butterknife.OnClick;
 public class AddAccountBankFragment extends BaseFragment implements AddAccountBankContract.View {
 
     private AddDocumentFragment fragmentadd = new AddDocumentFragment();
-
-    public static final String BANK_NAME = "BANK_NAME";
 
     BottomSheetInstructionDialog dialog;
 
@@ -48,7 +47,7 @@ public class AddAccountBankFragment extends BaseFragment implements AddAccountBa
 
         Bundle bundle = parentActivity().getIntent().getExtras();
         assert bundle != null;
-        bName = bundle.getString(BANK_NAME);
+        bName = bundle.getString(FormOtherFragment.BANK_NAME);
         bankName.setText(bName);
 
         dialog = new BottomSheetInstructionDialog().show(getFragmentManager(), BottomSheetInstructionDialog.HAVE_ACC_BANK,
@@ -76,9 +75,12 @@ public class AddAccountBankFragment extends BaseFragment implements AddAccountBa
 
     @OnClick(R.id.buttonNext)
     void onClick(){
+        Bundle bundle = new Bundle();
+        bundle.putString(FormOtherFragment.ACC_NUMBER, accNumber.getText().toString());
 
         Intent doc = new Intent(parentActivity(), AddDocumentActivity.class);
         doc.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        doc.putExtras(bundle);
         startActivity(doc);
 
     }

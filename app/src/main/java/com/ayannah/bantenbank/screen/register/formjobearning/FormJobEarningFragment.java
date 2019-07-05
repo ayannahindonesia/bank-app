@@ -29,8 +29,6 @@ import butterknife.OnClick;
 
 public class FormJobEarningFragment extends BaseFragment {
 
-    private FormOtherFragment fragment = new FormOtherFragment();
-
     @BindView(R.id.spJenisPekerjaan)
     Spinner spJenisPekerjaan;
 
@@ -42,6 +40,27 @@ public class FormJobEarningFragment extends BaseFragment {
 
     @BindView(R.id.etSumberPendapatanLain)
     EditText etSumberPendaptanLain;
+
+    @BindView(R.id.etEmployeeID)
+    EditText etEmployeeID;
+
+    @BindView(R.id.etCompanyName)
+    EditText etCompanyName;
+
+    @BindView(R.id.etLamaBekerja)
+    EditText etLamaBekerja;
+
+    @BindView(R.id.etAlamatKantor)
+    EditText etAlamatKantor;
+
+    @BindView(R.id.etCompanyPhone)
+    EditText etCompanyPhone;
+
+    @BindView(R.id.etSpvName)
+    EditText etSpvName;
+
+    @BindView(R.id.etJobTitle)
+    EditText etJobTitle;
 
     //spinner
     private String[] pekerjaan = {"Pilih...", "Pemerintahan", "CPNS", "Pegawai Swasta", "Pegawai Pemerintah Nasional", "Pegawai Pemerintah Daerah"};
@@ -104,6 +123,20 @@ public class FormJobEarningFragment extends BaseFragment {
         String pendapatan_lain = etPendapatanLain.getText().toString().replaceAll("[.,]", "");
         String sumber_pendapatan_lain = etSumberPendaptanLain.getText().toString().replaceAll("[.,]", "");
 
+        Bundle bundle = parentActivity().getIntent().getExtras();
+        assert bundle != null;
+        bundle.putString(FormOtherFragment.OCCUPATION, spJenisPekerjaan.getSelectedItem().toString());
+        bundle.putString(FormOtherFragment.EMPLOYEE_ID, etEmployeeID.getText().toString());
+        bundle.putString(FormOtherFragment.COMPANY_NAME, etCompanyName.getText().toString());
+        bundle.putString(FormOtherFragment.WORK_PERIOD, etLamaBekerja.getText().toString());
+        bundle.putString(FormOtherFragment.COMPANY_ADDRESS, etAlamatKantor.getText().toString());
+        bundle.putString(FormOtherFragment.COMPANY_PHONE, etCompanyPhone.getText().toString());
+        bundle.putString(FormOtherFragment.SUPERVISOR, etSpvName.getText().toString());
+        bundle.putString(FormOtherFragment.JOB_TITLE, etJobTitle.getText().toString());
+        bundle.putString(FormOtherFragment.SALARY, gaji_bulanan);
+        bundle.putString(FormOtherFragment.OTHER_INCOME, pendapatan_lain);
+        bundle.putString(FormOtherFragment.OTHER_INCOME_SOURCE, sumber_pendapatan_lain);
+
 //        if(gaji_bulanan.isEmpty() ||
 //                pendapatan_lain.isEmpty()){
 //
@@ -124,6 +157,7 @@ public class FormJobEarningFragment extends BaseFragment {
 
         Intent intent = new Intent(parentActivity(), FormOtherActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.putExtras(bundle);
         startActivity(intent);
 
     }

@@ -16,6 +16,8 @@ import com.ayannah.bantenbank.screen.navigationmenu.datapendukung.DataPendukungA
 import com.ayannah.bantenbank.screen.navigationmenu.datapendukung.DataPendukungModule;
 import com.ayannah.bantenbank.screen.navigationmenu.infokeuangan.InformasiKeuanganActivity;
 import com.ayannah.bantenbank.screen.navigationmenu.infokeuangan.InformasiKeuanganModule;
+import com.ayannah.bantenbank.screen.otpphone.VerificationOTPActivity;
+import com.ayannah.bantenbank.screen.otpphone.VerificationOTPModule;
 import com.ayannah.bantenbank.screen.register.addaccountbank.AddAccountBankActivity;
 import com.ayannah.bantenbank.screen.register.addaccountbank.AddAccountBankModule;
 import com.ayannah.bantenbank.screen.register.adddoc.AddDocumentActivity;
@@ -96,5 +98,9 @@ abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = FormOtherModule.class)
     abstract FormOtherActivity formOtherActivity();
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = VerificationOTPModule.class)
+    abstract VerificationOTPActivity verificationOTPActivity();
 
 }

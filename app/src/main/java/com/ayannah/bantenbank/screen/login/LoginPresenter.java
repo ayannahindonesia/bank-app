@@ -16,7 +16,6 @@ import org.json.JSONObject;
 
 import javax.inject.Inject;
 
-import butterknife.OnTextChanged;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
@@ -74,12 +73,16 @@ public class LoginPresenter implements LoginContract.Presenter {
         json.addProperty("key", phone);
         json.addProperty("password", pass);
 
+        Log.d(TAG, preferenceRepository.getPublicToken());
+
         mComposite.add(remotRepo.getTokenClient(json)
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(response -> {
 
             preferenceRepository.setUserToken("Bearer "+response.getToken());
+
+            Log.d(TAG, "create token client complete");
 
             //set User Identity
             mView.completeCreateUserToken();

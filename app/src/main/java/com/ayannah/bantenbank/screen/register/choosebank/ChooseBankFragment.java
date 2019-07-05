@@ -15,6 +15,7 @@ import com.ayannah.bantenbank.data.model.Bank;
 import com.ayannah.bantenbank.data.model.BankDummy;
 import com.ayannah.bantenbank.screen.register.addaccountbank.AddAccountBankActivity;
 import com.ayannah.bantenbank.screen.register.addaccountbank.AddAccountBankFragment;
+import com.ayannah.bantenbank.screen.register.formothers.FormOtherFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -100,7 +101,7 @@ public class ChooseBankFragment extends BaseFragment implements ChooseBankContra
             public void onClickItemBank(BankDummy bank) {
 
                 Bundle bundle = new Bundle();
-                bundle.putString(AddAccountBankFragment.BANK_NAME, bank.getName());
+                bundle.putString(FormOtherFragment.BANK_NAME, bank.getName());
 //
 //                fragmentadd.setArguments(bundle);
 //

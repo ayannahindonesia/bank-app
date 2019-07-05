@@ -73,6 +73,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
                 <EditText
+                    android:id="@+id/etRelatedName"
                     android:inputType="text"
                     android:paddingStart="@dimen/dp12"
                     android:paddingEnd="@dimen/dp12"
@@ -125,6 +126,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
                 <EditText
+                    android:id="@+id/etRelatedPhone"
                     android:inputType="phone"
                     android:paddingStart="@dimen/dp12"
                     android:paddingEnd="@dimen/dp12"
@@ -142,6 +144,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
                 <EditText
+                    android:id="@+id/etRelatedHP"
                     android:inputType="phone"
                     android:paddingStart="@dimen/dp12"
                     android:paddingEnd="@dimen/dp12"

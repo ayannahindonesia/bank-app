@@ -1,12 +1,14 @@
 package com.ayannah.bantenbank.screen.register.formBorrower;
 
 import android.app.Application;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
 import com.androidnetworking.common.ANConstants;
 import com.androidnetworking.error.ANError;
+import com.ayannah.bantenbank.data.local.PreferenceRepository;
 import com.ayannah.bantenbank.data.remote.RemoteRepository;
 import com.google.gson.JsonObject;
 
@@ -26,12 +28,13 @@ public class FormBorrowerPresenter implements FormBorrowerContract.Presenter{
     private Application app;
     private RemoteRepository remotRepo;
     private CompositeDisposable mDisposable;
+    private PreferenceRepository preferenceRepository;
 
     @Inject
-    FormBorrowerPresenter(Application application, RemoteRepository remotRepo){
+    FormBorrowerPresenter(Application application, RemoteRepository remotRepo, PreferenceRepository preferenceRepository){
         this.app = application;
         this.remotRepo = remotRepo;
-
+        this.preferenceRepository = preferenceRepository;
         mDisposable = new CompositeDisposable();
     }
 
@@ -192,6 +195,8 @@ public class FormBorrowerPresenter implements FormBorrowerContract.Presenter{
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(response -> {
 
+            preferenceRepository.setPublicToken("Bearer " + response.getToken());
+
         }, error ->{
 
             ANError anError = (ANError)error;
@@ -205,6 +210,16 @@ public class FormBorrowerPresenter implements FormBorrowerContract.Presenter{
                 }
             }
         }));
+    }
+
+    @Override
+    public boolean checkLogin() {
+
+        if (preferenceRepository.getPublicToken() != "" || preferenceRepository.getPublicToken() != null) {
+            return true;
+        }
+
+        return false;
     }
 
 

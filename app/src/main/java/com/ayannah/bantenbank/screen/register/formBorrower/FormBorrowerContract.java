@@ -38,6 +38,6 @@ public interface FormBorrowerContract {
 
         void getUser();
 
-
+        boolean checkLogin();
     }
 }

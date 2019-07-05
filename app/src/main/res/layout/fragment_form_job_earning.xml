@@ -88,6 +88,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
                 <EditText
+                    android:id="@+id/etEmployeeID"
                     android:hint="16000939877399"
                     android:inputType="number"
                     android:paddingStart="@dimen/dp12"
@@ -105,6 +106,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
                 <EditText
+                    android:id="@+id/etCompanyName"
                     android:inputType="text"
                     android:paddingStart="@dimen/dp12"
                     android:paddingEnd="@dimen/dp12"
@@ -127,6 +129,7 @@
                     android:layout_height="wrap_content">
 
                     <EditText
+                        android:id="@+id/etLamaBekerja"
                         android:inputType="number"
                         android:hint="0"
                         android:paddingStart="@dimen/dp12"
@@ -175,7 +178,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
                 <EditText
-                    android:id="@+id/etPhone"
+                    android:id="@+id/etCompanyPhone"
                     android:inputType="phone"
                     android:paddingStart="@dimen/dp12"
                     android:paddingEnd="@dimen/dp12"
@@ -193,6 +196,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
                 <EditText
+                    android:id="@+id/etSpvName"
                     android:inputType="text"
                     android:paddingStart="@dimen/dp12"
                     android:paddingEnd="@dimen/dp12"
@@ -210,6 +214,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
                 <EditText
+                    android:id="@+id/etJobTitle"
                     android:inputType="text"
                     android:paddingStart="@dimen/dp12"
                     android:paddingEnd="@dimen/dp12"

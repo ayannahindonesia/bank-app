@@ -7,8 +7,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -16,6 +18,7 @@ import android.widget.Toast;
 
 import com.ayannah.bantenbank.R;
 import com.ayannah.bantenbank.base.BaseFragment;
+import com.ayannah.bantenbank.data.local.PreferenceRepository;
 import com.ayannah.bantenbank.data.model.Kabupaten;
 import com.ayannah.bantenbank.data.model.Kecamatan;
 import com.ayannah.bantenbank.data.model.Kelurahan;
@@ -23,6 +26,7 @@ import com.ayannah.bantenbank.data.model.Provinsi;
 import com.ayannah.bantenbank.data.model.UserProfile;
 import com.ayannah.bantenbank.screen.register.formjobearning.FormJobEarningActivity;
 import com.ayannah.bantenbank.screen.register.formjobearning.FormJobEarningFragment;
+import com.ayannah.bantenbank.screen.register.formothers.FormOtherFragment;
 import com.github.florent37.singledateandtimepicker.SingleDateAndTimePicker;
 import com.github.florent37.singledateandtimepicker.dialog.SingleDateAndTimePickerDialog;
 
@@ -35,9 +39,12 @@ import java.util.Locale;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 
 public class FormBorrowerFragment extends BaseFragment implements FormBorrowerContract.View{
+
+    private String gender = "";
 
     @Inject
     FormBorrowerContract.Presenter mPresenter;
@@ -151,7 +158,9 @@ public class FormBorrowerFragment extends BaseFragment implements FormBorrowerCo
 
         mPresenter.getProvince();
 
-        mPresenter.getUser();
+        if (!mPresenter.checkLogin()) {
+            mPresenter.getUser();
+        }
 
     }
 
@@ -179,7 +188,31 @@ public class FormBorrowerFragment extends BaseFragment implements FormBorrowerCo
     @OnClick(R.id.buttonNext)
     void onClickNext(){
 
-        UserProfile user = new UserProfile();
+        Bundle bundle = parentActivity().getIntent().getExtras();
+        assert bundle != null;
+        bundle.putString(FormOtherFragment.REGIST_NAME, etNameBorrower.getText().toString());
+        bundle.putString(FormOtherFragment.GENDER, gender);
+        bundle.putString(FormOtherFragment.REGIST_BIRTHDATE, tvDateBirthBorrower.getText().toString());
+        bundle.putString(FormOtherFragment.REGIST_BIRTHPLACE, etTempatLahir.getText().toString());
+        bundle.putString(FormOtherFragment.REGIST_EDUCATION, spCollageLevel.getSelectedItem().toString());
+        bundle.putString(FormOtherFragment.MOTHER_NAME, etNamaIbu.getText().toString());
+        bundle.putString(FormOtherFragment.MARITAL_STATUS, spPerkawinan.getSelectedItem().toString());
+        bundle.putString(FormOtherFragment.SPOUSE_NAME, etNamaPasangan.getText().toString());
+        bundle.putString(FormOtherFragment.SPOUSE_BIRTHDATE, regist_dateBirthSpouse.getText().toString());
+        bundle.putString(FormOtherFragment.SPOUSE_EDUCATION, spPendidikan.getSelectedItem().toString());
+        bundle.putString(FormOtherFragment.DEPENDANTS, spTanggungan.getSelectedItem().toString());
+        bundle.putString(FormOtherFragment.ADDRESS, etAlamatDomisili.getText().toString());
+        bundle.putString(FormOtherFragment.PROVINCE, spProvinsi.getSelectedItem().toString());
+        bundle.putString(FormOtherFragment.CITY, spKota.getSelectedItem().toString());
+        bundle.putString(FormOtherFragment.SUB_DISTRICT, spKecamatan.getSelectedItem().toString());
+        bundle.putString(FormOtherFragment.DISTRICT, spKelurahan.getSelectedItem().toString());
+        bundle.putString(FormOtherFragment.REGIST_RT, etRt.getText().toString());
+        bundle.putString(FormOtherFragment.REGIST_RW, etRw.getText().toString());
+        bundle.putString(FormOtherFragment.REGIST_PHONE, etTelpRumah.getText().toString());
+        bundle.putString(FormOtherFragment.HOME_STAY_YEAR, etLamaMenempatiRumah.getText().toString());
+        bundle.putString(FormOtherFragment.HOME_STATUS, spStatusHome.getSelectedItem().toString());
+
+//        UserRegister user = new UserRegister();
 
 //        user.setEmployerName(etNameBorrower.getText().toString().trim());
 //        user.setGender(etNameBorrower.getText().toString().trim());
@@ -207,6 +240,7 @@ public class FormBorrowerFragment extends BaseFragment implements FormBorrowerCo
 
         Intent formjob = new Intent(parentActivity(), FormJobEarningActivity.class);
         formjob.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        formjob.putExtras(bundle);
         startActivity(formjob);
 
     }
@@ -234,7 +268,7 @@ public class FormBorrowerFragment extends BaseFragment implements FormBorrowerCo
                     @Override
                     public void onDateSelected(Date date) {
 
-                        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss.SSS'Z'");
 
                         tvDateBirthBorrower.setText(sdf.format(date));
                     }
@@ -246,9 +280,6 @@ public class FormBorrowerFragment extends BaseFragment implements FormBorrowerCo
     void onClickDateBirthSpouse(){
 
         new SingleDateAndTimePickerDialog.Builder(parentActivity())
-                .bottomSheet()
-                .curved()
-                .displayMinutes(false)
                 .displayHours(false)
                 .displayDays(false)
                 .displayMonth(true)
@@ -265,7 +296,7 @@ public class FormBorrowerFragment extends BaseFragment implements FormBorrowerCo
                     @Override
                     public void onDateSelected(Date date) {
 
-                        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss.SSS'Z'");
 
                         regist_dateBirthSpouse.setText(sdf.format(date));
                     }
@@ -419,5 +450,23 @@ public class FormBorrowerFragment extends BaseFragment implements FormBorrowerCo
             }
         });
 
+    }
+
+    @OnClick({R.id.rbPria, R.id.rbPerempuan})
+    public void onRadioButtonClicked(RadioButton radioButton) {
+        boolean checked = radioButton.isChecked();
+
+        switch (radioButton.getId()) {
+            case R.id.rbPria:
+                if (checked) {
+                    gender = "M";
+                }
+                break;
+            case R.id.rbPerempuan:
+                if (checked) {
+                    gender = "F";
+                }
+                break;
+        }
     }
 }
