@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -20,6 +21,12 @@ import com.ayannah.bantenbank.base.BaseFragment;
 import com.ayannah.bantenbank.screen.register.formothers.FormOtherActivity;
 import com.ayannah.bantenbank.screen.register.formothers.FormOtherFragment;
 import com.ayannah.bantenbank.util.NumberSeparatorTextWatcher;
+import com.mobsandgeeks.saripaar.ValidationError;
+import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.annotation.NotEmpty;
+import com.mobsandgeeks.saripaar.annotation.Select;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -27,11 +34,13 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class FormJobEarningFragment extends BaseFragment {
+public class FormJobEarningFragment extends BaseFragment implements Validator.ValidationListener {
 
+    @Select
     @BindView(R.id.spJenisPekerjaan)
     Spinner spJenisPekerjaan;
 
+    @NotEmpty(message = "Masukan Gaji Anda")
     @BindView(R.id.etGajiBulanan)
     EditText etGajiBulanan;
 
@@ -44,23 +53,31 @@ public class FormJobEarningFragment extends BaseFragment {
     @BindView(R.id.etEmployeeID)
     EditText etEmployeeID;
 
+    @NotEmpty(message = "Masukan Nama Perusahaan\nTempat Anda Bekerja")
     @BindView(R.id.etCompanyName)
     EditText etCompanyName;
 
+    @NotEmpty(message = "Masukan Lama Anda Bekerja")
     @BindView(R.id.etLamaBekerja)
     EditText etLamaBekerja;
 
+    @NotEmpty(message = "Masukan Alamat Perusahaan\nTempat Anda Bekerja")
     @BindView(R.id.etAlamatKantor)
     EditText etAlamatKantor;
 
+    @NotEmpty(message = "Masukan No Telpon Perusahaan\nTempat Anda Bekerja")
     @BindView(R.id.etCompanyPhone)
     EditText etCompanyPhone;
 
+    @NotEmpty(message = "Masukan Nama Atasan Anda")
     @BindView(R.id.etSpvName)
     EditText etSpvName;
 
+    @NotEmpty(message = "Masukan Jabatan Anda")
     @BindView(R.id.etJobTitle)
     EditText etJobTitle;
+
+    private Validator validator;
 
     //spinner
     private String[] pekerjaan = {"Pilih...", "Pemerintahan", "CPNS", "Pegawai Swasta", "Pegawai Pemerintah Nasional", "Pegawai Pemerintah Daerah"};
@@ -76,6 +93,9 @@ public class FormJobEarningFragment extends BaseFragment {
 
     @Override
     protected void initView(Bundle state) {
+
+        validator = new Validator(this);
+        validator.setValidationListener(this);
 
         mAdapterPekerjaan = new ArrayAdapter<>(getContext(), R.layout.item_custom_spinner, pekerjaan);
         spJenisPekerjaan.setAdapter(mAdapterPekerjaan);
@@ -113,7 +133,8 @@ public class FormJobEarningFragment extends BaseFragment {
     @OnClick(R.id.buttonNext)
     void onClickNext(){
 
-        checkEarningUser();
+//        checkEarningUser();
+        validator.validate();
 
     }
 
@@ -160,5 +181,27 @@ public class FormJobEarningFragment extends BaseFragment {
         intent.putExtras(bundle);
         startActivity(intent);
 
+    }
+
+    @Override
+    public void onValidationSucceeded() {
+        checkEarningUser();
+    }
+
+    @Override
+    public void onValidationFailed(List<ValidationError> errors) {
+        for (ValidationError error : errors) {
+            View view = error.getView();
+            String message = error.getCollatedErrorMessage(parentActivity());
+
+            // Display error messages ;)
+            if (view instanceof EditText) {
+                ((EditText) view).setError(message);
+            } else if (view instanceof Spinner) {
+                ((TextView) ((Spinner) view).getSelectedView()).setError(message);
+            } else {
+                Toast.makeText(parentActivity(), message, Toast.LENGTH_LONG).show();
+            }
+        }
     }
 }

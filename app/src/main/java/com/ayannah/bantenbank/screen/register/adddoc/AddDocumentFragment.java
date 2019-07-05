@@ -25,8 +25,12 @@ import com.ayannah.bantenbank.dialog.BottomSheetInstructionDialog;
 import com.ayannah.bantenbank.screen.register.formemailphone.FormEmailPhoneActivity;
 import com.ayannah.bantenbank.screen.register.formemailphone.FormEmailPhoneFragment;
 import com.ayannah.bantenbank.screen.register.formothers.FormOtherFragment;
+import com.mobsandgeeks.saripaar.ValidationError;
+import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 
 import java.io.File;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -35,7 +39,7 @@ import butterknife.OnClick;
 import pl.aprilapps.easyphotopicker.DefaultCallback;
 import pl.aprilapps.easyphotopicker.EasyImage;
 
-public class AddDocumentFragment extends BaseFragment {
+public class AddDocumentFragment extends BaseFragment implements Validator.ValidationListener {
 
     @BindView(R.id.imgKTP)
     ImageView imgKtp;
@@ -49,11 +53,14 @@ public class AddDocumentFragment extends BaseFragment {
     @BindView(R.id.editNPWP)
     ImageView editNpwp;
 
+    @NotEmpty(message = "Masukan nomor KTP")
     @BindView(R.id.etKTP)
     EditText etKTP;
 
     @BindView(R.id.etNPWP)
     EditText etNPWP;
+
+    private Validator validator;
 
     File fileKtp, fileNpwp;
     private static final int KTP = 9;
@@ -85,6 +92,8 @@ public class AddDocumentFragment extends BaseFragment {
 
     @Override
     protected void initView(Bundle state) {
+        validator = new Validator(this);
+        validator.setValidationListener(this);
 
         ///show dialog instruction
         bottomDialog = new BottomSheetInstructionDialog().show(getActivity().getSupportFragmentManager(),
@@ -152,15 +161,8 @@ public class AddDocumentFragment extends BaseFragment {
 //        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
 //        ft.commit();
 
-        Bundle bundle = parentActivity().getIntent().getExtras();
-        assert bundle != null;
-        bundle.putString(FormOtherFragment.KTP_NO, etKTP.getText().toString());
-        bundle.putString(FormOtherFragment.NPWP_NO, etNPWP.getText().toString());
+        validator.validate();
 
-        Intent formemail = new Intent(parentActivity(), FormEmailPhoneActivity.class);
-        formemail.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        formemail.putExtras(bundle);
-        startActivity(formemail);
     }
 
     private void showDialogPicker(int type){
@@ -240,5 +242,33 @@ public class AddDocumentFragment extends BaseFragment {
 
             }
         });
+    }
+
+    @Override
+    public void onValidationSucceeded() {
+        Bundle bundle = parentActivity().getIntent().getExtras();
+        assert bundle != null;
+        bundle.putString(FormOtherFragment.KTP_NO, etKTP.getText().toString());
+        bundle.putString(FormOtherFragment.NPWP_NO, etNPWP.getText().toString());
+
+        Intent formemail = new Intent(parentActivity(), FormEmailPhoneActivity.class);
+        formemail.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        formemail.putExtras(bundle);
+        startActivity(formemail);
+    }
+
+    @Override
+    public void onValidationFailed(List<ValidationError> errors) {
+        for (ValidationError error : errors) {
+            View view = error.getView();
+            String message = error.getCollatedErrorMessage(parentActivity());
+
+            // Display error messages ;)
+            if (view instanceof EditText) {
+                ((EditText) view).setError(message);
+            } else {
+                Toast.makeText(parentActivity(), message, Toast.LENGTH_LONG).show();
+            }
+        }
     }
 }

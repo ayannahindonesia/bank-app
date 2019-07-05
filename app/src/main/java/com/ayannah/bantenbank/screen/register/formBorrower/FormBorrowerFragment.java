@@ -29,6 +29,11 @@ import com.ayannah.bantenbank.screen.register.formjobearning.FormJobEarningFragm
 import com.ayannah.bantenbank.screen.register.formothers.FormOtherFragment;
 import com.github.florent37.singledateandtimepicker.SingleDateAndTimePicker;
 import com.github.florent37.singledateandtimepicker.dialog.SingleDateAndTimePickerDialog;
+import com.mobsandgeeks.saripaar.ValidationError;
+import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.annotation.AssertTrue;
+import com.mobsandgeeks.saripaar.annotation.NotEmpty;
+import com.mobsandgeeks.saripaar.annotation.Select;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -42,19 +47,21 @@ import butterknife.BindView;
 import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 
-public class FormBorrowerFragment extends BaseFragment implements FormBorrowerContract.View{
+public class FormBorrowerFragment extends BaseFragment implements FormBorrowerContract.View, Validator.ValidationListener {
 
     private String gender = "";
 
     @Inject
     FormBorrowerContract.Presenter mPresenter;
 
+    @NotEmpty(message = "Masukan Nama Anda")
     @BindView(R.id.regist_name)
     EditText etNameBorrower;
 
     @BindView(R.id.rgJenisKelamin)
     RadioGroup rgJenisKelamin;
 
+    @NotEmpty(message = "Masukan Nomor KTP")
     @BindView(R.id.regist_ktp)
     EditText etKTP;
 
@@ -64,27 +71,33 @@ public class FormBorrowerFragment extends BaseFragment implements FormBorrowerCo
     @BindView(R.id.regist_dateBirthSpouse)
     TextView regist_dateBirthSpouse;
 
+    @NotEmpty(message = "Masukan Tempat Lahir Anda")
     @BindView(R.id.regist_tempatLahir)
     EditText etTempatLahir;
 
+    @NotEmpty(message = "Masukan Nama Ibu")
     @BindView(R.id.regist_namaIbu)
     EditText etNamaIbu;
 
     @BindView(R.id.regist_spouseName)
     EditText etNamaPasangan;
 
+    @NotEmpty(message = "Masukan Alamat Anda")
     @BindView(R.id.regist_alamatDomisili)
     EditText etAlamatDomisili;
 
+    @NotEmpty(message = "Masukan RT")
     @BindView(R.id.regist_rt)
     EditText etRt;
 
+    @NotEmpty(message = "Masukan RW")
     @BindView(R.id.regist_rw)
     EditText etRw;
 
     @BindView(R.id.regist_phoneBorrower)
     EditText etTelpRumah;
 
+    @NotEmpty(message = "Masukan Lama Menempati Rumah")
     @BindView(R.id.regist_lamaMenempatiRumah)
     EditText etLamaMenempatiRumah;
 
@@ -97,6 +110,7 @@ public class FormBorrowerFragment extends BaseFragment implements FormBorrowerCo
     @BindView(R.id.spPerkawinan)
     Spinner spPerkawinan;
 
+    @Select
     @BindView(R.id.spProvinsi)
     Spinner spProvinsi;
 
@@ -106,12 +120,14 @@ public class FormBorrowerFragment extends BaseFragment implements FormBorrowerCo
     @BindView(R.id.tvKota)
     TextView tvKota;
 
+    @Select
     @BindView(R.id.spKota)
     Spinner spKota;
 
     @BindView(R.id.tvKecamatan)
     TextView tvKecamatan;
 
+    @Select
     @BindView(R.id.spKecamatan)
     Spinner spKecamatan;
 
@@ -121,11 +137,14 @@ public class FormBorrowerFragment extends BaseFragment implements FormBorrowerCo
     @BindView(R.id.lyRayon)
     LinearLayout lyRayon;
 
+    @Select
     @BindView(R.id.spKelurahan)
     Spinner spKelurahan;
 
     @BindView(R.id.spStatusHome)
     Spinner spStatusHome;
+
+    private Validator validator;
 
     private FormJobEarningFragment fragment = new FormJobEarningFragment();
 
@@ -169,6 +188,9 @@ public class FormBorrowerFragment extends BaseFragment implements FormBorrowerCo
     protected void initView(Bundle state) {
         sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
 
+        validator = new Validator(this);
+        validator.setValidationListener(this);
+
         ArrayAdapter<String> mAdapter = new ArrayAdapter<>(getContext(), R.layout.item_custom_spinner, educationRepo);
         spCollageLevel.setAdapter(mAdapter);
         spPendidikan.setAdapter(mAdapter);
@@ -188,60 +210,7 @@ public class FormBorrowerFragment extends BaseFragment implements FormBorrowerCo
     @OnClick(R.id.buttonNext)
     void onClickNext(){
 
-        Bundle bundle = parentActivity().getIntent().getExtras();
-        assert bundle != null;
-        bundle.putString(FormOtherFragment.REGIST_NAME, etNameBorrower.getText().toString());
-        bundle.putString(FormOtherFragment.GENDER, gender);
-        bundle.putString(FormOtherFragment.REGIST_BIRTHDATE, tvDateBirthBorrower.getText().toString());
-        bundle.putString(FormOtherFragment.REGIST_BIRTHPLACE, etTempatLahir.getText().toString());
-        bundle.putString(FormOtherFragment.REGIST_EDUCATION, spCollageLevel.getSelectedItem().toString());
-        bundle.putString(FormOtherFragment.MOTHER_NAME, etNamaIbu.getText().toString());
-        bundle.putString(FormOtherFragment.MARITAL_STATUS, spPerkawinan.getSelectedItem().toString());
-        bundle.putString(FormOtherFragment.SPOUSE_NAME, etNamaPasangan.getText().toString());
-        bundle.putString(FormOtherFragment.SPOUSE_BIRTHDATE, regist_dateBirthSpouse.getText().toString());
-        bundle.putString(FormOtherFragment.SPOUSE_EDUCATION, spPendidikan.getSelectedItem().toString());
-        bundle.putString(FormOtherFragment.DEPENDANTS, spTanggungan.getSelectedItem().toString());
-        bundle.putString(FormOtherFragment.ADDRESS, etAlamatDomisili.getText().toString());
-        bundle.putString(FormOtherFragment.PROVINCE, spProvinsi.getSelectedItem().toString());
-        bundle.putString(FormOtherFragment.CITY, spKota.getSelectedItem().toString());
-        bundle.putString(FormOtherFragment.SUB_DISTRICT, spKecamatan.getSelectedItem().toString());
-        bundle.putString(FormOtherFragment.DISTRICT, spKelurahan.getSelectedItem().toString());
-        bundle.putString(FormOtherFragment.REGIST_RT, etRt.getText().toString());
-        bundle.putString(FormOtherFragment.REGIST_RW, etRw.getText().toString());
-        bundle.putString(FormOtherFragment.REGIST_PHONE, etTelpRumah.getText().toString());
-        bundle.putString(FormOtherFragment.HOME_STAY_YEAR, etLamaMenempatiRumah.getText().toString());
-        bundle.putString(FormOtherFragment.HOME_STATUS, spStatusHome.getSelectedItem().toString());
-
-//        UserRegister user = new UserRegister();
-
-//        user.setEmployerName(etNameBorrower.getText().toString().trim());
-//        user.setGender(etNameBorrower.getText().toString().trim());
-//        user.setIdcardNumber(etNameBorrower.getText().toString().trim());
-//        user.setBirthday(etNameBorrower.getText().toString().trim());
-//        user.setLastEducation(etNameBorrower.getText().toString().trim());
-//
-//        user.setMotherName(etNameBorrower.getText().toString().trim());
-//        user.setMarriageStatus(etNameBorrower.getText().toString().trim());
-//        user.setSpouseName(etNameBorrower.getText().toString().trim());
-//        user.setSpouseBirthday(etNameBorrower.getText().toString().trim());
-//        user.setSpouseLasteducation(etNameBorrower.getText().toString().trim());
-//        user.setDependants(etNameBorrower.getText().toString().trim()); //
-//
-//        user.setEmployerAddress(etNameBorrower.getText().toString().trim());
-//        user.setProvince(etNameBorrower.getText().toString().trim());
-//        user.setCity(etNameBorrower.getText().toString().trim());
-//        user.setSubdistrict(etNameBorrower.getText().toString().trim()); //kecamatan
-//        user.setUrbanVillage(etNameBorrower.getText().toString().trim()); //kelurahan
-//        user.setNeighbourAssociation(etNameBorrower.getText().toString().trim()); //rt
-//        user.setHamlets(etNameBorrower.getText().toString().trim()); //rw
-//        user.setHomePhonenumber(etNameBorrower.getText().toString().trim());
-//        user.setLivedFor(etNameBorrower.getText().toString().trim());
-//        user.setHomeOwnership(etNameBorrower.getText().toString().trim());
-
-        Intent formjob = new Intent(parentActivity(), FormJobEarningActivity.class);
-        formjob.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        formjob.putExtras(bundle);
-        startActivity(formjob);
+        validator.validate();
 
     }
 
@@ -467,6 +436,55 @@ public class FormBorrowerFragment extends BaseFragment implements FormBorrowerCo
                     gender = "F";
                 }
                 break;
+        }
+    }
+
+    @Override
+    public void onValidationSucceeded() {
+        Bundle bundle = parentActivity().getIntent().getExtras();
+        assert bundle != null;
+        bundle.putString(FormOtherFragment.REGIST_NAME, etNameBorrower.getText().toString());
+        bundle.putString(FormOtherFragment.GENDER, gender);
+        bundle.putString(FormOtherFragment.REGIST_BIRTHDATE, tvDateBirthBorrower.getText().toString());
+        bundle.putString(FormOtherFragment.REGIST_BIRTHPLACE, etTempatLahir.getText().toString());
+        bundle.putString(FormOtherFragment.REGIST_EDUCATION, spCollageLevel.getSelectedItem().toString());
+        bundle.putString(FormOtherFragment.MOTHER_NAME, etNamaIbu.getText().toString());
+        bundle.putString(FormOtherFragment.MARITAL_STATUS, spPerkawinan.getSelectedItem().toString());
+        bundle.putString(FormOtherFragment.SPOUSE_NAME, etNamaPasangan.getText().toString());
+        bundle.putString(FormOtherFragment.SPOUSE_BIRTHDATE, regist_dateBirthSpouse.getText().toString());
+        bundle.putString(FormOtherFragment.SPOUSE_EDUCATION, spPendidikan.getSelectedItem().toString());
+        bundle.putString(FormOtherFragment.DEPENDANTS, spTanggungan.getSelectedItem().toString());
+        bundle.putString(FormOtherFragment.ADDRESS, etAlamatDomisili.getText().toString());
+        bundle.putString(FormOtherFragment.PROVINCE, spProvinsi.getSelectedItem().toString());
+        bundle.putString(FormOtherFragment.CITY, spKota.getSelectedItem().toString());
+        bundle.putString(FormOtherFragment.SUB_DISTRICT, spKecamatan.getSelectedItem().toString());
+        bundle.putString(FormOtherFragment.DISTRICT, spKelurahan.getSelectedItem().toString());
+        bundle.putString(FormOtherFragment.REGIST_RT, etRt.getText().toString());
+        bundle.putString(FormOtherFragment.REGIST_RW, etRw.getText().toString());
+        bundle.putString(FormOtherFragment.REGIST_PHONE, etTelpRumah.getText().toString());
+        bundle.putString(FormOtherFragment.HOME_STAY_YEAR, etLamaMenempatiRumah.getText().toString());
+        bundle.putString(FormOtherFragment.HOME_STATUS, spStatusHome.getSelectedItem().toString());
+
+        Intent formjob = new Intent(parentActivity(), FormJobEarningActivity.class);
+        formjob.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        formjob.putExtras(bundle);
+        startActivity(formjob);
+    }
+
+    @Override
+    public void onValidationFailed(List<ValidationError> errors) {
+        for (ValidationError error : errors) {
+            View view = error.getView();
+            String message = error.getCollatedErrorMessage(parentActivity());
+
+            // Display error messages ;)
+            if (view instanceof EditText) {
+                ((EditText) view).setError(message);
+            } else if (view instanceof Spinner) {
+                ((TextView) ((Spinner) view).getSelectedView()).setError(message);
+            } else {
+                Toast.makeText(parentActivity(), message, Toast.LENGTH_LONG).show();
+            }
         }
     }
 }
