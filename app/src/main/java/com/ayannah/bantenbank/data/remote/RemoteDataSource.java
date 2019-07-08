@@ -13,7 +13,9 @@ import com.ayannah.bantenbank.data.local.PreferenceRepository;
 import com.ayannah.bantenbank.data.model.Kabupaten;
 import com.ayannah.bantenbank.data.model.Kecamatan;
 import com.ayannah.bantenbank.data.model.Kelurahan;
+import com.ayannah.bantenbank.data.model.Loans.DataItem;
 import com.ayannah.bantenbank.data.model.Loans.Loans;
+import com.ayannah.bantenbank.data.model.OTPLoanResponse;
 import com.ayannah.bantenbank.data.model.Provinsi;
 import com.ayannah.bantenbank.data.model.Token;
 import com.ayannah.bantenbank.data.model.UserProfile;
@@ -178,5 +180,33 @@ public class RemoteDataSource implements RemoteRepository {
                 .getObjectSingle(Response.class);
     }
 
+    @Override
+    public Single<DataItem> postLoan(JsonObject json) {
+        return Rx2AndroidNetworking.post(BuildConfig.API_URL + "borrower/loan")
+                .addHeaders("Authoeization", preferenceRepository.getUserToken())
+                .addApplicationJsonBody(json)
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getObjectSingle(DataItem.class);
+    }
 
+    @Override
+    public Single<OTPLoanResponse> getOTPForLoan(String idLoan) {
+        return Rx2AndroidNetworking.get(BuildConfig.API_URL + "borrower/loan/{loan_id}/otp")
+                .addHeaders("Authorization", preferenceRepository.getUserToken())
+                .addPathParameter("loan_id", idLoan)
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getObjectSingle(OTPLoanResponse.class);
+    }
+
+    @Override
+    public Single<OTPLoanResponse> verifiedLoanByOTP(String idLoan, JsonObject json) {
+        return Rx2AndroidNetworking.post(BuildConfig.API_URL + "borrower/loan/{idloan}/verify")
+                .addHeaders("Authorization", preferenceRepository.getUserToken())
+                .addApplicationJsonBody(json)
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getObjectSingle(OTPLoanResponse.class);
+    }
 }

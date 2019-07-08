@@ -103,6 +103,14 @@ public class InfoPribadiActivity extends DaggerAppCompatActivity implements Info
     private String[] statusTempatTinggal = {"Milik sendiri", "Milik Keluarga", "Dinas", "Sewa"};
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        mPresenter.takeView(this);
+
+        mPresenter.getInfoPribadiUser();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info_pribadi);

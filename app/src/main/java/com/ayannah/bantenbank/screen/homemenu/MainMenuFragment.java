@@ -111,6 +111,7 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
 
         mPresenter.getMainMenu();
 
+
     }
 
     @Override

@@ -164,10 +164,10 @@ public class LoginPresenter implements LoginContract.Presenter {
             preferenceRepository.setUserLogged(true);
             preferenceRepository.setUserSetup(true);
 
-            Log.d(TAG, "useremail: "+response.getEmail());
-            Log.d(TAG, "name: "+response.getEmployerName());
-            Log.d(TAG, "employernum: "+response.getEmployerNumber());
-            Log.d(TAG, "idcard: "+response.getIdcardNumber());
+//            Log.d(TAG, "useremail: "+response.getEmail());
+//            Log.d(TAG, "name: "+response.getEmployerName());
+//            Log.d(TAG, "employernum: "+response.getEmployerNumber());
+//            Log.d(TAG, "idcard: "+response.getIdcardNumber());
 
             mView.loginComplete();
 

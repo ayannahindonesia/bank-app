@@ -2,6 +2,7 @@ package com.ayannah.bantenbank.screen.loan;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
@@ -68,9 +69,11 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
 
     int[] loanRepo = {5000000, 10000000, 15000000, 20000000, 25000000, 30000000, 35000000, 40000000, 45000000, 50000000};
     double loanAmount = 0;
+
     int installmentTenor = 0;
     double angsurnaPerbulan = 0;
-    double saldoPinjaman = 0;
+
+//    double saldoPinjaman = 0;
     String[] alasan = {"Pendidikan", "Pembelian rumah", "Rumah tangga", "Liburan", "Kendaraan", "Umroh", "Lain-lain"};
 
     @Inject
@@ -117,11 +120,15 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 
+                //jumlah pinjaman default 5 jt
                 loanAmount = Double.parseDouble(String.valueOf(loanRepo[progress]));
 
+                //convert jumlah pinjaman ke format currency menggunakan rupiah
                 amountLoan.setText( CommonUtils.setRupiahCurrency(loanRepo[progress]) );
 
-                installmentTenor = (installment.getVerticalScrollbarPosition()) * 6;
+                //tenor peminjaman secara default dari 6 bulan.
+                installmentTenor = (installment.getVerticalScrollbarPosition()+1) * 6;
+
 
                 //calculate biaya admin
                 double administration = (loanAmount * 1.5) / 100;
@@ -133,14 +140,15 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
                 angsurnaPerbulan = (loanAmount / installmentTenor) + bunga;
 
                 //calculate saldo pinjaman
-                saldoPinjaman = loanAmount - (loanAmount / (installmentTenor));
+//                saldoPinjaman = loanAmount - (loanAmount / (installmentTenor));
 
 
                 tvInstallment.setText(String.format("%s bulan", installmentTenor));
                 biayaAdmin.setText(CommonUtils.setRupiahCurrency((int) Math.floor(administration)));
                 tvBunga.setText(CommonUtils.setRupiahCurrency((int) Math.floor(bunga)));
                 tvAngsuran.setText(CommonUtils.setRupiahCurrency((int) Math.floor(angsurnaPerbulan)));
-                saldoPokokPinjaman.setText(CommonUtils.setRupiahCurrency((int) Math.floor(saldoPinjaman)));
+//                saldoPokokPinjaman.setText(CommonUtils.setRupiahCurrency((int) Math.floor(saldoPinjaman)));
+
 
 
             }
@@ -171,14 +179,14 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
                 angsurnaPerbulan = (loanAmount / installmentTenor) + bunga;
 
                 //calculate saldo pinjaman
-                saldoPinjaman = loanAmount - (loanAmount / installmentTenor);
+//                saldoPinjaman = loanAmount - (loanAmount / installmentTenor);
 
 
                 tvInstallment.setText(String.format("%s bulan", installmentTenor));
                 biayaAdmin.setText(CommonUtils.setRupiahCurrency((int) Math.floor(administration)));
                 tvBunga.setText(CommonUtils.setRupiahCurrency((int) Math.floor(bunga)));
                 tvAngsuran.setText(CommonUtils.setRupiahCurrency((int) Math.floor(angsurnaPerbulan)));
-                saldoPokokPinjaman.setText(CommonUtils.setRupiahCurrency((int) Math.floor(saldoPinjaman)));
+//                saldoPokokPinjaman.setText(CommonUtils.setRupiahCurrency((int) Math.floor(saldoPinjaman)));
 
 
             }
@@ -209,20 +217,19 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
         double administration = (loanAmount * 1.5) / 100;
 
         //calculate bunga
-        double bunga = ((loanAmount * 13) / 100) / (installmentTenor * 12);
+        double bunga = ((loanAmount * 13) / 100) / installmentTenor;
 
         //calculate angsuran perbulan
-        angsurnaPerbulan = (loanAmount / (installmentTenor * 12)) + bunga;
+        angsurnaPerbulan = (loanAmount / installmentTenor) + bunga;
 
         //calculate saldo pinjaman
         double primaryBalance = loanAmount - (loanAmount / (installmentTenor*12));
-
 
         tvInstallment.setText(String.format("%s bulan", installmentTenor));
         biayaAdmin.setText(CommonUtils.setRupiahCurrency((int) Math.floor(administration)));
         tvBunga.setText(CommonUtils.setRupiahCurrency((int) Math.floor(bunga)));
         tvAngsuran.setText(CommonUtils.setRupiahCurrency((int) Math.floor(angsurnaPerbulan)));
-        saldoPokokPinjaman.setText(CommonUtils.setRupiahCurrency((int) Math.floor(primaryBalance)));
+//        saldoPokokPinjaman.setText(CommonUtils.setRupiahCurrency((int) Math.floor(primaryBalance)));
 
     }
 
@@ -233,7 +240,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
         intent.putExtra(SummaryTransactionActivity.PINJAMAN, loanAmount);
         intent.putExtra(SummaryTransactionActivity.TENOR, installmentTenor);
         intent.putExtra(SummaryTransactionActivity.ANGSURAN_BULAN, angsurnaPerbulan);
-        intent.putExtra(SummaryTransactionActivity.SALDO_PINJAMAN, saldoPinjaman);
+//        intent.putExtra(SummaryTransactionActivity.SALDO_PINJAMAN, saldoPinjaman);
 
         if(spAlasanPinjam.getSelectedItem().equals("Lain-lain")){
             intent.putExtra(SummaryTransactionActivity.ALASAN, etAlasan.getText().toString());

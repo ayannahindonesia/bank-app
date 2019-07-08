@@ -12,6 +12,12 @@ import com.ayannah.bantenbank.R;
 import com.ayannah.bantenbank.base.BaseFragment;
 import com.ayannah.bantenbank.screen.register.addaccountbank.AddAccountBankActivity;
 import com.ayannah.bantenbank.screen.register.choosebank.ChooseBankActivity;
+import com.mobsandgeeks.saripaar.ValidationError;
+import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.annotation.NotEmpty;
+import com.mobsandgeeks.saripaar.annotation.Password;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -19,19 +25,24 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
 
-public class LoginFragment extends BaseFragment implements LoginContract.View {
+public class LoginFragment extends BaseFragment implements
+        LoginContract.View, Validator.ValidationListener {
 
     @Inject
     LoginContract.Presenter mPresenter;
 
+    @NotEmpty(message = "Mohon masukkan nomor telepon anda")
     @BindView(R.id.etPhone)
     EditText etPhone;
 
+    @NotEmpty( message = "Masukkan password anda")
     @BindView(R.id.etPassword)
     EditText etPassword;
 
     @BindView(R.id.progressLogin)
     LinearLayout progressLogin;
+
+    private Validator validator;
 
     @Inject
     public LoginFragment(){}
@@ -56,6 +67,9 @@ public class LoginFragment extends BaseFragment implements LoginContract.View {
     @Override
     protected void initView(Bundle state) {
 
+        validator = new Validator(this);
+        validator.setValidationListener(this);
+
     }
 
     @OnClick(R.id.btnLogin)
@@ -63,19 +77,9 @@ public class LoginFragment extends BaseFragment implements LoginContract.View {
 
 //        Intent intent = new Intent(parentActivity(), MainMenuActivity.class);
 //        startActivity(intent);
-        String phone = etPhone.getText().toString().trim();
-        String pass = etPassword.getText().toString().trim();
 
-        if(phone.isEmpty() || pass.isEmpty()){
+        validator.validate();
 
-            Toast.makeText(parentActivity(), "Nomor ponsel/Password belum diisi", Toast.LENGTH_SHORT).show();
-
-        }else {
-
-            progressLogin.setVisibility(View.VISIBLE);
-            mPresenter.getPublicToken(phone, pass);
-
-        }
     }
 
     @OnClick(R.id.btnRegister)
@@ -111,6 +115,42 @@ public class LoginFragment extends BaseFragment implements LoginContract.View {
         progressLogin.setVisibility(View.GONE);
 
         parentActivity().finish();
+
+    }
+
+    @Override
+    public void onValidationSucceeded() {
+
+        String phone = etPhone.getText().toString().trim();
+        String pass = etPassword.getText().toString().trim();
+
+        if(phone.isEmpty() || pass.isEmpty()){
+
+            Toast.makeText(parentActivity(), "Nomor ponsel/Password belum diisi", Toast.LENGTH_SHORT).show();
+
+        }else {
+
+            progressLogin.setVisibility(View.VISIBLE);
+            mPresenter.getPublicToken(phone, pass);
+
+        }
+
+    }
+
+    @Override
+    public void onValidationFailed(List<ValidationError> errors) {
+
+        for (ValidationError error : errors) {
+            View view = error.getView();
+            String message = error.getCollatedErrorMessage(parentActivity());
+
+            // Display error messages ;)
+            if (view instanceof EditText) {
+                ((EditText) view).setError(message);
+            } else {
+                Toast.makeText(parentActivity(), message, Toast.LENGTH_LONG).show();
+            }
+        }
 
     }
 }

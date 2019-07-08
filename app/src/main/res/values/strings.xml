@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">prototypeApp</string>
+    <string name="app_name">Asira</string>
     <string name="title_activity_register">RegisterActivity</string>
     <string name="title_activity_main_menu">MainMenuActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
