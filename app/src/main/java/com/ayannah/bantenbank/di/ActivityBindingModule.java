@@ -1,5 +1,7 @@
 package com.ayannah.bantenbank.di;
 
+import com.ayannah.bantenbank.screen.detailloan.DetailTransaksiActivity;
+import com.ayannah.bantenbank.screen.detailloan.DetailTransaksiModule;
 import com.ayannah.bantenbank.screen.earninginfo.EarningActivity;
 import com.ayannah.bantenbank.screen.earninginfo.EarningModule;
 import com.ayannah.bantenbank.screen.historyloan.HistoryLoanActivity;
@@ -120,6 +122,10 @@ abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = SuccessModule.class)
     abstract SuccessActivity successActivity();
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = DetailTransaksiModule.class)
+    abstract DetailTransaksiActivity detailTransaksiActivity();
 
 
 }

@@ -48,7 +48,7 @@
 
                 <TextView
                     android:id="@+id/noPeminjaman"
-                    android:text="18000928322"
+                    tools:text="18000928322"
                     android:textAlignment="textEnd"
                     android:textStyle="bold"
                     android:textSize="@dimen/fontNormal"
@@ -71,7 +71,7 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:text="Jenis Peminjaman"
+                    android:text="Pengajuan pada tanggal"
                     android:textSize="@dimen/fontNormal"
                     android:textColor="@android:color/black"
                     android:layout_weight="1"
@@ -79,8 +79,40 @@
                     android:layout_height="wrap_content" />
 
                 <TextView
-                    android:id="@+id/jenisPeminjaman"
-                    android:text="Multiguna"
+                    android:id="@+id/dateCreated"
+                    tools:text="21 Maret 2019"
+                    android:textAlignment="textEnd"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/fontNormal"
+                    android:textColor="@android:color/black"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+            <View
+                android:background="@color/darkgreybackground"
+                android:layout_width="match_parent"
+                android:layout_height="0.3dp"/>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:padding="@dimen/dp12"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="Status"
+                    android:textSize="@dimen/fontNormal"
+                    android:textColor="@android:color/black"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/status"
+                    tools:text="Multiguna"
                     android:textAlignment="textEnd"
                     android:textStyle="bold"
                     android:textSize="@dimen/fontNormal"
@@ -112,7 +144,38 @@
 
                 <TextView
                     android:id="@+id/tujuan"
-                    android:text="Pay-off credit card bill"
+                    tools:text="Pay-off credit card bill"
+                    android:textAlignment="textEnd"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/fontNormal"
+                    android:textColor="@android:color/black"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+            <View
+                android:background="@color/darkgreybackground"
+                android:layout_width="match_parent"
+                android:layout_height="0.3dp"/>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:padding="@dimen/dp12"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="Detail tujuan"
+                    android:textSize="@dimen/fontNormal"
+                    android:textColor="@android:color/black"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/detailTujuan"
+                    tools:text="Pay-off credit card bill"
                     android:textAlignment="textEnd"
                     android:textStyle="bold"
                     android:textSize="@dimen/fontNormal"
@@ -143,7 +206,71 @@
                     android:layout_height="wrap_content" />
 
                 <TextView
-                    android:text="Rp5.000.000"
+                    android:id="@+id/jumlahPinjaman"
+                    tools:text="Rp5.000.000"
+                    android:textAlignment="textEnd"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/fontNormal"
+                    android:textColor="@android:color/black"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+            <View
+                android:background="@color/darkgreybackground"
+                android:layout_width="match_parent"
+                android:layout_height="0.3dp"/>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:padding="@dimen/dp12"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="Interest"
+                    android:textSize="@dimen/fontNormal"
+                    android:textColor="@android:color/black"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/interest"
+                    tools:text="Rp75.000"
+                    android:textAlignment="textEnd"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/fontNormal"
+                    android:textColor="@android:color/black"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+            <View
+                android:background="@color/darkgreybackground"
+                android:layout_width="match_parent"
+                android:layout_height="0.3dp"/>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:padding="@dimen/dp12"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="Fees amount"
+                    android:textSize="@dimen/fontNormal"
+                    android:textColor="@android:color/black"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/fees"
+                    tools:text="Rp1.000"
                     android:textAlignment="textEnd"
                     android:textStyle="bold"
                     android:textSize="@dimen/fontNormal"
@@ -174,7 +301,8 @@
                     android:layout_height="wrap_content" />
 
                 <TextView
-                    android:text="Rp 478.333"
+                    android:id="@+id/totalBiaya"
+                    tools:text="Rp 478.333"
                     android:textAlignment="textEnd"
                     android:textStyle="bold"
                     android:textSize="@dimen/fontNormal"
@@ -188,232 +316,6 @@
                 android:background="@color/darkgreybackground"
                 android:layout_width="match_parent"
                 android:layout_height="0.3dp"/>
-
-            <!--<LinearLayout-->
-                <!--android:orientation="horizontal"-->
-                <!--android:weightSum="2"-->
-                <!--android:padding="@dimen/dp12"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content">-->
-
-                <!--<TextView-->
-                    <!--android:text="Nomor aplikasi peminjaman"-->
-                    <!--android:textSize="@dimen/fontNormal"-->
-                    <!--android:textColor="@android:color/black"-->
-                    <!--android:layout_weight="1"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content" />-->
-
-                <!--<TextView-->
-                    <!--android:id="@+id/noPeminjaman"-->
-                    <!--android:text="18000928322"-->
-                    <!--android:textAlignment="textEnd"-->
-                    <!--android:textStyle="bold"-->
-                    <!--android:textSize="@dimen/fontNormal"-->
-                    <!--android:textColor="@android:color/black"-->
-                    <!--android:layout_weight="1"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content" />-->
-
-            <!--</LinearLayout>-->
-            <!--<View-->
-                <!--android:background="@color/darkgreybackground"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="0.3dp"/>-->
-
-            <!--<LinearLayout-->
-                <!--android:orientation="horizontal"-->
-                <!--android:weightSum="2"-->
-                <!--android:padding="@dimen/dp12"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content">-->
-
-                <!--<TextView-->
-                    <!--android:text="Nomor aplikasi peminjaman"-->
-                    <!--android:textSize="@dimen/fontNormal"-->
-                    <!--android:textColor="@android:color/black"-->
-                    <!--android:layout_weight="1"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content" />-->
-
-                <!--<TextView-->
-                    <!--android:id="@+id/noPeminjaman"-->
-                    <!--android:text="18000928322"-->
-                    <!--android:textAlignment="textEnd"-->
-                    <!--android:textStyle="bold"-->
-                    <!--android:textSize="@dimen/fontNormal"-->
-                    <!--android:textColor="@android:color/black"-->
-                    <!--android:layout_weight="1"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content" />-->
-
-            <!--</LinearLayout>-->
-            <!--<View-->
-                <!--android:background="@color/darkgreybackground"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="0.3dp"/>-->
-
-            <!--<LinearLayout-->
-                <!--android:orientation="horizontal"-->
-                <!--android:weightSum="2"-->
-                <!--android:padding="@dimen/dp12"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content">-->
-
-                <!--<TextView-->
-                    <!--android:text="Nomor aplikasi peminjaman"-->
-                    <!--android:textSize="@dimen/fontNormal"-->
-                    <!--android:textColor="@android:color/black"-->
-                    <!--android:layout_weight="1"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content" />-->
-
-                <!--<TextView-->
-                    <!--android:id="@+id/noPeminjaman"-->
-                    <!--android:text="18000928322"-->
-                    <!--android:textAlignment="textEnd"-->
-                    <!--android:textStyle="bold"-->
-                    <!--android:textSize="@dimen/fontNormal"-->
-                    <!--android:textColor="@android:color/black"-->
-                    <!--android:layout_weight="1"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content" />-->
-
-            <!--</LinearLayout>-->
-            <!--<View-->
-                <!--android:background="@color/darkgreybackground"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="0.3dp"/>-->
-
-            <!--<LinearLayout-->
-                <!--android:orientation="horizontal"-->
-                <!--android:weightSum="2"-->
-                <!--android:padding="@dimen/dp12"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content">-->
-
-                <!--<TextView-->
-                    <!--android:text="Nomor aplikasi peminjaman"-->
-                    <!--android:textSize="@dimen/fontNormal"-->
-                    <!--android:textColor="@android:color/black"-->
-                    <!--android:layout_weight="1"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content" />-->
-
-                <!--<TextView-->
-                    <!--android:id="@+id/noPeminjaman"-->
-                    <!--android:text="18000928322"-->
-                    <!--android:textAlignment="textEnd"-->
-                    <!--android:textStyle="bold"-->
-                    <!--android:textSize="@dimen/fontNormal"-->
-                    <!--android:textColor="@android:color/black"-->
-                    <!--android:layout_weight="1"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content" />-->
-
-            <!--</LinearLayout>-->
-            <!--<View-->
-                <!--android:background="@color/darkgreybackground"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="0.3dp"/>-->
-
-            <!--<LinearLayout-->
-                <!--android:orientation="horizontal"-->
-                <!--android:weightSum="2"-->
-                <!--android:padding="@dimen/dp12"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content">-->
-
-                <!--<TextView-->
-                    <!--android:text="Nomor aplikasi peminjaman"-->
-                    <!--android:textSize="@dimen/fontNormal"-->
-                    <!--android:textColor="@android:color/black"-->
-                    <!--android:layout_weight="1"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content" />-->
-
-                <!--<TextView-->
-                    <!--android:id="@+id/noPeminjaman"-->
-                    <!--android:text="18000928322"-->
-                    <!--android:textAlignment="textEnd"-->
-                    <!--android:textStyle="bold"-->
-                    <!--android:textSize="@dimen/fontNormal"-->
-                    <!--android:textColor="@android:color/black"-->
-                    <!--android:layout_weight="1"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content" />-->
-
-            <!--</LinearLayout>-->
-            <!--<View-->
-                <!--android:background="@color/darkgreybackground"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="0.3dp"/>-->
-
-            <!--<LinearLayout-->
-                <!--android:orientation="horizontal"-->
-                <!--android:weightSum="2"-->
-                <!--android:padding="@dimen/dp12"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content">-->
-
-                <!--<TextView-->
-                    <!--android:text="Nomor aplikasi peminjaman"-->
-                    <!--android:textSize="@dimen/fontNormal"-->
-                    <!--android:textColor="@android:color/black"-->
-                    <!--android:layout_weight="1"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content" />-->
-
-                <!--<TextView-->
-                    <!--android:id="@+id/noPeminjaman"-->
-                    <!--android:text="18000928322"-->
-                    <!--android:textAlignment="textEnd"-->
-                    <!--android:textStyle="bold"-->
-                    <!--android:textSize="@dimen/fontNormal"-->
-                    <!--android:textColor="@android:color/black"-->
-                    <!--android:layout_weight="1"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content" />-->
-
-            <!--</LinearLayout>-->
-            <!--<View-->
-                <!--android:background="@color/darkgreybackground"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="0.3dp"/>-->
-
-            <!--<LinearLayout-->
-                <!--android:orientation="horizontal"-->
-                <!--android:weightSum="2"-->
-                <!--android:padding="@dimen/dp12"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content">-->
-
-                <!--<TextView-->
-                    <!--android:text="Nomor aplikasi peminjaman"-->
-                    <!--android:textSize="@dimen/fontNormal"-->
-                    <!--android:textColor="@android:color/black"-->
-                    <!--android:layout_weight="1"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content" />-->
-
-                <!--<TextView-->
-                    <!--android:id="@+id/noPeminjaman"-->
-                    <!--android:text="18000928322"-->
-                    <!--android:textAlignment="textEnd"-->
-                    <!--android:textStyle="bold"-->
-                    <!--android:textSize="@dimen/fontNormal"-->
-                    <!--android:textColor="@android:color/black"-->
-                    <!--android:layout_weight="1"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content" />-->
-
-            <!--</LinearLayout>-->
-            <!--<View-->
-                <!--android:background="@color/darkgreybackground"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="0.3dp"/>-->
-
-
 
         </LinearLayout>
 

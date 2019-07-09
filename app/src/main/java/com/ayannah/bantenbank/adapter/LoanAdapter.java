@@ -107,7 +107,7 @@ public class LoanAdapter extends RecyclerView.Adapter<LoanAdapter.LoadViewHolder
             }
             status.setText(param.getStatus());
 
-            amount.setText(CommonUtils.setRupiahCurrency(param.getTotalLoan()));
+            amount.setText(CommonUtils.setRupiahCurrency(param.getLoanAmount()));
 
             itemView.setOnClickListener(view -> listener.onClickItem(param));
         }

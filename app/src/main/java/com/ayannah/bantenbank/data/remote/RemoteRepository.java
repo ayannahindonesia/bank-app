@@ -36,12 +36,14 @@ public interface RemoteRepository {
 
     Single<Response> postVerifyOTP(JsonObject jsonObject);
 
-    Single<Loans> getAllLoans();
+    Single<Loans> getAllLoans(String sortByStatus);
 
     Single<DataItem> postLoan(JsonObject json);
 
     void getOTPForLoan(String idLoan);
 
     void verifiedLoanByOTP(String idLoan, JsonObject json);
+
+    Single<DataItem> getLoanDetails(String idLoan);
 
 }

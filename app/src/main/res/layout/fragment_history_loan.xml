@@ -10,6 +10,7 @@
     <LinearLayout
         android:id="@+id/progressLoading"
         android:orientation="vertical"
+        android:visibility="visible"
         android:layout_centerInParent="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -73,6 +74,20 @@
         android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/sortBuStatus"
+        android:text="Filter"
+        android:padding="12dp"
+        android:background="?attr/selectableItemBackground"
+        android:drawablePadding="10dp"
+        android:drawableStart="@drawable/ic_filter"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/fontNormal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 
 </RelativeLayout>

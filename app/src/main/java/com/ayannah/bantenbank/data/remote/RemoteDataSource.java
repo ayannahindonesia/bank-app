@@ -112,13 +112,13 @@ public class RemoteDataSource implements RemoteRepository {
     }
 
     @Override
-    public Single<Loans> getAllLoans() {
+    public Single<Loans> getAllLoans(String sortByStatus) {
         return Rx2AndroidNetworking.get(BuildConfig.API_URL + "borrower/loan")
                 .addHeaders("Authorization", preferenceRepository.getUserToken())
                 .addQueryParameter("rows", "")
                 .addQueryParameter("page", "")
                 .addQueryParameter("sort", "asc")
-                .addQueryParameter("status", "")
+                .addQueryParameter("status", sortByStatus)
                 .setPriority(Priority.MEDIUM)
                 .build()
                 .getObjectSingle(Loans.class);
@@ -193,12 +193,6 @@ public class RemoteDataSource implements RemoteRepository {
 
     @Override
     public void getOTPForLoan(String idLoan) {
-//        return Rx2AndroidNetworking.get(BuildConfig.API_URL + "borrower/loan/{loan_id}/otp")
-//                .addHeaders("Authorization", preferenceRepository.getUserToken())
-//                .addPathParameter("loan_id", idLoan)
-//                .setPriority(Priority.MEDIUM)
-//                .build()
-//                .getObjectSingle(OTPLoanResponse.class);
 
         AndroidNetworking.get(BuildConfig.API_URL + "borrower/loan/{loan_id}/otp")
                 .addHeaders("Authorization", preferenceRepository.getUserToken())
@@ -220,12 +214,6 @@ public class RemoteDataSource implements RemoteRepository {
 
     @Override
     public void verifiedLoanByOTP(String idLoan, JsonObject json) {
-//        return Rx2AndroidNetworking.post(BuildConfig.API_URL + "borrower/loan/{idloan}/verify")
-//                .addHeaders("Authorization", preferenceRepository.getUserToken())
-//                .addApplicationJsonBody(json)
-//                .setPriority(Priority.MEDIUM)
-//                .build()
-//                .getObjectSingle(OTPLoanResponse.class);
 
         AndroidNetworking.post(BuildConfig.API_URL + "borrower/loan/{idloan}/verify")
                 .addHeaders("Authorization", preferenceRepository.getUserToken())
@@ -244,5 +232,15 @@ public class RemoteDataSource implements RemoteRepository {
 
                     }
                 });
+    }
+
+    @Override
+    public Single<DataItem> getLoanDetails(String idLoan) {
+        return Rx2AndroidNetworking.get(BuildConfig.API_URL + "borrower/loan/{idloan}/details")
+                .addHeaders("Authorization", preferenceRepository.getUserToken())
+                .addPathParameter("idloan", idLoan)
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getObjectSingle(DataItem.class);
     }
 }

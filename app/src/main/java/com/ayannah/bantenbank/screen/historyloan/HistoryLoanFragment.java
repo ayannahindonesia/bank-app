@@ -15,6 +15,7 @@ import com.ayannah.bantenbank.R;
 import com.ayannah.bantenbank.adapter.LoanAdapter;
 import com.ayannah.bantenbank.base.BaseFragment;
 import com.ayannah.bantenbank.data.model.Loans.DataItem;
+import com.ayannah.bantenbank.dialog.BottomSortHistoryLoan;
 import com.ayannah.bantenbank.screen.detailloan.DetailTransaksiActivity;
 
 import java.util.List;
@@ -24,7 +25,9 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class HistoryLoanFragment extends BaseFragment implements HistoryLoanContract.View {
+public class HistoryLoanFragment extends BaseFragment implements
+        HistoryLoanContract.View,
+        BottomSortHistoryLoan.SortHistoryLoanListener {
 
     @Inject
     HistoryLoanContract.Presenter mPresenter;
@@ -44,6 +47,8 @@ public class HistoryLoanFragment extends BaseFragment implements HistoryLoanCont
     @Inject
     LoanAdapter mAdapter;
 
+    private BottomSortHistoryLoan bottomSortHistoryLoan;
+
     @Inject
     public HistoryLoanFragment(){
 
@@ -59,7 +64,7 @@ public class HistoryLoanFragment extends BaseFragment implements HistoryLoanCont
         super.onResume();
         mPresenter.takeView(this);
 
-        mPresenter.loadHistoryTransaction();
+        mPresenter.loadHistoryTransaction("");
     }
 
     @Override
@@ -69,6 +74,8 @@ public class HistoryLoanFragment extends BaseFragment implements HistoryLoanCont
         recyclerView.addItemDecoration(new DividerItemDecoration(parentActivity(), DividerItemDecoration.VERTICAL));
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(mAdapter);
+
+        bottomSortHistoryLoan = new BottomSortHistoryLoan();
 
     }
 
@@ -89,7 +96,7 @@ public class HistoryLoanFragment extends BaseFragment implements HistoryLoanCont
 
         tryagain.setVisibility(View.GONE);
 
-        mPresenter.loadHistoryTransaction();
+        mPresenter.loadHistoryTransaction("");
     }
 
     @Override
@@ -114,9 +121,19 @@ public class HistoryLoanFragment extends BaseFragment implements HistoryLoanCont
         mAdapter.setLoanListener(loans -> {
 
             Intent intent = new Intent(parentActivity(), DetailTransaksiActivity.class);
+            intent.putExtra(DetailTransaksiActivity.ID_LOAN, String.valueOf(loans.getId()));
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
 
         });
+
+    }
+
+    @OnClick(R.id.sortBuStatus)
+    void onClickSort(){
+
+        bottomSortHistoryLoan.showNow(parentActivity().getSupportFragmentManager(), "fragment");
+        bottomSortHistoryLoan.setOnClickListener(this);
 
     }
 
@@ -124,5 +141,13 @@ public class HistoryLoanFragment extends BaseFragment implements HistoryLoanCont
     public void onDestroyView() {
         super.onDestroyView();
         mPresenter.dropView();
+    }
+
+    @Override
+    public void onClickStatus(String status) {
+
+        mPresenter.loadHistoryTransaction(status);
+
+        bottomSortHistoryLoan.dismiss();
     }
 }

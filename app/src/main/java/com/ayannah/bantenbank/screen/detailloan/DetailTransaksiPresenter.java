@@ -1,6 +1,4 @@
-package com.ayannah.bantenbank.screen.historyloan;
-
-import android.app.Application;
+package com.ayannah.bantenbank.screen.detailloan;
 
 import androidx.annotation.Nullable;
 
@@ -11,44 +9,42 @@ import com.ayannah.bantenbank.data.remote.RemoteRepository;
 import org.json.JSONObject;
 
 import javax.inject.Inject;
-import javax.net.ssl.HttpsURLConnection;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class HistoryLoanPresenter implements HistoryLoanContract.Presenter {
+public class DetailTransaksiPresenter implements DetailTransaksiContract.Presenter {
 
     @Nullable
-    private HistoryLoanContract.View mView;
+    private DetailTransaksiContract.View mView;
 
-    private Application application;
-    private RemoteRepository remoteRepository;
     private CompositeDisposable mComposite;
+    private RemoteRepository remoteRepository;
 
     @Inject
-    HistoryLoanPresenter(Application application, RemoteRepository remoteRepository){
+    DetailTransaksiPresenter(RemoteRepository remoteRepository){
+
         this.remoteRepository = remoteRepository;
-        this.application = application;
 
         mComposite = new CompositeDisposable();
     }
 
     @Override
-    public void loadHistoryTransaction(String status) {
+    public void getInformationLoan(String idLoan) {
 
-        if(mView == null){
+        if (mView == null){
             return;
         }
 
-        mComposite.add(remoteRepository.getAllLoans(status)
+        mComposite.add(remoteRepository.getLoanDetails(idLoan)
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(response ->{
+        .subscribe(res -> {
 
-            mView.showAllTransaction(response.getData());
+            mView.loadAllInformation(res);
 
-        }, error ->{
+        }, error -> {
 
             ANError anError = (ANError) error;
             if(anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
@@ -61,13 +57,12 @@ public class HistoryLoanPresenter implements HistoryLoanContract.Presenter {
                     mView.showErrorMessage(jsonObject.optString("message"));
                 }
             }
-
         }));
 
     }
 
     @Override
-    public void takeView(HistoryLoanContract.View view) {
+    public void takeView(DetailTransaksiContract.View view) {
 
         mView = view;
     }
@@ -76,5 +71,6 @@ public class HistoryLoanPresenter implements HistoryLoanContract.Presenter {
     public void dropView() {
 
         mView = null;
+
     }
 }
