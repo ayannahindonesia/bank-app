@@ -46,6 +46,7 @@ public class FormOtherPresenter implements FormOtherContract.Presenter{
 
     @Override
     public void postRegisterBorrower(JsonObject jsonObjectRequest) {
+
         Log.d(TAG, preferenceRepository.getPublicToken());
 
         mComposite.add(remotRepo.postBorrowerRegister(jsonObjectRequest)

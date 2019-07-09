@@ -66,7 +66,6 @@ public class AddDocumentFragment extends BaseFragment implements Validator.Valid
     private static final int KTP = 9;
     private static final int NPWP = 10;
 
-    private FormEmailPhoneFragment fragment = new FormEmailPhoneFragment();
     private BottomSheetInstructionDialog bottomDialog;
 
     @Inject
@@ -253,7 +252,11 @@ public class AddDocumentFragment extends BaseFragment implements Validator.Valid
     @Override
     public void onValidationSucceeded() {
         Bundle bundle = parentActivity().getIntent().getExtras();
-        assert bundle != null;
+
+        if(bundle == null){
+            bundle = new Bundle();
+        }
+
         bundle.putString(FormOtherFragment.KTP_NO, etKTP.getText().toString());
         bundle.putString(FormOtherFragment.NPWP_NO, etNPWP.getText().toString());
 

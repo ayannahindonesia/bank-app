@@ -181,9 +181,10 @@ public class FormBorrowerFragment extends BaseFragment implements FormBorrowerCo
 
         mPresenter.getProvince();
 
-        if (!mPresenter.checkLogin()) {
-            mPresenter.getUser();
-        }
+//        if (!mPresenter.checkLogin()) {
+//
+//        }
+        mPresenter.getUser();
 
     }
 
