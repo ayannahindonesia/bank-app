@@ -41,4 +41,5 @@
     <string name="desc_example">Ini adalah contoh berita dan promo terbaru yang dapat ditampilkan kapanpun pada aplikasi untuk membuat pengguna aplikasi semakin tertarik menggunakan.</string>
     <string name="title_activity_history_loan">HistoryLoanActivity</string>
     <string name="title_activity_testing">TestingActivity</string>
+    <string name="birthdate_format">dd-mm-yyyy</string>
 </resources>

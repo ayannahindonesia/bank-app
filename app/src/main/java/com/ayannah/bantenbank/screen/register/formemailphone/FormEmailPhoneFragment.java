@@ -13,6 +13,7 @@ import com.ayannah.bantenbank.screen.register.formothers.FormOtherFragment;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.ConfirmPassword;
+import com.mobsandgeeks.saripaar.annotation.Email;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.mobsandgeeks.saripaar.annotation.Password;
 
@@ -26,6 +27,7 @@ import butterknife.OnClick;
 public class FormEmailPhoneFragment extends BaseFragment implements Validator.ValidationListener {
 
     @NotEmpty(message = "Masukan Alamat Email Anda")
+    @Email(message = "Format Email Salah")
     @BindView(R.id.regist_email)
     EditText email;
 
@@ -33,8 +35,7 @@ public class FormEmailPhoneFragment extends BaseFragment implements Validator.Va
     @BindView(R.id.regist_phone)
     EditText phone;
 
-    @NotEmpty(message = "Masukan Password")
-    @Password(min = 8)
+    @Password(min = 1, message = "Masukan Password")
     @BindView(R.id.regist_pass)
     EditText pass;
 

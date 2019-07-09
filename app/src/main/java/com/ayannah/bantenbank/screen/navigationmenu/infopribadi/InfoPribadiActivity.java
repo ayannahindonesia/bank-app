@@ -70,6 +70,12 @@ public class InfoPribadiActivity extends DaggerAppCompatActivity implements Info
     @BindView(R.id.etHomeNumber)
     EditText etHomeNumber;
 
+    @BindView(R.id.etDateBirth)
+    EditText etDateBirth;
+
+    @BindView(R.id.etBirthPlace)
+    EditText etBirthPlace;
+
     @BindView(R.id.spCollageLevel)
     Spinner spCollageLevel;
 
@@ -97,7 +103,7 @@ public class InfoPribadiActivity extends DaggerAppCompatActivity implements Info
     @BindView(R.id.spStatusHome)
     Spinner spStatusHome;
 
-    private String[] educationRepo = {"S2", "S1", "SMA/SMK", "SMP", "Tidak ada status pendidikan"};
+    private String[] educationRepo = {"S2", "S1", "SMA/SMK", "SMP", "Tidak ada status pendidikan", "a last edu"};
     private String[] statusPerkawinan = {"Belum Menikah", "Menikah", "Duda", "Janda"};
     private String[] tanggungan = {"0", "1", "2", "3", "4", "5", "Lebih dari 5"};
     private String[] statusTempatTinggal = {"Milik sendiri", "Milik Keluarga", "Dinas", "Sewa"};
@@ -332,6 +338,28 @@ public class InfoPribadiActivity extends DaggerAppCompatActivity implements Info
         rw.setText(data.getUserHamlets());
 
         etHomeNumber.setText(data.getUserHomePhoneNumber());
+
+        etDateBirth.setText(data.getUserBirthdate());
+
+        etBirthPlace.setText(data.getUserBirthplace());
+
+        for (int i = 0; i < educationRepo.length; i++) {
+            if (data.getUserLastEducation().toLowerCase().equals(educationRepo[i].toLowerCase())) {
+                spCollageLevel.setSelection(i);
+            }
+        }
+
+        for (int j = 0; j < statusPerkawinan.length; j++) {
+            if (data.getUserMarriageStatus().toLowerCase().equals(statusPerkawinan[j].toLowerCase())) {
+                spPerkawinan.setSelection(j);
+            }
+        }
+
+        for (int k = 0; k < statusTempatTinggal.length; k++) {
+            if (data.getHomeOwnerShip().toLowerCase().equals(statusTempatTinggal[k].toLowerCase())) {
+                spStatusHome.setSelection(k);
+            }
+        }
 
     }
 }

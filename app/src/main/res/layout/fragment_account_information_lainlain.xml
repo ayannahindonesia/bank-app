@@ -107,6 +107,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
                 <EditText
+                    android:id="@+id/etRelatedAddress"
                     android:inputType="textMultiLine"
                     android:lines="2"
                     android:hint="Tulis alamat"

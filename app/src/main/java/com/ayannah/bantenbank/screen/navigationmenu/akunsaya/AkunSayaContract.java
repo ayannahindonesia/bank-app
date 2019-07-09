@@ -2,6 +2,7 @@ package com.ayannah.bantenbank.screen.navigationmenu.akunsaya;
 
 import com.ayannah.bantenbank.base.BasePresenter;
 import com.ayannah.bantenbank.base.BaseView;
+import com.ayannah.bantenbank.data.local.PreferenceRepository;
 
 public interface AkunSayaContract {
 
@@ -9,10 +10,13 @@ public interface AkunSayaContract {
 
         void showErrorMessage(String message);
 
+        void showDataUser(PreferenceRepository preferenceRepository);
+
     }
 
     interface Presenter extends BasePresenter<View>{
 
+        void getDataUser();
 
     }
 }

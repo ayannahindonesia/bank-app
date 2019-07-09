@@ -69,11 +69,10 @@ public class AddAccountBankFragment extends BaseFragment implements AddAccountBa
         dialog.setOnClickBottomSheetInstruction(new BottomSheetInstructionDialog.BottomSheetInstructionListener() {
             @Override
             public void onClickButtonDismiss() {
-                Intent doc = new Intent(parentActivity(), AddDocumentActivity.class);
-                doc.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(doc);
-
                 dialog.dismiss();
+                Intent doc = new Intent(parentActivity(), AddDocumentActivity.class);
+                parentActivity().finish();
+                startActivity(doc);
             }
 
             @Override
