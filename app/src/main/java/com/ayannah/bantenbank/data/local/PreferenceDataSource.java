@@ -266,7 +266,7 @@ public class PreferenceDataSource implements PreferenceRepository {
     @Override
     public void setUserBirthPlace(String place) {
 
-        mPreferences.edit().putString(PREF_USER_BIRTHPLACE, "").apply();
+        mPreferences.edit().putString(PREF_USER_BIRTHPLACE, place).apply();
 
     }
 

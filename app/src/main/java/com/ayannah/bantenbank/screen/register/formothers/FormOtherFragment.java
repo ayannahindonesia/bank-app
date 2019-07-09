@@ -181,7 +181,8 @@ public class FormOtherFragment extends BaseFragment implements FormOtherContract
 
         Intent verification = new Intent(parentActivity(), VerificationOTPActivity.class);
         verification.putExtra("purpose", "regist");
-        verification.putExtra("phone", bundle.getString(PHONE));
+        verification.putExtra(PHONE, bundle.getString(PHONE));
+        verification.putExtra(PASS, bundle.getString(PASS));
         startActivity(verification);
         parentActivity().finish();
     }

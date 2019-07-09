@@ -90,7 +90,6 @@
                 <EditText
                     android:id="@+id/etEmployeeID"
                     android:hint="16000939877399"
-                    android:inputType="number"
                     android:paddingStart="@dimen/dp12"
                     android:paddingEnd="@dimen/dp12"
                     android:imeOptions="actionNext"

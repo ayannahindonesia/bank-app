@@ -11,6 +11,12 @@ public interface VerificationOTPContract {
         void OTPVerified();
 
         void successVerifyLoan();
+
+        void completeCreateUserToken();
+
+        void showErrorMessage(String connection_error);
+
+        void loginComplete();
     }
 
     interface Presenter extends BasePresenter<View> {
@@ -19,5 +25,8 @@ public interface VerificationOTPContract {
 
         void postVerifyLoanByOTP(String idloan, JsonObject json);
 
+        void getPublicToken(String phone, String pass, String isFrom);
+
+        void setUserIdentity();
     }
 }

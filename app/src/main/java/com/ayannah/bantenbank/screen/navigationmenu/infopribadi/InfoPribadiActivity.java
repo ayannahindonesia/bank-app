@@ -108,6 +108,9 @@ public class InfoPribadiActivity extends DaggerAppCompatActivity implements Info
     private String[] tanggungan = {"0", "1", "2", "3", "4", "5", "Lebih dari 5"};
     private String[] statusTempatTinggal = {"Milik sendiri", "Milik Keluarga", "Dinas", "Sewa"};
 
+    private List<String> provinsiRepo;
+    private List<String> kabupatenRepo;
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -166,7 +169,7 @@ public class InfoPribadiActivity extends DaggerAppCompatActivity implements Info
         }
 
 
-        List<String> provinsiRepo = new ArrayList<>();
+        provinsiRepo = new ArrayList<>();
         try {
             JSONObject obj = new JSONObject(jsonProvinsi);
             JSONArray arry = obj.getJSONArray("semuaprovinsi");
@@ -206,14 +209,14 @@ public class InfoPribadiActivity extends DaggerAppCompatActivity implements Info
         }
 
 
-        List<String> provinsiRepo = new ArrayList<>();
+        kabupatenRepo = new ArrayList<>();
         try {
             JSONObject obj = new JSONObject(jsonProvinsi);
             JSONArray arry = obj.getJSONArray("kabupatens");
 
             for(int i = 0; i< arry.length(); i++){
 
-                provinsiRepo.add(arry.getJSONObject(i).getString("nama"));
+                kabupatenRepo.add(arry.getJSONObject(i).getString("nama"));
 
             }
 
@@ -223,7 +226,7 @@ public class InfoPribadiActivity extends DaggerAppCompatActivity implements Info
             e.printStackTrace();
         }
 
-        ArrayAdapter<String> mAdapterKota =  new ArrayAdapter<>(this, R.layout.item_custom_spinner, provinsiRepo);
+        ArrayAdapter<String> mAdapterKota =  new ArrayAdapter<>(this, R.layout.item_custom_spinner, kabupatenRepo);
         spKota.setAdapter(mAdapterKota);
 
     }
@@ -358,6 +361,13 @@ public class InfoPribadiActivity extends DaggerAppCompatActivity implements Info
         for (int k = 0; k < statusTempatTinggal.length; k++) {
             if (data.getHomeOwnerShip().toLowerCase().equals(statusTempatTinggal[k].toLowerCase())) {
                 spStatusHome.setSelection(k);
+            }
+        }
+
+        for (int x = 0; x < provinsiRepo.size(); x++ ) {
+            String Banten = "banten";
+            if (Banten.toLowerCase().equals(provinsiRepo.get(x).toLowerCase())) {
+                spProvinsi.setSelection(x);
             }
         }
 
