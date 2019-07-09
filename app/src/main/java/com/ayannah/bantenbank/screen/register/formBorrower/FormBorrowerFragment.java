@@ -32,6 +32,7 @@ import com.github.florent37.singledateandtimepicker.dialog.SingleDateAndTimePick
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.AssertTrue;
+import com.mobsandgeeks.saripaar.annotation.Checked;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.mobsandgeeks.saripaar.annotation.Select;
 
@@ -46,6 +47,8 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
+import butterknife.OnItemClick;
+import butterknife.OnTextChanged;
 
 public class FormBorrowerFragment extends BaseFragment implements FormBorrowerContract.View, Validator.ValidationListener {
 
@@ -58,12 +61,13 @@ public class FormBorrowerFragment extends BaseFragment implements FormBorrowerCo
     @BindView(R.id.regist_name)
     EditText etNameBorrower;
 
+    @Checked(message = "Pilih Jenis Kelamin Anda")
     @BindView(R.id.rgJenisKelamin)
     RadioGroup rgJenisKelamin;
 
-    @NotEmpty(message = "Masukan Nomor KTP")
-    @BindView(R.id.regist_ktp)
-    EditText etKTP;
+//    @NotEmpty(message = "Masukan Nomor KTP")
+//    @BindView(R.id.regist_ktp)
+//    EditText etKTP;
 
     @BindView(R.id.regist_dateBirth)
     TextView tvDateBirthBorrower;
@@ -191,6 +195,11 @@ public class FormBorrowerFragment extends BaseFragment implements FormBorrowerCo
         validator = new Validator(this);
         validator.setValidationListener(this);
 
+        Bundle bundle = parentActivity().getIntent().getExtras();
+        assert bundle != null;
+//        etKTP.setText(bundle.getString(FormOtherFragment.KTP_NO));
+//        etKTP.setEnabled(false);
+
         ArrayAdapter<String> mAdapter = new ArrayAdapter<>(getContext(), R.layout.item_custom_spinner, educationRepo);
         spCollageLevel.setAdapter(mAdapter);
         spPendidikan.setAdapter(mAdapter);
@@ -209,8 +218,23 @@ public class FormBorrowerFragment extends BaseFragment implements FormBorrowerCo
 
     @OnClick(R.id.buttonNext)
     void onClickNext(){
+        etNamaPasangan.setError(null);
+        regist_dateBirthSpouse.setError(null);
 
-        validator.validate();
+        if (tvDateBirthBorrower.getText().equals("dd-mm-yyyy")) {
+            tvDateBirthBorrower.setError("Pilih Tanggal Lahir Anda");
+        } else if (spPerkawinan.getSelectedItem().toString().equals("Menikah")) {
+
+            if (etNamaPasangan.getText().toString().equals("")) {
+                etNamaPasangan.setError("Masukan Nama Pasangan Anda");
+            } else if (regist_dateBirthSpouse.getText().toString().equals("dd-mm-yyyy")) {
+                regist_dateBirthSpouse.setError("Pilih Tanggal Lahir Pasangan Anda");
+            } else {
+                validator.validate();
+            }
+        } else {
+            validator.validate();
+        }
 
     }
 
@@ -240,6 +264,9 @@ public class FormBorrowerFragment extends BaseFragment implements FormBorrowerCo
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss.SSS'Z'");
 
                         tvDateBirthBorrower.setText(sdf.format(date));
+                        if (tvDateBirthBorrower.getError() != null) {
+                            tvDateBirthBorrower.setError(null);
+                        }
                     }
                 }).display();
 
@@ -268,6 +295,7 @@ public class FormBorrowerFragment extends BaseFragment implements FormBorrowerCo
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss.SSS'Z'");
 
                         regist_dateBirthSpouse.setText(sdf.format(date));
+                        regist_dateBirthSpouse.setError(null);
                     }
                 }).display();
     }
@@ -395,7 +423,7 @@ public class FormBorrowerFragment extends BaseFragment implements FormBorrowerCo
         List<String> names = new ArrayList<>();
         List<String> ids = new ArrayList<>();
 
-        names.add("Pilih Kecamatan...");
+        names.add("Pilih Kelurahan...");
         ids.add("0");
         for(Kelurahan.KelurahanItem data: kelurahans){
             names.add(data.getNama());
@@ -482,6 +510,8 @@ public class FormBorrowerFragment extends BaseFragment implements FormBorrowerCo
                 ((EditText) view).setError(message);
             } else if (view instanceof Spinner) {
                 ((TextView) ((Spinner) view).getSelectedView()).setError(message);
+            } else if (view instanceof TextView) {
+                ((TextView) view).setError(message);
             } else {
                 Toast.makeText(parentActivity(), message, Toast.LENGTH_LONG).show();
             }

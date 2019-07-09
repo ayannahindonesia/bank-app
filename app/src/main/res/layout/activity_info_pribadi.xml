@@ -113,7 +113,7 @@
                     <EditText
                         android:id="@+id/etDateBirth"
                         android:textSize="@dimen/fontNormal"
-                        android:hint="dd/mm/yyyy"
+                        android:hint="@string/birthdate_format"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 

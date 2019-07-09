@@ -29,11 +29,11 @@
             android:layout_height="wrap_content" />
 
         <TextView
-            android:text="Masukkan nomor rekening bank"
-            android:textColor="@android:color/black"
-            android:padding="@dimen/dp12"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dp12"
+            android:text="Masukan nomor rekening bank"
+            android:textColor="@android:color/black" />
 
         <EditText
             android:id="@+id/regist_accNumber"

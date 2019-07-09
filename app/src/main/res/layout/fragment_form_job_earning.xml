@@ -200,7 +200,7 @@
                     android:inputType="text"
                     android:paddingStart="@dimen/dp12"
                     android:paddingEnd="@dimen/dp12"
-                    android:text="John Doe"
+                    android:hint="John Doe"
                     android:imeOptions="actionNext"
                     android:textSize="@dimen/fontNormal"
                     android:layout_width="match_parent"

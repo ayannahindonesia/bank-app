@@ -50,6 +50,7 @@ public class FormJobEarningFragment extends BaseFragment implements Validator.Va
     @BindView(R.id.etSumberPendapatanLain)
     EditText etSumberPendaptanLain;
 
+    @NotEmpty(message = "Masukan Nomor Induk Pegawai Anda")
     @BindView(R.id.etEmployeeID)
     EditText etEmployeeID;
 
@@ -143,6 +144,9 @@ public class FormJobEarningFragment extends BaseFragment implements Validator.Va
         String gaji_bulanan = etGajiBulanan.getText().toString().replaceAll("[.,]", "");
         String pendapatan_lain = etPendapatanLain.getText().toString().replaceAll("[.,]", "");
         String sumber_pendapatan_lain = etSumberPendaptanLain.getText().toString().replaceAll("[.,]", "");
+        if (pendapatan_lain.equals("")) {
+            pendapatan_lain = "0";
+        }
 
         Bundle bundle = parentActivity().getIntent().getExtras();
         assert bundle != null;

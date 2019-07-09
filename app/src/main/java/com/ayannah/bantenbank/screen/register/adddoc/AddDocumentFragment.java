@@ -161,7 +161,13 @@ public class AddDocumentFragment extends BaseFragment implements Validator.Valid
 //        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
 //        ft.commit();
 
-        validator.validate();
+        if (editNpwp.getVisibility() ==  View.VISIBLE && etNPWP.getText().toString().equals("")) {
+            etNPWP.setError("Masukan Nomor NPWP");
+        } else if (editKtp.getVisibility() == View.GONE) {
+            Toast.makeText(parentActivity(), "Ambil Foto KTP Terlebih Dahulu", Toast.LENGTH_LONG).show();
+        } else {
+            validator.validate();
+        }
 
     }
 

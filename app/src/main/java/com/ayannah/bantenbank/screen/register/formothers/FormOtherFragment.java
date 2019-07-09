@@ -107,6 +107,10 @@ public class FormOtherFragment extends BaseFragment implements FormOtherContract
     @BindView(R.id.etRelatedName)
     EditText etRelatedName;
 
+    @NotEmpty(message = "Masukan Alamat Kerabat Anda")
+    @BindView(R.id.etRelatedAddress)
+    EditText etRelatedAddress;
+
     private String[] siblings = {"Saudara", "Teman", "Keluarga Kandung"};
 
     @Inject
@@ -202,7 +206,7 @@ public class FormOtherFragment extends BaseFragment implements FormOtherContract
         userProfleRequest.addProperty("employer_name", bundle.getString(COMPANY_NAME));
         userProfleRequest.addProperty("hamlets", bundle.getString(REGIST_RW)); //RW
         userProfleRequest.addProperty("related_homenumber", etRelatedPhone.getText().toString());
-        userProfleRequest.addProperty("neighbour_association", spHubungan.getSelectedItem().toString()); //hubungan kerabat
+        userProfleRequest.addProperty("neighbour_association", bundle.getString(REGIST_RT));
         userProfleRequest.addProperty("spouse_name", bundle.getString(SPOUSE_NAME));
 //        userProfleRequest.setBank(1); //bank name
         userProfleRequest.addProperty("password", bundle.getString(PASS));
@@ -211,12 +215,18 @@ public class FormOtherFragment extends BaseFragment implements FormOtherContract
         userProfleRequest.addProperty("spouse_birthday", bundle.getString(SPOUSE_BIRTHDATE));
         userProfleRequest.addProperty("department", bundle.getString(OCCUPATION));  //jenis pekerjaan
         userProfleRequest.addProperty("email", bundle.getString(EMAIL));
-        userProfleRequest.addProperty("lived_for", Integer.parseInt(Objects.requireNonNull(bundle.getString(HOME_STAY_YEAR))));
+        if (bundle.getString(HOME_STAY_YEAR) != null && !bundle.getString(HOME_STAY_YEAR).equals("")) {
+            userProfleRequest.addProperty("lived_for", Integer.parseInt(Objects.requireNonNull(bundle.getString(HOME_STAY_YEAR))));
+        }
         userProfleRequest.addProperty("address", bundle.getString(ADDRESS));
         userProfleRequest.addProperty("spouse_lasteducation", bundle.getString(SPOUSE_EDUCATION));
-        userProfleRequest.addProperty("other_income", Integer.parseInt(Objects.requireNonNull(bundle.getString(OTHER_INCOME))));
+        if (bundle.getString(OTHER_INCOME) != null && bundle.getString(OTHER_INCOME) != "") {
+            userProfleRequest.addProperty("other_income", Integer.parseInt(Objects.requireNonNull(bundle.getString(OTHER_INCOME))));
+        }
         userProfleRequest.addProperty("home_phonenumber", bundle.getString(REGIST_PHONE));
-        userProfleRequest.addProperty("monthly_income", Integer.parseInt(Objects.requireNonNull(bundle.getString(SALARY))));
+        if (bundle.getString(SALARY) != null && !bundle.getString(SALARY).equals("")) {
+            userProfleRequest.addProperty("monthly_income", Integer.parseInt(Objects.requireNonNull(bundle.getString(SALARY))));
+        }
         userProfleRequest.addProperty("home_ownership", bundle.getString(HOME_STATUS));
         userProfleRequest.addProperty("last_education", bundle.getString(REGIST_EDUCATION));
         userProfleRequest.addProperty("marriage_status", bundle.getString(MARITAL_STATUS));
@@ -224,9 +234,13 @@ public class FormOtherFragment extends BaseFragment implements FormOtherContract
         userProfleRequest.addProperty("related_relation", spHubungan.getSelectedItem().toString());
         userProfleRequest.addProperty("employer_address", bundle.getString(COMPANY_ADDRESS));
         userProfleRequest.addProperty("birthplace", bundle.getString(REGIST_BIRTHPLACE));
-        userProfleRequest.addProperty("been_workingfor", Integer.parseInt(Objects.requireNonNull(bundle.getString(WORK_PERIOD))));
+        if (bundle.getString(WORK_PERIOD) != null && !bundle.getString(WORK_PERIOD).equals("")) {
+            userProfleRequest.addProperty("been_workingfor", Integer.parseInt(Objects.requireNonNull(bundle.getString(WORK_PERIOD))));
+        }
         userProfleRequest.addProperty("phone", bundle.getString(PHONE));
-        userProfleRequest.addProperty("dependants", Integer.parseInt(Objects.requireNonNull(bundle.getString(WORK_PERIOD))));
+        if (bundle.getString(DEPENDANTS) != null && !bundle.getString(DEPENDANTS).equals("")) {
+            userProfleRequest.addProperty("dependants", Integer.parseInt(Objects.requireNonNull(bundle.getString(DEPENDANTS))));
+        }
         userProfleRequest.addProperty("subdistrict", bundle.getString(DISTRICT));
         userProfleRequest.addProperty("employee_id", bundle.getString(EMPLOYEE_ID));
         userProfleRequest.addProperty("other_incomesource", bundle.getString(OTHER_INCOME_SOURCE));
