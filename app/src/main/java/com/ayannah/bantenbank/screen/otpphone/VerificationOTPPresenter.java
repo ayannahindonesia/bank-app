@@ -103,4 +103,137 @@ public class VerificationOTPPresenter implements VerificationOTPContract.Present
         .subscribe());
 
     }
+
+    @Override
+    public void getPublicToken(String phone, String pass, String isFrom) {
+        mComposite.add(remotRepo.getToken()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(response -> {
+
+                    preferenceRepository.setPublicToken("Bearer "+response.getToken());
+
+                    Log.d(TAG, "public_token: "+preferenceRepository.getPublicToken());
+
+                    getClientToken(phone, pass, isFrom);
+
+                }));
+    }
+
+    @Override
+    public void setUserIdentity() {
+        if(mView == null){
+            Toast.makeText(application, "spmething wrong in setUserIdentity()", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        mComposite.add(remotRepo.getUserLogin()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(response -> {
+
+                    preferenceRepository.setIdUser(String.valueOf(response.getEmployeeId()));
+                    preferenceRepository.setUserEmail(response.getEmail());
+                    preferenceRepository.setUserName(response.getEmployerName());
+                    preferenceRepository.setUserPhone(response.getEmployerNumber());
+                    preferenceRepository.setUserNIP(String.valueOf(response.getIdcardNumber()));
+
+                    preferenceRepository.setIdCardUser(response.getIdcardNumber());
+                    preferenceRepository.setTaxCard(response.getTaxidNumber());
+                    preferenceRepository.setUserBirtday(response.getBirthday());
+                    preferenceRepository.setUserBirthPlace(response.getBirthplace());
+                    preferenceRepository.setUserLastEducation(response.getLastEducation());
+                    preferenceRepository.setUserMotherName(response.getMotherName());
+                    preferenceRepository.setUserMarriageStatus(response.getMarriageStatus());
+                    preferenceRepository.setUserSpouseName(response.getSpouseName());
+                    preferenceRepository.setSpouseBirthDate(response.getSpouseBirthday());
+                    preferenceRepository.setUserAddress(response.getAddress());
+                    preferenceRepository.setUserProvince(response.getProvince());
+                    preferenceRepository.setUserCity(response.getCity());
+                    preferenceRepository.setUserNeighbourAssociation(response.getNeighbourAssociation());
+                    preferenceRepository.setUserHamlets(response.getHamlets());
+                    preferenceRepository.setUserHomePhoneNumber(response.getHomePhonenumber());
+                    preferenceRepository.setSubDistrict(response.getSubdistrict());
+                    preferenceRepository.setUrbanVillage(response.getUrbanVillage());
+                    preferenceRepository.setHomeOwnerShip(response.getHomeOwnership());
+                    preferenceRepository.setLivedFor(String.valueOf(response.getLivedFor()));
+                    preferenceRepository.setOccupation(response.getOccupation());
+                    preferenceRepository.setEmployeeId(response.getEmployeeId());
+                    preferenceRepository.setEmployerName(response.getEmployerName());
+                    preferenceRepository.setEmployerAddress(response.getEmployerAddress());
+                    preferenceRepository.setDepartment(response.getDepartment());
+                    preferenceRepository.setBeenWorkingFor(String.valueOf(response.getBeenWorkingfor()));
+                    preferenceRepository.setDirectSuperiorName(response.getDirectSuperiorname());
+                    preferenceRepository.setEmployerNumber(response.getEmployerNumber());
+                    preferenceRepository.setFieldToWork(response.getFieldOfWork());
+                    preferenceRepository.setUserRelatedPersonName(response.getRelatedPersonname());
+                    preferenceRepository.setUserRelatedRelation(response.getRelatedRelation());
+                    preferenceRepository.setUserRelatedPhoneNumber(response.getRelatedPhonenumber());
+                    preferenceRepository.setUserRelatedHomeNumber(response.getRelatedHomenumber());
+
+                    preferenceRepository.setUserPrimaryIncome(String.valueOf(response.getMonthlyIncome()));
+                    preferenceRepository.setUserOtherIncome(String.valueOf(response.getOtherIncome()));
+                    preferenceRepository.setuserOtherSourceIncome(response.getOtherIncomesource());
+
+                    preferenceRepository.setUserLogged(true);
+                    preferenceRepository.setUserSetup(true);
+
+                    mView.loginComplete();
+
+                    Log.d(TAG, "function loginComplete() executedd!");
+
+                }, error ->{
+
+                    ANError anError = (ANError) error;
+                    if(anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
+                        mView.showErrorMessage("Connection Error");
+                    }else {
+
+                        if(anError.getErrorBody() != null){
+
+                            JSONObject jsonObject = new JSONObject(anError.getErrorBody());
+                            mView.showErrorMessage(jsonObject.optString("message"));
+                        }
+                    }
+
+                }));
+    }
+
+    private void getClientToken(String phone, String pass, String isFrom) {
+        JsonObject json = new JsonObject();
+        json.addProperty("key", phone);
+        json.addProperty("password", pass);
+
+        Log.d(TAG, preferenceRepository.getPublicToken());
+
+        mComposite.add(remotRepo.getTokenClient(json)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(response -> {
+
+                    preferenceRepository.setUserToken("Bearer "+response.getToken());
+
+                    Log.d(TAG, "create token client complete");
+
+                    //set User Identity
+                    if (isFrom.equals("otp")) {
+                        mView.completeCreateUserToken();
+                    }
+
+                }, error -> {
+
+                    ANError anError = (ANError) error;
+                    if(anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
+                        mView.showErrorMessage("Connection Error");
+                    }else {
+
+                        if(anError.getErrorBody() != null){
+
+                            JSONObject jsonObject = new JSONObject(anError.getErrorBody());
+                            mView.showErrorMessage(jsonObject.optString("message"));
+                        }
+                    }
+
+                }));
+    }
 }

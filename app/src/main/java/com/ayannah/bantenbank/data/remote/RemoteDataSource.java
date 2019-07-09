@@ -174,7 +174,7 @@ public class RemoteDataSource implements RemoteRepository {
     @Override
     public Single<Response> postVerifyOTP(JsonObject jsonObject) {
         return Rx2AndroidNetworking.post(BuildConfig.API_URL + "unverified_borrower/otp_verify")
-                .addHeaders("Authorization", preferenceRepository.getPublicToken())
+                .addHeaders("Authorization", preferenceRepository.getUserToken())
                 .addApplicationJsonBody(jsonObject)
                 .setPriority(Priority.MEDIUM)
                 .build()

@@ -85,6 +85,9 @@ public class VerificationOTPFragment extends BaseFragment implements Verificatio
     @Override
     protected void initView(Bundle state) {
 
+        Bundle bundle = parentActivity().getIntent().getExtras();
+        assert  bundle!=null;
+        mPresenter.getPublicToken(bundle.getString(FormOtherFragment.PHONE), bundle.getString(FormOtherFragment.PASS), "init");
 
     }
 
@@ -108,7 +111,7 @@ public class VerificationOTPFragment extends BaseFragment implements Verificatio
 
     private void registerNewAccount(CharSequence charSequence) {
 
-        String phoneNo = parentActivity().getIntent().getExtras().getString("phone");
+        String phoneNo = parentActivity().getIntent().getExtras().getString(FormOtherFragment.PHONE);
 
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("phone", phoneNo);
@@ -132,10 +135,19 @@ public class VerificationOTPFragment extends BaseFragment implements Verificatio
 
     @Override
     public void OTPVerified() {
-        Intent intent = new Intent(parentActivity(), MainMenuActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        parentActivity().startActivity(intent);
-        parentActivity().finish();
+//        Intent intent = new Intent(parentActivity(), MainMenuActivity.class);
+//        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//        parentActivity().startActivity(intent);
+//        parentActivity().finish();
+
+        Bundle bundle = parentActivity().getIntent().getExtras();
+        assert bundle != null;
+        String phone = bundle.getString(FormOtherFragment.PHONE);
+        String pass = bundle.getString(FormOtherFragment.PASS);
+//
+        mPresenter.getPublicToken(phone, pass, "otp");
+
+//        mPresenter.setUserIdentity();
     }
 
     @Override
@@ -151,5 +163,26 @@ public class VerificationOTPFragment extends BaseFragment implements Verificatio
         parentActivity().finish();
 
 
+    }
+
+    @Override
+    public void completeCreateUserToken() {
+        mPresenter.setUserIdentity();
+    }
+
+    @Override
+    public void showErrorMessage(String message) {
+        Toast.makeText(parentActivity(), "Error: "+message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void loginComplete() {
+//        Toast.makeText(parentActivity(), "LoginComplete", Toast.LENGTH_SHORT).show();
+
+        Intent login = new Intent(parentActivity(), MainMenuActivity.class);
+        login.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(login);
+
+        parentActivity().finish();
     }
 }
