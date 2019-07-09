@@ -16,6 +16,7 @@ import org.json.JSONObject;
 
 import javax.inject.Inject;
 
+import io.reactivex.Completable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
@@ -80,5 +81,26 @@ public class VerificationOTPPresenter implements VerificationOTPContract.Present
 //            }
 
         }));
+    }
+
+    @Override
+    public void postVerifyLoanByOTP(String idloan, JsonObject json) {
+
+        if(mView == null){
+
+            return;
+        }
+
+        mComposite.add(Completable.fromAction(() -> {
+
+            remotRepo.verifiedLoanByOTP(idloan, json);
+
+            mView.successVerifyLoan();
+
+        })
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe());
+
     }
 }

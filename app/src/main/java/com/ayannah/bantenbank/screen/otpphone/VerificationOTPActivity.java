@@ -49,6 +49,8 @@ import okhttp3.Response;
 
 public class VerificationOTPActivity extends DaggerAppCompatActivity {
 
+    public final static String PURPOSES = "purpose";
+
     private Unbinder mUnbinder;
     public String phoneRegister = "";
 

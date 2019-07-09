@@ -1,12 +1,14 @@
 package com.ayannah.bantenbank.screen.otpphone;
 
 import android.app.Application;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -23,6 +25,7 @@ import com.ayannah.bantenbank.data.local.PreferenceRepository;
 import com.ayannah.bantenbank.data.remote.RemoteRepository;
 import com.ayannah.bantenbank.screen.homemenu.MainMenuActivity;
 import com.ayannah.bantenbank.screen.register.formothers.FormOtherFragment;
+import com.ayannah.bantenbank.screen.success.SuccessActivity;
 import com.google.gson.JsonObject;
 
 import org.json.JSONObject;
@@ -40,9 +43,6 @@ import io.reactivex.schedulers.Schedulers;
 
 public class VerificationOTPFragment extends BaseFragment implements VerificationOTPContract.View {
 
-    final static String REGIST = "regist";
-    final static String PINJAMAN = "pinjaman";
-
     @BindView(R.id.secretDummyCode)
     TextView secretDummyCode;
 
@@ -58,10 +58,14 @@ public class VerificationOTPFragment extends BaseFragment implements Verificatio
     @BindView(R.id.errorIndicator)
     LinearLayout errorIndicator;
 
+    @Inject
     String purpose;
 
     @Inject
     VerificationOTPContract.Presenter mPresenter;
+
+    private String REGISTER = "regist";
+    private String PINJAMAN = "pinjaman";
 
     @Inject
     public VerificationOTPFragment() {
@@ -80,7 +84,7 @@ public class VerificationOTPFragment extends BaseFragment implements Verificatio
 
     @Override
     protected void initView(Bundle state) {
-        purpose = parentActivity().getIntent().getStringExtra("purpose");
+
 
     }
 
@@ -90,14 +94,40 @@ public class VerificationOTPFragment extends BaseFragment implements Verificatio
 //            Bundle bundle = Objects.requireNonNull(parentActivity()).getIntent().getExtras();
 //            assert bundle != null;
 
-            String phoneNo = parentActivity().getIntent().getExtras().getString("phone");
+            if(purpose.equals(REGISTER)){
 
-            JsonObject jsonObject = new JsonObject();
-            jsonObject.addProperty("phone", phoneNo);
-            jsonObject.addProperty("otp_code", charSequence.toString());
+                registerNewAccount(charSequence);
 
-            mPresenter.postOTPVerify(jsonObject);
+            }else if(purpose.equals(PINJAMAN)){
+
+                loanRequest();
+            }
+
         }
+    }
+
+    private void registerNewAccount(CharSequence charSequence) {
+
+        String phoneNo = parentActivity().getIntent().getExtras().getString("phone");
+
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("phone", phoneNo);
+        jsonObject.addProperty("otp_code", charSequence.toString());
+
+        mPresenter.postOTPVerify(jsonObject);
+
+    }
+
+
+    private void loanRequest() {
+        String id_loan = parentActivity().getIntent().getStringExtra("id_loan");
+        String otp_loan = parentActivity().getIntent().getStringExtra("otp_loan");
+
+        JsonObject json = new JsonObject();
+        json.addProperty("otp_code", otp_loan);
+
+        mPresenter.postVerifyLoanByOTP(id_loan, json);
+
     }
 
     @Override
@@ -106,5 +136,20 @@ public class VerificationOTPFragment extends BaseFragment implements Verificatio
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         parentActivity().startActivity(intent);
         parentActivity().finish();
+    }
+
+    @Override
+    public void successVerifyLoan() {
+
+        Log.i("Success Verify Loan", "Pinjaman berhasil di Verify");
+
+        Intent intent = new Intent(parentActivity(), SuccessActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.putExtra(SuccessActivity.SUCCESS_TITLE, "Verifikasi Berhasil!");
+        intent.putExtra(SuccessActivity.SUCCESS_DESC, "Pengajuan pinjaman berhasil diverifikasi. Silakan menunggu beberapa saat hingga ada konfirmasi dari bank. Terima kasih.");
+        parentActivity().startActivity(intent);
+        parentActivity().finish();
+
+
     }
 }

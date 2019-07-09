@@ -39,6 +39,9 @@ public class BottomChangingIncome extends BottomSheetDialogFragment {
         listener.onClickYes();
     }
 
+    private int cs =0;
+    private int oi = 0;
+
     private BottomSheetChangingIncomeListener listener;
 
     public BottomChangingIncome(){
@@ -49,15 +52,23 @@ public class BottomChangingIncome extends BottomSheetDialogFragment {
         this.listener = listener;
     }
 
+    public void setIncomeUser(int currentIncome, int otherIncome){
+
+        cs = currentIncome;
+
+        oi = otherIncome;
+
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.bottomsheet_changingincome, container, false);
         ButterKnife.bind(this, view);
 
-        currentSalary.setText(CommonUtils.setRupiahCurrency(listener.getCurrentSalary()));
+        currentSalary.setText(CommonUtils.setRupiahCurrency(cs));
 
-        anotherIncome.setText(CommonUtils.setRupiahCurrency(listener.getAnotherIncome()));
+        anotherIncome.setText(CommonUtils.setRupiahCurrency(oi));
 
         return view;
     }
@@ -65,7 +76,5 @@ public class BottomChangingIncome extends BottomSheetDialogFragment {
     public interface BottomSheetChangingIncomeListener{
         void onClickNo();
         void onClickYes();
-        int getCurrentSalary();
-        int getAnotherIncome();
     }
 }

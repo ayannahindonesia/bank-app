@@ -50,8 +50,8 @@ public class EarningFragment extends BaseFragment implements EarningContract.Vie
 
     private BottomChangingIncome popUpChangingIncome;
 
-    int currentSalary = 25000000;
-    int anotherIncome = 10000000;
+    int currentSalary = 0;
+    int anotherIncome = 0;
 
     @Inject
     public EarningFragment(){}
@@ -75,36 +75,6 @@ public class EarningFragment extends BaseFragment implements EarningContract.Vie
         setUpPopUp();
 
         etPendapatanLain.setText("10000000");
-
-//        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-//            @Override
-//            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-//
-//
-//                if(progress > 0){
-//                    int x = progress * 1000000;
-//
-//                    penghasilam.setText(CommonUtils.setRupiahCurrency(x));
-//
-//                }else {
-//
-//                    penghasilam.setText(getResources().getString(R.string.default_currency_amount));
-//
-//                }
-//
-//
-//            }
-//
-//            @Override
-//            public void onStartTrackingTouch(SeekBar seekBar) {
-//
-//            }
-//
-//            @Override
-//            public void onStopTrackingTouch(SeekBar seekBar) {
-//
-//            }
-//        });
 
         etPenghasilan.addTextChangedListener(new TextWatcher() {
             @Override
@@ -238,9 +208,7 @@ public class EarningFragment extends BaseFragment implements EarningContract.Vie
     }
 
     private void setUpPopUp() {
-        popUpChangingIncome = new BottomChangingIncome();
-        popUpChangingIncome.showNow(getChildFragmentManager(), "pop up");
-        popUpChangingIncome.setListenerBottomChangingIncome(this);
+
     }
 
     @OnClick(R.id.buttonNext)
@@ -261,7 +229,14 @@ public class EarningFragment extends BaseFragment implements EarningContract.Vie
     @Override
     public void loadPenghasilan(String pendapatan, String pendapatanLain, String sumberLain) {
 
-//        penghasilam.setText(CommonUtils.setRupiahCurrency(Integer.parseInt(pendapatan)));
+        popUpChangingIncome = new BottomChangingIncome();
+
+        popUpChangingIncome.setListenerBottomChangingIncome(this);
+
+        popUpChangingIncome.setIncomeUser(Integer.parseInt(pendapatan), Integer.parseInt(pendapatanLain));
+
+        popUpChangingIncome.showNow(getChildFragmentManager(), "pop up");
+
         etPenghasilan.setText(pendapatan);
 
         etPendapatanLain.setText(pendapatanLain);
@@ -291,13 +266,4 @@ public class EarningFragment extends BaseFragment implements EarningContract.Vie
 
     }
 
-    @Override
-    public int getCurrentSalary() {
-        return currentSalary;
-    }
-
-    @Override
-    public int getAnotherIncome() {
-        return anotherIncome;
-    }
 }

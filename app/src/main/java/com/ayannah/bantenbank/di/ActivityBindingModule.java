@@ -34,6 +34,8 @@ import com.ayannah.bantenbank.screen.register.formjobearning.FormJobEarningActiv
 import com.ayannah.bantenbank.screen.register.formjobearning.FormJobEarningModule;
 import com.ayannah.bantenbank.screen.register.formothers.FormOtherActivity;
 import com.ayannah.bantenbank.screen.register.formothers.FormOtherModule;
+import com.ayannah.bantenbank.screen.success.SuccessActivity;
+import com.ayannah.bantenbank.screen.success.SuccessModule;
 import com.ayannah.bantenbank.screen.summary.SummaryTransactionActivity;
 import com.ayannah.bantenbank.screen.summary.SummaryTransactionModule;
 
@@ -114,5 +116,10 @@ abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = SummaryTransactionModule.class)
     abstract SummaryTransactionActivity summaryTransactionActivity();
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = SuccessModule.class)
+    abstract SuccessActivity successActivity();
+
 
 }

@@ -40,8 +40,8 @@ public interface RemoteRepository {
 
     Single<DataItem> postLoan(JsonObject json);
 
-    Single<OTPLoanResponse> getOTPForLoan(String idLoan);
+    void getOTPForLoan(String idLoan);
 
-    Single<OTPLoanResponse> verifiedLoanByOTP(String idLoan, JsonObject json);
+    void verifiedLoanByOTP(String idLoan, JsonObject json);
 
 }

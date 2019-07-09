@@ -24,12 +24,12 @@ android {
     flavorDimensions "api"
     productFlavors {
 
-        stag{
+        stag {
             dimension "api"
         }
 
 
-        prod{
+        prod {
             dimension "api"
 //            buildConfigField("String", )
         }

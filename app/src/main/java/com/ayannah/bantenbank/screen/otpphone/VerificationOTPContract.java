@@ -9,10 +9,15 @@ public interface VerificationOTPContract {
     interface View extends BaseView<Presenter> {
 
         void OTPVerified();
+
+        void successVerifyLoan();
     }
 
     interface Presenter extends BasePresenter<View> {
 
         void postOTPVerify(JsonObject jsonObject);
+
+        void postVerifyLoanByOTP(String idloan, JsonObject json);
+
     }
 }

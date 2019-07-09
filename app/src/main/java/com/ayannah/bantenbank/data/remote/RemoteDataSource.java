@@ -27,6 +27,7 @@ import org.json.JSONObject;
 
 import javax.inject.Inject;
 
+import io.reactivex.Observable;
 import io.reactivex.Single;
 import okhttp3.Credentials;
 import okhttp3.Response;
@@ -183,7 +184,7 @@ public class RemoteDataSource implements RemoteRepository {
     @Override
     public Single<DataItem> postLoan(JsonObject json) {
         return Rx2AndroidNetworking.post(BuildConfig.API_URL + "borrower/loan")
-                .addHeaders("Authoeization", preferenceRepository.getUserToken())
+                .addHeaders("Authorization", preferenceRepository.getUserToken())
                 .addApplicationJsonBody(json)
                 .setPriority(Priority.MEDIUM)
                 .build()
@@ -191,22 +192,57 @@ public class RemoteDataSource implements RemoteRepository {
     }
 
     @Override
-    public Single<OTPLoanResponse> getOTPForLoan(String idLoan) {
-        return Rx2AndroidNetworking.get(BuildConfig.API_URL + "borrower/loan/{loan_id}/otp")
+    public void getOTPForLoan(String idLoan) {
+//        return Rx2AndroidNetworking.get(BuildConfig.API_URL + "borrower/loan/{loan_id}/otp")
+//                .addHeaders("Authorization", preferenceRepository.getUserToken())
+//                .addPathParameter("loan_id", idLoan)
+//                .setPriority(Priority.MEDIUM)
+//                .build()
+//                .getObjectSingle(OTPLoanResponse.class);
+
+        AndroidNetworking.get(BuildConfig.API_URL + "borrower/loan/{loan_id}/otp")
                 .addHeaders("Authorization", preferenceRepository.getUserToken())
                 .addPathParameter("loan_id", idLoan)
                 .setPriority(Priority.MEDIUM)
                 .build()
-                .getObjectSingle(OTPLoanResponse.class);
+                .getAsJSONObject(new JSONObjectRequestListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                    }
+
+                    @Override
+                    public void onError(ANError anError) {
+
+                    }
+                });
     }
 
     @Override
-    public Single<OTPLoanResponse> verifiedLoanByOTP(String idLoan, JsonObject json) {
-        return Rx2AndroidNetworking.post(BuildConfig.API_URL + "borrower/loan/{idloan}/verify")
+    public void verifiedLoanByOTP(String idLoan, JsonObject json) {
+//        return Rx2AndroidNetworking.post(BuildConfig.API_URL + "borrower/loan/{idloan}/verify")
+//                .addHeaders("Authorization", preferenceRepository.getUserToken())
+//                .addApplicationJsonBody(json)
+//                .setPriority(Priority.MEDIUM)
+//                .build()
+//                .getObjectSingle(OTPLoanResponse.class);
+
+        AndroidNetworking.post(BuildConfig.API_URL + "borrower/loan/{idloan}/verify")
                 .addHeaders("Authorization", preferenceRepository.getUserToken())
+                .addPathParameter("idloan", idLoan)
                 .addApplicationJsonBody(json)
                 .setPriority(Priority.MEDIUM)
                 .build()
-                .getObjectSingle(OTPLoanResponse.class);
+                .getAsJSONObject(new JSONObjectRequestListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                    }
+
+                    @Override
+                    public void onError(ANError anError) {
+
+                    }
+                });
     }
 }

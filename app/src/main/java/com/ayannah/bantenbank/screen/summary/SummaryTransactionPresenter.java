@@ -11,6 +11,7 @@ import org.json.JSONObject;
 
 import javax.inject.Inject;
 
+import io.reactivex.Completable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
@@ -82,27 +83,37 @@ public class SummaryTransactionPresenter implements SummaryTransactionContract.P
             return;
         }
 
-        mComposite.add(remoteRepository.getOTPForLoan(idLoan)
+//        mComposite.add(remoteRepository.getOTPForLoan(idLoan)
+//        .subscribeOn(Schedulers.io())
+//        .observeOn(AndroidSchedulers.mainThread())
+//        .subscribe(response -> {
+//
+//
+//
+//        }, error -> {
+//
+//            ANError anError = (ANError) error;
+//            if(anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
+//                mView.showErrorMessages("Connection Error");
+//            }else {
+//
+//                if(anError.getErrorBody() != null){
+//
+//                    JSONObject jsonObject = new JSONObject(anError.getErrorBody());
+//                    mView.showErrorMessages(jsonObject.optString("message"));
+//                }
+//            }
+//        }));
+
+        mComposite.add(Completable.fromAction(() -> {
+
+            remoteRepository.getOTPForLoan(idLoan);
+
+            mView.successGetOtp("888999", idLoan);
+        })
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(response -> {
-
-
-
-        }, error -> {
-
-            ANError anError = (ANError) error;
-            if(anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
-                mView.showErrorMessages("Connection Error");
-            }else {
-
-                if(anError.getErrorBody() != null){
-
-                    JSONObject jsonObject = new JSONObject(anError.getErrorBody());
-                    mView.showErrorMessages(jsonObject.optString("message"));
-                }
-            }
-        }));
+        .subscribe());
 
     }
 }

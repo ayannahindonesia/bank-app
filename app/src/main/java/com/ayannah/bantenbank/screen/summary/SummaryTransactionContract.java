@@ -12,7 +12,7 @@ public interface SummaryTransactionContract {
 
         void successLoanApplication(String id_loan);
 
-        void successGetOtp(String loanOTP);
+        void successGetOtp(String loanOTP, String id_loan);
 
     }
 
