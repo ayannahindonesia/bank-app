@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.ayannah.bantenbank.R;
 import com.ayannah.bantenbank.data.model.Loans.DataItem;
+import com.ayannah.bantenbank.data.model.Loans.FeesItem;
 import com.ayannah.bantenbank.util.CommonUtils;
 
 import java.text.ParseException;
@@ -56,16 +57,25 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
     @BindView(R.id.jumlahPinjaman)
     TextView jumlahPinjaman;
 
+    @BindView(R.id.tenor)
+    TextView tenor;
+
     @BindView(R.id.interest)
     TextView interest;
 
     @BindView(R.id.fees)
     TextView fees;
 
+    @BindView(R.id.angsuran)
+    TextView angsuran;
+
     @BindView(R.id.totalBiaya)
     TextView totalBiaya;
 
     private Unbinder mUnbinder;
+
+    int admin = 0;
+    int calculateTotalBiaya = 0;
 
     @Override
     protected void onResume() {
@@ -119,12 +129,31 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
 
         jumlahPinjaman.setText(CommonUtils.setRupiahCurrency(dataItem.getLoanAmount()));
 
+        tenor.setText(String.format("%s Bulan", dataItem.getInstallment()));
+
         double calInterest = ((double)dataItem.getLoanAmount() * 1.5 /100);
         interest.setText(CommonUtils.setRupiahCurrency( (int) calInterest ));
 
-        fees.setText(CommonUtils.setRupiahCurrency(dataItem.getFees().get(0).getAmount()));
+        if(dataItem.getFees().size() > 0){
 
-        totalBiaya.setText(CommonUtils.setRupiahCurrency(dataItem.getTotalLoan()));
+            fees.setText(CommonUtils.setRupiahCurrency(dataItem.getFees().get(0).getAmount()));
+
+            for(FeesItem fee:dataItem.getFees()){
+
+                admin = fee.getAmount();
+            }
+
+            calculateTotalBiaya = ((int)calInterest * dataItem.getInstallment()) + (admin * dataItem.getInstallment()) + dataItem.getLoanAmount();
+        }else {
+
+            calculateTotalBiaya = ((int)calInterest * dataItem.getInstallment())  + dataItem.getLoanAmount();
+
+        }
+
+
+        angsuran.setText(CommonUtils.setRupiahCurrency((int) Math.floor(dataItem.getLayawayPlan())));
+
+        totalBiaya.setText(CommonUtils.setRupiahCurrency(calculateTotalBiaya));
 
 
     }

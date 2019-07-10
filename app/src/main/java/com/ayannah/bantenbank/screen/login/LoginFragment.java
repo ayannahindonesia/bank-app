@@ -89,7 +89,10 @@ public class LoginFragment extends BaseFragment implements
     @Override
     public void showErrorMessage(String message) {
 
-        Toast.makeText(parentActivity(), "Error: "+message, Toast.LENGTH_SHORT).show();
+        Toast.makeText(parentActivity(), message, Toast.LENGTH_SHORT).show();
+
+        etPhone.setText("");
+        etPassword.setText("");
 
         progressLogin.setVisibility(View.GONE);
     }

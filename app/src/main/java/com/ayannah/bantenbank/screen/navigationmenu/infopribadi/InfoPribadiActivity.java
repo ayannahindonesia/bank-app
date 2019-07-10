@@ -10,9 +10,13 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.ayannah.bantenbank.R;
 import com.ayannah.bantenbank.data.local.PreferenceRepository;
+import com.mobsandgeeks.saripaar.ValidationError;
+import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -27,9 +31,12 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import dagger.android.support.DaggerAppCompatActivity;
 
-public class InfoPribadiActivity extends DaggerAppCompatActivity implements InfoPribadiContract.View {
+public class InfoPribadiActivity extends DaggerAppCompatActivity implements
+        InfoPribadiContract.View,
+        Validator.ValidationListener {
 
     @Inject
     InfoPribadiContract.Presenter mPresenter;
@@ -37,6 +44,7 @@ public class InfoPribadiActivity extends DaggerAppCompatActivity implements Info
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
+    @NotEmpty(message = "Wajib diisi")
     @BindView(R.id.etName)
     EditText ip_name;
 
@@ -46,60 +54,79 @@ public class InfoPribadiActivity extends DaggerAppCompatActivity implements Info
     @BindView(R.id.rbFemale)
     RadioButton rbFemale;
 
+    @NotEmpty(message = "Wajib diisi")
     @BindView(R.id.etKTP)
     EditText etKTP;
 
+    @NotEmpty(message = "Wajib diisi")
     @BindView(R.id.etMomsName)
     EditText etMomsName;
 
+    @NotEmpty(message = "Wajib diisi")
     @BindView(R.id.etLamaMenempatiRumah)
     EditText etLamaMenempatiRumah;
 
+    @NotEmpty(message = "Wajib diisi")
     @BindView(R.id.etSpouseName)
     EditText etSpouseName;
 
+    @NotEmpty(message = "Wajib diisi")
     @BindView(R.id.etAddressBorrower)
     EditText etAddressBorrower;
 
+    @NotEmpty(message = "Wajib diisi")
     @BindView(R.id.rt)
     EditText rt;
 
+    @NotEmpty(message = "Wajib diisi")
     @BindView(R.id.rw)
     EditText rw;
 
+    @NotEmpty(message = "Wajib diisi")
     @BindView(R.id.etHomeNumber)
     EditText etHomeNumber;
 
+    @NotEmpty(message = "Wajib diisi")
     @BindView(R.id.etDateBirth)
     EditText etDateBirth;
 
+    @NotEmpty(message = "Wajib diisi")
     @BindView(R.id.etBirthPlace)
     EditText etBirthPlace;
 
+    @NotEmpty(message = "Wajib diisi")
     @BindView(R.id.spCollageLevel)
     Spinner spCollageLevel;
 
+    @NotEmpty(message = "Wajib diisi")
     @BindView(R.id.spPendidikan)
     Spinner spPendidikan;
 
+    @NotEmpty(message = "Wajib diisi")
     @BindView(R.id.spPerkawinan)
     Spinner spPerkawinan;
 
+    @NotEmpty(message = "Wajib diisi")
     @BindView(R.id.spProvinsi)
     Spinner spProvinsi;
 
+    @NotEmpty(message = "Wajib diisi")
     @BindView(R.id.spTanggungan)
     Spinner spTanggungan;
 
+    @NotEmpty(message = "Wajib diisi")
     @BindView(R.id.spKota)
     Spinner spKota;
 
+    @NotEmpty(message = "Wajib diisi")
     @BindView(R.id.spKecamatan)
     Spinner spKecamatan;
 
+    @NotEmpty(message = "Wajib diisi")
     @BindView(R.id.spKelurahan)
     Spinner spKelurahan;
 
+    @NotEmpty(message = "Wajib diisi")
     @BindView(R.id.spStatusHome)
     Spinner spStatusHome;
 
@@ -111,6 +138,7 @@ public class InfoPribadiActivity extends DaggerAppCompatActivity implements Info
     private List<String> provinsiRepo;
     private List<String> kabupatenRepo;
 
+    private Validator validator;
     @Override
     protected void onResume() {
         super.onResume();
@@ -131,6 +159,9 @@ public class InfoPribadiActivity extends DaggerAppCompatActivity implements Info
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle("Informasi Pribadi");
+
+        validator = new Validator(this);
+        validator.setValidationListener(this);
 
         ArrayAdapter<String> mAdapter = new ArrayAdapter<>(this, R.layout.item_custom_spinner, educationRepo);
         spCollageLevel.setAdapter(mAdapter);
@@ -316,6 +347,11 @@ public class InfoPribadiActivity extends DaggerAppCompatActivity implements Info
     }
 
     @Override
+    public void showErrorMessage(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
     public void loadInfoPribadi(PreferenceRepository data) {
 
         ip_name.setText(data.getUserName());
@@ -371,5 +407,41 @@ public class InfoPribadiActivity extends DaggerAppCompatActivity implements Info
             }
         }
 
+    }
+
+    @OnClick(R.id.buttonConfirm)
+    void onClickSubmitUpdate(){
+
+        validator.validate();
+
+    }
+
+    @Override
+    public void successUpdateInfoPribadi() {
+
+        Toast.makeText(this, "Berhasil Update", Toast.LENGTH_SHORT).show();
+        finish();
+    }
+
+    @Override
+    public void onValidationSucceeded() {
+
+    }
+
+    @Override
+    public void onValidationFailed(List<ValidationError> errors) {
+
+        for(ValidationError param: errors){
+
+            View view = param.getView();
+
+            String message = param.getCollatedErrorMessage(this);
+
+            if(view instanceof EditText){
+                ((EditText) view).setError(message);
+            }else {
+                Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }
