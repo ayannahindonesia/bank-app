@@ -27,6 +27,7 @@ import com.ayannah.bantenbank.screen.register.formemailphone.FormEmailPhoneFragm
 import com.ayannah.bantenbank.screen.register.formothers.FormOtherFragment;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.annotation.Length;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 
 import java.io.File;
@@ -53,7 +54,7 @@ public class AddDocumentFragment extends BaseFragment implements Validator.Valid
     @BindView(R.id.editNPWP)
     ImageView editNpwp;
 
-    @NotEmpty(message = "Masukan nomor KTP")
+    @Length(min = 16, message = "Masukan 16 Karakter Nomor KTP")
     @BindView(R.id.etKTP)
     EditText etKTP;
 

@@ -186,6 +186,7 @@ public class VerificationOTPFragment extends BaseFragment implements Verificatio
 
         Intent login = new Intent(parentActivity(), MainMenuActivity.class);
         login.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        login.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(login);
 
         parentActivity().finish();
