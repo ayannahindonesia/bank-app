@@ -41,6 +41,7 @@ public class BottomChangingIncome extends BottomSheetDialogFragment {
 
     private int cs =0;
     private int oi = 0;
+    private String other = "-";
 
     private BottomSheetChangingIncomeListener listener;
 
@@ -52,11 +53,13 @@ public class BottomChangingIncome extends BottomSheetDialogFragment {
         this.listener = listener;
     }
 
-    public void setIncomeUser(int currentIncome, int otherIncome){
+    public void setIncomeUser(int currentIncome, int otherIncome, String otherSource){
 
         cs = currentIncome;
 
         oi = otherIncome;
+
+        other = otherSource;
 
     }
 
@@ -69,6 +72,8 @@ public class BottomChangingIncome extends BottomSheetDialogFragment {
         currentSalary.setText(CommonUtils.setRupiahCurrency(cs));
 
         anotherIncome.setText(CommonUtils.setRupiahCurrency(oi));
+
+        otherSourceIncome.setText(other);
 
         return view;
     }

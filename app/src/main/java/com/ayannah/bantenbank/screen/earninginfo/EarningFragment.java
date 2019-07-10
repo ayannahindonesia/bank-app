@@ -47,7 +47,6 @@ public class EarningFragment extends BaseFragment implements EarningContract.Vie
 
     @BindView(R.id.etSumberPendapatanLain)
     EditText etSumberPendapatanLain;
-    private String originalStringSumberPendapatan;
 
     private BottomChangingIncome popUpChangingIncome;
     private Validator validator;
@@ -76,7 +75,7 @@ public class EarningFragment extends BaseFragment implements EarningContract.Vie
 
         setUpPopUp();
 
-        etPendapatanLain.setText("10000000");
+//        etPendapatanLain.setText("10000000");
 
         etPenghasilan.addTextChangedListener(new TextWatcher() {
             @Override
@@ -191,7 +190,7 @@ public class EarningFragment extends BaseFragment implements EarningContract.Vie
 
         popUpChangingIncome.setListenerBottomChangingIncome(this);
 
-        popUpChangingIncome.setIncomeUser(Integer.parseInt(pendapatan), Integer.parseInt(pendapatanLain));
+        popUpChangingIncome.setIncomeUser(Integer.parseInt(pendapatan), Integer.parseInt(pendapatanLain), sumberLain);
 
         popUpChangingIncome.showNow(getChildFragmentManager(), "pop up");
 
@@ -235,7 +234,11 @@ public class EarningFragment extends BaseFragment implements EarningContract.Vie
     public void onValidationSucceeded() {
 
         int primary = Integer.parseInt(originalPenghaislan);
-        int secondaru = Integer.parseInt(originalStringPendapatanLain);
+        int secondaru = 0;
+        if(originalStringPendapatanLain != null ){
+            secondaru = Integer.parseInt(originalStringPendapatanLain);
+        }
+
         String others = etSumberPendapatanLain.getText().toString().trim();
 
         mPresenter.updateUserIncome(primary, secondaru, others);
