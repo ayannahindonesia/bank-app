@@ -132,11 +132,12 @@ public class VerificationOTPPresenter implements VerificationOTPContract.Present
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> {
 
-                    preferenceRepository.setIdUser(String.valueOf(response.getEmployeeId()));
+                    preferenceRepository.setIdUser(String.valueOf(response.getId()));
                     preferenceRepository.setUserEmail(response.getEmail());
-                    preferenceRepository.setUserName(response.getEmployerName());
-                    preferenceRepository.setUserPhone(response.getEmployerNumber());
+                    preferenceRepository.setUserName(response.getFullname());
+                    preferenceRepository.setUserPhone(response.getPhone());
                     preferenceRepository.setUserNIP(String.valueOf(response.getIdcardNumber()));
+                    preferenceRepository.setUserGender(response.getGender());
 
                     preferenceRepository.setIdCardUser(response.getIdcardNumber());
                     preferenceRepository.setTaxCard(response.getTaxidNumber());

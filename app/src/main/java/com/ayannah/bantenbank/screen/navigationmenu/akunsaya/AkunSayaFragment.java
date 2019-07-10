@@ -28,6 +28,9 @@ public class AkunSayaFragment extends BaseFragment implements AkunSayaContract.V
     @BindView(R.id.etPasswordRetype)
     EditText etPasswordRetype;
 
+    @BindView(R.id.phoneNumber)
+    EditText phoneNumber;
+
     @Inject
     public AkunSayaFragment(){}
 
@@ -58,6 +61,7 @@ public class AkunSayaFragment extends BaseFragment implements AkunSayaContract.V
     public void showDataUser(PreferenceRepository preferenceRepository) {
         etName.setText(preferenceRepository.getUserName());
         etEmail.setText(preferenceRepository.getUserEmail());
+        phoneNumber.setText(preferenceRepository.getUserPhone());
 //        etPassword.setText(preferenceRepository);
 //        etPasswordRetype.setText(preferenceRepository.);
     }
