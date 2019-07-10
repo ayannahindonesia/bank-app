@@ -75,9 +75,6 @@ public class LoginFragment extends BaseFragment implements
     @OnClick(R.id.btnLogin)
     void onClickLogin(){
 
-//        Intent intent = new Intent(parentActivity(), MainMenuActivity.class);
-//        startActivity(intent);
-
         validator.validate();
 
     }

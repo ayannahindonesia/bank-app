@@ -11,11 +11,15 @@ public interface EarningContract {
 
         void loadPenghasilan(String pendapatan, String pendapatanLain, String sumberLain);
 
+        void completeUpdateIncome();
+
     }
 
     interface Presenter extends BasePresenter<View>{
 
         void getPenghasilan();
+
+        void updateUserIncome(int primaryIncome, int secondaryIncome, String otherIncomeSource);
 
     }
 }

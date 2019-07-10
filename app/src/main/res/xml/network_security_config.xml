@@ -3,6 +3,8 @@
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">asira.ayannah.com</domain>
         <domain includeSubdomains="true">dev.farizdotid.com</domain>
+        <domain includeSubdomains="true">35.198.244.55</domain>
+
     </domain-config>
 
 </network-security-config>

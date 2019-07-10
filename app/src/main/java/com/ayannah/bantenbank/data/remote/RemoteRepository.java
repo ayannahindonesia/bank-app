@@ -46,4 +46,6 @@ public interface RemoteRepository {
 
     Single<DataItem> getLoanDetails(String idLoan);
 
+    Single<UserProfile> updateProfile(JsonObject json);
+
 }

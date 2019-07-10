@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -14,9 +15,13 @@ import com.ayannah.bantenbank.base.BaseFragment;
 import com.ayannah.bantenbank.dialog.BottomChangingIncome;
 import com.ayannah.bantenbank.screen.loan.LoanActivity;
 import com.ayannah.bantenbank.util.CommonUtils;
+import com.mobsandgeeks.saripaar.ValidationError;
+import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.List;
 import java.util.Locale;
 
 import javax.inject.Inject;
@@ -25,17 +30,13 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 public class EarningFragment extends BaseFragment implements EarningContract.View,
-        BottomChangingIncome.BottomSheetChangingIncomeListener {
+        BottomChangingIncome.BottomSheetChangingIncomeListener,
+        Validator.ValidationListener {
 
     @Inject
     EarningContract.Presenter mPresenter;
 
-//    @BindView(R.id.penghasilam)
-//    TextView penghasilam;
-
-//    @BindView(R.id.seekbarPenghasilan)
-//    SeekBar seekBar;
-
+    @NotEmpty(message = "Kolom ini wajib diisi")
     @BindView(R.id.etpenghasilam)
     EditText etPenghasilan;
     private String originalPenghaislan;
@@ -49,9 +50,7 @@ public class EarningFragment extends BaseFragment implements EarningContract.Vie
     private String originalStringSumberPendapatan;
 
     private BottomChangingIncome popUpChangingIncome;
-
-    int currentSalary = 0;
-    int anotherIncome = 0;
+    private Validator validator;
 
     @Inject
     public EarningFragment(){}
@@ -71,6 +70,9 @@ public class EarningFragment extends BaseFragment implements EarningContract.Vie
 
     @Override
     protected void initView(Bundle state) {
+
+        validator = new Validator(this);
+        validator.setValidationListener(this);
 
         setUpPopUp();
 
@@ -162,49 +164,6 @@ public class EarningFragment extends BaseFragment implements EarningContract.Vie
             }
         });
 
-        etSumberPendapatanLain.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-                etSumberPendapatanLain.removeTextChangedListener(this);
-
-                try {
-
-                    originalStringSumberPendapatan = s.toString();
-
-                    long longval;
-                    if(originalStringSumberPendapatan.contains(",")){
-                        originalStringSumberPendapatan = originalStringSumberPendapatan.replaceAll(",", "");
-                    }
-                    longval = Long.parseLong(originalStringSumberPendapatan);
-
-                    DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance(Locale.getDefault());
-                    formatter.applyPattern("#,###,###,###");
-                    String formattedString = formatter.format(longval);
-
-                    //setting text after format to edittext
-                    etSumberPendapatanLain.setText(formattedString);
-                    etSumberPendapatanLain.setSelection(etSumberPendapatanLain.getText().length());
-
-                } catch (NumberFormatException nfe){
-                    nfe.printStackTrace();
-                }
-
-                etSumberPendapatanLain.addTextChangedListener(this);
-
-            }
-        });
-
     }
 
     private void setUpPopUp() {
@@ -214,8 +173,7 @@ public class EarningFragment extends BaseFragment implements EarningContract.Vie
     @OnClick(R.id.buttonNext)
     void onClickProcess(){
 
-        Intent intent = new Intent(parentActivity(), LoanActivity.class);
-        startActivity(intent);
+        validator.validate();
 
     }
 
@@ -246,6 +204,13 @@ public class EarningFragment extends BaseFragment implements EarningContract.Vie
     }
 
     @Override
+    public void completeUpdateIncome() {
+
+        Intent intent = new Intent(parentActivity(), LoanActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         mPresenter.dropView();
@@ -266,4 +231,30 @@ public class EarningFragment extends BaseFragment implements EarningContract.Vie
 
     }
 
+    @Override
+    public void onValidationSucceeded() {
+
+        int primary = Integer.parseInt(originalPenghaislan);
+        int secondaru = Integer.parseInt(originalStringPendapatanLain);
+        String others = etSumberPendapatanLain.getText().toString().trim();
+
+        mPresenter.updateUserIncome(primary, secondaru, others);
+    }
+
+    @Override
+    public void onValidationFailed(List<ValidationError> errors) {
+
+        for (ValidationError error : errors) {
+            View view = error.getView();
+            String message = error.getCollatedErrorMessage(parentActivity());
+
+            // Display error messages ;)
+            if (view instanceof EditText) {
+                ((EditText) view).setError(message);
+            } else {
+                Toast.makeText(parentActivity(), message, Toast.LENGTH_LONG).show();
+            }
+        }
+
+    }
 }

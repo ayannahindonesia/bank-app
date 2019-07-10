@@ -42,7 +42,7 @@ public class RefreshTokenInterceptor implements Interceptor {
                 ///request token public to asira
                 String credential = Credentials.basic("androkey", "androsecret");
                 Request refreshTokenPublic = originRequest.newBuilder()
-                        .url("http://asira.ayannah.com/clientauth")
+                        .url("http://35.198.244.55:8000/clientauth") //http://asira.ayannah.com/
                         .header("Authorization", credential)
                         .build();
 

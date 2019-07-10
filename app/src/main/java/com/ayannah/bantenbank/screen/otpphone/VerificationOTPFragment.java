@@ -85,9 +85,14 @@ public class VerificationOTPFragment extends BaseFragment implements Verificatio
     @Override
     protected void initView(Bundle state) {
 
-        Bundle bundle = parentActivity().getIntent().getExtras();
-        assert  bundle!=null;
-        mPresenter.getPublicToken(bundle.getString(FormOtherFragment.PHONE), bundle.getString(FormOtherFragment.PASS), "init");
+        //this condition for register purposes
+        //we dont use it if pinjaman purposes
+        if(purpose.equals(REGISTER)){
+            Bundle bundle = parentActivity().getIntent().getExtras();
+            assert  bundle!=null;
+            mPresenter.getPublicToken(bundle.getString(FormOtherFragment.PHONE), bundle.getString(FormOtherFragment.PASS), "init");
+        }
+
 
     }
 

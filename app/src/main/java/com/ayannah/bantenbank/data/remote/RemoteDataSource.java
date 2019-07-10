@@ -243,4 +243,14 @@ public class RemoteDataSource implements RemoteRepository {
                 .build()
                 .getObjectSingle(DataItem.class);
     }
+
+    @Override
+    public Single<UserProfile> updateProfile(JsonObject json) {
+        return Rx2AndroidNetworking.patch(BuildConfig.API_URL + "borrower/profile")
+                .addHeaders("Authorization", preferenceRepository.getUserToken())
+                .addApplicationJsonBody(json)
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getObjectSingle(UserProfile.class);
+    }
 }

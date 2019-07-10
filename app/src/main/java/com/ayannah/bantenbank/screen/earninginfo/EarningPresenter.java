@@ -4,18 +4,26 @@ import android.app.Application;
 
 import androidx.annotation.Nullable;
 
+import com.androidnetworking.common.ANConstants;
+import com.androidnetworking.error.ANError;
 import com.ayannah.bantenbank.data.local.PreferenceRepository;
 import com.ayannah.bantenbank.data.remote.RemoteRepository;
+import com.google.gson.JsonObject;
+
+import org.json.JSONObject;
 
 import javax.inject.Inject;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class EarningPresenter implements EarningContract.Presenter {
 
     private Application application;
     private PreferenceRepository preferenceRepository;
     private RemoteRepository remoteRepository;
+    private CompositeDisposable mComposite;
 
     @Nullable
     private EarningContract.View mView;
@@ -26,6 +34,8 @@ public class EarningPresenter implements EarningContract.Presenter {
         this.application = application;
         this.remoteRepository = remoteRepository;
         this.preferenceRepository = preferenceRepository;
+
+        mComposite = new CompositeDisposable();
     }
 
     @Override
@@ -50,5 +60,45 @@ public class EarningPresenter implements EarningContract.Presenter {
         mView.loadPenghasilan(preferenceRepository.getUserPrimaryIncome(),
                 preferenceRepository.getUserOtherIncome(),
                 preferenceRepository.getUserOtherSourceIncome());
+    }
+
+    @Override
+    public void updateUserIncome(int primaryIncome, int secondaryIncome, String otherIncomeSource) {
+
+        if(mView == null){
+            return;
+        }
+
+        JsonObject json = new JsonObject();
+        json.addProperty("monthly_income", primaryIncome);
+        json.addProperty("other_income", secondaryIncome);
+        json.addProperty("other_incomesource", otherIncomeSource);
+
+        mComposite.add(remoteRepository.updateProfile(json)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(res -> {
+
+                    preferenceRepository.setUserPrimaryIncome(String.valueOf(res.getMonthlyIncome()));
+                    preferenceRepository.setUserOtherIncome(String.valueOf(res.getOtherIncome()));
+                    preferenceRepository.setuserOtherSourceIncome(res.getOtherIncomesource());
+
+                    mView.completeUpdateIncome();
+
+
+                }, error -> {
+                    ANError anError = (ANError) error;
+                    if(anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
+                        mView.showErrorMessage("Connection Error");
+                    }else {
+
+                        if(anError.getErrorBody() != null){
+
+                            JSONObject jsonObject = new JSONObject(anError.getErrorBody());
+                            mView.showErrorMessage(jsonObject.optString("message")  + " updateUserIncome()");
+                        }
+                    }
+                }));
+
     }
 }

@@ -3,6 +3,8 @@ package com.ayannah.bantenbank.screen.summary;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -11,6 +13,11 @@ import com.ayannah.bantenbank.base.BaseFragment;
 import com.ayannah.bantenbank.screen.otpphone.VerificationOTPActivity;
 import com.ayannah.bantenbank.util.CommonUtils;
 import com.google.gson.JsonObject;
+import com.mobsandgeeks.saripaar.ValidationError;
+import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.annotation.Checked;
+
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -18,7 +25,7 @@ import javax.inject.Named;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class SummaryTransactionFragment extends BaseFragment implements SummaryTransactionContract.View {
+public class SummaryTransactionFragment extends BaseFragment implements SummaryTransactionContract.View, Validator.ValidationListener {
 
     @Inject
     SummaryTransactionContract.Presenter mPresenter;
@@ -38,14 +45,15 @@ public class SummaryTransactionFragment extends BaseFragment implements SummaryT
     @BindView(R.id.angsuranBulanan)
     TextView tvAngsuran;
 
-//    @BindView(R.id.saldoPokokPinjaman)
-//    TextView tvSaldoPokokPinjaman;
-
     @BindView(R.id.alasan)
     TextView tvAlasan;
 
     @BindView(R.id.tujuanPinjam)
     TextView tvTujuanPinjam;
+
+    @Checked(message = "Mohon klik untuk menyetujuinya")
+    @BindView(R.id.checkDisclaimer)
+    CheckBox checkDisclaimer;
 
     //value purposes
     @Inject
@@ -60,10 +68,6 @@ public class SummaryTransactionFragment extends BaseFragment implements SummaryT
     @Named("angsuran_bulan")
     double angsuranBulan;
 
-//    @Inject
-//    @Named("saldo")
-//    double saldoPinjaman;
-
     @Inject
     @Named("alasan")
     String alasan;
@@ -71,6 +75,8 @@ public class SummaryTransactionFragment extends BaseFragment implements SummaryT
     @Inject
     @Named("tujuan")
     String tujuan;
+
+    private Validator validator;
 
     @Inject
     public SummaryTransactionFragment(){}
@@ -102,34 +108,36 @@ public class SummaryTransactionFragment extends BaseFragment implements SummaryT
         double calAngsuran = (pinjaman / (tenor)) + calculateBunga;
         tvAngsuran.setText(CommonUtils.setRupiahCurrency((int) Math.floor(calAngsuran)));
 
-//        double saldoPinjaman = pinjaman - (pinjaman / (tenor * 12));
-//        tvSaldoPokokPinjaman.setText(CommonUtils.setRupiahCurrency((int) Math.floor(saldoPinjaman)));
-
         tvAlasan.setText(alasan);
 
         tvTujuanPinjam.setText(tujuan);
+
+        validator = new Validator(this);
+        validator.setValidationListener(this);
 
     }
 
     @OnClick(R.id.buttonSubmit)
     void onClickSubmit(){
 
-        JsonObject json = new JsonObject();
-
-        int x = (int) pinjaman;
-
-        json.addProperty("loan_amount", x);
-        json.addProperty("installment", tenor);
-        json.addProperty("loan_intention", alasan);
-        json.addProperty("intention_details",tujuan);
-
-        Log.d("Summaryyy", String.valueOf(x));
-        Log.d("Summaryyy", String.valueOf(tenor));
-        Log.d("Summaryyy", alasan);
-        Log.d("Summaryyy", tujuan);
-
-
-        mPresenter.loanApplication(json);
+        //validate before submit
+        validator.validate();
+//        JsonObject json = new JsonObject();
+//
+//        int x = (int) pinjaman;
+//
+//        json.addProperty("loan_amount", x);
+//        json.addProperty("installment", tenor);
+//        json.addProperty("loan_intention", alasan);
+//        json.addProperty("intention_details",tujuan);
+//
+//        Log.d("Summaryyy", String.valueOf(x));
+//        Log.d("Summaryyy", String.valueOf(tenor));
+//        Log.d("Summaryyy", alasan);
+//        Log.d("Summaryyy", tujuan);
+//
+//
+//        mPresenter.loanApplication(json);
 
 
 //        Intent intent = new Intent(parentActivity(), VerificationOTPActivity.class);
@@ -164,4 +172,45 @@ public class SummaryTransactionFragment extends BaseFragment implements SummaryT
     }
 
 
+    @Override
+    public void onValidationSucceeded() {
+
+        //if validate is success
+        JsonObject json = new JsonObject();
+
+        int x = (int) pinjaman;
+
+        json.addProperty("loan_amount", x);
+        json.addProperty("installment", tenor);
+        json.addProperty("loan_intention", alasan);
+        json.addProperty("intention_details",tujuan);
+
+
+
+       mPresenter.loanApplication(json);
+
+    }
+
+    @Override
+    public void onValidationFailed(List<ValidationError> errors) {
+
+        //auto call this if there is show up error
+
+        for(ValidationError val: errors){
+
+            View view = val.getView();
+            String message = val.getCollatedErrorMessage(parentActivity());
+
+            //display error messages above component checkbox or toast message
+            if(view instanceof CheckBox){
+
+                ((CheckBox) view).setError(message);
+                Toast.makeText(parentActivity(), message, Toast.LENGTH_SHORT).show();
+            }else {
+
+                Toast.makeText(parentActivity(), message, Toast.LENGTH_SHORT).show();
+            }
+        }
+
+    }
 }

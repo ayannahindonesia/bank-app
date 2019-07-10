@@ -192,7 +192,7 @@ public class VerificationOTPPresenter implements VerificationOTPContract.Present
                         if(anError.getErrorBody() != null){
 
                             JSONObject jsonObject = new JSONObject(anError.getErrorBody());
-                            mView.showErrorMessage(jsonObject.optString("message"));
+                            mView.showErrorMessage(jsonObject.optString("message") + " setUserIdentity()");
                         }
                     }
 
@@ -230,7 +230,7 @@ public class VerificationOTPPresenter implements VerificationOTPContract.Present
                         if(anError.getErrorBody() != null){
 
                             JSONObject jsonObject = new JSONObject(anError.getErrorBody());
-                            mView.showErrorMessage(jsonObject.optString("message"));
+                            mView.showErrorMessage(jsonObject.optString("message")  + " getClientToken()");
                         }
                     }
 

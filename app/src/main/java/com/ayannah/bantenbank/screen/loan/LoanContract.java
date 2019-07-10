@@ -8,10 +8,10 @@ public interface LoanContract {
     interface View extends BaseView<Presenter>{
 
         void showErrorMessage(String message);
+
     }
 
     interface Presenter extends BasePresenter<View>{
-
 
     }
 }

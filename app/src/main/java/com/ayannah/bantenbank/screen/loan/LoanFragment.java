@@ -128,29 +128,27 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
                 amountLoan.setText( CommonUtils.setRupiahCurrency(loanRepo[progress]) );
 
                 //tenor peminjaman secara default dari 6 bulan.
-                installmentTenor = (installment.getVerticalScrollbarPosition()+1) * 6;
+                if(installment.getProgress() == 0) {
 
+                    installmentTenor = (installment.getProgress() + 1) * 6;
+                }else {
+
+                    installmentTenor = (installment.getProgress()) * 6;
+                }
 
                 //calculate biaya admin
-                double administration = (loanAmount * 1.5) / 100;
+                double administration = 1000;
 
                 //calculate bunga
-                double bunga = ((loanAmount * 13) / 100) / installmentTenor;
+                double bunga =  (loanAmount * 1.5) / 100;
 
                 //calculate angsuran perbulan
-                angsurnaPerbulan = (loanAmount / installmentTenor) + bunga;
-
-                //calculate saldo pinjaman
-//                saldoPinjaman = loanAmount - (loanAmount / (installmentTenor));
-
+                angsurnaPerbulan = (loanAmount / installmentTenor) + bunga + administration;
 
                 tvInstallment.setText(String.format("%s bulan", installmentTenor));
                 biayaAdmin.setText(CommonUtils.setRupiahCurrency((int) Math.floor(administration)));
                 tvBunga.setText(CommonUtils.setRupiahCurrency((int) Math.floor(bunga)));
                 tvAngsuran.setText(CommonUtils.setRupiahCurrency((int) Math.floor(angsurnaPerbulan)));
-//                saldoPokokPinjaman.setText(CommonUtils.setRupiahCurrency((int) Math.floor(saldoPinjaman)));
-
-
 
             }
 
@@ -171,25 +169,18 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
                 installmentTenor = (progress+1) * 6;
 
                 //calculate biaya admin
-                double administration = (loanAmount * 1.5) / 100;
+                double administration = 1000;
 
                 //calculate bunga
-                double bunga = ((loanAmount * 13) / 100) / installmentTenor;
+                double bunga = (loanAmount * 1.5) / 100;
 
                 //calculate angsuran perbulan
-                angsurnaPerbulan = (loanAmount / installmentTenor) + bunga;
-
-                //calculate saldo pinjaman
-//                saldoPinjaman = loanAmount - (loanAmount / installmentTenor);
-
+                angsurnaPerbulan = (loanAmount / installmentTenor) + bunga + administration;
 
                 tvInstallment.setText(String.format("%s bulan", installmentTenor));
                 biayaAdmin.setText(CommonUtils.setRupiahCurrency((int) Math.floor(administration)));
                 tvBunga.setText(CommonUtils.setRupiahCurrency((int) Math.floor(bunga)));
                 tvAngsuran.setText(CommonUtils.setRupiahCurrency((int) Math.floor(angsurnaPerbulan)));
-//                saldoPokokPinjaman.setText(CommonUtils.setRupiahCurrency((int) Math.floor(saldoPinjaman)));
-
-
             }
 
             @Override
@@ -215,22 +206,18 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
         installmentTenor = (installment.getVerticalScrollbarPosition()+1) * 6;
 
         //calculate biaya admin
-        double administration = (loanAmount * 1.5) / 100;
+        double administration = 1000;
 
         //calculate bunga
-        double bunga = ((loanAmount * 13) / 100) / installmentTenor;
+        double bunga = (loanAmount * 1.5) / 100;
 
         //calculate angsuran perbulan
-        angsurnaPerbulan = (loanAmount / installmentTenor) + bunga;
-
-        //calculate saldo pinjaman
-        double primaryBalance = loanAmount - (loanAmount / (installmentTenor*12));
+        angsurnaPerbulan = (loanAmount / installmentTenor) + bunga + administration;
 
         tvInstallment.setText(String.format("%s bulan", installmentTenor));
         biayaAdmin.setText(CommonUtils.setRupiahCurrency((int) Math.floor(administration)));
         tvBunga.setText(CommonUtils.setRupiahCurrency((int) Math.floor(bunga)));
         tvAngsuran.setText(CommonUtils.setRupiahCurrency((int) Math.floor(angsurnaPerbulan)));
-//        saldoPokokPinjaman.setText(CommonUtils.setRupiahCurrency((int) Math.floor(primaryBalance)));
 
     }
 
