@@ -17,7 +17,11 @@ import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.Checked;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -50,6 +54,9 @@ public class SummaryTransactionFragment extends BaseFragment implements SummaryT
 
     @BindView(R.id.tujuanPinjam)
     TextView tvTujuanPinjam;
+
+    @BindView(R.id.jatuhTempo)
+    TextView jatuhTempo;
 
     @Checked(message = "Mohon klik untuk menyetujuinya")
     @BindView(R.id.checkDisclaimer)
@@ -99,18 +106,23 @@ public class SummaryTransactionFragment extends BaseFragment implements SummaryT
 
         tvTenor.setText(String.format("%s bulan", tenor));
 
-        double calculateBunga = ((pinjaman * 13)/100 ) / (tenor);
+        double calculateBunga = ((int) pinjaman * 1.5) / 100;
         tvBunga.setText(CommonUtils.setRupiahCurrency((int) calculateBunga));
 
-        double calBiayaAdmin = (pinjaman * 1.5)/100;
-        tvBiayaAdmin.setText(CommonUtils.setRupiahCurrency((int) calBiayaAdmin));
+        int calBiayaAdmin = 1000;
+        tvBiayaAdmin.setText(CommonUtils.setRupiahCurrency(calBiayaAdmin));
 
-        double calAngsuran = (pinjaman / (tenor)) + calculateBunga;
+        double calAngsuran = (pinjaman / tenor) + calculateBunga + calBiayaAdmin;
         tvAngsuran.setText(CommonUtils.setRupiahCurrency((int) Math.floor(calAngsuran)));
 
         tvAlasan.setText(alasan);
 
         tvTujuanPinjam.setText(tujuan);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.MONTH, tenor);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault());
+        jatuhTempo.setText(sdf.format(calendar.getTime()));
 
         validator = new Validator(this);
         validator.setValidationListener(this);
@@ -122,28 +134,6 @@ public class SummaryTransactionFragment extends BaseFragment implements SummaryT
 
         //validate before submit
         validator.validate();
-//        JsonObject json = new JsonObject();
-//
-//        int x = (int) pinjaman;
-//
-//        json.addProperty("loan_amount", x);
-//        json.addProperty("installment", tenor);
-//        json.addProperty("loan_intention", alasan);
-//        json.addProperty("intention_details",tujuan);
-//
-//        Log.d("Summaryyy", String.valueOf(x));
-//        Log.d("Summaryyy", String.valueOf(tenor));
-//        Log.d("Summaryyy", alasan);
-//        Log.d("Summaryyy", tujuan);
-//
-//
-//        mPresenter.loanApplication(json);
-
-
-//        Intent intent = new Intent(parentActivity(), VerificationOTPActivity.class);
-//        intent.putExtra("purpose", "pinjaman");
-//        intent.putExtra("otp_loan", "");
-//        startActivity(intent);
 
     }
 
@@ -183,11 +173,17 @@ public class SummaryTransactionFragment extends BaseFragment implements SummaryT
         json.addProperty("loan_amount", x);
         json.addProperty("installment", tenor);
         json.addProperty("loan_intention", alasan);
-        json.addProperty("intention_details",tujuan);
+
+        if (tujuan.isEmpty()){
+
+            json.addProperty("intention_details", "-");
+        }else {
+            json.addProperty("intention_details", tujuan);
+        }
 
 
 
-       mPresenter.loanApplication(json);
+        mPresenter.loanApplication(json);
 
     }
 

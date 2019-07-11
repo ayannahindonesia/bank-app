@@ -15,6 +15,7 @@ import com.google.gson.JsonObject;
 import org.json.JSONObject;
 
 import javax.inject.Inject;
+import javax.net.ssl.HttpsURLConnection;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -91,13 +92,13 @@ public class LoginPresenter implements LoginContract.Presenter {
 
             ANError anError = (ANError) error;
             if(anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
-                mView.showErrorMessage("Connection Error");
+                mView.showErrorMessage("Connection Error "  + " on getClientToken()");
             }else {
 
                 if(anError.getErrorBody() != null){
 
                     JSONObject jsonObject = new JSONObject(anError.getErrorBody());
-                    mView.showErrorMessage(jsonObject.optString("message"));
+                    mView.showErrorMessage(jsonObject.optString("message") + " on getClientToken()");
                 }
             }
 
@@ -166,14 +167,7 @@ public class LoginPresenter implements LoginContract.Presenter {
             preferenceRepository.setUserLogged(true);
             preferenceRepository.setUserSetup(true);
 
-//            Log.d(TAG, "useremail: "+response.getEmail());
-//            Log.d(TAG, "name: "+response.getEmployerName());
-//            Log.d(TAG, "employernum: "+response.getEmployerNumber());
-//            Log.d(TAG, "idcard: "+response.getIdcardNumber());
-
             mView.loginComplete();
-
-            Log.d(TAG, "function loginComplete() executedd!");
 
         }, error ->{
 
@@ -182,10 +176,15 @@ public class LoginPresenter implements LoginContract.Presenter {
                 mView.showErrorMessage("Connection Error");
             }else {
 
-                if(anError.getErrorBody() != null){
-
-                    JSONObject jsonObject = new JSONObject(anError.getErrorBody());
-                    mView.showErrorMessage(jsonObject.optString("message"));
+//                if(anError.getErrorBody() != null){
+//
+//                    JSONObject jsonObject = new JSONObject(anError.getErrorBody());
+//                    mView.showErrorMessage(jsonObject.optString("message"));
+//                }
+                if(anError.getErrorCode() == HttpsURLConnection.HTTP_UNAUTHORIZED){
+                    mView.showErrorMessage("Phone Number/Password wrong");
+                }else {
+                    mView.showErrorMessage("Login gagal. Mohon coba dengan akun yang berbeda,");
                 }
             }
 
