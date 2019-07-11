@@ -192,4 +192,8 @@ public interface PreferenceRepository {
 
     int getDependants();
 
+    void setUserRelatedAddress(String relatedAddress);
+
+    String getUserRelatedAddress();
+
 }

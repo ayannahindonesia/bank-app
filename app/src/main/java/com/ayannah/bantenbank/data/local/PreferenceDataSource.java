@@ -62,6 +62,7 @@ public class PreferenceDataSource implements PreferenceRepository {
     private static final String PREF_USER_RELATED_BANKACCOUNTNUMBER = "RELATED_BANKACCOUNTNUMBER";
     private static final String PREF_DEPEDANTS = "DEPENDANTS";
 
+    private static final String PREF_USER_RELATED_ADDRESS = "RELATED_ADDRESS";
 
     //user income
     private static final String PREF_USER_PRIMARY_INCOME = "USER_PRIMARY_INCOME";
@@ -607,5 +608,15 @@ public class PreferenceDataSource implements PreferenceRepository {
     @Override
     public int getDependants() {
         return mPreferences.getInt(PREF_DEPEDANTS, 0);
+    }
+
+    @Override
+    public void setUserRelatedAddress(String relatedAddress) {
+        mPreferences.edit().putString(PREF_USER_RELATED_ADDRESS, relatedAddress).apply();
+    }
+
+    @Override
+    public String getUserRelatedAddress() {
+        return mPreferences.getString(PREF_USER_RELATED_ADDRESS, "");
     }
 }
