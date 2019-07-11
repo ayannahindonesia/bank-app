@@ -141,6 +141,7 @@ public class LoginPresenter implements LoginContract.Presenter {
             preferenceRepository.setUserMarriageStatus(response.getMarriageStatus());
             preferenceRepository.setUserSpouseName(response.getSpouseName());
             preferenceRepository.setSpouseBirthDate(response.getSpouseBirthday());
+            preferenceRepository.setSpouseEducation(response.getSpouseLasteducation());
             preferenceRepository.setUserAddress(response.getAddress());
             preferenceRepository.setUserProvince(response.getProvince());
             preferenceRepository.setUserCity(response.getCity());

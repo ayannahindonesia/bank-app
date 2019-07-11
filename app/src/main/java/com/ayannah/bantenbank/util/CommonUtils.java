@@ -51,4 +51,20 @@ public class CommonUtils {
         return sdfBirth.format(sDate);
     }
 
+    public  static String formatDateTimeForDB(String dateBirth){
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss.SSS'Z'", Locale.getDefault());
+        SimpleDateFormat sdfBirth = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault());
+
+        Date sDate = new Date();
+        try {
+            sDate = sdfBirth.parse(dateBirth);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return sdf.format(sDate);
+    }
+
 }

@@ -36,6 +36,7 @@ public class PreferenceDataSource implements PreferenceRepository {
     private static final String PREF_USER_MARRIAGESTATUS = "MARRIAGESTATUS";
     private static final String PREF_USER_SPOUSENAME = "SPOUSENAME";
     private static final String PREF_USER_SPOUSEBIRTHDATE = "SPOUSEBIRTHDATE";
+    private static final String PREF_USER_SPOUSEEDUCATION = "SPOUSEEDUCATION";
     private static final String PREF_USER_ADDRESS = "ADDRESS";
     private static final String PREF_USER_PROVINCE = "PROVINCE";
     private static final String PREF_USER_CITY = "CITY";
@@ -211,6 +212,16 @@ public class PreferenceDataSource implements PreferenceRepository {
 
         mPreferences.edit().putString(PREF_USER_OTHER_SOURCE_INCOME, otherSourceIncome).apply();
 
+    }
+
+    @Override
+    public void setSpouseEducation(String spouseEducation) {
+        mPreferences.edit().putString(PREF_USER_SPOUSEEDUCATION, spouseEducation).apply();
+    }
+
+    @Override
+    public String getSpouseEducation() {
+        return mPreferences.getString(PREF_USER_SPOUSEEDUCATION, "");
     }
 
     @Override

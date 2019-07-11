@@ -92,6 +92,10 @@ public interface PreferenceRepository {
 
     String getSpouserBirthdate();
 
+    void setSpouseEducation(String spouseEducation);
+
+    String getSpouseEducation();
+
     void setUserAddress(String address);
 
     String getUserAddress();
