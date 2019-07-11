@@ -224,11 +224,11 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
     @OnClick(R.id.buttonPinjam)
     void onClickPinjam(){
 
-        if(etTujuan.getText().toString().isEmpty()){
-            Toast.makeText(parentActivity(), "Mohon isi kolom TUJUAN", Toast.LENGTH_SHORT).show();
-            etTujuan.requestFocus();
-            return;
-        }
+//        if(etTujuan.getText().toString().isEmpty()){
+//            Toast.makeText(parentActivity(), "Mohon isi kolom TUJUAN", Toast.LENGTH_SHORT).show();
+//            etTujuan.requestFocus();
+//            return;
+//        }
 
         Intent intent = new Intent(parentActivity(), SummaryTransactionActivity.class);
         intent.putExtra(SummaryTransactionActivity.PINJAMAN, loanAmount);
