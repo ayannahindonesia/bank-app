@@ -8,7 +8,9 @@ import androidx.annotation.Nullable;
 import com.androidnetworking.common.ANConstants;
 import com.androidnetworking.error.ANError;
 import com.ayannah.bantenbank.data.local.PreferenceRepository;
+import com.ayannah.bantenbank.data.model.UserProfile;
 import com.ayannah.bantenbank.data.remote.RemoteRepository;
+import com.google.gson.JsonObject;
 
 import org.json.JSONObject;
 
@@ -57,16 +59,26 @@ public class InformasiKeuanganPresenter implements InformasiKeuanganContract.Pre
             return;
         }
 
-        mComposite.add(remotrepo.getUserLogin()
+        mView.loadInfoPekerjaanDanKeuangan(preferenceRepository);
+
+    }
+
+    @Override
+    public void patchJobEarningData(JsonObject jsonObject) {
+        if (mView == null) {
+            return;
+        }
+
+        mComposite.add(remotrepo.updateProfile(jsonObject)
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(response -> {
 
-            Toast.makeText(application, "berhasil", Toast.LENGTH_SHORT).show();
+            updateLocalData(response);
 
-            mView.loadInfoPekerjaanDanKeuangan(response);
+            Toast.makeText(application, "Data Berhasil Dirubah", Toast.LENGTH_LONG).show();
 
-        }, error ->{
+        }, error -> {
 
             ANError anError = (ANError) error;
             if(anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
@@ -75,12 +87,29 @@ public class InformasiKeuanganPresenter implements InformasiKeuanganContract.Pre
 
                 if(anError.getErrorBody() != null){
 
-                    JSONObject jsonObject = new JSONObject(anError.getErrorBody());
-                    mView.showErrorMessage(jsonObject.optString("message"));
+                    JSONObject jsonObjectError = new JSONObject(anError.getErrorBody());
+                    mView.showErrorMessage(jsonObjectError.optString("message"));
                 }
             }
 
         }));
+    }
 
+    private void updateLocalData(UserProfile response) {
+        preferenceRepository.setFieldToWork(response.getFieldOfWork());
+        preferenceRepository.setDepartment(response.getDepartment());
+        preferenceRepository.setEmployeeId(response.getEmployeeId());
+        preferenceRepository.setEmployerName(response.getEmployerName());
+        preferenceRepository.setBeenWorkingFor(String.valueOf(response.getBeenWorkingfor()));
+        preferenceRepository.setEmployerAddress(response.getEmployerAddress());
+        preferenceRepository.setEmployerNumber(response.getEmployerNumber());
+        preferenceRepository.setDirectSuperiorName(response.getDirectSuperiorname());
+        preferenceRepository.setOccupation(response.getOccupation());
+        preferenceRepository.setUserPrimaryIncome(String.valueOf(response.getMonthlyIncome()));
+        preferenceRepository.setUserOtherIncome(String.valueOf(response.getOtherIncome()));
+        preferenceRepository.setuserOtherSourceIncome(response.getOtherIncomesource());
+
+        assert mView != null;
+        mView.successUpdateJobEarningData();
     }
 }

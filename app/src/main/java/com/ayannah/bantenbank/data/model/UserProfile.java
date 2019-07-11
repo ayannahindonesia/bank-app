@@ -148,6 +148,9 @@ public class UserProfile{
 	@SerializedName("employer_number")
 	private String employerNumber;
 
+	@SerializedName("related_address")
+	private String relatedAddress;
+
 	public String getBirthday(){
 		return birthday;
 	}
@@ -338,5 +341,9 @@ public class UserProfile{
 
 	public String getEmployerNumber(){
 		return employerNumber;
+	}
+
+	public String getRelatedAddress() {
+		return relatedAddress;
 	}
 }

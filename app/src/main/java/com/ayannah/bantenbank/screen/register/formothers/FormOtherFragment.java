@@ -248,6 +248,7 @@ public class FormOtherFragment extends BaseFragment implements FormOtherContract
         userProfleRequest.addProperty("urban_village", bundle.getString(SUB_DISTRICT));
         userProfleRequest.addProperty("fullname", bundle.getString(REGIST_NAME));
         userProfleRequest.addProperty("employer_number", bundle.getString(COMPANY_PHONE));
+        userProfleRequest.addProperty("related_address", etRelatedAddress.getText().toString());
 
         mPresenter.postRegisterBorrower(userProfleRequest);
     }
