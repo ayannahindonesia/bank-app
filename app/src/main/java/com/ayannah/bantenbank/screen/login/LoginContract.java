@@ -11,6 +11,8 @@ public interface LoginContract {
 
         void completeCreateUserToken();
 
+        void isAccountWrong();
+
         void loginComplete();
 
     }

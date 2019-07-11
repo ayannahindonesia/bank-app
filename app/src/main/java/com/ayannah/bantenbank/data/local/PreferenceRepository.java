@@ -188,4 +188,8 @@ public interface PreferenceRepository {
 
     String getUserRelatedBankAccountNumber();
 
+    void setDependants(int count);
+
+    int getDependants();
+
 }

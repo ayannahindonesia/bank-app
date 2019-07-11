@@ -66,7 +66,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
     @BindView(R.id.etTujuan)
     EditText etTujuan;
 
-
+    double administration = 1000;
 
     int[] loanRepo = {5000000, 10000000, 15000000, 20000000, 25000000, 30000000, 35000000, 40000000, 45000000, 50000000};
     double loanAmount = 0;
@@ -136,14 +136,11 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
                     installmentTenor = (installment.getProgress()) * 6;
                 }
 
-                //calculate biaya admin
-                double administration = 1000;
-
                 //calculate bunga
                 double bunga =  (loanAmount * 1.5) / 100;
 
                 //calculate angsuran perbulan
-                angsurnaPerbulan = (loanAmount / installmentTenor) + bunga + administration;
+                angsurnaPerbulan = (loanAmount + bunga + administration) / installmentTenor;
 
                 tvInstallment.setText(String.format("%s bulan", installmentTenor));
                 biayaAdmin.setText(CommonUtils.setRupiahCurrency((int) Math.floor(administration)));
@@ -168,14 +165,11 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 installmentTenor = (progress+1) * 6;
 
-                //calculate biaya admin
-                double administration = 1000;
-
                 //calculate bunga
                 double bunga = (loanAmount * 1.5) / 100;
 
                 //calculate angsuran perbulan
-                angsurnaPerbulan = (loanAmount / installmentTenor) + bunga + administration;
+                angsurnaPerbulan = (loanAmount + bunga + administration) / installmentTenor;
 
                 tvInstallment.setText(String.format("%s bulan", installmentTenor));
                 biayaAdmin.setText(CommonUtils.setRupiahCurrency((int) Math.floor(administration)));
@@ -205,14 +199,11 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
         //base on seekbar installment
         installmentTenor = (installment.getVerticalScrollbarPosition()+1) * 6;
 
-        //calculate biaya admin
-        double administration = 1000;
-
         //calculate bunga
         double bunga = (loanAmount * 1.5) / 100;
 
         //calculate angsuran perbulan
-        angsurnaPerbulan = (loanAmount / installmentTenor) + bunga + administration;
+        angsurnaPerbulan = (loanAmount + bunga + administration) / installmentTenor;
 
         tvInstallment.setText(String.format("%s bulan", installmentTenor));
         biayaAdmin.setText(CommonUtils.setRupiahCurrency((int) Math.floor(administration)));
@@ -224,17 +215,10 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
     @OnClick(R.id.buttonPinjam)
     void onClickPinjam(){
 
-//        if(etTujuan.getText().toString().isEmpty()){
-//            Toast.makeText(parentActivity(), "Mohon isi kolom TUJUAN", Toast.LENGTH_SHORT).show();
-//            etTujuan.requestFocus();
-//            return;
-//        }
-
         Intent intent = new Intent(parentActivity(), SummaryTransactionActivity.class);
         intent.putExtra(SummaryTransactionActivity.PINJAMAN, loanAmount);
         intent.putExtra(SummaryTransactionActivity.TENOR, installmentTenor);
         intent.putExtra(SummaryTransactionActivity.ANGSURAN_BULAN, angsurnaPerbulan);
-//        intent.putExtra(SummaryTransactionActivity.SALDO_PINJAMAN, saldoPinjaman);
 
         if(spAlasanPinjam.getSelectedItem().equals("Lain-lain")){
             intent.putExtra(SummaryTransactionActivity.ALASAN, etAlasan.getText().toString());

@@ -2,20 +2,35 @@ package com.ayannah.bantenbank.screen.navigationmenu.akunsaya;
 
 import android.app.Application;
 
+import com.androidnetworking.common.ANConstants;
+import com.androidnetworking.error.ANError;
 import com.ayannah.bantenbank.data.local.PreferenceRepository;
+import com.ayannah.bantenbank.data.remote.RemoteRepository;
+import com.google.gson.JsonObject;
+
+import org.json.JSONObject;
 
 import javax.inject.Inject;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
+
 public class AkunSayaPresenter implements AkunSayaContract.Presenter {
 
-    private Application application;
+//    private Application application;
     private AkunSayaContract.View mView;
     private PreferenceRepository preferenceRepository;
+    private RemoteRepository remoteRepository;
+    private CompositeDisposable mComposite;
 
     @Inject
-    AkunSayaPresenter(Application application, PreferenceRepository preferenceRepository){
-        this.application = application;
+    AkunSayaPresenter(PreferenceRepository preferenceRepository, RemoteRepository remoteRepository){
+//        this.application = application;
         this.preferenceRepository = preferenceRepository;
+        this.remoteRepository = remoteRepository;
+
+        mComposite = new CompositeDisposable();
     }
 
     @Override
@@ -35,5 +50,39 @@ public class AkunSayaPresenter implements AkunSayaContract.Presenter {
         if (mView!=null) {
             mView.showDataUser(preferenceRepository);
         }
+    }
+
+    @Override
+    public void updateDataUser(String email) {
+
+        JsonObject json = new JsonObject();
+        json.addProperty("email", email);
+
+        if(mView == null){
+            return;
+        }
+
+        mComposite.add(remoteRepository.updateProfile(json)
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(res -> {
+
+            preferenceRepository.setUserEmail(res.getEmail());
+            mView.berhasil();
+
+        }, error -> {
+
+            ANError anError = (ANError) error;
+            if(anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
+                mView.showErrorMessage("Connection Error "  + " on getClientToken()");
+            }else {
+
+                if(anError.getErrorBody() != null){
+
+                    JSONObject jsonObject = new JSONObject(anError.getErrorBody());
+                    mView.showErrorMessage(jsonObject.optString("message") + " on updateDataUser()");
+                }
+            }
+        }));
     }
 }

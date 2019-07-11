@@ -10,10 +10,12 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ayannah.bantenbank.R;
 import com.ayannah.bantenbank.data.local.PreferenceRepository;
+import com.ayannah.bantenbank.util.CommonUtils;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
@@ -44,89 +46,69 @@ public class InfoPribadiActivity extends DaggerAppCompatActivity implements
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
-    @NotEmpty(message = "Wajib diisi")
     @BindView(R.id.etName)
-    EditText ip_name;
+    EditText etName;
 
-    @BindView(R.id.rbMale)
-    RadioButton rbMale;
+    @BindView(R.id.jenisKelamin)
+    TextView jenisKelamin;
 
-    @BindView(R.id.rbFemale)
-    RadioButton rbFemale;
-
-    @NotEmpty(message = "Wajib diisi")
     @BindView(R.id.etKTP)
     EditText etKTP;
 
-    @NotEmpty(message = "Wajib diisi")
     @BindView(R.id.etMomsName)
     EditText etMomsName;
 
-    @NotEmpty(message = "Wajib diisi")
     @BindView(R.id.etLamaMenempatiRumah)
     EditText etLamaMenempatiRumah;
 
-    @NotEmpty(message = "Wajib diisi")
     @BindView(R.id.etSpouseName)
     EditText etSpouseName;
 
-    @NotEmpty(message = "Wajib diisi")
     @BindView(R.id.etAddressBorrower)
     EditText etAddressBorrower;
 
-    @NotEmpty(message = "Wajib diisi")
     @BindView(R.id.rt)
     EditText rt;
 
-    @NotEmpty(message = "Wajib diisi")
     @BindView(R.id.rw)
     EditText rw;
 
-    @NotEmpty(message = "Wajib diisi")
     @BindView(R.id.etHomeNumber)
     EditText etHomeNumber;
 
-    @NotEmpty(message = "Wajib diisi")
     @BindView(R.id.etDateBirth)
     EditText etDateBirth;
 
-    @NotEmpty(message = "Wajib diisi")
     @BindView(R.id.etBirthPlace)
     EditText etBirthPlace;
 
-    @NotEmpty(message = "Wajib diisi")
     @BindView(R.id.spCollageLevel)
     Spinner spCollageLevel;
 
-    @NotEmpty(message = "Wajib diisi")
     @BindView(R.id.spPendidikan)
     Spinner spPendidikan;
 
-    @NotEmpty(message = "Wajib diisi")
     @BindView(R.id.spPerkawinan)
     Spinner spPerkawinan;
 
-    @NotEmpty(message = "Wajib diisi")
     @BindView(R.id.spProvinsi)
     Spinner spProvinsi;
 
-    @NotEmpty(message = "Wajib diisi")
     @BindView(R.id.spTanggungan)
     Spinner spTanggungan;
 
-    @NotEmpty(message = "Wajib diisi")
     @BindView(R.id.spKota)
     Spinner spKota;
 
-    @NotEmpty(message = "Wajib diisi")
     @BindView(R.id.spKecamatan)
     Spinner spKecamatan;
 
-    @NotEmpty(message = "Wajib diisi")
     @BindView(R.id.spKelurahan)
     Spinner spKelurahan;
 
-    @NotEmpty(message = "Wajib diisi")
+    @BindView(R.id.dateBirthSpouse)
+    EditText dateBirthSpouse;
+
     @BindView(R.id.spStatusHome)
     Spinner spStatusHome;
 
@@ -354,19 +336,51 @@ public class InfoPribadiActivity extends DaggerAppCompatActivity implements
     @Override
     public void loadInfoPribadi(PreferenceRepository data) {
 
-        ip_name.setText(data.getUserName());
+        etName.setText(data.getUserName());
 
-        if(data.getUserGender().equals("M")){
-            rbMale.setChecked(true);
-        }else {
-            rbFemale.setChecked(true);
-        }
+        jenisKelamin.setText(data.getUserGender());
 
         etKTP.setText(data.getIdCard());
 
         etMomsName.setText(data.getUserMotherName());
 
         etLamaMenempatiRumah.setText(data.getLivedFor());
+
+        etDateBirth.setText(CommonUtils.formatDateBirth(data.getUserBirthdate()));
+
+        etBirthPlace.setText(data.getUserBirthplace());
+
+        //pendidikan
+        for(int i=0; i < educationRepo.length; i++){
+
+            if(educationRepo[i].equals(data.getUserLastEducation())){
+                spCollageLevel.setSelection(i);
+            }
+        }
+
+        //status pernikahan
+        for(int i=0; i < statusPerkawinan.length; i++){
+
+            if(statusPerkawinan[i].equals(data.getUserMarriageStatus())){
+                spPerkawinan.setSelection(i);
+            }
+        }
+
+        //pendidikan spouse
+        for(int i=0; i < educationRepo.length; i++){
+
+            if(educationRepo[i].equals(data.getUserLastEducation())){
+                spPendidikan.setSelection(i);
+            }
+        }
+
+        //jumlah tanggunan
+        for(int i=0; i < tanggungan.length; i++){
+
+            if(tanggungan[i].equals(String.valueOf(data.getDependants()))){
+                spTanggungan.setSelection(i);
+            }
+        }
 
         etSpouseName.setText(data.getUserSpouseName());
 
@@ -378,9 +392,7 @@ public class InfoPribadiActivity extends DaggerAppCompatActivity implements
 
         etHomeNumber.setText(data.getUserHomePhoneNumber());
 
-        etDateBirth.setText(data.getUserBirthdate());
-
-        etBirthPlace.setText(data.getUserBirthplace());
+        dateBirthSpouse.setText(CommonUtils.formatDateBirth(data.getSpouserBirthdate()));
 
         for (int i = 0; i < educationRepo.length; i++) {
             if (data.getUserLastEducation().toLowerCase().equals(educationRepo[i].toLowerCase())) {

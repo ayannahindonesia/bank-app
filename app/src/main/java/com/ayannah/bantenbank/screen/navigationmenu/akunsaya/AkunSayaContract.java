@@ -12,11 +12,15 @@ public interface AkunSayaContract {
 
         void showDataUser(PreferenceRepository preferenceRepository);
 
+        void berhasil();
+
     }
 
     interface Presenter extends BasePresenter<View>{
 
         void getDataUser();
+
+        void updateDataUser(String email);
 
     }
 }

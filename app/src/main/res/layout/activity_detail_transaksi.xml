@@ -354,6 +354,7 @@
                 android:orientation="horizontal"
                 android:weightSum="2"
                 android:padding="@dimen/dp12"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -379,6 +380,7 @@
             </LinearLayout>
             <View
                 android:background="@color/darkgreybackground"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="0.3dp"/>
 
