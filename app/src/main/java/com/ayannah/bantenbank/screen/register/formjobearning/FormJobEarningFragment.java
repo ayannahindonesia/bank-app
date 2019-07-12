@@ -111,9 +111,9 @@ public class FormJobEarningFragment extends BaseFragment implements Validator.Va
                     etGajiBulanan.addTextChangedListener(gajiseparator);
                 }
 
-                if(!hasFocus){
-                    etGajiBulanan.removeTextChangedListener(gajiseparator);
-                }
+//                if(!hasFocus){
+//                    etGajiBulanan.removeTextChangedListener(gajiseparator);
+//                }
             }
         });
 
@@ -124,9 +124,9 @@ public class FormJobEarningFragment extends BaseFragment implements Validator.Va
                     etPendapatanLain.addTextChangedListener(pendapataLain);
                 }
 
-                if(!hasFocus){
-                    etPendapatanLain.removeTextChangedListener(pendapataLain);
-                }
+//                if(!hasFocus){
+//                    etPendapatanLain.removeTextChangedListener(pendapataLain);
+//                }
             }
         });
     }
