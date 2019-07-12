@@ -10,6 +10,7 @@ import com.ayannah.bantenbank.base.BaseFragment;
 import com.ayannah.bantenbank.data.local.PreferenceRepository;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.annotation.Email;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 
 import java.util.List;
@@ -28,6 +29,7 @@ public class AkunSayaFragment extends BaseFragment implements AkunSayaContract.V
     EditText etName;
 
     @NotEmpty(message = "Email wajib diisi yah...")
+    @Email
     @BindView(R.id.etEmail)
     EditText etEmail;
 
@@ -49,6 +51,8 @@ public class AkunSayaFragment extends BaseFragment implements AkunSayaContract.V
     public void onResume() {
         super.onResume();
         mPresenter.takeView(this);
+
+        mPresenter.getDataUser();
     }
 
     @Override
@@ -58,9 +62,6 @@ public class AkunSayaFragment extends BaseFragment implements AkunSayaContract.V
 
     @Override
     protected void initView(Bundle state) {
-
-        mPresenter.takeView(this);
-        mPresenter.getDataUser();
 
         validator = new Validator(this);
         validator.setValidationListener(this);
@@ -88,7 +89,7 @@ public class AkunSayaFragment extends BaseFragment implements AkunSayaContract.V
 
         Toast.makeText(parentActivity(), "Akun berhasil di update", Toast.LENGTH_SHORT).show();
 
-        parentActivity().finish();
+        mPresenter.getDataUser();
     }
 
     @OnClick(R.id.buttonSubmit)

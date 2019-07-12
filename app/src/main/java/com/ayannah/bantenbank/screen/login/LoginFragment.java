@@ -142,7 +142,8 @@ public class LoginFragment extends BaseFragment implements
     @Override
     public void isAccountWrong() {
 
-        Toast.makeText(parentActivity(), "No Telp/Password salak", Toast.LENGTH_SHORT).show();
+        progressLogin.setVisibility(View.GONE);
+        Toast.makeText(parentActivity(), "No Telp/Password salah", Toast.LENGTH_SHORT).show();
     }
 
     @Override
