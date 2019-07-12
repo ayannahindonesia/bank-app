@@ -35,7 +35,7 @@ public class DataPendukungFragment extends BaseFragment implements DataPendukung
     @BindView(R.id.spHubungan)
     Spinner spHub;
 
-    @NotEmpty(message = "Masukan Nama Kerabat")
+    @NotEmpty(message = "Masukan Nama Kerabat", trim = true)
     @BindView(R.id.etRelatedName)
     EditText etRelatedName;
 
@@ -46,7 +46,7 @@ public class DataPendukungFragment extends BaseFragment implements DataPendukung
     @BindView(R.id.etRelatedPhone)
     EditText etRelatedPhone;
 
-    @NotEmpty(message = "Masukan No HP Kerabat")
+    @NotEmpty(message = "Masukan No HP Kerabat", trim = true)
     @BindView(R.id.etRelatedHP)
     EditText etRelatedHP;
 
