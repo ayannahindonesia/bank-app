@@ -7,7 +7,9 @@ import android.net.wifi.WifiManager;
 import android.widget.Toast;
 
 import java.text.NumberFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 
 public class CommonUtils {
@@ -31,6 +33,38 @@ public class CommonUtils {
 
     public static void showToast(String text, Context context){
         Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
+    }
+
+    public  static String formatDateBirth(String dateBirth){
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss.SSS'Z'", Locale.getDefault());
+        SimpleDateFormat sdfBirth = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault());
+
+        Date sDate = new Date();
+        try {
+            sDate = sdf.parse(dateBirth);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return sdfBirth.format(sDate);
+    }
+
+    public  static String formatDateTimeForDB(String dateBirth){
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss.SSS'Z'", Locale.getDefault());
+        SimpleDateFormat sdfBirth = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault());
+
+        Date sDate = new Date();
+        try {
+            sDate = sdfBirth.parse(dateBirth);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return sdf.format(sDate);
     }
 
 }

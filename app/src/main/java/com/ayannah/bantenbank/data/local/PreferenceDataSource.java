@@ -36,6 +36,7 @@ public class PreferenceDataSource implements PreferenceRepository {
     private static final String PREF_USER_MARRIAGESTATUS = "MARRIAGESTATUS";
     private static final String PREF_USER_SPOUSENAME = "SPOUSENAME";
     private static final String PREF_USER_SPOUSEBIRTHDATE = "SPOUSEBIRTHDATE";
+    private static final String PREF_USER_SPOUSEEDUCATION = "SPOUSEEDUCATION";
     private static final String PREF_USER_ADDRESS = "ADDRESS";
     private static final String PREF_USER_PROVINCE = "PROVINCE";
     private static final String PREF_USER_CITY = "CITY";
@@ -60,6 +61,8 @@ public class PreferenceDataSource implements PreferenceRepository {
     private static final String PREF_USER_RELATED_PHONENUMBER = "RELATED_PHONENUMBER";
     private static final String PREF_USER_RELATED_HOMENUMBER= "RELATED_HOMENUMBER";
     private static final String PREF_USER_RELATED_BANKACCOUNTNUMBER = "RELATED_BANKACCOUNTNUMBER";
+    private static final String PREF_DEPEDANTS = "DEPENDANTS";
+
     private static final String PREF_USER_RELATED_ADDRESS = "RELATED_ADDRESS";
 
     //user income
@@ -209,6 +212,16 @@ public class PreferenceDataSource implements PreferenceRepository {
 
         mPreferences.edit().putString(PREF_USER_OTHER_SOURCE_INCOME, otherSourceIncome).apply();
 
+    }
+
+    @Override
+    public void setSpouseEducation(String spouseEducation) {
+        mPreferences.edit().putString(PREF_USER_SPOUSEEDUCATION, spouseEducation).apply();
+    }
+
+    @Override
+    public String getSpouseEducation() {
+        return mPreferences.getString(PREF_USER_SPOUSEEDUCATION, "");
     }
 
     @Override
@@ -596,6 +609,16 @@ public class PreferenceDataSource implements PreferenceRepository {
     public String getUserRelatedBankAccountNumber() {
 
         return mPreferences.getString(PREF_USER_RELATED_BANKACCOUNTNUMBER, "");
+    }
+
+    @Override
+    public void setDependants(int count) {
+        mPreferences.edit().putInt(PREF_DEPEDANTS, count).apply();
+    }
+
+    @Override
+    public int getDependants() {
+        return mPreferences.getInt(PREF_DEPEDANTS, 0);
     }
 
     @Override

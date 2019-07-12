@@ -112,7 +112,7 @@ public class SummaryTransactionFragment extends BaseFragment implements SummaryT
         int calBiayaAdmin = 1000;
         tvBiayaAdmin.setText(CommonUtils.setRupiahCurrency(calBiayaAdmin));
 
-        double calAngsuran = (pinjaman / tenor) + calculateBunga + calBiayaAdmin;
+        double calAngsuran = (pinjaman + calculateBunga + calBiayaAdmin)/tenor;
         tvAngsuran.setText(CommonUtils.setRupiahCurrency((int) Math.floor(calAngsuran)));
 
         tvAlasan.setText(alasan);

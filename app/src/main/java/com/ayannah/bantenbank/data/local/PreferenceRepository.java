@@ -92,6 +92,10 @@ public interface PreferenceRepository {
 
     String getSpouserBirthdate();
 
+    void setSpouseEducation(String spouseEducation);
+
+    String getSpouseEducation();
+
     void setUserAddress(String address);
 
     String getUserAddress();
@@ -187,6 +191,10 @@ public interface PreferenceRepository {
     void setUserRelatedBankAccountNumber(String relatedBankAccountNumber);
 
     String getUserRelatedBankAccountNumber();
+
+    void setDependants(int count);
+
+    int getDependants();
 
     void setUserRelatedAddress(String relatedAddress);
 

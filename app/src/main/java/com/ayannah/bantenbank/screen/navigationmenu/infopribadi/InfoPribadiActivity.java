@@ -5,18 +5,29 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ayannah.bantenbank.R;
 import com.ayannah.bantenbank.data.local.PreferenceRepository;
+import com.ayannah.bantenbank.data.model.Kabupaten;
+import com.ayannah.bantenbank.data.model.Kecamatan;
+import com.ayannah.bantenbank.data.model.Kelurahan;
+import com.ayannah.bantenbank.data.model.Provinsi;
+import com.ayannah.bantenbank.util.CommonUtils;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
+import com.mobsandgeeks.saripaar.annotation.Select;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -44,99 +55,90 @@ public class InfoPribadiActivity extends DaggerAppCompatActivity implements
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
-    @NotEmpty(message = "Wajib diisi")
     @BindView(R.id.etName)
-    EditText ip_name;
+    EditText etName;
 
-    @BindView(R.id.rbMale)
-    RadioButton rbMale;
+    @BindView(R.id.jenisKelamin)
+    TextView jenisKelamin;
 
-    @BindView(R.id.rbFemale)
-    RadioButton rbFemale;
-
-    @NotEmpty(message = "Wajib diisi")
     @BindView(R.id.etKTP)
     EditText etKTP;
 
-    @NotEmpty(message = "Wajib diisi")
     @BindView(R.id.etMomsName)
     EditText etMomsName;
 
-    @NotEmpty(message = "Wajib diisi")
     @BindView(R.id.etLamaMenempatiRumah)
     EditText etLamaMenempatiRumah;
 
-    @NotEmpty(message = "Wajib diisi")
     @BindView(R.id.etSpouseName)
     EditText etSpouseName;
 
-    @NotEmpty(message = "Wajib diisi")
     @BindView(R.id.etAddressBorrower)
     EditText etAddressBorrower;
 
-    @NotEmpty(message = "Wajib diisi")
     @BindView(R.id.rt)
     EditText rt;
 
-    @NotEmpty(message = "Wajib diisi")
     @BindView(R.id.rw)
     EditText rw;
 
-    @NotEmpty(message = "Wajib diisi")
     @BindView(R.id.etHomeNumber)
     EditText etHomeNumber;
 
-    @NotEmpty(message = "Wajib diisi")
     @BindView(R.id.etDateBirth)
     EditText etDateBirth;
 
-    @NotEmpty(message = "Wajib diisi")
     @BindView(R.id.etBirthPlace)
     EditText etBirthPlace;
 
-    @NotEmpty(message = "Wajib diisi")
+    @Select(message = "Wajib diisi")
     @BindView(R.id.spCollageLevel)
     Spinner spCollageLevel;
 
-    @NotEmpty(message = "Wajib diisi")
+    @Select(message = "Wajib diisi")
     @BindView(R.id.spPendidikan)
     Spinner spPendidikan;
 
-    @NotEmpty(message = "Wajib diisi")
+    @Select(message = "Wajib diisi")
     @BindView(R.id.spPerkawinan)
     Spinner spPerkawinan;
 
-    @NotEmpty(message = "Wajib diisi")
+    @Select(message = "Wajib diisi")
     @BindView(R.id.spProvinsi)
     Spinner spProvinsi;
 
-    @NotEmpty(message = "Wajib diisi")
+    @Select(message = "Wajib diisi")
     @BindView(R.id.spTanggungan)
     Spinner spTanggungan;
 
-    @NotEmpty(message = "Wajib diisi")
+    @Select(message = "Wajib diisi, pastikan sudah memilih Provinsi")
     @BindView(R.id.spKota)
     Spinner spKota;
 
-    @NotEmpty(message = "Wajib diisi")
+    @Select(message = "Wajib diisi, pastikan sudah memilih Kota")
     @BindView(R.id.spKecamatan)
     Spinner spKecamatan;
 
-    @NotEmpty(message = "Wajib diisi")
+    @Select(message = "Wajib diisi, pastikan sudah memilih Kota")
     @BindView(R.id.spKelurahan)
     Spinner spKelurahan;
 
-    @NotEmpty(message = "Wajib diisi")
+    @BindView(R.id.dateBirthSpouse)
+    EditText dateBirthSpouse;
+
+    @Select(message = "Wajib diisi")
     @BindView(R.id.spStatusHome)
     Spinner spStatusHome;
 
-    private String[] educationRepo = {"S2", "S1", "SMA/SMK", "SMP", "Tidak ada status pendidikan", "a last edu"};
-    private String[] statusPerkawinan = {"Belum Menikah", "Menikah", "Duda", "Janda"};
-    private String[] tanggungan = {"0", "1", "2", "3", "4", "5", "Lebih dari 5"};
-    private String[] statusTempatTinggal = {"Milik sendiri", "Milik Keluarga", "Dinas", "Sewa"};
-
-    private List<String> provinsiRepo;
-    private List<String> kabupatenRepo;
+    private String[] educationRepo = {"Pilih...", "S2", "S1", "SMA/SMK", "SMP", "Tidak ada status pendidikan", "a last edu"};
+    private String[] statusPerkawinan = {"Pilih...", "Belum Menikah", "Menikah", "Duda", "Janda"};
+    private String[] tanggungan = {"Pilih...", "0", "1", "2", "3", "4", "5", "Lebih dari 5"};
+    private String[] statusTempatTinggal = {"Pilih...", "Milik sendiri", "Milik Keluarga", "Dinas", "Sewa"};
+    List<String> names;
+    String provinsi;
+    String kota;
+    String kecamatan;
+    String kelurahan;
 
     private Validator validator;
     @Override
@@ -163,6 +165,8 @@ public class InfoPribadiActivity extends DaggerAppCompatActivity implements
         validator = new Validator(this);
         validator.setValidationListener(this);
 
+        names = new ArrayList<>();
+
         ArrayAdapter<String> mAdapter = new ArrayAdapter<>(this, R.layout.item_custom_spinner, educationRepo);
         spCollageLevel.setAdapter(mAdapter);
         spPendidikan.setAdapter(mAdapter);
@@ -176,168 +180,7 @@ public class InfoPribadiActivity extends DaggerAppCompatActivity implements
         ArrayAdapter<String> mAdapterStatusHome = new ArrayAdapter<>(this, R.layout.item_custom_spinner, statusTempatTinggal);
         spStatusHome.setAdapter(mAdapterStatusHome);
 
-        loadProvinsi();
-        loadKota();
-        loadKec();
-        loadKel();
-    }
 
-    private void loadProvinsi() {
-
-        InputStream is = getResources().openRawResource(R.raw.provinsi);
-        String jsonProvinsi = null;
-
-        try {
-            int size = is.available();
-            byte[] buffer = new byte[size];
-            is.read(buffer);
-            is.close();
-
-            jsonProvinsi = new String(buffer, "UTF-8");
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
-        provinsiRepo = new ArrayList<>();
-        try {
-            JSONObject obj = new JSONObject(jsonProvinsi);
-            JSONArray arry = obj.getJSONArray("semuaprovinsi");
-
-            for(int i = 0; i< arry.length(); i++){
-
-               provinsiRepo.add(arry.getJSONObject(i).getString("nama"));
-
-            }
-
-
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        ArrayAdapter<String> mAdapterProvince =  new ArrayAdapter<>(this, R.layout.item_custom_spinner, provinsiRepo);
-        spProvinsi.setAdapter(mAdapterProvince);
-
-    }
-
-    private void loadKota() {
-
-        InputStream is = getResources().openRawResource(R.raw.kab_banten);
-        String jsonProvinsi = null;
-
-        try {
-            int size = is.available();
-            byte[] buffer = new byte[size];
-            is.read(buffer);
-            is.close();
-
-            jsonProvinsi = new String(buffer, "UTF-8");
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
-        kabupatenRepo = new ArrayList<>();
-        try {
-            JSONObject obj = new JSONObject(jsonProvinsi);
-            JSONArray arry = obj.getJSONArray("kabupatens");
-
-            for(int i = 0; i< arry.length(); i++){
-
-                kabupatenRepo.add(arry.getJSONObject(i).getString("nama"));
-
-            }
-
-
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        ArrayAdapter<String> mAdapterKota =  new ArrayAdapter<>(this, R.layout.item_custom_spinner, kabupatenRepo);
-        spKota.setAdapter(mAdapterKota);
-
-    }
-
-    private void loadKec() {
-
-        InputStream is = getResources().openRawResource(R.raw.kec_banten);
-        String jsonProvinsi = null;
-
-        try {
-            int size = is.available();
-            byte[] buffer = new byte[size];
-            is.read(buffer);
-            is.close();
-
-            jsonProvinsi = new String(buffer, "UTF-8");
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
-        List<String> provinsiRepo = new ArrayList<>();
-        try {
-            JSONObject obj = new JSONObject(jsonProvinsi);
-            JSONArray arry = obj.getJSONArray("kecamatans");
-
-            for(int i = 0; i< arry.length(); i++){
-
-                provinsiRepo.add(arry.getJSONObject(i).getString("nama"));
-
-            }
-
-
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        ArrayAdapter<String> mAdapterKec =  new ArrayAdapter<>(this, R.layout.item_custom_spinner, provinsiRepo);
-        spKecamatan.setAdapter(mAdapterKec);
-
-    }
-
-    private void loadKel(){
-        InputStream is = getResources().openRawResource(R.raw.kel_banten);
-        String jsonProvinsi = null;
-
-        try {
-            int size = is.available();
-            byte[] buffer = new byte[size];
-            is.read(buffer);
-            is.close();
-
-            jsonProvinsi = new String(buffer, "UTF-8");
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
-        List<String> provinsiRepo = new ArrayList<>();
-        try {
-            JSONObject obj = new JSONObject(jsonProvinsi);
-            JSONArray arry = obj.getJSONArray("desas");
-
-            for(int i = 0; i< arry.length(); i++){
-
-                provinsiRepo.add(arry.getJSONObject(i).getString("nama"));
-
-            }
-
-
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        ArrayAdapter<String> mAdapterProvince =  new ArrayAdapter<>(this, R.layout.item_custom_spinner, provinsiRepo);
-        spKelurahan.setAdapter(mAdapterProvince);
     }
 
     @Override
@@ -354,19 +197,68 @@ public class InfoPribadiActivity extends DaggerAppCompatActivity implements
     @Override
     public void loadInfoPribadi(PreferenceRepository data) {
 
-        ip_name.setText(data.getUserName());
+        etName.setText(data.getUserName());
 
-        if(data.getUserGender().equals("M")){
-            rbMale.setChecked(true);
-        }else {
-            rbFemale.setChecked(true);
-        }
+        jenisKelamin.setText(data.getUserGender());
 
         etKTP.setText(data.getIdCard());
 
         etMomsName.setText(data.getUserMotherName());
 
         etLamaMenempatiRumah.setText(data.getLivedFor());
+
+        etDateBirth.setText(CommonUtils.formatDateBirth(data.getUserBirthdate()));
+
+        etBirthPlace.setText(data.getUserBirthplace());
+
+        //pendidikan
+        for(int i=0; i < educationRepo.length; i++){
+
+            if(educationRepo[i].equals(data.getUserLastEducation())){
+                spCollageLevel.setSelection(i);
+            }
+        }
+
+        //status pernikahan
+        for(int i=0; i < statusPerkawinan.length; i++){
+
+            if(statusPerkawinan[i].equals(data.getUserMarriageStatus())){
+                spPerkawinan.setSelection(i);
+            }
+        }
+
+        //pendidikan spouse
+        for(int i=0; i < educationRepo.length; i++){
+
+            if(educationRepo[i].equals(data.getUserLastEducation())){
+                spPendidikan.setSelection(i);
+            }
+        }
+
+        //jumlah tanggunan
+        for(int i=0; i < tanggungan.length; i++){
+
+            if(tanggungan[i].equals(String.valueOf(data.getDependants()))){
+                spTanggungan.setSelection(i);
+            }
+        }
+
+        mPresenter.getProvince();
+
+        provinsi = data.getuserProvince();
+
+        kota = data.getUserCity();
+
+        kecamatan = data.getSubDistrict();
+
+        kelurahan = data.getUrbanVillage();
+
+        //status tempat tinggal
+        for (int k = 0; k < statusTempatTinggal.length; k++) {
+            if (data.getHomeOwnerShip().toLowerCase().equals(statusTempatTinggal[k].toLowerCase())) {
+                spStatusHome.setSelection(k);
+            }
+        }
 
         etSpouseName.setText(data.getUserSpouseName());
 
@@ -378,34 +270,7 @@ public class InfoPribadiActivity extends DaggerAppCompatActivity implements
 
         etHomeNumber.setText(data.getUserHomePhoneNumber());
 
-        etDateBirth.setText(data.getUserBirthdate());
-
-        etBirthPlace.setText(data.getUserBirthplace());
-
-        for (int i = 0; i < educationRepo.length; i++) {
-            if (data.getUserLastEducation().toLowerCase().equals(educationRepo[i].toLowerCase())) {
-                spCollageLevel.setSelection(i);
-            }
-        }
-
-        for (int j = 0; j < statusPerkawinan.length; j++) {
-            if (data.getUserMarriageStatus().toLowerCase().equals(statusPerkawinan[j].toLowerCase())) {
-                spPerkawinan.setSelection(j);
-            }
-        }
-
-        for (int k = 0; k < statusTempatTinggal.length; k++) {
-            if (data.getHomeOwnerShip().toLowerCase().equals(statusTempatTinggal[k].toLowerCase())) {
-                spStatusHome.setSelection(k);
-            }
-        }
-
-        for (int x = 0; x < provinsiRepo.size(); x++ ) {
-            String Banten = "banten";
-            if (Banten.toLowerCase().equals(provinsiRepo.get(x).toLowerCase())) {
-                spProvinsi.setSelection(x);
-            }
-        }
+        dateBirthSpouse.setText(CommonUtils.formatDateBirth(data.getSpouserBirthdate()));
 
     }
 
@@ -424,7 +289,215 @@ public class InfoPribadiActivity extends DaggerAppCompatActivity implements
     }
 
     @Override
+    public void showProvices(List<Provinsi.Data> provinces) {
+        List<String> idProvinces = new ArrayList<>();
+
+        names.add("Pilih Provinsi...");
+        idProvinces.add("0");
+        for(Provinsi.Data data: provinces){
+            names.add(data.getNama());
+            idProvinces.add(data.getId());
+        }
+
+        ArrayAdapter<String> mAdapterProvince =  new ArrayAdapter<>(this, R.layout.item_custom_spinner, names);
+        spProvinsi.setAdapter(mAdapterProvince);
+
+        //check provinsi
+        for(int i=0; i < names.size(); i++){
+
+            if(names.get(i).equals(provinsi)){
+                spProvinsi.setSelection(i);
+            }
+        }
+
+        //show kecamatan
+        spProvinsi.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                if(position != 0){
+                    Toast.makeText(InfoPribadiActivity.this, names.get(position), Toast.LENGTH_SHORT).show();
+                    mPresenter.getDistrict(idProvinces.get(position));
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+
+    @Override
+    public void showDistrict(List<Kabupaten.KabupatenItem> districts) {
+
+        List<String> names = new ArrayList<>();
+        List<String> idKab = new ArrayList<>();
+
+        names.add("Pilih Kebupaten...");
+        idKab.add("0");
+        for(Kabupaten.KabupatenItem data: districts){
+            names.add(data.getNama());
+            idKab.add(data.getId());
+        }
+
+        ArrayAdapter<String> mAdapter = new ArrayAdapter<>(this, R.layout.item_custom_spinner, names);
+        spKota.setAdapter(mAdapter);
+
+        //check kota
+        for(int i=0; i < names.size(); i++){
+
+            if(names.get(i).equals(kota)){
+                spKota.setSelection(i);
+            }
+        }
+
+        spKota.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                if(position != 0){
+                    mPresenter.getSubDistrict(idKab.get(position));
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+    }
+
+    @Override
+    public void showSubDistrict(List<Kecamatan.KecatamanItem> subdistricts) {
+
+        List<String> names = new ArrayList<>();
+        List<String> ids = new ArrayList<>();
+
+        names.add("Pilih Kecamatan...");
+        ids.add("0");
+        for(Kecamatan.KecatamanItem data: subdistricts){
+            names.add(data.getNama());
+            ids.add(data.getId());
+        }
+
+        ArrayAdapter<String> mAdapter = new ArrayAdapter<>(this, R.layout.item_custom_spinner, names);
+        spKecamatan.setAdapter(mAdapter);
+
+        //check kecamatan
+        for(int i=0; i < names.size(); i++){
+
+            if(names.get(i).equals(kecamatan)){
+                spKecamatan.setSelection(i);
+            }
+        }
+
+        spKecamatan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                if(position != 0){
+                    mPresenter.getKelurahan(ids.get(position));
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+    }
+
+    @Override
+    public void showKelurahan(List<Kelurahan.KelurahanItem> kelurahans) {
+
+        List<String> names = new ArrayList<>();
+        List<String> ids = new ArrayList<>();
+
+        names.add("Pilih Kelurahan...");
+        ids.add("0");
+        for(Kelurahan.KelurahanItem data: kelurahans){
+            names.add(data.getNama());
+            ids.add(data.getId());
+        }
+
+        ArrayAdapter<String> mAdapter = new ArrayAdapter<>(this, R.layout.item_custom_spinner, names);
+        spKelurahan.setAdapter(mAdapter);
+
+        //check kelurahan
+        for(int i=0; i < names.size(); i++){
+
+            if(names.get(i).equals(kelurahan)){
+                spKelurahan.setSelection(i);
+            }
+        }
+
+        spKelurahan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                if(position != 0){
+                    mPresenter.getKelurahan(ids.get(position));
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+    }
+
+    @Override
     public void onValidationSucceeded() {
+
+        JsonObject json = new JsonObject();
+
+        json.addProperty("last_education", spCollageLevel.getSelectedItem().toString());
+
+        json.addProperty("marriage_status", spPerkawinan.getSelectedItem().toString());
+
+        json.addProperty("spouse_name", etSpouseName.getText().toString());
+
+        json.addProperty("spouse_birthday", CommonUtils.formatDateTimeForDB(dateBirthSpouse.getText().toString()));
+
+        json.addProperty("spouse_lasteducation", spPendidikan.getSelectedItem().toString());
+
+        json.addProperty("address", etAddressBorrower.getText().toString());
+
+        json.addProperty("province", spProvinsi.getSelectedItem().toString());
+
+        json.addProperty("city", spKota.getSelectedItem().toString());
+
+        json.addProperty("subdistrict", spKecamatan.getSelectedItem().toString());
+
+        json.addProperty("urban_village", spKelurahan.getSelectedItem().toString());
+
+        json.addProperty("neighbour_association", rt.getText().toString());
+
+        json.addProperty("hamlets", rw.getText().toString());
+
+        json.addProperty("home_phonenumber", etHomeNumber.getText().toString());
+
+        json.addProperty("lived_for", Integer.parseInt(etLamaMenempatiRumah.getText().toString()));
+
+        json.addProperty("home_ownership", spStatusHome.getSelectedItem().toString());
+
+        Gson gson = new Gson();
+
+        gson.toJson(json);
+
+        Log.d("FormatJson", gson.toJson(json));
+
+
+        mPresenter.updateInfoPribadi(json);
+
+//        Toast.makeText(this, "validasi udah oke", Toast.LENGTH_SHORT).show();
 
     }
 
@@ -438,7 +511,17 @@ public class InfoPribadiActivity extends DaggerAppCompatActivity implements
             String message = param.getCollatedErrorMessage(this);
 
             if(view instanceof EditText){
+
                 ((EditText) view).setError(message);
+
+                Toast.makeText(this, "Mohon lengkapi kolom yang belulm terisi", Toast.LENGTH_SHORT).show();
+                
+            }else if(view instanceof Spinner) {
+
+                ((TextView) ((Spinner) view).getSelectedView()).setError(message);
+
+                Toast.makeText(this, "Masih ada yang belum dipilih", Toast.LENGTH_SHORT).show();
+
             }else {
                 Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
             }

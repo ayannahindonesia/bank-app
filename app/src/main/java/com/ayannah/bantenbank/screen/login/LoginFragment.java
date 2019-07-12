@@ -104,6 +104,8 @@ public class LoginFragment extends BaseFragment implements
 
     }
 
+
+
     @Override
     public void loginComplete() {
         Toast.makeText(parentActivity(), "LoginComplete", Toast.LENGTH_SHORT).show();
@@ -135,6 +137,12 @@ public class LoginFragment extends BaseFragment implements
 
         }
 
+    }
+
+    @Override
+    public void isAccountWrong() {
+
+        Toast.makeText(parentActivity(), "No Telp/Password salak", Toast.LENGTH_SHORT).show();
     }
 
     @Override

@@ -82,11 +82,17 @@ public class LoginPresenter implements LoginContract.Presenter {
         .subscribe(response -> {
 
             preferenceRepository.setUserToken("Bearer "+response.getToken());
-
-            Log.d(TAG, "create token client complete");
+            Log.d(TAG, "userToken " + response.getToken());
 
             //set User Identity
-            mView.completeCreateUserToken();
+            if(preferenceRepository.getUserToken() == null || preferenceRepository.getUserToken().equals("Bearer ") || preferenceRepository.getUserToken().equals("Bearer null")){
+
+                mView.isAccountWrong();
+
+            }else {
+                mView.completeCreateUserToken();
+            }
+
 
         }, error -> {
 
@@ -135,6 +141,7 @@ public class LoginPresenter implements LoginContract.Presenter {
             preferenceRepository.setUserMarriageStatus(response.getMarriageStatus());
             preferenceRepository.setUserSpouseName(response.getSpouseName());
             preferenceRepository.setSpouseBirthDate(response.getSpouseBirthday());
+            preferenceRepository.setSpouseEducation(response.getSpouseLasteducation());
             preferenceRepository.setUserAddress(response.getAddress());
             preferenceRepository.setUserProvince(response.getProvince());
             preferenceRepository.setUserCity(response.getCity());

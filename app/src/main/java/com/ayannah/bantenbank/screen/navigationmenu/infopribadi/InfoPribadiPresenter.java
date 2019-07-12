@@ -1,6 +1,7 @@
 package com.ayannah.bantenbank.screen.navigationmenu.infopribadi;
 
 import android.app.Application;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -24,14 +25,14 @@ public class InfoPribadiPresenter implements InfoPribadiContract.Presenter {
     InfoPribadiContract.View mView;
 
     private Application application;
-    private RemoteRepository remoteRepo;
+    private RemoteRepository remotRepo;
     private PreferenceRepository preferenceRepository;
     private CompositeDisposable mComposite;
 
     @Inject
     InfoPribadiPresenter(Application application, RemoteRepository remoteRepo, PreferenceRepository preferenceRepository){
         this.application = application;
-        this.remoteRepo = remoteRepo;
+        this.remotRepo = remoteRepo;
         this.preferenceRepository = preferenceRepository;
 
         mComposite = new CompositeDisposable();
@@ -47,16 +48,172 @@ public class InfoPribadiPresenter implements InfoPribadiContract.Presenter {
     }
 
     @Override
+    public void getProvince() {
+        if(mView == null){
+            return;
+        }
+
+        mComposite.add(remotRepo.getProvinsi()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(response -> {
+
+                    if(!response.isSuccess()){
+
+                        mView.showProvices(response.getSemuaprovinsi());
+                    }
+                }, error ->{
+
+                    ANError anError = (ANError) error;
+                    if(anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
+                        mView.showErrorMessage("Connection error");
+                    }else {
+                        if(anError.getErrorBody() != null){
+
+                            JSONObject jsonObject = new JSONObject(anError.getErrorBody());
+                            mView.showErrorMessage(jsonObject.optString("message"));
+
+                        }
+                    }
+
+                }));
+    }
+
+    @Override
+    public void getDistrict(String idProvince) {
+        if(mView == null){
+            return;
+        }
+
+        mComposite.add(remotRepo.getKabupaten(idProvince)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(response -> {
+
+                    if(!response.isSuccess()){
+                        mView.showDistrict(response.getDaftarKabupaten());
+                    }
+                }, error ->{
+
+                    ANError anError = (ANError) error;
+                    if(anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
+                        mView.showErrorMessage("Connection error");
+                    }else {
+                        if(anError.getErrorBody() != null){
+
+                            JSONObject jsonObject = new JSONObject(anError.getErrorBody());
+                            mView.showErrorMessage(jsonObject.optString("message"));
+
+                        }
+                    }
+
+                }));
+    }
+
+    @Override
+    public void getSubDistrict(String idDistrict) {
+        if(mView == null){
+            return;
+        }
+
+        mComposite.add(remotRepo.getKecamatan(idDistrict)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(response -> {
+
+                    if(!response.isSuccess()){
+                        mView.showSubDistrict(response.getDaftarKecamatan());
+                    }
+                }, error ->{
+
+                    ANError anError = (ANError) error;
+                    if(anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
+                        mView.showErrorMessage("Connection error");
+                    }else {
+                        if(anError.getErrorBody() != null){
+
+                            JSONObject jsonObject = new JSONObject(anError.getErrorBody());
+                            mView.showErrorMessage(jsonObject.optString("message"));
+
+                        }
+                    }
+
+                }));
+    }
+
+    @Override
+    public void getKelurahan(String idSubDistrict) {
+        if(mView == null){
+            return;
+        }
+
+        mComposite.add(remotRepo.getKelurahan(idSubDistrict)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(response -> {
+
+                    if(!response.isSuccess()){
+                        mView.showKelurahan(response.getDaftarDesa());
+                    }
+                }, error ->{
+
+                    ANError anError = (ANError) error;
+                    if(anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
+                        mView.showErrorMessage("Connection error");
+                    }else {
+                        if(anError.getErrorBody() != null){
+
+                            JSONObject jsonObject = new JSONObject(anError.getErrorBody());
+                            mView.showErrorMessage(jsonObject.optString("message"));
+
+                        }
+                    }
+
+                }));
+
+    }
+
+    @Override
     public void updateInfoPribadi(JsonObject json) {
 
         if(mView == null){
             return;
         }
 
-        mComposite.add(remoteRepo.updateProfile(json)
+        mComposite.add(remotRepo.updateProfile(json)
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(res -> {
+
+            preferenceRepository.setUserLastEducation(res.getLastEducation());
+
+            preferenceRepository.setUserMarriageStatus(res.getMarriageStatus());
+
+            preferenceRepository.setUserSpouseName(res.getSpouseName());
+
+            preferenceRepository.setSpouseBirthDate(res.getSpouseBirthday());
+
+            preferenceRepository.setSpouseEducation(res.getSpouseLasteducation());
+
+            preferenceRepository.setUserAddress(res.getAddress());
+
+            preferenceRepository.setUserProvince(res.getProvince());
+
+            preferenceRepository.setUserCity(res.getCity());
+
+            preferenceRepository.setSubDistrict(res.getSubdistrict());
+
+            preferenceRepository.setUrbanVillage(res.getUrbanVillage());
+
+            preferenceRepository.setUserNeighbourAssociation(res.getNeighbourAssociation());
+
+            preferenceRepository.setUserHamlets(res.getHamlets());
+
+            preferenceRepository.setUserHomePhoneNumber(res.getHomePhonenumber());
+
+            preferenceRepository.setLivedFor(String.valueOf(res.getLivedFor()));
+
+            preferenceRepository.setHomeOwnerShip(res.getHomeOwnership());
 
             mView.successUpdateInfoPribadi();
 

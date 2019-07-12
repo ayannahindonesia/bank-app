@@ -75,8 +75,6 @@ public class EarningFragment extends BaseFragment implements EarningContract.Vie
 
         setUpPopUp();
 
-//        etPendapatanLain.setText("10000000");
-
         etPenghasilan.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
