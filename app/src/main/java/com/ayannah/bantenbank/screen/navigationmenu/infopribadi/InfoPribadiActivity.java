@@ -77,10 +77,11 @@ public class InfoPribadiActivity extends DaggerAppCompatActivity implements
     @BindView(R.id.etLamaMenempatiRumah)
     EditText etLamaMenempatiRumah;
 
+    @NotEmpty(message = "Mohon isi nama pasangan", trim = true)
     @BindView(R.id.etSpouseName)
     EditText etSpouseName;
 
-    @NotEmpty(message = "Mohon diisi kolom ini")
+    @NotEmpty(message = "Mohon diisi kolom ini", trim = true)
     @BindView(R.id.etAddressBorrower)
     EditText etAddressBorrower;
 
@@ -528,8 +529,6 @@ public class InfoPribadiActivity extends DaggerAppCompatActivity implements
         if(spPerkawinan.getSelectedItem().toString().equals("Menikah")){
 
             json.addProperty("spouse_name", etSpouseName.getText().toString());
-
-            Toast.makeText(this, CommonUtils.formatDateTimeForDB(dateBirthSpouse.getText().toString()), Toast.LENGTH_SHORT).show();
 
             json.addProperty("spouse_birthday", dateBirthSpouse.getText().toString());
 
