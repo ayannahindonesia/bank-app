@@ -212,7 +212,7 @@
                             android:layout_height="wrap_content" />
                         <EditText
                             android:id="@+id/etSpouseName"
-                            android:hint="Maria Dela Cruz"
+                            android:hint="Nama pasangan anda"
                             android:inputType="textPersonName"
                             android:paddingStart="@dimen/dp12"
                             android:paddingEnd="@dimen/dp12"
@@ -230,9 +230,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
 
-                        <EditText
+                        <TextView
                             android:id="@+id/dateBirthSpouse"
-                            android:text="dd-mm-yyyy"
                             android:drawablePadding="5dp"
                             android:gravity="center_vertical"
                             android:drawableStart="@drawable/ic_calendar"

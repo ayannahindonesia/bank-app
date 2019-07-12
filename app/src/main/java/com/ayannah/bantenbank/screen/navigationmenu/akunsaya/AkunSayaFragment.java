@@ -89,6 +89,8 @@ public class AkunSayaFragment extends BaseFragment implements AkunSayaContract.V
 
         Toast.makeText(parentActivity(), "Akun berhasil di update", Toast.LENGTH_SHORT).show();
 
+        etEmail.clearFocus();
+
         mPresenter.getDataUser();
     }
 

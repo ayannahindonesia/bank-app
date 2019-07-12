@@ -37,8 +37,8 @@ public class CommonUtils {
 
     public  static String formatDateBirth(String dateBirth){
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss.SSS'Z'", Locale.getDefault());
-        SimpleDateFormat sdfBirth = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        SimpleDateFormat sdfBirth = new SimpleDateFormat("dd MMM yyyy");
 
         Date sDate = new Date();
         try {

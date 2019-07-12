@@ -80,7 +80,7 @@ public class AkunSayaPresenter implements AkunSayaContract.Presenter {
                 if(anError.getErrorBody() != null){
 
                     JSONObject jsonObject = new JSONObject(anError.getErrorBody());
-                    mView.showErrorMessage(jsonObject.optString("message") + " on updateDataUser()");
+                    mView.showErrorMessage(jsonObject.optString("message"));
                 }
             }
         }));

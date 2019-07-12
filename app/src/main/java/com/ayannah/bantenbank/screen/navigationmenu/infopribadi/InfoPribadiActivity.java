@@ -42,6 +42,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import javax.inject.Inject;
 
@@ -132,7 +133,7 @@ public class InfoPribadiActivity extends DaggerAppCompatActivity implements
 
     @NotEmpty(message = "Mohon diisi tanggal lahir pasangan anda")
     @BindView(R.id.dateBirthSpouse)
-    EditText dateBirthSpouse;
+    TextView dateBirthSpouse;
 
     @Select(message = "Wajib diisi")
     @BindView(R.id.spStatusHome)
@@ -218,7 +219,7 @@ public class InfoPribadiActivity extends DaggerAppCompatActivity implements
 
         etLamaMenempatiRumah.setText(data.getLivedFor());
 
-        etDateBirth.setText(CommonUtils.formatDateBirth(data.getUserBirthdate()));
+        etDateBirth.setText(data.getUserBirthdate());
 
         etBirthPlace.setText(data.getUserBirthplace());
 
@@ -299,7 +300,7 @@ public class InfoPribadiActivity extends DaggerAppCompatActivity implements
 
         etHomeNumber.setText(data.getUserHomePhoneNumber());
 
-        dateBirthSpouse.setText(CommonUtils.formatDateBirth(data.getSpouserBirthdate()));
+        dateBirthSpouse.setText(data.getSpouserBirthdate());
 
     }
 
@@ -334,7 +335,7 @@ public class InfoPribadiActivity extends DaggerAppCompatActivity implements
                     @Override
                     public void onDateSelected(Date date) {
 
-                        SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy");
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault());
 
                         dateBirthSpouse.setText(sdf.format(date));
 
@@ -346,6 +347,7 @@ public class InfoPribadiActivity extends DaggerAppCompatActivity implements
     public void successUpdateInfoPribadi() {
 
         Toast.makeText(this, "Berhasil Update", Toast.LENGTH_SHORT).show();
+
         finish();
     }
 
@@ -529,7 +531,7 @@ public class InfoPribadiActivity extends DaggerAppCompatActivity implements
 
             Toast.makeText(this, CommonUtils.formatDateTimeForDB(dateBirthSpouse.getText().toString()), Toast.LENGTH_SHORT).show();
 
-            json.addProperty("spouse_birthday", CommonUtils.formatDateTimeForDB(dateBirthSpouse.getText().toString()));
+            json.addProperty("spouse_birthday", dateBirthSpouse.getText().toString());
 
             json.addProperty("spouse_lasteducation", spPendidikan.getSelectedItem().toString());
 
@@ -537,9 +539,7 @@ public class InfoPribadiActivity extends DaggerAppCompatActivity implements
 
             json.addProperty("spouse_name", "");
 
-            Toast.makeText(this, CommonUtils.formatDateTimeForDB(dateBirthSpouse.getText().toString()), Toast.LENGTH_SHORT).show();
-
-            json.addProperty("spouse_birthday", "");
+            json.addProperty("spouse_birthday", dateBirthSpouse.getText().toString());
 
             json.addProperty("spouse_lasteducation", "");
 
