@@ -43,7 +43,7 @@ public class InformasiKeuanganFragment extends BaseFragment implements Informasi
     @BindView(R.id.noPegawai)
     EditText noIndukPegawai;
 
-    @NotEmpty(message = "Masukan Nama Perusahaan\nTempat Anda Bekerja")
+    @NotEmpty(message = "Masukan Nama Perusahaan\nTempat Anda Bekerja", trim = true)
     @BindView(R.id.namaInstansi)
     EditText namaInstansi;
 
@@ -51,19 +51,19 @@ public class InformasiKeuanganFragment extends BaseFragment implements Informasi
     @BindView(R.id.lamaBekerja)
     EditText lamaBekerja;
 
-    @NotEmpty(message = "Masukan Alamat Perusahaan\nTempat Anda Bekerja")
+    @NotEmpty(message = "Masukan Alamat Perusahaan\nTempat Anda Bekerja", trim = true)
     @BindView(R.id.etAlamatKantor)
     EditText etAlamatKantor;
 
-    @NotEmpty(message = "Masukan No Telpon Perusahaan\nTempat Anda Bekerja")
+    @NotEmpty(message = "Masukan No Telpon Perusahaan\nTempat Anda Bekerja", trim = true)
     @BindView(R.id.etPhone)
     EditText etPhone;
 
-    @NotEmpty(message = "Masukan Nama Atasan Anda")
+    @NotEmpty(message = "Masukan Nama Atasan Anda", trim = true)
     @BindView(R.id.namaAtasan)
     EditText namaAtasan;
 
-    @NotEmpty(message = "Masukan Jabatan Anda")
+    @NotEmpty(message = "Masukan Jabatan Anda", trim = true)
     @BindView(R.id.jabatan)
     EditText jabatan;
 
