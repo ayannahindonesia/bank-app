@@ -133,7 +133,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
                     installmentTenor = (installment.getProgress() + 1) * 6;
                 }else {
 
-                    installmentTenor = (installment.getProgress()) * 6;
+                    installmentTenor = (installment.getProgress() + 1) * 6;
                 }
 
                 //calculate bunga
