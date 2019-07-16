@@ -509,7 +509,14 @@ public class FormBorrowerFragment extends BaseFragment implements FormBorrowerCo
                 bundle.putString(FormOtherFragment.SPOUSE_BIRTHDATE, String.valueOf(serverFormat.format(dateSpouse)));
             }
             bundle.putString(FormOtherFragment.SPOUSE_EDUCATION, spPendidikan.getSelectedItem().toString());
-            bundle.putString(FormOtherFragment.DEPENDANTS, spTanggungan.getSelectedItem().toString());
+
+            if (spTanggungan.getSelectedItem().toString().toLowerCase().equals("lebih dari 5")) {
+                bundle.putString(FormOtherFragment.DEPENDANTS, "6");
+            } else {
+                bundle.putString(FormOtherFragment.DEPENDANTS, spTanggungan.getSelectedItem().toString());
+            }
+
+
             bundle.putString(FormOtherFragment.ADDRESS, etAlamatDomisili.getText().toString());
             bundle.putString(FormOtherFragment.PROVINCE, spProvinsi.getSelectedItem().toString());
             bundle.putString(FormOtherFragment.CITY, spKota.getSelectedItem().toString());
