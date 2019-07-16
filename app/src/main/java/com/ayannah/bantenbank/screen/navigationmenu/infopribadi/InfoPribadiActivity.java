@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -22,6 +23,8 @@ import com.ayannah.bantenbank.data.model.Kecamatan;
 import com.ayannah.bantenbank.data.model.Kelurahan;
 import com.ayannah.bantenbank.data.model.Provinsi;
 import com.ayannah.bantenbank.util.CommonUtils;
+import com.github.florent37.singledateandtimepicker.SingleDateAndTimePicker;
+import com.github.florent37.singledateandtimepicker.dialog.SingleDateAndTimePickerDialog;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.mobsandgeeks.saripaar.ValidationError;
@@ -35,8 +38,11 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import javax.inject.Inject;
 
@@ -67,12 +73,15 @@ public class InfoPribadiActivity extends DaggerAppCompatActivity implements
     @BindView(R.id.etMomsName)
     EditText etMomsName;
 
+    @NotEmpty(message = "Mohon diisi kolom ini")
     @BindView(R.id.etLamaMenempatiRumah)
     EditText etLamaMenempatiRumah;
 
+    @NotEmpty(message = "Mohon isi nama pasangan", trim = true)
     @BindView(R.id.etSpouseName)
     EditText etSpouseName;
 
+    @NotEmpty(message = "Mohon diisi kolom ini", trim = true)
     @BindView(R.id.etAddressBorrower)
     EditText etAddressBorrower;
 
@@ -123,14 +132,18 @@ public class InfoPribadiActivity extends DaggerAppCompatActivity implements
     @BindView(R.id.spKelurahan)
     Spinner spKelurahan;
 
+    @NotEmpty(message = "Mohon diisi tanggal lahir pasangan anda")
     @BindView(R.id.dateBirthSpouse)
-    EditText dateBirthSpouse;
+    TextView dateBirthSpouse;
 
     @Select(message = "Wajib diisi")
     @BindView(R.id.spStatusHome)
     Spinner spStatusHome;
 
-    private String[] educationRepo = {"Pilih...", "S2", "S1", "SMA/SMK", "SMP", "Tidak ada status pendidikan", "a last edu"};
+    @BindView(R.id.lySpouse)
+    LinearLayout lySpouse;
+
+    private String[] educationRepo = {"Pilih...", "S2", "S1", "SMA/SMK", "SMP", "Tidak ada status pendidikan"};
     private String[] statusPerkawinan = {"Pilih...", "Belum Menikah", "Menikah", "Duda", "Janda"};
     private String[] tanggungan = {"Pilih...", "0", "1", "2", "3", "4", "5", "Lebih dari 5"};
     private String[] statusTempatTinggal = {"Pilih...", "Milik sendiri", "Milik Keluarga", "Dinas", "Sewa"};
@@ -207,7 +220,7 @@ public class InfoPribadiActivity extends DaggerAppCompatActivity implements
 
         etLamaMenempatiRumah.setText(data.getLivedFor());
 
-        etDateBirth.setText(CommonUtils.formatDateBirth(data.getUserBirthdate()));
+        etDateBirth.setText(data.getUserBirthdate());
 
         etBirthPlace.setText(data.getUserBirthplace());
 
@@ -226,6 +239,24 @@ public class InfoPribadiActivity extends DaggerAppCompatActivity implements
                 spPerkawinan.setSelection(i);
             }
         }
+        spPerkawinan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(statusPerkawinan[position].equals("Menikah") ){
+
+                   lySpouse.setVisibility(View.VISIBLE);
+
+                }else {
+
+                    lySpouse.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         //pendidikan spouse
         for(int i=0; i < educationRepo.length; i++){
@@ -270,7 +301,7 @@ public class InfoPribadiActivity extends DaggerAppCompatActivity implements
 
         etHomeNumber.setText(data.getUserHomePhoneNumber());
 
-        dateBirthSpouse.setText(CommonUtils.formatDateBirth(data.getSpouserBirthdate()));
+        dateBirthSpouse.setText(data.getSpouserBirthdate());
 
     }
 
@@ -281,10 +312,43 @@ public class InfoPribadiActivity extends DaggerAppCompatActivity implements
 
     }
 
+
+    @OnClick(R.id.dateBirthSpouse)
+    void onClickDateBirthSpouse(){
+
+        new SingleDateAndTimePickerDialog.Builder(this)
+                .bottomSheet()
+                .curved()
+                .displayMinutes(false)
+                .displayHours(false)
+                .displayDays(false)
+                .displayMonth(true)
+                .displayYears(true)
+                .displayDaysOfMonth(true)
+                .displayListener(new SingleDateAndTimePickerDialog.DisplayListener() {
+                    @Override
+                    public void onDisplayed(SingleDateAndTimePicker picker) {
+
+                    }
+                })
+                .title("Tanggal lahir pasangan")
+                .listener(new SingleDateAndTimePickerDialog.Listener() {
+                    @Override
+                    public void onDateSelected(Date date) {
+
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault());
+
+                        dateBirthSpouse.setText(sdf.format(date));
+
+                    }
+                }).display();
+    }
+
     @Override
     public void successUpdateInfoPribadi() {
 
         Toast.makeText(this, "Berhasil Update", Toast.LENGTH_SHORT).show();
+
         finish();
     }
 
@@ -462,11 +526,23 @@ public class InfoPribadiActivity extends DaggerAppCompatActivity implements
 
         json.addProperty("marriage_status", spPerkawinan.getSelectedItem().toString());
 
-        json.addProperty("spouse_name", etSpouseName.getText().toString());
+        if(spPerkawinan.getSelectedItem().toString().equals("Menikah")){
 
-        json.addProperty("spouse_birthday", CommonUtils.formatDateTimeForDB(dateBirthSpouse.getText().toString()));
+            json.addProperty("spouse_name", etSpouseName.getText().toString());
 
-        json.addProperty("spouse_lasteducation", spPendidikan.getSelectedItem().toString());
+            json.addProperty("spouse_birthday", dateBirthSpouse.getText().toString());
+
+            json.addProperty("spouse_lasteducation", spPendidikan.getSelectedItem().toString());
+
+        }else {
+
+            json.addProperty("spouse_name", "");
+
+            json.addProperty("spouse_birthday", dateBirthSpouse.getText().toString());
+
+            json.addProperty("spouse_lasteducation", "");
+
+        }
 
         json.addProperty("address", etAddressBorrower.getText().toString());
 
@@ -488,16 +564,9 @@ public class InfoPribadiActivity extends DaggerAppCompatActivity implements
 
         json.addProperty("home_ownership", spStatusHome.getSelectedItem().toString());
 
-        Gson gson = new Gson();
-
-        gson.toJson(json);
-
-        Log.d("FormatJson", gson.toJson(json));
-
 
         mPresenter.updateInfoPribadi(json);
 
-//        Toast.makeText(this, "validasi udah oke", Toast.LENGTH_SHORT).show();
 
     }
 

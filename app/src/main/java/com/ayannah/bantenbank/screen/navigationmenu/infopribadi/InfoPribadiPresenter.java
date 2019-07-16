@@ -221,13 +221,13 @@ public class InfoPribadiPresenter implements InfoPribadiContract.Presenter {
 
             ANError anError = (ANError) error;
             if(anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
-                mView.showErrorMessage("Connection Error "  + " on getClientToken()");
+                mView.showErrorMessage("Connection Error ");
             }else {
 
                 if(anError.getErrorBody() != null){
 
                     JSONObject jsonObject = new JSONObject(anError.getErrorBody());
-                    mView.showErrorMessage(jsonObject.optString("message") + " on updateInfoPribadi()");
+                    mView.showErrorMessage(jsonObject.optString("message"));
                 }
             }
 

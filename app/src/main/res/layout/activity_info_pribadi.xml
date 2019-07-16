@@ -125,7 +125,6 @@
                         android:textSize="@dimen/fontNormal"
                         android:background="@android:color/transparent"
                         android:enabled="false"
-                        android:textColor="@android:color/black"
                         android:hint="Tempat lahir sesuai KTP"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
@@ -198,59 +197,67 @@
                         android:layout_height="wrap_content"
                         tools:ignore="Autofill" />
 
-                    <TextView
-                        android:text="Nama Pasangan"
-                        android:textColor="@android:color/black"
-                        android:textSize="@dimen/fontLarge"
+                    <LinearLayout
+                        android:id="@+id/lySpouse"
+                        android:visibility="gone"
+                        android:orientation="vertical"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-                    <EditText
-                        android:id="@+id/etSpouseName"
-                        android:hint="Maria Dela Cruz"
-                        android:inputType="textPersonName"
-                        android:paddingStart="@dimen/dp12"
-                        android:paddingEnd="@dimen/dp12"
-                        android:imeOptions="actionNext"
-                        android:textSize="@dimen/fontNormal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        tools:ignore="Autofill" />
+                        android:layout_height="wrap_content">
 
-                    <TextView
-                        android:text="Tanggal Lahir Pasangan"
-                        android:layout_marginTop="10dp"
-                        android:textSize="@dimen/fontLarge"
-                        android:textColor="@android:color/black"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        <TextView
+                            android:text="Nama Pasangan"
+                            android:textColor="@android:color/black"
+                            android:textSize="@dimen/fontLarge"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                        <EditText
+                            android:id="@+id/etSpouseName"
+                            android:hint="Nama pasangan anda"
+                            android:inputType="textPersonName"
+                            android:paddingStart="@dimen/dp12"
+                            android:paddingEnd="@dimen/dp12"
+                            android:imeOptions="actionNext"
+                            android:textSize="@dimen/fontNormal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            tools:ignore="Autofill" />
 
-                    <EditText
-                        android:id="@+id/dateBirthSpouse"
-                        android:text="dd-mm-yyyy"
-                        android:drawablePadding="5dp"
-                        android:gravity="center_vertical"
-                        android:drawableStart="@drawable/ic_calendar"
-                        android:textColor="@android:color/black"
-                        android:background="@android:color/transparent"
-                        android:textSize="@dimen/fontNormal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        tools:ignore="Autofill" />
+                        <TextView
+                            android:text="Tanggal Lahir Pasangan"
+                            android:layout_marginTop="10dp"
+                            android:textSize="@dimen/fontLarge"
+                            android:textColor="@android:color/black"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
 
-                    <TextView
-                        android:text="Pendidikan"
-                        android:textColor="@android:color/black"
-                        android:textSize="@dimen/fontLarge"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-                    <Spinner
-                        android:id="@+id/spPendidikan"
-                        android:paddingStart="@dimen/dp12"
-                        android:paddingEnd="@dimen/dp12"
-                        android:textSize="@dimen/fontNormal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        tools:ignore="Autofill" />
+                        <TextView
+                            android:id="@+id/dateBirthSpouse"
+                            android:drawablePadding="5dp"
+                            android:gravity="center_vertical"
+                            android:drawableStart="@drawable/ic_calendar"
+                            android:textColor="@android:color/black"
+                            android:background="@android:color/transparent"
+                            android:textSize="@dimen/fontNormal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            tools:ignore="Autofill" />
+
+                        <TextView
+                            android:text="Pendidikan"
+                            android:textColor="@android:color/black"
+                            android:textSize="@dimen/fontLarge"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                        <Spinner
+                            android:id="@+id/spPendidikan"
+                            android:paddingStart="@dimen/dp12"
+                            android:paddingEnd="@dimen/dp12"
+                            android:textSize="@dimen/fontNormal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            tools:ignore="Autofill" />
+
+                    </LinearLayout>
 
                     <TextView
                         android:text="Jumlah tanggungan (orang)"
