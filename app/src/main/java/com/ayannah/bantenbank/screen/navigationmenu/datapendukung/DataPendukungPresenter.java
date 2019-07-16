@@ -86,7 +86,7 @@ public class DataPendukungPresenter implements DataPendukungContract.Presenter {
     private void updateLocalData(UserProfile response) {
         preferenceRepository.setUserRelatedPersonName(response.getRelatedPersonname());
         preferenceRepository.setUserRelatedRelation(response.getRelatedRelation());
-//        preferenceRepository.set ALAMAT RUMAH
+        preferenceRepository.setUserRelatedAddress(response.getRelatedAddress());
         preferenceRepository.setUserRelatedHomeNumber(response.getRelatedHomenumber());
         preferenceRepository.setUserRelatedPhoneNumber(response.getRelatedPhonenumber());
 
