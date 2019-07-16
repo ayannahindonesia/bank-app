@@ -4,6 +4,8 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -212,7 +214,11 @@ public class InfoPribadiActivity extends DaggerAppCompatActivity implements
 
         etName.setText(data.getUserName());
 
-        jenisKelamin.setText(data.getUserGender());
+        if (data.getUserGender().equals("M")) {
+            jenisKelamin.setText("Laki-laki");
+        } else {
+            jenisKelamin.setText("Perempuan");
+        }
 
         etKTP.setText(data.getIdCard());
 
@@ -271,6 +277,8 @@ public class InfoPribadiActivity extends DaggerAppCompatActivity implements
 
             if(tanggungan[i].equals(String.valueOf(data.getDependants()))){
                 spTanggungan.setSelection(i);
+            } else if (data.getDependants() >= 6) {
+                spTanggungan.setSelection(7);
             }
         }
 
@@ -346,10 +354,7 @@ public class InfoPribadiActivity extends DaggerAppCompatActivity implements
 
     @Override
     public void successUpdateInfoPribadi() {
-
         Toast.makeText(this, "Berhasil Update", Toast.LENGTH_SHORT).show();
-
-        finish();
     }
 
     @Override
@@ -520,6 +525,29 @@ public class InfoPribadiActivity extends DaggerAppCompatActivity implements
     @Override
     public void onValidationSucceeded() {
 
+        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which) {
+                    case DialogInterface.BUTTON_POSITIVE:
+                        setRequestUpdatePersonalInformation();
+                        break;
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        dialog.cancel();
+                        break;
+                }
+            }
+        };
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Apakah Anda Yakin Akan Merubah Data?")
+                .setPositiveButton("Ya", dialogClickListener)
+                .setNegativeButton("Tidak", dialogClickListener)
+                .show();
+
+    }
+
+    private void setRequestUpdatePersonalInformation() {
         JsonObject json = new JsonObject();
 
         json.addProperty("last_education", spCollageLevel.getSelectedItem().toString());
@@ -564,10 +592,15 @@ public class InfoPribadiActivity extends DaggerAppCompatActivity implements
 
         json.addProperty("home_ownership", spStatusHome.getSelectedItem().toString());
 
+        if (spTanggungan.getSelectedItem().toString().toLowerCase().equals("lebih dari 5")) {
+            json.addProperty("dependants", 6);
+        } else {
+            json.addProperty("dependants", Integer.parseInt(spTanggungan.getSelectedItem().toString()));
+        }
+
+
 
         mPresenter.updateInfoPribadi(json);
-
-
     }
 
     @Override

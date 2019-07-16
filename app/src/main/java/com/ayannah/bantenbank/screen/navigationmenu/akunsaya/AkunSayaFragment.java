@@ -1,5 +1,7 @@
 package com.ayannah.bantenbank.screen.navigationmenu.akunsaya;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -28,8 +30,8 @@ public class AkunSayaFragment extends BaseFragment implements AkunSayaContract.V
     @BindView(R.id.etName)
     EditText etName;
 
-    @NotEmpty(message = "Email wajib diisi yah...")
-    @Email
+    @NotEmpty(message = "Masukan Alamat Email Anda", trim = true)
+    @Email(message = "Format Email Salah")
     @BindView(R.id.etEmail)
     EditText etEmail;
 
@@ -109,7 +111,25 @@ public class AkunSayaFragment extends BaseFragment implements AkunSayaContract.V
     @Override
     public void onValidationSucceeded() {
 
-        mPresenter.updateDataUser(etEmail.getText().toString());
+        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which) {
+                    case DialogInterface.BUTTON_POSITIVE:
+                        mPresenter.updateDataUser(etEmail.getText().toString());
+                        break;
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        dialog.cancel();
+                        break;
+                }
+            }
+        };
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(parentActivity());
+        builder.setMessage("Apakah Anda Yakin Akan Merubah Data?")
+                .setPositiveButton("Ya", dialogClickListener)
+                .setNegativeButton("Tidak", dialogClickListener)
+                .show();
 
     }
 

@@ -151,6 +151,9 @@ public class UserProfile{
 	@SerializedName("related_address")
 	private String relatedAddress;
 
+	@SerializedName("dependants")
+	private int dependants;
+
 	public String getBirthday(){
 		return birthday;
 	}
@@ -345,5 +348,9 @@ public class UserProfile{
 
 	public String getRelatedAddress() {
 		return relatedAddress;
+	}
+
+	public int getDependants() {
+		return dependants;
 	}
 }

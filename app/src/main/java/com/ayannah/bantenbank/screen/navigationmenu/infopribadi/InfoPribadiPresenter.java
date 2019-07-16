@@ -215,6 +215,8 @@ public class InfoPribadiPresenter implements InfoPribadiContract.Presenter {
 
             preferenceRepository.setHomeOwnerShip(res.getHomeOwnership());
 
+            preferenceRepository.setDependants(res.getDependants());
+
             mView.successUpdateInfoPribadi();
 
         }, error ->{

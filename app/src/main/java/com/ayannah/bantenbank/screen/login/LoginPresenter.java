@@ -166,6 +166,7 @@ public class LoginPresenter implements LoginContract.Presenter {
             preferenceRepository.setUserRelatedPhoneNumber(response.getRelatedPhonenumber());
             preferenceRepository.setUserRelatedHomeNumber(response.getRelatedHomenumber());
             preferenceRepository.setUserRelatedAddress(response.getRelatedAddress());
+            preferenceRepository.setDependants(response.getDependants());
 
             preferenceRepository.setUserPrimaryIncome(String.valueOf(response.getMonthlyIncome()));
             preferenceRepository.setUserOtherIncome(String.valueOf(response.getOtherIncome()));
