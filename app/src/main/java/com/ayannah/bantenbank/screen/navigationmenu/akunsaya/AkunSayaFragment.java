@@ -2,6 +2,7 @@ package com.ayannah.bantenbank.screen.navigationmenu.akunsaya;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -89,11 +90,15 @@ public class AkunSayaFragment extends BaseFragment implements AkunSayaContract.V
     @Override
     public void berhasil() {
 
-        Toast.makeText(parentActivity(), "Akun berhasil di update", Toast.LENGTH_SHORT).show();
+        Toast.makeText(parentActivity(), "Data Berhasil Dirubah", Toast.LENGTH_SHORT).show();
 
         etEmail.clearFocus();
 
-        mPresenter.getDataUser();
+        Intent intent = new Intent(parentActivity(), AkunSayaActivity.class);
+        startActivity(intent);
+        parentActivity().finish();
+
+//        mPresenter.getDataUser();
     }
 
     @OnClick(R.id.buttonSubmit)
