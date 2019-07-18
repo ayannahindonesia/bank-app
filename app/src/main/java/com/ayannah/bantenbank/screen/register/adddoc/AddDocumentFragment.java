@@ -5,7 +5,13 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
+import android.nfc.Tag;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,12 +31,17 @@ import com.ayannah.bantenbank.dialog.BottomSheetInstructionDialog;
 import com.ayannah.bantenbank.screen.register.formemailphone.FormEmailPhoneActivity;
 import com.ayannah.bantenbank.screen.register.formemailphone.FormEmailPhoneFragment;
 import com.ayannah.bantenbank.screen.register.formothers.FormOtherFragment;
+import com.ayannah.bantenbank.util.CameraTakeBeforeM;
+import com.ayannah.bantenbank.util.CameraTakeM;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.Length;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -41,6 +52,8 @@ import pl.aprilapps.easyphotopicker.DefaultCallback;
 import pl.aprilapps.easyphotopicker.EasyImage;
 
 public class AddDocumentFragment extends BaseFragment implements Validator.ValidationListener {
+
+    private Bitmap mBitmapKTP;
 
     @BindView(R.id.imgKTP)
     ImageView imgKtp;
@@ -96,31 +109,38 @@ public class AddDocumentFragment extends BaseFragment implements Validator.Valid
         validator.setValidationListener(this);
 
         ///show dialog instruction
-        bottomDialog = new BottomSheetInstructionDialog().show(getActivity().getSupportFragmentManager(),
-                BottomSheetInstructionDialog.KTP_NPWP,
-                "Upload kartu identitas anda",
-                "Silahkan menambahkan foto kartu identitas pribadi anda seperti KTP dan NPWP (opsional) pribadi anda",
-                R.drawable.identity_card);
-        bottomDialog.setOnClickBottomSheetInstruction(new BottomSheetInstructionDialog.BottomSheetInstructionListener() {
-            @Override
-            public void onClickButtonDismiss() {
-
-                bottomDialog.dismiss();
-
-            }
-
-            @Override
-            public void onClickButtonYes() {
-                //Noo
-            }
-        });
+//        bottomDialog = new BottomSheetInstructionDialog().show(getActivity().getSupportFragmentManager(),
+//                BottomSheetInstructionDialog.KTP_NPWP,
+//                "Upload kartu identitas anda",
+//                "Silahkan menambahkan foto kartu identitas pribadi anda seperti KTP dan NPWP (opsional) pribadi anda",
+//                R.drawable.identity_card);
+//        bottomDialog.setOnClickBottomSheetInstruction(new BottomSheetInstructionDialog.BottomSheetInstructionListener() {
+//            @Override
+//            public void onClickButtonDismiss() {
+//
+//                bottomDialog.dismiss();
+//
+//            }
+//
+//            @Override
+//            public void onClickButtonYes() {
+//                //Noo
+//            }
+//        });
 
     }
 
     @OnClick(R.id.imgKTP)
     void onClickKtp(){
 
-        showDialogPicker(KTP);
+//        showDialogPicker(KTP);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            Intent intent = new Intent(parentActivity(), CameraTakeM.class);
+            startActivityForResult(intent, 2);
+        } else {
+            Intent intent = new Intent(parentActivity(), CameraTakeBeforeM.class);
+            startActivityForResult(intent, 2);
+        }
 
     }
 
@@ -205,49 +225,81 @@ public class AddDocumentFragment extends BaseFragment implements Validator.Valid
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        EasyImage.handleActivityResult(requestCode, resultCode, data, getActivity(), new DefaultCallback() {
+        if (requestCode == 2 && resultCode == -1) {
 
-            @Override
-            public void onImagePickerError(Exception e, EasyImage.ImageSource source, int type) {
-                super.onImagePickerError(e, source, type);
-                e.printStackTrace();
-                Log.e("AddCoumentRegister", "onImageError: "+e.getMessage());
+            try {
+//                data = getIntent();
+//                Bundle extras = data.getExtras();
+                FileOutputStream file = new FileOutputStream(Environment.getExternalStorageDirectory() + File.separator + "DecodepicKTP.jpg");
+//                    mBitmapKTP = BitmapFactory.decodeFile(Environment.getExternalStorageDirectory() + File.separator + "picKTP.jpg");
+                mBitmapKTP = decodedFile(Environment.getExternalStorageDirectory() + File.separator + "picKTP.jpg");
+//                    mBitmapKTP = BitmapFactory.decodeFile(Environment.getExternalStorageDirectory() + File.separator + "picKTP.jpg");
+//                    Bitmap resized = Bitmap.createScaledBitmap(mBitmapKTP, 720, 1080, true);
+//                    mBitmapKTP.compress(Bitmap.CompressFormat.JPEG, 30, file);
+                ByteArrayOutputStream out = new ByteArrayOutputStream();
+                mBitmapKTP.compress(Bitmap.CompressFormat.JPEG, 30, out);
+//                Bitmap decoded = BitmapFactory.decodeStream(new ByteArrayInputStream(out.toByteArray()));
+                out.writeTo(file);
+
+                byte[] bytes = out.toByteArray();
+                String pictKTP64 = Base64.encodeToString(bytes, Base64.NO_WRAP); // result for base64
+
+                imgKtp.setImageBitmap(mBitmapKTP);
+                editKtp.setVisibility(View.VISIBLE);
+
+//                UploadDocumentToServer(myappsDocument.getSimulationcode(), docTypeCode, decoded);
+
+            } catch (Exception e) {
+                Log.d("Error", e.getMessage());
             }
 
-            @Override
-            public void onImagePicked(File imageFile, EasyImage.ImageSource source, int type) {
+        } else {
 
-                if(imageFile != null){
+            EasyImage.handleActivityResult(requestCode, resultCode, data, getActivity(), new DefaultCallback() {
 
-                    switch (type){
-                        case KTP:
+                @Override
+                public void onImagePickerError(Exception e, EasyImage.ImageSource source, int type) {
+                    super.onImagePickerError(e, source, type);
+                    e.printStackTrace();
+                    Log.e("AddCoumentRegister", "onImageError: " + e.getMessage());
+                }
 
-                            fileKtp = imageFile;
-                            Bitmap bitmap = BitmapFactory.decodeFile(fileKtp.getAbsolutePath());
-                            imgKtp.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                            imgKtp.setImageBitmap(bitmap);
+                @Override
+                public void onImagePicked(File imageFile, EasyImage.ImageSource source, int type) {
+
+                    if (imageFile != null) {
+
+                        switch (type) {
+                            case KTP:
+
+                                fileKtp = imageFile;
+                                Bitmap bitmap = BitmapFactory.decodeFile(fileKtp.getAbsolutePath());
+                                imgKtp.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                                imgKtp.setImageBitmap(bitmap);
 //                            imgKtp.setBackgroundResource(R.drawable.border_selected_image);
-                            editKtp.setVisibility(View.VISIBLE);
+                                editKtp.setVisibility(View.VISIBLE);
 
-                            break;
+                                break;
 
-                        case NPWP:
+                            case NPWP:
 
-                            fileNpwp = imageFile;
-                            Bitmap bitmapnpwp = BitmapFactory.decodeFile(fileNpwp.getAbsolutePath());
-                            imgNpwp.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                                fileNpwp = imageFile;
+                                Bitmap bitmapnpwp = BitmapFactory.decodeFile(fileNpwp.getAbsolutePath());
+                                imgNpwp.setScaleType(ImageView.ScaleType.CENTER_CROP);
 //                            imgNpwp.setBackgroundResource(R.drawable.border_selected_image);
-                            imgNpwp.setImageBitmap(bitmapnpwp);
-                            editNpwp.setVisibility(View.VISIBLE);
+                                imgNpwp.setImageBitmap(bitmapnpwp);
+                                editNpwp.setVisibility(View.VISIBLE);
 
-                            break;
+                                break;
+
+                        }
 
                     }
 
                 }
+            });
 
-            }
-        });
+        }
     }
 
     @Override
@@ -281,4 +333,84 @@ public class AddDocumentFragment extends BaseFragment implements Validator.Valid
             }
         }
     }
+
+    public  Bitmap decodedFile(String path) {//you can provide file path here
+        int orientation;
+        try {
+            if (path == null) {
+                return null;
+            }
+            // decode image size
+            BitmapFactory.Options o = new BitmapFactory.Options();
+            o.inJustDecodeBounds = true;
+            // Find the correct scale value. It should be the power of 2.
+            final int REQUIRED_SIZE = 70;
+            int width_tmp = o.outWidth, height_tmp = o.outHeight;
+            int scale = 0;
+            while (true) {
+                if (width_tmp / 2 < REQUIRED_SIZE
+                        || height_tmp / 2 < REQUIRED_SIZE)
+                    break;
+                width_tmp /= 2;
+                height_tmp /= 2;
+                scale++;
+            }
+            // decode with inSampleSize
+            BitmapFactory.Options o2 = new BitmapFactory.Options();
+            o2.inSampleSize = scale;
+            Bitmap bm = BitmapFactory.decodeFile(path, o2);
+            Bitmap bitmap = bm;
+
+            ExifInterface exif = new ExifInterface(path);
+
+            orientation = exif
+                    .getAttributeInt(ExifInterface.TAG_ORIENTATION, 1);
+
+//            Log.e("ExifInteface .........", "rotation ="+orientation);
+
+//          exif.setAttribute(ExifInterface.ORIENTATION_ROTATE_90, 90);
+
+//            Log.e("orientation", "" + orientation);
+            Matrix m = new Matrix();
+
+            if ((orientation == ExifInterface.ORIENTATION_ROTATE_180)) {
+                m.postRotate(180);
+//              m.postScale((float) bm.getWidth(), (float) bm.getHeight());
+                // if(m.preRotate(90)){
+//                Log.e("in orientation", "" + orientation);
+                bitmap = Bitmap.createBitmap(bm, 0, 0, bm.getWidth(),
+                        bm.getHeight(), m, true);
+                return bitmap;
+            } else if (orientation == ExifInterface.ORIENTATION_ROTATE_90) {
+                m.postRotate(90);
+//                Log.e("in orientation", "" + orientation);
+                bitmap = Bitmap.createBitmap(bm, 0, 0, bm.getWidth(),
+                        bm.getHeight(), m, true);
+                return bitmap;
+            }
+            else if (orientation == ExifInterface.ORIENTATION_ROTATE_270) {
+                m.postRotate(270);
+//                Log.e("in orientation", "" + orientation);
+                bitmap = Bitmap.createBitmap(bm, 0, 0, bm.getWidth(),
+                        bm.getHeight(), m, true);
+                return bitmap;
+            }
+//            else if (orientation == ExifInterface.ORIENTATION_NORMAL) {
+//                m.postRotate(-90);
+////                Log.e("in orientation", "" + orientation);
+//                bitmap = Bitmap.createBitmap(bm, 0, 0, bm.getWidth(),
+//                        bm.getHeight(), m, true);
+//                return bitmap;
+//            }
+//            m.postRotate(-90);
+////                Log.e("in orientation", "" + orientation);
+//            bitmap = Bitmap.createBitmap(bm, 0, 0, bm.getWidth(),
+//                    bm.getHeight(), m, true);
+            return bitmap;
+        } catch (Exception e) {
+            return null;
+        }
+
+    }
+
 }

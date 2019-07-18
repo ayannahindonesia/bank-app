@@ -62,6 +62,11 @@
         <meta-data
             android:name="com.google.firebase.ml.vision.DEPENDENCIES"
             android:value="ocr" />
+
+        <activity
+            android:name=".util.CameraTakeM"
+            android:screenOrientation="landscape"
+            android:configChanges="orientation|screenSize" />
     </application>
 
 </manifest>
