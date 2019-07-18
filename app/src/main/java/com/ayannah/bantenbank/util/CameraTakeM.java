@@ -188,7 +188,7 @@ public class CameraTakeM extends AppCompatActivity {
                     int sensorOrientation = characteristics.get(CameraCharacteristics.SENSOR_ORIENTATION);
 //                    deviceOrientation = ORIENTATIONS.get(deviceOrientation);
                     captureBuilder.set(CaptureRequest.JPEG_ORIENTATION, ORIENTATIONS.get(rotation-90));
-                    final File file = new File(Environment.getExternalStorageDirectory() + "/picKTP.jpg");
+                    final File file = new File(Environment.getExternalStorageDirectory() + "/picTemp.jpg");
 //                    Bitmap scaledBitmap = BitmapFactory.decodeFile(Environment.getExternalStorageDirectory() + File.separator+ "picKTP.jpg");
 //                    FileOutputStream fos = new FileOutputStream(file);
 //                    scaledBitmap.compress(Bitmap.CompressFormat.PNG, 30, fos);

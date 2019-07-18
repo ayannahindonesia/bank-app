@@ -63,6 +63,7 @@ public class AddDocumentFragment extends BaseFragment implements AddDocumentCont
     AddDocumentContract.Presenter mPresenter;
 
     private Bitmap mBitmapKTP;
+    private Bitmap mBitmapNPWP;
 
     @BindView(R.id.imgKTP)
     ImageView imgKtp;
@@ -163,10 +164,10 @@ public class AddDocumentFragment extends BaseFragment implements AddDocumentCont
 //        showDialogPicker(KTP);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             Intent intent = new Intent(parentActivity(), CameraTakeM.class);
-            startActivityForResult(intent, 2);
+            startActivityForResult(intent, KTP);
         } else {
             Intent intent = new Intent(parentActivity(), CameraTakeBeforeM.class);
-            startActivityForResult(intent, 2);
+            startActivityForResult(intent, KTP);
         }
 
     }
@@ -174,20 +175,43 @@ public class AddDocumentFragment extends BaseFragment implements AddDocumentCont
     @OnClick(R.id.imgNPWP)
     void onClickNpwp(){
 
-        showDialogPicker(NPWP);
+//        showDialogPicker(NPWP);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            Intent intent = new Intent(parentActivity(), CameraTakeM.class);
+            startActivityForResult(intent, NPWP);
+        } else {
+            Intent intent = new Intent(parentActivity(), CameraTakeBeforeM.class);
+            startActivityForResult(intent, NPWP);
+        }
 
     }
 
     @OnClick(R.id.editKTP)
     void onClickEdit(){
 
-        showDialogPicker(KTP);
+//        showDialogPicker(KTP);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            Intent intent = new Intent(parentActivity(), CameraTakeM.class);
+            startActivityForResult(intent, KTP);
+        } else {
+            Intent intent = new Intent(parentActivity(), CameraTakeBeforeM.class);
+            startActivityForResult(intent, KTP);
+        }
+
     }
 
     @OnClick(R.id.editNPWP)
     void onClickEditNpwp(){
 
-        showDialogPicker(NPWP);
+//        showDialogPicker(NPWP);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            Intent intent = new Intent(parentActivity(), CameraTakeM.class);
+            startActivityForResult(intent, NPWP);
+        } else {
+            Intent intent = new Intent(parentActivity(), CameraTakeBeforeM.class);
+            startActivityForResult(intent, NPWP);
+        }
+
     }
 
     @OnClick(R.id.btnNext)
@@ -252,79 +276,111 @@ public class AddDocumentFragment extends BaseFragment implements AddDocumentCont
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == 2 && resultCode == Activity.RESULT_OK) {
+        if(resultCode == Activity.RESULT_OK){
 
-            try {
-//                data = getIntent();
-//                Bundle extras = data.getExtras();
-                FileOutputStream file = new FileOutputStream(Environment.getExternalStorageDirectory() + File.separator + "DecodepicKTP.jpg");
-//                    mBitmapKTP = BitmapFactory.decodeFile(Environment.getExternalStorageDirectory() + File.separator + "picKTP.jpg");
-                mBitmapKTP = decodedFile(Environment.getExternalStorageDirectory() + File.separator + "picKTP.jpg");
-//                    mBitmapKTP = BitmapFactory.decodeFile(Environment.getExternalStorageDirectory() + File.separator + "picKTP.jpg");
-//                    Bitmap resized = Bitmap.createScaledBitmap(mBitmapKTP, 720, 1080, true);
-//                    mBitmapKTP.compress(Bitmap.CompressFormat.JPEG, 30, file);
-                ByteArrayOutputStream out = new ByteArrayOutputStream();
-                mBitmapKTP.compress(Bitmap.CompressFormat.JPEG, 30, out);
-//                Bitmap decoded = BitmapFactory.decodeStream(new ByteArrayInputStream(out.toByteArray()));
-                out.writeTo(file);
+            switch (requestCode){
 
-                byte[] bytes = out.toByteArray();
-                String pictKTP64 = Base64.encodeToString(bytes, Base64.NO_WRAP); // result for base64
+                case KTP:
+                    try {
+                        FileOutputStream file = new FileOutputStream(Environment.getExternalStorageDirectory() + File.separator + "DecodepicKTP.jpg");
 
-                imgKtp.setImageBitmap(mBitmapKTP);
-                editKtp.setVisibility(View.VISIBLE);
+                        mBitmapKTP = decodedFile(Environment.getExternalStorageDirectory() + File.separator + "picTemp.jpg");
 
-//                UploadDocumentToServer(myappsDocument.getSimulationcode(), docTypeCode, decoded);
+                        ByteArrayOutputStream out = new ByteArrayOutputStream();
+                        mBitmapKTP.compress(Bitmap.CompressFormat.JPEG, 30, out);
 
-            } catch (Exception e) {
-                Log.d("Error", e.getMessage());
-            }
+                        out.writeTo(file);
 
-        } else {
+                        byte[] bytes = out.toByteArray();
+                        String pictKTP64 = Base64.encodeToString(bytes, Base64.NO_WRAP); // result for base64
 
-            EasyImage.handleActivityResult(requestCode, resultCode, data, getActivity(), new DefaultCallback() {
+                        Toast.makeText(parentActivity(), "KTP", Toast.LENGTH_SHORT).show();
+                        imgKtp.setImageBitmap(mBitmapKTP);
+                        editKtp.setVisibility(View.VISIBLE);
 
-                @Override
-                public void onImagePickerError(Exception e, EasyImage.ImageSource source, int type) {
-                    super.onImagePickerError(e, source, type);
-                    e.printStackTrace();
-                    Log.e("AddCoumentRegister", "onImageError: " + e.getMessage());
-                }
 
-                @Override
-                public void onImagePicked(File imageFile, EasyImage.ImageSource source, int type) {
+                    } catch (Exception e) {
+                        Log.d("Error", e.getMessage());
+                    }
+                    break;
 
-                    if (imageFile != null) {
+                case NPWP:
 
-                        switch (type) {
-                            case KTP:
-//                            fileKtp = imageFile;
-                                fileKtp = ImageUtils.compressImageFile(parentActivity(), imageFile);
-                                Bitmap bitmap = BitmapFactory.decodeFile(fileKtp.getAbsolutePath());
-                                imgKtp.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                                imgKtp.setImageBitmap(bitmap);
-//                            imgKtp.setBackgroundResource(R.drawable.border_selected_image);
-                                editKtp.setVisibility(View.VISIBLE);
-                                break;
+                    try {
 
-                            case NPWP:
-//                            fileNpwp = imageFile;
-                                fileNpwp = ImageUtils.compressImageFile(parentActivity(), imageFile);
-                                Bitmap bitmapnpwp = BitmapFactory.decodeFile(fileNpwp.getAbsolutePath());
-                                imgNpwp.setScaleType(ImageView.ScaleType.CENTER_CROP);
-//                            imgNpwp.setBackgroundResource(R.drawable.border_selected_image);
-                                imgNpwp.setImageBitmap(bitmapnpwp);
-                                editNpwp.setVisibility(View.VISIBLE);
-                                break;
+                        FileOutputStream file = new FileOutputStream(Environment.getExternalStorageDirectory() + File.separator + "DecodepicNPWP.jpg");
 
-                        }
+                        mBitmapNPWP = decodedFile(Environment.getExternalStorageDirectory() + File.separator + "picTemp.jpg");
 
+                        ByteArrayOutputStream out = new ByteArrayOutputStream();
+                        mBitmapNPWP.compress(Bitmap.CompressFormat.JPEG, 30, out);
+
+                        out.writeTo(file);
+
+                        byte[] bytes = out.toByteArray();
+                        String pictNPWP64 = Base64.encodeToString(bytes, Base64.NO_WRAP); // result for base64
+
+                        Toast.makeText(parentActivity(), "NPWP", Toast.LENGTH_SHORT).show();
+                        imgNpwp.setImageBitmap(mBitmapNPWP);
+                        editNpwp.setVisibility(View.VISIBLE);
+
+                    } catch (Exception e) {
+                        Log.d("Error", e.getMessage());
                     }
 
-                }
-            });
+                    break;
+            }
 
         }
+
+//        if (requestCode == 2 && resultCode == Activity.RESULT_OK) {
+//
+//            try {
+//                FileOutputStream file = new FileOutputStream(Environment.getExternalStorageDirectory() + File.separator + "DecodepicKTP.jpg");
+//
+//                mBitmapKTP = decodedFile(Environment.getExternalStorageDirectory() + File.separator + "picKTP.jpg");
+//
+//                ByteArrayOutputStream out = new ByteArrayOutputStream();
+//                mBitmapKTP.compress(Bitmap.CompressFormat.JPEG, 30, out);
+//
+//                out.writeTo(file);
+//
+//                byte[] bytes = out.toByteArray();
+//                String pictKTP64 = Base64.encodeToString(bytes, Base64.NO_WRAP); // result for base64
+//
+//                imgKtp.setImageBitmap(mBitmapKTP);
+//                editKtp.setVisibility(View.VISIBLE);
+//
+//
+//            } catch (Exception e) {
+//                Log.d("Error", e.getMessage());
+//            }
+//
+//        } else if(requestCode == 3 && resultCode == Activity.RESULT_OK){
+//
+//            try {
+//
+//                FileOutputStream file = new FileOutputStream(Environment.getExternalStorageDirectory() + File.separator + "DecodepicNPWP.jpg");
+//
+//                mBitmapNPWP = decodedFile(Environment.getExternalStorageDirectory() + File.separator + "picNPWP.jpg");
+//
+//                ByteArrayOutputStream out = new ByteArrayOutputStream();
+//                mBitmapNPWP.compress(Bitmap.CompressFormat.JPEG, 30, out);
+//
+//                out.writeTo(file);
+//
+//                byte[] bytes = out.toByteArray();
+//                String pictNPWP64 = Base64.encodeToString(bytes, Base64.NO_WRAP); // result for base64
+//
+//                imgNpwp.setImageBitmap(mBitmapNPWP);
+//                editNpwp.setVisibility(View.VISIBLE);
+//
+//            } catch (Exception e) {
+//                Log.d("Error", e.getMessage());
+//            }
+//
+//        }
+
     }
 
     @Override

@@ -116,7 +116,7 @@ public class CameraTakeBeforeM extends AppCompatActivity implements SurfaceHolde
     };
 
     private File getOutputMediaFile() {
-        File mediaStorageDir = new File (Environment.getExternalStorageDirectory() + File.separator + "picKTP.jpg");
+        File mediaStorageDir = new File (Environment.getExternalStorageDirectory() + File.separator + "picTemp.jpg");
 //        if (!mediaStorageDir.exists()) {
 //            Log.d("MyCameraApp", "failed to create directory");
 //            return null;
