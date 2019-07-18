@@ -280,7 +280,7 @@
 
             <EditText
                 android:id="@+id/etAlasan"
-                android:hint="Ketik disini..."
+                android:hint="Isi alasan peminjaman disini"
                 android:textSize="@dimen/fontNormal"
                 android:paddingStart="@dimen/dp10"
                 android:paddingEnd="@dimen/margin10dp"

@@ -22,13 +22,18 @@ import androidx.fragment.app.FragmentTransaction;
 import com.ayannah.bantenbank.R;
 import com.ayannah.bantenbank.base.BaseFragment;
 import com.ayannah.bantenbank.dialog.BottomSheetInstructionDialog;
+import com.ayannah.bantenbank.screen.register.formBorrower.FormBorrowerActivity;
 import com.ayannah.bantenbank.screen.register.formemailphone.FormEmailPhoneActivity;
 import com.ayannah.bantenbank.screen.register.formemailphone.FormEmailPhoneFragment;
 import com.ayannah.bantenbank.screen.register.formothers.FormOtherFragment;
+import com.ayannah.bantenbank.util.ImageUtils;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.annotation.ConfirmPassword;
+import com.mobsandgeeks.saripaar.annotation.Email;
 import com.mobsandgeeks.saripaar.annotation.Length;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
+import com.mobsandgeeks.saripaar.annotation.Password;
 
 import java.io.File;
 import java.util.List;
@@ -40,7 +45,10 @@ import butterknife.OnClick;
 import pl.aprilapps.easyphotopicker.DefaultCallback;
 import pl.aprilapps.easyphotopicker.EasyImage;
 
-public class AddDocumentFragment extends BaseFragment implements Validator.ValidationListener {
+public class AddDocumentFragment extends BaseFragment implements AddDocumentContract.View, Validator.ValidationListener {
+
+    @Inject
+    AddDocumentContract.Presenter mPresenter;
 
     @BindView(R.id.imgKTP)
     ImageView imgKtp;
@@ -60,6 +68,24 @@ public class AddDocumentFragment extends BaseFragment implements Validator.Valid
 
     @BindView(R.id.etNPWP)
     EditText etNPWP;
+
+    @NotEmpty(message = "Masukan Alamat Email Anda")
+    @Email(message = "Format Email Salah")
+    @BindView(R.id.regist_email)
+    EditText email;
+
+    @NotEmpty(message = "Masukan Nomor Handphone Anda")
+    @BindView(R.id.regist_phone)
+    EditText phone;
+
+    @Password(min = 1, message = "Masukan Password")
+    @BindView(R.id.regist_pass)
+    EditText pass;
+
+    @NotEmpty(message = "Masukan Konfirmasi Password")
+    @ConfirmPassword(message = "Password Tidak Cocok")
+    @BindView(R.id.regist_pass_retype)
+    EditText passRetype;
 
     private Validator validator;
 
@@ -222,7 +248,8 @@ public class AddDocumentFragment extends BaseFragment implements Validator.Valid
                     switch (type){
                         case KTP:
 
-                            fileKtp = imageFile;
+//                            fileKtp = imageFile;
+                            fileKtp = ImageUtils.compressImageFile(parentActivity(), imageFile);
                             Bitmap bitmap = BitmapFactory.decodeFile(fileKtp.getAbsolutePath());
                             imgKtp.setScaleType(ImageView.ScaleType.CENTER_CROP);
                             imgKtp.setImageBitmap(bitmap);
@@ -233,7 +260,8 @@ public class AddDocumentFragment extends BaseFragment implements Validator.Valid
 
                         case NPWP:
 
-                            fileNpwp = imageFile;
+//                            fileNpwp = imageFile;
+                            fileNpwp = ImageUtils.compressImageFile(parentActivity(), imageFile);
                             Bitmap bitmapnpwp = BitmapFactory.decodeFile(fileNpwp.getAbsolutePath());
                             imgNpwp.setScaleType(ImageView.ScaleType.CENTER_CROP);
 //                            imgNpwp.setBackgroundResource(R.drawable.border_selected_image);
@@ -260,11 +288,14 @@ public class AddDocumentFragment extends BaseFragment implements Validator.Valid
 
         bundle.putString(FormOtherFragment.KTP_NO, etKTP.getText().toString());
         bundle.putString(FormOtherFragment.NPWP_NO, etNPWP.getText().toString());
+        bundle.putString(FormOtherFragment.EMAIL, email.getText().toString());
+        bundle.putString(FormOtherFragment.PHONE, phone.getText().toString());
+        bundle.putString(FormOtherFragment.PASS, pass.getText().toString());
+        bundle.putString(FormOtherFragment.CONF_PASS, passRetype.getText().toString());
 
-        Intent formemail = new Intent(parentActivity(), FormEmailPhoneActivity.class);
-        formemail.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        formemail.putExtras(bundle);
-        startActivity(formemail);
+        Intent form = new Intent(parentActivity(), FormBorrowerActivity.class);
+        form.putExtras(bundle);
+        startActivity(form);
     }
 
     @Override
@@ -280,5 +311,17 @@ public class AddDocumentFragment extends BaseFragment implements Validator.Valid
                 Toast.makeText(parentActivity(), message, Toast.LENGTH_LONG).show();
             }
         }
+    }
+
+    @Override
+    public void showErrorMessage(String message) {
+
+        Toast.makeText(parentActivity(), message, Toast.LENGTH_SHORT).show();
+
+    }
+
+    @Override
+    public void successCheckMandotryEntity(String message) {
+
     }
 }

@@ -117,7 +117,11 @@ public class SummaryTransactionFragment extends BaseFragment implements SummaryT
 
         tvAlasan.setText(alasan);
 
-        tvTujuanPinjam.setText(tujuan);
+        if(tujuan == null || tujuan.isEmpty()){
+            tvTujuanPinjam.setText("-");
+        }else {
+            tvTujuanPinjam.setText(tujuan);
+        }
 
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.MONTH, tenor);

@@ -16,6 +16,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.fragment.app.DialogFragment;
+
 import com.ayannah.bantenbank.R;
 import com.ayannah.bantenbank.base.BaseFragment;
 import com.ayannah.bantenbank.data.local.PreferenceRepository;
@@ -27,6 +29,7 @@ import com.ayannah.bantenbank.data.model.UserProfile;
 import com.ayannah.bantenbank.screen.register.formjobearning.FormJobEarningActivity;
 import com.ayannah.bantenbank.screen.register.formjobearning.FormJobEarningFragment;
 import com.ayannah.bantenbank.screen.register.formothers.FormOtherFragment;
+import com.ayannah.bantenbank.util.DatePickerCustom;
 import com.github.florent37.singledateandtimepicker.SingleDateAndTimePicker;
 import com.github.florent37.singledateandtimepicker.dialog.SingleDateAndTimePickerDialog;
 import com.mobsandgeeks.saripaar.ValidationError;
@@ -260,64 +263,81 @@ public class FormBorrowerFragment extends BaseFragment implements FormBorrowerCo
     @OnClick(R.id.regist_dateBirth)
     void onClickDateBirth(){
 
-        new SingleDateAndTimePickerDialog.Builder(parentActivity())
-                .bottomSheet()
-                .curved()
-                .displayMinutes(false)
-                .displayHours(false)
-                .displayDays(false)
-                .displayMonth(true)
-                .displayYears(true)
-                .displayDaysOfMonth(true)
-                .displayListener(new SingleDateAndTimePickerDialog.DisplayListener() {
-                    @Override
-                    public void onDisplayed(SingleDateAndTimePicker picker) {
-
-                    }
-                })
-                .title("Tanggal lahir")
-                .listener(new SingleDateAndTimePickerDialog.Listener() {
-                    @Override
-                    public void onDateSelected(Date date) {
-
-                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss.SSS'Z'");
-
-                        tvDateBirthBorrower.setText(sdf.format(date));
-                        if (tvDateBirthBorrower.getError() != null) {
-                            tvDateBirthBorrower.setError(null);
-                        }
-                    }
-                }).display();
+//        new SingleDateAndTimePickerDialog.Builder(parentActivity())
+//                .bottomSheet()
+//                .curved()
+//                .displayMinutes(false)
+//                .displayHours(false)
+//                .displayDays(false)
+//                .displayMonth(true)
+//                .displayYears(true)
+//                .displayDaysOfMonth(true)
+//                .displayListener(new SingleDateAndTimePickerDialog.DisplayListener() {
+//                    @Override
+//                    public void onDisplayed(SingleDateAndTimePicker picker) {
+//
+//                    }
+//                })
+//                .title("Tanggal lahir")
+//                .listener(new SingleDateAndTimePickerDialog.Listener() {
+//                    @Override
+//                    public void onDateSelected(Date date) {
+//
+//                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss.SSS'Z'");
+//
+//                        tvDateBirthBorrower.setText(sdf.format(date));
+//                        if (tvDateBirthBorrower.getError() != null) {
+//                            tvDateBirthBorrower.setError(null);
+//                        }
+//                    }
+//                }).display();
+        DialogFragment datePicker = new DatePickerCustom();
+        datePicker.showNow(parentActivity().getSupportFragmentManager(), "DatePicker datebirth user");
+        ((DatePickerCustom) datePicker).setOnSelectedDate(new DatePickerCustom.DatePickerCustomListener() {
+            @Override
+            public void onSelectedDate(String selectedDate) {
+                tvDateBirthBorrower.setText(selectedDate);
+            }
+        });
 
     }
 
     @OnClick(R.id.regist_dateBirthSpouse)
     void onClickDateBirthSpouse(){
 
-        new SingleDateAndTimePickerDialog.Builder(parentActivity())
-                .displayMinutes(false)
-                .displayHours(false)
-                .displayDays(false)
-                .displayMonth(true)
-                .displayYears(true)
-                .displayDaysOfMonth(true)
-                .displayListener(new SingleDateAndTimePickerDialog.DisplayListener() {
-                    @Override
-                    public void onDisplayed(SingleDateAndTimePicker picker) {
+//        new SingleDateAndTimePickerDialog.Builder(parentActivity())
+//                .displayMinutes(false)
+//                .displayHours(false)
+//                .displayDays(false)
+//                .displayMonth(true)
+//                .displayYears(true)
+//                .displayDaysOfMonth(true)
+//                .displayListener(new SingleDateAndTimePickerDialog.DisplayListener() {
+//                    @Override
+//                    public void onDisplayed(SingleDateAndTimePicker picker) {
+//
+//                    }
+//                })
+//                .title("Tanggal lahir Pasangan")
+//                .listener(new SingleDateAndTimePickerDialog.Listener() {
+//                    @Override
+//                    public void onDateSelected(Date date) {
+//
+//                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss.SSS'Z'");
+//
+//                        regist_dateBirthSpouse.setText(sdf.format(date));
+//                        regist_dateBirthSpouse.setError(null);
+//                    }
+//                }).display();
 
-                    }
-                })
-                .title("Tanggal lahir Pasangan")
-                .listener(new SingleDateAndTimePickerDialog.Listener() {
-                    @Override
-                    public void onDateSelected(Date date) {
-
-                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss.SSS'Z'");
-
-                        regist_dateBirthSpouse.setText(sdf.format(date));
-                        regist_dateBirthSpouse.setError(null);
-                    }
-                }).display();
+        DialogFragment datePicker = new DatePickerCustom();
+        datePicker.showNow(parentActivity().getSupportFragmentManager(), "DatePicker datebirth user");
+        ((DatePickerCustom) datePicker).setOnSelectedDate(new DatePickerCustom.DatePickerCustomListener() {
+            @Override
+            public void onSelectedDate(String selectedDate) {
+                regist_dateBirthSpouse.setText(selectedDate);
+            }
+        });
     }
 
 

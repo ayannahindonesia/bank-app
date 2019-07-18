@@ -1,5 +1,7 @@
 package com.ayannah.bantenbank.di;
 
+import com.ayannah.bantenbank.screen.createnewpassword.CreateNewPassActivity;
+import com.ayannah.bantenbank.screen.createnewpassword.CreateNewPassModule;
 import com.ayannah.bantenbank.screen.detailloan.DetailTransaksiActivity;
 import com.ayannah.bantenbank.screen.detailloan.DetailTransaksiModule;
 import com.ayannah.bantenbank.screen.earninginfo.EarningActivity;
@@ -36,6 +38,8 @@ import com.ayannah.bantenbank.screen.register.formjobearning.FormJobEarningActiv
 import com.ayannah.bantenbank.screen.register.formjobearning.FormJobEarningModule;
 import com.ayannah.bantenbank.screen.register.formothers.FormOtherActivity;
 import com.ayannah.bantenbank.screen.register.formothers.FormOtherModule;
+import com.ayannah.bantenbank.screen.resetpassword.ResetPasswordActivity;
+import com.ayannah.bantenbank.screen.resetpassword.ResetPasswordModule;
 import com.ayannah.bantenbank.screen.success.SuccessActivity;
 import com.ayannah.bantenbank.screen.success.SuccessModule;
 import com.ayannah.bantenbank.screen.summary.SummaryTransactionActivity;
@@ -127,5 +131,12 @@ abstract class ActivityBindingModule {
     @ContributesAndroidInjector(modules = DetailTransaksiModule.class)
     abstract DetailTransaksiActivity detailTransaksiActivity();
 
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = ResetPasswordModule.class)
+    abstract ResetPasswordActivity resetPasswordActivity();
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = CreateNewPassModule.class)
+    abstract CreateNewPassActivity createNewPassActivity();
 
 }

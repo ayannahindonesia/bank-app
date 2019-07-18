@@ -210,6 +210,7 @@
 
                     <LinearLayout
                         android:weightSum="2"
+                        android:visibility="gone"
                         android:layout_marginBottom="5dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
@@ -269,6 +270,15 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
+
+                    <TextView
+                        android:text="Detail tujuan pinjaman:"
+                        android:layout_marginTop="5dp"
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/fontNormal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
                     <TextView
                         android:id="@+id/tujuanPinjam"
                         android:textColor="@android:color/black"
@@ -296,7 +306,7 @@
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:text="Disclaimer"
+                        android:text="Syarat dan Ketentuan"
                         android:layout_weight="1"
                         android:textColor="@android:color/black"
                         android:textSize="@dimen/fontLarge"

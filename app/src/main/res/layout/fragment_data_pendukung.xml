@@ -138,7 +138,7 @@
     <Button
         android:id="@+id/buttonConfirm"
         android:background="@color/colorAccent"
-        android:text="Submit"
+        android:text="Ubah"
         android:textColor="@android:color/white"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"

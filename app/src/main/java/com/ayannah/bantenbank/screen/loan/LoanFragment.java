@@ -19,6 +19,7 @@ import com.ayannah.bantenbank.R;
 import com.ayannah.bantenbank.screen.summary.SummaryTransactionActivity;
 import com.ayannah.bantenbank.base.BaseFragment;
 import com.ayannah.bantenbank.util.CommonUtils;
+import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 
 import javax.inject.Inject;
 
@@ -216,18 +217,32 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
     void onClickPinjam(){
 
         Intent intent = new Intent(parentActivity(), SummaryTransactionActivity.class);
+
         intent.putExtra(SummaryTransactionActivity.PINJAMAN, loanAmount);
         intent.putExtra(SummaryTransactionActivity.TENOR, installmentTenor);
         intent.putExtra(SummaryTransactionActivity.ANGSURAN_BULAN, angsurnaPerbulan);
 
-        if(spAlasanPinjam.getSelectedItem().equals("Lain-lain")){
-            intent.putExtra(SummaryTransactionActivity.ALASAN, etAlasan.getText().toString());
-        }else {
-            intent.putExtra(SummaryTransactionActivity.ALASAN, spAlasanPinjam.getSelectedItem().toString());
-        }
-        intent.putExtra(SummaryTransactionActivity.TUJUAN, etTujuan.getText().toString());
+        if(spAlasanPinjam.getSelectedItem().toString().equals("Lain-lain")){
 
+            if(etAlasan.getText().toString().trim().isEmpty()){
+
+                Toast.makeText(parentActivity(), "Mohon diisi Alasannya", Toast.LENGTH_SHORT).show();
+                etAlasan.requestFocus();
+                return;
+            }
+
+            intent.putExtra(SummaryTransactionActivity.ALASAN, etAlasan.getText().toString());
+
+
+        }else {
+
+            intent.putExtra(SummaryTransactionActivity.ALASAN, spAlasanPinjam.getSelectedItem().toString());
+
+        }
+
+        intent.putExtra(SummaryTransactionActivity.TUJUAN, etTujuan.getText().toString());
         startActivity(intent);
+
     }
 
     @Override

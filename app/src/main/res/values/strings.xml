@@ -14,6 +14,17 @@
     <string name="laoding">Mohon tunggu…</string>
     <string name="connection_bad">Pastikan koneksi internet kamu aktif</string>
 
+    <!--reset passwod page-->
+    <string name="rp_desc">Silakan masukkan alamat email yang pernah anda gunakan saat mendaftar menjadi member ASIRA</string>
+    <string name="rp_emailhintc">contoh: john.doe@agmail.com</string>
+    <string name="rp_button">Konfirmasi</string>
+
+    <!--create new passwod page-->
+    <string name="cp_desc">Silakan masukkan password baru yang ingin anda buat</string>
+    <string name="cp_password">Password anda</string>
+    <string name="cp_retype_pass">Ketik ulang password</string>
+
+
     <!--Facebook credential-->
     <string name="facebook_app_id">431689680982071</string>
     <string name="fb_login_protocol_scheme">fb431689680982071</string>
@@ -24,6 +35,16 @@
     <!--<string name="menu_infoKeuangan">Informasi keuangan</string>-->
     <string name="menu_dataPendukung">Data pendukung</string>
     <string name="menu_logout">Keluar</string>
+
+    <!--page sumber earning-->
+    <string name="earning_primary">Pendapatan gaji per Bulan</string>
+    <string name="earning_rp">Rp</string>
+    <string name="earning_example_amount">1.250.000</string>
+    <string name="earning_secondary">Penghasilan lain-lain (jika ada)</string>
+    <string name="earning_other">Sumber pendapatan lain</string>
+    <string name="earning_example_other">Wirausaha</string>
+    <string name="earning_next">Selanjutnya</string>
+    <string name="earning_zero">0</string>
 
 
     <string name="menu_myaccount">Profil saya</string>
