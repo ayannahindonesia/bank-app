@@ -36,7 +36,7 @@ public class DatePickerCustom extends DialogFragment implements DatePickerDialog
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
 
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
+        SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault());
 
         Calendar calendar = Calendar.getInstance();
         calendar.set(year, month, dayOfMonth);

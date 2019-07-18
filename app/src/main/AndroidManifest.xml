@@ -69,6 +69,10 @@
             android:name=".util.CameraTakeM"
             android:screenOrientation="landscape"
             android:configChanges="orientation|screenSize" />
+
+        <activity android:name=".util.CameraTakeBeforeM"
+            android:screenOrientation="landscape"
+            android:configChanges="orientation|screenSize"/>
     </application>
 
 </manifest>

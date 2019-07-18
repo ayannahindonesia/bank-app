@@ -1,6 +1,7 @@
 package com.ayannah.bantenbank.screen.register.adddoc;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -135,24 +136,24 @@ public class AddDocumentFragment extends BaseFragment implements AddDocumentCont
         validator.setValidationListener(this);
 
         ///show dialog instruction
-//        bottomDialog = new BottomSheetInstructionDialog().show(getActivity().getSupportFragmentManager(),
-//                BottomSheetInstructionDialog.KTP_NPWP,
-//                "Upload kartu identitas anda",
-//                "Silahkan menambahkan foto kartu identitas pribadi anda seperti KTP dan NPWP (opsional) pribadi anda",
-//                R.drawable.identity_card);
-//        bottomDialog.setOnClickBottomSheetInstruction(new BottomSheetInstructionDialog.BottomSheetInstructionListener() {
-//            @Override
-//            public void onClickButtonDismiss() {
-//
-//                bottomDialog.dismiss();
-//
-//            }
-//
-//            @Override
-//            public void onClickButtonYes() {
-//                //Noo
-//            }
-//        });
+        bottomDialog = new BottomSheetInstructionDialog().show(parentActivity().getSupportFragmentManager(),
+                BottomSheetInstructionDialog.KTP_NPWP,
+                "Upload kartu identitas anda",
+                "Silahkan menambahkan foto kartu identitas pribadi anda seperti KTP dan NPWP (opsional) pribadi anda",
+                R.drawable.identity_card);
+        bottomDialog.setOnClickBottomSheetInstruction(new BottomSheetInstructionDialog.BottomSheetInstructionListener() {
+            @Override
+            public void onClickButtonDismiss() {
+
+                bottomDialog.dismiss();
+
+            }
+
+            @Override
+            public void onClickButtonYes() {
+                //Noo
+            }
+        });
 
     }
 
@@ -251,7 +252,7 @@ public class AddDocumentFragment extends BaseFragment implements AddDocumentCont
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == 2 && resultCode == -1) {
+        if (requestCode == 2 && resultCode == Activity.RESULT_OK) {
 
             try {
 //                data = getIntent();
