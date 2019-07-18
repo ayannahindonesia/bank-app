@@ -39,7 +39,7 @@ public class DataPendukungFragment extends BaseFragment implements DataPendukung
     @BindView(R.id.etRelatedName)
     EditText etRelatedName;
 
-    @NotEmpty(message = "Masukan Alamat Kerabat")
+    @NotEmpty(message = "Masukan Alamat Kerabat", trim = true)
     @BindView(R.id.etRelatedAddress)
     EditText etRelatedAddress;
 
@@ -144,7 +144,7 @@ public class DataPendukungFragment extends BaseFragment implements DataPendukung
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("related_personname", etRelatedName.getText().toString());
         jsonObject.addProperty("related_relation", spHub.getSelectedItem().toString());
-        jsonObject.addProperty("related address", etRelatedAddress.getText().toString());
+        jsonObject.addProperty("related_address", etRelatedAddress.getText().toString());
         jsonObject.addProperty("related_homenumber", etRelatedPhone.getText().toString());
         jsonObject.addProperty("related_phonenumber", etRelatedHP.getText().toString());
 

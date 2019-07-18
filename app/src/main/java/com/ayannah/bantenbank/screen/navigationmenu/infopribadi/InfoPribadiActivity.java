@@ -1,17 +1,17 @@
 package com.ayannah.bantenbank.screen.navigationmenu.infopribadi;
 
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,22 +22,16 @@ import com.ayannah.bantenbank.data.model.Kabupaten;
 import com.ayannah.bantenbank.data.model.Kecamatan;
 import com.ayannah.bantenbank.data.model.Kelurahan;
 import com.ayannah.bantenbank.data.model.Provinsi;
-import com.ayannah.bantenbank.util.CommonUtils;
 import com.github.florent37.singledateandtimepicker.SingleDateAndTimePicker;
 import com.github.florent37.singledateandtimepicker.dialog.SingleDateAndTimePickerDialog;
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.mobsandgeeks.saripaar.annotation.Select;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.io.InputStream;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -153,6 +147,9 @@ public class InfoPribadiActivity extends DaggerAppCompatActivity implements
     String kecamatan;
     String kelurahan;
 
+    DateFormat displayFormat = new SimpleDateFormat("dd MMM yyyy");
+    DateFormat serverFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+
     private Validator validator;
     @Override
     protected void onResume() {
@@ -212,7 +209,11 @@ public class InfoPribadiActivity extends DaggerAppCompatActivity implements
 
         etName.setText(data.getUserName());
 
-        jenisKelamin.setText(data.getUserGender());
+        if (data.getUserGender().equals("M")) {
+            jenisKelamin.setText("Laki-laki");
+        } else {
+            jenisKelamin.setText("Perempuan");
+        }
 
         etKTP.setText(data.getIdCard());
 
@@ -220,7 +221,12 @@ public class InfoPribadiActivity extends DaggerAppCompatActivity implements
 
         etLamaMenempatiRumah.setText(data.getLivedFor());
 
-        etDateBirth.setText(data.getUserBirthdate());
+        try {
+            Date date = serverFormat.parse(data.getUserBirthdate());
+            etDateBirth.setText(displayFormat.format(date));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
         etBirthPlace.setText(data.getUserBirthplace());
 
@@ -271,6 +277,8 @@ public class InfoPribadiActivity extends DaggerAppCompatActivity implements
 
             if(tanggungan[i].equals(String.valueOf(data.getDependants()))){
                 spTanggungan.setSelection(i);
+            } else if (data.getDependants() >= 6) {
+                spTanggungan.setSelection(7);
             }
         }
 
@@ -301,7 +309,12 @@ public class InfoPribadiActivity extends DaggerAppCompatActivity implements
 
         etHomeNumber.setText(data.getUserHomePhoneNumber());
 
-        dateBirthSpouse.setText(data.getSpouserBirthdate());
+        try {
+            Date date = serverFormat.parse(data.getSpouserBirthdate());
+            dateBirthSpouse.setText(displayFormat.format(date));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -336,7 +349,7 @@ public class InfoPribadiActivity extends DaggerAppCompatActivity implements
                     @Override
                     public void onDateSelected(Date date) {
 
-                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault());
+                        SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault());
 
                         dateBirthSpouse.setText(sdf.format(date));
 
@@ -346,9 +359,10 @@ public class InfoPribadiActivity extends DaggerAppCompatActivity implements
 
     @Override
     public void successUpdateInfoPribadi() {
+        Toast.makeText(this, "Data Berhasil Dirubah", Toast.LENGTH_SHORT).show();
 
-        Toast.makeText(this, "Berhasil Update", Toast.LENGTH_SHORT).show();
-
+        Intent intent = new Intent(this, InfoPribadiActivity.class);
+        startActivity(intent);
         finish();
     }
 
@@ -520,6 +534,29 @@ public class InfoPribadiActivity extends DaggerAppCompatActivity implements
     @Override
     public void onValidationSucceeded() {
 
+        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which) {
+                    case DialogInterface.BUTTON_POSITIVE:
+                        setRequestUpdatePersonalInformation();
+                        break;
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        dialog.cancel();
+                        break;
+                }
+            }
+        };
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Apakah Anda Yakin Akan Merubah Data?")
+                .setPositiveButton("Ya", dialogClickListener)
+                .setNegativeButton("Tidak", dialogClickListener)
+                .show();
+
+    }
+
+    private void setRequestUpdatePersonalInformation() {
         JsonObject json = new JsonObject();
 
         json.addProperty("last_education", spCollageLevel.getSelectedItem().toString());
@@ -530,7 +567,12 @@ public class InfoPribadiActivity extends DaggerAppCompatActivity implements
 
             json.addProperty("spouse_name", etSpouseName.getText().toString());
 
-            json.addProperty("spouse_birthday", dateBirthSpouse.getText().toString());
+            try {
+                Date date = displayFormat.parse(dateBirthSpouse.getText().toString());
+                json.addProperty("spouse_birthday", serverFormat.format(date));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
 
             json.addProperty("spouse_lasteducation", spPendidikan.getSelectedItem().toString());
 
@@ -538,7 +580,7 @@ public class InfoPribadiActivity extends DaggerAppCompatActivity implements
 
             json.addProperty("spouse_name", "");
 
-            json.addProperty("spouse_birthday", dateBirthSpouse.getText().toString());
+            json.addProperty("spouse_birthday", "1900-01-01T00:00:00.000Z");
 
             json.addProperty("spouse_lasteducation", "");
 
@@ -564,10 +606,15 @@ public class InfoPribadiActivity extends DaggerAppCompatActivity implements
 
         json.addProperty("home_ownership", spStatusHome.getSelectedItem().toString());
 
+        if (spTanggungan.getSelectedItem().toString().toLowerCase().equals("lebih dari 5")) {
+            json.addProperty("dependants", 6);
+        } else {
+            json.addProperty("dependants", Integer.parseInt(spTanggungan.getSelectedItem().toString()));
+        }
+
+
 
         mPresenter.updateInfoPribadi(json);
-
-
     }
 
     @Override

@@ -39,6 +39,8 @@ import com.mobsandgeeks.saripaar.annotation.Checked;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.mobsandgeeks.saripaar.annotation.Select;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -158,7 +160,8 @@ public class FormBorrowerFragment extends BaseFragment implements FormBorrowerCo
 
     private DatePickerDialog datePickerDialog;
 
-    SimpleDateFormat sdf;
+    DateFormat displayFormat = new SimpleDateFormat("dd MMM yyyy");
+    DateFormat serverFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 
     private String[] educationRepo = {"S2", "S1", "SMA/SMK", "SMP", "Tidak ada status pendidikan"};
     private String[] statusPerkawinan = {"Belum Menikah", "Menikah", "Duda", "Janda"};
@@ -195,7 +198,6 @@ public class FormBorrowerFragment extends BaseFragment implements FormBorrowerCo
 
     @Override
     protected void initView(Bundle state) {
-        sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
 
         validator = new Validator(this);
         validator.setValidationListener(this);
@@ -509,38 +511,55 @@ public class FormBorrowerFragment extends BaseFragment implements FormBorrowerCo
 
     @Override
     public void onValidationSucceeded() {
-        Bundle bundle = parentActivity().getIntent().getExtras();
-        assert bundle != null;
-        bundle.putString(FormOtherFragment.REGIST_NAME, etNameBorrower.getText().toString());
-        bundle.putString(FormOtherFragment.GENDER, gender);
-        bundle.putString(FormOtherFragment.REGIST_BIRTHDATE, tvDateBirthBorrower.getText().toString());
-        bundle.putString(FormOtherFragment.REGIST_BIRTHPLACE, etTempatLahir.getText().toString());
-        bundle.putString(FormOtherFragment.REGIST_EDUCATION, spCollageLevel.getSelectedItem().toString());
-        bundle.putString(FormOtherFragment.MOTHER_NAME, etNamaIbu.getText().toString());
-        bundle.putString(FormOtherFragment.MARITAL_STATUS, spPerkawinan.getSelectedItem().toString());
-        bundle.putString(FormOtherFragment.SPOUSE_NAME, etNamaPasangan.getText().toString());
-        if (regist_dateBirthSpouse.getText().toString().equals("dd-mm-yyyy")) {
-            bundle.putString(FormOtherFragment.SPOUSE_BIRTHDATE, null);
-        } else {
-            bundle.putString(FormOtherFragment.SPOUSE_BIRTHDATE, regist_dateBirthSpouse.getText().toString());
-        }
-        bundle.putString(FormOtherFragment.SPOUSE_EDUCATION, spPendidikan.getSelectedItem().toString());
-        bundle.putString(FormOtherFragment.DEPENDANTS, spTanggungan.getSelectedItem().toString());
-        bundle.putString(FormOtherFragment.ADDRESS, etAlamatDomisili.getText().toString());
-        bundle.putString(FormOtherFragment.PROVINCE, spProvinsi.getSelectedItem().toString());
-        bundle.putString(FormOtherFragment.CITY, spKota.getSelectedItem().toString());
-        bundle.putString(FormOtherFragment.SUB_DISTRICT, spKecamatan.getSelectedItem().toString());
-        bundle.putString(FormOtherFragment.DISTRICT, spKelurahan.getSelectedItem().toString());
-        bundle.putString(FormOtherFragment.REGIST_RT, etRt.getText().toString());
-        bundle.putString(FormOtherFragment.REGIST_RW, etRw.getText().toString());
-        bundle.putString(FormOtherFragment.REGIST_PHONE, etTelpRumah.getText().toString());
-        bundle.putString(FormOtherFragment.HOME_STAY_YEAR, etLamaMenempatiRumah.getText().toString());
-        bundle.putString(FormOtherFragment.HOME_STATUS, spStatusHome.getSelectedItem().toString());
 
-        Intent formjob = new Intent(parentActivity(), FormJobEarningActivity.class);
-        formjob.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        formjob.putExtras(bundle);
-        startActivity(formjob);
+        try {
+            Bundle bundle = parentActivity().getIntent().getExtras();
+            assert bundle != null;
+
+            Date dateBorrower = displayFormat.parse(tvDateBirthBorrower.getText().toString());
+
+            bundle.putString(FormOtherFragment.REGIST_NAME, etNameBorrower.getText().toString());
+            bundle.putString(FormOtherFragment.GENDER, gender);
+            bundle.putString(FormOtherFragment.REGIST_BIRTHDATE, serverFormat.format(dateBorrower));
+            bundle.putString(FormOtherFragment.REGIST_BIRTHPLACE, etTempatLahir.getText().toString());
+            bundle.putString(FormOtherFragment.REGIST_EDUCATION, spCollageLevel.getSelectedItem().toString());
+            bundle.putString(FormOtherFragment.MOTHER_NAME, etNamaIbu.getText().toString());
+            bundle.putString(FormOtherFragment.MARITAL_STATUS, spPerkawinan.getSelectedItem().toString());
+            bundle.putString(FormOtherFragment.SPOUSE_NAME, etNamaPasangan.getText().toString());
+            if (regist_dateBirthSpouse.getText().toString().equals("dd-mm-yyyy")) {
+                bundle.putString(FormOtherFragment.SPOUSE_BIRTHDATE, null);
+            } else {
+                Date dateSpouse = displayFormat.parse(regist_dateBirthSpouse.getText().toString());
+                bundle.putString(FormOtherFragment.SPOUSE_BIRTHDATE, String.valueOf(serverFormat.format(dateSpouse)));
+            }
+            bundle.putString(FormOtherFragment.SPOUSE_EDUCATION, spPendidikan.getSelectedItem().toString());
+
+            if (spTanggungan.getSelectedItem().toString().toLowerCase().equals("lebih dari 5")) {
+                bundle.putString(FormOtherFragment.DEPENDANTS, "6");
+            } else {
+                bundle.putString(FormOtherFragment.DEPENDANTS, spTanggungan.getSelectedItem().toString());
+            }
+
+
+            bundle.putString(FormOtherFragment.ADDRESS, etAlamatDomisili.getText().toString());
+            bundle.putString(FormOtherFragment.PROVINCE, spProvinsi.getSelectedItem().toString());
+            bundle.putString(FormOtherFragment.CITY, spKota.getSelectedItem().toString());
+            bundle.putString(FormOtherFragment.SUB_DISTRICT, spKecamatan.getSelectedItem().toString());
+            bundle.putString(FormOtherFragment.DISTRICT, spKelurahan.getSelectedItem().toString());
+            bundle.putString(FormOtherFragment.REGIST_RT, etRt.getText().toString());
+            bundle.putString(FormOtherFragment.REGIST_RW, etRw.getText().toString());
+            bundle.putString(FormOtherFragment.REGIST_PHONE, etTelpRumah.getText().toString());
+            bundle.putString(FormOtherFragment.HOME_STAY_YEAR, etLamaMenempatiRumah.getText().toString());
+            bundle.putString(FormOtherFragment.HOME_STATUS, spStatusHome.getSelectedItem().toString());
+
+            Intent formjob = new Intent(parentActivity(), FormJobEarningActivity.class);
+            formjob.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            formjob.putExtras(bundle);
+            startActivity(formjob);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

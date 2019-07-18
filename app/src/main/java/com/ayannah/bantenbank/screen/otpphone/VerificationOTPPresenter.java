@@ -172,6 +172,7 @@ public class VerificationOTPPresenter implements VerificationOTPContract.Present
                     preferenceRepository.setUserRelatedPhoneNumber(response.getRelatedPhonenumber());
                     preferenceRepository.setUserRelatedHomeNumber(response.getRelatedHomenumber());
                     preferenceRepository.setUserRelatedAddress(response.getRelatedAddress());
+                    preferenceRepository.setDependants(response.getDependants());
 
                     preferenceRepository.setUserPrimaryIncome(String.valueOf(response.getMonthlyIncome()));
                     preferenceRepository.setUserOtherIncome(String.valueOf(response.getOtherIncome()));
