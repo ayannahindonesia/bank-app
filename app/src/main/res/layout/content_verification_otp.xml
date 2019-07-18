@@ -16,7 +16,7 @@
 
         <TextView
             android:id="@+id/titleVerification"
-            android:text="Masukkan kode verifikasi yang kami kirimkman ke nomor ponsel Anda"
+            android:text="Masukkan kode verifikasi yang kami kirimkan ke nomor ponsel Anda"
             android:textColor="@android:color/black"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

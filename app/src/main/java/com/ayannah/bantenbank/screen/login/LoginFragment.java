@@ -12,6 +12,7 @@ import com.ayannah.bantenbank.R;
 import com.ayannah.bantenbank.base.BaseFragment;
 import com.ayannah.bantenbank.screen.register.addaccountbank.AddAccountBankActivity;
 import com.ayannah.bantenbank.screen.register.choosebank.ChooseBankActivity;
+import com.ayannah.bantenbank.screen.resetpassword.ResetPasswordActivity;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
@@ -77,6 +78,14 @@ public class LoginFragment extends BaseFragment implements
 
         validator.validate();
 
+    }
+
+    @OnClick(R.id.resetPassword)
+    void onClickResetPass(){
+
+        Intent pass = new Intent(parentActivity(), ResetPasswordActivity.class);
+        pass.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(pass);
     }
 
     @OnClick(R.id.btnRegister)

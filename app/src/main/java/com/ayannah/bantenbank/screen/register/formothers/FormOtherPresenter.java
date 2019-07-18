@@ -37,7 +37,7 @@ public class FormOtherPresenter implements FormOtherContract.Presenter{
     private RemoteRepository remotRepo;
 
     @Inject
-    public FormOtherPresenter(Application application, PreferenceRepository preferenceRepository, RemoteRepository remotRepo) {
+    FormOtherPresenter(Application application, PreferenceRepository preferenceRepository, RemoteRepository remotRepo) {
         this.application = application;
         this.preferenceRepository = preferenceRepository;
         this.mComposite = new CompositeDisposable();

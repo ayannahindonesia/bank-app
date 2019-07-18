@@ -16,6 +16,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.fragment.app.DialogFragment;
+
 import com.ayannah.bantenbank.R;
 import com.ayannah.bantenbank.base.BaseFragment;
 import com.ayannah.bantenbank.data.local.PreferenceRepository;
@@ -27,6 +29,7 @@ import com.ayannah.bantenbank.data.model.UserProfile;
 import com.ayannah.bantenbank.screen.register.formjobearning.FormJobEarningActivity;
 import com.ayannah.bantenbank.screen.register.formjobearning.FormJobEarningFragment;
 import com.ayannah.bantenbank.screen.register.formothers.FormOtherFragment;
+import com.ayannah.bantenbank.util.DatePickerCustom;
 import com.github.florent37.singledateandtimepicker.SingleDateAndTimePicker;
 import com.github.florent37.singledateandtimepicker.dialog.SingleDateAndTimePickerDialog;
 import com.mobsandgeeks.saripaar.ValidationError;
@@ -166,8 +169,7 @@ public class FormBorrowerFragment extends BaseFragment implements FormBorrowerCo
     private String[] statusTempatTinggal = {"Milik sendiri", "Milik Keluarga", "Dinas", "Sewa"};
 
     @Inject
-    public FormBorrowerFragment() {
-    }
+    public FormBorrowerFragment(){}
 
     @Override
     protected int getLayoutView() {
@@ -236,7 +238,7 @@ public class FormBorrowerFragment extends BaseFragment implements FormBorrowerCo
     }
 
     @OnClick(R.id.buttonNext)
-    void onClickNext() {
+    void onClickNext(){
         etNamaPasangan.setError(null);
         regist_dateBirthSpouse.setError(null);
 
@@ -261,61 +263,83 @@ public class FormBorrowerFragment extends BaseFragment implements FormBorrowerCo
     }
 
     @OnClick(R.id.regist_dateBirth)
-    void onClickDateBirth() {
+    void onClickDateBirth(){
 
-        new SingleDateAndTimePickerDialog.Builder(parentActivity())
-                .bottomSheet()
-                .curved()
-                .displayMinutes(false)
-                .displayHours(false)
-                .displayDays(false)
-                .displayMonth(true)
-                .displayYears(true)
-                .displayDaysOfMonth(true)
-                .displayListener(new SingleDateAndTimePickerDialog.DisplayListener() {
-                    @Override
-                    public void onDisplayed(SingleDateAndTimePicker picker) {
-
-                    }
-                })
-                .title("Tanggal lahir")
-                .listener(new SingleDateAndTimePickerDialog.Listener() {
-                    @Override
-                    public void onDateSelected(Date date) {
-
-                        tvDateBirthBorrower.setText(displayFormat.format(date));
-                        if (tvDateBirthBorrower.getError() != null) {
-                            tvDateBirthBorrower.setError(null);
-                        }
-                    }
-                }).display();
+//        new SingleDateAndTimePickerDialog.Builder(parentActivity())
+//                .bottomSheet()
+//                .curved()
+//                .displayMinutes(false)
+//                .displayHours(false)
+//                .displayDays(false)
+//                .displayMonth(true)
+//                .displayYears(true)
+//                .displayDaysOfMonth(true)
+//                .displayListener(new SingleDateAndTimePickerDialog.DisplayListener() {
+//                    @Override
+//                    public void onDisplayed(SingleDateAndTimePicker picker) {
+//
+//                    }
+//                })
+//                .title("Tanggal lahir")
+//                .listener(new SingleDateAndTimePickerDialog.Listener() {
+//                    @Override
+//                    public void onDateSelected(Date date) {
+//
+//                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss.SSS'Z'");
+//
+//                        tvDateBirthBorrower.setText(sdf.format(date));
+//                        if (tvDateBirthBorrower.getError() != null) {
+//                            tvDateBirthBorrower.setError(null);
+//                        }
+//                    }
+//                }).display();
+        DialogFragment datePicker = new DatePickerCustom();
+        datePicker.showNow(parentActivity().getSupportFragmentManager(), "DatePicker datebirth user");
+        ((DatePickerCustom) datePicker).setOnSelectedDate(new DatePickerCustom.DatePickerCustomListener() {
+            @Override
+            public void onSelectedDate(String selectedDate) {
+                tvDateBirthBorrower.setText(selectedDate);
+            }
+        });
 
     }
 
     @OnClick(R.id.regist_dateBirthSpouse)
-    void onClickDateBirthSpouse() {
+    void onClickDateBirthSpouse(){
 
-        new SingleDateAndTimePickerDialog.Builder(parentActivity())
-                .displayMinutes(false)
-                .displayHours(false)
-                .displayDays(false)
-                .displayMonth(true)
-                .displayYears(true)
-                .displayDaysOfMonth(true)
-                .displayListener(new SingleDateAndTimePickerDialog.DisplayListener() {
-                    @Override
-                    public void onDisplayed(SingleDateAndTimePicker picker) {
+//        new SingleDateAndTimePickerDialog.Builder(parentActivity())
+//                .displayMinutes(false)
+//                .displayHours(false)
+//                .displayDays(false)
+//                .displayMonth(true)
+//                .displayYears(true)
+//                .displayDaysOfMonth(true)
+//                .displayListener(new SingleDateAndTimePickerDialog.DisplayListener() {
+//                    @Override
+//                    public void onDisplayed(SingleDateAndTimePicker picker) {
+//
+//                    }
+//                })
+//                .title("Tanggal lahir Pasangan")
+//                .listener(new SingleDateAndTimePickerDialog.Listener() {
+//                    @Override
+//                    public void onDateSelected(Date date) {
+//
+//                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss.SSS'Z'");
+//
+//                        regist_dateBirthSpouse.setText(sdf.format(date));
+//                        regist_dateBirthSpouse.setError(null);
+//                    }
+//                }).display();
 
-                    }
-                })
-                .title("Tanggal lahir Pasangan")
-                .listener(new SingleDateAndTimePickerDialog.Listener() {
-                    @Override
-                    public void onDateSelected(Date date) {
-                        regist_dateBirthSpouse.setText(displayFormat.format(date));
-                        regist_dateBirthSpouse.setError(null);
-                    }
-                }).display();
+        DialogFragment datePicker = new DatePickerCustom();
+        datePicker.showNow(parentActivity().getSupportFragmentManager(), "DatePicker datebirth user");
+        ((DatePickerCustom) datePicker).setOnSelectedDate(new DatePickerCustom.DatePickerCustomListener() {
+            @Override
+            public void onSelectedDate(String selectedDate) {
+                regist_dateBirthSpouse.setText(selectedDate);
+            }
+        });
     }
 
 
@@ -334,12 +358,12 @@ public class FormBorrowerFragment extends BaseFragment implements FormBorrowerCo
 
         names.add("Pilih Provinsi...");
         idProvinces.add("0");
-        for (Provinsi.Data data : provinces) {
+        for(Provinsi.Data data: provinces){
             names.add(data.getNama());
             idProvinces.add(data.getId());
         }
 
-        ArrayAdapter<String> mAdapterProvince = new ArrayAdapter<>(parentActivity(), R.layout.item_custom_spinner, names);
+        ArrayAdapter<String> mAdapterProvince =  new ArrayAdapter<>(parentActivity(), R.layout.item_custom_spinner, names);
         spProvinsi.setAdapter(mAdapterProvince);
 
         //show kecamatan
@@ -347,7 +371,7 @@ public class FormBorrowerFragment extends BaseFragment implements FormBorrowerCo
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                if (position != 0) {
+                if(position != 0){
                     Toast.makeText(parentActivity(), names.get(position), Toast.LENGTH_SHORT).show();
                     mPresenter.getDistrict(idProvinces.get(position));
                 }
@@ -372,7 +396,7 @@ public class FormBorrowerFragment extends BaseFragment implements FormBorrowerCo
 
         names.add("Pilih Kebupaten...");
         idKab.add("0");
-        for (Kabupaten.KabupatenItem data : districts) {
+        for(Kabupaten.KabupatenItem data: districts){
             names.add(data.getNama());
             idKab.add(data.getId());
         }
@@ -383,7 +407,7 @@ public class FormBorrowerFragment extends BaseFragment implements FormBorrowerCo
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                if (position != 0) {
+                if(position != 0){
                     mPresenter.getSubDistrict(idKab.get(position));
                 }
             }
@@ -407,7 +431,7 @@ public class FormBorrowerFragment extends BaseFragment implements FormBorrowerCo
 
         names.add("Pilih Kecamatan...");
         ids.add("0");
-        for (Kecamatan.KecatamanItem data : subdistricts) {
+        for(Kecamatan.KecatamanItem data: subdistricts){
             names.add(data.getNama());
             ids.add(data.getId());
         }
@@ -418,7 +442,7 @@ public class FormBorrowerFragment extends BaseFragment implements FormBorrowerCo
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                if (position != 0) {
+                if(position != 0){
                     mPresenter.getKelurahan(ids.get(position));
                 }
             }
@@ -443,7 +467,7 @@ public class FormBorrowerFragment extends BaseFragment implements FormBorrowerCo
 
         names.add("Pilih Kelurahan...");
         ids.add("0");
-        for (Kelurahan.KelurahanItem data : kelurahans) {
+        for(Kelurahan.KelurahanItem data: kelurahans){
             names.add(data.getNama());
             ids.add(data.getId());
         }
@@ -454,7 +478,7 @@ public class FormBorrowerFragment extends BaseFragment implements FormBorrowerCo
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                if (position != 0) {
+                if(position != 0){
                     mPresenter.getKelurahan(ids.get(position));
                 }
             }

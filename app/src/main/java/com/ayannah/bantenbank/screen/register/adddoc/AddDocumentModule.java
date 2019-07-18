@@ -14,4 +14,8 @@ public abstract class AddDocumentModule {
     @ContributesAndroidInjector
     abstract AddDocumentFragment requestFragment();
 
+    @ActivityScoped
+    @Binds
+    abstract AddDocumentContract.Presenter requestPresenter(AddDocumentPresenter presenter);
+
 }
