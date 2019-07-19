@@ -7,10 +7,18 @@
         android:id="@+id/bank"
         android:layout_marginTop="@dimen/dp10"
         android:padding="@dimen/dp12"
-        android:layout_below="@+id/rvBank"
         android:layout_width="match_parent"
         android:orientation="vertical"
         android:layout_height="wrap_content">
+
+        <ProgressBar
+            style="@style/progress_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_15sdp"
+            android:layout_marginBottom="@dimen/_20sdp"
+            android:max="5"
+            android:progress="1"
+            android:progressDrawable="@drawable/progress_horizontal" />
 
         <ImageView
             android:src="@drawable/ic_bank"

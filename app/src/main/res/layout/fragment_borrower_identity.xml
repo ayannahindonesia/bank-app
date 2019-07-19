@@ -8,6 +8,7 @@
 
     <ScrollView
         android:id="@+id/scrollview"
+        android:layout_below="@+id/lltProgressBar"
         android:layout_above="@id/buttonNext"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -16,30 +17,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <View
-                android:id="@+id/indicator"
-                android:layout_marginStart="25dp"
-                android:layout_marginEnd="25dp"
-                android:layout_marginTop="35dp"
-                android:background="@color/darkgreybackground"
+            <ProgressBar
+                android:id="@+id/progressbar"
+                style="@style/progress_horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="15dp"/>
-
-            <View
-                android:id="@+id/indicator2"
-                android:layout_marginStart="25dp"
-                android:layout_marginEnd="25dp"
-                android:layout_marginTop="35dp"
-                android:background="@color/colorPrimaryDark"
-                android:layout_width="200dp"
-                android:layout_height="15dp"/>
+                android:layout_height="@dimen/_15sdp"
+                android:layout_margin="@dimen/_20sdp"
+                android:max="5"
+                android:progress="3"
+                android:progressDrawable="@drawable/progress_horizontal" />
 
             <TextView
                 android:id="@+id/dataPemohon"
                 android:text="Data Pemohon"
                 android:textAlignment="center"
-                android:layout_below="@+id/indicator"
-                android:layout_marginTop="@dimen/dp10"
+                android:layout_below="@+id/progressbar"
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/fontNormal"
                 android:layout_width="match_parent"

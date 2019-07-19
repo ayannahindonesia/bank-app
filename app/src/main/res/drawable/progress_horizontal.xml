@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2008 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<!--<layer-list xmlns:android="http://schemas.android.com/apk/res/android">-->
+
+    <!--<item android:id="@android:id/background">-->
+        <!--<shape>-->
+            <!--<corners android:radius="5dip" />-->
+            <!--<gradient-->
+                <!--android:startColor="#ff9d9e9d"-->
+                <!--android:centerColor="#ff5a5d5a"-->
+                <!--android:centerY="0.75"-->
+                <!--android:endColor="#ff747674"-->
+                <!--android:angle="270"-->
+                <!--/>-->
+        <!--</shape>-->
+    <!--</item>-->
+
+    <!--<item android:id="@android:id/secondaryProgress">-->
+        <!--<clip>-->
+            <!--<shape>-->
+                <!--<corners android:radius="5dip" />-->
+                <!--<gradient-->
+                    <!--android:startColor="#5e92e5"-->
+                    <!--android:centerColor="#5686d3"-->
+                    <!--android:centerY="0.75"-->
+                    <!--android:endColor="#507cc4"-->
+                    <!--android:angle="270"-->
+                    <!--/>-->
+            <!--</shape>-->
+        <!--</clip>-->
+    <!--</item>-->
+
+    <!--<item android:id="@android:id/progress">-->
+        <!--<clip>-->
+            <!--<shape>-->
+                <!--<corners android:radius="5dip" />-->
+                <!--<gradient-->
+                    <!--android:startColor="#689ff9"-->
+                    <!--android:centerColor="#5789db"-->
+                    <!--android:centerY="0.75"-->
+                    <!--android:endColor="#6094ea"-->
+                    <!--android:angle="270"-->
+                    <!--/>-->
+            <!--</shape>-->
+        <!--</clip>-->
+    <!--</item>-->
+
+<!--</layer-list>-->
+
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@android:id/background">
+        <shape>
+            <corners android:radius="@dimen/_5sdp" />
+            <gradient
+                android:startColor="#fff1e6"
+                android:centerColor="#fac6a0"
+                android:centerY="0.75"
+                android:endColor="#fae2cf"
+                android:angle="270"
+                />
+        </shape>
+    </item>
+    <item android:id="@android:id/progress">
+        <clip>
+            <shape>
+                <corners android:radius="@dimen/_5sdp" />
+                <gradient
+                    android:startColor="#ffb982"
+                    android:centerColor="#ff811f"
+                    android:centerY="0.75"
+                    android:endColor="#ff9c4f"
+                    android:angle="270"
+                    />
+            </shape>
+        </clip>
+    </item>
+    <item android:id="@+id/line" >
+        <rotate android:fromDegrees="90" android:pivotX="20%" >
+            <shape android:shape="line" >
+                <stroke android:width="@dimen/_1sdp" android:color="#ffffff" />
+            </shape>
+        </rotate>
+    </item>
+    <item android:id="@+id/line2" >
+        <rotate android:fromDegrees="90" android:pivotX="40%" >
+            <shape android:shape="line" >
+                <stroke android:width="@dimen/_1sdp" android:color="#ffffff" />
+            </shape>
+        </rotate>
+    </item>
+    <item android:id="@+id/line3" >
+        <rotate android:fromDegrees="90" android:pivotX="60%" >
+            <shape android:shape="line" >
+                <stroke android:width="@dimen/_1sdp" android:color="#ffffff" />
+            </shape>
+        </rotate>
+    </item>
+    <item android:id="@+id/line4" >
+        <rotate android:fromDegrees="90" android:pivotX="80%" >
+            <shape android:shape="line" >
+                <stroke android:width="@dimen/_1sdp" android:color="#ffffff" />
+            </shape>
+        </rotate>
+    </item>
+</layer-list>
