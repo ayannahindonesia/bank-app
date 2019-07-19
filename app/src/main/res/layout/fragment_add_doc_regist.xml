@@ -4,18 +4,27 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    
+
     <ScrollView
         android:id="@+id/svMain"
-        android:layout_above="@+id/btnNext"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        
+        android:layout_height="match_parent"
+        android:layout_above="@+id/btnNext">
+
         <LinearLayout
             android:orientation="vertical"
             android:padding="@dimen/dp14"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
+            <ProgressBar
+                style="@style/progress_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_15sdp"
+                android:layout_marginBottom="@dimen/_20sdp"
+                android:max="5"
+                android:progress="2"
+                android:progressDrawable="@drawable/progress_horizontal" />
             
             <TextView
                 android:text="Tambahkan foto KTP anda"
