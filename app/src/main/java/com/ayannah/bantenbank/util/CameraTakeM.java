@@ -34,6 +34,7 @@ import android.view.Surface;
 import android.view.TextureView;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -52,6 +53,10 @@ import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 public class CameraTakeM extends AppCompatActivity {
 
@@ -80,34 +85,41 @@ public class CameraTakeM extends AppCompatActivity {
 
     CameraManager camera;
 
+    @BindView(R.id.textView6)
+    TextView etInfo;
+
+    String state = null;
+    private Unbinder mUnbinder;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera_ktp);
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        toolbar.setNavigationIcon(R.drawable.ic_back);
-//        toolbar.setTitle(R.string.title_foto_ktp);
-        textureView = (TextureView) findViewById(R.id.camera_container);
+        mUnbinder = ButterKnife.bind(this);
+
+        state = getIntent().getStringExtra("state");
+
+        etInfo.setText(String.format("*Posisikan %s Anda dalam garis putih", state));
+
+        textureView = findViewById(R.id.camera_container);
         assert textureView != null;
         textureView.setSurfaceTextureListener(textureListener);
-        takePictureButton = (FrameLayout) findViewById(R.id.btnCapture);
-        assert takePictureButton != null;
+        takePictureButton = findViewById(R.id.btnCapture);
+
+//        assert takePictureButton != null;
         takePictureButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 takePicture();
 
-//                try {
-//                    camera = (CameraManager) getSystemService(Context.CAMERA_SERVICE);
-//                    String cameraID = camera.getCameraIdList()[0];
-//                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//                        camera.setTorchMode(cameraID, true);
-//                    }
-//                } catch (CameraAccessException e) {
-//                    e.printStackTrace();
-//                }
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mUnbinder.unbind();
     }
 
     TextureView.SurfaceTextureListener textureListener = new TextureView.SurfaceTextureListener() {
@@ -170,12 +182,12 @@ public class CameraTakeM extends AppCompatActivity {
                     if (characteristics != null) {
                         jpegSizes = characteristics.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP).getOutputSizes(ImageFormat.JPEG);
                     }
-                    int width = 1080;
-                    int height = 720;
-                    if (jpegSizes != null && 0 < jpegSizes.length) {
-//                        width = jpegSizes[0].getWidth();
-//                        height = jpegSizes[0].getHeight();
-                    }
+                    int width = 1000; //1000
+                    int height = 720; //720
+//                    if (jpegSizes != null && 0 < jpegSizes.length) {
+////                        width = jpegSizes[0].getWidth();
+////                        height = jpegSizes[0].getHeight();
+//                    }
                     ImageReader reader = ImageReader.newInstance(width, height, ImageFormat.JPEG, 1);
                     List<Surface> outputSurfaces = new ArrayList<Surface>(2);
                     outputSurfaces.add(reader.getSurface());
@@ -183,11 +195,8 @@ public class CameraTakeM extends AppCompatActivity {
                     final CaptureRequest.Builder captureBuilder = cameraDevice.createCaptureRequest(CameraDevice.TEMPLATE_STILL_CAPTURE);
                     captureBuilder.addTarget(reader.getSurface());
                     captureBuilder.set(CaptureRequest.CONTROL_MODE, CameraMetadata.CONTROL_MODE_AUTO);
-                    // Orientation
-                    int rotation = getWindowManager().getDefaultDisplay().getRotation();
-                    int sensorOrientation = characteristics.get(CameraCharacteristics.SENSOR_ORIENTATION);
-//                    deviceOrientation = ORIENTATIONS.get(deviceOrientation);
-                    captureBuilder.set(CaptureRequest.JPEG_ORIENTATION, ORIENTATIONS.get(rotation-90));
+
+                    captureBuilder.set(CaptureRequest.JPEG_ORIENTATION, ORIENTATIONS.get(1));
                     final File file = new File(Environment.getExternalStorageDirectory() + "/picTemp.jpg");
 //                    Bitmap scaledBitmap = BitmapFactory.decodeFile(Environment.getExternalStorageDirectory() + File.separator+ "picKTP.jpg");
 //                    FileOutputStream fos = new FileOutputStream(file);

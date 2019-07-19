@@ -13,6 +13,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Base64;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -164,9 +165,11 @@ public class AddDocumentFragment extends BaseFragment implements AddDocumentCont
 //        showDialogPicker(KTP);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             Intent intent = new Intent(parentActivity(), CameraTakeM.class);
+            intent.putExtra("state", "KTP");
             startActivityForResult(intent, KTP);
         } else {
             Intent intent = new Intent(parentActivity(), CameraTakeBeforeM.class);
+            intent.putExtra("state", "KTP");
             startActivityForResult(intent, KTP);
         }
 
@@ -178,9 +181,11 @@ public class AddDocumentFragment extends BaseFragment implements AddDocumentCont
 //        showDialogPicker(NPWP);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             Intent intent = new Intent(parentActivity(), CameraTakeM.class);
+            intent.putExtra("state", "NPWP");
             startActivityForResult(intent, NPWP);
         } else {
             Intent intent = new Intent(parentActivity(), CameraTakeBeforeM.class);
+            intent.putExtra("state", "NPWP");
             startActivityForResult(intent, NPWP);
         }
 
@@ -192,9 +197,11 @@ public class AddDocumentFragment extends BaseFragment implements AddDocumentCont
 //        showDialogPicker(KTP);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             Intent intent = new Intent(parentActivity(), CameraTakeM.class);
+            intent.putExtra("state", "KTP");
             startActivityForResult(intent, KTP);
         } else {
             Intent intent = new Intent(parentActivity(), CameraTakeBeforeM.class);
+            intent.putExtra("state", "KTP");
             startActivityForResult(intent, KTP);
         }
 
@@ -206,9 +213,11 @@ public class AddDocumentFragment extends BaseFragment implements AddDocumentCont
 //        showDialogPicker(NPWP);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             Intent intent = new Intent(parentActivity(), CameraTakeM.class);
+            intent.putExtra("state", "NPWP");
             startActivityForResult(intent, NPWP);
         } else {
             Intent intent = new Intent(parentActivity(), CameraTakeBeforeM.class);
+            intent.putExtra("state", "NPWP");
             startActivityForResult(intent, NPWP);
         }
 
@@ -292,10 +301,16 @@ public class AddDocumentFragment extends BaseFragment implements AddDocumentCont
                         out.writeTo(file);
 
                         byte[] bytes = out.toByteArray();
+
                         String pictKTP64 = Base64.encodeToString(bytes, Base64.NO_WRAP); // result for base64
 
-                        Toast.makeText(parentActivity(), "KTP", Toast.LENGTH_SHORT).show();
-                        imgKtp.setImageBitmap(mBitmapKTP);
+                        DisplayMetrics displayMetrics = this.getResources().getDisplayMetrics();
+                        int w = displayMetrics.widthPixels;
+                        int h = displayMetrics.heightPixels;
+
+                        Bitmap newBItmap = Bitmap.createBitmap(mBitmapKTP, 50,250,600,400);
+
+                        imgKtp.setImageBitmap(newBItmap);
                         editKtp.setVisibility(View.VISIBLE);
 
 
@@ -320,8 +335,13 @@ public class AddDocumentFragment extends BaseFragment implements AddDocumentCont
                         byte[] bytes = out.toByteArray();
                         String pictNPWP64 = Base64.encodeToString(bytes, Base64.NO_WRAP); // result for base64
 
-                        Toast.makeText(parentActivity(), "NPWP", Toast.LENGTH_SHORT).show();
-                        imgNpwp.setImageBitmap(mBitmapNPWP);
+                        DisplayMetrics displayMetrics = this.getResources().getDisplayMetrics();
+                        int w = displayMetrics.widthPixels;
+                        int h = displayMetrics.heightPixels;
+
+                        Bitmap newBItmap = Bitmap.createBitmap(mBitmapNPWP, 50,250,600,400);
+
+                        imgNpwp.setImageBitmap(newBItmap);
                         editNpwp.setVisibility(View.VISIBLE);
 
                     } catch (Exception e) {
