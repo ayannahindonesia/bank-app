@@ -304,13 +304,16 @@ public class AddDocumentFragment extends BaseFragment implements AddDocumentCont
 
                         String pictKTP64 = Base64.encodeToString(bytes, Base64.NO_WRAP); // result for base64
 
-                        DisplayMetrics displayMetrics = this.getResources().getDisplayMetrics();
-                        int w = displayMetrics.widthPixels;
-                        int h = displayMetrics.heightPixels;
+                        int imgWidth = mBitmapKTP.getWidth();
+                        int imgHeight = mBitmapKTP.getHeight();
 
-                        Bitmap newBItmap = Bitmap.createBitmap(mBitmapKTP, 50,250,600,400);
+                        int coorX = (imgWidth * 5) / 100;
+                        int coorY = (imgHeight * 33) /100;
+
+                        Bitmap newBItmap = Bitmap.createBitmap(mBitmapKTP, coorX,coorY,mBitmapKTP.getWidth()-coorX, coorY);
 
                         imgKtp.setImageBitmap(newBItmap);
+                        imgKtp.setScaleType(ImageView.ScaleType.CENTER_CROP);
                         editKtp.setVisibility(View.VISIBLE);
 
 
@@ -335,13 +338,15 @@ public class AddDocumentFragment extends BaseFragment implements AddDocumentCont
                         byte[] bytes = out.toByteArray();
                         String pictNPWP64 = Base64.encodeToString(bytes, Base64.NO_WRAP); // result for base64
 
-                        DisplayMetrics displayMetrics = this.getResources().getDisplayMetrics();
-                        int w = displayMetrics.widthPixels;
-                        int h = displayMetrics.heightPixels;
+                        int imgWidth = mBitmapKTP.getWidth();
+                        int imgHeight = mBitmapKTP.getHeight();
 
-                        Bitmap newBItmap = Bitmap.createBitmap(mBitmapNPWP, 50,250,600,400);
+                        int coorX = (imgWidth * 5) / 100;
+                        int coorY = (imgHeight * 33) /100;
 
-                        imgNpwp.setImageBitmap(newBItmap);
+                        Bitmap newBitmap = Bitmap.createBitmap(mBitmapNPWP, coorX,coorY,mBitmapNPWP.getWidth()-coorX, coorY);
+
+                        imgNpwp.setImageBitmap(newBitmap);
                         editNpwp.setVisibility(View.VISIBLE);
 
                     } catch (Exception e) {
