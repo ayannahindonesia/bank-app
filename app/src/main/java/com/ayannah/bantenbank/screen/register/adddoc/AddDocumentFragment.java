@@ -347,6 +347,7 @@ public class AddDocumentFragment extends BaseFragment implements AddDocumentCont
                         Bitmap newBitmap = Bitmap.createBitmap(mBitmapNPWP, coorX,coorY,mBitmapNPWP.getWidth()-coorX, coorY);
 
                         imgNpwp.setImageBitmap(newBitmap);
+                        imgNpwp.setScaleType(ImageView.ScaleType.CENTER_CROP);
                         editNpwp.setVisibility(View.VISIBLE);
 
                     } catch (Exception e) {
