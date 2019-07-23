@@ -10,6 +10,7 @@ import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.ayannah.bantenbank.BuildConfig;
 import com.ayannah.bantenbank.data.local.PreferenceRepository;
+import com.ayannah.bantenbank.data.model.CheckAccount;
 import com.ayannah.bantenbank.data.model.Kabupaten;
 import com.ayannah.bantenbank.data.model.Kecamatan;
 import com.ayannah.bantenbank.data.model.Kelurahan;
@@ -252,5 +253,18 @@ public class RemoteDataSource implements RemoteRepository {
                 .setPriority(Priority.MEDIUM)
                 .build()
                 .getObjectSingle(UserProfile.class);
+    }
+
+    @Override
+    public Single<CheckAccount> checkAccount(String email, String phone, String idcard, String taxid) {
+        return Rx2AndroidNetworking.get(BuildConfig.API_URL + "client/check_unique")
+                .addHeaders("Authorization", preferenceRepository.getPublicToken())
+                .addQueryParameter("email", email)
+                .addQueryParameter("idcard_number", idcard)
+                .addQueryParameter("taxid_number", taxid)
+                .addQueryParameter("phone", phone)
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getObjectSingle(CheckAccount.class);
     }
 }

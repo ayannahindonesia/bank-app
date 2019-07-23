@@ -122,6 +122,7 @@ public class AddDocumentFragment extends BaseFragment implements AddDocumentCont
     @Override
     public void onResume() {
         super.onResume();
+        mPresenter.takeView(this);
 
         //check permission to access camera and gallery photo
         needPermission(new String[]{
@@ -162,7 +163,6 @@ public class AddDocumentFragment extends BaseFragment implements AddDocumentCont
     @OnClick(R.id.imgKTP)
     void onClickKtp(){
 
-//        showDialogPicker(KTP);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             Intent intent = new Intent(parentActivity(), CameraTakeM.class);
             intent.putExtra("state", "KTP");
@@ -178,7 +178,6 @@ public class AddDocumentFragment extends BaseFragment implements AddDocumentCont
     @OnClick(R.id.imgNPWP)
     void onClickNpwp(){
 
-//        showDialogPicker(NPWP);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             Intent intent = new Intent(parentActivity(), CameraTakeM.class);
             intent.putExtra("state", "NPWP");
@@ -194,7 +193,6 @@ public class AddDocumentFragment extends BaseFragment implements AddDocumentCont
     @OnClick(R.id.editKTP)
     void onClickEdit(){
 
-//        showDialogPicker(KTP);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             Intent intent = new Intent(parentActivity(), CameraTakeM.class);
             intent.putExtra("state", "KTP");
@@ -210,7 +208,6 @@ public class AddDocumentFragment extends BaseFragment implements AddDocumentCont
     @OnClick(R.id.editNPWP)
     void onClickEditNpwp(){
 
-//        showDialogPicker(NPWP);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             Intent intent = new Intent(parentActivity(), CameraTakeM.class);
             intent.putExtra("state", "NPWP");
@@ -225,59 +222,20 @@ public class AddDocumentFragment extends BaseFragment implements AddDocumentCont
 
     @OnClick(R.id.btnNext)
     void onClickNext(){
-//        if(fileKtp == null){
-//            Toast.makeText(getContext(), "Mohon tambahkan foto KTP anda", Toast.LENGTH_SHORT).show();
-//        }else {
-//            FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-//            ft.replace(R.id.fragment_container, fragment);
-//            ft.addToBackStack(null);
-//            ft.commit();
-//        }
 
-        //sdkjfhsjdhf
-//        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-//        ft.replace(R.id.fragment_container, fragment);
-//        ft.addToBackStack(null);
-//        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-//        ft.commit();
 
         if (editNpwp.getVisibility() ==  View.VISIBLE && etNPWP.getText().toString().equals("")) {
+
             etNPWP.setError("Masukan Nomor NPWP");
+
         } else if (editKtp.getVisibility() == View.GONE) {
+
             Toast.makeText(parentActivity(), "Ambil Foto KTP Terlebih Dahulu", Toast.LENGTH_LONG).show();
+
         } else {
+
             validator.validate();
         }
-
-    }
-
-    private void showDialogPicker(int type){
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext())
-                .setItems(new String[]{"Take Camera", "From Gallery", "Cancel"}, ((dialog, which) -> {
-
-                    switch (which){
-                        case 0:
-
-                            EasyImage.openCamera(this, type);
-
-                            break;
-                        case 1:
-
-                            EasyImage.openGallery(this, type);
-
-                            break;
-                        case 2:
-
-                            dialog.dismiss();
-
-                            break;
-
-                    }
-
-                }));
-
-        builder.create().show();
 
     }
 
@@ -359,74 +317,29 @@ public class AddDocumentFragment extends BaseFragment implements AddDocumentCont
 
         }
 
-//        if (requestCode == 2 && resultCode == Activity.RESULT_OK) {
-//
-//            try {
-//                FileOutputStream file = new FileOutputStream(Environment.getExternalStorageDirectory() + File.separator + "DecodepicKTP.jpg");
-//
-//                mBitmapKTP = decodedFile(Environment.getExternalStorageDirectory() + File.separator + "picKTP.jpg");
-//
-//                ByteArrayOutputStream out = new ByteArrayOutputStream();
-//                mBitmapKTP.compress(Bitmap.CompressFormat.JPEG, 30, out);
-//
-//                out.writeTo(file);
-//
-//                byte[] bytes = out.toByteArray();
-//                String pictKTP64 = Base64.encodeToString(bytes, Base64.NO_WRAP); // result for base64
-//
-//                imgKtp.setImageBitmap(mBitmapKTP);
-//                editKtp.setVisibility(View.VISIBLE);
-//
-//
-//            } catch (Exception e) {
-//                Log.d("Error", e.getMessage());
-//            }
-//
-//        } else if(requestCode == 3 && resultCode == Activity.RESULT_OK){
-//
-//            try {
-//
-//                FileOutputStream file = new FileOutputStream(Environment.getExternalStorageDirectory() + File.separator + "DecodepicNPWP.jpg");
-//
-//                mBitmapNPWP = decodedFile(Environment.getExternalStorageDirectory() + File.separator + "picNPWP.jpg");
-//
-//                ByteArrayOutputStream out = new ByteArrayOutputStream();
-//                mBitmapNPWP.compress(Bitmap.CompressFormat.JPEG, 30, out);
-//
-//                out.writeTo(file);
-//
-//                byte[] bytes = out.toByteArray();
-//                String pictNPWP64 = Base64.encodeToString(bytes, Base64.NO_WRAP); // result for base64
-//
-//                imgNpwp.setImageBitmap(mBitmapNPWP);
-//                editNpwp.setVisibility(View.VISIBLE);
-//
-//            } catch (Exception e) {
-//                Log.d("Error", e.getMessage());
-//            }
-//
-//        }
-
     }
 
     @Override
     public void onValidationSucceeded() {
-        Bundle bundle = parentActivity().getIntent().getExtras();
 
-        if(bundle == null){
-            bundle = new Bundle();
-        }
+//        Bundle bundle = parentActivity().getIntent().getExtras();
+//
+//        if(bundle == null){
+//            bundle = new Bundle();
+//        }
+//
+//        bundle.putString(FormOtherFragment.KTP_NO, etKTP.getText().toString());
+//        bundle.putString(FormOtherFragment.NPWP_NO, etNPWP.getText().toString());
+//        bundle.putString(FormOtherFragment.EMAIL, email.getText().toString());
+//        bundle.putString(FormOtherFragment.PHONE, phone.getText().toString());
+//        bundle.putString(FormOtherFragment.PASS, pass.getText().toString());
+//        bundle.putString(FormOtherFragment.CONF_PASS, passRetype.getText().toString());
+//
+//        Intent form = new Intent(parentActivity(), FormBorrowerActivity.class);
+//        form.putExtras(bundle);
+//        startActivity(form);
 
-        bundle.putString(FormOtherFragment.KTP_NO, etKTP.getText().toString());
-        bundle.putString(FormOtherFragment.NPWP_NO, etNPWP.getText().toString());
-        bundle.putString(FormOtherFragment.EMAIL, email.getText().toString());
-        bundle.putString(FormOtherFragment.PHONE, phone.getText().toString());
-        bundle.putString(FormOtherFragment.PASS, pass.getText().toString());
-        bundle.putString(FormOtherFragment.CONF_PASS, passRetype.getText().toString());
-
-        Intent form = new Intent(parentActivity(), FormBorrowerActivity.class);
-        form.putExtras(bundle);
-        startActivity(form);
+        mPresenter.checkMandatoryItem(etKTP.getText().toString(), phone.getText().toString(), email.getText().toString(), etNPWP.getText().toString());
     }
 
     @Override
@@ -532,6 +445,24 @@ public class AddDocumentFragment extends BaseFragment implements AddDocumentCont
 
     @Override
     public void successCheckMandotryEntity(String message) {
+
+        Bundle bundle = parentActivity().getIntent().getExtras();
+
+        if(bundle == null){
+
+            bundle = new Bundle();
+        }
+
+        bundle.putString(FormOtherFragment.KTP_NO, etKTP.getText().toString());
+        bundle.putString(FormOtherFragment.NPWP_NO, etNPWP.getText().toString());
+        bundle.putString(FormOtherFragment.EMAIL, email.getText().toString());
+        bundle.putString(FormOtherFragment.PHONE, phone.getText().toString());
+        bundle.putString(FormOtherFragment.PASS, pass.getText().toString());
+        bundle.putString(FormOtherFragment.CONF_PASS, passRetype.getText().toString());
+
+        Intent form = new Intent(parentActivity(), FormBorrowerActivity.class);
+        form.putExtras(bundle);
+        startActivity(form);
 
     }
 }
