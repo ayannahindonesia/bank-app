@@ -124,6 +124,8 @@ public class AddDocumentFragment extends BaseFragment implements AddDocumentCont
         super.onResume();
         mPresenter.takeView(this);
 
+        mPresenter.checkPublicToken();
+
         //check permission to access camera and gallery photo
         needPermission(new String[]{
                 Manifest.permission.CAMERA,

@@ -18,5 +18,7 @@ public interface AddDocumentContract {
     interface Presenter extends BasePresenter<View>{
 
         void checkMandatoryItem(String ktp, String phoneNumber, String email,String npwp);
+
+        void checkPublicToken();
     }
 }
