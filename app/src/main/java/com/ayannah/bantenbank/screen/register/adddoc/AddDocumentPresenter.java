@@ -86,14 +86,10 @@ public class AddDocumentPresenter implements AddDocumentContract.Presenter {
             return;
         }
 
-
-
         mComposite.add(remoteRepository.getToken()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> {
-
-                    Toast.makeText(application, "check credential...", Toast.LENGTH_SHORT).show();
 
                     preferenceRepository.setPublicToken("Bearer "+response.getToken());
 

@@ -117,7 +117,7 @@ public class LoginFragment extends BaseFragment implements
 
     @Override
     public void loginComplete() {
-        Toast.makeText(parentActivity(), "LoginComplete", Toast.LENGTH_SHORT).show();
+        Toast.makeText(parentActivity(), "Login berhasil", Toast.LENGTH_SHORT).show();
 
         Intent login = new Intent(parentActivity(), MainMenuActivity.class);
         login.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
