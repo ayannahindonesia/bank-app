@@ -21,7 +21,21 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:targetApi="n">
-        <activity android:name=".screen.createnewpassword.CreateNewPassActivity" />
+        <activity android:name=".screen.createnewpassword.CreateNewPassActivity">
+            <tools:validation testUrl="http://35.198.244.55:8000/deepLinks/" />
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:scheme="http"
+                    android:host="35.198.244.55"
+                    android:port="8000"
+                    android:pathPrefix="/deepLinks/" />
+            </intent-filter>
+        </activity>
         <activity android:name=".screen.resetpassword.ResetPasswordActivity" />
         <activity android:name=".screen.success.SuccessActivity" />
         <activity android:name=".screen.login.LoginActivity">
@@ -54,10 +68,10 @@
         <activity android:name=".screen.register.formBorrower.FormBorrowerActivity" />
         <activity android:name=".screen.register.adddoc.AddDocumentActivity">
             <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
-                <!--<action android:name="android.intent.action.VIEW" />-->
+            <!--<action android:name="android.intent.action.MAIN" />-->
+            <!--<action android:name="android.intent.action.VIEW" />-->
 
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--<category android:name="android.intent.category.LAUNCHER" />-->
             <!--</intent-filter>-->
         </activity>
         <activity android:name=".screen.register.formemailphone.FormEmailPhoneActivity" />
@@ -76,9 +90,10 @@
             android:name=".util.CameraTakeM"
             android:configChanges="orientation|screenSize" />
 
-        <activity android:name=".util.CameraTakeBeforeM"
+        <activity
+            android:name=".util.CameraTakeBeforeM"
             android:screenOrientation="landscape"
-            android:configChanges="orientation|screenSize"/>
+            android:configChanges="orientation|screenSize" />
     </application>
 
 </manifest>

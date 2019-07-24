@@ -11,7 +11,7 @@
         android:layout_centerHorizontal="true"
         android:src="@drawable/asira_logo" />
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/lyLogin"
         android:layout_width="285dp"
         android:layout_height="wrap_content"
@@ -22,12 +22,13 @@
         android:padding="@dimen/_10sdp">
 
         <LinearLayout
+            android:id="@+id/lltPhone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/_28sdp"
                 android:padding="@dimen/_5sdp"
                 android:text="+62"
                 android:textColor="@android:color/black"
@@ -38,10 +39,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Nomor ponsel"
-                android:text="081234567890"
                 android:imeOptions="actionNext"
                 android:inputType="phone"
                 android:maxLength="13"
+                android:text="081234567890"
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/fontLarge" />
 
@@ -52,30 +53,33 @@
             android:id="@+id/etPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/lltPhone"
             android:layout_marginStart="@dimen/_28sdp"
             android:layout_marginTop="@dimen/_5sdp"
             android:hint="Kata Sandi"
-            android:text="password"
             android:imeOptions="actionDone"
             android:inputType="textPassword"
             android:maxLength="25"
+            android:text="password"
             android:textColor="@android:color/black"
             android:textSize="@dimen/fontLarge" />
 
 
         <TextView
             android:id="@+id/resetPassword"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/etPassword"
+            android:layout_alignParentEnd="true"
             android:layout_marginTop="@dimen/_10sdp"
-            android:text="Lupa kata sandi?"
             android:background="?attr/selectableItemBackground"
+            android:text="Lupa kata sandi?"
             android:textAlignment="textEnd"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="@dimen/fontNormal"
             android:textStyle="bold" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/lyButton"
@@ -107,22 +111,23 @@
 
         <LinearLayout
             android:id="@+id/progressLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="30sp"
             android:orientation="vertical"
-            android:visibility="gone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:visibility="gone">
 
             <ProgressBar
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+
             <TextView
-                android:textAlignment="center"
-                android:textColor="@android:color/black"
-                android:text="@string/loading"
-                android:layout_marginTop="@dimen/_5sdp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:text="@string/loading"
+                android:textAlignment="center"
+                android:textColor="@android:color/black" />
         </LinearLayout>
 
     </LinearLayout>
