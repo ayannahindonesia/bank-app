@@ -14,58 +14,55 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:popupTheme="@style/AppTheme.PopupOverlay"/>
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
     <RelativeLayout
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
         <LinearLayout
-            android:orientation="vertical"
-            android:padding="@dimen/_16sdp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/_16sdp">
 
             <TextView
-                android:text="@string/cp_desc"
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/fontNormal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:text="@string/cp_desc"
+                android:textColor="@android:color/black" />
 
             <EditText
                 android:id="@+id/etPass"
-                android:hint="@string/cp_password"
-                android:textSize="@dimen/fontNormal"
-                android:inputType="textPassword"
-                android:layout_marginTop="12dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:hint="@string/cp_password"
+                android:inputType="textPassword"
                 tools:ignore="Autofill,TextFields" />
 
             <EditText
                 android:id="@+id/etRetype"
-                android:hint="@string/cp_retype_pass"
-                android:textSize="@dimen/fontNormal"
-                android:layout_marginTop="12dp"
-                android:inputType="textPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:hint="@string/cp_retype_pass"
+                android:inputType="textPassword"
                 tools:ignore="Autofill,TextFields" />
 
         </LinearLayout>
 
         <Button
             android:id="@+id/btnSubmit"
-            android:textColor="@android:color/white"
-            android:background="@color/colorAccent"
-            android:layout_alignParentBottom="true"
-            android:text="@string/rp_button"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorAccent"
+            android:text="@string/rp_button"
+            android:textColor="@android:color/white" />
 
 
     </RelativeLayout>

@@ -33,8 +33,8 @@ public class ResetPasswordActivity extends DaggerAppCompatActivity implements Re
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
-    @NotEmpty(trim = true, message = "Masukkan email anda")
-    @Email
+    @NotEmpty(message = "Masukan Alamat Email Anda")
+    @Email(message = "Format Email Salah")
     @BindView(R.id.etEmail)
     EditText email;
 
@@ -92,7 +92,8 @@ public class ResetPasswordActivity extends DaggerAppCompatActivity implements Re
     @Override
     public void onValidationSucceeded() {
 
-        Toast.makeText(this, "succeed", Toast.LENGTH_SHORT).show();
+        finish();
+        Toast.makeText(this, "Silahkan cek kotak masuk surel Anda, untuk melanjutkan atur ulang password Anda", Toast.LENGTH_LONG).show();
 
     }
 

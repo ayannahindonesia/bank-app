@@ -15,14 +15,14 @@
     <string name="connection_bad">Pastikan koneksi internet kamu aktif</string>
 
     <!--reset passwod page-->
-    <string name="rp_desc">Silakan masukkan alamat email yang pernah anda gunakan saat mendaftar menjadi member ASIRA</string>
+    <string name="rp_desc">Silakan masukkan alamat email yang anda gunakan saat mendaftar menjadi anggota ASIRA</string>
     <string name="rp_emailhintc">contoh: john.doe@agmail.com</string>
     <string name="rp_button">Konfirmasi</string>
 
     <!--create new passwod page-->
     <string name="cp_desc">Silakan masukkan password baru yang ingin anda buat</string>
-    <string name="cp_password">Password anda</string>
-    <string name="cp_retype_pass">Ketik ulang password</string>
+    <string name="cp_password">Password Baru</string>
+    <string name="cp_retype_pass">Ketik Ulang Password Baru</string>
 
 
     <!--Facebook credential-->
