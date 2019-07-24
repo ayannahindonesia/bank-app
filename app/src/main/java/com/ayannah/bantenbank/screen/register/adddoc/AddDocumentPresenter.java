@@ -8,6 +8,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 
 import com.androidnetworking.AndroidNetworking;
+import com.androidnetworking.common.ANConstants;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
@@ -33,11 +34,13 @@ public class AddDocumentPresenter implements AddDocumentContract.Presenter {
     private Application application;
     private RemoteRepository remoteRepository;
     private CompositeDisposable mComposite;
+    private PreferenceRepository preferenceRepository;
 
     @Inject
-    AddDocumentPresenter(Application application, RemoteRepository remoteRepository){
+    AddDocumentPresenter(Application application, RemoteRepository remoteRepository, PreferenceRepository preferenceRepository){
         this.application = application;
         this.remoteRepository = remoteRepository;
+        this.preferenceRepository = preferenceRepository;
 
         mComposite = new CompositeDisposable();
     }
@@ -74,6 +77,42 @@ public class AddDocumentPresenter implements AddDocumentContract.Presenter {
             }
 
         }));
+    }
+
+    @Override
+    public void checkPublicToken() {
+        
+        if(mView == null){
+            return;
+        }
+
+
+
+        mComposite.add(remoteRepository.getToken()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(response -> {
+
+                    Toast.makeText(application, "check credential...", Toast.LENGTH_SHORT).show();
+
+                    preferenceRepository.setPublicToken("Bearer "+response.getToken());
+
+                }, error ->{
+
+                    ANError anError = (ANError) error;
+                    if(anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
+                        mView.showErrorMessage("Connection Error");
+                    }else {
+
+                        if(anError.getErrorBody() != null){
+
+                            JSONObject jsonObject = new JSONObject(anError.getErrorBody());
+                            mView.showErrorMessage(jsonObject.optString("message"));
+                        }
+                    }
+
+                }));
+        
     }
 
     @Override
