@@ -14,6 +14,8 @@ public interface ResetPasswordContract {
 
     interface Presenter extends BasePresenter<View>{
 
+        void clientAuth(String email);
+
         void sendEmail(String email);
 
     }

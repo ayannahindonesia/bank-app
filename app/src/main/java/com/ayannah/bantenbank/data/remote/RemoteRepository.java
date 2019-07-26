@@ -50,4 +50,6 @@ public interface RemoteRepository {
 
     Single<CheckAccount>checkAccount(String email, String phone, String idcard, String taxid);
 
+    Single<CheckAccount> sendEmailToResetPassword(JsonObject jsonObject);
+
 }

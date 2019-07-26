@@ -6,6 +6,7 @@ import android.widget.TextView;
 
 import com.ayannah.bantenbank.R;
 import com.ayannah.bantenbank.screen.homemenu.MainMenuActivity;
+import com.ayannah.bantenbank.screen.login.LoginActivity;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -20,6 +21,8 @@ public class SuccessActivity extends DaggerAppCompatActivity {
 
     public static final String SUCCESS_TITLE = "title";
     public static final String SUCCESS_DESC = "desc";
+    public static final String SUCCESS_COND = "cond";
+
 
     @Inject
     @Named("title")
@@ -28,6 +31,10 @@ public class SuccessActivity extends DaggerAppCompatActivity {
     @Inject
     @Named("desc")
     String description;
+
+    @Inject
+    @Named("cond")
+    int cond;
 
     @BindView(R.id.title)
     TextView tvTitle;
@@ -53,10 +60,22 @@ public class SuccessActivity extends DaggerAppCompatActivity {
     @OnClick(R.id.btnSelesai)
     void onClickButton(){
 
-        Intent main = new Intent(this, MainMenuActivity.class);
-        main.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(main);
-        finish();
+        if(cond == 1){
+
+            Intent main = new Intent(this, LoginActivity.class);
+            main.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(main);
+            finish();
+
+        }else {
+
+            Intent main = new Intent(this, MainMenuActivity.class);
+            main.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(main);
+            finish();
+        }
+
+
     }
 
     @Override

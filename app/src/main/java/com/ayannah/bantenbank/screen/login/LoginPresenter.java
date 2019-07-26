@@ -98,7 +98,7 @@ public class LoginPresenter implements LoginContract.Presenter {
 
             ANError anError = (ANError) error;
             if(anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
-                mView.showErrorMessage("Connection Error "  + " on getClientToken()");
+                mView.showErrorMessage("Connection Error");
             }else {
 
                 if(anError.getErrorBody() != null){

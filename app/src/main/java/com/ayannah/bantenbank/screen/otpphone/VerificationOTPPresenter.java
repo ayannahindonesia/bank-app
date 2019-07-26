@@ -56,7 +56,7 @@ public class VerificationOTPPresenter implements VerificationOTPContract.Present
         .subscribe(response -> {
 
             Log.d("Succeess: ", "OTP Verified");
-            Toast.makeText(application, "Success Registere!", Toast.LENGTH_LONG).show();
+            Toast.makeText(application, "Pendaftaran Berhasil!", Toast.LENGTH_LONG).show();
             mView.OTPVerified();
 
         }, error -> {

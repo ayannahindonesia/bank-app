@@ -4,12 +4,14 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.ayannah.bantenbank.R;
+import com.ayannah.bantenbank.screen.success.SuccessActivity;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.Email;
@@ -40,6 +42,12 @@ public class ResetPasswordActivity extends DaggerAppCompatActivity implements Re
 
     private Unbinder mUnbinder;
     private Validator validator;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mPresenter.takeView(this);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,18 +90,25 @@ public class ResetPasswordActivity extends DaggerAppCompatActivity implements Re
     @Override
     public void showErrorMessage(String message) {
 
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+
     }
 
     @Override
     public void showSuccessSendEmail(String message) {
 
+        Intent success = new Intent(getParent(), SuccessActivity.class);
+        success.putExtra(SuccessActivity.SUCCESS_TITLE, "Kirim email Berhasil");
+        success.putExtra(SuccessActivity.SUCCESS_DESC, message);
+        success.putExtra(SuccessActivity.SUCCESS_COND, 1);
+        startActivity(success);
+        finish();
     }
 
     @Override
     public void onValidationSucceeded() {
 
-        finish();
-        Toast.makeText(this, "Silahkan cek kotak masuk surel Anda, untuk melanjutkan atur ulang password Anda", Toast.LENGTH_LONG).show();
+        mPresenter.clientAuth(email.getText().toString());
 
     }
 
