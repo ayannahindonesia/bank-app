@@ -5,13 +5,18 @@ import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.ANConstants;
+import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.JSONObjectRequestListener;
+import com.ayannah.bantenbank.BuildConfig;
 import com.ayannah.bantenbank.data.local.PreferenceRepository;
 import com.ayannah.bantenbank.data.remote.RemoteRepository;
 import com.ayannah.bantenbank.screen.homemenu.MainMenuActivity;
 import com.google.gson.JsonObject;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import javax.inject.Inject;
@@ -102,6 +107,35 @@ public class VerificationOTPPresenter implements VerificationOTPContract.Present
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe());
 
+    }
+
+    @Override
+    public void resubmitLoanOTP(int idloan, String otpCode) {
+
+        JsonObject json = new JsonObject();
+        json.addProperty("otp_code", otpCode);
+
+        AndroidNetworking.post(BuildConfig.API_URL + "borrower/loan/{idloan}/verify")
+                .addHeaders("Authorization", preferenceRepository.getUserToken())
+                .addPathParameter("idloan", String.valueOf(idloan))
+                .addApplicationJsonBody(json)
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getAsJSONObject(new JSONObjectRequestListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        mView.successVerifyLoan();
+
+                    }
+
+                    @Override
+                    public void onError(ANError anError) {
+
+                        mView.showErrorMessage(String.format("status code %s", anError.getErrorCode()));
+
+                    }
+                });
     }
 
     @Override

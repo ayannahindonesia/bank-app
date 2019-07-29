@@ -63,4 +63,8 @@
     <string name="title_activity_history_loan">HistoryLoanActivity</string>
     <string name="title_activity_testing">TestingActivity</string>
     <string name="birthdate_format">dd-mm-yyyy</string>
+
+    <string name="resubmit_loan_alert">Batalkan mengirim ulang pengajuan pinjaman?</string>
+    <string name="submit_loan_alert">Batalkan pengajuan pinjaman?</string>
+
 </resources>

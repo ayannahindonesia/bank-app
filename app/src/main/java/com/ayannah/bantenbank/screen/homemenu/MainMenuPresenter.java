@@ -2,28 +2,46 @@ package com.ayannah.bantenbank.screen.homemenu;
 
 import android.app.Application;
 
+import androidx.annotation.Nullable;
+
+import com.androidnetworking.common.ANConstants;
+import com.androidnetworking.error.ANError;
 import com.ayannah.bantenbank.R;
 import com.ayannah.bantenbank.data.local.PreferenceRepository;
 import com.ayannah.bantenbank.data.model.BeritaPromo;
 import com.ayannah.bantenbank.data.model.MenuProduct;
+import com.ayannah.bantenbank.data.remote.RemoteRepository;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
+
 
 public class MainMenuPresenter implements MainMenuContract.Presenter {
 
     private Application application;
+
+    @Nullable
     private MainMenuContract.View mView;
     private PreferenceRepository prefRepo;
+    private CompositeDisposable mComposite;
+    private RemoteRepository remotRepo;
 
 
     @Inject
-    MainMenuPresenter(Application application, PreferenceRepository prefRepo){
+    MainMenuPresenter(Application application, PreferenceRepository prefRepo, RemoteRepository remotRepo){
         this.application = application;
         this.prefRepo = prefRepo;
+        this.remotRepo = remotRepo;
+
+        mComposite = new CompositeDisposable();
     }
 
     @Override
@@ -38,6 +56,10 @@ public class MainMenuPresenter implements MainMenuContract.Presenter {
 
     @Override
     public void getMainMenu() {
+
+        if(mView == null){
+            return;
+        }
 
         List<MenuProduct> menus = new ArrayList<>();
 
@@ -78,6 +100,9 @@ public class MainMenuPresenter implements MainMenuContract.Presenter {
 
     @Override
     public void loadPromoAndNews() {
+        if(mView == null){
+            return;
+        }
 
         List<BeritaPromo> listBeritaPromo = new ArrayList<>();
 
@@ -94,6 +119,41 @@ public class MainMenuPresenter implements MainMenuContract.Presenter {
         listBeritaPromo.add(data2);
 
         mView.showPromoAndNews(listBeritaPromo);
+    }
+
+    @Override
+    public void notifLoanRequest() {
+
+        if(mView == null){
+            return;
+        }
+
+        mComposite.add(remotRepo.getAllLoans("")
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(response -> {
+
+            if(response.getData().size() > 0){
+
+                mView.showDataLoan(response.getData());
+            }
+
+        }, error -> {
+
+            ANError anError = (ANError) error;
+            if(anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
+                mView.showErrorMessage("Connection Error");
+            }else {
+
+                if(anError.getErrorBody() != null){
+
+                    JSONObject jsonObject = new JSONObject(anError.getErrorBody());
+                    mView.showErrorMessage(jsonObject.optString("message") + " on getClientToken()");
+                }
+            }
+
+        }));
+
     }
 
     @Override

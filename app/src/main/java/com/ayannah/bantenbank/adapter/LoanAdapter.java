@@ -90,22 +90,31 @@ public class LoanAdapter extends RecyclerView.Adapter<LoanAdapter.LoadViewHolder
 
         private void bind(DataItem param){
 
-            numLoan.setText(String.valueOf(param.getId()));
+            numLoan.setText(String.format("PNS-100-%s", param.getId()));
 
-            typeLoan.setText("-");
+//            typeLoan.setText("-");
 
-            switch (param.getStatus()){
-                case STATUS_ACCEPTED:
-                    status.setBackgroundResource(R.drawable.badge_diterima);
-                    break;
-                case STATUS_PROCESSING:
-                    status.setBackgroundResource(R.drawable.badge_tidak_lengkap);
-                    break;
-                case STATUS_REJECTED:
-                    status.setBackgroundResource(R.drawable.badge_ditolak);
-                    break;
+            if(param.isOtpVerified()){
+
+                switch (param.getStatus()){
+                    case STATUS_ACCEPTED:
+                        status.setBackgroundResource(R.drawable.badge_diterima);
+                        break;
+                    case STATUS_PROCESSING:
+                        status.setBackgroundResource(R.drawable.badge_tidak_lengkap);
+                        break;
+                    case STATUS_REJECTED:
+                        status.setBackgroundResource(R.drawable.badge_ditolak);
+                        break;
+                }
+                status.setText(param.getStatus());
+
+            }else {
+
+                status.setBackgroundResource(R.drawable.badge_tertunda);
+                status.setText("tertunda");
             }
-            status.setText(param.getStatus());
+
 
             amount.setText(CommonUtils.setRupiahCurrency(param.getLoanAmount()));
 

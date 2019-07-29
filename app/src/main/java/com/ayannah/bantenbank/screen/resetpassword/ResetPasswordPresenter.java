@@ -59,7 +59,7 @@ public class ResetPasswordPresenter implements ResetPasswordContract.Presenter {
                 if(anError.getErrorBody() != null){
 
                     JSONObject jsonObject = new JSONObject(anError.getErrorBody());
-                    mView.showErrorMessage(jsonObject.optString("message") + " on getClientToken()");
+                    mView.showErrorMessage(jsonObject.optString("message"));
                 }
             }
 

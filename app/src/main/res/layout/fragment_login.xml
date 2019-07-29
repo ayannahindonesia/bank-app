@@ -42,7 +42,6 @@
                 android:imeOptions="actionNext"
                 android:inputType="phone"
                 android:maxLength="13"
-                android:text="081234567890"
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/fontLarge" />
 
@@ -60,7 +59,6 @@
             android:imeOptions="actionDone"
             android:inputType="textPassword"
             android:maxLength="25"
-            android:text="password"
             android:textColor="@android:color/black"
             android:textSize="@dimen/fontLarge" />
 

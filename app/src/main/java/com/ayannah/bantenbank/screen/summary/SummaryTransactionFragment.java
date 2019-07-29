@@ -163,6 +163,7 @@ public class SummaryTransactionFragment extends BaseFragment implements SummaryT
         intent.putExtra("otp_loan", loanOTP);
         intent.putExtra("id_loan", id_loan);
         startActivity(intent);
+        parentActivity().finish();
     }
 
 

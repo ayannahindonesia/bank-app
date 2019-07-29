@@ -26,7 +26,7 @@
 
     <TextView
         android:layout_marginTop="@dimen/dp20"
-        android:text="Kamu ingin logout dari aplikasi?"
+        android:text="Kamu ingin keluar dari aplikasi ini?"
         android:textAlignment="center"
         android:textSize="@dimen/fontNormal"
         android:textStyle="bold"
@@ -43,7 +43,7 @@
 
         <TextView
             android:id="@+id/no"
-            android:text="No"
+            android:text="Tidak"
             android:background="?attr/selectableItemBackground"
             android:textAlignment="center"
             android:clickable="true"
@@ -58,7 +58,7 @@
 
         <TextView
             android:id="@+id/yes"
-            android:text="Yes"
+            android:text="Ya"
             android:background="?attr/selectableItemBackground"
             android:clickable="true"
             android:focusable="true"

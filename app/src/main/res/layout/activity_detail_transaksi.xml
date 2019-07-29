@@ -22,6 +22,7 @@
 
     <ScrollView
         android:layout_below="@+id/appbar"
+        android:layout_above="@+id/verfiedLoan"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -103,7 +104,7 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:text="Status"
+                    android:text="Pembaharuan Pengaajuan"
                     android:textSize="@dimen/fontNormal"
                     android:textColor="@android:color/black"
                     android:layout_weight="1"
@@ -111,8 +112,8 @@
                     android:layout_height="wrap_content" />
 
                 <TextView
-                    android:id="@+id/status"
-                    tools:text="Multiguna"
+                    android:id="@+id/dateUpdated"
+                    tools:text="21 Maret 2019"
                     android:textAlignment="textEnd"
                     android:textStyle="bold"
                     android:textSize="@dimen/fontNormal"
@@ -122,6 +123,42 @@
                     android:layout_height="wrap_content" />
 
             </LinearLayout>
+            <View
+                android:background="@color/darkgreybackground"
+                android:layout_width="match_parent"
+                android:layout_height="0.3dp"/>
+
+            <RelativeLayout
+                android:orientation="horizontal"
+                android:padding="@dimen/dp12"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="Status"
+                    android:textSize="@dimen/fontNormal"
+                    android:layout_centerVertical="true"
+                    android:textColor="@android:color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/status"
+                    tools:text="Multiguna"
+                    android:textAlignment="textEnd"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/fontNormal"
+                    android:textColor="@android:color/white"
+                    android:layout_alignParentEnd="true"
+                    android:paddingTop="3dp"
+                    android:paddingBottom="3dp"
+                    android:layout_centerVertical="true"
+                    android:paddingStart="6dp"
+                    android:paddingEnd="6dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </RelativeLayout>
             <View
                 android:background="@color/darkgreybackground"
                 android:layout_width="match_parent"
@@ -388,6 +425,15 @@
 
     </ScrollView>
     
-
+    <Button
+        android:id="@+id/verfiedLoan"
+        android:text="Ajukan ulang"
+        android:layout_alignParentBottom="true"
+        android:visibility="gone"
+        android:layout_marginTop="10dp"
+        android:textColor="@android:color/white"
+        android:background="@color/darkgreen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 </RelativeLayout>

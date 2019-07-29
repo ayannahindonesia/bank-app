@@ -25,6 +25,8 @@ public interface VerificationOTPContract {
 
         void postVerifyLoanByOTP(String idloan, JsonObject json);
 
+        void resubmitLoanOTP(int idloan, String otpCode);
+
         void getPublicToken(String phone, String pass, String isFrom);
 
         void setUserIdentity();

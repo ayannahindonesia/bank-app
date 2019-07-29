@@ -116,9 +116,8 @@ public class RemoteDataSource implements RemoteRepository {
     public Single<Loans> getAllLoans(String sortByStatus) {
         return Rx2AndroidNetworking.get(BuildConfig.API_URL + "borrower/loan")
                 .addHeaders("Authorization", preferenceRepository.getUserToken())
-                .addQueryParameter("rows", "")
-                .addQueryParameter("page", "")
-                .addQueryParameter("sort", "asc")
+                .addQueryParameter("sort", "desc")
+                .addQueryParameter("orderby", "id")
                 .addQueryParameter("status", sortByStatus)
                 .setPriority(Priority.MEDIUM)
                 .build()

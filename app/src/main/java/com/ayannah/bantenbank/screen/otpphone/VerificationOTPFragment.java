@@ -33,6 +33,7 @@ import org.json.JSONObject;
 import java.util.Objects;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -59,13 +60,19 @@ public class VerificationOTPFragment extends BaseFragment implements Verificatio
     LinearLayout errorIndicator;
 
     @Inject
+    @Named("purpose")
     String purpose;
+
+    @Inject
+    @Named("idloan")
+    int idLoan;
 
     @Inject
     VerificationOTPContract.Presenter mPresenter;
 
     private String REGISTER = "regist";
     private String PINJAMAN = "pinjaman";
+    private String RESUBMIT_LOAN = "resubmit_loan";
 
     @Inject
     public VerificationOTPFragment() {
@@ -109,9 +116,19 @@ public class VerificationOTPFragment extends BaseFragment implements Verificatio
             }else if(purpose.equals(PINJAMAN)){
 
                 loanRequest();
+
+            }else if(purpose.equals(RESUBMIT_LOAN)){
+
+                resubmitLoanRequest(idLoan);
             }
 
         }
+    }
+
+    private void resubmitLoanRequest(int idLoan) {
+
+        mPresenter.resubmitLoanOTP(idLoan, etPin.getText().toString().trim());
+
     }
 
     private void registerNewAccount(CharSequence charSequence) {
@@ -157,8 +174,6 @@ public class VerificationOTPFragment extends BaseFragment implements Verificatio
 
     @Override
     public void successVerifyLoan() {
-
-        Log.i("Success Verify Loan", "Pinjaman berhasil di Verify");
 
         Intent intent = new Intent(parentActivity(), SuccessActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

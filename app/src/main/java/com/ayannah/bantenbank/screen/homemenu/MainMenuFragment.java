@@ -27,6 +27,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ayannah.bantenbank.adapter.MenuProductAdapter;
+import com.ayannah.bantenbank.data.model.Loans.DataItem;
 import com.ayannah.bantenbank.data.model.Loans.Loans;
 import com.ayannah.bantenbank.data.model.MenuProduct;
 import com.ayannah.bantenbank.screen.earninginfo.EarningActivity;
@@ -86,6 +87,8 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
 
     private TextView pinjamanSaya;
 
+    private boolean isLoanReqAvail = false;
+
     @Inject
     public MainMenuFragment(){}
 
@@ -104,6 +107,8 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
     public void onResume() {
         super.onResume();
         mPresenter.takeView(this);
+
+        mPresenter.notifLoanRequest();
 
         mPresenter.getCurrentUserIdentity();
 
@@ -132,12 +137,13 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
         params.setMargins(0,px,0,0);
 
         pinjamanSaya.setLayoutParams(params);
-        pinjamanSaya.setGravity(Gravity.CENTER);
-        pinjamanSaya.setTypeface(null, Typeface.BOLD);
-        pinjamanSaya.setTextColor(Color.WHITE);
-        pinjamanSaya.setBackgroundResource(R.drawable.badge_navigation_menu_bg);
-        pinjamanSaya.setText("!");
-
+//        if(isLoanReqAvail) {
+//            pinjamanSaya.setGravity(Gravity.CENTER);
+//            pinjamanSaya.setTypeface(null, Typeface.BOLD);
+//            pinjamanSaya.setTextColor(Color.WHITE);
+//            pinjamanSaya.setBackgroundResource(R.drawable.badge_navigation_menu_bg);
+//            pinjamanSaya.setText("!");
+//        }
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 parentActivity(), drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -249,6 +255,26 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
         Intent logout = new Intent(parentActivity(), LoginActivity.class);
         startActivity(logout);
         parentActivity().finish();
+    }
+
+    @Override
+    public void showDataLoan(List<DataItem> items) {
+
+        for(DataItem data: items){
+
+            if(data.getStatus().equals("processing") || data.getStatus().equals("accepted")){
+                isLoanReqAvail = true;
+            }
+        }
+
+        if(isLoanReqAvail) {
+            pinjamanSaya.setGravity(Gravity.CENTER);
+            pinjamanSaya.setTypeface(null, Typeface.BOLD);
+            pinjamanSaya.setTextColor(Color.WHITE);
+            pinjamanSaya.setBackgroundResource(R.drawable.badge_navigation_menu_bg);
+            pinjamanSaya.setText("!");
+        }
+
     }
 
     @Override

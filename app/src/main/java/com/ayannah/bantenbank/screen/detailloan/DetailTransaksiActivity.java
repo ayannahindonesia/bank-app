@@ -4,15 +4,20 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ayannah.bantenbank.R;
 import com.ayannah.bantenbank.data.model.Loans.DataItem;
 import com.ayannah.bantenbank.data.model.Loans.FeesItem;
+import com.ayannah.bantenbank.screen.otpphone.VerificationOTPActivity;
 import com.ayannah.bantenbank.util.CommonUtils;
+import com.google.gson.JsonObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -23,6 +28,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import dagger.android.support.DaggerAppCompatActivity;
 
@@ -30,11 +36,18 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
 
     public static final String ID_LOAN = "idloan";
 
+    private final static String STATUS_PROCESSING = "processing";
+    private final static String STATUS_ACCEPTED = "accepted";
+    private final static String STATUS_REJECTED = "rejected";
+
     @Inject
     DetailTransaksiContract.Presenter mPresenter;
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
+
+    @BindView(R.id.verfiedLoan)
+    Button btn_verfiedLoan;
 
     @Inject
     String id_loan;
@@ -44,6 +57,9 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
 
     @BindView(R.id.dateCreated)
     TextView dateCreated;
+
+    @BindView(R.id.dateUpdated)
+    TextView dateUpdated;
 
     @BindView(R.id.status)
     TextView status;
@@ -76,6 +92,7 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
 
     int admin = 0;
     int calculateTotalBiaya = 0;
+    int idLoan = 0;
 
     @Override
     protected void onResume() {
@@ -109,7 +126,9 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
     @Override
     public void loadAllInformation(DataItem dataItem) {
 
-        noPeminjaman.setText(String.valueOf(dataItem.getId()));
+        idLoan = dataItem.getId();
+
+        noPeminjaman.setText(String.format("PNS-100-%s", dataItem.getId()));
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss.SSS'Z'", Locale.getDefault());
         SimpleDateFormat sdfUsed = new SimpleDateFormat("dd MMM yyyy HH:mm:ss", Locale.getDefault());
@@ -121,7 +140,40 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
         }
         dateCreated.setText(sdfUsed.format(getDate));
 
-        status.setText(dataItem.getStatus());
+        if(dataItem.getCreatedTime().equals(dataItem.getUpdatedTime())){
+            dateUpdated.setText("-");
+        }else {
+            Date updateDate = new Date();
+            try {
+                updateDate = sdf.parse(dataItem.getUpdatedTime());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            dateUpdated.setText(sdfUsed.format(updateDate));
+
+        }
+
+//        status.setText(dataItem.getStatus());
+        if(dataItem.isOtpVerified()){
+
+            switch (dataItem.getStatus()){
+                case STATUS_ACCEPTED:
+                    status.setBackgroundResource(R.drawable.badge_diterima);
+                    break;
+                case STATUS_PROCESSING:
+                    status.setBackgroundResource(R.drawable.badge_tidak_lengkap);
+                    break;
+                case STATUS_REJECTED:
+                    status.setBackgroundResource(R.drawable.badge_ditolak);
+                    break;
+            }
+            status.setText(dataItem.getStatus());
+
+        }else {
+
+            status.setBackgroundResource(R.drawable.badge_tertunda);
+            status.setText("tertunda");
+        }
 
         tujuan.setText(dataItem.getLoanIntention());
 
@@ -154,6 +206,23 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
 
         totalBiaya.setText(CommonUtils.setRupiahCurrency(calculateTotalBiaya));
 
+        if(!dataItem.isOtpVerified()){
+
+            btn_verfiedLoan.setVisibility(View.VISIBLE);
+        }
+
+
+    }
+
+    @OnClick(R.id.verfiedLoan)
+    void onClickSubmitLoan(){
+
+        Intent submit = new Intent(this, VerificationOTPActivity.class);
+        submit.putExtra(VerificationOTPActivity.PURPOSES, "resubmit_loan");
+        submit.putExtra(VerificationOTPActivity.IDLOAN, idLoan);
+        submit.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(submit);
+        finish();
 
     }
 
