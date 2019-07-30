@@ -57,7 +57,7 @@
 
         <CheckBox
             android:id="@+id/cbAgree"
-            android:text="Ya, saya setuju"
+            android:text="Ya, Saya Setuju"
             android:layout_marginTop="@dimen/dp12"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

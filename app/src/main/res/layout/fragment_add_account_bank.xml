@@ -40,7 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/dp12"
-            android:text="Masukan nomor rekening bank"
+            android:text="Masukan Nomor Rekening Bank"
             android:textColor="@android:color/black" />
 
         <EditText

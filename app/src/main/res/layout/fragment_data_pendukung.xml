@@ -39,7 +39,7 @@
                     android:layout_height="wrap_content" />
 
                 <TextView
-                    android:text="Nama Orang tidak serumah yang dapat dihubungi"
+                    android:text="Nama Orang Tidak Serumah Yang Dapat Dihubungi"
                     android:textColor="@android:color/black"
                     android:textSize="@dimen/fontLarge"
                     android:layout_width="match_parent"
@@ -72,7 +72,7 @@
                     tools:ignore="Autofill" />
 
                 <TextView
-                    android:text="Alamat rumah"
+                    android:text="Alamat Rumah"
                     android:layout_marginTop="@dimen/dp10"
                     android:textColor="@android:color/black"
                     android:textSize="@dimen/fontLarge"
@@ -82,7 +82,7 @@
                     android:id="@+id/etRelatedAddress"
                     android:inputType="textMultiLine"
                     android:lines="2"
-                    android:hint="Tulis alamat"
+                    android:hint="Tulis Alamat"
                     android:gravity="top"
                     android:paddingStart="@dimen/dp12"
                     android:paddingEnd="@dimen/dp12"

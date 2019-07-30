@@ -29,7 +29,7 @@
             <TextView
                 android:id="@+id/titleItem"
                 android:textStyle="bold"
-                android:text="Title item"
+                android:text="Title Item"
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/fontNormal"
                 android:layout_width="match_parent"
@@ -46,7 +46,7 @@
                 android:id="@+id/seeMore"
                 android:layout_marginTop="6dp"
                 android:textColor="@android:color/holo_green_dark"
-                android:text="Lihat lebih lengkap"
+                android:text="Lihat Lebih Lengkap"
                 android:padding="5dp"
                 android:layout_gravity="end"
                 android:textSize="@dimen/fontSmall"

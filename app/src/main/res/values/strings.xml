@@ -37,18 +37,18 @@
     <string name="menu_logout">Keluar</string>
 
     <!--page sumber earning-->
-    <string name="earning_primary">Pendapatan gaji per Bulan</string>
+    <string name="earning_primary">Pendapatan Gaji per Bulan</string>
     <string name="earning_rp">Rp</string>
     <string name="earning_example_amount">1.250.000</string>
-    <string name="earning_secondary">Penghasilan lain-lain (jika ada)</string>
-    <string name="earning_other">Sumber pendapatan lain</string>
+    <string name="earning_secondary">Penghasilan Lain-lain (Jika Ada)</string>
+    <string name="earning_other">Sumber Pendapatan Lain</string>
     <string name="earning_example_other">Wirausaha</string>
     <string name="earning_next">Selanjutnya</string>
     <string name="earning_zero">0</string>
 
 
-    <string name="menu_myaccount">Profil saya</string>
-    <string name="menu_akun_saya">Akun saya</string>
+    <string name="menu_myaccount">Profil Saya</string>
+    <string name="menu_akun_saya">Akun Saya</string>
     <string name="title_activity_verification_otp">VerificationOTPActivity</string>
     <string name="title_activity_rincian_alamat_rumah">RincianAlamatRumahActivity</string>
     <string name="title_activity_info_work_finance">InfoWorkFinanceActivity</string>
