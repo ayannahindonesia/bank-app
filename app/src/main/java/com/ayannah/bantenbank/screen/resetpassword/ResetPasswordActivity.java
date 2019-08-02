@@ -97,7 +97,7 @@ public class ResetPasswordActivity extends DaggerAppCompatActivity implements Re
     @Override
     public void showSuccessSendEmail(String message) {
 
-        Intent success = new Intent(getParent(), SuccessActivity.class);
+        Intent success = new Intent(this, SuccessActivity.class);
         success.putExtra(SuccessActivity.SUCCESS_TITLE, "Kirim email Berhasil");
         success.putExtra(SuccessActivity.SUCCESS_DESC, message);
         success.putExtra(SuccessActivity.SUCCESS_COND, 1);
