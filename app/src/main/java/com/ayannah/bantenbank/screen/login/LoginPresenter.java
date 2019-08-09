@@ -205,10 +205,14 @@ public class LoginPresenter implements LoginContract.Presenter {
 //                    JSONObject jsonObject = new JSONObject(anError.getErrorBody());
 //                    mView.showErrorMessage(jsonObject.optString("message"));
 //                }
-                if(anError.getErrorCode() == HttpsURLConnection.HTTP_UNAUTHORIZED){
+                if(anError.getErrorCode() == HttpsURLConnection.HTTP_UNAUTHORIZED) {
                     mView.showErrorMessage("No Telp/Kata Sandi Salah");
+                } else if (anError.getErrorCode() == HttpsURLConnection.HTTP_FORBIDDEN) {
+
                 }else {
-                    mView.showErrorMessage("Login gagal. Mohon coba dengan akun yang berbeda,");
+//                    mView.showErrorMessage(anError.getMessage());
+                    JSONObject jsonObject = new JSONObject(anError.getErrorBody());
+                    mView.showErrorMessage(jsonObject.optString("message"));
                 }
             }
 

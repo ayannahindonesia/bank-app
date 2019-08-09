@@ -107,9 +107,42 @@ public class VerificationOTPPresenter implements VerificationOTPContract.Present
 
         mComposite.add(Completable.fromAction(() -> {
 
-            remotRepo.verifiedLoanByOTP(idloan, json);
+//            remotRepo.verifiedLoanByOTP(idloan, json);
+            AndroidNetworking.post(BuildConfig.API_URL + "borrower/loan/{idloan}/verify")
+                    .addHeaders("Authorization", preferenceRepository.getUserToken())
+                    .addPathParameter("idloan", idloan)
+                    .addApplicationJsonBody(json)
+                    .setPriority(Priority.MEDIUM)
+                    .build()
+                    .getAsJSONObject(new JSONObjectRequestListener() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            Log.d("verify Loan: ", "Sukses");
+                            mView.successVerifyLoan();
+                        }
 
-            mView.successVerifyLoan();
+                        @Override
+                        public void onError(ANError anError) {
+                            Log.d("verify Loan: ", "gagal");
+                            if (anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
+                                mView.showErrorMessage("Tidak Ada Koneksi");
+                            } else {
+                                if(anError.getErrorBody() != null){
+
+                                    JSONObject jsonObject2 = null;
+                                    try {
+                                        jsonObject2 = new JSONObject(anError.getErrorBody());
+                                        mView.showErrorMessage(jsonObject2.optString("message"));
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+
+                                }
+                            }
+                        }
+                    });
+
+//            mView.successVerifyLoan();
 
         })
         .subscribeOn(Schedulers.io())

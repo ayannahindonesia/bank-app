@@ -1,6 +1,7 @@
 package com.ayannah.bantenbank.data.remote;
 
 import android.app.Application;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.androidnetworking.AndroidNetworking;
@@ -224,12 +225,12 @@ public class RemoteDataSource implements RemoteRepository {
                 .getAsJSONObject(new JSONObjectRequestListener() {
                     @Override
                     public void onResponse(JSONObject response) {
-
+                        Log.d("verify Loan: ", "Sukses");
                     }
 
                     @Override
                     public void onError(ANError anError) {
-
+                        Log.d("verify Loan: ", "gagal");
                     }
                 });
     }
