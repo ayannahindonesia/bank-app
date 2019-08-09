@@ -49,7 +49,7 @@
             android:id="@+id/btnTryAgain"
             android:background="@color/darkgreen"
             android:textColor="@android:color/white"
-            android:text="Coba lagi"
+            android:text="Coba Lagi"
             android:textSize="@dimen/fontNormal"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"
@@ -61,7 +61,7 @@
     <TextView
         android:id="@+id/no_data"
         android:textColor="@android:color/black"
-        android:text="Data kosong"
+        android:text="Data Kosong"
         android:visibility="gone"
         android:textSize="@dimen/fontLarge"
         android:layout_centerInParent="true"

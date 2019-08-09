@@ -19,7 +19,7 @@
     <TextView
         android:textColor="@android:color/black"
         android:textSize="@dimen/fontNormal"
-        android:text="Filter berdasarkan status"
+        android:text="Filter Berdasarkan Status"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

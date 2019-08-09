@@ -94,7 +94,7 @@
                         tools:ignore="Autofill" />
 
                     <TextView
-                        android:text="Lama bekerja"
+                        android:text="Lama Bekerja"
                         android:textColor="@android:color/black"
                         android:layout_marginTop="15dp"
                         android:textSize="@dimen/fontLarge"
@@ -128,7 +128,7 @@
                     </LinearLayout>
 
                     <TextView
-                        android:text="Alamat kantor"
+                        android:text="Alamat Kantor"
                         android:textColor="@android:color/black"
                         android:textSize="@dimen/fontLarge"
                         android:layout_width="match_parent"
@@ -148,7 +148,7 @@
                         tools:ignore="Autofill" />
 
                     <TextView
-                        android:text="No telepon kantor"
+                        android:text="No Telepon Kantor"
                         android:textSize="@dimen/fontLarge"
                         android:textColor="@android:color/black"
                         android:layout_width="match_parent"
@@ -228,7 +228,7 @@
                         android:layout_height="wrap_content" />
 
                     <TextView
-                        android:text="Penghasilan perbulan"
+                        android:text="Penghasilan Perbulan"
                         android:textSize="@dimen/fontLarge"
                         android:textColor="@android:color/black"
                         android:layout_width="match_parent"
@@ -245,7 +245,7 @@
                         android:layout_height="wrap_content" />
 
                     <TextView
-                        android:text="Pendapatan lain"
+                        android:text="Pendapatan Lain"
                         android:textSize="@dimen/fontLarge"
                         android:textColor="@android:color/black"
                         android:layout_width="match_parent"
@@ -262,7 +262,7 @@
                         android:layout_height="wrap_content" />
 
                     <TextView
-                        android:text="Sumber pendapatan lain"
+                        android:text="Sumber Pendapatan Lain"
                         android:textSize="@dimen/fontLarge"
                         android:textColor="@android:color/black"
                         android:layout_width="match_parent"

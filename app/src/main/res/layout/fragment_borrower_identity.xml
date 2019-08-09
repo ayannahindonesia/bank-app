@@ -136,7 +136,7 @@
                     tools:ignore="Autofill" />
 
                 <TextView
-                    android:text="Tempat lahir"
+                    android:text="Tempat Lahir"
                     android:textSize="@dimen/fontLarge"
                     android:textColor="@android:color/black"
                     android:layout_marginTop="10dp"
@@ -155,7 +155,7 @@
                     tools:ignore="Autofill" />
 
                 <TextView
-                    android:text="Pendidikan terakhir"
+                    android:text="Pendidikan Terakhir"
                     android:textSize="@dimen/fontLarge"
                     android:textColor="@android:color/black"
                     android:layout_width="match_parent"
@@ -171,7 +171,7 @@
                     tools:ignore="Autofill" />
 
                 <TextView
-                    android:text="Nama Ibu kandung"
+                    android:text="Nama Ibu Kandung"
                     android:textColor="@android:color/black"
                     android:textSize="@dimen/fontLarge"
                     android:layout_width="match_parent"
@@ -204,7 +204,7 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:text="Status perkawinan"
+                    android:text="Status Perkawinan"
                     android:textSize="@dimen/fontLarge"
                     android:textColor="@android:color/black"
                     android:layout_width="match_parent"
@@ -272,7 +272,7 @@
                     tools:ignore="Autofill" />
 
                 <TextView
-                    android:text="Jumlah tanggungan (orang)"
+                    android:text="Jumlah Tanggungan (orang)"
                     android:textColor="@android:color/black"
                     android:layout_marginTop="15dp"
                     android:textSize="@dimen/fontLarge"
@@ -311,7 +311,7 @@
                     android:layout_height="wrap_content" />
 
                 <TextView
-                    android:text="Alamat domisili"
+                    android:text="Alamat Domisili"
                     android:textColor="@android:color/black"
                     android:textSize="@dimen/fontLarge"
                     android:layout_width="match_parent"
@@ -484,7 +484,7 @@
                     tools:ignore="Autofill" />
 
                 <TextView
-                    android:text="Lama menempati rumah"
+                    android:text="Lama Menempati Rumah"
                     android:textColor="@android:color/black"
                     android:layout_marginTop="15dp"
                     android:textSize="@dimen/fontLarge"
@@ -518,7 +518,7 @@
                 </LinearLayout>
 
                 <TextView
-                    android:text="Status tempat tinggal"
+                    android:text="Status Tempat Tinggal"
                     android:layout_marginTop="15dp"
                     android:textColor="@android:color/black"
                     android:textSize="@dimen/fontLarge"

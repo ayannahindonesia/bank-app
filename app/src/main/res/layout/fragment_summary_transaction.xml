@@ -39,7 +39,7 @@
                         android:layout_height="wrap_content">
 
                         <TextView
-                            android:text="Pengajuan peminjaman"
+                            android:text="Pengajuan Peminjaman"
                             android:layout_weight="1"
                             android:textColor="@android:color/black"
                             android:textSize="@dimen/fontNormal"
@@ -65,7 +65,7 @@
                         android:layout_height="wrap_content">
 
                         <TextView
-                            android:text="Tenor peminjaman"
+                            android:text="Tenor Peminjaman"
                             android:layout_weight="1"
                             android:textColor="@android:color/black"
                             android:textSize="@dimen/fontNormal"
@@ -134,7 +134,7 @@
                         android:layout_height="wrap_content">
 
                         <TextView
-                            android:text="Biaya admin"
+                            android:text="Biaya Admin"
                             android:layout_weight="1"
                             android:textColor="@android:color/black"
                             android:textSize="@dimen/fontNormal"
@@ -160,7 +160,7 @@
                         android:layout_height="wrap_content">
 
                         <TextView
-                            android:text="Angsuran per bulan"
+                            android:text="Angsuran per Bulan"
                             android:layout_weight="1"
                             android:textColor="@android:color/black"
                             android:textSize="@dimen/fontNormal"
@@ -256,7 +256,7 @@
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:text="Alasan mengajukan peminjaman:"
+                        android:text="Alasan Mengajukan Peminjaman:"
                         android:textColor="@android:color/black"
                         android:textSize="@dimen/fontNormal"
                         android:layout_width="match_parent"
@@ -272,7 +272,7 @@
 
 
                     <TextView
-                        android:text="Detail tujuan pinjaman:"
+                        android:text="Detail Tujuan Pinjaman:"
                         android:layout_marginTop="5dp"
                         android:textColor="@android:color/black"
                         android:textSize="@dimen/fontNormal"

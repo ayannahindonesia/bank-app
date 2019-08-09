@@ -45,7 +45,7 @@
         android:layout_height="590dp">
 
         <TextView
-            android:text="Jenis pekerjaan"
+            android:text="Jenis Pekerjaan"
             android:textSize="@dimen/fontLarge"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -85,7 +85,7 @@
             tools:ignore="Autofill" />
 
         <TextView
-            android:text="Lama bekerja"
+            android:text="Lama Bekerja"
             android:textSize="@dimen/fontLarge"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -117,7 +117,7 @@
             tools:ignore="Autofill" />
 
         <TextView
-            android:text="No telepon kantor"
+            android:text="No Telepon Kantor"
             android:textSize="@dimen/fontLarge"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -132,7 +132,7 @@
             tools:ignore="Autofill" />
 
         <TextView
-            android:text="Nama atasan"
+            android:text="Nama Atasan"
             android:textSize="@dimen/fontLarge"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

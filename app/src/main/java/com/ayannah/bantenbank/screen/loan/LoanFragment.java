@@ -226,7 +226,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
 
             if(etAlasan.getText().toString().trim().isEmpty()){
 
-                Toast.makeText(parentActivity(), "Mohon diisi Alasannya", Toast.LENGTH_SHORT).show();
+                Toast.makeText(parentActivity(), "Mohon diisi alasannya", Toast.LENGTH_SHORT).show();
                 etAlasan.requestFocus();
                 return;
             }

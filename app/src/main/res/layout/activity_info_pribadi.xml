@@ -58,12 +58,12 @@
                         android:background="@android:color/transparent"
                         android:enabled="false"
                         android:textSize="@dimen/fontNormal"
-                        android:hint="Nama lengkap sesuai KTP"
+                        android:hint="Nama Lengkap Sesuai KTP"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
                     <TextView
-                        android:text="Jenis kelamin"
+                        android:text="Jenis Kelamin"
                         android:layout_marginTop="10dp"
                         android:textSize="@dimen/fontLarge"
                         android:textColor="@android:color/black"
@@ -89,12 +89,12 @@
                         android:background="@android:color/transparent"
                         android:enabled="false"
                         android:inputType="number"
-                        android:hint="nomor KTP"
+                        android:hint="Nomor KTP"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
                     <TextView
-                        android:text="Tanggal lahir"
+                        android:text="Tanggal Lahir"
                         android:layout_marginTop="10dp"
                         android:textColor="@android:color/black"
                         android:textSize="@dimen/fontLarge"
@@ -114,7 +114,7 @@
                         android:layout_height="wrap_content" />
 
                     <TextView
-                        android:text="Tempat lahir"
+                        android:text="Tempat Lahir"
                         android:layout_marginTop="10dp"
                         android:textSize="@dimen/fontLarge"
                         android:textColor="@android:color/black"
@@ -125,12 +125,12 @@
                         android:textSize="@dimen/fontNormal"
                         android:background="@android:color/transparent"
                         android:enabled="false"
-                        android:hint="Tempat lahir sesuai KTP"
+                        android:hint="Tempat Lahir Sesuai KTP"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
                     <TextView
-                        android:text="Pendidikan terakhir"
+                        android:text="Pendidikan Terakhir"
                         android:layout_marginTop="10dp"
                         android:textSize="@dimen/fontLarge"
                         android:textColor="@android:color/black"
@@ -143,7 +143,7 @@
                         android:layout_height="wrap_content" />
 
                     <TextView
-                        android:text="Nama Ibu kandung"
+                        android:text="Nama Ibu Kandung"
                         android:textColor="@android:color/black"
                         android:textSize="@dimen/fontLarge"
                         android:layout_width="match_parent"
@@ -182,7 +182,7 @@
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:text="Status perkawinan"
+                        android:text="Status Perkawinan"
                         android:textSize="@dimen/fontLarge"
                         android:textColor="@android:color/black"
                         android:layout_width="match_parent"
@@ -212,7 +212,7 @@
                             android:layout_height="wrap_content" />
                         <EditText
                             android:id="@+id/etSpouseName"
-                            android:hint="Nama pasangan anda"
+                            android:hint="Nama Pasangan Anda"
                             android:inputType="textPersonName"
                             android:paddingStart="@dimen/dp12"
                             android:paddingEnd="@dimen/dp12"
@@ -260,7 +260,7 @@
                     </LinearLayout>
 
                     <TextView
-                        android:text="Jumlah tanggungan (orang)"
+                        android:text="Jumlah Tanggungan (Orang)"
                         android:textColor="@android:color/black"
                         android:layout_marginTop="15dp"
                         android:textSize="@dimen/fontLarge"
@@ -308,7 +308,7 @@
 
 
                     <TextView
-                        android:text="Alamat domisili"
+                        android:text="Alamat Domisili"
                         android:textColor="@android:color/black"
                         android:textSize="@dimen/fontLarge"
                         android:layout_width="match_parent"
@@ -459,7 +459,7 @@
                         tools:ignore="Autofill" />
 
                     <TextView
-                        android:text="Lama menempati rumah"
+                        android:text="Lama Menempati Rumah"
                         android:textColor="@android:color/black"
                         android:layout_marginTop="15dp"
                         android:textSize="@dimen/fontLarge"
@@ -493,7 +493,7 @@
                     </LinearLayout>
 
                     <TextView
-                        android:text="Status tempat tinggal"
+                        android:text="Status Tempat Tinggal"
                         android:layout_marginTop="15dp"
                         android:textColor="@android:color/black"
                         android:textSize="@dimen/fontLarge"
