@@ -50,7 +50,7 @@ public class ResetPasswordActivity extends DaggerAppCompatActivity implements Re
         super.onResume();
         mPresenter.takeView(this);
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getParent());
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setCancelable(false);
         builder.setView(R.layout.progress_bar);
         dialog = builder.create();

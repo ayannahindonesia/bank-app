@@ -68,7 +68,7 @@ public class DataPendukungFragment extends BaseFragment implements DataPendukung
         super.onResume();
         mPresenter.takeView(this);
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        AlertDialog.Builder builder = new AlertDialog.Builder(parentActivity());
         builder.setCancelable(false);
         builder.setView(R.layout.progress_bar);
         dialogAlert = builder.create();

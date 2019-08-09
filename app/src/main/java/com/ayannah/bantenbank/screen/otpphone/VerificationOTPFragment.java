@@ -74,6 +74,7 @@ public class VerificationOTPFragment extends BaseFragment implements Verificatio
     private String REGISTER = "regist";
     private String PINJAMAN = "pinjaman";
     private String RESUBMIT_LOAN = "resubmit_loan";
+    private String RESUBMIT_REGIST = "resubmit_regist";
 
     private AlertDialog dialog;
 
@@ -95,7 +96,7 @@ public class VerificationOTPFragment extends BaseFragment implements Verificatio
     @Override
     protected void initView(Bundle state) {
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        AlertDialog.Builder builder = new AlertDialog.Builder(parentActivity());
         builder.setCancelable(false);
         builder.setView(R.layout.progress_bar);
         dialog = builder.create();
@@ -125,11 +126,13 @@ public class VerificationOTPFragment extends BaseFragment implements Verificatio
 
             }else if(purpose.equals(PINJAMAN)){
 
-                loanRequest();
+                loanRequest(charSequence);
 
             }else if(purpose.equals(RESUBMIT_LOAN)){
 
                 resubmitLoanRequest(idLoan);
+            } else if (purpose.equals(RESUBMIT_REGIST)) {
+//                resubmitRegister();
             }
 
         }
@@ -154,9 +157,9 @@ public class VerificationOTPFragment extends BaseFragment implements Verificatio
     }
 
 
-    private void loanRequest() {
+    private void loanRequest(CharSequence charSequence) {
         String id_loan = parentActivity().getIntent().getStringExtra("id_loan");
-        String otp_loan = parentActivity().getIntent().getStringExtra("otp_loan");
+        String otp_loan = charSequence.toString();
 
         JsonObject json = new JsonObject();
         json.addProperty("otp_code", otp_loan);

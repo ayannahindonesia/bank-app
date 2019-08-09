@@ -143,7 +143,7 @@ public class AddDocumentFragment extends BaseFragment implements AddDocumentCont
 
     @Override
     protected void initView(Bundle state) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        AlertDialog.Builder builder = new AlertDialog.Builder(parentActivity());
         builder.setCancelable(false);
         builder.setView(R.layout.progress_bar);
         dialog = builder.create();
