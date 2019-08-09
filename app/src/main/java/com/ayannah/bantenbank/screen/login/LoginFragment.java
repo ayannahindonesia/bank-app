@@ -12,9 +12,12 @@ import androidx.appcompat.app.AlertDialog;
 import com.ayannah.bantenbank.screen.homemenu.MainMenuActivity;
 import com.ayannah.bantenbank.R;
 import com.ayannah.bantenbank.base.BaseFragment;
+import com.ayannah.bantenbank.screen.otpphone.VerificationOTPActivity;
 import com.ayannah.bantenbank.screen.register.addaccountbank.AddAccountBankActivity;
 import com.ayannah.bantenbank.screen.register.choosebank.ChooseBankActivity;
+import com.ayannah.bantenbank.screen.register.formothers.FormOtherFragment;
 import com.ayannah.bantenbank.screen.resetpassword.ResetPasswordActivity;
+import com.google.gson.JsonObject;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
@@ -132,6 +135,31 @@ public class LoginFragment extends BaseFragment implements
 
         parentActivity().finish();
 
+    }
+
+    @Override
+    public void accountNotOTP() {
+        dialog.dismiss();
+
+        Toast.makeText(parentActivity(), "Akun belum terverifikasi", Toast.LENGTH_LONG).show();
+
+        String phone = etPhone.getText().toString().trim();
+
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("phone", phone);
+
+        mPresenter.postRequestOTP(jsonObject);
+    }
+
+    @Override
+    public void successGetOTP() {
+        dialog.dismiss();
+
+        Intent submit = new Intent(parentActivity(), VerificationOTPActivity.class);
+        submit.putExtra(VerificationOTPActivity.PURPOSES, "resubmit_regist");
+        submit.putExtra(FormOtherFragment.PHONE, etPhone.getText().toString().trim());
+        submit.putExtra(FormOtherFragment.PASS, etPassword.getText().toString().trim());
+        startActivity(submit);
     }
 
     @Override

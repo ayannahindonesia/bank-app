@@ -1,6 +1,7 @@
 package com.ayannah.bantenbank.screen.login;
 
 import android.app.Application;
+import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -10,6 +11,7 @@ import com.androidnetworking.common.ANConstants;
 import com.androidnetworking.error.ANError;
 import com.ayannah.bantenbank.data.local.PreferenceRepository;
 import com.ayannah.bantenbank.data.remote.RemoteRepository;
+import com.ayannah.bantenbank.screen.otpphone.VerificationOTPActivity;
 import com.ayannah.bantenbank.screen.register.adddoc.AddDocumentFragment;
 import com.google.gson.JsonObject;
 
@@ -18,6 +20,7 @@ import org.json.JSONObject;
 import javax.inject.Inject;
 import javax.net.ssl.HttpsURLConnection;
 
+import io.reactivex.Completable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
@@ -208,7 +211,7 @@ public class LoginPresenter implements LoginContract.Presenter {
                 if(anError.getErrorCode() == HttpsURLConnection.HTTP_UNAUTHORIZED) {
                     mView.showErrorMessage("No Telp/Kata Sandi Salah");
                 } else if (anError.getErrorCode() == HttpsURLConnection.HTTP_FORBIDDEN) {
-
+                    mView.accountNotOTP();
                 }else {
 //                    mView.showErrorMessage(anError.getMessage());
                     JSONObject jsonObject = new JSONObject(anError.getErrorBody());
@@ -223,6 +226,21 @@ public class LoginPresenter implements LoginContract.Presenter {
     @Override
     public boolean isUserLogged() {
         return preferenceRepository.isUserLogged();
+    }
+
+    @Override
+    public void postRequestOTP(JsonObject jsonObject) {
+        if (mView == null) {
+            Toast.makeText(application, "something wrong in setUserIdentity()", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        mComposite.add(Completable.fromAction(() -> {
+            remotRepo.postOTPRequestBorrower(jsonObject);
+            mView.successGetOTP();
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe());
     }
 
     @Override

@@ -132,10 +132,22 @@ public class VerificationOTPFragment extends BaseFragment implements Verificatio
 
                 resubmitLoanRequest(idLoan);
             } else if (purpose.equals(RESUBMIT_REGIST)) {
-//                resubmitRegister();
+                resubmitRegister(charSequence);
             }
 
         }
+    }
+
+    private void resubmitRegister(CharSequence charSequence) {
+
+        String phone = parentActivity().getIntent().getExtras().getString(FormOtherFragment.PHONE);
+        String otp = charSequence.toString();
+
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("phone", phone);
+        jsonObject.addProperty("otp_code", otp);
+
+        mPresenter.postOTPVerify(jsonObject);
     }
 
     private void resubmitLoanRequest(int idLoan) {

@@ -103,6 +103,9 @@ public class VerificationOTPActivity extends DaggerAppCompatActivity {
         }else if (getIntent().getStringExtra(PURPOSES).equals("regist")) {
 
             alertCancel(getResources().getString(R.string.otp_regist_alert));
+        } else if (getIntent().getStringExtra(PURPOSES).equals("resubmit_regist")) {
+
+            alertCancel(getResources().getString(R.string.resubmit_regist_alert));
         } else {
             super.onBackPressed();
         }

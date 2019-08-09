@@ -2,6 +2,7 @@ package com.ayannah.bantenbank.screen.login;
 
 import com.ayannah.bantenbank.base.BasePresenter;
 import com.ayannah.bantenbank.base.BaseView;
+import com.google.gson.JsonObject;
 
 public interface LoginContract {
 
@@ -15,6 +16,9 @@ public interface LoginContract {
 
         void loginComplete();
 
+        void accountNotOTP();
+
+        void successGetOTP();
     }
 
     interface Presenter extends BasePresenter<View>{
@@ -33,5 +37,6 @@ public interface LoginContract {
         boolean isUserLogged();
 
 
+        void postRequestOTP(JsonObject jsonObject);
     }
 }
