@@ -199,7 +199,7 @@ public class VerificationOTPFragment extends BaseFragment implements Verificatio
 
     @Override
     public void completeCreateUserToken() {
-        dialog.dismiss();
+//        dialog.dismiss();
         mPresenter.setUserIdentity();
     }
 

@@ -67,9 +67,18 @@ public class VerificationOTPPresenter implements VerificationOTPContract.Present
         }, error -> {
 
             if (((ANError) error).getErrorCode() == 400) {
-                Toast.makeText(application, "Wrong OTP", Toast.LENGTH_LONG).show();
+                mView.showErrorMessage("OTP Salah");
+//                Toast.makeText(application, "Wrong OTP", Toast.LENGTH_LONG).show();
+            } else if (((ANError) error).getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
+                mView.showErrorMessage("Tidak Ada Koneksi");
+//                Toast.makeText(application, "Tidak Ada Koneksi", Toast.LENGTH_LONG).show();
             } else {
-                Toast.makeText(application, "Connection Error", Toast.LENGTH_LONG).show();
+                if(((ANError) error).getErrorBody() != null){
+
+                    JSONObject jsonObject2 = new JSONObject(((ANError) error).getErrorBody());
+                    mView.showErrorMessage(jsonObject2.optString("message"));
+
+                }
             }
 
 //            ANError anError = (ANError) error;
