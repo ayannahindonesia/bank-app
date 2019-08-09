@@ -81,10 +81,7 @@ public class ResetPasswordPresenter implements ResetPasswordContract.Presenter {
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(response -> {
 
-            if(response.isStatus()){
-
                 mView.showSuccessSendEmail(response.getMessage());
-            }
 
         }, error -> {
 
