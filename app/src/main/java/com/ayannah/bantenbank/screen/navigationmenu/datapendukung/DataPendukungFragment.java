@@ -1,6 +1,5 @@
 package com.ayannah.bantenbank.screen.navigationmenu.datapendukung;
 
-import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +9,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
 
 import com.ayannah.bantenbank.R;
 import com.ayannah.bantenbank.base.BaseFragment;
@@ -51,7 +52,7 @@ public class DataPendukungFragment extends BaseFragment implements DataPendukung
     EditText etRelatedHP;
 
     private String[] siblings = {"Saudara", "Teman", "Keluarga Kandung"};
-
+    private AlertDialog dialogAlert;
     private Validator validator;
 
     @Inject
@@ -66,6 +67,11 @@ public class DataPendukungFragment extends BaseFragment implements DataPendukung
     public void onResume() {
         super.onResume();
         mPresenter.takeView(this);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setCancelable(false);
+        builder.setView(R.layout.progress_bar);
+        dialogAlert = builder.create();
     }
 
     @Override
@@ -90,7 +96,8 @@ public class DataPendukungFragment extends BaseFragment implements DataPendukung
 
     @Override
     public void showErrorMessage(String message) {
-
+        dialogAlert.dismiss();
+        Toast.makeText(parentActivity(), message, Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -108,6 +115,8 @@ public class DataPendukungFragment extends BaseFragment implements DataPendukung
 
     @Override
     public void successUpdateOtherData() {
+        dialogAlert.dismiss();
+
         Intent intent = new Intent(parentActivity(), DataPendukungActivity.class);
         startActivity(intent);
         parentActivity().finish();
@@ -148,6 +157,7 @@ public class DataPendukungFragment extends BaseFragment implements DataPendukung
         jsonObject.addProperty("related_homenumber", etRelatedPhone.getText().toString());
         jsonObject.addProperty("related_phonenumber", etRelatedHP.getText().toString());
 
+        dialogAlert.show();
         mPresenter.patchOtherData(jsonObject);
     }
 

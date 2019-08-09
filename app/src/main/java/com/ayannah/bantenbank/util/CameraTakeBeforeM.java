@@ -46,6 +46,7 @@ public class CameraTakeBeforeM extends AppCompatActivity implements SurfaceHolde
         Intent intent = getIntent();
 //        simulationCodeResponse = intent.getExtras().getParcelable("simresponse");
         mCamera = getCameraInstance();
+        mCamera.setDisplayOrientation(90);
 
         mPreview = new CameraView(this, mCamera);
         mPreview.getHolder().addCallback(this);

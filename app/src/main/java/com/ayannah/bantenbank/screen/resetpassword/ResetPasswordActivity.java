@@ -1,6 +1,7 @@
 package com.ayannah.bantenbank.screen.resetpassword;
 
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -42,11 +43,17 @@ public class ResetPasswordActivity extends DaggerAppCompatActivity implements Re
 
     private Unbinder mUnbinder;
     private Validator validator;
+    private AlertDialog dialog;
 
     @Override
     protected void onResume() {
         super.onResume();
         mPresenter.takeView(this);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getParent());
+        builder.setCancelable(false);
+        builder.setView(R.layout.progress_bar);
+        dialog = builder.create();
     }
 
     @Override
@@ -90,12 +97,14 @@ public class ResetPasswordActivity extends DaggerAppCompatActivity implements Re
     @Override
     public void showErrorMessage(String message) {
 
+        dialog.dismiss();
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
 
     }
 
     @Override
     public void showSuccessSendEmail(String message) {
+        dialog.dismiss();
 
         Intent success = new Intent(getParent(), SuccessActivity.class);
         success.putExtra(SuccessActivity.SUCCESS_TITLE, "Kirim email Berhasil");
@@ -108,6 +117,7 @@ public class ResetPasswordActivity extends DaggerAppCompatActivity implements Re
     @Override
     public void onValidationSucceeded() {
 
+        dialog.show();
         mPresenter.clientAuth(email.getText().toString());
 
     }

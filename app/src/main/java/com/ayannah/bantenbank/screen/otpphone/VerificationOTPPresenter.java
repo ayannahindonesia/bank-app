@@ -157,7 +157,7 @@ public class VerificationOTPPresenter implements VerificationOTPContract.Present
     @Override
     public void setUserIdentity() {
         if(mView == null){
-            Toast.makeText(application, "spmething wrong in setUserIdentity()", Toast.LENGTH_SHORT).show();
+            Toast.makeText(application, "something wrong in setUserIdentity()", Toast.LENGTH_SHORT).show();
             return;
         }
 

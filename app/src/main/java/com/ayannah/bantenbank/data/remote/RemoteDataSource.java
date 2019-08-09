@@ -276,4 +276,14 @@ public class RemoteDataSource implements RemoteRepository {
                 .build()
                 .getObjectSingle(CheckAccount.class);
     }
+
+    @Override
+    public Single<UserProfile> postNewPassword(JsonObject jsonObject) {
+        return Rx2AndroidNetworking.patch(BuildConfig.API_URL + "borrower/change_password")
+                .addHeaders("Authorization", preferenceRepository.getUserToken())
+                .addApplicationJsonBody(jsonObject)
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getObjectSingle(UserProfile.class);
+    }
 }

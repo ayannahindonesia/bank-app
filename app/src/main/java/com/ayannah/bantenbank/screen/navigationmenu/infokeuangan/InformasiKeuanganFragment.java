@@ -1,6 +1,5 @@
 package com.ayannah.bantenbank.screen.navigationmenu.infokeuangan;
 
-import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +9,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
 
 import com.ayannah.bantenbank.R;
 import com.ayannah.bantenbank.base.BaseFragment;
@@ -80,6 +81,7 @@ public class InformasiKeuanganFragment extends BaseFragment implements Informasi
 
     private String[] jobRepo = {"Pemerintahan", "CPNS", "Pegawai Swasta", "Kepala Daerah", "Pegawai Pemerintah Nasional", "Pegawai Pemerintah Daerah"};
     private Validator validator;
+    private AlertDialog dialogAlert;
 
     @Inject
     public InformasiKeuanganFragment(){}
@@ -93,6 +95,11 @@ public class InformasiKeuanganFragment extends BaseFragment implements Informasi
     public void onResume() {
         super.onResume();
         mPresenter.takeView(this);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(parentActivity());
+        builder.setCancelable(false);
+        builder.setView(R.layout.progress_bar);
+        dialogAlert = builder.create();
 
         mPresenter.getInfoPekerjaanDanKeuangan();
 
@@ -174,7 +181,7 @@ public class InformasiKeuanganFragment extends BaseFragment implements Informasi
 
     @Override
     public void showErrorMessage(String message) {
-
+        dialogAlert.dismiss();
         Toast.makeText(parentActivity(), message, Toast.LENGTH_SHORT).show();
 
     }
@@ -212,6 +219,7 @@ public class InformasiKeuanganFragment extends BaseFragment implements Informasi
 
     @Override
     public void successUpdateJobEarningData() {
+        dialogAlert.dismiss();
         Intent intent = new Intent(parentActivity(), InformasiKeuanganActivity.class);
         startActivity(intent);
         parentActivity().finish();

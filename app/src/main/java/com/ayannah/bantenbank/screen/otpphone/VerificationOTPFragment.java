@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 
 import com.androidnetworking.common.ANConstants;
@@ -74,6 +75,8 @@ public class VerificationOTPFragment extends BaseFragment implements Verificatio
     private String PINJAMAN = "pinjaman";
     private String RESUBMIT_LOAN = "resubmit_loan";
 
+    private AlertDialog dialog;
+
     @Inject
     public VerificationOTPFragment() {
     }
@@ -92,6 +95,11 @@ public class VerificationOTPFragment extends BaseFragment implements Verificatio
     @Override
     protected void initView(Bundle state) {
 
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setCancelable(false);
+        builder.setView(R.layout.progress_bar);
+        dialog = builder.create();
+
         //this condition for register purposes
         //we dont use it if pinjaman purposes
         if(purpose.equals(REGISTER)){
@@ -108,6 +116,8 @@ public class VerificationOTPFragment extends BaseFragment implements Verificatio
         if (charSequence.length() == 6) {
 //            Bundle bundle = Objects.requireNonNull(parentActivity()).getIntent().getExtras();
 //            assert bundle != null;
+
+            dialog.show();
 
             if(purpose.equals(REGISTER)){
 
@@ -175,6 +185,8 @@ public class VerificationOTPFragment extends BaseFragment implements Verificatio
     @Override
     public void successVerifyLoan() {
 
+        dialog.dismiss();
+
         Intent intent = new Intent(parentActivity(), SuccessActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         intent.putExtra(SuccessActivity.SUCCESS_TITLE, "Verifikasi Berhasil!");
@@ -187,17 +199,20 @@ public class VerificationOTPFragment extends BaseFragment implements Verificatio
 
     @Override
     public void completeCreateUserToken() {
+        dialog.dismiss();
         mPresenter.setUserIdentity();
     }
 
     @Override
     public void showErrorMessage(String message) {
+        dialog.dismiss();
         Toast.makeText(parentActivity(), "Error: "+message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void loginComplete() {
 //        Toast.makeText(parentActivity(), "LoginComplete", Toast.LENGTH_SHORT).show();
+        dialog.dismiss();
 
         Intent login = new Intent(parentActivity(), MainMenuActivity.class);
         login.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);

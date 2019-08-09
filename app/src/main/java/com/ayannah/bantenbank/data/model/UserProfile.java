@@ -154,6 +154,12 @@ public class UserProfile{
 	@SerializedName("dependants")
 	private int dependants;
 
+	@SerializedName("idcard_image")
+	private IDCardImage idCardImage;
+
+	@SerializedName("taxid_image")
+	private TaxIDImage taxIDImage;
+
 	public String getBirthday(){
 		return birthday;
 	}
@@ -352,5 +358,13 @@ public class UserProfile{
 
 	public int getDependants() {
 		return dependants;
+	}
+
+	public IDCardImage getIdCardImage() {
+		return idCardImage;
+	}
+
+	public TaxIDImage getTaxIDImage() {
+		return taxIDImage;
 	}
 }

@@ -1,12 +1,13 @@
 package com.ayannah.bantenbank.screen.navigationmenu.akunsaya;
 
-import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
 
 import com.ayannah.bantenbank.R;
 import com.ayannah.bantenbank.base.BaseFragment;
@@ -47,6 +48,8 @@ public class AkunSayaFragment extends BaseFragment implements AkunSayaContract.V
 
     private Validator validator;
 
+    private AlertDialog dialogAlert;
+
     @Inject
     public AkunSayaFragment(){}
 
@@ -54,6 +57,11 @@ public class AkunSayaFragment extends BaseFragment implements AkunSayaContract.V
     public void onResume() {
         super.onResume();
         mPresenter.takeView(this);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setCancelable(false);
+        builder.setView(R.layout.progress_bar);
+        dialogAlert = builder.create();
 
         mPresenter.getDataUser();
     }
@@ -73,6 +81,7 @@ public class AkunSayaFragment extends BaseFragment implements AkunSayaContract.V
     @Override
     public void showErrorMessage(String message) {
 
+        dialogAlert.dismiss();
         Toast.makeText(parentActivity(), message, Toast.LENGTH_SHORT).show();
 
     }
@@ -90,6 +99,7 @@ public class AkunSayaFragment extends BaseFragment implements AkunSayaContract.V
     @Override
     public void berhasil() {
 
+        dialogAlert.dismiss();
         Toast.makeText(parentActivity(), "Data Berhasil Dirubah", Toast.LENGTH_SHORT).show();
 
         etEmail.clearFocus();
@@ -121,6 +131,7 @@ public class AkunSayaFragment extends BaseFragment implements AkunSayaContract.V
             public void onClick(DialogInterface dialog, int which) {
                 switch (which) {
                     case DialogInterface.BUTTON_POSITIVE:
+                        dialogAlert.show();
                         mPresenter.updateDataUser(etEmail.getText().toString());
                         break;
                     case DialogInterface.BUTTON_NEGATIVE:

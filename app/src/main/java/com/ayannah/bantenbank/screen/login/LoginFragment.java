@@ -7,6 +7,8 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
+
 import com.ayannah.bantenbank.screen.homemenu.MainMenuActivity;
 import com.ayannah.bantenbank.R;
 import com.ayannah.bantenbank.base.BaseFragment;
@@ -40,10 +42,8 @@ public class LoginFragment extends BaseFragment implements
     @BindView(R.id.etPassword)
     EditText etPassword;
 
-    @BindView(R.id.progressLogin)
-    LinearLayout progressLogin;
-
     private Validator validator;
+    private AlertDialog dialog;
 
     @Inject
     public LoginFragment(){}
@@ -58,6 +58,11 @@ public class LoginFragment extends BaseFragment implements
     public void onResume() {
         super.onResume();
         mPresenter.takeView(this);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setCancelable(false);
+        builder.setView(R.layout.progress_bar);
+        dialog = builder.create();
 
         if(mPresenter.isUserLogged()){
             Toast.makeText(parentActivity(), "udah pernah login", Toast.LENGTH_SHORT).show();
@@ -103,7 +108,7 @@ public class LoginFragment extends BaseFragment implements
         etPhone.setText("");
         etPassword.setText("");
 
-        progressLogin.setVisibility(View.GONE);
+        dialog.dismiss();
     }
 
     @Override
@@ -123,7 +128,7 @@ public class LoginFragment extends BaseFragment implements
         login.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(login);
 
-        progressLogin.setVisibility(View.GONE);
+        dialog.dismiss();
 
         parentActivity().finish();
 
@@ -141,7 +146,7 @@ public class LoginFragment extends BaseFragment implements
 
         }else {
 
-            progressLogin.setVisibility(View.VISIBLE);
+            dialog.show();
             mPresenter.getPublicToken(phone, pass);
 
         }
@@ -151,7 +156,7 @@ public class LoginFragment extends BaseFragment implements
     @Override
     public void isAccountWrong() {
 
-        progressLogin.setVisibility(View.GONE);
+        dialog.dismiss();
         Toast.makeText(parentActivity(), "No Telp/Password salah", Toast.LENGTH_SHORT).show();
     }
 

@@ -200,4 +200,20 @@ public interface PreferenceRepository {
 
     String getUserRelatedAddress();
 
+    void setIDCardImage(String idCardImage);
+
+    String getIDCardImage();
+
+    void setTaxIDImage(String taxIDImage);
+
+    String getTaxIDImage();
+
+    void setIDCardImageID(int idCardImageID);
+
+    int getIDCardImageID();
+
+    void setTaxIDImageID(int taxIDImageID);
+
+    int getTaxIDImageID();
+
 }

@@ -25,6 +25,7 @@ public interface MainMenuContract {
 
         void showDataLoan(List<DataItem> items);
 
+        void dismissDialog();
     }
 
     interface Presenter extends BasePresenter<View>{
