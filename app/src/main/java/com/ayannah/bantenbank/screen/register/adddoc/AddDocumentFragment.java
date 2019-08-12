@@ -267,7 +267,7 @@ public class AddDocumentFragment extends BaseFragment implements AddDocumentCont
                         mBitmapKTP = decodedFile(Environment.getExternalStorageDirectory() + File.separator + "picTemp.jpg");
 
                         ByteArrayOutputStream out = new ByteArrayOutputStream();
-                        mBitmapKTP.compress(Bitmap.CompressFormat.JPEG, 30, out);
+                        mBitmapKTP.compress(Bitmap.CompressFormat.JPEG, 70, out);
 
                         out.writeTo(file);
 
@@ -312,7 +312,7 @@ public class AddDocumentFragment extends BaseFragment implements AddDocumentCont
                         mBitmapNPWP = decodedFile(Environment.getExternalStorageDirectory() + File.separator + "picTemp.jpg");
 
                         ByteArrayOutputStream out = new ByteArrayOutputStream();
-                        mBitmapNPWP.compress(Bitmap.CompressFormat.JPEG, 30, out);
+                        mBitmapNPWP.compress(Bitmap.CompressFormat.JPEG, 70, out);
 
                         out.writeTo(file);
 
