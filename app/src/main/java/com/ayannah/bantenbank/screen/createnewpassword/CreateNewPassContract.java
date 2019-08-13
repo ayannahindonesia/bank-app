@@ -20,6 +20,6 @@ public interface CreateNewPassContract {
 
         void setUserToken(String lastPathSegment);
 
-        void postResetPassword(String passord);
+        void postResetPassword(String pass, String uuid);
     }
 }
