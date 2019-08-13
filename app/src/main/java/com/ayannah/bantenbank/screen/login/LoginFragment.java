@@ -7,12 +7,17 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
+
 import com.ayannah.bantenbank.screen.homemenu.MainMenuActivity;
 import com.ayannah.bantenbank.R;
 import com.ayannah.bantenbank.base.BaseFragment;
+import com.ayannah.bantenbank.screen.otpphone.VerificationOTPActivity;
 import com.ayannah.bantenbank.screen.register.addaccountbank.AddAccountBankActivity;
 import com.ayannah.bantenbank.screen.register.choosebank.ChooseBankActivity;
+import com.ayannah.bantenbank.screen.register.formothers.FormOtherFragment;
 import com.ayannah.bantenbank.screen.resetpassword.ResetPasswordActivity;
+import com.google.gson.JsonObject;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
@@ -40,10 +45,8 @@ public class LoginFragment extends BaseFragment implements
     @BindView(R.id.etPassword)
     EditText etPassword;
 
-    @BindView(R.id.progressLogin)
-    LinearLayout progressLogin;
-
     private Validator validator;
+    private AlertDialog dialog;
 
     @Inject
     public LoginFragment(){}
@@ -58,6 +61,11 @@ public class LoginFragment extends BaseFragment implements
     public void onResume() {
         super.onResume();
         mPresenter.takeView(this);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(parentActivity());
+        builder.setCancelable(false);
+        builder.setView(R.layout.progress_bar);
+        dialog = builder.create();
 
         if(mPresenter.isUserLogged()){
             Toast.makeText(parentActivity(), "udah pernah login", Toast.LENGTH_SHORT).show();
@@ -103,7 +111,7 @@ public class LoginFragment extends BaseFragment implements
         etPhone.setText("");
         etPassword.setText("");
 
-        progressLogin.setVisibility(View.GONE);
+        dialog.dismiss();
     }
 
     @Override
@@ -123,10 +131,35 @@ public class LoginFragment extends BaseFragment implements
         login.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(login);
 
-        progressLogin.setVisibility(View.GONE);
+        dialog.dismiss();
 
         parentActivity().finish();
 
+    }
+
+    @Override
+    public void accountNotOTP() {
+        dialog.dismiss();
+
+        Toast.makeText(parentActivity(), "Akun belum terverifikasi", Toast.LENGTH_LONG).show();
+
+        String phone = etPhone.getText().toString().trim();
+
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("phone", phone);
+
+        mPresenter.postRequestOTP(jsonObject);
+    }
+
+    @Override
+    public void successGetOTP() {
+        dialog.dismiss();
+
+        Intent submit = new Intent(parentActivity(), VerificationOTPActivity.class);
+        submit.putExtra(VerificationOTPActivity.PURPOSES, "resubmit_regist");
+        submit.putExtra(FormOtherFragment.PHONE, etPhone.getText().toString().trim());
+        submit.putExtra(FormOtherFragment.PASS, etPassword.getText().toString().trim());
+        startActivity(submit);
     }
 
     @Override
@@ -141,7 +174,7 @@ public class LoginFragment extends BaseFragment implements
 
         }else {
 
-            progressLogin.setVisibility(View.VISIBLE);
+            dialog.show();
             mPresenter.getPublicToken(phone, pass);
 
         }
@@ -151,7 +184,7 @@ public class LoginFragment extends BaseFragment implements
     @Override
     public void isAccountWrong() {
 
-        progressLogin.setVisibility(View.GONE);
+        dialog.dismiss();
         Toast.makeText(parentActivity(), "No Telp/Password salah", Toast.LENGTH_SHORT).show();
     }
 

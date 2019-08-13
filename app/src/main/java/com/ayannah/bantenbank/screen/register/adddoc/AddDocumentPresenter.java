@@ -66,14 +66,18 @@ public class AddDocumentPresenter implements AddDocumentContract.Presenter {
 
         }, error -> {
             ANError anError = (ANError)error;
-            if(anError.getErrorBody() != null){
+            if (anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)) {
+                mView.showErrorMessage("Tidak Ada Koneksi");
+            } else if (anError.getErrorBody() != null){
 
                 try {
                     JSONObject json = new JSONObject(anError.getErrorBody());
-                    Toast.makeText(application, json.optString("message"), Toast.LENGTH_SHORT).show();
+                    mView.showErrorMessage(json.optString("message"));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+            } else {
+                mView.showErrorMessage("Something wrong happend!");
             }
 
         }));
@@ -92,12 +96,13 @@ public class AddDocumentPresenter implements AddDocumentContract.Presenter {
                 .subscribe(response -> {
 
                     preferenceRepository.setPublicToken("Bearer "+response.getToken());
+                    mView.dialogDismiss();
 
                 }, error ->{
 
                     ANError anError = (ANError) error;
                     if(anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
-                        mView.showErrorMessage("Connection Error");
+                        mView.showErrorMessage("Tidak Ada Koneksi");
                     }else {
 
                         if(anError.getErrorBody() != null){

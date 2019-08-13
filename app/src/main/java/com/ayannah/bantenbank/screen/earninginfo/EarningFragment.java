@@ -10,6 +10,8 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
+
 import com.ayannah.bantenbank.R;
 import com.ayannah.bantenbank.base.BaseFragment;
 import com.ayannah.bantenbank.dialog.BottomChangingIncome;
@@ -50,6 +52,7 @@ public class EarningFragment extends BaseFragment implements EarningContract.Vie
 
     private BottomChangingIncome popUpChangingIncome;
     private Validator validator;
+    private AlertDialog dialog;
 
     @Inject
     public EarningFragment(){}
@@ -63,6 +66,11 @@ public class EarningFragment extends BaseFragment implements EarningContract.Vie
     public void onResume() {
         super.onResume();
         mPresenter.takeView(this);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(parentActivity());
+        builder.setCancelable(false);
+        builder.setView(R.layout.progress_bar);
+        dialog = builder.create();
 
         mPresenter.getPenghasilan();
     }
@@ -177,6 +185,7 @@ public class EarningFragment extends BaseFragment implements EarningContract.Vie
     @Override
     public void showErrorMessage(String message) {
 
+        dialog.dismiss();
         Toast.makeText(parentActivity(), message, Toast.LENGTH_SHORT).show();
 
     }
@@ -203,6 +212,7 @@ public class EarningFragment extends BaseFragment implements EarningContract.Vie
     @Override
     public void completeUpdateIncome() {
 
+        dialog.dismiss();
         Intent intent = new Intent(parentActivity(), LoanActivity.class);
         startActivity(intent);
     }
@@ -239,6 +249,7 @@ public class EarningFragment extends BaseFragment implements EarningContract.Vie
 
         String others = etSumberPendapatanLain.getText().toString().trim();
 
+        dialog.show();
         mPresenter.updateUserIncome(primary, secondaru, others);
     }
 

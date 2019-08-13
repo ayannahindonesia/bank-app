@@ -1,7 +1,7 @@
 package com.ayannah.bantenbank.screen.createnewpassword;
 
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
@@ -16,7 +16,6 @@ import com.ayannah.bantenbank.screen.login.LoginActivity;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.ConfirmPassword;
-import com.mobsandgeeks.saripaar.annotation.Length;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.mobsandgeeks.saripaar.annotation.Password;
 
@@ -41,7 +40,7 @@ public class CreateNewPassActivity extends DaggerAppCompatActivity implements Cr
 
     @Password(min = 1, message = "Masukan Password")
     @BindView(R.id.etPass)
-    EditText passord;
+    EditText password;
 
     @NotEmpty(message = "Masukan Konfirmasi Password", trim = true)
     @ConfirmPassword(message = "Password Tidak Cocok")
@@ -50,6 +49,18 @@ public class CreateNewPassActivity extends DaggerAppCompatActivity implements Cr
 
     private Unbinder mUnbinder;
     private Validator validator;
+    private AlertDialog dialog;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mPresenter.takeView(this);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(false);
+        builder.setView(R.layout.progress_bar);
+        dialog = builder.create();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,15 +85,14 @@ public class CreateNewPassActivity extends DaggerAppCompatActivity implements Cr
         String appLinkAction = appLinkIntent.getAction();
         Uri appLinkData = appLinkIntent.getData();
         if (Intent.ACTION_VIEW.equals(appLinkAction) && appLinkData != null){
-            String recipeId = appLinkData.getLastPathSegment();
-            Uri appData = Uri.parse("content://com.ayannah.bantenbank/recipe/").buildUpon()
-                    .appendPath(recipeId).build();
-            showIntent(appData);
+            setUserToken(appLinkData);
         }
     }
 
-    private void showIntent(Uri appData) {
+    private void setUserToken(Uri appData) {
+        assert appData != null;
         Toast.makeText(this, appData.getLastPathSegment(), Toast.LENGTH_LONG).show();
+        mPresenter.setUserToken(appData.getLastPathSegment());
     }
 
     @OnClick(R.id.btnSubmit)
@@ -113,24 +123,31 @@ public class CreateNewPassActivity extends DaggerAppCompatActivity implements Cr
     @Override
     public void showErrorMessage(String message) {
 
+        dismissDialog();
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
 
     }
 
     @Override
     public void successCreateNewPassword() {
-
-    }
-
-    @Override
-    public void onValidationSucceeded() {
-
+        dismissDialog();
         Intent intent = new Intent(this, LoginActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
         finish();
         Toast.makeText(this, "Password berhasil dirubah, silahkan masuk menggunakan password baru Anda", Toast.LENGTH_SHORT).show();
+    }
 
+    @Override
+    public void onValidationSucceeded() {
+
+        dialog.show();
+        mPresenter.postResetPassword(password.getText().toString());
+
+    }
+
+    public void dismissDialog() {
+        dialog.dismiss();
     }
 
     @Override

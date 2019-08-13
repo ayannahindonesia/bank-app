@@ -66,14 +66,7 @@
         <activity android:name=".screen.register.addaccountbank.AddAccountBankActivity" />
         <activity android:name=".screen.register.choosebank.ChooseBankActivity" />
         <activity android:name=".screen.register.formBorrower.FormBorrowerActivity" />
-        <activity android:name=".screen.register.adddoc.AddDocumentActivity">
-            <!--<intent-filter>-->
-            <!--<action android:name="android.intent.action.MAIN" />-->
-            <!--<action android:name="android.intent.action.VIEW" />-->
-
-            <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
-        </activity>
+        <activity android:name=".screen.register.adddoc.AddDocumentActivity" />
         <activity android:name=".screen.register.formemailphone.FormEmailPhoneActivity" />
         <activity android:name=".screen.register.formjobearning.FormJobEarningActivity" />
         <activity android:name=".screen.register.formothers.FormOtherActivity" />
@@ -92,7 +85,6 @@
 
         <activity
             android:name=".util.CameraTakeBeforeM"
-            android:screenOrientation="landscape"
             android:configChanges="orientation|screenSize" />
     </application>
 

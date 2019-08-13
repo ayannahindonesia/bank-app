@@ -1,9 +1,9 @@
 package com.ayannah.bantenbank.screen.navigationmenu.infopribadi;
 
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 
-import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -151,10 +151,17 @@ public class InfoPribadiActivity extends DaggerAppCompatActivity implements
     DateFormat serverFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
 
     private Validator validator;
+    private AlertDialog dialogAlert;
+
     @Override
     protected void onResume() {
         super.onResume();
         mPresenter.takeView(this);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(false);
+        builder.setView(R.layout.progress_bar);
+        dialogAlert = builder.create();
 
         mPresenter.getInfoPribadiUser();
     }
@@ -201,6 +208,7 @@ public class InfoPribadiActivity extends DaggerAppCompatActivity implements
 
     @Override
     public void showErrorMessage(String message) {
+        dialogAlert.dismiss();
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
@@ -360,6 +368,7 @@ public class InfoPribadiActivity extends DaggerAppCompatActivity implements
     @Override
     public void successUpdateInfoPribadi() {
         Toast.makeText(this, "Data Berhasil Dirubah", Toast.LENGTH_SHORT).show();
+        dialogAlert.dismiss();
 
         Intent intent = new Intent(this, InfoPribadiActivity.class);
         startActivity(intent);
@@ -613,7 +622,7 @@ public class InfoPribadiActivity extends DaggerAppCompatActivity implements
         }
 
 
-
+        dialogAlert.show();
         mPresenter.updateInfoPribadi(json);
     }
 

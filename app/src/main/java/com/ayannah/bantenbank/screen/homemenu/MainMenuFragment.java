@@ -18,6 +18,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.core.view.MenuItemCompat;
@@ -89,6 +90,8 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
 
     private boolean isLoanReqAvail = false;
 
+    private AlertDialog dialog;
+
     @Inject
     public MainMenuFragment(){}
 
@@ -108,6 +111,12 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
         super.onResume();
         mPresenter.takeView(this);
 
+        AlertDialog.Builder builder = new AlertDialog.Builder(parentActivity());
+        builder.setCancelable(false);
+        builder.setView(R.layout.progress_bar);
+        dialog = builder.create();
+
+        dialog.show();
         mPresenter.notifLoanRequest();
 
         mPresenter.getCurrentUserIdentity();
@@ -210,6 +219,7 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
 
     @Override
     public void showErrorMessage(String message) {
+        dialog.dismiss();
         CommonUtils.showToast(message, parentActivity());
     }
 
@@ -275,6 +285,11 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
             pinjamanSaya.setText("!");
         }
 
+    }
+
+    @Override
+    public void dismissDialog() {
+        dialog.dismiss();
     }
 
     @Override

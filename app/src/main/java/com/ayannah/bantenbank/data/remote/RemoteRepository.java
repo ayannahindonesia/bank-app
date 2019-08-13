@@ -52,4 +52,6 @@ public interface RemoteRepository {
 
     Single<CheckAccount> sendEmailToResetPassword(JsonObject jsonObject);
 
+    Single<UserProfile> postNewPassword(JsonObject jsonObject);
+
 }

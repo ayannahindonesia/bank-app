@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import com.ayannah.bantenbank.R;
@@ -52,6 +53,8 @@ public class FormOtherFragment extends BaseFragment implements FormOtherContract
 
     public static final String KTP_NO = "KTP_NO";
     public static final String NPWP_NO = "NPWP_NO";
+    public static final String PHOTO_KTP = "PHOTO_KTP";
+    public static final String PHOTO_NPWP = "PHOTO_NPWP";
 
     public static final String REGIST_NAME = "REGIST_NAME";
     public static final String GENDER = "GENDER";
@@ -92,6 +95,7 @@ public class FormOtherFragment extends BaseFragment implements FormOtherContract
     private PreferenceRepository preferenceRepository;
 
     private Validator validator;
+    private AlertDialog dialog;
 
     @BindView(R.id.spHubungan)
     Spinner spHubungan;
@@ -133,6 +137,11 @@ public class FormOtherFragment extends BaseFragment implements FormOtherContract
 
     @Override
     protected void initView(Bundle state) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(parentActivity());
+        builder.setCancelable(false);
+        builder.setView(R.layout.progress_bar);
+        dialog = builder.create();
+
         validator = new Validator(this);
         validator.setValidationListener(this);
 
@@ -154,13 +163,11 @@ public class FormOtherFragment extends BaseFragment implements FormOtherContract
     @OnClick(R.id.buttonNext)
     void onClickNext(){
         validator.validate();
-
-//        mPresenter.postBorrowerOTPRequest("123");
-
     }
 
     @Override
     public void showErrorMessage(String message) {
+        dialog.dismiss();
         Toast.makeText(parentActivity(), "Error: "+message, Toast.LENGTH_SHORT).show();
     }
 
@@ -169,17 +176,19 @@ public class FormOtherFragment extends BaseFragment implements FormOtherContract
 
         Bundle bundle = Objects.requireNonNull(parentActivity()).getIntent().getExtras();
         assert bundle != null;
-//        mPresenter.postBorrowerOTPRequest("123");
         mPresenter.postBorrowerOTPRequest(bundle.getString(PHONE));
 
     }
 
     @Override
     public void successGetOTP() {
+        dialog.dismiss();
+
         Bundle bundle = Objects.requireNonNull(parentActivity()).getIntent().getExtras();
         assert bundle != null;
 
         Intent verification = new Intent(parentActivity(), VerificationOTPActivity.class);
+        verification.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         verification.putExtra("purpose", "regist");
         verification.putExtra(PHONE, bundle.getString(PHONE));
         verification.putExtra(PASS, bundle.getString(PASS));
@@ -249,7 +258,10 @@ public class FormOtherFragment extends BaseFragment implements FormOtherContract
         userProfleRequest.addProperty("fullname", bundle.getString(REGIST_NAME));
         userProfleRequest.addProperty("employer_number", bundle.getString(COMPANY_PHONE));
         userProfleRequest.addProperty("related_address", etRelatedAddress.getText().toString());
+        userProfleRequest.addProperty("idcard_image", bundle.getString(PHOTO_KTP));
+        userProfleRequest.addProperty("taxid_image", bundle.getString(PHOTO_NPWP));
 
+        dialog.show();
         mPresenter.postRegisterBorrower(userProfleRequest);
     }
 

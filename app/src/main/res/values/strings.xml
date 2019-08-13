@@ -66,5 +66,7 @@
 
     <string name="resubmit_loan_alert">Batalkan mengirim ulang pengajuan pinjaman?</string>
     <string name="submit_loan_alert">Batalkan pengajuan pinjaman?</string>
+    <string name="otp_regist_alert">Keluar dari halaman OTP?</string>
+    <string name="resubmit_regist_alert">Batalkan verifikasi akun Anda?</string>
 
 </resources>

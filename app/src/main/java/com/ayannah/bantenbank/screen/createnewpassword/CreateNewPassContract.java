@@ -1,5 +1,7 @@
 package com.ayannah.bantenbank.screen.createnewpassword;
 
+import android.widget.EditText;
+
 import com.ayannah.bantenbank.base.BasePresenter;
 import com.ayannah.bantenbank.base.BaseView;
 
@@ -16,5 +18,8 @@ public interface CreateNewPassContract {
 
         void confirmNewPassword(String password);
 
+        void setUserToken(String lastPathSegment);
+
+        void postResetPassword(String passord);
     }
 }

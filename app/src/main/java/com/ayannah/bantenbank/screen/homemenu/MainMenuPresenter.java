@@ -138,6 +138,8 @@ public class MainMenuPresenter implements MainMenuContract.Presenter {
                 mView.showDataLoan(response.getData());
             }
 
+            mView.dismissDialog();
+
         }, error -> {
 
             ANError anError = (ANError) error;

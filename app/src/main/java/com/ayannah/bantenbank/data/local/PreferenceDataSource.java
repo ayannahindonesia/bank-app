@@ -64,6 +64,11 @@ public class PreferenceDataSource implements PreferenceRepository {
     private static final String PREF_DEPEDANTS = "DEPENDANTS";
 
     private static final String PREF_USER_RELATED_ADDRESS = "RELATED_ADDRESS";
+    private static final String PREF_USER_ID_CARD_ID = "ID_CARD_ID";
+    private static final String PREF_USER_TAX_CARD_ID = "TAX_CARD_ID";
+
+    private static final String PREF_USER_ID_CARD_IMAGE = "ID_CARD_IAMGE";
+    private static final String PREF_USER_TAX_ID_IMAGE = "TAX_ID_IMAGE";
 
     //user income
     private static final String PREF_USER_PRIMARY_INCOME = "USER_PRIMARY_INCOME";
@@ -629,5 +634,45 @@ public class PreferenceDataSource implements PreferenceRepository {
     @Override
     public String getUserRelatedAddress() {
         return mPreferences.getString(PREF_USER_RELATED_ADDRESS, "");
+    }
+
+    @Override
+    public void setIDCardImage(String idCardImage) {
+        mPreferences.edit().putString(PREF_USER_ID_CARD_IMAGE, idCardImage).apply();
+    }
+
+    @Override
+    public String getIDCardImage() {
+        return mPreferences.getString(PREF_USER_ID_CARD_IMAGE, "");
+    }
+
+    @Override
+    public void setTaxIDImage(String taxIDImage) {
+        mPreferences.edit().putString(PREF_USER_TAX_ID_IMAGE, taxIDImage).apply();
+    }
+
+    @Override
+    public String getTaxIDImage() {
+        return mPreferences.getString(PREF_USER_TAX_ID_IMAGE, "");
+    }
+
+    @Override
+    public void setIDCardImageID(int idCardImageID) {
+        mPreferences.edit().putInt(PREF_USER_ID_CARD_ID, idCardImageID).apply();
+    }
+
+    @Override
+    public int getIDCardImageID() {
+        return mPreferences.getInt(PREF_USER_ID_CARD_ID, 0);
+    }
+
+    @Override
+    public void setTaxIDImageID(int taxIDImageID) {
+        mPreferences.edit().putInt(PREF_USER_TAX_CARD_ID, taxIDImageID).apply();
+    }
+
+    @Override
+    public int getTaxIDImageID() {
+        return mPreferences.getInt(PREF_USER_TAX_CARD_ID, 0);
     }
 }

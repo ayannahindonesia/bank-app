@@ -70,7 +70,7 @@ public class DataPendukungPresenter implements DataPendukungContract.Presenter {
 
             ANError anError = (ANError) error;
             if(anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
-                mView.showErrorMessage("Connection Error");
+                mView.showErrorMessage("Tidak Ada Koneksi");
             }else {
 
                 if(anError.getErrorBody() != null){

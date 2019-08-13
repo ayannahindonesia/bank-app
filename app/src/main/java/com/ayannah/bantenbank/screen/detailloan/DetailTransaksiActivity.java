@@ -1,6 +1,7 @@
 package com.ayannah.bantenbank.screen.detailloan;
 
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -93,12 +94,19 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
     int admin = 0;
     int calculateTotalBiaya = 0;
     int idLoan = 0;
+    private AlertDialog dialog;
 
     @Override
     protected void onResume() {
         super.onResume();
         mPresenter.takeView(this);
 
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(false);
+        builder.setView(R.layout.progress_bar);
+        dialog = builder.create();
+
+        dialog.show();
         mPresenter.getInformationLoan(id_loan);
     }
 
@@ -119,8 +127,12 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
 
     @Override
     public void showErrorMessage(String message) {
-
+        dismissDialog();
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    private void dismissDialog() {
+        dialog.dismiss();
     }
 
     @Override
@@ -211,6 +223,7 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
             btn_verfiedLoan.setVisibility(View.VISIBLE);
         }
 
+        dismissDialog();
 
     }
 

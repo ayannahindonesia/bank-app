@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 
 import com.androidnetworking.common.ANConstants;
@@ -73,6 +74,9 @@ public class VerificationOTPFragment extends BaseFragment implements Verificatio
     private String REGISTER = "regist";
     private String PINJAMAN = "pinjaman";
     private String RESUBMIT_LOAN = "resubmit_loan";
+    private String RESUBMIT_REGIST = "resubmit_regist";
+
+    private AlertDialog dialog;
 
     @Inject
     public VerificationOTPFragment() {
@@ -92,6 +96,11 @@ public class VerificationOTPFragment extends BaseFragment implements Verificatio
     @Override
     protected void initView(Bundle state) {
 
+        AlertDialog.Builder builder = new AlertDialog.Builder(parentActivity());
+        builder.setCancelable(false);
+        builder.setView(R.layout.progress_bar);
+        dialog = builder.create();
+
         //this condition for register purposes
         //we dont use it if pinjaman purposes
         if(purpose.equals(REGISTER)){
@@ -109,20 +118,36 @@ public class VerificationOTPFragment extends BaseFragment implements Verificatio
 //            Bundle bundle = Objects.requireNonNull(parentActivity()).getIntent().getExtras();
 //            assert bundle != null;
 
+            dialog.show();
+
             if(purpose.equals(REGISTER)){
 
                 registerNewAccount(charSequence);
 
             }else if(purpose.equals(PINJAMAN)){
 
-                loanRequest();
+                loanRequest(charSequence);
 
             }else if(purpose.equals(RESUBMIT_LOAN)){
 
                 resubmitLoanRequest(idLoan);
+            } else if (purpose.equals(RESUBMIT_REGIST)) {
+                resubmitRegister(charSequence);
             }
 
         }
+    }
+
+    private void resubmitRegister(CharSequence charSequence) {
+
+        String phone = parentActivity().getIntent().getExtras().getString(FormOtherFragment.PHONE);
+        String otp = charSequence.toString();
+
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("phone", phone);
+        jsonObject.addProperty("otp_code", otp);
+
+        mPresenter.postOTPVerify(jsonObject);
     }
 
     private void resubmitLoanRequest(int idLoan) {
@@ -144,9 +169,9 @@ public class VerificationOTPFragment extends BaseFragment implements Verificatio
     }
 
 
-    private void loanRequest() {
+    private void loanRequest(CharSequence charSequence) {
         String id_loan = parentActivity().getIntent().getStringExtra("id_loan");
-        String otp_loan = parentActivity().getIntent().getStringExtra("otp_loan");
+        String otp_loan = charSequence.toString();
 
         JsonObject json = new JsonObject();
         json.addProperty("otp_code", otp_loan);
@@ -175,6 +200,8 @@ public class VerificationOTPFragment extends BaseFragment implements Verificatio
     @Override
     public void successVerifyLoan() {
 
+        dialog.dismiss();
+
         Intent intent = new Intent(parentActivity(), SuccessActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         intent.putExtra(SuccessActivity.SUCCESS_TITLE, "Verifikasi Berhasil!");
@@ -187,17 +214,20 @@ public class VerificationOTPFragment extends BaseFragment implements Verificatio
 
     @Override
     public void completeCreateUserToken() {
+//        dialog.dismiss();
         mPresenter.setUserIdentity();
     }
 
     @Override
     public void showErrorMessage(String message) {
+        dialog.dismiss();
         Toast.makeText(parentActivity(), "Error: "+message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void loginComplete() {
 //        Toast.makeText(parentActivity(), "LoginComplete", Toast.LENGTH_SHORT).show();
+        dialog.dismiss();
 
         Intent login = new Intent(parentActivity(), MainMenuActivity.class);
         login.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);

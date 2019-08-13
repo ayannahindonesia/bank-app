@@ -13,6 +13,7 @@ public interface AddDocumentContract {
 
         void successCheckMandotryEntity(String message);
 
+        void dialogDismiss();
     }
 
     interface Presenter extends BasePresenter<View>{

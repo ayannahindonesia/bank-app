@@ -17,6 +17,7 @@ import com.ayannah.bantenbank.data.local.PreferenceRepository;
 import com.ayannah.bantenbank.data.remote.RemoteRepository;
 import com.ayannah.bantenbank.dialog.DialogSuccess;
 import com.ayannah.bantenbank.screen.homemenu.MainMenuActivity;
+import com.ayannah.bantenbank.screen.login.LoginActivity;
 import com.ayannah.bantenbank.screen.register.formothers.FormOtherContract;
 import com.ayannah.bantenbank.util.ActivityUtils;
 import com.google.gson.JsonObject;
@@ -99,8 +100,13 @@ public class VerificationOTPActivity extends DaggerAppCompatActivity {
         }else if(getIntent().getStringExtra(PURPOSES).equals("pinjaman")){
 
             alertCancel(getResources().getString(R.string.submit_loan_alert));
-        }else {
+        }else if (getIntent().getStringExtra(PURPOSES).equals("regist")) {
 
+            alertCancel(getResources().getString(R.string.otp_regist_alert));
+        } else if (getIntent().getStringExtra(PURPOSES).equals("resubmit_regist")) {
+
+            alertCancel(getResources().getString(R.string.resubmit_regist_alert));
+        } else {
             super.onBackPressed();
         }
     }
@@ -113,7 +119,12 @@ public class VerificationOTPActivity extends DaggerAppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
-                finish();
+                if (getIntent().getStringExtra(PURPOSES).equals("regist")) {
+                    Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                    startActivity(intent);
+                } else {
+                    finish();
+                }
             }
         });
         alert.setNegativeButton("TIDAK", new DialogInterface.OnClickListener() {

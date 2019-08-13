@@ -1,6 +1,7 @@
 package com.ayannah.bantenbank.screen.login;
 
 import android.app.Application;
+import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -10,6 +11,8 @@ import com.androidnetworking.common.ANConstants;
 import com.androidnetworking.error.ANError;
 import com.ayannah.bantenbank.data.local.PreferenceRepository;
 import com.ayannah.bantenbank.data.remote.RemoteRepository;
+import com.ayannah.bantenbank.screen.otpphone.VerificationOTPActivity;
+import com.ayannah.bantenbank.screen.register.adddoc.AddDocumentFragment;
 import com.google.gson.JsonObject;
 
 import org.json.JSONObject;
@@ -17,6 +20,7 @@ import org.json.JSONObject;
 import javax.inject.Inject;
 import javax.net.ssl.HttpsURLConnection;
 
+import io.reactivex.Completable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
@@ -58,6 +62,18 @@ public class LoginPresenter implements LoginContract.Presenter {
 
             getClientToken(phone, pass);
 
+        }, error -> {
+
+//            assert mView != null;
+//            mView.showErrorMessage(error.getMessage());
+            ANError anError = (ANError) error;
+            if (anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)) {
+                mView.showErrorMessage("Tidak Ada Koneksi");
+            } else if (anError.getErrorBody() != null) {
+                JSONObject jsonObject = new JSONObject(anError.getErrorBody());
+                mView.showErrorMessage(jsonObject.optString("message ") + anError.getErrorBody());
+            }
+
         }));
 
     }
@@ -66,7 +82,7 @@ public class LoginPresenter implements LoginContract.Presenter {
     public void getClientToken(String phone, String pass) {
 
         if(mView == null){
-            Toast.makeText(application, "spmething wrong in getClientToken()", Toast.LENGTH_SHORT).show();
+            Toast.makeText(application, "something wrong in getClientToken()", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -116,7 +132,7 @@ public class LoginPresenter implements LoginContract.Presenter {
     public void setUserIdentity() {
 
         if(mView == null){
-            Toast.makeText(application, "spmething wrong in setUserIdentity()", Toast.LENGTH_SHORT).show();
+            Toast.makeText(application, "something wrong in setUserIdentity()", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -172,6 +188,9 @@ public class LoginPresenter implements LoginContract.Presenter {
             preferenceRepository.setUserOtherIncome(String.valueOf(response.getOtherIncome()));
             preferenceRepository.setuserOtherSourceIncome(response.getOtherIncomesource());
 
+            preferenceRepository.setIDCardImageID(response.getIdCardImage().getInt64());
+            preferenceRepository.setTaxIDImageID(response.getTaxIDImage().getInt64());
+
             preferenceRepository.setUserLogged(true);
             preferenceRepository.setUserSetup(true);
 
@@ -189,10 +208,14 @@ public class LoginPresenter implements LoginContract.Presenter {
 //                    JSONObject jsonObject = new JSONObject(anError.getErrorBody());
 //                    mView.showErrorMessage(jsonObject.optString("message"));
 //                }
-                if(anError.getErrorCode() == HttpsURLConnection.HTTP_UNAUTHORIZED){
-                    mView.showErrorMessage("Phone Number/Password wrong");
+                if(anError.getErrorCode() == HttpsURLConnection.HTTP_UNAUTHORIZED) {
+                    mView.showErrorMessage("No Telp/Kata Sandi Salah");
+                } else if (anError.getErrorCode() == HttpsURLConnection.HTTP_FORBIDDEN) {
+                    mView.accountNotOTP();
                 }else {
-                    mView.showErrorMessage("Login gagal. Mohon coba dengan akun yang berbeda,");
+//                    mView.showErrorMessage(anError.getMessage());
+                    JSONObject jsonObject = new JSONObject(anError.getErrorBody());
+                    mView.showErrorMessage(jsonObject.optString("message"));
                 }
             }
 
@@ -203,6 +226,21 @@ public class LoginPresenter implements LoginContract.Presenter {
     @Override
     public boolean isUserLogged() {
         return preferenceRepository.isUserLogged();
+    }
+
+    @Override
+    public void postRequestOTP(JsonObject jsonObject) {
+        if (mView == null) {
+            Toast.makeText(application, "something wrong in setUserIdentity()", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        mComposite.add(Completable.fromAction(() -> {
+            remotRepo.postOTPRequestBorrower(jsonObject);
+            mView.successGetOTP();
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe());
     }
 
     @Override

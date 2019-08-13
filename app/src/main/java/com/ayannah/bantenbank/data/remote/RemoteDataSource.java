@@ -1,6 +1,7 @@
 package com.ayannah.bantenbank.data.remote;
 
 import android.app.Application;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.androidnetworking.AndroidNetworking;
@@ -224,12 +225,12 @@ public class RemoteDataSource implements RemoteRepository {
                 .getAsJSONObject(new JSONObjectRequestListener() {
                     @Override
                     public void onResponse(JSONObject response) {
-
+                        Log.d("verify Loan: ", "Sukses");
                     }
 
                     @Override
                     public void onError(ANError anError) {
-
+                        Log.d("verify Loan: ", "gagal");
                     }
                 });
     }
@@ -275,5 +276,15 @@ public class RemoteDataSource implements RemoteRepository {
                 .setPriority(Priority.MEDIUM)
                 .build()
                 .getObjectSingle(CheckAccount.class);
+    }
+
+    @Override
+    public Single<UserProfile> postNewPassword(JsonObject jsonObject) {
+        return Rx2AndroidNetworking.patch(BuildConfig.API_URL + "borrower/change_password")
+                .addHeaders("Authorization", preferenceRepository.getUserToken())
+                .addApplicationJsonBody(jsonObject)
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getObjectSingle(UserProfile.class);
     }
 }
