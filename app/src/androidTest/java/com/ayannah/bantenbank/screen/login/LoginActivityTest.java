@@ -51,6 +51,9 @@ public class LoginActivityTest {
         //perform click button
         Espresso.onView(withId(R.id.btnLogin)).perform(click());
 
+        //perform click menu loan
+        Espresso.onView(withId(R.id.recycler_menuproducts)).perform(click());
+
     }
 
     @After
