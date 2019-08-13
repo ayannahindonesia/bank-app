@@ -38,6 +38,13 @@ import com.ayannah.bantenbank.screen.register.formothers.FormOtherFragment;
 import com.ayannah.bantenbank.util.CameraTakeBeforeM;
 import com.ayannah.bantenbank.util.CameraTakeM;
 import com.ayannah.bantenbank.util.ImageUtils;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.ml.vision.FirebaseVision;
+import com.google.firebase.ml.vision.common.FirebaseVisionImage;
+import com.google.firebase.ml.vision.text.FirebaseVisionText;
+import com.google.firebase.ml.vision.text.FirebaseVisionTextRecognizer;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.ConfirmPassword;
@@ -107,13 +114,15 @@ public class AddDocumentFragment extends BaseFragment implements AddDocumentCont
 
     private Validator validator;
 
-    File fileKtp, fileNpwp;
     private static final int KTP = 9;
     private static final int NPWP = 10;
 
     private BottomSheetInstructionDialog bottomDialog;
     private String pictKTP64, pictNPWP64;
     private AlertDialog dialog;
+
+    FirebaseVisionImage image;
+    FirebaseVisionTextRecognizer firebaseVisionTextRecognizer;
 
     @Inject
     public AddDocumentFragment(){}
@@ -170,6 +179,8 @@ public class AddDocumentFragment extends BaseFragment implements AddDocumentCont
                 //Noo
             }
         });
+
+        firebaseVisionTextRecognizer = FirebaseVision.getInstance().getOnDeviceTextRecognizer();
 
     }
 
@@ -294,6 +305,42 @@ public class AddDocumentFragment extends BaseFragment implements AddDocumentCont
 
                         Bitmap newBItmap = Bitmap.createBitmap(mBitmapKTP, coorX,coorY,mBitmapKTP.getWidth()-coorX, coorY);
 
+                        image = FirebaseVisionImage.fromBitmap(mBitmapKTP);
+                        Task<FirebaseVisionText> result = firebaseVisionTextRecognizer.processImage(image)
+                                .addOnSuccessListener(new OnSuccessListener<FirebaseVisionText>() {
+                                    @Override
+                                    public void onSuccess(FirebaseVisionText firebaseVisionText) {
+
+                                        Log.d("detectWords", firebaseVisionText.getText());
+
+                                        for(FirebaseVisionText.TextBlock block: firebaseVisionText.getTextBlocks()){
+                                            Log.d("words", block.getText());
+//                                            Log.d("words", "float: "+block.getConfidence());
+
+                                            for(FirebaseVisionText.Line line: block.getLines()){
+
+                                                Log.d("lines", line.getText());
+//                                                Log.d("detextLines", "float: "+line.getConfidence());
+
+                                                for(FirebaseVisionText.Element element:line.getElements()){
+
+                                                    Log.d("elements", element.getText());
+//                                                    Log.d("detextElement", "float "+element.getConfidence());
+
+                                                }
+
+                                            }
+                                        }
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+
+                                        Log.d("detectWords", "failure: " + e.getMessage());
+                                    }
+                                });
+
                         imgKtp.setImageBitmap(newBItmap);
                         imgKtp.setScaleType(ImageView.ScaleType.CENTER_CROP);
                         editKtp.setVisibility(View.VISIBLE);
@@ -375,6 +422,30 @@ public class AddDocumentFragment extends BaseFragment implements AddDocumentCont
             // Display error messages ;)
             if (view instanceof EditText) {
                 ((EditText) view).setError(message);
+
+                switch (view.getId()){
+                    case R.id.etKTP:
+                        etKTP.requestFocus();
+                        etKTP.setSelection(0);
+
+                        break;
+                    case R.id.regist_email:
+                        email.requestFocus();
+                        email.setSelection(0);
+
+                        break;
+                    case R.id.regist_phone:
+                        phone.requestFocus();
+                        phone.setSelection(0);
+
+                        break;
+                    case R.id.regist_pass:
+                        pass.requestFocus();
+                        pass.setSelection(0);
+
+                        break;
+
+                }
             } else {
                 Toast.makeText(parentActivity(), message, Toast.LENGTH_LONG).show();
             }

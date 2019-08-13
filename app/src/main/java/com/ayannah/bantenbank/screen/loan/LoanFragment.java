@@ -246,12 +246,6 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        parentActivity().getMenuInflater().inflate(R.menu.main_menu, menu);
-    }
-
-    @Override
     public void showErrorMessage(String message) {
 
     }
