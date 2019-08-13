@@ -44,15 +44,43 @@ public class CreateNewPassPresenter implements CreateNewPassContract.Presenter {
     }
 
     @Override
-    public void setUserToken(String lastPathSegment) {
-        preferenceRepository.setUserToken("Bearer " + lastPathSegment);
+    public void setUserToken(String userToken) {
+        preferenceRepository.setUserToken("Bearer " + userToken);
     }
 
     @Override
-    public void postResetPassword(String password) {
+    public void postResetPassword(String password, String uuid) {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("password", password);
+        jsonObject.addProperty("uuid", uuid);
 
+        mComposite.add(remoteRepository.getToken()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(response -> {
+
+                    setUserToken(response.getToken());
+                    callAPICreateNewPass(jsonObject);
+
+                }, error -> {
+
+                    ANError anError = (ANError) error;
+                    if(anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
+                        mView.showErrorMessage("Tidak Ada Koneksi");
+                    }else {
+
+                        if(anError.getErrorBody() != null){
+
+                            JSONObject json = new JSONObject(anError.getErrorBody());
+                            mView.showErrorMessage(json.optString("message"));
+                        }
+                    }
+
+                })
+        );
+    }
+
+    private void callAPICreateNewPass(JsonObject jsonObject) {
         mComposite.add(remoteRepository.postNewPassword(jsonObject)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -63,8 +91,10 @@ public class CreateNewPassPresenter implements CreateNewPassContract.Presenter {
                 }, error -> {
 
                     ANError anError = (ANError) error;
-                    if(anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
-                        mView.showErrorMessage("Connection Error");
+                    if(anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)) {
+                        mView.showErrorMessage("Tidak Ada Koneksi");
+                    } else if (anError.getErrorCode() == 404) {
+                        mView.showErrorMessage("ID Tidak Ditemukan");
                     }else {
 
                         if(anError.getErrorBody() != null){

@@ -50,6 +50,7 @@ public class CreateNewPassActivity extends DaggerAppCompatActivity implements Cr
     private Unbinder mUnbinder;
     private Validator validator;
     private AlertDialog dialog;
+    private String uuid;
 
     @Override
     protected void onResume() {
@@ -84,15 +85,10 @@ public class CreateNewPassActivity extends DaggerAppCompatActivity implements Cr
         Intent appLinkIntent = getIntent();
         String appLinkAction = appLinkIntent.getAction();
         Uri appLinkData = appLinkIntent.getData();
+        Toast.makeText(getBaseContext(), "Masukan Kata Sandi Baru", Toast.LENGTH_LONG).show();
         if (Intent.ACTION_VIEW.equals(appLinkAction) && appLinkData != null){
-            setUserToken(appLinkData);
+            uuid = appLinkData.getLastPathSegment();
         }
-    }
-
-    private void setUserToken(Uri appData) {
-        assert appData != null;
-        Toast.makeText(this, appData.getLastPathSegment(), Toast.LENGTH_LONG).show();
-        mPresenter.setUserToken(appData.getLastPathSegment());
     }
 
     @OnClick(R.id.btnSubmit)
@@ -142,7 +138,7 @@ public class CreateNewPassActivity extends DaggerAppCompatActivity implements Cr
     public void onValidationSucceeded() {
 
         dialog.show();
-        mPresenter.postResetPassword(password.getText().toString());
+        mPresenter.postResetPassword(password.getText().toString(), uuid);
 
     }
 
