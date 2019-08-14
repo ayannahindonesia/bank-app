@@ -81,6 +81,9 @@ public class FormBorrowerFragment extends BaseFragment implements FormBorrowerCo
     @BindView(R.id.regist_dateBirthSpouse)
     TextView regist_dateBirthSpouse;
 
+    @BindView(R.id.tvGender)
+    TextView tvGender;
+
     @NotEmpty(message = "Masukan Tempat Lahir Anda")
     @BindView(R.id.regist_tempatLahir)
     EditText etTempatLahir;
@@ -243,7 +246,9 @@ public class FormBorrowerFragment extends BaseFragment implements FormBorrowerCo
         regist_dateBirthSpouse.setError(null);
 
         if (tvDateBirthBorrower.getText().equals("dd-mm-yyyy")) {
-            tvDateBirthBorrower.setError("");
+            tvDateBirthBorrower.setError("Pilih Tanggal Lahir Anda");
+            tvDateBirthBorrower.setFocusableInTouchMode(true);
+            tvDateBirthBorrower.requestFocus();
             Toast.makeText(parentActivity(), "Pilih Tanggal Lahir Anda", Toast.LENGTH_LONG).show();
         } else if (spPerkawinan.getSelectedItem().toString().equals("Menikah")) {
 
@@ -299,6 +304,7 @@ public class FormBorrowerFragment extends BaseFragment implements FormBorrowerCo
             @Override
             public void onSelectedDate(String selectedDate) {
                 tvDateBirthBorrower.setText(selectedDate);
+                tvDateBirthBorrower.setError(null);
             }
         });
 
@@ -507,6 +513,7 @@ public class FormBorrowerFragment extends BaseFragment implements FormBorrowerCo
                 }
                 break;
         }
+        tvGender.setError(null);
     }
 
     @Override
@@ -578,6 +585,11 @@ public class FormBorrowerFragment extends BaseFragment implements FormBorrowerCo
             } else if (view instanceof TextView) {
                 ((TextView) view).setError(message);
                 view.requestFocus();
+            } else if (view instanceof RadioGroup) {
+                ((RadioGroup) view).requestFocus();
+                ((RadioGroup) view).requestFocusFromTouch();
+                tvGender.setError(message);
+                Toast.makeText(parentActivity(), message, Toast.LENGTH_LONG).show();
             } else {
                 Toast.makeText(parentActivity(), message, Toast.LENGTH_LONG).show();
             }

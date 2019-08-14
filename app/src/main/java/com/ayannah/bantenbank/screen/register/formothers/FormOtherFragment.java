@@ -274,6 +274,7 @@ public class FormOtherFragment extends BaseFragment implements FormOtherContract
             // Display error messages ;)
             if (view instanceof EditText) {
                 ((EditText) view).setError(message);
+                view.requestFocus();
             } else if (view instanceof Spinner) {
                 ((TextView) ((Spinner) view).getSelectedView()).setError(message);
             } else {

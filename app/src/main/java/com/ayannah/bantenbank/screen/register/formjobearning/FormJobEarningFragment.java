@@ -2,6 +2,8 @@ package com.ayannah.bantenbank.screen.register.formjobearning;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +28,7 @@ import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.mobsandgeeks.saripaar.annotation.Select;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -36,7 +39,7 @@ import butterknife.OnClick;
 
 public class FormJobEarningFragment extends BaseFragment implements Validator.ValidationListener {
 
-    @Select
+    @Select(message = "Pilih Jenis Pekerjaan")
     @BindView(R.id.spJenisPekerjaan)
     Spinner spJenisPekerjaan;
 
@@ -104,18 +107,51 @@ public class FormJobEarningFragment extends BaseFragment implements Validator.Va
         NumberSeparatorTextWatcher gajiseparator = new NumberSeparatorTextWatcher(etGajiBulanan);
         NumberSeparatorTextWatcher pendapataLain = new NumberSeparatorTextWatcher(etPendapatanLain);
 
-        etGajiBulanan.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        etGajiBulanan.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if(hasFocus){
-                    etGajiBulanan.addTextChangedListener(gajiseparator);
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                String input = s.toString();
+
+                if (!input.isEmpty()) {
+
+                    input = input.replace(",", "");
+
+                    DecimalFormat format = new DecimalFormat("#,###,###");
+                    String newPrice = format.format(Double.parseDouble(input));
+
+
+                    etGajiBulanan.removeTextChangedListener(this); //To Prevent from Infinite Loop
+
+                    etGajiBulanan.setText(newPrice);
+                    etGajiBulanan.setSelection(newPrice.length()); //Move Cursor to end of String
+
+                    etGajiBulanan.addTextChangedListener(this);
                 }
 
-//                if(!hasFocus){
-//                    etGajiBulanan.removeTextChangedListener(gajiseparator);
-//                }
+            }
+
+            @Override
+            public void afterTextChanged(final Editable s) {
             }
         });
+
+//        etGajiBulanan.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//            @Override
+//            public void onFocusChange(View v, boolean hasFocus) {
+//                if(hasFocus){
+//                    etGajiBulanan.addTextChangedListener(gajiseparator);
+//                }
+//
+////                if(!hasFocus){
+////                    etGajiBulanan.removeTextChangedListener(gajiseparator);
+////                }
+//            }
+//        });
 
         etPendapatanLain.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -201,8 +237,15 @@ public class FormJobEarningFragment extends BaseFragment implements Validator.Va
             // Display error messages ;)
             if (view instanceof EditText) {
                 ((EditText) view).setError(message);
+                view.requestFocus();
             } else if (view instanceof Spinner) {
                 ((TextView) ((Spinner) view).getSelectedView()).setError(message);
+                view.requestFocus();
+                view.setFocusableInTouchMode(true);
+                Toast.makeText(parentActivity(), message, Toast.LENGTH_LONG).show();
+            } else if (view instanceof TextView) {
+                ((TextView) view).setError(message);
+                view.requestFocus();
             } else {
                 Toast.makeText(parentActivity(), message, Toast.LENGTH_LONG).show();
             }
