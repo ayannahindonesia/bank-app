@@ -221,12 +221,11 @@ public class VerificationOTPFragment extends BaseFragment implements Verificatio
     @Override
     public void showErrorMessage(String message) {
         dialog.dismiss();
-        Toast.makeText(parentActivity(), "Error: "+message, Toast.LENGTH_SHORT).show();
+        Toast.makeText(parentActivity(), message, Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void loginComplete() {
-//        Toast.makeText(parentActivity(), "LoginComplete", Toast.LENGTH_SHORT).show();
         dialog.dismiss();
 
         Intent login = new Intent(parentActivity(), MainMenuActivity.class);

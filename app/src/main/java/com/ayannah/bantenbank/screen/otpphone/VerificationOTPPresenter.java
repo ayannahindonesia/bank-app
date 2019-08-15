@@ -81,19 +81,6 @@ public class VerificationOTPPresenter implements VerificationOTPContract.Present
                 }
             }
 
-//            ANError anError = (ANError) error;
-//            if (anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)) {
-////                            mView.showErrorMessage("Connection Error");
-//                Toast.makeText(application, "Connection Error", Toast.LENGTH_LONG).show();
-//            } else {
-//
-//                if (anError.getErrorBody() != null) {
-//
-//                    JSONObject jsonObject2 = new JSONObject(anError.getErrorBody());
-//                    Toast.makeText(application, jsonObject2.optString("message"), Toast.LENGTH_LONG).show();
-//                }
-//            }
-
         }));
     }
 
@@ -173,8 +160,20 @@ public class VerificationOTPPresenter implements VerificationOTPContract.Present
 
                     @Override
                     public void onError(ANError anError) {
-
-                        mView.showErrorMessage(String.format("status code %s", anError.getErrorCode()));
+                        try {
+                            JSONObject jsonObject2 = new JSONObject(anError.getErrorBody());
+                            if ( anError.getErrorCode() == 400) {
+                                mView.showErrorMessage(jsonObject2.getString("message"));
+                            } else if (anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
+                                mView.showErrorMessage("Tidak Ada Koneksi");
+                            } else {
+                                if(anError.getErrorBody() != null){
+                                    mView.showErrorMessage(jsonObject2.optString("message"));
+                                }
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
 
                     }
                 });
