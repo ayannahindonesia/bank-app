@@ -59,9 +59,6 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
     @BindView(R.id.dateCreated)
     TextView dateCreated;
 
-    @BindView(R.id.dateUpdated)
-    TextView dateUpdated;
-
     @BindView(R.id.status)
     TextView status;
 
@@ -152,20 +149,8 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
         }
         dateCreated.setText(sdfUsed.format(getDate));
 
-        if(dataItem.getCreatedTime().equals(dataItem.getUpdatedTime())){
-            dateUpdated.setText("-");
-        }else {
-            Date updateDate = new Date();
-            try {
-                updateDate = sdf.parse(dataItem.getUpdatedTime());
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            dateUpdated.setText(sdfUsed.format(updateDate));
-
-        }
-
 //        status.setText(dataItem.getStatus());
+
         if(dataItem.isOtpVerified()){
 
             switch (dataItem.getStatus()){
