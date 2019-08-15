@@ -66,10 +66,7 @@ public class VerificationOTPPresenter implements VerificationOTPContract.Present
 
         }, error -> {
 
-            if (((ANError) error).getErrorCode() == 400) {
-                mView.showErrorMessage("OTP Salah");
-//                Toast.makeText(application, "Wrong OTP", Toast.LENGTH_LONG).show();
-            } else if (((ANError) error).getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
+             if (((ANError) error).getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
                 mView.showErrorMessage("Tidak Ada Koneksi");
 //                Toast.makeText(application, "Tidak Ada Koneksi", Toast.LENGTH_LONG).show();
             } else {
@@ -162,9 +159,7 @@ public class VerificationOTPPresenter implements VerificationOTPContract.Present
                     public void onError(ANError anError) {
                         try {
                             JSONObject jsonObject2 = new JSONObject(anError.getErrorBody());
-                            if ( anError.getErrorCode() == 400) {
-                                mView.showErrorMessage(jsonObject2.getString("message"));
-                            } else if (anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
+                            if (anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
                                 mView.showErrorMessage("Tidak Ada Koneksi");
                             } else {
                                 if(anError.getErrorBody() != null){
@@ -264,16 +259,14 @@ public class VerificationOTPPresenter implements VerificationOTPContract.Present
 
                     ANError anError = (ANError) error;
                     if(anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
-                        mView.showErrorMessage("Connection Error");
+                        mView.showErrorMessage("Tidak Ada Koneksi");
                     }else {
-
                         if(anError.getErrorBody() != null){
 
                             JSONObject jsonObject = new JSONObject(anError.getErrorBody());
                             mView.showErrorMessage(jsonObject.optString("message") + " setUserIdentity()");
                         }
                     }
-
                 }));
     }
 
@@ -304,14 +297,12 @@ public class VerificationOTPPresenter implements VerificationOTPContract.Present
                     if(anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
                         mView.showErrorMessage("Connection Error");
                     }else {
-
                         if(anError.getErrorBody() != null){
 
                             JSONObject jsonObject = new JSONObject(anError.getErrorBody());
                             mView.showErrorMessage(jsonObject.optString("message")  + " getClientToken()");
                         }
                     }
-
                 }));
     }
 }
