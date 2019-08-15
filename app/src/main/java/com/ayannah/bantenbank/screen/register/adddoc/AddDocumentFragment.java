@@ -58,6 +58,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -311,25 +312,20 @@ public class AddDocumentFragment extends BaseFragment implements AddDocumentCont
                                     @Override
                                     public void onSuccess(FirebaseVisionText firebaseVisionText) {
 
-                                        Log.d("detectWords", firebaseVisionText.getText());
+                                        List<String> captureWords = new ArrayList<>();
+
+                                        Log.d("words", "fd: "+ firebaseVisionText.getTextBlocks().size());
 
                                         for(FirebaseVisionText.TextBlock block: firebaseVisionText.getTextBlocks()){
-                                            Log.d("words", block.getText());
-//                                            Log.d("words", "float: "+block.getConfidence());
+//                                            Log.d("words", block.getText());
+                                            for(FirebaseVisionText.Line lines: block.getLines()){
 
-                                            for(FirebaseVisionText.Line line: block.getLines()){
-
-                                                Log.d("lines", line.getText());
-//                                                Log.d("detextLines", "float: "+line.getConfidence());
-
-                                                for(FirebaseVisionText.Element element:line.getElements()){
-
-                                                    Log.d("elements", element.getText());
-//                                                    Log.d("detextElement", "float "+element.getConfidence());
-
-                                                }
-
+                                                captureWords.add(lines.getText());
                                             }
+                                        }
+
+                                        for(String x: captureWords){
+                                            Log.d("capture", x);
                                         }
                                     }
                                 })

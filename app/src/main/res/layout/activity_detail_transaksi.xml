@@ -96,37 +96,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="0.3dp"/>
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:weightSum="2"
-                android:padding="@dimen/dp12"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:text="Pembaharuan Pengaajuan"
-                    android:textSize="@dimen/fontNormal"
-                    android:textColor="@android:color/black"
-                    android:layout_weight="1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-                <TextView
-                    android:id="@+id/dateUpdated"
-                    tools:text="21 Maret 2019"
-                    android:textAlignment="textEnd"
-                    android:textStyle="bold"
-                    android:textSize="@dimen/fontNormal"
-                    android:textColor="@android:color/black"
-                    android:layout_weight="1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-            </LinearLayout>
-            <View
-                android:background="@color/darkgreybackground"
-                android:layout_width="match_parent"
-                android:layout_height="0.3dp"/>
 
             <RelativeLayout
                 android:orientation="horizontal"
@@ -172,12 +141,44 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:text="Tujuan Peminjaman"
+                    android:text="Produk"
                     android:textSize="@dimen/fontNormal"
                     android:textColor="@android:color/black"
                     android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/produk"
+                    android:text="Kredit Guna Bakti"
+                    android:textAlignment="textEnd"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/fontNormal"
+                    android:textColor="@android:color/black"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+            <View
+                android:background="@color/darkgreybackground"
+                android:layout_width="match_parent"
+                android:layout_height="0.3dp"/>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:padding="@dimen/dp12"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Tujuan Peminjaman"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/fontNormal" />
 
                 <TextView
                     android:id="@+id/tujuan"
