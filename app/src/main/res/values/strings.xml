@@ -69,4 +69,9 @@
     <string name="otp_regist_alert">Keluar dari halaman OTP?</string>
     <string name="resubmit_regist_alert">Batalkan verifikasi akun Anda?</string>
 
+    <string name="processing">Proses</string>
+    <string name="accept">Diterima</string>
+    <string name="reject">Ditolak</string>
+    <string name="pending">Pending</string>
+
 </resources>

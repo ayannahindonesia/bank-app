@@ -56,7 +56,7 @@ public class DataItem{
 	private String deletedTime;
 
 	@SerializedName("status")
-	private String status;
+	private int status;
 
 	public Owner getOwner(){
 		return owner;
@@ -122,7 +122,7 @@ public class DataItem{
 		return deletedTime;
 	}
 
-	public String getStatus(){
+	public int getStatus(){
 		return status;
 	}
 }

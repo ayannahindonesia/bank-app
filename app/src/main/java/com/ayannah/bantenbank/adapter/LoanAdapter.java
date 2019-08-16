@@ -94,25 +94,40 @@ public class LoanAdapter extends RecyclerView.Adapter<LoanAdapter.LoadViewHolder
 
 //            typeLoan.setText("-");
 
-            if(param.isOtpVerified()){
+//            if(param.isOtpVerified()){
+//
+//                switch (param.getStatus()){
+//                    case 1:
+//                        status.setBackgroundResource(R.drawable.badge_diterima);
+//                        break;
+//                    case 2:
+//                        status.setBackgroundResource(R.drawable.badge_tidak_lengkap);
+//                        break;
+//                    case 3:
+//                        status.setBackgroundResource(R.drawable.badge_ditolak);
+//                        break;
+//                }
+//                status.setText(param.getStatus());
+//
+//            }else {
+//
+//                status.setBackgroundResource(R.drawable.badge_tertunda);
+//                status.setText("tertunda");
+//            }
 
-                switch (param.getStatus()){
-                    case STATUS_ACCEPTED:
-                        status.setBackgroundResource(R.drawable.badge_diterima);
-                        break;
-                    case STATUS_PROCESSING:
-                        status.setBackgroundResource(R.drawable.badge_tidak_lengkap);
-                        break;
-                    case STATUS_REJECTED:
-                        status.setBackgroundResource(R.drawable.badge_ditolak);
-                        break;
-                }
-                status.setText(param.getStatus());
-
-            }else {
-
-                status.setBackgroundResource(R.drawable.badge_tertunda);
-                status.setText("tertunda");
+            switch (param.getStatus()){
+                case 1:
+                    status.setText(itemView.getResources().getString(R.string.processing));
+                    status.setBackgroundResource(R.drawable.badge_tidak_lengkap);
+                    break;
+                case 2:
+                    status.setText(itemView.getResources().getString(R.string.accept));
+                    status.setBackgroundResource(R.drawable.badge_diterima);
+                    break;
+                case 3:
+                    status.setText(itemView.getResources().getString(R.string.reject));
+                    status.setBackgroundResource(R.drawable.badge_ditolak);
+                    break;
             }
 
 
