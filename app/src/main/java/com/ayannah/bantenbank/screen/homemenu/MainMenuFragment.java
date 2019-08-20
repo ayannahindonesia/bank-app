@@ -272,7 +272,7 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
 
         for(DataItem data: items){
 
-            if(data.getStatus() == 1 || data.getStatus() == 2){
+            if(data.getStatus().equals("processing") || data.getStatus().equals("accepted")){
                 isLoanReqAvail = true;
             }
         }
