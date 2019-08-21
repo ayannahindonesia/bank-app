@@ -6,6 +6,8 @@
 
     <dist:module dist:instant="true" />
 
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -39,12 +41,12 @@
         <activity android:name=".screen.resetpassword.ResetPasswordActivity" />
         <activity android:name=".screen.success.SuccessActivity" />
         <activity android:name=".screen.login.LoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <action android:name="android.intent.action.VIEW" />
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+                <!--<action android:name="android.intent.action.VIEW" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
         </activity>
         <activity
             android:name=".screen.historyloan.HistoryLoanActivity"
@@ -66,14 +68,7 @@
         <activity android:name=".screen.register.addaccountbank.AddAccountBankActivity" />
         <activity android:name=".screen.register.choosebank.ChooseBankActivity" />
         <activity android:name=".screen.register.formBorrower.FormBorrowerActivity" />
-        <activity android:name=".screen.register.adddoc.AddDocumentActivity">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
-                <!--<action android:name="android.intent.action.VIEW" />-->
-
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
-        </activity>
+        <activity android:name=".screen.register.adddoc.AddDocumentActivity" />
         <activity android:name=".screen.register.formemailphone.FormEmailPhoneActivity" />
         <activity android:name=".screen.register.formjobearning.FormJobEarningActivity" />
         <activity android:name=".screen.register.formothers.FormOtherActivity" />
@@ -81,18 +76,23 @@
             android:name=".screen.homemenu.MainMenuActivity"
             android:label="@string/title_activity_main_menu"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <meta-data
             android:name="com.google.firebase.ml.vision.DEPENDENCIES"
             android:value="ocr" />
-
         <activity
             android:name=".util.CameraTakeM"
             android:configChanges="orientation|screenSize" />
-
         <activity
             android:name=".util.CameraTakeBeforeM"
             android:configChanges="orientation|screenSize" />
+        <activity android:name=".screen.SplashScreen" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
