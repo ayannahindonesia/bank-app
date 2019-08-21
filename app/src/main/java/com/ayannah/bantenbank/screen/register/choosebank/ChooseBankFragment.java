@@ -3,16 +3,17 @@ package com.ayannah.bantenbank.screen.register.choosebank;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import androidx.fragment.app.FragmentTransaction;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ayannah.bantenbank.R;
 import com.ayannah.bantenbank.adapter.ChooseBankAdapter;
 import com.ayannah.bantenbank.base.BaseFragment;
-import com.ayannah.bantenbank.data.model.Bank;
-import com.ayannah.bantenbank.data.model.BankDummy;
+import com.ayannah.bantenbank.data.model.BankDetail;
+import com.ayannah.bantenbank.data.model.BankList;
 import com.ayannah.bantenbank.screen.register.addaccountbank.AddAccountBankActivity;
 import com.ayannah.bantenbank.screen.register.addaccountbank.AddAccountBankFragment;
 import com.ayannah.bantenbank.screen.register.formothers.FormOtherFragment;
@@ -27,7 +28,7 @@ import butterknife.BindView;
 public class ChooseBankFragment extends BaseFragment implements ChooseBankContract.View {
 
     ChooseBankAdapter mAdapter;
-    List<BankDummy> listBanks;
+    List<BankDetail> listBanks;
 
     @Inject
     ChooseBankContract.Presenter mPresenter;
@@ -39,6 +40,7 @@ public class ChooseBankFragment extends BaseFragment implements ChooseBankContra
     RecyclerView recyclerView;
 
     private AddAccountBankFragment fragmentadd = new AddAccountBankFragment();
+    private AlertDialog dialog;
 
     @Inject
     public ChooseBankFragment(){
@@ -55,41 +57,38 @@ public class ChooseBankFragment extends BaseFragment implements ChooseBankContra
         super.onResume();
         mPresenter.takeView(this);
 
+        AlertDialog.Builder builder = new AlertDialog.Builder(parentActivity());
+        builder.setCancelable(false);
+        builder.setView(R.layout.progress_bar);
+        dialog = builder.create();
+
+        dialog.show();
+        mPresenter.getPublicToken();
     }
 
     @Override
     protected void initView(Bundle state) {
 
+    }
+
+
+    @Override
+    public void showErrorMessage(String message) {
+        dialog.dismiss();
+        Toast.makeText(parentActivity(), message, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void successGetAllBanks(BankList bankList) {
+        dialog.dismiss();
         listBanks = new ArrayList<>();
-        BankDummy bank = new BankDummy();
-        bank.setName("Bank Jakarta");
-        bank.setLogo(0);
-        listBanks.add(bank);
+        for (int i=0; i<bankList.getTotalData(); i++) {
+            BankDetail bankDetail = new BankDetail();
+            bankDetail.setName(bankList.getData().get(i).getName());
+            bankDetail.setId(bankList.getData().get(i).getId());
 
-        BankDummy bank2 = new BankDummy();
-        bank2.setName("Bank Bogor");
-        bank2.setLogo(0);
-        listBanks.add(bank2);
-
-        BankDummy bank3 = new BankDummy();
-        bank3.setName("Bank Palu");
-        bank3.setLogo(0);
-        listBanks.add(bank3);
-
-        BankDummy bank4 = new BankDummy();
-        bank4.setName("Bank Ngawi");
-        bank4.setLogo(0);
-        listBanks.add(bank4);
-
-        BankDummy bank5 = new BankDummy();
-        bank5.setName("Bank Yogya");
-        bank5.setLogo(0);
-        listBanks.add(bank5);
-
-        BankDummy bank6 = new BankDummy();
-        bank6.setName("Bank Buton");
-        bank6.setLogo(0);
-        listBanks.add(bank6);
+            listBanks.add(bankDetail);
+        }
 
         mAdapter = new ChooseBankAdapter(getActivity().getApplication());
         mAdapter.setItemBank(listBanks);
@@ -98,18 +97,11 @@ public class ChooseBankFragment extends BaseFragment implements ChooseBankContra
         recyclerView.setAdapter(mAdapter);
         mAdapter.setOnClickBankListener(new ChooseBankAdapter.ChooseBankListener() {
             @Override
-            public void onClickItemBank(BankDummy bank) {
+            public void onClickItemBank(BankDetail bank) {
 
                 Bundle bundle = new Bundle();
                 bundle.putString(FormOtherFragment.BANK_NAME, bank.getName());
-//
-//                fragmentadd.setArguments(bundle);
-//
-//                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-//                ft.replace(R.id.fragment_container, fragmentadd);
-//                ft.addToBackStack(null);
-//                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-//                ft.commit();
+                bundle.putInt(FormOtherFragment.BANK_ID, bank.getId());
 
                 Intent adddbank = new Intent(parentActivity(), AddAccountBankActivity.class);
                 adddbank.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -118,12 +110,5 @@ public class ChooseBankFragment extends BaseFragment implements ChooseBankContra
 
             }
         });
-
-    }
-
-
-    @Override
-    public void showErrorMessage(String message) {
-
     }
 }

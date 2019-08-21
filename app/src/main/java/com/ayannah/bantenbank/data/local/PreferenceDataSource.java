@@ -69,6 +69,7 @@ public class PreferenceDataSource implements PreferenceRepository {
 
     private static final String PREF_USER_ID_CARD_IMAGE = "ID_CARD_IAMGE";
     private static final String PREF_USER_TAX_ID_IMAGE = "TAX_ID_IMAGE";
+    private static final String PREF_USER_BANK_ID = "BANK_ID";
 
     //user income
     private static final String PREF_USER_PRIMARY_INCOME = "USER_PRIMARY_INCOME";
@@ -674,5 +675,15 @@ public class PreferenceDataSource implements PreferenceRepository {
     @Override
     public int getTaxIDImageID() {
         return mPreferences.getInt(PREF_USER_TAX_CARD_ID, 0);
+    }
+
+    @Override
+    public void setBankID(int bankID) {
+        mPreferences.edit().putInt(PREF_USER_BANK_ID, bankID).apply();
+    }
+
+    @Override
+    public int getBankID() {
+        return mPreferences.getInt(PREF_USER_BANK_ID, 0);
     }
 }

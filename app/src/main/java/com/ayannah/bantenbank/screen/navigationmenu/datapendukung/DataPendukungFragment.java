@@ -121,7 +121,7 @@ public class DataPendukungFragment extends BaseFragment implements DataPendukung
         startActivity(intent);
         parentActivity().finish();
 
-        Toast.makeText(parentActivity(), "Data Berhasil Dirubahh", Toast.LENGTH_LONG).show();
+        Toast.makeText(parentActivity(), "Data Berhasil Diubah", Toast.LENGTH_LONG).show();
     }
 
     @Override

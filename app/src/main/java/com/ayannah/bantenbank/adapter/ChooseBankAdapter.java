@@ -10,8 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ayannah.bantenbank.R;
-import com.ayannah.bantenbank.data.model.Bank;
-import com.ayannah.bantenbank.data.model.BankDummy;
+import com.ayannah.bantenbank.data.model.BankDetail;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +21,7 @@ import butterknife.ButterKnife;
 public class ChooseBankAdapter extends RecyclerView.Adapter<ChooseBankAdapter.ChooseBankVH> {
 
     Application application;
-    List<BankDummy> listBanks;
+    List<BankDetail> listBanks;
     ChooseBankListener listener;
 
     public ChooseBankAdapter(Application application){
@@ -35,7 +34,7 @@ public class ChooseBankAdapter extends RecyclerView.Adapter<ChooseBankAdapter.Ch
         this.listener = listener;
     }
 
-    public void setItemBank(List<BankDummy> results){
+    public void setItemBank(List<BankDetail> results){
         listBanks.clear();
 
         listBanks.addAll(results);
@@ -44,7 +43,7 @@ public class ChooseBankAdapter extends RecyclerView.Adapter<ChooseBankAdapter.Ch
     }
 
     public interface ChooseBankListener{
-        void onClickItemBank(BankDummy bank);
+        void onClickItemBank(BankDetail bank);
     }
 
     @NonNull
@@ -78,7 +77,7 @@ public class ChooseBankAdapter extends RecyclerView.Adapter<ChooseBankAdapter.Ch
 
         }
 
-        private void binf(BankDummy bank){
+        private void binf(BankDetail bank){
 
             nameBank.setText(bank.getName());
             itemView.setOnClickListener(new View.OnClickListener() {

@@ -1,5 +1,7 @@
 package com.ayannah.bantenbank.data.remote;
 
+import com.ayannah.bantenbank.data.model.BankDetail;
+import com.ayannah.bantenbank.data.model.BankList;
 import com.ayannah.bantenbank.data.model.CheckAccount;
 import com.ayannah.bantenbank.data.model.Kabupaten;
 import com.ayannah.bantenbank.data.model.Kecamatan;
@@ -9,9 +11,11 @@ import com.ayannah.bantenbank.data.model.Loans.Loans;
 import com.ayannah.bantenbank.data.model.Provinsi;
 import com.ayannah.bantenbank.data.model.Token;
 import com.ayannah.bantenbank.data.model.UserProfile;
+import com.ayannah.bantenbank.data.model.Products;
 import com.google.gson.JsonObject;
 
 import io.reactivex.Single;
+import io.reactivex.disposables.Disposable;
 import okhttp3.Response;
 
 public interface RemoteRepository {
@@ -54,4 +58,7 @@ public interface RemoteRepository {
 
     Single<UserProfile> postNewPassword(JsonObject jsonObject);
 
+    Single<BankDetail> getBanksDetail(String bankID);
+
+    Single<BankList> getAllBanks();
 }

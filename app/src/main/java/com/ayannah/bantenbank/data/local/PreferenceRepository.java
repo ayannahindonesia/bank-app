@@ -216,4 +216,8 @@ public interface PreferenceRepository {
 
     int getTaxIDImageID();
 
+    void setBankID(int bankID);
+
+    int getBankID();
+
 }
