@@ -94,47 +94,28 @@ public class LoanAdapter extends RecyclerView.Adapter<LoanAdapter.LoadViewHolder
 
 //            typeLoan.setText("-");
 
-//            if(param.isOtpVerified()){
-//
-//                switch (param.getStatus().toLowerCase()){
-//                    case STATUS_ACCEPTED:
-//                        status.setText(itemView.getResources().getString(R.string.accept));
-//                        status.setBackgroundResource(R.drawable.badge_diterima);
-//                        break;
-//                    case STATUS_PROCESSING:
-//                        status.setText(itemView.getResources().getString(R.string.processing));
-//                        status.setBackgroundResource(R.drawable.badge_tidak_lengkap);
-//                        break;
-//                    case STATUS_REJECTED:
-//                        status.setText(itemView.getResources().getString(R.string.reject));
-//                        status.setBackgroundResource(R.drawable.badge_ditolak);
-//                        break;
-//                }
-//
-//            }else {
-//
-//                status.setBackgroundResource(R.drawable.badge_tertunda);
-//                status.setText("tertunda");
-//            }
+            if(param.isOtpVerified()){
 
-            switch (param.getStatus().toLowerCase()){
-                case STATUS_ACCEPTED:
-                    status.setText(itemView.getResources().getString(R.string.accept));
-                    status.setBackgroundResource(R.drawable.badge_diterima);
-                    break;
-                case STATUS_PROCESSING:
-                    status.setText(itemView.getResources().getString(R.string.processing));
-                    status.setBackgroundResource(R.drawable.badge_tidak_lengkap);
-                    break;
-                case STATUS_REJECTED:
-                    status.setText(itemView.getResources().getString(R.string.reject));
-                    status.setBackgroundResource(R.drawable.badge_ditolak);
-                    break;
-                default:
-                    status.setBackgroundResource(R.drawable.badge_tertunda);
-                    status.setText("tertunda");
+                switch (param.getStatus().toLowerCase()){
+                    case STATUS_ACCEPTED:
+                        status.setText(itemView.getResources().getString(R.string.accept));
+                        status.setBackgroundResource(R.drawable.badge_diterima);
+                        break;
+                    case STATUS_PROCESSING:
+                        status.setText(itemView.getResources().getString(R.string.processing));
+                        status.setBackgroundResource(R.drawable.badge_tidak_lengkap);
+                        break;
+                    case STATUS_REJECTED:
+                        status.setText(itemView.getResources().getString(R.string.reject));
+                        status.setBackgroundResource(R.drawable.badge_ditolak);
+                        break;
+                }
+
+            }else {
+
+                status.setBackgroundResource(R.drawable.badge_tertunda);
+                status.setText("Tertunda");
             }
-
 
             amount.setText(CommonUtils.setRupiahCurrency(param.getLoanAmount()));
 
