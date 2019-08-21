@@ -11,6 +11,8 @@ import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.ayannah.bantenbank.BuildConfig;
 import com.ayannah.bantenbank.data.local.PreferenceRepository;
+import com.ayannah.bantenbank.data.model.BankDetail;
+import com.ayannah.bantenbank.data.model.BankList;
 import com.ayannah.bantenbank.data.model.CheckAccount;
 import com.ayannah.bantenbank.data.model.Kabupaten;
 import com.ayannah.bantenbank.data.model.Kecamatan;
@@ -21,6 +23,7 @@ import com.ayannah.bantenbank.data.model.OTPLoanResponse;
 import com.ayannah.bantenbank.data.model.Provinsi;
 import com.ayannah.bantenbank.data.model.Token;
 import com.ayannah.bantenbank.data.model.UserProfile;
+import com.ayannah.bantenbank.data.model.Products;
 import com.google.gson.JsonObject;
 import com.rx2androidnetworking.Rx2AndroidNetworking;
 
@@ -286,5 +289,24 @@ public class RemoteDataSource implements RemoteRepository {
                 .setPriority(Priority.MEDIUM)
                 .build()
                 .getObjectSingle(UserProfile.class);
+    }
+
+    @Override
+    public Single<BankDetail> getBanksDetail(String bankID) {
+        return Rx2AndroidNetworking.get(BuildConfig.API_URL + "client/banks/{bankID}")
+                .addHeaders("Authorization", preferenceRepository.getPublicToken())
+                .addPathParameter("bankID", bankID)
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getObjectSingle(BankDetail.class);
+    }
+
+    @Override
+    public Single<BankList> getAllBanks() {
+        return Rx2AndroidNetworking.get(BuildConfig.API_URL + "client/banks")
+                .addHeaders("Authorization", preferenceRepository.getPublicToken())
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getObjectSingle(BankList.class);
     }
 }
