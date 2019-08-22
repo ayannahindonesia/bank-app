@@ -78,6 +78,7 @@ public class FormOtherFragment extends BaseFragment implements FormOtherContract
     public static final String REGIST_PHONE = "REGIST_PHONE";
     public static final String HOME_STAY_YEAR = "HOME_STAY_YEAR";
     public static final String HOME_STATUS = "HOME_STATUS";
+    public static final String NICKNAME = "NICKNAME";
 
     public static final String OCCUPATION = "OCCUPATION";
     public static final String EMPLOYEE_ID = "EMPLOYEE_ID";
@@ -263,7 +264,7 @@ public class FormOtherFragment extends BaseFragment implements FormOtherContract
         userProfleRequest.addProperty("taxid_image", bundle.getString(PHOTO_NPWP));
 
         //new for bank purposes
-        userProfleRequest.addProperty("bank", 1);
+        userProfleRequest.addProperty("bank", bundle.getString(BANK_ID));
 
         dialog.show();
         mPresenter.postRegisterBorrower(userProfleRequest);
