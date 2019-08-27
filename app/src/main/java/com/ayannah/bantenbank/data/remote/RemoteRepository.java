@@ -9,6 +9,7 @@ import com.ayannah.bantenbank.data.model.Kelurahan;
 import com.ayannah.bantenbank.data.model.Loans.DataItem;
 import com.ayannah.bantenbank.data.model.Loans.Loans;
 import com.ayannah.bantenbank.data.model.Provinsi;
+import com.ayannah.bantenbank.data.model.ServiceProducts;
 import com.ayannah.bantenbank.data.model.Token;
 import com.ayannah.bantenbank.data.model.UserProfile;
 import com.ayannah.bantenbank.data.model.Products;
@@ -61,4 +62,6 @@ public interface RemoteRepository {
     Single<BankDetail> getBanksDetail(String bankID);
 
     Single<BankList> getAllBanks();
+
+    Single<ServiceProducts> getAllProducts();
 }

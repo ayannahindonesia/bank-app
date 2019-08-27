@@ -235,11 +235,16 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
                 case R.drawable.ic_menu_pns:
 
                     Intent intent = new Intent(parentActivity(), EarningActivity.class);
+                    intent.putExtra("reason", "PNS");
                     startActivity(intent);
 
                     break;
 
                 case R.drawable.ic_menu_personal:
+
+                    Intent intent1 = new Intent(parentActivity(), EarningActivity.class);
+                    intent1.putExtra("reason", "KTA");
+                    startActivity(intent1);
 
                     break;
 

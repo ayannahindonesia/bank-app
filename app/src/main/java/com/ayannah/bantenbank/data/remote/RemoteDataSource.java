@@ -21,6 +21,7 @@ import com.ayannah.bantenbank.data.model.Loans.DataItem;
 import com.ayannah.bantenbank.data.model.Loans.Loans;
 import com.ayannah.bantenbank.data.model.OTPLoanResponse;
 import com.ayannah.bantenbank.data.model.Provinsi;
+import com.ayannah.bantenbank.data.model.ServiceProducts;
 import com.ayannah.bantenbank.data.model.Token;
 import com.ayannah.bantenbank.data.model.UserProfile;
 import com.ayannah.bantenbank.data.model.Products;
@@ -308,5 +309,14 @@ public class RemoteDataSource implements RemoteRepository {
                 .setPriority(Priority.MEDIUM)
                 .build()
                 .getObjectSingle(BankList.class);
+    }
+
+    @Override
+    public Single<ServiceProducts> getAllProducts() {
+        return Rx2AndroidNetworking.get(BuildConfig.API_URL + "borrower/service_products")
+                .addHeaders("Authorization", preferenceRepository.getUserToken())
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getObjectSingle(ServiceProducts.class);
     }
 }
