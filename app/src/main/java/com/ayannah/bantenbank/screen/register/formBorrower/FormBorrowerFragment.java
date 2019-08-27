@@ -71,10 +71,6 @@ public class FormBorrowerFragment extends BaseFragment implements FormBorrowerCo
     @BindView(R.id.rgJenisKelamin)
     RadioGroup rgJenisKelamin;
 
-//    @NotEmpty(message = "Masukan Nomor KTP")
-//    @BindView(R.id.regist_ktp)
-//    EditText etKTP;
-
     @BindView(R.id.regist_dateBirth)
     TextView tvDateBirthBorrower;
 
@@ -156,6 +152,15 @@ public class FormBorrowerFragment extends BaseFragment implements FormBorrowerCo
 
     @BindView(R.id.spStatusHome)
     Spinner spStatusHome;
+
+    @BindView(R.id.rgNationality)
+    RadioGroup rgNationality;
+
+    @BindView(R.id.rbWNA)
+    RadioButton rbwna;
+
+    @BindView(R.id.regist_nickname)
+    EditText regist_nickname;
 
     private Validator validator;
 
@@ -500,6 +505,7 @@ public class FormBorrowerFragment extends BaseFragment implements FormBorrowerCo
             bundle.putString(FormOtherFragment.REGIST_PHONE, etTelpRumah.getText().toString());
             bundle.putString(FormOtherFragment.HOME_STAY_YEAR, etLamaMenempatiRumah.getText().toString());
             bundle.putString(FormOtherFragment.HOME_STATUS, spStatusHome.getSelectedItem().toString());
+            bundle.putString(FormOtherFragment.NICKNAME, regist_nickname.getText().toString());
 
             Intent formjob = new Intent(parentActivity(), FormJobEarningActivity.class);
             formjob.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
