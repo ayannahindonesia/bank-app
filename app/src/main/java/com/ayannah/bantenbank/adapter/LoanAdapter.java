@@ -23,7 +23,7 @@ import butterknife.ButterKnife;
 public class LoanAdapter extends RecyclerView.Adapter<LoanAdapter.LoadViewHolder> {
 
     private final static String STATUS_PROCESSING = "processing";
-    private final static String STATUS_ACCEPTED = "accepted";
+    private final static String STATUS_APPROVED = "approved";
     private final static String STATUS_REJECTED = "rejected";
 
     private Context mContext;
@@ -114,11 +114,11 @@ public class LoanAdapter extends RecyclerView.Adapter<LoanAdapter.LoadViewHolder
 //            }else {
 //
 //                status.setBackgroundResource(R.drawable.badge_tertunda);
-//                status.setText("tertunda");
+//                status.setText("Tertunda");
 //            }
 
             switch (param.getStatus().toLowerCase()){
-                case STATUS_ACCEPTED:
+                case STATUS_APPROVED:
                     status.setText(itemView.getResources().getString(R.string.accept));
                     status.setBackgroundResource(R.drawable.badge_diterima);
                     break;
@@ -130,11 +130,7 @@ public class LoanAdapter extends RecyclerView.Adapter<LoanAdapter.LoadViewHolder
                     status.setText(itemView.getResources().getString(R.string.reject));
                     status.setBackgroundResource(R.drawable.badge_ditolak);
                     break;
-                default:
-                    status.setBackgroundResource(R.drawable.badge_tertunda);
-                    status.setText("tertunda");
             }
-
 
             amount.setText(CommonUtils.setRupiahCurrency(param.getLoanAmount()));
 

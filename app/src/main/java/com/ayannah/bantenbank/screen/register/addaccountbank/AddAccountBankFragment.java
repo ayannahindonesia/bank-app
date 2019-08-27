@@ -7,11 +7,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.fragment.app.FragmentTransaction;
-
 import com.ayannah.bantenbank.R;
 import com.ayannah.bantenbank.base.BaseFragment;
-import com.ayannah.bantenbank.dialog.BottomSheetInstructionDialog;
+import com.ayannah.bantenbank.dialog.BottomSheetDialogGlobal;
 import com.ayannah.bantenbank.screen.register.adddoc.AddDocumentActivity;
 import com.ayannah.bantenbank.screen.register.adddoc.AddDocumentFragment;
 import com.ayannah.bantenbank.screen.register.formothers.FormOtherFragment;
@@ -30,7 +28,7 @@ public class AddAccountBankFragment extends BaseFragment implements AddAccountBa
 
     private AddDocumentFragment fragmentadd = new AddDocumentFragment();
 
-    BottomSheetInstructionDialog dialog;
+    BottomSheetDialogGlobal dialog;
 
     @BindView(R.id.bankName)
     TextView bankName;
@@ -62,15 +60,17 @@ public class AddAccountBankFragment extends BaseFragment implements AddAccountBa
         bName = bundle.getString(FormOtherFragment.BANK_NAME);
         bankName.setText(bName);
 
-        dialog = new BottomSheetInstructionDialog().show(getFragmentManager(), BottomSheetInstructionDialog.HAVE_ACC_BANK,
+        dialog = new BottomSheetDialogGlobal().show(getFragmentManager(), BottomSheetDialogGlobal.HAVE_ACC_BANK,
                 "Kepemilikan Rekening",
                 "Apakah kamu memiliki nomor rekening pada "+bName,
                 R.drawable.ic_bank);
-        dialog.setOnClickBottomSheetInstruction(new BottomSheetInstructionDialog.BottomSheetInstructionListener() {
+        dialog.setOnClickBottomSheetInstruction(new BottomSheetDialogGlobal.BottomSheetInstructionListener() {
             @Override
             public void onClickButtonDismiss() {
+                Bundle bundle1 = parentActivity().getIntent().getExtras();
                 dialog.dismiss();
                 Intent doc = new Intent(parentActivity(), AddDocumentActivity.class);
+                doc.putExtras(bundle1);
                 parentActivity().finish();
                 startActivity(doc);
             }
@@ -79,6 +79,11 @@ public class AddAccountBankFragment extends BaseFragment implements AddAccountBa
             public void onClickButtonYes() {
 
                 dialog.dismiss();
+            }
+
+            @Override
+            public void closeApps() {
+                //dont do anything in here
             }
         });
 
@@ -91,10 +96,11 @@ public class AddAccountBankFragment extends BaseFragment implements AddAccountBa
 
     @Override
     public void onValidationSucceeded() {
-        Bundle bundle = new Bundle();
+        Bundle bundle = parentActivity().getIntent().getExtras();
         bundle.putString(FormOtherFragment.ACC_NUMBER, accNumber.getText().toString());
 
         Intent doc = new Intent(parentActivity(), AddDocumentActivity.class);
+        doc.putExtras(bundle);
         doc.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         doc.putExtras(bundle);
         startActivity(doc);
