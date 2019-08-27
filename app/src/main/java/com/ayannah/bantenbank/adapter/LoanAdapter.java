@@ -23,7 +23,7 @@ import butterknife.ButterKnife;
 public class LoanAdapter extends RecyclerView.Adapter<LoanAdapter.LoadViewHolder> {
 
     private final static String STATUS_PROCESSING = "processing";
-    private final static String STATUS_ACCEPTED = "accepted";
+    private final static String STATUS_APPROVED = "approved";
     private final static String STATUS_REJECTED = "rejected";
 
     private Context mContext;
@@ -118,7 +118,7 @@ public class LoanAdapter extends RecyclerView.Adapter<LoanAdapter.LoadViewHolder
 //            }
 
             switch (param.getStatus().toLowerCase()){
-                case STATUS_ACCEPTED:
+                case STATUS_APPROVED:
                     status.setText(itemView.getResources().getString(R.string.accept));
                     status.setBackgroundResource(R.drawable.badge_diterima);
                     break;

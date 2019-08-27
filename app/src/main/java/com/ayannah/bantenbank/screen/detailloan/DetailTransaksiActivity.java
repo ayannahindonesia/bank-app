@@ -39,7 +39,7 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
     public static final String ID_LOAN = "idloan";
 
     private final static String STATUS_PROCESSING = "processing";
-    private final static String STATUS_ACCEPTED = "accepted";
+    private final static String STATUS_APPROVED = "approved";
     private final static String STATUS_REJECTED = "rejected";
 
     @Inject
@@ -153,7 +153,7 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
         status.setText(dataItem.getStatus());
 
         switch (dataItem.getStatus().toLowerCase()){
-            case STATUS_ACCEPTED:
+            case STATUS_APPROVED:
                 status.setBackgroundResource(R.drawable.badge_diterima);
                 break;
             case STATUS_PROCESSING:

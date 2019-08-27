@@ -91,7 +91,7 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
     private AlertDialog dialog;
 
     //untuk check setiap status loan PNS yang masih processing
-    private String statusLoan;
+    private String statusLoan = "";
 
     @Inject
     public MainMenuFragment(){}
@@ -251,7 +251,7 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
 
                 case R.drawable.ic_menu_pns:
 
-                    if(statusLoan.equals("processing")){
+                    if(statusLoan.equals("approved")){
 
                         BottomSheetDialogGlobal dialog = new BottomSheetDialogGlobal().show(parentActivity().getSupportFragmentManager(),
                                 BottomSheetDialogGlobal.FORBIDDEN_LOAN_PNS,
@@ -300,7 +300,7 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
 
         for(DataItem data: items){
 
-            if(data.getStatus().toLowerCase().equals("processing") || data.getStatus().toLowerCase().equals("accepted")){
+            if(data.getStatus().toLowerCase().equals("processing") || data.getStatus().toLowerCase().equals("approved")){
                 isLoanReqAvail = true;
             }
 
