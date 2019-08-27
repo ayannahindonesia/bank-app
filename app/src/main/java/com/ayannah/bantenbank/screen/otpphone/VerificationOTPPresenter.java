@@ -251,6 +251,10 @@ public class VerificationOTPPresenter implements VerificationOTPContract.Present
                     preferenceRepository.setUserLogged(true);
                     preferenceRepository.setUserSetup(true);
 
+                    //set nationality and nickname
+                    preferenceRepository.setUserNickname(response.getNickname());
+                    preferenceRepository.setUserNationality(response.getNationality());
+
                     mView.loginComplete();
 
                     Log.d(TAG, "function loginComplete() executedd!");

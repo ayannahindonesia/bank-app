@@ -20,7 +20,7 @@ public interface AkunSayaContract {
 
         void getDataUser();
 
-        void updateDataUser(String email);
+        void updateDataUser(String email, String nickname);
 
     }
 }

@@ -220,4 +220,12 @@ public interface PreferenceRepository {
 
     int getBankID();
 
+    void setUserNationality(String nationality);
+
+    String getUserNationality();
+
+    void setUserNickname(String nickname);
+
+    String getUserNickname();
+
 }

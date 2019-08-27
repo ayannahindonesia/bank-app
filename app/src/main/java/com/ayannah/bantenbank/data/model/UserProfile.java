@@ -145,6 +145,12 @@ public class UserProfile{
 	@SerializedName("fullname")
 	private String fullname;
 
+	@SerializedName("nickname")
+	private String nickname;
+
+	@SerializedName("nationality")
+	private String nationality;
+
 	@SerializedName("employer_number")
 	private String employerNumber;
 
@@ -346,6 +352,14 @@ public class UserProfile{
 
 	public String getFullname(){
 		return fullname;
+	}
+
+	public String getNickname() {
+		return nickname;
+	}
+
+	public String getNationality() {
+		return nationality;
 	}
 
 	public String getEmployerNumber(){

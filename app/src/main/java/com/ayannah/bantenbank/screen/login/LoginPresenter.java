@@ -195,6 +195,10 @@ public class LoginPresenter implements LoginContract.Presenter {
             preferenceRepository.setUserLogged(true);
             preferenceRepository.setUserSetup(true);
 
+            //add new field for nickname and nationality
+            preferenceRepository.setUserNationality(response.getNationality());
+            preferenceRepository.setUserNickname(response.getNickname());
+
             mView.loginComplete();
 
         }, error ->{

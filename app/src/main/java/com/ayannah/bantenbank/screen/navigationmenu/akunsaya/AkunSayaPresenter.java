@@ -53,9 +53,10 @@ public class AkunSayaPresenter implements AkunSayaContract.Presenter {
     }
 
     @Override
-    public void updateDataUser(String email) {
+    public void updateDataUser(String email, String nickname) {
 
         JsonObject json = new JsonObject();
+        json.addProperty("nickname", nickname);
         json.addProperty("email", email);
 
         if(mView == null){
@@ -67,6 +68,7 @@ public class AkunSayaPresenter implements AkunSayaContract.Presenter {
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(res -> {
 
+            preferenceRepository.setUserNickname(res.getNickname());
             preferenceRepository.setUserEmail(res.getEmail());
             mView.berhasil();
 

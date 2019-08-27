@@ -76,6 +76,9 @@ public class PreferenceDataSource implements PreferenceRepository {
     private static final String PREF_USER_OTHER_INCOME = "USER_OTHER_INCOME";
     private static final String PREF_USER_OTHER_SOURCE_INCOME = "USER_OTHER_SOURCE_INCOME";
 
+    private static final String PREF_USER_NICKNAME = "PREF_USER_NICKNAME";
+    private static final String PREF_USER_NATIONALILTY = "PREF_USER_NATIONALILTY";
+
     @Inject
     PreferenceDataSource(Application application){
         mPreferences = application.getSharedPreferences(BuildConfig.APPLICATION_ID, Context.MODE_PRIVATE);
@@ -685,5 +688,25 @@ public class PreferenceDataSource implements PreferenceRepository {
     @Override
     public int getBankID() {
         return mPreferences.getInt(PREF_USER_BANK_ID, 0);
+    }
+
+    @Override
+    public void setUserNationality(String nationality) {
+        mPreferences.edit().putString(PREF_USER_NATIONALILTY, nationality).apply();
+    }
+
+    @Override
+    public String getUserNationality() {
+        return mPreferences.getString(PREF_USER_NATIONALILTY, "");
+    }
+
+    @Override
+    public void setUserNickname(String nickname) {
+        mPreferences.edit().putString(PREF_USER_NICKNAME, nickname).apply();
+    }
+
+    @Override
+    public String getUserNickname() {
+        return mPreferences.getString(PREF_USER_NICKNAME, "");
     }
 }

@@ -98,6 +98,9 @@ public class AkunSayaFragment extends BaseFragment implements AkunSayaContract.V
         etName.setText(preferenceRepository.getUserName());
         etEmail.setText(preferenceRepository.getUserEmail());
 
+        nickname.setText(preferenceRepository.getUserNickname());
+        kewarganegaraan.setText(preferenceRepository.getUserNationality());
+
 //        etPassword.setText(preferenceRepository);
 //        etPasswordRetype.setText(preferenceRepository.);
     }
@@ -138,7 +141,7 @@ public class AkunSayaFragment extends BaseFragment implements AkunSayaContract.V
                 switch (which) {
                     case DialogInterface.BUTTON_POSITIVE:
                         dialogAlert.show();
-                        mPresenter.updateDataUser(etEmail.getText().toString());
+                        mPresenter.updateDataUser(etEmail.getText().toString().trim(), nickname.getText().toString().trim());
                         break;
                     case DialogInterface.BUTTON_NEGATIVE:
                         dialog.cancel();
