@@ -152,26 +152,38 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
 
         status.setText(dataItem.getStatus());
 
-        if(dataItem.isOtpVerified()){
-
-            switch (dataItem.getStatus().toLowerCase()){
-                case STATUS_ACCEPTED:
-                    status.setBackgroundResource(R.drawable.badge_diterima);
-                    break;
-                case STATUS_PROCESSING:
-                    status.setBackgroundResource(R.drawable.badge_tidak_lengkap);
-                    break;
-                case STATUS_REJECTED:
-                    status.setBackgroundResource(R.drawable.badge_ditolak);
-                    break;
-            }
-            status.setText(dataItem.getStatus());
-
-        }else {
-
-            status.setBackgroundResource(R.drawable.badge_tertunda);
-            status.setText("Tertunda");
+        switch (dataItem.getStatus().toLowerCase()){
+            case STATUS_ACCEPTED:
+                status.setBackgroundResource(R.drawable.badge_diterima);
+                break;
+            case STATUS_PROCESSING:
+                status.setBackgroundResource(R.drawable.badge_tidak_lengkap);
+                break;
+            case STATUS_REJECTED:
+                status.setBackgroundResource(R.drawable.badge_ditolak);
+                break;
         }
+
+//        if(dataItem.isOtpVerified()){
+//
+//            switch (dataItem.getStatus().toLowerCase()){
+//                case STATUS_ACCEPTED:
+//                    status.setBackgroundResource(R.drawable.badge_diterima);
+//                    break;
+//                case STATUS_PROCESSING:
+//                    status.setBackgroundResource(R.drawable.badge_tidak_lengkap);
+//                    break;
+//                case STATUS_REJECTED:
+//                    status.setBackgroundResource(R.drawable.badge_ditolak);
+//                    break;
+//            }
+//            status.setText(dataItem.getStatus());
+//
+//        }else {
+//
+//            status.setBackgroundResource(R.drawable.badge_tertunda);
+//            status.setText("Tertunda");
+//        }
 
 //        switch (dataItem.getStatus().toLowerCase()){
 //            case STATUS_ACCEPTED:
