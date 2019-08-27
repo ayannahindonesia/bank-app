@@ -264,7 +264,7 @@ public class FormOtherFragment extends BaseFragment implements FormOtherContract
         userProfleRequest.addProperty("taxid_image", bundle.getString(PHOTO_NPWP));
 
         //new for bank purposes
-        userProfleRequest.addProperty("bank", bundle.getString(BANK_ID));
+        userProfleRequest.addProperty("bank", bundle.getInt(BANK_ID));
 
         dialog.show();
         mPresenter.postRegisterBorrower(userProfleRequest);
