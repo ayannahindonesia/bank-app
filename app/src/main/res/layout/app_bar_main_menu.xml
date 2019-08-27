@@ -20,7 +20,7 @@
 
             <ImageView
                 android:id="@+id/logoAsira"
-                android:src="@drawable/asira_logo"
+                android:src="@drawable/ic_asira"
                 android:layout_gravity="center"
                 android:layout_marginEnd="32dp"
                 android:layout_width="wrap_content"
