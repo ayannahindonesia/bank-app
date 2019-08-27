@@ -251,7 +251,7 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
 
                 case R.drawable.ic_menu_pns:
 
-                    if(statusLoan.equals("approved")){
+                    if(statusLoan.equals("processing")){
 
                         BottomSheetDialogGlobal dialog = new BottomSheetDialogGlobal().show(parentActivity().getSupportFragmentManager(),
                                 BottomSheetDialogGlobal.FORBIDDEN_LOAN_PNS,
