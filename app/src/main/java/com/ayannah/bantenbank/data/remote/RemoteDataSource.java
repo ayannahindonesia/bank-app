@@ -19,11 +19,9 @@ import com.ayannah.bantenbank.data.model.Kecamatan;
 import com.ayannah.bantenbank.data.model.Kelurahan;
 import com.ayannah.bantenbank.data.model.Loans.DataItem;
 import com.ayannah.bantenbank.data.model.Loans.Loans;
-import com.ayannah.bantenbank.data.model.OTPLoanResponse;
 import com.ayannah.bantenbank.data.model.Provinsi;
 import com.ayannah.bantenbank.data.model.Token;
 import com.ayannah.bantenbank.data.model.UserProfile;
-import com.ayannah.bantenbank.data.model.Products;
 import com.google.gson.JsonObject;
 import com.rx2androidnetworking.Rx2AndroidNetworking;
 
@@ -32,7 +30,6 @@ import org.json.JSONObject;
 
 import javax.inject.Inject;
 
-import io.reactivex.Observable;
 import io.reactivex.Single;
 import okhttp3.Credentials;
 import okhttp3.Response;

@@ -54,8 +54,6 @@ def rx2AndroidFastNetworking = '1.0.2'
 def easyImage = '1.3.1'
 def datepicker = '2.1.4'
 def validator = '2.0.2'
-def firebasecore = '17.0.1'
-def firebase_ml_vision = '22.0.0'
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -102,13 +100,9 @@ dependencies {
     //validator
     implementation "com.mobsandgeeks:android-saripaar:$validator"
 
-    //firebase purposes
-    implementation "com.google.firebase:firebase-core:$firebasecore"
-    implementation "com.google.firebase:firebase-ml-vision:$firebase_ml_vision"
-
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test:rules:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
 }
-apply plugin: 'com.google.gms.google-services'

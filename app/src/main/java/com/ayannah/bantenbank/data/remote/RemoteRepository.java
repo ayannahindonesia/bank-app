@@ -11,11 +11,9 @@ import com.ayannah.bantenbank.data.model.Loans.Loans;
 import com.ayannah.bantenbank.data.model.Provinsi;
 import com.ayannah.bantenbank.data.model.Token;
 import com.ayannah.bantenbank.data.model.UserProfile;
-import com.ayannah.bantenbank.data.model.Products;
 import com.google.gson.JsonObject;
 
 import io.reactivex.Single;
-import io.reactivex.disposables.Disposable;
 import okhttp3.Response;
 
 public interface RemoteRepository {

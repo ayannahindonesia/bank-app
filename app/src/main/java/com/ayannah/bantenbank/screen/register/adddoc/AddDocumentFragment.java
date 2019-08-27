@@ -5,46 +5,28 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
-import android.nfc.Tag;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Base64;
-import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.ayannah.bantenbank.R;
 import com.ayannah.bantenbank.base.BaseFragment;
-import com.ayannah.bantenbank.dialog.BottomSheetInstructionDialog;
+import com.ayannah.bantenbank.dialog.BottomSheetDialogGlobal;
 import com.ayannah.bantenbank.screen.register.formBorrower.FormBorrowerActivity;
-import com.ayannah.bantenbank.screen.register.formemailphone.FormEmailPhoneActivity;
-import com.ayannah.bantenbank.screen.register.formemailphone.FormEmailPhoneFragment;
 import com.ayannah.bantenbank.screen.register.formothers.FormOtherFragment;
 import com.ayannah.bantenbank.util.CameraTakeBeforeM;
 import com.ayannah.bantenbank.util.CameraTakeM;
-import com.ayannah.bantenbank.util.ImageUtils;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.ml.vision.FirebaseVision;
-import com.google.firebase.ml.vision.common.FirebaseVisionImage;
-import com.google.firebase.ml.vision.text.FirebaseVisionText;
-import com.google.firebase.ml.vision.text.FirebaseVisionTextRecognizer;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.ConfirmPassword;
@@ -53,7 +35,6 @@ import com.mobsandgeeks.saripaar.annotation.Length;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.mobsandgeeks.saripaar.annotation.Password;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -65,8 +46,6 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import pl.aprilapps.easyphotopicker.DefaultCallback;
-import pl.aprilapps.easyphotopicker.EasyImage;
 
 public class AddDocumentFragment extends BaseFragment implements AddDocumentContract.View, Validator.ValidationListener {
 
@@ -118,12 +97,9 @@ public class AddDocumentFragment extends BaseFragment implements AddDocumentCont
     private static final int KTP = 9;
     private static final int NPWP = 10;
 
-    private BottomSheetInstructionDialog bottomDialog;
+    private BottomSheetDialogGlobal bottomDialog;
     private String pictKTP64, pictNPWP64;
     private AlertDialog dialog;
-
-    FirebaseVisionImage image;
-    FirebaseVisionTextRecognizer firebaseVisionTextRecognizer;
 
     @Inject
     public AddDocumentFragment(){}
@@ -162,12 +138,12 @@ public class AddDocumentFragment extends BaseFragment implements AddDocumentCont
         validator.setValidationListener(this);
 
         ///show dialog instruction
-        bottomDialog = new BottomSheetInstructionDialog().show(parentActivity().getSupportFragmentManager(),
-                BottomSheetInstructionDialog.KTP_NPWP,
+        bottomDialog = new BottomSheetDialogGlobal().show(parentActivity().getSupportFragmentManager(),
+                BottomSheetDialogGlobal.KTP_NPWP,
                 "Upload kartu identitas anda",
                 "Silahkan menambahkan foto kartu identitas pribadi anda seperti KTP dan NPWP (opsional) pribadi anda",
                 R.drawable.identity_card);
-        bottomDialog.setOnClickBottomSheetInstruction(new BottomSheetInstructionDialog.BottomSheetInstructionListener() {
+        bottomDialog.setOnClickBottomSheetInstruction(new BottomSheetDialogGlobal.BottomSheetInstructionListener() {
             @Override
             public void onClickButtonDismiss() {
 
@@ -177,11 +153,14 @@ public class AddDocumentFragment extends BaseFragment implements AddDocumentCont
 
             @Override
             public void onClickButtonYes() {
-                //Noo
+                //dont do anything in here
+            }
+
+            @Override
+            public void closeApps() {
+                //dont do anything in here
             }
         });
-
-        firebaseVisionTextRecognizer = FirebaseVision.getInstance().getOnDeviceTextRecognizer();
 
     }
 
@@ -305,37 +284,6 @@ public class AddDocumentFragment extends BaseFragment implements AddDocumentCont
                         int coorY = (imgHeight * 33) /100;
 
                         Bitmap newBItmap = Bitmap.createBitmap(mBitmapKTP, coorX,coorY,mBitmapKTP.getWidth()-coorX, coorY);
-
-                        image = FirebaseVisionImage.fromBitmap(mBitmapKTP);
-                        Task<FirebaseVisionText> result = firebaseVisionTextRecognizer.processImage(image)
-                                .addOnSuccessListener(new OnSuccessListener<FirebaseVisionText>() {
-                                    @Override
-                                    public void onSuccess(FirebaseVisionText firebaseVisionText) {
-
-                                        List<String> captureWords = new ArrayList<>();
-
-                                        Log.d("words", "fd: "+ firebaseVisionText.getTextBlocks().size());
-
-                                        for(FirebaseVisionText.TextBlock block: firebaseVisionText.getTextBlocks()){
-//                                            Log.d("words", block.getText());
-                                            for(FirebaseVisionText.Line lines: block.getLines()){
-
-                                                captureWords.add(lines.getText());
-                                            }
-                                        }
-
-                                        for(String x: captureWords){
-                                            Log.d("capture", x);
-                                        }
-                                    }
-                                })
-                                .addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-
-                                        Log.d("detectWords", "failure: " + e.getMessage());
-                                    }
-                                });
 
                         imgKtp.setImageBitmap(newBItmap);
                         imgKtp.setScaleType(ImageView.ScaleType.CENTER_CROP);

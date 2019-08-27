@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.ayannah.bantenbank.R;
 import com.ayannah.bantenbank.data.model.Loans.DataItem;
 import com.ayannah.bantenbank.data.model.Loans.FeesItem;
+import com.ayannah.bantenbank.dialog.BottomSheetDialogGlobal;
 import com.ayannah.bantenbank.screen.otpphone.VerificationOTPActivity;
 import com.ayannah.bantenbank.util.CommonUtils;
 import com.google.gson.JsonObject;
@@ -230,15 +231,62 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
 
     }
 
+    @Override
+    public void showResultLoanOnProcess(boolean isExist) {
+
+        /*
+        Jika ada loan yang statusnya masih processing, maka tidak bisa mengajukan ulang loan yang telah dipilih.
+        Jika tidak ada, maka sebaliknya
+         */
+
+        if(isExist){
+
+            //true
+            BottomSheetDialogGlobal dialog = new BottomSheetDialogGlobal().show(getSupportFragmentManager(),
+                    BottomSheetDialogGlobal.RESEND_LOAN_FORBIDDEN,
+                    "Pengajuan Ulang Dibatalkan",
+                    "Kamu belum bisa mengajukan ulang peminjaman ini sampai pengajuan sebelumnya telah selesai dari proses",
+                    R.drawable.img_processing);
+            dialog.setOnClickBottomSheetInstruction(new BottomSheetDialogGlobal.BottomSheetInstructionListener() {
+                @Override
+                public void onClickButtonDismiss() {
+                    dialog.dismiss();
+                }
+
+                @Override
+                public void onClickButtonYes() {
+                    //this action no need for this features
+                }
+
+                @Override
+                public void closeApps() {
+                    //this action no need for this features
+                }
+            });
+
+        }else {
+
+            //false
+            Intent submit = new Intent(this, VerificationOTPActivity.class);
+            submit.putExtra(VerificationOTPActivity.PURPOSES, "resubmit_loan");
+            submit.putExtra(VerificationOTPActivity.IDLOAN, idLoan);
+            submit.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(submit);
+            finish();
+        }
+    }
+
     @OnClick(R.id.verfiedLoan)
     void onClickSubmitLoan(){
 
-        Intent submit = new Intent(this, VerificationOTPActivity.class);
-        submit.putExtra(VerificationOTPActivity.PURPOSES, "resubmit_loan");
-        submit.putExtra(VerificationOTPActivity.IDLOAN, idLoan);
-        submit.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(submit);
-        finish();
+//        Intent submit = new Intent(this, VerificationOTPActivity.class);
+//        submit.putExtra(VerificationOTPActivity.PURPOSES, "resubmit_loan");
+//        submit.putExtra(VerificationOTPActivity.IDLOAN, idLoan);
+//        submit.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//        startActivity(submit);
+//        finish();
+
+        mPresenter.checkLoanOnProcess();
 
     }
 

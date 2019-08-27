@@ -13,11 +13,15 @@ public interface DetailTransaksiContract {
 
         void loadAllInformation(DataItem dataItem);
 
+        void showResultLoanOnProcess(boolean isExist);
 
     }
 
     interface Presenter extends BasePresenter<View>{
 
         void getInformationLoan(String idLoan);
+
+        void checkLoanOnProcess();
+
     }
 }

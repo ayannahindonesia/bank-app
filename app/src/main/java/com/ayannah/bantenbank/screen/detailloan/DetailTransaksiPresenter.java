@@ -4,6 +4,7 @@ import androidx.annotation.Nullable;
 
 import com.androidnetworking.common.ANConstants;
 import com.androidnetworking.error.ANError;
+import com.ayannah.bantenbank.data.model.Loans.DataItem;
 import com.ayannah.bantenbank.data.remote.RemoteRepository;
 
 import org.json.JSONObject;
@@ -20,12 +21,12 @@ public class DetailTransaksiPresenter implements DetailTransaksiContract.Present
     private DetailTransaksiContract.View mView;
 
     private CompositeDisposable mComposite;
-    private RemoteRepository remoteRepository;
+    private RemoteRepository remotRepo;
 
     @Inject
-    DetailTransaksiPresenter(RemoteRepository remoteRepository){
+    DetailTransaksiPresenter(RemoteRepository remotRepo){
 
-        this.remoteRepository = remoteRepository;
+        this.remotRepo = remotRepo;
 
         mComposite = new CompositeDisposable();
     }
@@ -37,7 +38,7 @@ public class DetailTransaksiPresenter implements DetailTransaksiContract.Present
             return;
         }
 
-        mComposite.add(remoteRepository.getLoanDetails(idLoan)
+        mComposite.add(remotRepo.getLoanDetails(idLoan)
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(res -> {
@@ -59,6 +60,50 @@ public class DetailTransaksiPresenter implements DetailTransaksiContract.Present
             }
         }));
 
+    }
+
+    @Override
+    public void checkLoanOnProcess() {
+
+        if(mView == null){
+            return;
+        }
+
+
+
+        mComposite.add(remotRepo.getAllLoans("")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(response -> {
+
+                    if(response.getData().size() > 0){
+
+                        for(DataItem param: response.getData()){
+
+                            if(param.getStatus().equals("processing")){
+
+                                mView.showResultLoanOnProcess(true);
+                                break;
+                            }
+                        }
+                    }
+
+
+                }, error -> {
+
+                    ANError anError = (ANError) error;
+                    if(anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
+                        mView.showErrorMessage("Connection Error");
+                    }else {
+
+                        if(anError.getErrorBody() != null){
+
+                            JSONObject jsonObject = new JSONObject(anError.getErrorBody());
+                            mView.showErrorMessage(jsonObject.optString("message"));
+                        }
+                    }
+
+                }));
     }
 
     @Override

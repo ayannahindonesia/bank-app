@@ -46,6 +46,12 @@ public class AkunSayaFragment extends BaseFragment implements AkunSayaContract.V
     @BindView(R.id.phoneNumber)
     EditText phoneNumber;
 
+    @BindView(R.id.etNickname)
+    EditText nickname;
+
+    @BindView(R.id.etKewarganegaraan)
+    EditText kewarganegaraan;
+
     private Validator validator;
 
     private AlertDialog dialogAlert;

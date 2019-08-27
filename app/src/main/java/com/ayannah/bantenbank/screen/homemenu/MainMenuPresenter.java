@@ -150,7 +150,7 @@ public class MainMenuPresenter implements MainMenuContract.Presenter {
                 if(anError.getErrorBody() != null){
 
                     JSONObject jsonObject = new JSONObject(anError.getErrorBody());
-                    mView.showErrorMessage(jsonObject.optString("message") + " on getClientToken()");
+                    mView.showErrorMessage(jsonObject.optString("message"));
                 }
             }
 
