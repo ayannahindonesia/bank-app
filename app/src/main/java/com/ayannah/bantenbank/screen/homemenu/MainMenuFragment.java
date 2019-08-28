@@ -229,7 +229,6 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
             @Override
             public void onClickButtonYes() {
                 //dont do anything in here
-
             }
 
             @Override
