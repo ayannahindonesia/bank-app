@@ -56,6 +56,9 @@ public class BottomSheetDialogGlobal extends BottomSheetDialogFragment {
 
     private String mode = null;
 
+    public BottomSheetDialogGlobal() {
+    }
+
     public BottomSheetDialogGlobal show(FragmentManager fragmentManager, String type, String title, String desc, int imgInstruction){
 
         Bundle args = new Bundle();
@@ -86,7 +89,7 @@ public class BottomSheetDialogGlobal extends BottomSheetDialogFragment {
         assert getArguments() != null;
         mode = getArguments().getString(TYPE);
 
-        if(mode != null) {
+        if (mode != null) {
             switch (mode) {
 
                 case KTP_NPWP:
@@ -108,19 +111,6 @@ public class BottomSheetDialogGlobal extends BottomSheetDialogFragment {
                     break;
 
                 case RESEND_LOAN_FORBIDDEN:
-
-                    tvTitle.setText(getArguments().getString(TITLE));
-                    ivInsrtuction.setImageResource(getArguments().getInt(IMG, 0));
-                    desc.setText(getArguments().getString(DESCRRIPTION));
-                    lyButton.setVisibility(View.GONE);
-                    btnOk.setVisibility(View.VISIBLE);
-                    btnOk.setOnClickListener(itemView -> {
-
-                        listener.onClickButtonDismiss();
-
-                    });
-
-                    break;
                 case FORBIDDEN_LOAN_PNS:
 
                     tvTitle.setText(getArguments().getString(TITLE));
@@ -130,11 +120,7 @@ public class BottomSheetDialogGlobal extends BottomSheetDialogFragment {
                     btnOk.setVisibility(View.VISIBLE);
                     btnOk.setOnClickListener(itemView -> {
 
-                        Intent intent = new Intent(view.getContext(), HistoryLoanActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        startActivity(intent);
-
-
+                        listener.onClickButtonDismiss();
 
                     });
 
