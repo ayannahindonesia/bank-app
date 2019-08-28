@@ -96,10 +96,11 @@ public class AddAccountBankFragment extends BaseFragment implements AddAccountBa
 
     @Override
     public void onValidationSucceeded() {
-        Bundle bundle = new Bundle();
+        Bundle bundle = parentActivity().getIntent().getExtras();
         bundle.putString(FormOtherFragment.ACC_NUMBER, accNumber.getText().toString());
 
         Intent doc = new Intent(parentActivity(), AddDocumentActivity.class);
+        doc.putExtras(bundle);
         doc.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         doc.putExtras(bundle);
         startActivity(doc);
