@@ -19,6 +19,8 @@ import androidx.appcompat.app.AlertDialog;
 
 import com.ayannah.bantenbank.R;
 import com.ayannah.bantenbank.data.model.BankDetail;
+import com.ayannah.bantenbank.data.model.FeesItem;
+import com.ayannah.bantenbank.data.model.Products;
 import com.ayannah.bantenbank.data.model.ServiceProducts;
 import com.ayannah.bantenbank.screen.summary.SummaryTransactionActivity;
 import com.ayannah.bantenbank.base.BaseFragment;
@@ -32,6 +34,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import butterknife.OnItemSelected;
 
 public class LoanFragment extends BaseFragment implements LoanContract.View {
 
@@ -83,11 +86,13 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
 
     int[] loanRepo = {5000000, 10000000, 15000000, 20000000, 25000000, 30000000, 35000000, 40000000, 45000000, 50000000};
     double loanAmount = 0;
+    int interest = 0;
 
     int installmentTenor = 0;
     double angsurnaPerbulan = 0;
 
     private List<String> productName;
+    private ServiceProducts mServiceProducts;
 
 //    double saldoPinjaman = 0;
     String[] alasan = {"Pendidikan", "Pembelian rumah", "Rumah tangga", "Liburan", "Kendaraan", "Umroh", "Lain-lain"};
@@ -159,7 +164,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
                 }
 
                 //calculate bunga
-                double bunga =  (loanAmount * 1.5) / 100;
+                double bunga =  (loanAmount * interest) / 100;
 
                 //calculate angsuran perbulan
                 angsurnaPerbulan = (loanAmount + bunga + administration) / installmentTenor;
@@ -188,7 +193,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
                 installmentTenor = (progress+1) * 6;
 
                 //calculate bunga
-                double bunga = (loanAmount * 1.5) / 100;
+                double bunga = (loanAmount * interest) / 100;
 
                 //calculate angsuran perbulan
                 angsurnaPerbulan = (loanAmount + bunga + administration) / installmentTenor;
@@ -222,7 +227,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
         installmentTenor = (installment.getVerticalScrollbarPosition()+1) * 6;
 
         //calculate bunga
-        double bunga = (loanAmount * 1.5) / 100;
+        double bunga = (loanAmount * interest) / 100;
 
         //calculate angsuran perbulan
         angsurnaPerbulan = (loanAmount + bunga + administration) / installmentTenor;
@@ -282,6 +287,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
     public void successGetProducts(ServiceProducts serviceProducts) {
         int size = serviceProducts.getProducts().size();
         if (size > 0) {
+            mServiceProducts = serviceProducts;
             productName = new ArrayList<>();
 
             for (int i = 0; i < size; i++) {
@@ -296,5 +302,15 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
             Toast.makeText(parentActivity(), "Produk Kosong", Toast.LENGTH_LONG).show();
         }
         dialog.dismiss();
+    }
+
+    @OnItemSelected(R.id.spProducts)
+    void ClickProduct(Spinner spinner, int position) {
+        administration = Integer.parseInt(mServiceProducts.getProducts().get(position).getFees().getAmount());
+        interest = mServiceProducts.getProducts().get(position).getInterest();
+        sbJumlahPinjaman.setProgress(0);
+        installment.setProgress(0);
+
+        calculateDefaultValue();
     }
 }
