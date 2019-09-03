@@ -68,7 +68,7 @@ public class LoginFragment extends BaseFragment implements
         dialog = builder.create();
 
         if(mPresenter.isUserLogged()){
-            Toast.makeText(parentActivity(), "udah pernah login", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(parentActivity(), "udah pernah login", Toast.LENGTH_SHORT).show();
             loginComplete();
         }
     }

@@ -42,7 +42,7 @@
     <string name="earning_example_amount">1.250.000</string>
     <string name="earning_secondary">Penghasilan Lain-lain (Jika Ada)</string>
     <string name="earning_other">Sumber Pendapatan Lain</string>
-    <string name="earning_example_other">Wirausaha</string>
+    <string name="earning_example_other">contoh: Wirausaha</string>
     <string name="earning_next">Selanjutnya</string>
     <string name="earning_zero">0</string>
 

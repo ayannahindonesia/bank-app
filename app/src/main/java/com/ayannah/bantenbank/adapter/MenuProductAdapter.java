@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ayannah.bantenbank.R;
+import com.ayannah.bantenbank.data.model.BankService;
 import com.ayannah.bantenbank.data.model.MenuProduct;
 
 import java.util.ArrayList;
@@ -22,6 +23,8 @@ import butterknife.ButterKnife;
 public class MenuProductAdapter extends RecyclerView.Adapter<MenuProductAdapter.MenuProductVH> {
 
     private List<MenuProduct> menuProducts;
+    private List<BankService.Data> menus;
+
     private Application application;
     private MenuProductListener listener;
 
@@ -30,6 +33,7 @@ public class MenuProductAdapter extends RecyclerView.Adapter<MenuProductAdapter.
         this.application = application;
 
         menuProducts = new ArrayList<>();
+        menus = new ArrayList<>();
     }
 
     public void setOnClickListener(MenuProductListener listener){
@@ -46,6 +50,16 @@ public class MenuProductAdapter extends RecyclerView.Adapter<MenuProductAdapter.
 
     }
 
+
+    public void setMenuService(List<BankService.Data> data){
+
+        menus.clear();
+
+        menus = data;
+
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public MenuProductVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -57,13 +71,13 @@ public class MenuProductAdapter extends RecyclerView.Adapter<MenuProductAdapter.
     @Override
     public void onBindViewHolder(@NonNull MenuProductVH holder, int position) {
 
-        holder.bind(menuProducts.get(position));
+        holder.bind(menus.get(position));
 
     }
 
     @Override
     public int getItemCount() {
-        return menuProducts.size();
+        return menus.size();
     }
 
     class MenuProductVH extends RecyclerView.ViewHolder{
@@ -79,9 +93,33 @@ public class MenuProductAdapter extends RecyclerView.Adapter<MenuProductAdapter.
             ButterKnife.bind(this,itemView);
         }
 
-        private void bind(MenuProduct param){
+        private void bind(BankService.Data param){
 
-            ivIconProduct.setImageResource(param.getLogoProduct());
+            /*
+            <======== showing data static menu style ========>
+             */
+
+//            ivIconProduct.setImageResource(param.getLogoProduct());
+//
+//            tvNameProduct.setText(param.getName());
+//
+//            itemView.setOnClickListener(view -> listener.onClickMenu(param));
+
+            /*
+            <========= showing data static menu styl e=======>
+             */
+
+
+
+//            ivIconProduct.setImageResource(param.getLogoProduct());
+
+            if(param.getName().equals("Pinjaman PNS")){
+
+                ivIconProduct.setImageResource(R.drawable.ic_menu_pns);
+            }else {
+
+                ivIconProduct.setImageResource(R.drawable.loan);
+            }
 
             tvNameProduct.setText(param.getName());
 
@@ -92,6 +130,6 @@ public class MenuProductAdapter extends RecyclerView.Adapter<MenuProductAdapter.
 
     public interface MenuProductListener{
 
-        void onClickMenu(MenuProduct menuProduct);
+        void onClickMenu(BankService.Data menuProduct);
     }
 }

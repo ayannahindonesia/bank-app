@@ -19,6 +19,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
@@ -61,40 +62,65 @@ public class MainMenuPresenter implements MainMenuContract.Presenter {
             return;
         }
 
-        List<MenuProduct> menus = new ArrayList<>();
+        mComposite.add(remotRepo.getBankServices()
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(response ->{
 
-        MenuProduct pinjamanPns = new MenuProduct();
-        pinjamanPns.setName("Pinjaman PNS");
-        pinjamanPns.setLogoProduct(R.drawable.ic_menu_pns);
+            mView.loadAllServiceMenu(response.getData());
 
-        MenuProduct pinjamanPersonal = new MenuProduct();
-        pinjamanPersonal.setName("Pinjaman\nPersonal");
-        pinjamanPersonal.setLogoProduct(R.drawable.ic_menu_personal);
+            mView.dismissDialog();
 
-        MenuProduct pinjamanPensiunan = new MenuProduct();
-        pinjamanPensiunan.setName("Pinjaman\nPensiunan");
-        pinjamanPensiunan.setLogoProduct(R.drawable.ic_menu_pensiunan);
+        }, error -> {
 
-        MenuProduct pinjamanUmkm = new MenuProduct();
-        pinjamanUmkm.setName("Pinjaman\nUMKM");
-        pinjamanUmkm.setLogoProduct(R.drawable.ic_menu_umkm);
+            ANError anError = (ANError) error;
+            if(anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
+                mView.showErrorMessage("Connection Error" + " Code: "+anError.getErrorCode());
+            }else {
 
-        MenuProduct pinjamanMicro = new MenuProduct();
-        pinjamanMicro.setName("Pinjaman\nMikro");
-        pinjamanMicro.setLogoProduct(R.drawable.ic_menu_micro);
+                if(anError.getErrorBody() != null){
 
-        MenuProduct lainlain = new MenuProduct();
-        lainlain.setName("Lain-lain");
-        lainlain.setLogoProduct(R.drawable.loan);
+                    JSONObject jsonObject = new JSONObject(anError.getErrorBody());
+                    mView.showErrorMessage(jsonObject.optString("message") + " Code: "+anError.getErrorCode());
+                }
+            }
 
-        menus.add(pinjamanPns);
-        menus.add(pinjamanPersonal);
-        menus.add(pinjamanPensiunan);
-        menus.add(pinjamanUmkm);
-        menus.add(pinjamanMicro);
-        menus.add(lainlain);
+        }));
 
-        mView.showMainMenu(menus);
+//        List<MenuProduct> menus = new ArrayList<>();
+//
+//        MenuProduct pinjamanPns = new MenuProduct();
+//        pinjamanPns.setName("Pinjaman PNS");
+//        pinjamanPns.setLogoProduct(R.drawable.ic_menu_pns);
+//
+//        MenuProduct pinjamanPersonal = new MenuProduct();
+//        pinjamanPersonal.setName("Pinjaman\nPersonal");
+//        pinjamanPersonal.setLogoProduct(R.drawable.ic_menu_personal);
+//
+//        MenuProduct pinjamanPensiunan = new MenuProduct();
+//        pinjamanPensiunan.setName("Pinjaman\nPensiunan");
+//        pinjamanPensiunan.setLogoProduct(R.drawable.ic_menu_pensiunan);
+//
+//        MenuProduct pinjamanUmkm = new MenuProduct();
+//        pinjamanUmkm.setName("Pinjaman\nUMKM");
+//        pinjamanUmkm.setLogoProduct(R.drawable.ic_menu_umkm);
+//
+//        MenuProduct pinjamanMicro = new MenuProduct();
+//        pinjamanMicro.setName("Pinjaman\nMikro");
+//        pinjamanMicro.setLogoProduct(R.drawable.ic_menu_micro);
+//
+//        MenuProduct lainlain = new MenuProduct();
+//        lainlain.setName("Lain-lain");
+//        lainlain.setLogoProduct(R.drawable.loan);
+//
+//        menus.add(pinjamanPns);
+//        menus.add(pinjamanPersonal);
+//        menus.add(pinjamanPensiunan);
+//        menus.add(pinjamanUmkm);
+//        menus.add(pinjamanMicro);
+//        menus.add(lainlain);
+//
+//        mView.showMainMenu(menus);
 
     }
 
@@ -138,19 +164,18 @@ public class MainMenuPresenter implements MainMenuContract.Presenter {
                 mView.showDataLoan(response.getData());
             }
 
-            mView.dismissDialog();
 
         }, error -> {
 
             ANError anError = (ANError) error;
             if(anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
-                mView.showErrorMessage("Connection Error");
+                mView.showErrorMessage("Connection Error"  + " Code: "+anError.getErrorCode());
             }else {
 
                 if(anError.getErrorBody() != null){
 
                     JSONObject jsonObject = new JSONObject(anError.getErrorBody());
-                    mView.showErrorMessage(jsonObject.optString("message"));
+                    mView.showErrorMessage(jsonObject.optString("message") + " Code: "+anError.getErrorCode());
                 }
             }
 
@@ -161,11 +186,19 @@ public class MainMenuPresenter implements MainMenuContract.Presenter {
     @Override
     public void getCurrentUserIdentity() {
 
+        if(mView == null){
+            return;
+        }
+
         mView.displayUserIdentity(prefRepo.getUserName(), prefRepo.getUserEmail());
     }
 
     @Override
     public void logout() {
+
+        if(mView == null){
+            return;
+        }
 
         prefRepo.clearAll();
 

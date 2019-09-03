@@ -28,6 +28,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ayannah.bantenbank.adapter.MenuProductAdapter;
+import com.ayannah.bantenbank.data.model.BankService;
 import com.ayannah.bantenbank.data.model.Loans.DataItem;
 import com.ayannah.bantenbank.data.model.Loans.Loans;
 import com.ayannah.bantenbank.data.model.MenuProduct;
@@ -92,6 +93,7 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
 
     //untuk check setiap status loan PNS yang masih processing
     private String statusLoan = "";
+    private BottomSheetDialogGlobal bottomSheetDialogGlobal;
 
     @Inject
     public MainMenuFragment(){}
@@ -134,6 +136,8 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
 
         parentActivity().setSupportActionBar(toolbar);
 
+        bottomSheetDialogGlobal = new BottomSheetDialogGlobal();
+
         ActionBar actionBar = parentActivity().getSupportActionBar();
         assert actionBar != null;
         actionBar.setDisplayShowTitleEnabled(false);
@@ -146,14 +150,9 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT) ;
         params.setMargins(0,px,0,0);
 
+        //to show notif in navigation menu
         pinjamanSaya.setLayoutParams(params);
-//        if(isLoanReqAvail) {
-//            pinjamanSaya.setGravity(Gravity.CENTER);
-//            pinjamanSaya.setTypeface(null, Typeface.BOLD);
-//            pinjamanSaya.setTextColor(Color.WHITE);
-//            pinjamanSaya.setBackgroundResource(R.drawable.badge_navigation_menu_bg);
-//            pinjamanSaya.setText("!");
-//        }
+
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 parentActivity(), drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -229,7 +228,6 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
             @Override
             public void onClickButtonYes() {
                 //dont do anything in here
-
             }
 
             @Override
@@ -243,32 +241,107 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
     @Override
     public void showMainMenu(List<MenuProduct> results) {
 
-        mAdapterMenu.setMenuProducts(results);
+//        mAdapterMenu.setMenuProducts(results);
+//
+//        mAdapterMenu.setOnClickListener(menuProduct -> {
+//
+//            switch (menuProduct.getLogoProduct()){
+//
+//                case R.drawable.ic_menu_pns:
+//
+//                    if(statusLoan.equals("processing")){
+//
+//                        BottomSheetDialogGlobal dialog = new BottomSheetDialogGlobal().show(parentActivity().getSupportFragmentManager(),
+//                                BottomSheetDialogGlobal.FORBIDDEN_LOAN_PNS,
+//                                "Pengajuan Pinjaman PNS Kamu Sedang Proses",
+//                                "Kamu belum bisa mengajukan peminjaman PNS lagi hingga pengajuan sebelumnya telah selesai dari proses",
+//                                R.drawable.img_processing);
+//                    }else {
+//
+//                        Intent intent = new Intent(parentActivity(), EarningActivity.class);
+//                        startActivity(intent);
+//
+//                    }
+//
+//                    break;
+//
+//                case R.drawable.ic_menu_personal:
+//
+//                    break;
+//
+//                case R.drawable.ic_menu_pensiunan:
+//
+//                    break;
+//            }
+//
+//
+//        });
 
-        mAdapterMenu.setOnClickListener(menuProduct -> {
+    }
 
-            switch (menuProduct.getLogoProduct()){
+    @Override
+    public void loadAllServiceMenu(List<BankService.Data> results) {
 
-                case R.drawable.ic_menu_pns:
+        mAdapterMenu.setMenuService(results);
 
-                    CallBottomSheetDialog("PNS");
+        mAdapterMenu.setOnClickListener(new MenuProductAdapter.MenuProductListener() {
+            @Override
+            public void onClickMenu(BankService.Data menuProduct) {
 
-                    break;
+                switch (menuProduct.getName()){
 
-                case R.drawable.ic_menu_personal:
+                    case "Pinjaman PNS":
 
-                    CallBottomSheetDialog("KTA");
+                        if (statusLoan.equals("processing")) {
 
-                    break;
+                            bottomSheetDialogGlobal = new BottomSheetDialogGlobal().show(parentActivity().getSupportFragmentManager(),
+                                    BottomSheetDialogGlobal.FORBIDDEN_LOAN_PNS,
+                                    "Pengajuan Pinjaman PNS Kamu Sedang Proses",
+                                    "Kamu belum bisa mengajukan peminjaman PNS lagi hingga pengajuan sebelumnya telah selesai dari proses",
+                                    R.drawable.img_processing);
+                            bottomSheetDialogGlobal.setOnClickBottomSheetInstruction(new BottomSheetDialogGlobal.BottomSheetInstructionListener() {
+                                @Override
+                                public void onClickButtonDismiss() {
 
-                case R.drawable.ic_menu_pensiunan:
+                                    bottomSheetDialogGlobal.dismiss();
 
-                    break;
+                                    Intent intent = new Intent(parentActivity(), HistoryLoanActivity.class);
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    startActivity(intent);
+                                }
+
+                                @Override
+                                public void onClickButtonYes() {
+                                    //nothing to do
+                                }
+
+                                @Override
+                                public void closeApps() {
+                                    //nothing to do
+
+                                }
+                            });
+                        } else {
+
+                            Intent intent = new Intent(parentActivity(), EarningActivity.class);
+                            startActivity(intent);
+
+                        }
+
+                        break;
+
+                    case "Pinjaman Lainnya":
+
+                        if (menuProduct.getStatus().equals("inactive")) {
+
+                            Toast.makeText(parentActivity(), "Coming Soon...", Toast.LENGTH_SHORT).show();
+                        }
+
+                        break;
+                }
+
             }
-
-
         });
-
     }
 
     private void CallBottomSheetDialog(String reason) {

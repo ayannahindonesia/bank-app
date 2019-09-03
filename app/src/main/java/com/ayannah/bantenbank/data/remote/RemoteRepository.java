@@ -1,7 +1,9 @@
 package com.ayannah.bantenbank.data.remote;
 
+import com.ayannah.bantenbank.data.model.BankBaseResponse;
 import com.ayannah.bantenbank.data.model.BankDetail;
 import com.ayannah.bantenbank.data.model.BankList;
+import com.ayannah.bantenbank.data.model.BankService;
 import com.ayannah.bantenbank.data.model.CheckAccount;
 import com.ayannah.bantenbank.data.model.Kabupaten;
 import com.ayannah.bantenbank.data.model.Kecamatan;
@@ -60,6 +62,8 @@ public interface RemoteRepository {
     Single<BankDetail> getBanksDetail(String bankID);
 
     Single<BankList> getAllBanks();
+
+    Single<BankService> getBankServices();
 
     Single<ServiceProducts> getAllProducts();
 }

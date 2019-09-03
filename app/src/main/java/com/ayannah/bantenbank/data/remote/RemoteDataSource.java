@@ -11,8 +11,10 @@ import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.ayannah.bantenbank.BuildConfig;
 import com.ayannah.bantenbank.data.local.PreferenceRepository;
+import com.ayannah.bantenbank.data.model.BankBaseResponse;
 import com.ayannah.bantenbank.data.model.BankDetail;
 import com.ayannah.bantenbank.data.model.BankList;
+import com.ayannah.bantenbank.data.model.BankService;
 import com.ayannah.bantenbank.data.model.CheckAccount;
 import com.ayannah.bantenbank.data.model.Kabupaten;
 import com.ayannah.bantenbank.data.model.Kecamatan;
@@ -306,6 +308,15 @@ public class RemoteDataSource implements RemoteRepository {
                 .setPriority(Priority.MEDIUM)
                 .build()
                 .getObjectSingle(BankList.class);
+    }
+
+    @Override
+    public Single<BankService> getBankServices() {
+        return Rx2AndroidNetworking.get(BuildConfig.API_URL + "borrower/bank_services")
+                .addHeaders("Authorization", preferenceRepository.getUserToken())
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getObjectSingle(BankService.class);
     }
 
     @Override

@@ -69,8 +69,6 @@ public class DetailTransaksiPresenter implements DetailTransaksiContract.Present
             return;
         }
 
-
-
         mComposite.add(remotRepo.getAllLoans("")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

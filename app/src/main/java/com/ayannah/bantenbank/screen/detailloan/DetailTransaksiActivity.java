@@ -105,6 +105,7 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
         dialog = builder.create();
 
         dialog.show();
+
         mPresenter.getInformationLoan(id_loan);
     }
 
@@ -291,14 +292,14 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
     @OnClick(R.id.verfiedLoan)
     void onClickSubmitLoan(){
 
-//        Intent submit = new Intent(this, VerificationOTPActivity.class);
-//        submit.putExtra(VerificationOTPActivity.PURPOSES, "resubmit_loan");
-//        submit.putExtra(VerificationOTPActivity.IDLOAN, idLoan);
-//        submit.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//        startActivity(submit);
-//        finish();
+        Intent submit = new Intent(this, VerificationOTPActivity.class);
+        submit.putExtra(VerificationOTPActivity.PURPOSES, "resubmit_loan");
+        submit.putExtra(VerificationOTPActivity.IDLOAN, idLoan);
+        submit.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(submit);
+        finish();
 
-        mPresenter.checkLoanOnProcess();
+//        mPresenter.checkLoanOnProcess();
 
     }
 

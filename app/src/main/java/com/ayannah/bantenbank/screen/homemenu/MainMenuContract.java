@@ -2,6 +2,7 @@ package com.ayannah.bantenbank.screen.homemenu;
 
 import com.ayannah.bantenbank.base.BasePresenter;
 import com.ayannah.bantenbank.base.BaseView;
+import com.ayannah.bantenbank.data.model.BankService;
 import com.ayannah.bantenbank.data.model.BeritaPromo;
 import com.ayannah.bantenbank.data.model.Loans.DataItem;
 import com.ayannah.bantenbank.data.model.Loans.Loans;
@@ -16,6 +17,8 @@ public interface MainMenuContract {
         void showErrorMessage(String message);
 
         void showMainMenu(List<MenuProduct> results);
+
+        void loadAllServiceMenu(List<BankService.Data> results);
 
         void showPromoAndNews(List<BeritaPromo> results);
 
