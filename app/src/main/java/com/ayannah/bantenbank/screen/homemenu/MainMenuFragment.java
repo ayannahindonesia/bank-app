@@ -57,6 +57,10 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 public class MainMenuFragment extends BaseFragment implements MainMenuContract.View, NavigationView.OnNavigationItemSelectedListener{
+    
+    public static final String ACTIVE = "active";
+    public static final String INACTIVE = "inactive";
+    
 
     @Inject
     MainMenuContract.Presenter mPresenter;
@@ -288,57 +292,103 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
             @Override
             public void onClickMenu(BankService.Data menuProduct) {
 
-                switch (menuProduct.getName()){
+                if(menuProduct.getStatus().equals(ACTIVE)){
 
-                    case "Pinjaman PNS":
+                    if (statusLoan.equals("processing")) {
 
-                        if (statusLoan.equals("processing")) {
+                        bottomSheetDialogGlobal = new BottomSheetDialogGlobal().show(parentActivity().getSupportFragmentManager(),
+                                BottomSheetDialogGlobal.FORBIDDEN_LOAN_PNS,
+                                "Pengajuan Pinjaman PNS Kamu Sedang Proses",
+                                "Kamu belum bisa mengajukan peminjaman PNS lagi hingga pengajuan sebelumnya telah selesai dari proses",
+                                R.drawable.img_processing);
+                        bottomSheetDialogGlobal.setOnClickBottomSheetInstruction(new BottomSheetDialogGlobal.BottomSheetInstructionListener() {
+                            @Override
+                            public void onClickButtonDismiss() {
 
-                            bottomSheetDialogGlobal = new BottomSheetDialogGlobal().show(parentActivity().getSupportFragmentManager(),
-                                    BottomSheetDialogGlobal.FORBIDDEN_LOAN_PNS,
-                                    "Pengajuan Pinjaman PNS Kamu Sedang Proses",
-                                    "Kamu belum bisa mengajukan peminjaman PNS lagi hingga pengajuan sebelumnya telah selesai dari proses",
-                                    R.drawable.img_processing);
-                            bottomSheetDialogGlobal.setOnClickBottomSheetInstruction(new BottomSheetDialogGlobal.BottomSheetInstructionListener() {
-                                @Override
-                                public void onClickButtonDismiss() {
+                                bottomSheetDialogGlobal.dismiss();
 
-                                    bottomSheetDialogGlobal.dismiss();
+                                Intent intent = new Intent(parentActivity(), HistoryLoanActivity.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                startActivity(intent);
+                            }
 
-                                    Intent intent = new Intent(parentActivity(), HistoryLoanActivity.class);
-                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                    startActivity(intent);
-                                }
+                            @Override
+                            public void onClickButtonYes() {
+                                //nothing to do
 
-                                @Override
-                                public void onClickButtonYes() {
-                                    //nothing to do
-                                }
+                            }
 
-                                @Override
-                                public void closeApps() {
-                                    //nothing to do
+                            @Override
+                            public void closeApps() {
+                                //nothing to do
 
-                                }
-                            });
-                        } else {
+                            }
+                        });
+                    }else {
 
-                            Intent intent = new Intent(parentActivity(), EarningActivity.class);
-                            startActivity(intent);
+                        Intent intent = new Intent(parentActivity(), EarningActivity.class);
+                        intent.putExtra("id", menuProduct.getId());
+                        intent.putExtra("name", menuProduct.getName());
+                        startActivity(intent);
+                    }
 
-                        }
 
-                        break;
+                }else {
 
-                    case "Pinjaman Lainnya":
-
-                        if (menuProduct.getStatus().equals("inactive")) {
-
-                            Toast.makeText(parentActivity(), "Coming Soon...", Toast.LENGTH_SHORT).show();
-                        }
-
-                        break;
+                    Toast.makeText(parentActivity(), "Fitur Tidak Aktif", Toast.LENGTH_SHORT).show();
                 }
+
+//                switch (menuProduct.getName()){
+//
+//                    case "Pinjaman PNS":
+//
+//                        if (statusLoan.equals("processing")) {
+//
+//                            bottomSheetDialogGlobal = new BottomSheetDialogGlobal().show(parentActivity().getSupportFragmentManager(),
+//                                    BottomSheetDialogGlobal.FORBIDDEN_LOAN_PNS,
+//                                    "Pengajuan Pinjaman PNS Kamu Sedang Proses",
+//                                    "Kamu belum bisa mengajukan peminjaman PNS lagi hingga pengajuan sebelumnya telah selesai dari proses",
+//                                    R.drawable.img_processing);
+//                            bottomSheetDialogGlobal.setOnClickBottomSheetInstruction(new BottomSheetDialogGlobal.BottomSheetInstructionListener() {
+//                                @Override
+//                                public void onClickButtonDismiss() {
+//
+//                                    bottomSheetDialogGlobal.dismiss();
+//
+//                                    Intent intent = new Intent(parentActivity(), HistoryLoanActivity.class);
+//                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                                    startActivity(intent);
+//                                }
+//
+//                                @Override
+//                                public void onClickButtonYes() {
+//                                    //nothing to do
+//                                }
+//
+//                                @Override
+//                                public void closeApps() {
+//                                    //nothing to do
+//
+//                                }
+//                            });
+//                        } else {
+//
+//                            Intent intent = new Intent(parentActivity(), EarningActivity.class);
+//                            startActivity(intent);
+//
+//                        }
+//
+//                        break;
+//
+//                    case "Pinjaman Lainnya":
+//
+//                        if (menuProduct.getStatus().equals("inactive")) {
+//
+//                            Toast.makeText(parentActivity(), "Coming Soon...", Toast.LENGTH_SHORT).show();
+//                        }
+//
+//                        break;
+//                }
 
             }
         });
