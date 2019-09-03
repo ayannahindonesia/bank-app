@@ -16,6 +16,7 @@ import static com.ayannah.bantenbank.screen.summary.SummaryTransactionActivity.P
 import static com.ayannah.bantenbank.screen.summary.SummaryTransactionActivity.SALDO_PINJAMAN;
 import static com.ayannah.bantenbank.screen.summary.SummaryTransactionActivity.TENOR;
 import static com.ayannah.bantenbank.screen.summary.SummaryTransactionActivity.TUJUAN;
+import static com.ayannah.bantenbank.screen.summary.SummaryTransactionActivity.PRODUK;
 
 @Module
 public abstract class SummaryTransactionModule {
@@ -68,6 +69,13 @@ public abstract class SummaryTransactionModule {
     @Named("tujuan")
     static String tujuan(SummaryTransactionActivity activity){
         return activity.getIntent().getStringExtra(TUJUAN);
+    }
+
+    @Provides
+    @ActivityScoped
+    @Named("produk")
+    static String produk(SummaryTransactionActivity activity){
+        return activity.getIntent().getStringExtra(PRODUK);
     }
 
 

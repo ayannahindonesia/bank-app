@@ -37,6 +37,7 @@ public class SummaryTransactionActivity extends DaggerAppCompatActivity {
     public static final String SALDO_PINJAMAN = "saldoPinjaman";
     public static final String ALASAN = "alasan";
     public static final String TUJUAN = "tujuan";
+    public static final String PRODUK = "produk";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -55,12 +55,15 @@ public class SummaryTransactionFragment extends BaseFragment implements SummaryT
     @BindView(R.id.tujuanPinjam)
     TextView tvTujuanPinjam;
 
-    @BindView(R.id.jatuhTempo)
-    TextView jatuhTempo;
+//    @BindView(R.id.jatuhTempo)
+//    TextView jatuhTempo;
 
     @Checked(message = "Mohon klik untuk menyetujuinya")
     @BindView(R.id.checkDisclaimer)
     CheckBox checkDisclaimer;
+
+    @BindView(R.id.selectedProduct)
+    TextView tvSelectedProduct;
 
     //value purposes
     @Inject
@@ -83,6 +86,10 @@ public class SummaryTransactionFragment extends BaseFragment implements SummaryT
     @Named("tujuan")
     String tujuan;
 
+    @Inject
+    @Named("produk")
+    String produk;
+
     private Validator validator;
 
     @Inject
@@ -101,6 +108,8 @@ public class SummaryTransactionFragment extends BaseFragment implements SummaryT
 
     @Override
     protected void initView(Bundle state) {
+
+        tvSelectedProduct.setText(produk);
 
         tvPinjaman.setText(CommonUtils.setRupiahCurrency( (int) pinjaman) );
 
@@ -126,7 +135,7 @@ public class SummaryTransactionFragment extends BaseFragment implements SummaryT
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.MONTH, tenor);
         SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault());
-        jatuhTempo.setText(sdf.format(calendar.getTime()));
+//        jatuhTempo.setText(sdf.format(calendar.getTime()));
 
         validator = new Validator(this);
         validator.setValidationListener(this);

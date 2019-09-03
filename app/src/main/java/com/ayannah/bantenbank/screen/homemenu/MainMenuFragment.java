@@ -251,23 +251,13 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
 
                 case R.drawable.ic_menu_pns:
 
-                    if(statusLoan.equals("approved")){
-
-                        BottomSheetDialogGlobal dialog = new BottomSheetDialogGlobal().show(parentActivity().getSupportFragmentManager(),
-                                BottomSheetDialogGlobal.FORBIDDEN_LOAN_PNS,
-                                "Pengajuan Pinjaman PNS Kamu Sedang Proses",
-                                "Kamu belum bisa mengajukan peminjaman PNS lagi hingga pengajuan sebelumnya telah selesai dari proses",
-                                R.drawable.img_processing);
-                    }else {
-
-                        Intent intent = new Intent(parentActivity(), EarningActivity.class);
-                        startActivity(intent);
-
-                    }
+                    CallBottomSheetDialog("PNS");
 
                     break;
 
                 case R.drawable.ic_menu_personal:
+
+                    CallBottomSheetDialog("KTA");
 
                     break;
 
@@ -279,6 +269,22 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
 
         });
 
+    }
+
+    private void CallBottomSheetDialog(String reason) {
+        if(statusLoan.equals("processing")){
+
+            BottomSheetDialogGlobal dialog = new BottomSheetDialogGlobal().show(parentActivity().getSupportFragmentManager(),
+                    BottomSheetDialogGlobal.FORBIDDEN_LOAN_PNS,
+                    "Pengajuan Pinjaman Kamu Sedang Proses",
+                    "Sementara kamu belum bisa mengajukan peminjaman " + reason + " hingga pengajuan sebelumnya telah selesai dari proses",
+                    R.drawable.img_processing);
+        }else {
+
+            Intent intent = new Intent(parentActivity(), EarningActivity.class);
+            startActivity(intent);
+
+        }
     }
 
     @Override

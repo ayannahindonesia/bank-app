@@ -190,6 +190,7 @@ public class LoginPresenter implements LoginContract.Presenter {
 
             preferenceRepository.setIDCardImageID(response.getIdCardImage().getInt64());
             preferenceRepository.setTaxIDImageID(response.getTaxIDImage().getInt64());
+            preferenceRepository.setBankID(response.getBank().getInt64());
 
             preferenceRepository.setUserLogged(true);
             preferenceRepository.setUserSetup(true);

@@ -1,223 +1,242 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <LinearLayout
-        android:padding="@dimen/dp16"
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/dp16">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp20"
+            android:text="Pilih Produk"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/fontLarge"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/spProducts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_10sdp" />
 
         <LinearLayout
-            android:weightSum="2"
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
 
             <TextView
-                android:text="Jumlah Pinjaman"
-                android:textSize="@dimen/fontLarge"
-                android:layout_weight="1"
-                android:textColor="@android:color/black"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Jumlah Pinjaman"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/fontLarge"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/nominalPinjaman"
-                android:text="Rp 0"
-                android:textSize="@dimen/fontSuperLarge"
-                android:layout_weight="1"
-                android:textStyle="bold"
-                android:textColor="@android:color/holo_green_dark"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Rp 0"
+                android:textColor="@android:color/holo_green_dark"
+                android:textSize="@dimen/fontSuperLarge"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
         <SeekBar
             android:id="@+id/seekbarJumlahPinjaman"
-            android:layout_marginTop="@dimen/dp12"
-            android:progressDrawable="@drawable/seekbar_style"
-            android:thumb="@drawable/custom_thumb"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:max="9"/>
+            android:layout_marginTop="@dimen/dp12"
+            android:max="9"
+            android:progressDrawable="@drawable/seekbar_style"
+            android:thumb="@drawable/custom_thumb" />
 
         <LinearLayout
-            android:weightSum="2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp16"
             android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:weightSum="2">
 
             <TextView
-                android:text="Tenor Cicilan"
-                android:textSize="@dimen/fontLarge"
-                android:layout_weight="1"
-                android:textColor="@android:color/black"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Tenor Cicilan"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/fontLarge"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tenorCicilan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="0"
                 android:textSize="@dimen/fontSuperLarge"
-                android:layout_weight="1"
-                android:textStyle="bold"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:textStyle="bold" />
 
         </LinearLayout>
 
         <SeekBar
             android:id="@+id/seekbarTenorCicilan"
-            android:layout_marginTop="@dimen/dp12"
-            android:progressDrawable="@drawable/seekbar_style"
-            android:thumb="@drawable/custom_thumb"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:max="9"/>
+            android:layout_marginTop="@dimen/dp12"
+            android:max="9"
+            android:progressDrawable="@drawable/seekbar_style"
+            android:thumb="@drawable/custom_thumb" />
 
         <LinearLayout
-            android:weightSum="2"
-            android:padding="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin14dp"
             android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:padding="5dp"
+            android:weightSum="2">
 
             <TextView
-                android:text="Biaya Admin"
-                android:textSize="@dimen/fontNormal"
-                android:layout_weight="1"
-                android:textColor="@android:color/black"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Biaya Admin"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/fontNormal"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/biayaAdmin"
-                android:text="Rp -"
-                android:textSize="@dimen/fontNormal"
-                android:textAlignment="textEnd"
-                android:layout_weight="1"
-                android:textColor="@android:color/black"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Rp -"
+                android:textAlignment="textEnd"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/fontNormal" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:weightSum="2"
-            android:padding="5dp"
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="5dp"
+            android:weightSum="2">
 
             <TextView
-                android:text="Bunga"
-                android:textSize="@dimen/fontNormal"
-                android:layout_weight="1"
-                android:textColor="@android:color/black"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Bunga"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/fontNormal"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/amountBunga"
-                android:text="Rp -"
-                android:textSize="@dimen/fontNormal"
-                android:textAlignment="textEnd"
-                android:layout_weight="1"
-                android:textColor="@android:color/black"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Rp -"
+                android:textAlignment="textEnd"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/fontNormal" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:weightSum="2"
-            android:padding="5dp"
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="5dp"
+            android:weightSum="2">
 
             <TextView
-                android:text="Angsuran per Bulan"
-                android:textSize="@dimen/fontNormal"
-                android:layout_weight="1"
-                android:textColor="@android:color/black"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Angsuran per Bulan"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/fontNormal"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/angsuranPerbulan"
-                android:text="Rp -"
-                android:textSize="@dimen/fontLarge"
-                android:textStyle="bold"
-                android:textAlignment="textEnd"
-                android:layout_weight="1"
-                android:textColor="@android:color/holo_green_dark"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Rp -"
+                android:textAlignment="textEnd"
+                android:textColor="@android:color/holo_green_dark"
+                android:textSize="@dimen/fontLarge"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:weightSum="2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
             android:padding="5dp"
             android:visibility="gone"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:weightSum="2">
 
             <TextView
-                android:text="Saldo Pokok Pinjaman"
-                android:textSize="@dimen/fontNormal"
-                android:layout_weight="1"
-                android:textColor="@android:color/black"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Saldo Pokok Pinjaman"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/fontNormal" />
 
             <TextView
                 android:id="@+id/saldoPokokPinjaman"
-                android:text="Rp -"
-                android:textStyle="bold"
-                android:textSize="@dimen/fontNormal"
-                android:textAlignment="textEnd"
-                android:layout_weight="1"
-                android:textColor="@android:color/black"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Rp -"
+                android:textAlignment="textEnd"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/fontNormal"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:weightSum="2"
-            android:visibility="gone"
-            android:padding="5dp"
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="5dp"
+            android:visibility="gone"
+            android:weightSum="2">
 
             <TextView
-                android:text="Jatuh tempo"
-                android:textSize="@dimen/fontNormal"
-                android:layout_weight="1"
-                android:textColor="@android:color/black"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Jatuh tempo"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/fontNormal" />
 
             <TextView
                 android:id="@+id/tenor"
-                android:text="15 Mei 2019"
-                android:textSize="@dimen/fontNormal"
-                android:textAlignment="textEnd"
-                android:layout_weight="1"
-                android:textColor="@android:color/black"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="15 Mei 2019"
+                android:textAlignment="textEnd"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/fontNormal" />
 
         </LinearLayout>
 
@@ -249,65 +268,64 @@
         <!--</LinearLayout>-->
 
         <TextView
-            android:text="Apa alasan anda mengajukan peminjaman?"
-            android:textStyle="bold"
-            android:textSize="@dimen/fontLarge"
-            android:textColor="@android:color/black"
-            android:layout_marginTop="@dimen/dp20"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp20"
+            android:text="Apa alasan anda mengajukan peminjaman?"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/fontLarge"
+            android:textStyle="bold" />
 
         <Spinner
             android:id="@+id/spAlasanPinjam"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
+            android:layout_height="wrap_content" />
 
         <LinearLayout
             android:id="@+id/lyAlasanLain"
-            android:orientation="vertical"
-            android:visibility="gone"
-            android:layout_marginTop="@dimen/dp12"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp12"
+            android:orientation="vertical"
+            android:visibility="gone">
 
             <TextView
-                android:text="Mohon Masukan Alasan Anda Meminjam"
-                android:textSize="@dimen/fontNormal"
-                android:textColor="@android:color/black"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:text="Mohon Masukan Alasan Anda Meminjam"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/fontNormal" />
 
             <EditText
                 android:id="@+id/etAlasan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:hint="Isi alasan peminjaman disini"
-                android:textSize="@dimen/fontNormal"
                 android:paddingStart="@dimen/dp10"
                 android:paddingEnd="@dimen/margin10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:textSize="@dimen/fontNormal" />
 
         </LinearLayout>
 
         <EditText
             android:id="@+id/etTujuan"
-            android:textSize="@dimen/fontNormal"
-            android:inputType="text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:hint="Tuliskan detail tujuan"
+            android:inputType="text"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:textSize="@dimen/fontNormal" />
 
     </LinearLayout>
 
     <Button
         android:id="@+id/buttonPinjam"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:background="@color/colorAccent"
         android:text="Proses"
-        android:textColor="@android:color/white"
-        android:layout_alignParentBottom="true"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:textColor="@android:color/white" />
 
 </RelativeLayout>
