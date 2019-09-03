@@ -49,6 +49,7 @@ import com.ayannah.bantenbank.screen.navigationmenu.infokeuangan.InformasiKeuang
 import com.ayannah.bantenbank.util.CommonUtils;
 import com.google.android.material.navigation.NavigationView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -57,7 +58,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 public class MainMenuFragment extends BaseFragment implements MainMenuContract.View, NavigationView.OnNavigationItemSelectedListener{
-    
+
     public static final String ACTIVE = "active";
     public static final String INACTIVE = "inactive";
     
@@ -286,56 +287,56 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
     @Override
     public void loadAllServiceMenu(List<BankService.Data> results) {
 
-        mAdapterMenu.setMenuService(results);
+        List<BankService.Data> menus = new ArrayList<>();
+
+        for(BankService.Data x:results) {
+            if (x.getStatus().equals(ACTIVE)) {
+                menus.add(x);
+            }
+        }
+
+        mAdapterMenu.setMenuService(menus);
 
         mAdapterMenu.setOnClickListener(new MenuProductAdapter.MenuProductListener() {
             @Override
             public void onClickMenu(BankService.Data menuProduct) {
 
-                if(menuProduct.getStatus().equals(ACTIVE)){
+                if (statusLoan.equals("processing")) {
 
-                    if (statusLoan.equals("processing")) {
+                    bottomSheetDialogGlobal = new BottomSheetDialogGlobal().show(parentActivity().getSupportFragmentManager(),
+                            BottomSheetDialogGlobal.FORBIDDEN_LOAN_PNS,
+                            "Pengajuan Pinjaman PNS Kamu Sedang Proses",
+                            "Kamu belum bisa mengajukan peminjaman PNS lagi hingga pengajuan sebelumnya telah selesai dari proses",
+                            R.drawable.img_processing);
+                    bottomSheetDialogGlobal.setOnClickBottomSheetInstruction(new BottomSheetDialogGlobal.BottomSheetInstructionListener() {
+                        @Override
+                        public void onClickButtonDismiss() {
 
-                        bottomSheetDialogGlobal = new BottomSheetDialogGlobal().show(parentActivity().getSupportFragmentManager(),
-                                BottomSheetDialogGlobal.FORBIDDEN_LOAN_PNS,
-                                "Pengajuan Pinjaman PNS Kamu Sedang Proses",
-                                "Kamu belum bisa mengajukan peminjaman PNS lagi hingga pengajuan sebelumnya telah selesai dari proses",
-                                R.drawable.img_processing);
-                        bottomSheetDialogGlobal.setOnClickBottomSheetInstruction(new BottomSheetDialogGlobal.BottomSheetInstructionListener() {
-                            @Override
-                            public void onClickButtonDismiss() {
+                            bottomSheetDialogGlobal.dismiss();
 
-                                bottomSheetDialogGlobal.dismiss();
+                            Intent intent = new Intent(parentActivity(), HistoryLoanActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
+                        }
 
-                                Intent intent = new Intent(parentActivity(), HistoryLoanActivity.class);
-                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                startActivity(intent);
-                            }
+                        @Override
+                        public void onClickButtonYes() {
+                            //nothing to do
 
-                            @Override
-                            public void onClickButtonYes() {
-                                //nothing to do
+                        }
 
-                            }
+                        @Override
+                        public void closeApps() {
+                            //nothing to do
 
-                            @Override
-                            public void closeApps() {
-                                //nothing to do
-
-                            }
-                        });
-                    }else {
-
-                        Intent intent = new Intent(parentActivity(), EarningActivity.class);
-                        intent.putExtra("id", menuProduct.getId());
-                        intent.putExtra("name", menuProduct.getName());
-                        startActivity(intent);
-                    }
-
-
+                        }
+                    });
                 }else {
 
-                    Toast.makeText(parentActivity(), "Fitur Tidak Aktif", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(parentActivity(), EarningActivity.class);
+                    intent.putExtra("id", menuProduct.getId());
+                    intent.putExtra("name", menuProduct.getName());
+                    startActivity(intent);
                 }
 
 //                switch (menuProduct.getName()){

@@ -113,13 +113,7 @@ public class MenuProductAdapter extends RecyclerView.Adapter<MenuProductAdapter.
 
 //            ivIconProduct.setImageResource(param.getLogoProduct());
 
-            if(param.getName().equals("Pinjaman PNS")){
-
-                ivIconProduct.setImageResource(R.drawable.ic_menu_pns);
-            }else {
-
-                ivIconProduct.setImageResource(R.drawable.loan);
-            }
+            ivIconProduct.setImageResource(R.drawable.ic_menu_pns);
 
             tvNameProduct.setText(param.getName());
 
