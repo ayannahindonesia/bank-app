@@ -1,5 +1,6 @@
 package com.ayannah.bantenbank.screen.register.formothers;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -102,7 +103,7 @@ public class FormOtherFragment extends BaseFragment implements FormOtherContract
     @BindView(R.id.spHubungan)
     Spinner spHubungan;
 
-    @NotEmpty(message = "Masukan No Handphone Kerabat Anda")
+    @NotEmpty(message = "Masukan No Handphone Kerabat Anda", trim = true)
     @BindView(R.id.etRelatedHP)
     EditText etRelatedHP;
 
@@ -113,7 +114,7 @@ public class FormOtherFragment extends BaseFragment implements FormOtherContract
     @BindView(R.id.etRelatedName)
     EditText etRelatedName;
 
-    @NotEmpty(message = "Masukan Alamat Kerabat Anda")
+    @NotEmpty(message = "Masukan Alamat Kerabat Anda", trim = true)
     @BindView(R.id.etRelatedAddress)
     EditText etRelatedAddress;
 
@@ -170,7 +171,17 @@ public class FormOtherFragment extends BaseFragment implements FormOtherContract
     @Override
     public void showErrorMessage(String message) {
         dialog.dismiss();
-        Toast.makeText(parentActivity(), "Error: "+message, Toast.LENGTH_SHORT).show();
+
+        AlertDialog.Builder alert = new AlertDialog.Builder(parentActivity());
+        alert.setTitle("Error Register");
+        alert.setMessage(message);
+        alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        alert.show();
     }
 
     @Override
@@ -265,7 +276,7 @@ public class FormOtherFragment extends BaseFragment implements FormOtherContract
 
         //new
         userProfleRequest.addProperty("bank", bundle.getInt(BANK_ID));
-        userProfleRequest.addProperty("nickname", bundle.getInt(NICKNAME));
+        userProfleRequest.addProperty("nickname", bundle.getString(NICKNAME));
         userProfleRequest.addProperty("nationality", "Indonesia");
 
         dialog.show();
