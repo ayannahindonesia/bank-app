@@ -63,7 +63,7 @@ public class FormBorrowerFragment extends BaseFragment implements FormBorrowerCo
     @Inject
     FormBorrowerContract.Presenter mPresenter;
 
-    @NotEmpty(message = "Masukan Nama Anda")
+    @NotEmpty(message = "Masukan Nama Anda", trim = true)
     @BindView(R.id.regist_name)
     EditText etNameBorrower;
 
@@ -80,33 +80,33 @@ public class FormBorrowerFragment extends BaseFragment implements FormBorrowerCo
     @BindView(R.id.tvGender)
     TextView tvGender;
 
-    @NotEmpty(message = "Masukan Tempat Lahir Anda")
+    @NotEmpty(message = "Masukan Tempat Lahir Anda", trim = true)
     @BindView(R.id.regist_tempatLahir)
     EditText etTempatLahir;
 
-    @NotEmpty(message = "Masukan Nama Ibu")
+    @NotEmpty(message = "Masukan Nama Ibu", trim = true)
     @BindView(R.id.regist_namaIbu)
     EditText etNamaIbu;
 
     @BindView(R.id.regist_spouseName)
     EditText etNamaPasangan;
 
-    @NotEmpty(message = "Masukan Alamat Anda")
+    @NotEmpty(message = "Masukan Alamat Anda", trim = true)
     @BindView(R.id.regist_alamatDomisili)
     EditText etAlamatDomisili;
 
-    @NotEmpty(message = "Masukan RT")
+    @NotEmpty(message = "Masukan RT", trim = true)
     @BindView(R.id.regist_rt)
     EditText etRt;
 
-    @NotEmpty(message = "Masukan RW")
+    @NotEmpty(message = "Masukan RW", trim = true)
     @BindView(R.id.regist_rw)
     EditText etRw;
 
     @BindView(R.id.regist_phoneBorrower)
     EditText etTelpRumah;
 
-    @NotEmpty(message = "Masukan Lama Menempati Rumah")
+    @NotEmpty(message = "Masukan Lama Menempati Rumah", trim = true)
     @BindView(R.id.regist_lamaMenempatiRumah)
     EditText etLamaMenempatiRumah;
 

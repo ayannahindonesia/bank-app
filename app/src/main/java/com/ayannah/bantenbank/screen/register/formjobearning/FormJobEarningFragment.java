@@ -43,7 +43,7 @@ public class FormJobEarningFragment extends BaseFragment implements Validator.Va
     @BindView(R.id.spJenisPekerjaan)
     Spinner spJenisPekerjaan;
 
-    @NotEmpty(message = "Masukan Gaji Anda")
+    @NotEmpty(message = "Masukan Gaji Anda", trim = true)
     @BindView(R.id.etGajiBulanan)
     EditText etGajiBulanan;
 
@@ -53,31 +53,31 @@ public class FormJobEarningFragment extends BaseFragment implements Validator.Va
     @BindView(R.id.etSumberPendapatanLain)
     EditText etSumberPendaptanLain;
 
-    @NotEmpty(message = "Masukan Nomor Induk Pegawai Anda")
+    @NotEmpty(message = "Masukan Nomor Induk Pegawai Anda", trim = true)
     @BindView(R.id.etEmployeeID)
     EditText etEmployeeID;
 
-    @NotEmpty(message = "Masukan Nama Perusahaan\nTempat Anda Bekerja")
+    @NotEmpty(message = "Masukan Nama Perusahaan\nTempat Anda Bekerja", trim = true)
     @BindView(R.id.etCompanyName)
     EditText etCompanyName;
 
-    @NotEmpty(message = "Masukan Lama Anda Bekerja")
+    @NotEmpty(message = "Masukan Lama Anda Bekerja", trim = true)
     @BindView(R.id.etLamaBekerja)
     EditText etLamaBekerja;
 
-    @NotEmpty(message = "Masukan Alamat Perusahaan\nTempat Anda Bekerja")
+    @NotEmpty(message = "Masukan Alamat Perusahaan\nTempat Anda Bekerja", trim = true)
     @BindView(R.id.etAlamatKantor)
     EditText etAlamatKantor;
 
-    @NotEmpty(message = "Masukan No Telpon Perusahaan\nTempat Anda Bekerja")
+    @NotEmpty(message = "Masukan No Telpon Perusahaan\nTempat Anda Bekerja", trim = true)
     @BindView(R.id.etCompanyPhone)
     EditText etCompanyPhone;
 
-    @NotEmpty(message = "Masukan Nama Atasan Anda")
+    @NotEmpty(message = "Masukan Nama Atasan Anda", trim = true)
     @BindView(R.id.etSpvName)
     EditText etSpvName;
 
-    @NotEmpty(message = "Masukan Jabatan Anda")
+    @NotEmpty(message = "Masukan Jabatan Anda", trim = true)
     @BindView(R.id.etJobTitle)
     EditText etJobTitle;
 

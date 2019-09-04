@@ -68,7 +68,11 @@ public class FormOtherPresenter implements FormOtherContract.Presenter{
                 if(anError.getErrorBody() != null){
 
                     JSONObject jsonObject = new JSONObject(anError.getErrorBody());
-                    mView.showErrorMessage(jsonObject.optString("message"));
+
+                    String message = String.format("%s \n\n %s", jsonObject.optString("message"), jsonObject.optString("details"));
+//                    mView.showErrorMessage(jsonObject.optString("message"));
+                    mView.showErrorMessage(message);
+
                 }
             }
 

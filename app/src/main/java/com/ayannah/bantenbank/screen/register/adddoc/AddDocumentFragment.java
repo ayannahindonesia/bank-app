@@ -67,19 +67,19 @@ public class AddDocumentFragment extends BaseFragment implements AddDocumentCont
     @BindView(R.id.editNPWP)
     ImageView editNpwp;
 
-    @Length(min = 16, message = "Masukan 16 Karakter Nomor KTP")
+    @Length(min = 16, message = "Masukan 16 Karakter Nomor KTP", trim = true)
     @BindView(R.id.etKTP)
     EditText etKTP;
 
     @BindView(R.id.etNPWP)
     EditText etNPWP;
 
-    @NotEmpty(message = "Masukan Alamat Email Anda")
+    @NotEmpty(message = "Masukan Alamat Email Anda", trim = true)
     @Email(message = "Format Email Salah")
     @BindView(R.id.regist_email)
     EditText email;
 
-    @NotEmpty(message = "Masukan Nomor Handphone Anda")
+    @NotEmpty(message = "Masukan Nomor Handphone Anda", trim = true)
     @BindView(R.id.regist_phone)
     EditText phone;
 
@@ -87,7 +87,7 @@ public class AddDocumentFragment extends BaseFragment implements AddDocumentCont
     @BindView(R.id.regist_pass)
     EditText pass;
 
-    @NotEmpty(message = "Masukan Konfirmasi Password")
+    @NotEmpty(message = "Masukan Konfirmasi Password", trim = true)
     @ConfirmPassword(message = "Password Tidak Cocok")
     @BindView(R.id.regist_pass_retype)
     EditText passRetype;
