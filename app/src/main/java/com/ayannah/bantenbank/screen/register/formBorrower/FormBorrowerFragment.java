@@ -80,7 +80,7 @@ public class FormBorrowerFragment extends BaseFragment implements FormBorrowerCo
     @BindView(R.id.tvGender)
     TextView tvGender;
 
-    @NotEmpty(message = "Masukan Tempat Lahir Anda")
+    @NotEmpty(message = "Masukan Tempat Lahir Anda", trim = true)
     @BindView(R.id.regist_tempatLahir)
     EditText etTempatLahir;
 
