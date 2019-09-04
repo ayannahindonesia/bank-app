@@ -178,7 +178,7 @@ public class FormOtherFragment extends BaseFragment implements FormOtherContract
 
         Bundle bundle = Objects.requireNonNull(parentActivity()).getIntent().getExtras();
         assert bundle != null;
-        mPresenter.postBorrowerOTPRequest(bundle.getString(PHONE));
+        mPresenter.getUserToken(bundle.getString(PHONE), bundle.getString(PASS), "regist");
 
     }
 
@@ -196,6 +196,14 @@ public class FormOtherFragment extends BaseFragment implements FormOtherContract
         verification.putExtra(PASS, bundle.getString(PASS));
         startActivity(verification);
         parentActivity().finish();
+    }
+
+    @Override
+    public void successGetUserToken() {
+        Bundle bundle = Objects.requireNonNull(parentActivity()).getIntent().getExtras();
+        assert bundle != null;
+
+        mPresenter.postBorrowerOTPRequest(bundle.getString(PHONE));
     }
 
     @Override
@@ -265,7 +273,7 @@ public class FormOtherFragment extends BaseFragment implements FormOtherContract
 
         //new
         userProfleRequest.addProperty("bank", bundle.getInt(BANK_ID));
-        userProfleRequest.addProperty("nickname", bundle.getInt(NICKNAME));
+        userProfleRequest.addProperty("nickname", bundle.getString(NICKNAME));
         userProfleRequest.addProperty("nationality", "Indonesia");
 
         dialog.show();

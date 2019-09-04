@@ -142,7 +142,7 @@ public class RemoteDataSource implements RemoteRepository {
     @Override
     public void postOTPRequestBorrower(JsonObject json) {
         AndroidNetworking.post(BuildConfig.API_URL + "unverified_borrower/otp_request")
-                .addHeaders("Authorization", preferenceRepository.getPublicToken())
+                .addHeaders("Authorization", preferenceRepository.getUserToken())
                 .addApplicationJsonBody(json)
                 .setPriority(Priority.MEDIUM)
                 .build()

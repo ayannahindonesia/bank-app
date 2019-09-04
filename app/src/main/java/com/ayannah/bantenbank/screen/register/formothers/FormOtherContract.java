@@ -15,6 +15,8 @@ public interface FormOtherContract {
         void registerComplete();
 
         void successGetOTP();
+
+        void successGetUserToken();
     }
 
     interface Presenter extends BasePresenter<View> {
@@ -23,5 +25,6 @@ public interface FormOtherContract {
 
         void postBorrowerOTPRequest(String string);
 
+        void getUserToken(String key, String pass, String regist);
     }
 }

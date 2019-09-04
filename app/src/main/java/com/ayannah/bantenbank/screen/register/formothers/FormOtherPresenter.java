@@ -118,6 +118,35 @@ public class FormOtherPresenter implements FormOtherContract.Presenter{
     }
 
     @Override
+    public void getUserToken(String phone, String pass, String isFrom) {
+        JsonObject json = new JsonObject();
+        json.addProperty("key", phone);
+        json.addProperty("password", pass);
+
+        mComposite.add(remotRepo.getTokenClient(json)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(response -> {
+
+                    preferenceRepository.setUserToken("Bearer "+response.getToken());
+                    mView.successGetUserToken();
+
+                }, error -> {
+
+                    ANError anError = (ANError) error;
+                    if(anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
+                        mView.showErrorMessage("Connection Error");
+                    }else {
+                        if(anError.getErrorBody() != null){
+
+                            JSONObject jsonObject = new JSONObject(anError.getErrorBody());
+                            mView.showErrorMessage(jsonObject.optString("message")  + " getClientToken()");
+                        }
+                    }
+                }));
+    }
+
+    @Override
     public void takeView(FormOtherContract.View view) {
         mView = view;
     }
