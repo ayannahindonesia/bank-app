@@ -90,6 +90,14 @@ public class SummaryTransactionFragment extends BaseFragment implements SummaryT
     @Named("produk")
     String produk;
 
+    @Inject
+    @Named("interest")
+    int interest;
+
+    @Inject
+    @Named("admin")
+    int admin;
+
     private Validator validator;
 
     @Inject
@@ -115,10 +123,10 @@ public class SummaryTransactionFragment extends BaseFragment implements SummaryT
 
         tvTenor.setText(String.format("%s bulan", tenor));
 
-        double calculateBunga = ((int) pinjaman * 1.5) / 100;
+        double calculateBunga = ((int) pinjaman * interest) / 100;
         tvBunga.setText(CommonUtils.setRupiahCurrency((int) calculateBunga));
 
-        int calBiayaAdmin = 1000;
+        int calBiayaAdmin = admin;
         tvBiayaAdmin.setText(CommonUtils.setRupiahCurrency(calBiayaAdmin));
 
         double calAngsuran = (pinjaman + calculateBunga + calBiayaAdmin)/tenor;

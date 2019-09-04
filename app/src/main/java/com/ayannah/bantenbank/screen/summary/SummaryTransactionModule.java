@@ -10,8 +10,10 @@ import dagger.Module;
 import dagger.Provides;
 import dagger.android.ContributesAndroidInjector;
 
+import static com.ayannah.bantenbank.screen.summary.SummaryTransactionActivity.ADMIN;
 import static com.ayannah.bantenbank.screen.summary.SummaryTransactionActivity.ALASAN;
 import static com.ayannah.bantenbank.screen.summary.SummaryTransactionActivity.ANGSURAN_BULAN;
+import static com.ayannah.bantenbank.screen.summary.SummaryTransactionActivity.INTEREST;
 import static com.ayannah.bantenbank.screen.summary.SummaryTransactionActivity.PINJAMAN;
 import static com.ayannah.bantenbank.screen.summary.SummaryTransactionActivity.SALDO_PINJAMAN;
 import static com.ayannah.bantenbank.screen.summary.SummaryTransactionActivity.TENOR;
@@ -78,6 +80,20 @@ public abstract class SummaryTransactionModule {
         return activity.getIntent().getStringExtra(PRODUK);
     }
 
+
+    @Provides
+    @ActivityScoped
+    @Named("admin")
+    static int admin(SummaryTransactionActivity summaryTransactionActivity) {
+        return summaryTransactionActivity.getIntent().getIntExtra(ADMIN, 0);
+    }
+
+    @Provides
+    @ActivityScoped
+    @Named("interest")
+    static int interest(SummaryTransactionActivity summaryTransactionActivity) {
+            return summaryTransactionActivity.getIntent().getIntExtra(INTEREST, 0);
+    }
 
 
 }

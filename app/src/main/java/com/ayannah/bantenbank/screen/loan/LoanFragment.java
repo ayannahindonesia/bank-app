@@ -82,7 +82,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
 
     private AlertDialog dialog;
 
-    double administration = 1000;
+    int administration = 1000;
 
     int[] loanRepo = {5000000, 10000000, 15000000, 20000000, 25000000, 30000000, 35000000, 40000000, 45000000, 50000000};
     double loanAmount = 0;
@@ -253,6 +253,8 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
         intent.putExtra(SummaryTransactionActivity.TENOR, installmentTenor);
         intent.putExtra(SummaryTransactionActivity.ANGSURAN_BULAN, angsurnaPerbulan);
         intent.putExtra(SummaryTransactionActivity.PRODUK, spProducts.getSelectedItem().toString());
+        intent.putExtra(SummaryTransactionActivity.ADMIN, administration);
+        intent.putExtra(SummaryTransactionActivity.INTEREST, interest);
 
         if(spAlasanPinjam.getSelectedItem().toString().equals("Lain-lain")){
 
