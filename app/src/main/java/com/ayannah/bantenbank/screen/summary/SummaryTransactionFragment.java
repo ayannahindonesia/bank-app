@@ -201,8 +201,7 @@ public class SummaryTransactionFragment extends BaseFragment implements SummaryT
 
         json.addProperty("loan_amount", x);
         json.addProperty("installment", tenor);
-//        json.addProperty("loan_intention", alasan);
-        json.addProperty("loan_intention", "Berjudi");
+        json.addProperty("loan_intention", alasan);
 
         if (tujuan.isEmpty()){
             json.addProperty("intention_details", "-");
