@@ -47,10 +47,10 @@ public class FormJobEarningFragment extends BaseFragment implements Validator.Va
     @BindView(R.id.etGajiBulanan)
     EditText etGajiBulanan;
 
-    @BindView(R.id.etPendapatanLain)
+    @BindView(R.id.etPendapatanLain)@NotEmpty(trim = true)
     EditText etPendapatanLain;
 
-    @BindView(R.id.etSumberPendapatanLain)
+    @BindView(R.id.etSumberPendapatanLain)@NotEmpty(trim = true)
     EditText etSumberPendaptanLain;
 
     @NotEmpty(message = "Masukan Nomor Induk Pegawai Anda", trim = true)
@@ -104,7 +104,7 @@ public class FormJobEarningFragment extends BaseFragment implements Validator.Va
         mAdapterPekerjaan = new ArrayAdapter<>(getContext(), R.layout.item_custom_spinner, pekerjaan);
         spJenisPekerjaan.setAdapter(mAdapterPekerjaan);
 
-        NumberSeparatorTextWatcher gajiseparator = new NumberSeparatorTextWatcher(etGajiBulanan);
+//        NumberSeparatorTextWatcher gajiseparator = new NumberSeparatorTextWatcher(etGajiBulanan);
         NumberSeparatorTextWatcher pendapataLain = new NumberSeparatorTextWatcher(etPendapatanLain);
 
         etGajiBulanan.addTextChangedListener(new TextWatcher() {
@@ -140,29 +140,12 @@ public class FormJobEarningFragment extends BaseFragment implements Validator.Va
             }
         });
 
-//        etGajiBulanan.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-//            @Override
-//            public void onFocusChange(View v, boolean hasFocus) {
-//                if(hasFocus){
-//                    etGajiBulanan.addTextChangedListener(gajiseparator);
-//                }
-//
-////                if(!hasFocus){
-////                    etGajiBulanan.removeTextChangedListener(gajiseparator);
-////                }
-//            }
-//        });
-
         etPendapatanLain.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if(hasFocus){
                     etPendapatanLain.addTextChangedListener(pendapataLain);
                 }
-
-//                if(!hasFocus){
-//                    etPendapatanLain.removeTextChangedListener(pendapataLain);
-//                }
             }
         });
     }
@@ -170,7 +153,6 @@ public class FormJobEarningFragment extends BaseFragment implements Validator.Va
     @OnClick(R.id.buttonNext)
     void onClickNext(){
 
-//        checkEarningUser();
         validator.validate();
 
     }
@@ -197,24 +179,6 @@ public class FormJobEarningFragment extends BaseFragment implements Validator.Va
         bundle.putString(FormOtherFragment.SALARY, gaji_bulanan);
         bundle.putString(FormOtherFragment.OTHER_INCOME, pendapatan_lain);
         bundle.putString(FormOtherFragment.OTHER_INCOME_SOURCE, sumber_pendapatan_lain);
-
-//        if(gaji_bulanan.isEmpty() ||
-//                pendapatan_lain.isEmpty()){
-//
-//            Toast.makeText(getContext(), "Pastikan Gaji Bulanan dan Pendaptan lain teriisi.", Toast.LENGTH_SHORT).show();
-//            etGajiBulanan.requestFocus();
-//
-//        }else {
-//
-//            FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-//            ft.replace(R.id.fragment_container, fragment);
-//            ft.commit();
-//
-//        }
-
-//        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-//        ft.replace(R.id.fragment_container, fragment);
-//        ft.commit();
 
         Intent intent = new Intent(parentActivity(), FormOtherActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);

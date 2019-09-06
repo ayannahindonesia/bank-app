@@ -110,7 +110,7 @@ public class FormOtherFragment extends BaseFragment implements FormOtherContract
     @BindView(R.id.etRelatedPhone)
     EditText etRelatedPhone;
 
-    @NotEmpty(message = "Masukan Nama Kerabat Anda")
+    @NotEmpty(message = "Masukan Nama Kerabat Anda", trim = true)
     @BindView(R.id.etRelatedName)
     EditText etRelatedName;
 
@@ -122,9 +122,6 @@ public class FormOtherFragment extends BaseFragment implements FormOtherContract
 
     @Inject
     public FormOtherFragment(){
-//        this.preferenceRepository = preferenceRepository;
-//        this.remotRepo = remotRepo;
-//        mComposite = new CompositeDisposable();
     }
 
     @Override
@@ -152,16 +149,6 @@ public class FormOtherFragment extends BaseFragment implements FormOtherContract
         spHubungan.setAdapter(mAdapter);
 
     }
-
-//    @Nullable
-//    @Override
-//    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-//        View view = inflater.inflate(R.layout.fragment_account_information_lainlain, container, false);
-//        ButterKnife.bind(this, view);
-//
-//        return view;
-//    }
-
 
     @OnClick(R.id.buttonNext)
     void onClickNext(){

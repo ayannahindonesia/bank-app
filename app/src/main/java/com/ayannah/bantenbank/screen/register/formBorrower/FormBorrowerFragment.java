@@ -36,7 +36,10 @@ import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.AssertTrue;
 import com.mobsandgeeks.saripaar.annotation.Checked;
+import com.mobsandgeeks.saripaar.annotation.Length;
+import com.mobsandgeeks.saripaar.annotation.Max;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
+import com.mobsandgeeks.saripaar.annotation.Order;
 import com.mobsandgeeks.saripaar.annotation.Select;
 
 import java.text.DateFormat;
@@ -55,6 +58,7 @@ import butterknife.OnClick;
 import butterknife.OnItemClick;
 import butterknife.OnItemSelected;
 import butterknife.OnTextChanged;
+import butterknife.Optional;
 
 public class FormBorrowerFragment extends BaseFragment implements FormBorrowerContract.View, Validator.ValidationListener {
 
@@ -89,6 +93,7 @@ public class FormBorrowerFragment extends BaseFragment implements FormBorrowerCo
     EditText etNamaIbu;
 
     @BindView(R.id.regist_spouseName)
+    @NotEmpty(trim = true)
     EditText etNamaPasangan;
 
     @NotEmpty(message = "Masukan Alamat Anda", trim = true)
@@ -104,6 +109,7 @@ public class FormBorrowerFragment extends BaseFragment implements FormBorrowerCo
     EditText etRw;
 
     @BindView(R.id.regist_phoneBorrower)
+    @NotEmpty(trim = true)
     EditText etTelpRumah;
 
     @NotEmpty(message = "Masukan Lama Menempati Rumah", trim = true)
