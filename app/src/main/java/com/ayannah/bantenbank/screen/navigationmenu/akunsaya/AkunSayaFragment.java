@@ -46,6 +46,7 @@ public class AkunSayaFragment extends BaseFragment implements AkunSayaContract.V
     @BindView(R.id.phoneNumber)
     EditText phoneNumber;
 
+    @NotEmpty(message = "Masukan Nama Panggilan Anda", trim = true)
     @BindView(R.id.etNickname)
     EditText nickname;
 
@@ -140,11 +141,16 @@ public class AkunSayaFragment extends BaseFragment implements AkunSayaContract.V
             public void onClick(DialogInterface dialog, int which) {
                 switch (which) {
                     case DialogInterface.BUTTON_POSITIVE:
+
                         dialogAlert.show();
                         mPresenter.updateDataUser(etEmail.getText().toString().trim(), nickname.getText().toString().trim());
+
                         break;
+
                     case DialogInterface.BUTTON_NEGATIVE:
+
                         dialog.cancel();
+
                         break;
                 }
             }
