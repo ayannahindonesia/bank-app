@@ -47,10 +47,10 @@ public class FormJobEarningFragment extends BaseFragment implements Validator.Va
     @BindView(R.id.etGajiBulanan)
     EditText etGajiBulanan;
 
-    @BindView(R.id.etPendapatanLain)@NotEmpty(trim = true)
+    @BindView(R.id.etPendapatanLain)
     EditText etPendapatanLain;
 
-    @BindView(R.id.etSumberPendapatanLain)@NotEmpty(trim = true)
+    @BindView(R.id.etSumberPendapatanLain)
     EditText etSumberPendaptanLain;
 
     @NotEmpty(message = "Masukan Nomor Induk Pegawai Anda", trim = true)
