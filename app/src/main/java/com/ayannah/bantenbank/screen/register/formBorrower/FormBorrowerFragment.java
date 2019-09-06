@@ -228,40 +228,66 @@ public class FormBorrowerFragment extends BaseFragment implements FormBorrowerCo
 
     @OnItemSelected(R.id.spPerkawinan)
     void onClickStatus() {
+
         if (spPerkawinan.getSelectedItem().toString().equals("Menikah")) {
+
             etNamaPasangan.setEnabled(true);
+
             regist_dateBirthSpouse.setEnabled(true);
+
             spPendidikan.setEnabled(true);
+
         } else {
+
             etNamaPasangan.setEnabled(false);
+
             regist_dateBirthSpouse.setEnabled(false);
+
             regist_dateBirthSpouse.setText(R.string.birthdate_format);
+
             spPendidikan.setEnabled(false);
+
         }
     }
 
     @OnClick(R.id.buttonNext)
     void onClickNext(){
+
         etNamaPasangan.setError(null);
+
         regist_dateBirthSpouse.setError(null);
 
         if (tvDateBirthBorrower.getText().equals("dd-mm-yyyy")) {
+
             tvDateBirthBorrower.setError("Pilih Tanggal Lahir Anda");
+
             tvDateBirthBorrower.setFocusableInTouchMode(true);
+
             tvDateBirthBorrower.requestFocus();
+
             Toast.makeText(parentActivity(), "Pilih Tanggal Lahir Anda", Toast.LENGTH_LONG).show();
+
         } else if (spPerkawinan.getSelectedItem().toString().equals("Menikah")) {
 
             if (etNamaPasangan.getText().toString().equals("")) {
+
                 etNamaPasangan.setError("Masukan Nama Pasangan Anda");
+
                 etNamaPasangan.requestFocus();
+
             } else if (regist_dateBirthSpouse.getText().toString().equals("dd-mm-yyyy")) {
+
                 regist_dateBirthSpouse.setError("");
+
                 Toast.makeText(parentActivity(), "Pilih Tanggal Lahir Pasangan Anda", Toast.LENGTH_LONG).show();
+
             } else {
+
                 validator.validate();
             }
+
         } else {
+
             validator.validate();
         }
 
