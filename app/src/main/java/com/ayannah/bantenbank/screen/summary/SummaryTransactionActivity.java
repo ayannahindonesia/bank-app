@@ -40,6 +40,8 @@ public class SummaryTransactionActivity extends DaggerAppCompatActivity {
     public static final String PRODUK = "produk";
     public static final String ADMIN = "admin";
     public static final String INTEREST = "interest";
+    public static final String LAYANAN = "layanan";
+    public static final String PRODUCTID = "productid";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

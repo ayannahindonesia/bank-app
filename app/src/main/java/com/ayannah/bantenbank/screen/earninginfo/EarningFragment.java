@@ -211,9 +211,12 @@ public class EarningFragment extends BaseFragment implements EarningContract.Vie
 
     @Override
     public void completeUpdateIncome() {
+        Bundle bundle = parentActivity().getIntent().getExtras();
+        assert bundle != null;
 
         dialog.dismiss();
         Intent intent = new Intent(parentActivity(), LoanActivity.class);
+        intent.putExtra("idService", bundle.getInt("id"));
         startActivity(intent);
     }
 
@@ -225,8 +228,11 @@ public class EarningFragment extends BaseFragment implements EarningContract.Vie
 
     @Override
     public void onClickNo() {
+        Bundle bundle = parentActivity().getIntent().getExtras();
+        assert bundle != null;
 
         Intent pinjaman = new Intent(parentActivity(), LoanActivity.class);
+        pinjaman.putExtra("idService", bundle.getInt("id"));
         popUpChangingIncome.dismiss();
         startActivity(pinjaman);
 

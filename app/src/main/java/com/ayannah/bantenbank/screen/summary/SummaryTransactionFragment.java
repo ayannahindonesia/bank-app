@@ -98,6 +98,14 @@ public class SummaryTransactionFragment extends BaseFragment implements SummaryT
     @Named("admin")
     int admin;
 
+    @Inject
+    @Named("layanan")
+    int layanan;
+
+    @Inject
+    @Named("productid")
+    int productid;
+
     private Validator validator;
 
     @Inject
@@ -186,7 +194,6 @@ public class SummaryTransactionFragment extends BaseFragment implements SummaryT
 
     @Override
     public void onValidationSucceeded() {
-
         //if validate is success
         JsonObject json = new JsonObject();
 
@@ -194,16 +201,17 @@ public class SummaryTransactionFragment extends BaseFragment implements SummaryT
 
         json.addProperty("loan_amount", x);
         json.addProperty("installment", tenor);
-        json.addProperty("loan_intention", alasan);
+//        json.addProperty("loan_intention", alasan);
+        json.addProperty("loan_intention", "Berjudi");
 
         if (tujuan.isEmpty()){
-
             json.addProperty("intention_details", "-");
         }else {
             json.addProperty("intention_details", tujuan);
         }
 
-
+        json.addProperty("product", productid);
+        json.addProperty("service", layanan);
 
         mPresenter.loanApplication(json);
 
