@@ -305,8 +305,8 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
 
                     bottomSheetDialogGlobal = new BottomSheetDialogGlobal().show(parentActivity().getSupportFragmentManager(),
                             BottomSheetDialogGlobal.FORBIDDEN_LOAN_PNS,
-                            "Pengajuan Pinjaman PNS Kamu Sedang Proses",
-                            "Kamu belum bisa mengajukan peminjaman PNS lagi hingga pengajuan sebelumnya telah selesai dari proses",
+                            "Pengajuan Pinjaman Terakhir Sedang Proses",
+                            "Kamu belum bisa mengajukan peminjaman hingga pengajuan sebelumnya telah selesai dari proses.",
                             R.drawable.img_processing);
                     bottomSheetDialogGlobal.setOnClickBottomSheetInstruction(new BottomSheetDialogGlobal.BottomSheetInstructionListener() {
                         @Override
@@ -338,58 +338,6 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
                     intent.putExtra("name", menuProduct.getName());
                     startActivity(intent);
                 }
-
-//                switch (menuProduct.getName()){
-//
-//                    case "Pinjaman PNS":
-//
-//                        if (statusLoan.equals("processing")) {
-//
-//                            bottomSheetDialogGlobal = new BottomSheetDialogGlobal().show(parentActivity().getSupportFragmentManager(),
-//                                    BottomSheetDialogGlobal.FORBIDDEN_LOAN_PNS,
-//                                    "Pengajuan Pinjaman PNS Kamu Sedang Proses",
-//                                    "Kamu belum bisa mengajukan peminjaman PNS lagi hingga pengajuan sebelumnya telah selesai dari proses",
-//                                    R.drawable.img_processing);
-//                            bottomSheetDialogGlobal.setOnClickBottomSheetInstruction(new BottomSheetDialogGlobal.BottomSheetInstructionListener() {
-//                                @Override
-//                                public void onClickButtonDismiss() {
-//
-//                                    bottomSheetDialogGlobal.dismiss();
-//
-//                                    Intent intent = new Intent(parentActivity(), HistoryLoanActivity.class);
-//                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//                                    startActivity(intent);
-//                                }
-//
-//                                @Override
-//                                public void onClickButtonYes() {
-//                                    //nothing to do
-//                                }
-//
-//                                @Override
-//                                public void closeApps() {
-//                                    //nothing to do
-//
-//                                }
-//                            });
-//                        } else {
-//
-//                            Intent intent = new Intent(parentActivity(), EarningActivity.class);
-//                            startActivity(intent);
-//
-//                        }
-//
-//                        break;
-//
-//                    case "Pinjaman Lainnya":
-//
-//                        if (menuProduct.getStatus().equals("inactive")) {
-//
-//                            Toast.makeText(parentActivity(), "Coming Soon...", Toast.LENGTH_SHORT).show();
-//                        }
-//
-//                        break;
-//                }
 
             }
         });

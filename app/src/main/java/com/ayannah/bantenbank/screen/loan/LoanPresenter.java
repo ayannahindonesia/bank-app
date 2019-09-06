@@ -77,4 +77,30 @@ public class LoanPresenter implements LoanContract.Presenter {
         }));
 
     }
+
+    @Override
+    public void getReasonLoan() {
+
+        if(mView == null){
+            return;
+        }
+
+        mComposite.add(remoteRepository.getReasons()
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(response -> {
+
+            mView.showReason(response.getData());
+
+        }, error ->{
+
+            ANError anError = (ANError) error;
+            if(anError.getErrorBody() != null){
+
+                JSONObject json = new JSONObject(anError.getErrorBody());
+                mView.showErrorMessage(json.optString("message"));
+            }
+
+        }));
+    }
 }

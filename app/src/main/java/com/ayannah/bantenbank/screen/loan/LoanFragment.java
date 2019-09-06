@@ -21,6 +21,7 @@ import com.ayannah.bantenbank.R;
 import com.ayannah.bantenbank.data.model.BankDetail;
 import com.ayannah.bantenbank.data.model.FeesItem;
 import com.ayannah.bantenbank.data.model.Products;
+import com.ayannah.bantenbank.data.model.ReasonLoan;
 import com.ayannah.bantenbank.data.model.ServiceProducts;
 import com.ayannah.bantenbank.screen.summary.SummaryTransactionActivity;
 import com.ayannah.bantenbank.base.BaseFragment;
@@ -95,9 +96,6 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
     private List<String> productName;
     private ServiceProducts mServiceProducts;
 
-//    double saldoPinjaman = 0;
-    String[] alasan = {"Pendidikan", "Pembelian rumah", "Rumah tangga", "Liburan", "Kendaraan", "Umroh", "Lain-lain"};
-
     @Inject
     public LoanFragment(){}
 
@@ -119,31 +117,34 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
         dialog.show();
         mPresenter.getProducts();
 
+        mPresenter.getReasonLoan();
+
     }
 
     @Override
     protected void initView(Bundle state) {
 
+
         calculateDefaultValue();
 
-        ArrayAdapter<String> mAdapterAlasan = new ArrayAdapter<>(parentActivity(), R.layout.item_custom_spinner, alasan);
-        spAlasanPinjam.setAdapter(mAdapterAlasan);
-        spAlasanPinjam.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if(parent.getSelectedItem().equals("Lain-lain")){
-
-                    lyAlasanLain.setVisibility(View.VISIBLE);
-                }else {
-                    lyAlasanLain.setVisibility(View.GONE);
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
+//        ArrayAdapter<String> mAdapterAlasan = new ArrayAdapter<>(parentActivity(), R.layout.item_custom_spinner, alasan);
+//        spAlasanPinjam.setAdapter(mAdapterAlasan);
+//        spAlasanPinjam.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                if(parent.getSelectedItem().equals("Lain-lain")){
+//
+//                    lyAlasanLain.setVisibility(View.VISIBLE);
+//                }else {
+//                    lyAlasanLain.setVisibility(View.GONE);
+//                }
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
 
         sbJumlahPinjaman.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -309,6 +310,37 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
             Toast.makeText(parentActivity(), "Produk Kosong", Toast.LENGTH_LONG).show();
         }
         dialog.dismiss();
+    }
+
+    @Override
+    public void showReason(List<ReasonLoan.Data> data) {
+
+        List<String> chooser = new ArrayList<>();
+        for(ReasonLoan.Data x:data){
+            if(x.getStatus().equals("active")) {
+                chooser.add(x.getName());
+            }
+        }
+        chooser.add("Lain-lain");
+
+        ArrayAdapter<String> mAdapterAlasan = new ArrayAdapter<>(parentActivity(), R.layout.item_custom_spinner, chooser);
+        spAlasanPinjam.setAdapter(mAdapterAlasan);
+        spAlasanPinjam.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(parent.getSelectedItem().equals("Lain-lain")){
+
+                    lyAlasanLain.setVisibility(View.VISIBLE);
+                }else {
+                    lyAlasanLain.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     @OnItemSelected(R.id.spProducts)
