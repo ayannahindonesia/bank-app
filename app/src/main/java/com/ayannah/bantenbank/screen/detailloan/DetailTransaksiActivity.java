@@ -151,58 +151,20 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
         }
         dateCreated.setText(sdfUsed.format(getDate));
 
-        status.setText(dataItem.getStatus());
-
         switch (dataItem.getStatus().toLowerCase()){
             case STATUS_APPROVED:
                 status.setBackgroundResource(R.drawable.badge_diterima);
+                status.setText(getResources().getString(R.string.accept));
                 break;
             case STATUS_PROCESSING:
                 status.setBackgroundResource(R.drawable.badge_tidak_lengkap);
+                status.setText(getResources().getString(R.string.processing));
                 break;
             case STATUS_REJECTED:
                 status.setBackgroundResource(R.drawable.badge_ditolak);
+                status.setText(getResources().getString(R.string.reject));
                 break;
         }
-
-//        if(dataItem.isOtpVerified()){
-//
-//            switch (dataItem.getStatus().toLowerCase()){
-//                case STATUS_ACCEPTED:
-//                    status.setBackgroundResource(R.drawable.badge_diterima);
-//                    break;
-//                case STATUS_PROCESSING:
-//                    status.setBackgroundResource(R.drawable.badge_tidak_lengkap);
-//                    break;
-//                case STATUS_REJECTED:
-//                    status.setBackgroundResource(R.drawable.badge_ditolak);
-//                    break;
-//            }
-//            status.setText(dataItem.getStatus());
-//
-//        }else {
-//
-//            status.setBackgroundResource(R.drawable.badge_tertunda);
-//            status.setText("Tertunda");
-//        }
-
-//        switch (dataItem.getStatus().toLowerCase()){
-//            case STATUS_ACCEPTED:
-//                status.setText(getResources().getString(R.string.accept));
-//                status.setBackgroundResource(R.drawable.badge_diterima);
-//                break;
-//            case STATUS_PROCESSING:
-//                status.setText(getResources().getString(R.string.processing));
-//                status.setBackgroundResource(R.drawable.badge_tidak_lengkap);
-//                break;
-//            case STATUS_REJECTED:
-//                status.setText(getResources().getString(R.string.reject));
-//                status.setBackgroundResource(R.drawable.badge_ditolak);
-//                break;
-//            default:
-//                status.setBackgroundResource(R.drawable.badge_tertunda);
-//                status.setText("tertunda");
-//        }
 
         tujuan.setText(dataItem.getLoanIntention());
 

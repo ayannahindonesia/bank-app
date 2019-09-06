@@ -93,21 +93,27 @@ public class VerificationOTPActivity extends DaggerAppCompatActivity {
 
         //action when user trying click back button in otp activity
 
-        if(getIntent().getStringExtra(PURPOSES).equals("resubmit_loan")){
+        switch (getIntent().getStringExtra(PURPOSES)) {
+            case "resubmit_loan":
 
-            alertCancel(getResources().getString(R.string.resubmit_loan_alert));
+                alertCancel(getResources().getString(R.string.resubmit_loan_alert));
 
-        }else if(getIntent().getStringExtra(PURPOSES).equals("pinjaman")){
+                break;
+            case "pinjaman":
 
-            alertCancel(getResources().getString(R.string.submit_loan_alert));
-        }else if (getIntent().getStringExtra(PURPOSES).equals("regist")) {
+                alertCancel(getResources().getString(R.string.submit_loan_alert));
+                break;
+            case "regist":
 
-            alertCancel(getResources().getString(R.string.otp_regist_alert));
-        } else if (getIntent().getStringExtra(PURPOSES).equals("resubmit_regist")) {
+                alertCancel(getResources().getString(R.string.otp_regist_alert));
+                break;
+            case "resubmit_regist":
 
-            alertCancel(getResources().getString(R.string.resubmit_regist_alert));
-        } else {
-            super.onBackPressed();
+                alertCancel(getResources().getString(R.string.resubmit_regist_alert));
+                break;
+            default:
+                super.onBackPressed();
+                break;
         }
     }
 
@@ -144,7 +150,26 @@ public class VerificationOTPActivity extends DaggerAppCompatActivity {
 
     @Override
     public boolean onSupportNavigateUp() {
-        finish();
+        switch (getIntent().getStringExtra(PURPOSES)) {
+            case "resubmit_loan":
+
+                alertCancel(getResources().getString(R.string.resubmit_loan_alert));
+
+                break;
+            case "pinjaman":
+
+                alertCancel(getResources().getString(R.string.submit_loan_alert));
+                break;
+            case "regist":
+
+                alertCancel(getResources().getString(R.string.otp_regist_alert));
+                break;
+            case "resubmit_regist":
+
+                alertCancel(getResources().getString(R.string.resubmit_regist_alert));
+                break;
+        }
+//        finish();
         return super.onSupportNavigateUp();
     }
 }
