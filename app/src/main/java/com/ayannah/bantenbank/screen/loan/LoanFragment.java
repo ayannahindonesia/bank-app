@@ -90,6 +90,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
 
     int installmentTenor = 0;
     double angsurnaPerbulan = 0;
+    int productID = 0;
 
     private List<String> productName;
     private ServiceProducts mServiceProducts;
@@ -241,6 +242,8 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
 
     @OnClick(R.id.buttonPinjam)
     void onClickPinjam(){
+        Bundle bundle = parentActivity().getIntent().getExtras();
+        assert bundle != null;
 
         if (productName == null) {
             Toast.makeText(parentActivity(), "Produk Tidak Boleh Kosong", Toast.LENGTH_LONG).show();
@@ -253,6 +256,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
         intent.putExtra(SummaryTransactionActivity.TENOR, installmentTenor);
         intent.putExtra(SummaryTransactionActivity.ANGSURAN_BULAN, angsurnaPerbulan);
         intent.putExtra(SummaryTransactionActivity.PRODUK, spProducts.getSelectedItem().toString());
+        intent.putExtra(SummaryTransactionActivity.PRODUCTID, productID);
         intent.putExtra(SummaryTransactionActivity.ADMIN, administration);
         intent.putExtra(SummaryTransactionActivity.INTEREST, interest);
 
@@ -275,6 +279,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
         }
 
         intent.putExtra(SummaryTransactionActivity.TUJUAN, etTujuan.getText().toString());
+        intent.putExtra(SummaryTransactionActivity.LAYANAN, bundle.getInt("idService"));
         startActivity(intent);
 
     }
@@ -308,10 +313,11 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
 
     @OnItemSelected(R.id.spProducts)
     void ClickProduct(Spinner spinner, int position) {
-        administration = Integer.parseInt(mServiceProducts.getProducts().get(position).getFees().getAmount());
+        administration = Integer.parseInt(mServiceProducts.getProducts().get(position).getFees().get(0).getAmount());
         interest = mServiceProducts.getProducts().get(position).getInterest();
         sbJumlahPinjaman.setProgress(0);
         installment.setProgress(0);
+        productID = mServiceProducts.getProducts().get(position).getId();
 
         calculateDefaultValue();
     }

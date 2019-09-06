@@ -14,7 +14,9 @@ import static com.ayannah.bantenbank.screen.summary.SummaryTransactionActivity.A
 import static com.ayannah.bantenbank.screen.summary.SummaryTransactionActivity.ALASAN;
 import static com.ayannah.bantenbank.screen.summary.SummaryTransactionActivity.ANGSURAN_BULAN;
 import static com.ayannah.bantenbank.screen.summary.SummaryTransactionActivity.INTEREST;
+import static com.ayannah.bantenbank.screen.summary.SummaryTransactionActivity.LAYANAN;
 import static com.ayannah.bantenbank.screen.summary.SummaryTransactionActivity.PINJAMAN;
+import static com.ayannah.bantenbank.screen.summary.SummaryTransactionActivity.PRODUCTID;
 import static com.ayannah.bantenbank.screen.summary.SummaryTransactionActivity.SALDO_PINJAMAN;
 import static com.ayannah.bantenbank.screen.summary.SummaryTransactionActivity.TENOR;
 import static com.ayannah.bantenbank.screen.summary.SummaryTransactionActivity.TUJUAN;
@@ -92,7 +94,21 @@ public abstract class SummaryTransactionModule {
     @ActivityScoped
     @Named("interest")
     static int interest(SummaryTransactionActivity summaryTransactionActivity) {
-            return summaryTransactionActivity.getIntent().getIntExtra(INTEREST, 0);
+        return summaryTransactionActivity.getIntent().getIntExtra(INTEREST, 0);
+    }
+
+    @Provides
+    @ActivityScoped
+    @Named("layanan")
+    static int layanan(SummaryTransactionActivity activity){
+        return activity.getIntent().getIntExtra(LAYANAN, 0);
+    }
+
+    @Provides
+    @ActivityScoped
+    @Named("productid")
+    static int productid(SummaryTransactionActivity activity){
+        return activity.getIntent().getIntExtra(PRODUCTID, 0);
     }
 
 

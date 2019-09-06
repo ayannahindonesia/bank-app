@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 public class Products {
 
 	@SerializedName("fees")
-	private FeesItem fees;
+	private List<FeesItem> fees;
 
 	@SerializedName("min_timespan")
 	private int minTimespan;
@@ -47,12 +47,12 @@ public class Products {
 	@SerializedName("status")
 	private String status;
 
-	public void setFees(FeesItem fees){
-		this.fees = fees;
+	public List<FeesItem> getFees() {
+		return fees;
 	}
 
-	public FeesItem getFees(){
-		return fees;
+	public void setFees(List<FeesItem> fees) {
+		this.fees = fees;
 	}
 
 	public void setMinTimespan(int minTimespan){
