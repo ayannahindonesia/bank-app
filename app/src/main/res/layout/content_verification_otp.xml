@@ -32,7 +32,7 @@
             android:layout_height="wrap_content" />
 
 
-        <com.ayannah.bantenbank.custom.PinEntryEditText
+        <com.ayannah.asira.custom.PinEntryEditText
             android:id="@+id/etPin"
             android:inputType="number"
             android:layout_gravity="center_horizontal"
