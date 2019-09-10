@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "297773061858",
+    "firebase_url": "https://asira-app-33ed7.firebaseio.com",
+    "project_id": "asira-app-33ed7",
+    "storage_bucket": "asira-app-33ed7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:297773061858:android:417cbe557092ca6dc9f0bb",
+        "android_client_info": {
+          "package_name": "com.ayannah.asira"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "297773061858-mf2frcdfdbp0sg0cv9t39dhsls4l5amu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ayannah.asira",
+            "certificate_hash": "4bf8a402733a61c014f8488bac50c555dbf55a6f"
+          }
+        },
+        {
+          "client_id": "297773061858-oj9uk7ddgcfuqft8o5c0acrm76icdhic.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCShFJuW3ORJ4JV2wniMlD1T0Ud2mutVf4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "297773061858-oj9uk7ddgcfuqft8o5c0acrm76icdhic.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
