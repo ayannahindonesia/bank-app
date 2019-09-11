@@ -51,7 +51,8 @@ public class RemoteDataSource implements RemoteRepository {
     @Override
     public Single<Provinsi> getProvinsi() {
 
-        return Rx2AndroidNetworking.get(BuildConfig.API_INDONESIA_LOC + "daerahindonesia/provinsi")
+        return Rx2AndroidNetworking.get(BuildConfig.API_ASIRA_GEO_MAP + "client/provinsi")
+                .addHeaders("Authorization", preferenceRepository.getPublicToken())
                 .setPriority(Priority.MEDIUM)
                 .build()
                 .getObjectSingle(Provinsi.class);
@@ -60,7 +61,8 @@ public class RemoteDataSource implements RemoteRepository {
 
     @Override
     public Single<Kabupaten> getKabupaten(String idProvinsi) {
-        return Rx2AndroidNetworking.get(BuildConfig.API_INDONESIA_LOC + "daerahindonesia/provinsi/{idprovinsi}/kabupaten")
+        return Rx2AndroidNetworking.get(BuildConfig.API_ASIRA_GEO_MAP + "client/provinsi/{idprovinsi}/kota")
+                .addHeaders("Authorization", preferenceRepository.getPublicToken())
                 .addPathParameter("idprovinsi", idProvinsi)
                 .setPriority(Priority.MEDIUM)
                 .build()
@@ -69,7 +71,8 @@ public class RemoteDataSource implements RemoteRepository {
 
     @Override
     public Single<Kecamatan> getKecamatan(String idKabupaten) {
-        return Rx2AndroidNetworking.get(BuildConfig.API_INDONESIA_LOC + "daerahindonesia/provinsi/kabupaten/{idkabupaten}/kecamatan")
+        return Rx2AndroidNetworking.get(BuildConfig.API_ASIRA_GEO_MAP + "client/provinsi/kota/{idkabupaten}/kecamatan")
+                .addHeaders("Authorization", preferenceRepository.getPublicToken())
                 .addPathParameter("idkabupaten", idKabupaten)
                 .setPriority(Priority.MEDIUM)
                 .build()
@@ -78,7 +81,8 @@ public class RemoteDataSource implements RemoteRepository {
 
     @Override
     public Single<Kelurahan> getKelurahan(String idKecamatan) {
-        return Rx2AndroidNetworking.get(BuildConfig.API_INDONESIA_LOC + "daerahindonesia/provinsi/kabupaten/kecamatan/{idkecamatan}/desa")
+        return Rx2AndroidNetworking.get(BuildConfig.API_ASIRA_GEO_MAP + "client/provinsi/kota/kecamatan/{idkecamatan}/kelurahan")
+                .addHeaders("Authorization", preferenceRepository.getPublicToken())
                 .addPathParameter("idkecamatan", idKecamatan)
                 .setPriority(Priority.MEDIUM)
                 .build()

@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Kecamatan extends BaseResponse{
 
-	@SerializedName("kecamatans")
+	@SerializedName("data")
 	private List<KecatamanItem> daftarKecamatan;
 
 	public List<KecatamanItem> getDaftarKecamatan(){
@@ -15,13 +15,13 @@ public class Kecamatan extends BaseResponse{
 
 	public static class KecatamanItem{
 
-		@SerializedName("nama")
+		@SerializedName("name")
 		private String nama;
 
 		@SerializedName("id")
 		private String id;
 
-		@SerializedName("id_kabupaten")
+		@SerializedName("city_id")
 		private String idKabupaten;
 
 		public String getNama(){

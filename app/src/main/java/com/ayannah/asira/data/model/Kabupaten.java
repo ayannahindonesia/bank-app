@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class Kabupaten extends BaseResponse{
 
-	@SerializedName("kabupatens")
+	@SerializedName("data")
 	private List<KabupatenItem> daftarKabupaten;
 
 	public List<KabupatenItem> getDaftarKabupaten() {
@@ -14,14 +14,14 @@ public class Kabupaten extends BaseResponse{
 
 	public static class KabupatenItem{
 
-		@SerializedName("nama")
+		@SerializedName("name")
 		private String nama;
 
 		@SerializedName("id")
 		private String id;
 
-		@SerializedName("id_prov")
-		private String idProv;
+//		@SerializedName("id_prov")
+//		private String idProv;
 
 		public void setNama(String nama){
 			this.nama = nama;
@@ -39,8 +39,8 @@ public class Kabupaten extends BaseResponse{
 			return id;
 		}
 
-		public String getIdProv() {
-			return idProv;
-		}
+//		public String getIdProv() {
+//			return idProv;
+//		}
 	}
 }

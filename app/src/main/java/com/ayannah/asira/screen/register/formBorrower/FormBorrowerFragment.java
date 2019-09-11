@@ -445,20 +445,20 @@ public class FormBorrowerFragment extends BaseFragment implements FormBorrowerCo
 
         ArrayAdapter<String> mAdapter = new ArrayAdapter<>(parentActivity(), R.layout.item_custom_spinner, names);
         spKelurahan.setAdapter(mAdapter);
-        spKelurahan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                if(position != 0){
-                    mPresenter.getKelurahan(ids.get(position));
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
+//        spKelurahan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//
+//                if(position != 0){
+//                    mPresenter.getKelurahan(ids.get(position));
+//                }
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
 
     }
 

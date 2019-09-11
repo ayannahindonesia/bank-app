@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class Kelurahan extends BaseResponse{
 
-	@SerializedName("desas")
+	@SerializedName("data")
 	private List<KelurahanItem> daftarDesa;
 
 	public List<KelurahanItem> getDaftarDesa(){
@@ -14,14 +14,20 @@ public class Kelurahan extends BaseResponse{
 
 	public static class KelurahanItem{
 
-		@SerializedName("id_kecamatan")
+		@SerializedName("district_id")
 		private String idKecamatan;
 
-		@SerializedName("nama")
+		@SerializedName("name")
 		private String nama;
 
 		@SerializedName("id")
 		private String id;
+
+		@SerializedName("zip_code")
+		private int zip_code;
+
+		@SerializedName("area_code")
+		private String area_code;
 
 		public String getIdKecamatan(){
 			return idKecamatan;
@@ -35,5 +41,12 @@ public class Kelurahan extends BaseResponse{
 			return id;
 		}
 
+		public int getZip_code() {
+			return zip_code;
+		}
+
+		public String getArea_code() {
+			return area_code;
+		}
 	}
 }

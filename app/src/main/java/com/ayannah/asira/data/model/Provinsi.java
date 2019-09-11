@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Provinsi extends BaseResponse {
 
-    @SerializedName("semuaprovinsi")
+    @SerializedName("data")
     private List<Data> semuaprovinsi;
 
     public List<Data> getSemuaprovinsi() {
@@ -18,7 +18,7 @@ public class Provinsi extends BaseResponse {
         @SerializedName("id")
         private String id;
 
-        @SerializedName("nama")
+        @SerializedName("name")
         private String nama;
 
         public String getId() {

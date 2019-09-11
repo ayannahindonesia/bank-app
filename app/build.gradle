@@ -15,6 +15,7 @@ android {
 
         buildConfigField("String", "API_URL", API_URL)
         buildConfigField("String", "API_INDONESIA_LOC", API_INDONESIA_LOC)
+        buildConfigField("String", "API_ASIRA_GEO_MAP", API_ASIRA_GEO_MAP)
     }
     buildTypes {
         release {
