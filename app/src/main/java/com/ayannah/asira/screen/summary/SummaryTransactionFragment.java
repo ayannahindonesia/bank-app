@@ -182,7 +182,7 @@ public class SummaryTransactionFragment extends BaseFragment implements SummaryT
     public void successGetOtp(String loanOTP, String id_loan) {
 
         Intent intent = new Intent(parentActivity(), VerificationOTPActivity.class);
-        intent.putExtra("purpose", "pinjaman");
+        intent.putExtra("purpose", "post_pinjaman");
 //        intent.putExtra("otp_loan", loanOTP);
         intent.putExtra("id_loan", id_loan);
         startActivity(intent);
