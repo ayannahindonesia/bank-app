@@ -44,6 +44,9 @@ public class SummaryTransactionFragment extends BaseFragment implements SummaryT
     @BindView(R.id.biayaAdmin)
     TextView tvBiayaAdmin;
 
+    @BindView(R.id.jumlahPencairan)
+    TextView jumlahPencairan;
+
     @BindView(R.id.angsuranBulanan)
     TextView tvAngsuran;
 
@@ -104,6 +107,10 @@ public class SummaryTransactionFragment extends BaseFragment implements SummaryT
     @Named("productid")
     int productid;
 
+    @Inject
+    @Named("pencairan")
+    double pencairan;
+
     private Validator validator;
 
     @Inject
@@ -134,6 +141,8 @@ public class SummaryTransactionFragment extends BaseFragment implements SummaryT
 
         int calBiayaAdmin = admin;
         tvBiayaAdmin.setText(CommonUtils.setRupiahCurrency(calBiayaAdmin));
+
+        jumlahPencairan.setText(CommonUtils.setRupiahCurrency((int)pencairan));
 
         double calAngsuran = (pinjaman + calculateBunga + calBiayaAdmin)/tenor;
         tvAngsuran.setText(CommonUtils.setRupiahCurrency((int) Math.floor(calAngsuran)));

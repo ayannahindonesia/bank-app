@@ -2,7 +2,11 @@ package com.ayannah.asira.screen.loan;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -20,6 +24,7 @@ import com.ayannah.asira.data.model.ServiceProducts;
 import com.ayannah.asira.screen.summary.SummaryTransactionActivity;
 import com.ayannah.asira.base.BaseFragment;
 import com.ayannah.asira.util.CommonUtils;
+import com.ayannah.asira.util.NumberSeparatorTextWatcher;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,6 +61,9 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
     @BindView(R.id.saldoPokokPinjaman)
     TextView saldoPokokPinjaman;
 
+    @BindView(R.id.jumlahPencairan)
+    TextView jumlahPencairan;
+
     @BindView(R.id.biayaAdmin)
     TextView biayaAdmin;
 
@@ -64,6 +72,12 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
 
     @BindView(R.id.lyAlasanLain)
     LinearLayout lyAlasanLain;
+
+    @BindView(R.id.plafond)
+    EditText plafond;
+
+    @BindView(R.id.plafonMinMax)
+    TextView plafonMinMax;
 
     @BindView(R.id.etAlasan)
     EditText etAlasan;
@@ -77,6 +91,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
     private AlertDialog dialog;
 
     int administration = 1000;
+    int convenientFee = 1500;
 
     int[] loanRepo = {5000000, 10000000, 15000000, 20000000, 25000000, 30000000, 35000000, 40000000, 45000000, 50000000};
     double loanAmount = 0;
@@ -86,8 +101,11 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
     double angsurnaPerbulan = 0;
     int productID = 0;
 
+    double countPencairan = 0.0;
+
     private List<String> productName;
     private ServiceProducts mServiceProducts;
+    private NumberSeparatorTextWatcher plafonNumberSeparator;
 
     @Inject
     public LoanFragment(){}
@@ -117,27 +135,16 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
     @Override
     protected void initView(Bundle state) {
 
+//        calculateDefaultValue();
 
-        calculateDefaultValue();
-
-//        ArrayAdapter<String> mAdapterAlasan = new ArrayAdapter<>(parentActivity(), R.layout.item_custom_spinner, alasan);
-//        spAlasanPinjam.setAdapter(mAdapterAlasan);
-//        spAlasanPinjam.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                if(parent.getSelectedItem().equals("Lain-lain")){
-//
-//                    lyAlasanLain.setVisibility(View.VISIBLE);
-//                }else {
-//                    lyAlasanLain.setVisibility(View.GONE);
-//                }
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parent) {
-//
-//            }
-//        });
+        //memberikan number currenxt saat input angka plafon pinjaman
+        plafonNumberSeparator = new NumberSeparatorTextWatcher(plafond);
+        plafond.setOnFocusChangeListener((v, hasFocus) -> {
+            if(hasFocus){
+                plafond.addTextChangedListener(plafonNumberSeparator);
+            }
+        });
+        plafond.setFocusable(true);
 
         sbJumlahPinjaman.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -153,10 +160,15 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
                 if(installment.getProgress() == 0) {
 
                     installmentTenor = (installment.getProgress() + 1) * 6;
+
                 }else {
 
                     installmentTenor = (installment.getProgress() + 1) * 6;
+
                 }
+
+                //calculate jumlapencairan
+                countPencairan = calculatePotongPlafond(loanAmount)/installmentTenor;
 
                 //calculate bunga
                 double bunga =  (loanAmount * interest) / 100;
@@ -168,6 +180,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
                 biayaAdmin.setText(CommonUtils.setRupiahCurrency((int) Math.floor(administration)));
                 tvBunga.setText(CommonUtils.setRupiahCurrency((int) Math.floor(bunga)));
                 tvAngsuran.setText(CommonUtils.setRupiahCurrency((int) Math.floor(angsurnaPerbulan)));
+                jumlahPencairan.setText(CommonUtils.setRupiahCurrency((int) Math.floor(countPencairan)));
 
             }
 
@@ -193,10 +206,15 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
                 //calculate angsuran perbulan
                 angsurnaPerbulan = (loanAmount + bunga + administration) / installmentTenor;
 
+                //calculate jumlapencairan
+                countPencairan = calculatePotongPlafond(loanAmount)/installmentTenor;
+
                 tvInstallment.setText(String.format("%s bulan", installmentTenor));
                 biayaAdmin.setText(CommonUtils.setRupiahCurrency((int) Math.floor(administration)));
                 tvBunga.setText(CommonUtils.setRupiahCurrency((int) Math.floor(bunga)));
                 tvAngsuran.setText(CommonUtils.setRupiahCurrency((int) Math.floor(angsurnaPerbulan)));
+                jumlahPencairan.setText(CommonUtils.setRupiahCurrency((int) Math.floor(countPencairan)));
+
             }
 
             @Override
@@ -227,11 +245,20 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
         //calculate angsuran perbulan
         angsurnaPerbulan = (loanAmount + bunga + administration) / installmentTenor;
 
+        //calculate jumlapencairan
+        countPencairan = calculatePotongPlafond(loanAmount)/installmentTenor;
+
         tvInstallment.setText(String.format("%s bulan", installmentTenor));
         biayaAdmin.setText(CommonUtils.setRupiahCurrency((int) Math.floor(administration)));
         tvBunga.setText(CommonUtils.setRupiahCurrency((int) Math.floor(bunga)));
         tvAngsuran.setText(CommonUtils.setRupiahCurrency((int) Math.floor(angsurnaPerbulan)));
+        jumlahPencairan.setText(CommonUtils.setRupiahCurrency((int) Math.floor(countPencairan)));
 
+    }
+
+    private double calculatePotongPlafond(double plafond){
+
+        return plafond - administration;
     }
 
     @OnClick(R.id.buttonPinjam)
@@ -253,6 +280,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
         intent.putExtra(SummaryTransactionActivity.PRODUCTID, productID);
         intent.putExtra(SummaryTransactionActivity.ADMIN, administration);
         intent.putExtra(SummaryTransactionActivity.INTEREST, interest);
+        intent.putExtra(SummaryTransactionActivity.PENCAIRAN, countPencairan);
 
         if(spAlasanPinjam.getSelectedItem().toString().equals("Lain-lain")){
 
@@ -287,8 +315,11 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
     @Override
     public void successGetProducts(ServiceProducts serviceProducts) {
         int size = serviceProducts.getProducts().size();
+
         if (size > 0) {
+
             mServiceProducts = serviceProducts;
+
             productName = new ArrayList<>();
 
             for (int i = 0; i < size; i++) {
@@ -299,7 +330,101 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
 
             ArrayAdapter<String> mAdapterProducts = new ArrayAdapter<>(parentActivity(), R.layout.item_custom_spinner, productName);
             spProducts.setAdapter(mAdapterProducts);
+
+            spProducts.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                    //set plafond sesuai dengan product yang dipilih
+                    plafonMinMax.setText(String.format("Min %s - Max %s", CommonUtils.setRupiahCurrency(serviceProducts.getProducts().get(position).getMinLoan()),
+                            CommonUtils.setRupiahCurrency(serviceProducts.getProducts().get(position).getMaxLoan())));
+
+                    //check plafond input
+                    plafond.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                        @Override
+                        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+
+                            if(actionId == EditorInfo.IME_ACTION_DONE){
+
+                                if(!plafond.getText().toString().trim().isEmpty()){
+
+                                    int nominal = Integer.parseInt(plafond.getText().toString().replaceAll(",", ""));
+
+                                    if(nominal < serviceProducts.getProducts().get(position).getMinLoan()){
+
+                                        // jumlah pinjaman lebih kecil dari batas minimum
+                                        Toast.makeText(parentActivity(), "Jumlah pinjmana lebih kecil dari batas minimum", Toast.LENGTH_SHORT).show();
+
+
+                                    }else if(nominal > serviceProducts.getProducts().get(position).getMaxLoan()){
+
+                                        // Jumlaj pinhaman lebih besar dari batas maksimum
+                                        Toast.makeText(parentActivity(), "Jumlah pinjmana lebih besar dari batas maximum", Toast.LENGTH_SHORT).show();
+
+                                    }else {
+
+                                        //acceptable
+                                        Toast.makeText(parentActivity(), "Diterima", Toast.LENGTH_SHORT).show();
+
+                                        //set rincian harga
+                                        String value = plafond.getText().toString().replaceAll(",", "");
+                                        loanAmount = Double.parseDouble(value);
+
+                                        //base on seekbar installment
+                                        installmentTenor = (installment.getVerticalScrollbarPosition()+1) * 6;
+
+                                        //calculate bunga
+                                        interest = serviceProducts.getProducts().get(position).getInterest();
+                                        double bunga = (loanAmount * interest) / 100;
+
+                                        //calculate angsuran perbulan
+                                        angsurnaPerbulan = (loanAmount + bunga + administration) / installmentTenor;
+
+                                        //calculate jumlapencairan
+                                        int asnfee = 0;
+                                        if(serviceProducts.getProducts().get(position).getAsnFee().contains("%")){
+
+                                            asnfee = Integer.parseInt(serviceProducts.getProducts().get(position).getAsnFee().replaceAll("%", ""));
+
+                                            countPencairan = (calculatePotongPlafond(loanAmount) * asnfee / 100) /installmentTenor;
+
+                                        }else {
+
+                                            asnfee = Integer.parseInt(serviceProducts.getProducts().get(position).getAsnFee());
+
+                                            countPencairan = (calculatePotongPlafond(loanAmount) - asnfee) /installmentTenor;
+                                        }
+
+                                        tvInstallment.setText(String.format("%s bulan", installmentTenor));
+                                        biayaAdmin.setText(CommonUtils.setRupiahCurrency((int) Math.floor(administration)));
+                                        tvBunga.setText(CommonUtils.setRupiahCurrency((int) Math.floor(bunga)));
+                                        tvAngsuran.setText(CommonUtils.setRupiahCurrency((int) Math.floor(angsurnaPerbulan)));
+                                        jumlahPencairan.setText(CommonUtils.setRupiahCurrency((int) Math.floor(countPencairan)));
+                                    }
+
+                                }else {
+
+                                    Toast.makeText(parentActivity(), "Mohon isi jumlah pinjaman", Toast.LENGTH_SHORT).show();
+                                }
+
+                            }
+
+                            return false;
+                        }
+                    });
+
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+
+
+
         } else {
+
             Toast.makeText(parentActivity(), "Produk Kosong", Toast.LENGTH_LONG).show();
         }
         dialog.dismiss();

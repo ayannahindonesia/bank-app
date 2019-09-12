@@ -15,6 +15,7 @@ import static com.ayannah.asira.screen.summary.SummaryTransactionActivity.ALASAN
 import static com.ayannah.asira.screen.summary.SummaryTransactionActivity.ANGSURAN_BULAN;
 import static com.ayannah.asira.screen.summary.SummaryTransactionActivity.INTEREST;
 import static com.ayannah.asira.screen.summary.SummaryTransactionActivity.LAYANAN;
+import static com.ayannah.asira.screen.summary.SummaryTransactionActivity.PENCAIRAN;
 import static com.ayannah.asira.screen.summary.SummaryTransactionActivity.PINJAMAN;
 import static com.ayannah.asira.screen.summary.SummaryTransactionActivity.PRODUCTID;
 import static com.ayannah.asira.screen.summary.SummaryTransactionActivity.TENOR;
@@ -109,6 +110,14 @@ public abstract class SummaryTransactionModule {
     static int productid(SummaryTransactionActivity activity){
         return activity.getIntent().getIntExtra(PRODUCTID, 0);
     }
+
+    @Provides
+    @ActivityScoped
+    @Named("pencairan")
+    static double pencairan(SummaryTransactionActivity activity){
+        return activity.getIntent().getDoubleExtra(PENCAIRAN, 0);
+    }
+
 
 
 }
