@@ -4,8 +4,12 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.ayannah.asira.R;
+import com.ayannah.asira.screen.historyloan.HistoryLoanActivity;
+import com.ayannah.asira.screen.homemenu.MainMenuActivity;
+import com.ayannah.asira.screen.loan.LoanActivity;
 import com.ayannah.asira.screen.login.LoginActivity;
 import com.ayannah.asira.util.ActivityUtils;
 
@@ -80,6 +84,10 @@ public class VerificationOTPActivity extends DaggerAppCompatActivity {
 
                 alertCancel(getResources().getString(R.string.resubmit_regist_alert));
                 break;
+            case "post_pinjaman":
+
+                alertCancel(getResources().getString(R.string.resubmit_regist_alert));
+                break;
             default:
                 super.onBackPressed();
                 break;
@@ -96,6 +104,12 @@ public class VerificationOTPActivity extends DaggerAppCompatActivity {
 
                 if (getIntent().getStringExtra(PURPOSES).equals("regist")) {
                     Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    startActivity(intent);
+                } else if (getIntent().getStringExtra(PURPOSES).equals("post_pinjaman")) {
+                    Toast.makeText(VerificationOTPActivity.this, "Silahkan masuk ke halaman 'Pinjaman Saya'\nuntuk aktivasi pengajuan Anada", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getBaseContext(), MainMenuActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                     startActivity(intent);
                 } else {
                     finish();
@@ -134,6 +148,10 @@ public class VerificationOTPActivity extends DaggerAppCompatActivity {
                 alertCancel(getResources().getString(R.string.otp_regist_alert));
                 break;
             case "resubmit_regist":
+
+                alertCancel(getResources().getString(R.string.resubmit_regist_alert));
+                break;
+            case "post_pinjaman":
 
                 alertCancel(getResources().getString(R.string.resubmit_regist_alert));
                 break;
