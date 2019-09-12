@@ -575,6 +575,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
     }
 
     //hitung biaya adminsitrasi
+    //tes bkin formulasi administrasi
     private double calculateAdministration(double plafon, int adminFee, int asnFee){
 
         double admin = plafon * adminFee / 100;
