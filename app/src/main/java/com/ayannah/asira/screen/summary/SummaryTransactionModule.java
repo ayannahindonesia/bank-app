@@ -93,8 +93,8 @@ public abstract class SummaryTransactionModule {
     @Provides
     @ActivityScoped
     @Named("interest")
-    static int interest(SummaryTransactionActivity summaryTransactionActivity) {
-        return summaryTransactionActivity.getIntent().getIntExtra(INTEREST, 0);
+    static double interest(SummaryTransactionActivity summaryTransactionActivity) {
+        return summaryTransactionActivity.getIntent().getDoubleExtra(INTEREST, 0);
     }
 
     @Provides

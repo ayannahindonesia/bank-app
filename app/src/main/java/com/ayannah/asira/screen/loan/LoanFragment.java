@@ -97,7 +97,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
     private int[] loanRepo = {5000000, 10000000, 15000000, 20000000, 25000000, 30000000, 35000000, 40000000, 45000000, 50000000};
 
     //calculation purposes
-    private int administration = 75000;
+    private int administration = 0;
     private double loanAmount = 0;
     private double interest = 0;
     private int installmentTenor = 0;
@@ -307,7 +307,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
             intent.putExtra(SummaryTransactionActivity.ALASAN, etAlasan.getText().toString());
 
 
-        }else {
+        } else {
 
             intent.putExtra(SummaryTransactionActivity.ALASAN, spAlasanPinjam.getSelectedItem().toString());
 
@@ -492,6 +492,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
             //get value from edittext to set plafond
             int nominal = Integer.parseInt(plafondCustom.getText().toString().replaceAll(",", ""));
             int nominalRound = roundingValue(nominal);
+            productID = mServiceProducts.getProducts().get(position).getId();
 
 
             if(nominalRound < serviceProducts.getProducts().get(position).getMinLoan()){
@@ -618,7 +619,6 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
 //        interest = mServiceProducts.getProducts().get(position).getInterest();
 //        sbJumlahPinjaman.setProgress(0);
 //        installment.setProgress(0);
-//        productID = mServiceProducts.getProducts().get(position).getId();
 //
 //        calculateDefaultValue();
 //    }

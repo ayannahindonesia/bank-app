@@ -93,7 +93,7 @@ public class SummaryTransactionFragment extends BaseFragment implements SummaryT
 
     @Inject
     @Named("interest")
-    int interest;
+    double interest;
 
     @Inject
     @Named("admin")
