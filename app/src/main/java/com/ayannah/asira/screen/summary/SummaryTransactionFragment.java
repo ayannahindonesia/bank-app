@@ -69,7 +69,7 @@ public class SummaryTransactionFragment extends BaseFragment implements SummaryT
     //value purposes
     @Inject
     @Named("pinjaman")
-    double pinjaman;
+    int pinjaman;
 
     @Inject
     @Named("tenor")
@@ -93,7 +93,7 @@ public class SummaryTransactionFragment extends BaseFragment implements SummaryT
 
     @Inject
     @Named("interest")
-    double interest;
+    int interest;
 
     @Inject
     @Named("admin")
@@ -136,15 +136,15 @@ public class SummaryTransactionFragment extends BaseFragment implements SummaryT
 
         tvTenor.setText(String.format("%s bulan", tenor));
 
-        double calculateBunga = ((int) pinjaman * interest) / 100;
-        tvBunga.setText(CommonUtils.setRupiahCurrency((int) calculateBunga));
+//        double calculateBunga = ((int) pinjaman * interest) / 100;
+        tvBunga.setText(CommonUtils.setRupiahCurrency(interest));
 
         int calBiayaAdmin = admin;
         tvBiayaAdmin.setText(CommonUtils.setRupiahCurrency(calBiayaAdmin));
 
         jumlahPencairan.setText(CommonUtils.setRupiahCurrency((int)pencairan));
 
-        double calAngsuran = (pinjaman + calculateBunga + calBiayaAdmin)/tenor;
+        double calAngsuran = (pinjaman + interest + calBiayaAdmin)/tenor;
         tvAngsuran.setText(CommonUtils.setRupiahCurrency((int) Math.floor(calAngsuran)));
 
         tvAlasan.setText(alasan);

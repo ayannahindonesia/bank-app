@@ -30,7 +30,7 @@ public class Products {
 	private String assurance;
 
 	@SerializedName("interest")
-	private int interest;
+	private double interest;
 
 	@SerializedName("service")
 	private int service;
@@ -111,11 +111,11 @@ public class Products {
 		return assurance;
 	}
 
-	public void setInterest(int interest){
+	public void setInterest(double interest){
 		this.interest = interest;
 	}
 
-	public int getInterest(){
+	public double getInterest(){
 		return interest;
 	}
 
