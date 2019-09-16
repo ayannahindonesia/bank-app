@@ -235,32 +235,6 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
 
     }
 
-    private void calculateDefaultValue() {
-
-        //based on seekbar jumlah pinjaman
-        loanAmount = Integer.parseInt(String.valueOf(loanRepo[sbJumlahPinjaman.getVerticalScrollbarPosition()]));
-        amountLoan.setText( CommonUtils.setRupiahCurrency(loanRepo[sbJumlahPinjaman.getVerticalScrollbarPosition()]) );
-
-        //base on seekbar installment
-        installmentTenor = (installment.getVerticalScrollbarPosition()+1) * 6;
-
-        //calculate bunga
-        totalBunga = (int) (loanAmount * interest) / 100;
-
-        //calculate angsuran perbulan
-        angsurnaPerbulan = (loanAmount + totalBunga + administration) / installmentTenor;
-
-        //calculate jumlapencairan
-        countPencairan = calculatePotongPlafond(loanAmount)/installmentTenor;
-
-        tvInstallment.setText(String.format("%s bulan", installmentTenor));
-        biayaAdmin.setText(CommonUtils.setRupiahCurrency((int) Math.floor(administration)));
-        tvBunga.setText(CommonUtils.setRupiahCurrency((int) Math.floor(totalBunga)));
-        tvAngsuran.setText(CommonUtils.setRupiahCurrency((int) Math.floor(angsurnaPerbulan)));
-        jumlahPencairan.setText(CommonUtils.setRupiahCurrency((int) Math.floor(countPencairan)));
-
-    }
-
 
     @OnClick(R.id.buttonPinjam)
     void onClickPinjam(){
