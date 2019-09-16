@@ -89,9 +89,11 @@ public class LoanAdapter extends RecyclerView.Adapter<LoanAdapter.LoadViewHolder
 
         private void bind(DataItem param){
 
-            numLoan.setText(String.format("PNS-100-%s", param.getId()));
+//            numLoan.setText(param.getService() + " - " + param.getId());
+//            numLoan.setText(String.format("%s - ", param.getService()));
+            numLoan.setText(String.format("%1$s - %2$s", param.getService(), param.getId()));
 
-//            typeLoan.setText("-");
+            typeLoan.setText(param.getService());
 
 //            if(param.isOtpVerified()){
 //

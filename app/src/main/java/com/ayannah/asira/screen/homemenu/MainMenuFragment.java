@@ -30,7 +30,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.ayannah.asira.adapter.MenuProductAdapter;
 import com.ayannah.asira.data.model.BankService;
 import com.ayannah.asira.data.model.Loans.DataItem;
-import com.ayannah.asira.data.model.MenuProduct;
 import com.ayannah.asira.dialog.BottomSheetDialogGlobal;
 import com.ayannah.asira.screen.earninginfo.EarningActivity;
 import com.ayannah.asira.screen.historyloan.HistoryLoanActivity;
@@ -56,8 +55,7 @@ import butterknife.BindView;
 
 public class MainMenuFragment extends BaseFragment implements MainMenuContract.View, NavigationView.OnNavigationItemSelectedListener{
 
-    public static final String ACTIVE = "active";
-    public static final String INACTIVE = "inactive";
+    private String ACTIVE = "active";
     
 
     @Inject
@@ -214,7 +212,6 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
     @Override
     public void showErrorMessage(String message) {
         dialog.dismiss();
-//        CommonUtils.showToast(message, parentActivity());
 
         BottomSheetDialogGlobal dialog = new BottomSheetDialogGlobal().show(parentActivity().getSupportFragmentManager(),
                 BottomSheetDialogGlobal.MAINTENANCE,
@@ -241,47 +238,6 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
     }
 
     @Override
-    public void showMainMenu(List<MenuProduct> results) {
-
-//        mAdapterMenu.setMenuProducts(results);
-//
-//        mAdapterMenu.setOnClickListener(menuProduct -> {
-//
-//            switch (menuProduct.getLogoProduct()){
-//
-//                case R.drawable.ic_menu_pns:
-//
-//                    if(statusLoan.equals("processing")){
-//
-//                        BottomSheetDialogGlobal dialog = new BottomSheetDialogGlobal().show(parentActivity().getSupportFragmentManager(),
-//                                BottomSheetDialogGlobal.FORBIDDEN_LOAN_PNS,
-//                                "Pengajuan Pinjaman PNS Kamu Sedang Proses",
-//                                "Kamu belum bisa mengajukan peminjaman PNS lagi hingga pengajuan sebelumnya telah selesai dari proses",
-//                                R.drawable.img_processing);
-//                    }else {
-//
-//                        Intent intent = new Intent(parentActivity(), EarningActivity.class);
-//                        startActivity(intent);
-//
-//                    }
-//
-//                    break;
-//
-//                case R.drawable.ic_menu_personal:
-//
-//                    break;
-//
-//                case R.drawable.ic_menu_pensiunan:
-//
-//                    break;
-//            }
-//
-//
-//        });
-
-    }
-
-    @Override
     public void loadAllServiceMenu(List<BankService.Data> results) {
 
         List<BankService.Data> menus = new ArrayList<>();
@@ -294,66 +250,48 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
 
         mAdapterMenu.setMenuService(menus);
 
-        mAdapterMenu.setOnClickListener(new MenuProductAdapter.MenuProductListener() {
-            @Override
-            public void onClickMenu(BankService.Data menuProduct) {
+        mAdapterMenu.setOnClickListener(menuProduct -> {
 
-                if (statusLoan.equals("processing")) {
 
-                    bottomSheetDialogGlobal = new BottomSheetDialogGlobal().show(parentActivity().getSupportFragmentManager(),
-                            BottomSheetDialogGlobal.FORBIDDEN_LOAN_PNS,
-                            "Pengajuan Pinjaman Terakhir Sedang Proses",
-                            "Kamu belum bisa mengajukan peminjaman hingga pengajuan sebelumnya telah selesai dari proses.",
-                            R.drawable.img_processing);
-                    bottomSheetDialogGlobal.setOnClickBottomSheetInstruction(new BottomSheetDialogGlobal.BottomSheetInstructionListener() {
-                        @Override
-                        public void onClickButtonDismiss() {
+            if (statusLoan.equals("processing")) {
 
-                            bottomSheetDialogGlobal.dismiss();
+                bottomSheetDialogGlobal = new BottomSheetDialogGlobal().show(parentActivity().getSupportFragmentManager(),
+                        BottomSheetDialogGlobal.FORBIDDEN_LOAN_PNS,
+                        "Pengajuan Pinjaman Terakhir Sedang Proses",
+                        "Kamu belum bisa mengajukan peminjaman hingga pengajuan sebelumnya telah selesai dari proses.",
+                        R.drawable.img_processing);
+                bottomSheetDialogGlobal.setOnClickBottomSheetInstruction(new BottomSheetDialogGlobal.BottomSheetInstructionListener() {
+                    @Override
+                    public void onClickButtonDismiss() {
 
-                            Intent intent = new Intent(parentActivity(), HistoryLoanActivity.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            startActivity(intent);
-                        }
+                        bottomSheetDialogGlobal.dismiss();
 
-                        @Override
-                        public void onClickButtonYes() {
-                            //nothing to do
+                        Intent intent = new Intent(parentActivity(), HistoryLoanActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                    }
 
-                        }
+                    @Override
+                    public void onClickButtonYes() {
+                        //nothing to do
 
-                        @Override
-                        public void closeApps() {
-                            //nothing to do
+                    }
 
-                        }
-                    });
-                }else {
+                    @Override
+                    public void closeApps() {
+                        //nothing to do
 
-                    Intent intent = new Intent(parentActivity(), EarningActivity.class);
-                    intent.putExtra("id", menuProduct.getId());
-                    intent.putExtra("name", menuProduct.getName());
-                    startActivity(intent);
-                }
+                    }
+                });
+            }else {
 
+                Intent intent = new Intent(parentActivity(), EarningActivity.class);
+                intent.putExtra("id", menuProduct.getId());
+                intent.putExtra("name", menuProduct.getName());
+                startActivity(intent);
             }
+
         });
-    }
-
-    private void CallBottomSheetDialog(String reason) {
-        if(statusLoan.equals("processing")){
-
-            BottomSheetDialogGlobal dialog = new BottomSheetDialogGlobal().show(parentActivity().getSupportFragmentManager(),
-                    BottomSheetDialogGlobal.FORBIDDEN_LOAN_PNS,
-                    "Pengajuan Pinjaman Kamu Sedang Proses",
-                    "Sementara kamu belum bisa mengajukan peminjaman " + reason + " hingga pengajuan sebelumnya telah selesai dari proses",
-                    R.drawable.img_processing);
-        }else {
-
-            Intent intent = new Intent(parentActivity(), EarningActivity.class);
-            startActivity(intent);
-
-        }
     }
 
     @Override
@@ -373,14 +311,19 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
     @Override
     public void showDataLoan(List<DataItem> items) {
 
+        //untuk cek loan yang berstatus processing
         for(DataItem data: items){
 
-            if(data.getStatus().toLowerCase().equals("processing") || data.getStatus().toLowerCase().equals("approved")){
+            if(data.getStatus().toLowerCase().equals("processing")){
                 isLoanReqAvail = true;
             }
 
         }
 
+        /*
+         untuk triggered bottom sheet fragment jika user sebelumnya sudah mengajukan peminjaman
+         karena user hanya boleh mengajukan peminjaman 1x
+         */
         for (DataItem data:items){
 
             if(data.getStatus().toLowerCase().equals("processing")){
@@ -390,6 +333,7 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
 
         }
 
+        //show notif to menu Pinjaman saya di navigation bar menu
         if(isLoanReqAvail) {
             pinjamanSaya.setGravity(Gravity.CENTER);
             pinjamanSaya.setTypeface(null, Typeface.BOLD);
@@ -407,6 +351,8 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
 
     @Override
     public void displayUserIdentity(String name, String email) {
+
+        //unutk menampiljan identitas user di menu navigation bar
 
         View headerViewNav = navigationView.getHeaderView(0);
         TextView navName = headerViewNav.findViewById(R.id.navHeader_name);

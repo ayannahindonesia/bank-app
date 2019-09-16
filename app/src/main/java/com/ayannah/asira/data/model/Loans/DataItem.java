@@ -58,6 +58,12 @@ public class DataItem{
 	@SerializedName("status")
 	private String status;
 
+	@SerializedName("product")
+	private String product;
+
+	@SerializedName("service")
+	private String service;
+
 	public Owner getOwner(){
 		return owner;
 	}
@@ -124,5 +130,13 @@ public class DataItem{
 
 	public String getStatus(){
 		return status;
+	}
+
+	public String getProduct() {
+		return product;
+	}
+
+	public String getService() {
+		return service;
 	}
 }

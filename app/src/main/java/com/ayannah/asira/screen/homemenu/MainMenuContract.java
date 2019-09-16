@@ -15,8 +15,6 @@ public interface MainMenuContract {
 
         void showErrorMessage(String message);
 
-        void showMainMenu(List<MenuProduct> results);
-
         void loadAllServiceMenu(List<BankService.Data> results);
 
         void showPromoAndNews(List<BeritaPromo> results);

@@ -2,322 +2,485 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
-    <LinearLayout
+    <ScrollView
+        android:layout_above="@+id/buttonPinjam"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="@dimen/dp16">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp20"
-            android:text="Pilih Produk"
-            android:textColor="@android:color/black"
-            android:textSize="@dimen/fontLarge"
-            android:textStyle="bold" />
-
-        <Spinner
-            android:id="@+id/spProducts"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/_10sdp" />
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="2">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Jumlah Pinjaman"
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/fontLarge"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/nominalPinjaman"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Rp 0"
-                android:textColor="@android:color/holo_green_dark"
-                android:textSize="@dimen/fontSuperLarge"
-                android:textStyle="bold" />
-
-        </LinearLayout>
-
-        <SeekBar
-            android:id="@+id/seekbarJumlahPinjaman"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp12"
-            android:max="9"
-            android:progressDrawable="@drawable/seekbar_style"
-            android:thumb="@drawable/custom_thumb" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp16"
-            android:orientation="horizontal"
-            android:weightSum="2">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Tenor Cicilan"
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/fontLarge"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tenorCicilan"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="0"
-                android:textSize="@dimen/fontSuperLarge"
-                android:textStyle="bold" />
-
-        </LinearLayout>
-
-        <SeekBar
-            android:id="@+id/seekbarTenorCicilan"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp12"
-            android:max="9"
-            android:progressDrawable="@drawable/seekbar_style"
-            android:thumb="@drawable/custom_thumb" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin14dp"
-            android:orientation="horizontal"
-            android:padding="5dp"
-            android:weightSum="2">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Biaya Admin"
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/fontNormal"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/biayaAdmin"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Rp -"
-                android:textAlignment="textEnd"
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/fontNormal" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="5dp"
-            android:weightSum="2">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Bunga"
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/fontNormal"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/amountBunga"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Rp -"
-                android:textAlignment="textEnd"
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/fontNormal" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="5dp"
-            android:weightSum="2">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Angsuran per Bulan"
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/fontNormal"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/angsuranPerbulan"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Rp -"
-                android:textAlignment="textEnd"
-                android:textColor="@android:color/holo_green_dark"
-                android:textSize="@dimen/fontLarge"
-                android:textStyle="bold" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="5dp"
-            android:visibility="gone"
-            android:weightSum="2">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Saldo Pokok Pinjaman"
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/fontNormal" />
-
-            <TextView
-                android:id="@+id/saldoPokokPinjaman"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Rp -"
-                android:textAlignment="textEnd"
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/fontNormal"
-                android:textStyle="bold" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="5dp"
-            android:visibility="gone"
-            android:weightSum="2">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Jatuh tempo"
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/fontNormal" />
-
-            <TextView
-                android:id="@+id/tenor"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="15 Mei 2019"
-                android:textAlignment="textEnd"
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/fontNormal" />
-
-        </LinearLayout>
-
-        <!--<LinearLayout-->
-        <!--android:weightSum="2"-->
-        <!--android:padding="5dp"-->
-        <!--android:orientation="horizontal"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content">-->
-
-        <!--<TextView-->
-        <!--android:text="Cashback/Voucher"-->
-        <!--android:textSize="@dimen/fontNormal"-->
-        <!--android:layout_weight="1"-->
-        <!--android:textColor="@android:color/black"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content" />-->
-
-        <!--<TextView-->
-        <!--android:id="@+id/cashback"-->
-        <!--android:text="Rp -"-->
-        <!--android:textSize="@dimen/fontNormal"-->
-        <!--android:textAlignment="textEnd"-->
-        <!--android:layout_weight="1"-->
-        <!--android:textColor="@android:color/holo_green_dark"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content" />-->
-
-        <!--</LinearLayout>-->
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp20"
-            android:text="Apa alasan anda mengajukan peminjaman?"
-            android:textColor="@android:color/black"
-            android:textSize="@dimen/fontLarge"
-            android:textStyle="bold" />
-
-        <Spinner
-            android:id="@+id/spAlasanPinjam"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <LinearLayout
-            android:id="@+id/lyAlasanLain"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp12"
             android:orientation="vertical"
-            android:visibility="gone">
+            android:padding="@dimen/dp16">
 
-            <TextView
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Mohon Masukan Alasan Anda Meminjam"
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/fontNormal" />
+                app:cardElevation="3dp"
+                app:cardCornerRadius="3dp">
 
-            <EditText
-                android:id="@+id/etAlasan"
+                <LinearLayout
+                    android:padding="14dp"
+                    android:background="@android:color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Pilih Produk"
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/fontLarge"
+                        android:textStyle="bold" />
+
+                    <Spinner
+                        android:id="@+id/spProducts"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Isi alasan peminjaman disini"
-                android:paddingStart="@dimen/dp10"
-                android:paddingEnd="@dimen/margin10dp"
-                android:textSize="@dimen/fontNormal" />
+                android:layout_marginTop="5dp"
+                app:cardElevation="3dp"
+                app:cardCornerRadius="3dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@android:color/white"
+                    android:padding="14dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textAlignment="center"
+                        android:text="Jumlah Pinjaman"
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/fontLarge"
+                        android:textStyle="bold" />
+
+                    <com.ayannah.asira.custom.PlafondEditText
+                        android:id="@+id/plafondCustom"
+                        android:background="@drawable/border_pinjaman"
+                        android:layout_width="185dp"
+                        android:layout_height="wrap_content"
+                        android:hint="1.000.000"
+                        android:maxLength="10"
+                        android:inputType="number"
+                        android:imeOptions="actionDone"
+                        android:textAlignment="center"
+                        android:padding="5dp"
+                        android:textSize="@dimen/fontBigWumbo"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="5dp"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"/>
+
+<!--                    <EditText-->
+<!--                        android:id="@+id/plafond"-->
+<!--                        android:background="@drawable/border_pinjaman"-->
+<!--                        android:layout_width="185dp"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:hint="1.000.000"-->
+<!--                        android:maxLength="10"-->
+<!--                        android:inputType="number"-->
+<!--                        android:imeOptions="actionDone"-->
+<!--                        android:textAlignment="center"-->
+<!--                        android:padding="5dp"-->
+<!--                        android:textSize="@dimen/fontBigWumbo"-->
+<!--                        android:layout_gravity="center_horizontal"-->
+<!--                        android:layout_marginTop="5dp"-->
+<!--                        android:paddingStart="10dp"-->
+<!--                        android:paddingEnd="10dp"/>-->
+
+                    <TextView
+                        android:id="@+id/plafonMinMax"
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/fontNormal"
+                        tools:text="Max 5 jt Min 50 jt"
+                        android:layout_marginTop="5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp16"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Tenor Cicilan"
+                            android:textColor="@android:color/black"
+                            android:textSize="@dimen/fontLarge"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tenorCicilan"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="0"
+                            android:textSize="@dimen/fontSuperLarge"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <SeekBar
+                        android:id="@+id/seekbarTenorCicilan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp12"
+                        android:max="9"
+                        android:progressDrawable="@drawable/seekbar_style"
+                        android:thumb="@drawable/custom_thumb" />
+
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:text="Jumlah Pinjaman"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/fontLarge"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/nominalPinjaman"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Rp 0"
+                    android:textColor="@android:color/holo_green_dark"
+                    android:textSize="@dimen/fontSuperLarge"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+
+            <SeekBar
+                android:id="@+id/seekbarJumlahPinjaman"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp12"
+                android:max="9"
+                android:progressDrawable="@drawable/seekbar_style"
+                android:thumb="@drawable/custom_thumb" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_marginTop="5dp"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="3dp"
+                app:cardElevation="3dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="14dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="5dp"
+                        android:weightSum="2">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Biaya Admin"
+                            android:textColor="@android:color/black"
+                            android:textSize="@dimen/fontNormal"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/biayaAdmin"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Rp -"
+                            android:textAlignment="textEnd"
+                            android:textColor="@android:color/black"
+                            android:textSize="@dimen/fontNormal" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="5dp"
+                        android:weightSum="2">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Bunga"
+                            android:textColor="@android:color/black"
+                            android:textSize="@dimen/fontNormal"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/amountBunga"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Rp -"
+                            android:textAlignment="textEnd"
+                            android:textColor="@android:color/black"
+                            android:textSize="@dimen/fontNormal" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="5dp"
+                        android:weightSum="2">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Jumlah pencairan"
+                            android:textColor="@android:color/black"
+                            android:textSize="@dimen/fontNormal"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/jumlahPencairan"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Rp -"
+                            android:textAlignment="textEnd"
+                            android:textColor="@android:color/holo_green_dark"
+                            android:textSize="@dimen/fontLarge"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="5dp"
+                        android:weightSum="2">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Angsuran per Bulan"
+                            android:textColor="@android:color/black"
+                            android:textSize="@dimen/fontNormal"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/angsuranPerbulan"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Rp -"
+                            android:textAlignment="textEnd"
+                            android:textColor="@android:color/holo_green_dark"
+                            android:textSize="@dimen/fontLarge"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="5dp"
+                android:visibility="gone"
+                android:weightSum="2">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Saldo Pokok Pinjaman"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/fontNormal" />
+
+                <TextView
+                    android:id="@+id/saldoPokokPinjaman"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Rp -"
+                    android:textAlignment="textEnd"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/fontNormal"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="5dp"
+                android:visibility="gone"
+                android:weightSum="2">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Jatuh tempo"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/fontNormal" />
+
+                <TextView
+                    android:id="@+id/tenor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="15 Mei 2019"
+                    android:textAlignment="textEnd"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/fontNormal" />
+
+            </LinearLayout>
+
+            <!--<LinearLayout-->
+            <!--android:weightSum="2"-->
+            <!--android:padding="5dp"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content">-->
+
+            <!--<TextView-->
+            <!--android:text="Cashback/Voucher"-->
+            <!--android:textSize="@dimen/fontNormal"-->
+            <!--android:layout_weight="1"-->
+            <!--android:textColor="@android:color/black"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content" />-->
+
+            <!--<TextView-->
+            <!--android:id="@+id/cashback"-->
+            <!--android:text="Rp -"-->
+            <!--android:textSize="@dimen/fontNormal"-->
+            <!--android:textAlignment="textEnd"-->
+            <!--android:layout_weight="1"-->
+            <!--android:textColor="@android:color/holo_green_dark"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content" />-->
+
+            <!--</LinearLayout>-->
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                app:cardElevation="3dp"
+                app:cardCornerRadius="3dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="14dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Apa alasan anda mengajukan peminjaman?"
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/fontLarge"
+                        android:textStyle="bold" />
+
+                    <Spinner
+                        android:id="@+id/spAlasanPinjam"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <LinearLayout
+                        android:id="@+id/lyAlasanLain"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp12"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Mohon Masukan Alasan Anda Meminjam"
+                            android:textColor="@android:color/black"
+                            android:textSize="@dimen/fontNormal" />
+
+                        <EditText
+                            android:id="@+id/etAlasan"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Isi alasan peminjaman disini"
+                            android:paddingStart="@dimen/dp10"
+                            android:paddingEnd="@dimen/margin10dp"
+                            android:textSize="@dimen/fontNormal" />
+
+                    </LinearLayout>
+
+                    <EditText
+                        android:id="@+id/etTujuan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Tuliskan detail tujuan"
+                        android:inputType="text"
+                        android:paddingStart="5dp"
+                        android:paddingEnd="5dp"
+                        android:textSize="@dimen/fontNormal" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
 
         </LinearLayout>
 
-        <EditText
-            android:id="@+id/etTujuan"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Tuliskan detail tujuan"
-            android:inputType="text"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:textSize="@dimen/fontNormal" />
-
-    </LinearLayout>
+    </ScrollView>
 
     <Button
         android:id="@+id/buttonPinjam"

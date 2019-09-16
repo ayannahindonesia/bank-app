@@ -14,6 +14,7 @@
     <dimen name="fontNormal">12sp</dimen>
     <dimen name="fontLarge">14sp</dimen>
     <dimen name="fontSuperLarge">18sp</dimen>
+    <dimen name="fontBigWumbo">22sp</dimen>
 
     <dimen name="margin10dp">10dp</dimen>
     <dimen name="margin14dp">14dp</dimen>

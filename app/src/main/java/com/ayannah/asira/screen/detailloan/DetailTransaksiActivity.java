@@ -85,6 +85,9 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
     @BindView(R.id.totalBiaya)
     TextView totalBiaya;
 
+    @BindView(R.id.produk)
+    TextView produk;
+
     private Unbinder mUnbinder;
 
     int admin = 0;
@@ -194,6 +197,8 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
         angsuran.setText(CommonUtils.setRupiahCurrency((int) Math.floor(dataItem.getLayawayPlan())));
 
         totalBiaya.setText(CommonUtils.setRupiahCurrency(calculateTotalBiaya));
+
+        produk.setText(dataItem.getProduct());
 
         if(!dataItem.isOtpVerified()){
 
