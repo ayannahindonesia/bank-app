@@ -298,48 +298,48 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
             @Override
             public void onClickMenu(BankService.Data menuProduct) {
 
-                Intent intent = new Intent(parentActivity(), EarningActivity.class);
-                intent.putExtra("id", menuProduct.getId());
-                intent.putExtra("name", menuProduct.getName());
-                startActivity(intent);
+//                Intent intent = new Intent(parentActivity(), EarningActivity.class);
+//                intent.putExtra("id", menuProduct.getId());
+//                intent.putExtra("name", menuProduct.getName());
+//                startActivity(intent);
 
-//                if (statusLoan.equals("processing")) {
-//
-//                    bottomSheetDialogGlobal = new BottomSheetDialogGlobal().show(parentActivity().getSupportFragmentManager(),
-//                            BottomSheetDialogGlobal.FORBIDDEN_LOAN_PNS,
-//                            "Pengajuan Pinjaman Terakhir Sedang Proses",
-//                            "Kamu belum bisa mengajukan peminjaman hingga pengajuan sebelumnya telah selesai dari proses.",
-//                            R.drawable.img_processing);
-//                    bottomSheetDialogGlobal.setOnClickBottomSheetInstruction(new BottomSheetDialogGlobal.BottomSheetInstructionListener() {
-//                        @Override
-//                        public void onClickButtonDismiss() {
-//
-//                            bottomSheetDialogGlobal.dismiss();
-//
-//                            Intent intent = new Intent(parentActivity(), HistoryLoanActivity.class);
-//                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//                            startActivity(intent);
-//                        }
-//
-//                        @Override
-//                        public void onClickButtonYes() {
-//                            //nothing to do
-//
-//                        }
-//
-//                        @Override
-//                        public void closeApps() {
-//                            //nothing to do
-//
-//                        }
-//                    });
-//                }else {
-//
-//                    Intent intent = new Intent(parentActivity(), EarningActivity.class);
-//                    intent.putExtra("id", menuProduct.getId());
-//                    intent.putExtra("name", menuProduct.getName());
-//                    startActivity(intent);
-//                }
+                if (statusLoan.equals("processing")) {
+
+                    bottomSheetDialogGlobal = new BottomSheetDialogGlobal().show(parentActivity().getSupportFragmentManager(),
+                            BottomSheetDialogGlobal.FORBIDDEN_LOAN_PNS,
+                            "Pengajuan Pinjaman Terakhir Sedang Proses",
+                            "Kamu belum bisa mengajukan peminjaman hingga pengajuan sebelumnya telah selesai dari proses.",
+                            R.drawable.img_processing);
+                    bottomSheetDialogGlobal.setOnClickBottomSheetInstruction(new BottomSheetDialogGlobal.BottomSheetInstructionListener() {
+                        @Override
+                        public void onClickButtonDismiss() {
+
+                            bottomSheetDialogGlobal.dismiss();
+
+                            Intent intent = new Intent(parentActivity(), HistoryLoanActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
+                        }
+
+                        @Override
+                        public void onClickButtonYes() {
+                            //nothing to do
+
+                        }
+
+                        @Override
+                        public void closeApps() {
+                            //nothing to do
+
+                        }
+                    });
+                }else {
+
+                    Intent intent = new Intent(parentActivity(), EarningActivity.class);
+                    intent.putExtra("id", menuProduct.getId());
+                    intent.putExtra("name", menuProduct.getName());
+                    startActivity(intent);
+                }
 
             }
         });

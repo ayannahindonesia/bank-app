@@ -1,18 +1,36 @@
 package com.ayannah.asira.adapter;
 
 import android.app.Application;
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.androidnetworking.AndroidNetworking;
+import com.androidnetworking.common.ANConstants;
+import com.androidnetworking.common.Priority;
+import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.JSONObjectRequestListener;
+import com.ayannah.asira.BuildConfig;
 import com.ayannah.asira.R;
+import com.ayannah.asira.data.local.PreferenceDataSource;
+import com.ayannah.asira.data.local.PreferenceRepository;
 import com.ayannah.asira.data.model.BankService;
 import com.ayannah.asira.data.model.MenuProduct;
+import com.google.gson.JsonObject;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -95,25 +113,36 @@ public class MenuProductAdapter extends RecyclerView.Adapter<MenuProductAdapter.
 
         private void bind(BankService.Data param){
 
-            /*
-            <======== showing data static menu style ========>
-             */
+            PreferenceDataSource preferenceDataSource = new PreferenceDataSource(application);
 
-//            ivIconProduct.setImageResource(param.getLogoProduct());
-//
-//            tvNameProduct.setText(param.getName());
-//
-//            itemView.setOnClickListener(view -> listener.onClickMenu(param));
+            AndroidNetworking.get(BuildConfig.API_URL + "client/imagefile/{file_id}")
+                    .addHeaders("Authorization", preferenceDataSource.getPublicToken())
+                    .addPathParameter("file_id", String.valueOf(param.getImageId()))
+                    .setPriority(Priority.MEDIUM)
+                    .build()
+                    .getAsJSONObject(new JSONObjectRequestListener() {
+                        @Override
+                        public void onResponse(JSONObject response) {
 
-            /*
-            <========= showing data static menu styl e=======>
-             */
+                            try {
+                                String sImage = response.getString("image_string");
 
+                                byte[] decodedString = Base64.decode(sImage, Base64.DEFAULT);
+                                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0,decodedString.length);
+                                ivIconProduct.setImageBitmap(decodedByte);
 
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
 
-//            ivIconProduct.setImageResource(param.getLogoProduct());
+                        }
 
-            ivIconProduct.setImageResource(R.drawable.ic_menu_pns);
+                        @Override
+                        public void onError(ANError anError) {
+
+                            ivIconProduct.setImageResource(R.drawable.ic_menu_pns);
+                        }
+                    });
 
             tvNameProduct.setText(param.getName());
 

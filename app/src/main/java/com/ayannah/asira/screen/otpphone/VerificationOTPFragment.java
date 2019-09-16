@@ -54,6 +54,7 @@ public class VerificationOTPFragment extends BaseFragment implements Verificatio
     private String PINJAMAN = "pinjaman";
     private String RESUBMIT_LOAN = "resubmit_loan";
     private String RESUBMIT_REGIST = "resubmit_regist";
+    private String POST_PINJAMAN = "post_pinjaman";
 
     private AlertDialog dialog;
 
@@ -103,7 +104,7 @@ public class VerificationOTPFragment extends BaseFragment implements Verificatio
 
                 registerNewAccount(charSequence);
 
-            }else if(purpose.equals(PINJAMAN)){
+            }else if(purpose.equals(PINJAMAN) || purpose.equals(POST_PINJAMAN)){
 
                 loanRequest(charSequence);
 
@@ -112,6 +113,8 @@ public class VerificationOTPFragment extends BaseFragment implements Verificatio
                 resubmitLoanRequest(idLoan);
             } else if (purpose.equals(RESUBMIT_REGIST)) {
                 resubmitRegister(charSequence);
+            } else {
+                dialog.dismiss();
             }
 
         }

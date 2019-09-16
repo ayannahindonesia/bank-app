@@ -80,7 +80,7 @@ public class PreferenceDataSource implements PreferenceRepository {
     private static final String PREF_USER_NATIONALILTY = "PREF_USER_NATIONALILTY";
 
     @Inject
-    PreferenceDataSource(Application application){
+    public PreferenceDataSource(Application application){
         mPreferences = application.getSharedPreferences(BuildConfig.APPLICATION_ID, Context.MODE_PRIVATE);
 
     }
