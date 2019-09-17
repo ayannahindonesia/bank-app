@@ -160,7 +160,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
                     totalBunga = (int) (loanAmount * interest) / 100;
 
                     //calculate angsuran perbulan
-                    angsurnaPerbulan = (loanAmount + totalBunga + administration) / installmentTenor;
+                    angsurnaPerbulan = (loanAmount + totalBunga) / installmentTenor;
 
 //                //calculate jumlapencairan
 //                countPencairan = calculatePotongPlafond(loanAmount)/installmentTenor;
@@ -391,7 +391,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
                 totalBunga = (int) (loanAmount * interest) / 100;
 
                 //calculate angsuran perbulan
-                angsurnaPerbulan = (loanAmount + totalBunga + administration) / installmentTenor;
+                angsurnaPerbulan = (loanAmount + totalBunga) / installmentTenor;
 
 //                //calculate jumlapencairan
 //                int asnfee = 0;
@@ -489,7 +489,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
 
         if (adminFee.contains("%")) {
             double adminFeeX = Double.parseDouble(adminFee.replace("%", ""));
-            calAdminFee = (int) (plafon * adminFeeX);
+            calAdminFee = (int) (plafon * adminFeeX / 100);
         } else {
             calAdminFee = Integer.parseInt(adminFee);
         }
