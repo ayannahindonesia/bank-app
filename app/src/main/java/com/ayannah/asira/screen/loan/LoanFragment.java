@@ -305,6 +305,9 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
                     int maxTenorSeekbar = ((maxTenor-minTenor)/6);
                     installment.setMax(maxTenorSeekbar);
 
+                    installmentTenor = minTenor;
+                    tvInstallment.setText(String.format("%s bulan", installmentTenor));
+
                     //set plafond sesuai dengan product yang dipilih
                     plafonMinMax.setText(String.format("Min %s - Max %s", CommonUtils.setRupiahCurrency(serviceProducts.getProducts().get(position).getMinLoan()),
                             CommonUtils.setRupiahCurrency(serviceProducts.getProducts().get(position).getMaxLoan())));
