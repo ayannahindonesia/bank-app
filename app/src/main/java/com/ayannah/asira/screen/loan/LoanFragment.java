@@ -207,23 +207,28 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
         installment.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-//                installmentTenor = (progress+1) * 6;
-                installmentTenor = minTenor + (progress*6);
 
-                //calculate bunga
-                totalBunga = (int) (loanAmount * interest) / 100;
+                if (!plafondCustom.getText().toString().trim().isEmpty()) {
+                    installmentTenor = minTenor + (progress * 6);
 
-                //calculate angsuran perbulan
-                angsurnaPerbulan = (loanAmount + totalBunga + administration) / installmentTenor;
+                    //calculate bunga
+                    totalBunga = (int) (loanAmount * interest) / 100;
+
+                    //calculate angsuran perbulan
+                    angsurnaPerbulan = (loanAmount + totalBunga + administration) / installmentTenor;
 
 //                //calculate jumlapencairan
 //                countPencairan = calculatePotongPlafond(loanAmount)/installmentTenor;
 
-                tvInstallment.setText(String.format("%s bulan", installmentTenor));
-                biayaAdmin.setText(CommonUtils.setRupiahCurrency((int) Math.floor(administration)));
-                tvBunga.setText(CommonUtils.setRupiahCurrency((int) Math.floor(totalBunga)));
-                tvAngsuran.setText(CommonUtils.setRupiahCurrency((int) Math.floor(angsurnaPerbulan)));
-                jumlahPencairan.setText(CommonUtils.setRupiahCurrency((int) Math.floor(countPencairan)));
+                    tvInstallment.setText(String.format("%s bulan", installmentTenor));
+                    biayaAdmin.setText(CommonUtils.setRupiahCurrency((int) Math.floor(administration)));
+                    tvBunga.setText(CommonUtils.setRupiahCurrency((int) Math.floor(totalBunga)));
+                    tvAngsuran.setText(CommonUtils.setRupiahCurrency((int) Math.floor(angsurnaPerbulan)));
+                    jumlahPencairan.setText(CommonUtils.setRupiahCurrency((int) Math.floor(countPencairan)));
+                } else {
+                    Toast.makeText(parentActivity(), "Masukan Jumlah Pinjaman Terlebih Dahulu", Toast.LENGTH_LONG).show();
+                    installment.setProgress(0);
+                }
 
             }
 
@@ -427,7 +432,8 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
                 loanAmount = Integer.parseInt(value);
 
                 //base on seekbar installment
-                installmentTenor = (installment.getVerticalScrollbarPosition()+1) * 6;
+//                installmentTenor = (installment.getVerticalScrollbarPosition()+1) * 6;
+                installmentTenor = minTenor;
 
                 //calculate bunga
                 interest = serviceProducts.getProducts().get(position).getInterest();
