@@ -104,6 +104,10 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
     private int minPlafond = 0;
     private int maxPlafond = 0;
 
+    //define min and max tenor var globally based on selected product loan
+    private int minTenor = 0;
+    private int maxTenor = 0;
+
     private List<String> productName;
     private ServiceProducts mServiceProducts;
     private NumberSeparatorTextWatcher plafonNumberSeparator;
@@ -127,7 +131,6 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
         dialog = builder.create();
 
         dialog.show();
-
         mPresenter.getProducts();
 
         mPresenter.getReasonLoan();
@@ -149,7 +152,8 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
         installment.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                installmentTenor = (progress+1) * 6;
+//                installmentTenor = (progress+1) * 6;
+                installmentTenor = minTenor + (progress*6);
 
                 //calculate bunga
                 totalBunga = (int) (loanAmount * interest) / 100;
@@ -250,8 +254,6 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
             //set global variable to get all value from service product
             mServiceProducts = serviceProducts;
 
-
-
             productName = new ArrayList<>();
 
             for (int i = 0; i < size; i++) {
@@ -271,6 +273,10 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
                     selectedProduct = position;
 
                             //set default loan
+                    installment.setProgress(0);
+                    administration = 0;
+
+                    //set default loan
                     loanAmount = 0;
                     plafondCustom.setText("");
                     biayaAdmin.setText("-");
@@ -287,6 +293,12 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
                     //set min and max plafond based on selected product
                     minPlafond = serviceProducts.getProducts().get(position).getMinLoan();
                     maxPlafond = serviceProducts.getProducts().get(position).getMaxLoan();
+
+                    //set min and max tenor based on selected product
+                    minTenor = serviceProducts.getProducts().get(position).getMinTimespan();
+                    maxTenor = serviceProducts.getProducts().get(position).getMaxTimespan();
+                    int maxTenorSeekbar = ((maxTenor-minTenor)/6);
+                    installment.setMax(maxTenorSeekbar);
 
                     //set plafond sesuai dengan product yang dipilih
                     plafonMinMax.setText(String.format("Min %s - Max %s", CommonUtils.setRupiahCurrency(serviceProducts.getProducts().get(position).getMinLoan()),
@@ -326,15 +338,15 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
         } else {
 
             Toast.makeText(parentActivity(), "Produk Kosong", Toast.LENGTH_LONG).show();
-
         }
-
         dialog.dismiss();
     }
 
     private void CalculateData(int position, ServiceProducts serviceProducts) {
 
         if(!plafondCustom.getText().toString().trim().isEmpty()){
+
+            installment.setProgress(0);
 
             //get value from edittext to set plafond
             int nominal = Integer.parseInt(plafondCustom.getText().toString().replaceAll(",", ""));
