@@ -450,16 +450,18 @@
                             android:layout_height="wrap_content"
                             android:text="Mohon Masukan Alasan Anda Meminjam"
                             android:textColor="@android:color/black"
-                            android:textSize="@dimen/fontNormal" />
+                            android:textSize="@dimen/fontLarge" />
 
                         <EditText
                             android:id="@+id/etAlasan"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="Isi alasan peminjaman disini"
-                            android:paddingStart="@dimen/dp10"
-                            android:paddingEnd="@dimen/margin10dp"
-                            android:textSize="@dimen/fontNormal" />
+                            android:layout_marginTop="10dp"
+                            android:paddingStart="6dp"
+                            android:paddingEnd="6dp"
+                            android:background="@drawable/border_pinjaman"
+                            android:textSize="@dimen/fontLarge" />
 
                     </LinearLayout>
 
@@ -469,26 +471,29 @@
                         android:layout_height="wrap_content"
                         android:hint="Tuliskan detail tujuan"
                         android:inputType="text"
-                        android:paddingStart="5dp"
-                        android:paddingEnd="5dp"
-                        android:textSize="@dimen/fontNormal" />
+                        android:background="@drawable/border_pinjaman"
+                        android:layout_marginTop="10dp"
+                        android:paddingStart="6dp"
+                        android:paddingEnd="6dp"
+                        android:textSize="@dimen/fontLarge" />
 
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
 
+            <Button
+                android:id="@+id/buttonPinjam"
+                android:layout_width="match_parent"
+                android:layout_marginTop="15dp"
+                android:layout_height="wrap_content"
+                android:background="@color/colorAccent"
+                android:text="Proses"
+                android:textColor="@android:color/white" />
 
         </LinearLayout>
 
     </ScrollView>
 
-    <Button
-        android:id="@+id/buttonPinjam"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@color/colorAccent"
-        android:text="Proses"
-        android:textColor="@android:color/white" />
+
 
 </RelativeLayout>
