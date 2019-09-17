@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/customeTextSpinner"
     android:paddingStart="5dp"
     android:paddingTop="@dimen/dp12"
     android:paddingBottom="@dimen/dp12"
-    android:textSize="@dimen/fontNormal"
+    android:textSize="@dimen/fontLarge"
+    android:textColor="@android:color/black"
     android:layout_width="match_parent"
+    tools:text="Pendidikan"
     android:layout_height="wrap_content">
 
 </TextView>
