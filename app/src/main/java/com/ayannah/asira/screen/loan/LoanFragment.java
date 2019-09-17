@@ -160,7 +160,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
                     totalBunga = (int) (loanAmount * interest) / 100;
 
                     //calculate angsuran perbulan
-                    angsurnaPerbulan = (loanAmount + totalBunga) / installmentTenor;
+                    angsurnaPerbulan = calculateAngsuranPerBulan(mServiceProducts.getProducts().get(selectedProduct).getAsnFee());
 
 //                //calculate jumlapencairan
 //                countPencairan = calculatePotongPlafond(loanAmount)/installmentTenor;
@@ -391,7 +391,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
                 totalBunga = (int) (loanAmount * interest) / 100;
 
                 //calculate angsuran perbulan
-                angsurnaPerbulan = (loanAmount + totalBunga) / installmentTenor;
+                angsurnaPerbulan = calculateAngsuranPerBulan(serviceProducts.getProducts().get(position).getAssurance());
 
 //                //calculate jumlapencairan
 //                int asnfee = 0;
@@ -408,7 +408,11 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
 //                    countPencairan = (calculatePotongPlafond(loanAmount) - asnfee) /installmentTenor;
 //                }
 
-                countPencairan = loanAmount - administration;
+                if (serviceProducts.getProducts().get(position).getAssurance().trim().isEmpty()) {
+                    countPencairan = loanAmount - administration;
+                } else {
+                    countPencairan = loanAmount;
+                }
 
                 tvInstallment.setText(String.format("%s bulan", installmentTenor));
                 biayaAdmin.setText(CommonUtils.setRupiahCurrency((int) Math.floor(administration)));
@@ -523,5 +527,17 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
 
         plafondCustom.setText("");
 
+    }
+
+    private double calculateAngsuranPerBulan(String jenisPotong) {
+        double x=0;
+
+        if (jenisPotong.trim().isEmpty()) {
+            x = (loanAmount + totalBunga) / installmentTenor;
+        } else {
+            x = (loanAmount + totalBunga + administration) / installmentTenor;
+        }
+
+        return x;
     }
 }
