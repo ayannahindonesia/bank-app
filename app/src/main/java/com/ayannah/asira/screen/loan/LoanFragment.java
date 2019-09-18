@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -108,6 +109,12 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
     private int minTenor = 0;
     private int maxTenor = 0;
 
+    //define adminfee and convfee setup
+    private static final String POTONG_PLAFON = "potong_plafon";
+    private static final String BEBAN_PLAFON = "beban_plafon";
+    private String adminSetup;
+    private String convSetup;
+
     private List<String> productName;
     private ServiceProducts mServiceProducts;
     private NumberSeparatorTextWatcher plafonNumberSeparator;
@@ -135,6 +142,8 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
 
         mPresenter.getReasonLoan();
 
+        mPresenter.getRulesFormula();
+
     }
 
     @Override
@@ -160,7 +169,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
                     totalBunga = (int) (loanAmount * interest) / 100;
 
                     //calculate angsuran perbulan
-                    angsurnaPerbulan = (loanAmount + totalBunga) / installmentTenor;
+                    angsurnaPerbulan = calculateAngsuranPerBulan(convSetup);
 
 //                //calculate jumlapencairan
 //                countPencairan = calculatePotongPlafond(loanAmount)/installmentTenor;
@@ -170,8 +179,9 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
                     tvBunga.setText(CommonUtils.setRupiahCurrency((int) Math.floor(totalBunga)));
                     tvAngsuran.setText(CommonUtils.setRupiahCurrency((int) Math.floor(angsurnaPerbulan)));
                     jumlahPencairan.setText(CommonUtils.setRupiahCurrency((int) Math.floor(countPencairan)));
+
                 } else {
-                    Toast.makeText(parentActivity(), "Masukan Jumlah Pinjaman Terlebih Dahulu", Toast.LENGTH_LONG).show();
+//                    Toast.makeText(parentActivity(), "Masukan Jumlah Pinjaman Terlebih Dahulu", Toast.LENGTH_LONG).show();
                     installment.setProgress(0);
                 }
 
@@ -391,7 +401,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
                 totalBunga = (int) (loanAmount * interest) / 100;
 
                 //calculate angsuran perbulan
-                angsurnaPerbulan = (loanAmount + totalBunga) / installmentTenor;
+                angsurnaPerbulan = calculateAngsuranPerBulan(convSetup);
 
 //                //calculate jumlapencairan
 //                int asnfee = 0;
@@ -408,7 +418,11 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
 //                    countPencairan = (calculatePotongPlafond(loanAmount) - asnfee) /installmentTenor;
 //                }
 
-                countPencairan = loanAmount - administration;
+                if (convSetup.equals(POTONG_PLAFON)) {
+                    countPencairan = loanAmount - administration;
+                } else {
+                    countPencairan = loanAmount;
+                }
 
                 tvInstallment.setText(String.format("%s bulan", installmentTenor));
                 biayaAdmin.setText(CommonUtils.setRupiahCurrency((int) Math.floor(administration)));
@@ -468,6 +482,15 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
         });
     }
 
+    @Override
+    public void setupFormulaFee(String adminsetup, String convsetup) {
+
+        adminSetup = adminsetup;
+
+        convSetup = convsetup;
+
+    }
+
     private double calculatePotongPlafond(double plafond){
 
         return plafond - administration;
@@ -522,6 +545,19 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
     void onClickPlafondEdittext(){
 
         plafondCustom.setText("");
+
+    }
+
+    private double calculateAngsuranPerBulan(String jenisPotong) {
+
+        if (jenisPotong.equals(POTONG_PLAFON)) {
+
+            return (loanAmount + totalBunga) / installmentTenor;
+
+        } else {
+
+            return (loanAmount + totalBunga + administration) / installmentTenor;
+        }
 
     }
 }

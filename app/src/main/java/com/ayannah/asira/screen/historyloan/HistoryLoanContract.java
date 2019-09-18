@@ -20,5 +20,6 @@ public interface HistoryLoanContract {
         //1. load all history
         void loadHistoryTransaction(String sortWithStatus);
 
+        void getProducts();
     }
 }

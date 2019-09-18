@@ -13,11 +13,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ayannah.asira.R;
+import com.ayannah.asira.data.local.ServiceProductLocal;
 import com.ayannah.asira.data.model.Loans.DataItem;
 import com.ayannah.asira.data.model.Loans.FeesItem;
 import com.ayannah.asira.dialog.BottomSheetDialogGlobal;
 import com.ayannah.asira.screen.otpphone.VerificationOTPActivity;
 import com.ayannah.asira.util.CommonUtils;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -137,10 +142,23 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
 
     @Override
     public void loadAllInformation(DataItem dataItem) {
+        ServiceProductLocal serviceProductLocal = new ServiceProductLocal(getBaseContext());
+        try {
+            JSONArray jsonArray1 = new JSONArray(serviceProductLocal.getServiceProducts());
+            for (int j = 0; j < jsonArray1.length(); j++) {
+                JSONObject jsonObject2 = new JSONObject(String.valueOf(jsonArray1.get(j)));
+                if (dataItem.getProduct().equals(jsonObject2.get("id").toString())) {
+//                    productNya = jsonObject2.get("name").toString();
+                    produk.setText(jsonObject2.get("name").toString());
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         idLoan = dataItem.getId();
 
-        noPeminjaman.setText(String.format("PNS-100-%s", dataItem.getId()));
+        noPeminjaman.setText(String.valueOf(dataItem.getId()));
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss.SSS'Z'", Locale.getDefault());
         SimpleDateFormat sdfUsed = new SimpleDateFormat("dd MMM yyyy HH:mm:ss", Locale.getDefault());
@@ -198,7 +216,7 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
 
         totalBiaya.setText(CommonUtils.setRupiahCurrency(calculateTotalBiaya));
 
-        produk.setText(dataItem.getProduct());
+//        produk.setText();
 
         if(!dataItem.isOtpVerified()){
 

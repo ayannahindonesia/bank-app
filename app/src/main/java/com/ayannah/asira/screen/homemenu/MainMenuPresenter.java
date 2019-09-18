@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import com.androidnetworking.common.ANConstants;
 import com.androidnetworking.error.ANError;
 import com.ayannah.asira.R;
+import com.ayannah.asira.data.local.BankServiceInterface;
 import com.ayannah.asira.data.local.PreferenceRepository;
 import com.ayannah.asira.data.model.BeritaPromo;
 import com.ayannah.asira.data.remote.RemoteRepository;
@@ -26,6 +27,7 @@ import io.reactivex.schedulers.Schedulers;
 public class MainMenuPresenter implements MainMenuContract.Presenter {
 
     private Application application;
+    private BankServiceInterface bankServiceInterface;
 
     @Nullable
     private MainMenuContract.View mView;
@@ -35,10 +37,11 @@ public class MainMenuPresenter implements MainMenuContract.Presenter {
 
 
     @Inject
-    MainMenuPresenter(Application application, PreferenceRepository prefRepo, RemoteRepository remotRepo){
+    MainMenuPresenter(Application application, PreferenceRepository prefRepo, RemoteRepository remotRepo, BankServiceInterface bankServiceInterface){
         this.application = application;
         this.prefRepo = prefRepo;
         this.remotRepo = remotRepo;
+        this.bankServiceInterface = bankServiceInterface;
 
         mComposite = new CompositeDisposable();
     }
@@ -64,6 +67,9 @@ public class MainMenuPresenter implements MainMenuContract.Presenter {
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(response ->{
+
+            bankServiceInterface.setTotalData(response.getTotalData());
+            bankServiceInterface.setBankService(response.getData());
 
             mView.loadAllServiceMenu(response.getData());
 

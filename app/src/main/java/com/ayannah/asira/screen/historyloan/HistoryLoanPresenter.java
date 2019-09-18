@@ -1,11 +1,13 @@
 package com.ayannah.asira.screen.historyloan;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 
 import com.androidnetworking.common.ANConstants;
 import com.androidnetworking.error.ANError;
+import com.ayannah.asira.data.local.ServiceProductInterface;
 import com.ayannah.asira.data.remote.RemoteRepository;
 
 import org.json.JSONObject;
@@ -24,11 +26,13 @@ public class HistoryLoanPresenter implements HistoryLoanContract.Presenter {
     private Application application;
     private RemoteRepository remoteRepository;
     private CompositeDisposable mComposite;
+    private ServiceProductInterface serviceProductInterface;
 
     @Inject
-    HistoryLoanPresenter(Application application, RemoteRepository remoteRepository){
+    HistoryLoanPresenter(Application application, RemoteRepository remoteRepository, ServiceProductInterface serviceProductInterface){
         this.remoteRepository = remoteRepository;
         this.application = application;
+        this.serviceProductInterface = serviceProductInterface;
 
         mComposite = new CompositeDisposable();
     }
@@ -63,6 +67,38 @@ public class HistoryLoanPresenter implements HistoryLoanContract.Presenter {
 
         }));
 
+    }
+
+    @Override
+    public void getProducts() {
+        if(mView == null){
+            return;
+        }
+
+        mComposite.add(remoteRepository.getAllProducts()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(response -> {
+
+                    serviceProductInterface.setTotalData(response.getTotalData());
+                    serviceProductInterface.setServiceProducts(response.getProducts());
+
+                    loadHistoryTransaction("");
+
+                }, error -> {
+                    ANError anError = (ANError) error;
+                    if(anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
+                        mView.showErrorMessage("Tidak Ada Koneksi");
+                    } else if (anError.getErrorBody() != null) {
+
+                        JSONObject jsonObject = new JSONObject(anError.getErrorBody());
+                        mView.showErrorMessage(jsonObject.optString("message"));
+
+                    } else {
+                        mView.showErrorMessage("Terjadi Kesalahan");
+                    }
+
+                }));
     }
 
     @Override
