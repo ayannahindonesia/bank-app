@@ -6,6 +6,12 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.widget.Toast;
 
+import com.androidnetworking.common.ANConstants;
+import com.androidnetworking.error.ANError;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -65,6 +71,34 @@ public class CommonUtils {
         }
 
         return sdf.format(sDate);
+    }
+
+    public static String commonErrorFormat(Throwable error){
+
+        String result = null;
+
+        ANError anError = (ANError) error ;
+
+        if(anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
+            result = "Tidak Ada Koneksi";
+        } else if (anError.getErrorBody() != null) {
+
+            try {
+
+                JSONObject jsonObject = new JSONObject(anError.getErrorBody());
+                result = jsonObject.optString("message");
+
+            } catch (JSONException e) {
+
+                e.printStackTrace();
+            }
+
+        } else {
+            result = "Terjadi kesalahan";
+        }
+
+        return result;
+
     }
 
 }

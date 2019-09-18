@@ -8,6 +8,7 @@ import com.androidnetworking.common.ANConstants;
 import com.androidnetworking.error.ANError;
 import com.ayannah.asira.data.local.PreferenceRepository;
 import com.ayannah.asira.data.remote.RemoteRepository;
+import com.ayannah.asira.util.CommonUtils;
 
 import org.json.JSONObject;
 
@@ -60,20 +61,7 @@ public class LoanPresenter implements LoanContract.Presenter {
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(response -> {
             mView.successGetProducts(response);
-        }, error -> {
-            ANError anError = (ANError) error;
-            if(anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
-                mView.showErrorMessage("Tidak Ada Koneksi");
-            } else if (anError.getErrorBody() != null) {
-
-                JSONObject jsonObject = new JSONObject(anError.getErrorBody());
-                mView.showErrorMessage(jsonObject.optString("message"));
-
-            } else {
-                mView.showErrorMessage("Terjadi Kesalahan");
-            }
-
-        }));
+        }, error -> mView.showErrorMessage(CommonUtils.commonErrorFormat(error))));
 
     }
 
@@ -91,15 +79,24 @@ public class LoanPresenter implements LoanContract.Presenter {
 
             mView.showReason(response.getData());
 
-        }, error ->{
+        }, error -> mView.showErrorMessage(CommonUtils.commonErrorFormat(error))));
+    }
 
-            ANError anError = (ANError) error;
-            if(anError.getErrorBody() != null){
+    @Override
+    public void getRulesFormula() {
 
-                JSONObject json = new JSONObject(anError.getErrorBody());
-                mView.showErrorMessage(json.optString("message"));
-            }
+        if(mView == null){
+            return;
+        }
 
-        }));
+        String idBank = String.valueOf(preferenceRepository.getBankID());
+        mComposite.add(remoteRepository.getBanksDetail(idBank)
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(res -> {
+
+            mView.setupFormulaFee(res.getAdminFeeSetup(), res.getConvfeeSetup());
+
+        }, error -> mView.showErrorMessage(CommonUtils.commonErrorFormat(error))));
     }
 }

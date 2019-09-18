@@ -46,6 +46,12 @@ public class BankDetail implements Serializable
     @SerializedName("phone")
     private String phone;
 
+    @SerializedName("adminfee_setup")
+    private String adminFeeSetup;
+
+    @SerializedName("convfee_setup")
+    private String convfeeSetup;
+
     public Integer getId() {
         return id;
     }
@@ -150,4 +156,11 @@ public class BankDetail implements Serializable
         this.phone = phone;
     }
 
+    public String getAdminFeeSetup() {
+        return adminFeeSetup;
+    }
+
+    public String getConvfeeSetup() {
+        return convfeeSetup;
+    }
 }
