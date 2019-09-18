@@ -160,7 +160,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
                     totalBunga = (int) (loanAmount * interest) / 100;
 
                     //calculate angsuran perbulan
-                    angsurnaPerbulan = calculateAngsuranPerBulan(mServiceProducts.getProducts().get(selectedProduct).getAsnFee());
+                    angsurnaPerbulan = calculateAngsuranPerBulan(mServiceProducts.getProducts().get(selectedProduct).getAssurance());
 
 //                //calculate jumlapencairan
 //                countPencairan = calculatePotongPlafond(loanAmount)/installmentTenor;
@@ -530,14 +530,12 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
     }
 
     private double calculateAngsuranPerBulan(String jenisPotong) {
-        double x=0;
 
         if (jenisPotong.trim().isEmpty()) {
-            x = (loanAmount + totalBunga) / installmentTenor;
+            return (loanAmount + totalBunga) / installmentTenor;
         } else {
-            x = (loanAmount + totalBunga + administration) / installmentTenor;
+            return (loanAmount + totalBunga + administration) / installmentTenor;
         }
 
-        return x;
     }
 }
