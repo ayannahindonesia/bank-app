@@ -1,7 +1,11 @@
 package com.ayannah.asira.data;
 
+import com.ayannah.asira.data.local.BankServiceInterface;
+import com.ayannah.asira.data.local.BankServiceLocal;
 import com.ayannah.asira.data.local.PreferenceDataSource;
 import com.ayannah.asira.data.local.PreferenceRepository;
+import com.ayannah.asira.data.local.ServiceProductInterface;
+import com.ayannah.asira.data.local.ServiceProductLocal;
 import com.ayannah.asira.data.remote.RemoteDataSource;
 import com.ayannah.asira.data.remote.RemoteRepository;
 import com.ayannah.asira.data.remote.RemoteService;
@@ -21,6 +25,12 @@ public abstract class RepositoryModule {
 
     @Binds
     abstract PreferenceRepository preferenceRepository(PreferenceDataSource preferenceDataSource);
+
+    @Binds
+    abstract BankServiceInterface bankServiceInterface(BankServiceLocal bankServiceLocal);
+
+    @Binds
+    abstract ServiceProductInterface serviceProductInterface(ServiceProductLocal serviceProductLocal);
 
     @Provides
     @Singleton

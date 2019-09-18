@@ -1,6 +1,7 @@
 package com.ayannah.asira.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +11,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ayannah.asira.R;
+import com.ayannah.asira.data.local.BankServiceLocal;
+import com.ayannah.asira.data.local.ServiceProductLocal;
 import com.ayannah.asira.data.model.Loans.DataItem;
 import com.ayannah.asira.util.CommonUtils;
+import com.google.gson.JsonObject;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,12 +96,42 @@ public class LoanAdapter extends RecyclerView.Adapter<LoanAdapter.LoadViewHolder
         }
 
         private void bind(DataItem param){
+            JSONObject jsonObject = null;
+            String serviceNya = "";
+            String productNya = "";
+
+            BankServiceLocal bankServiceLocal = new BankServiceLocal(mContext);
+            ServiceProductLocal serviceProductLocal = new ServiceProductLocal(mContext);
+
+            try {
+
+                JSONArray jsonArray = new JSONArray(bankServiceLocal.getBankService());
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject jsonObject1 = new JSONObject(String.valueOf(jsonArray.get(i)));
+                    if (param.getService().equals(jsonObject1.get("id").toString())) {
+                        serviceNya = jsonObject1.get("name").toString();
+                    }
+                }
+
+                JSONArray jsonArray1 = new JSONArray(serviceProductLocal.getServiceProducts());
+                for (int j = 0; j < jsonArray1.length(); j++) {
+                    JSONObject jsonObject2 = new JSONObject(String.valueOf(jsonArray1.get(j)));
+                    if (param.getService().equals(jsonObject2.get("id").toString())) {
+                        productNya = jsonObject2.get("name").toString();
+                    }
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
 
 //            numLoan.setText(param.getService() + " - " + param.getId());
 //            numLoan.setText(String.format("%s - ", param.getService()));
-            numLoan.setText(String.format("%1$s - %2$s", param.getService(), param.getId()));
+//            numLoan.setText(String.format("%1$s - %2$s", param.getService(), param.getId()));
+            numLoan.setText(String.format("%1$s - %2$s", serviceNya, param.getId()));
 
-            typeLoan.setText(param.getService());
+//            typeLoan.setText(param.getService());
+            typeLoan.setText(productNya);
 
 //            if(param.isOtpVerified()){
 //

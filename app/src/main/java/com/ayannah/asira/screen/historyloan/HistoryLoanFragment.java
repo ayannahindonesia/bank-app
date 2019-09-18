@@ -64,7 +64,9 @@ public class HistoryLoanFragment extends BaseFragment implements
         super.onResume();
         mPresenter.takeView(this);
 
-        mPresenter.loadHistoryTransaction("");
+        mPresenter.getProducts();
+
+//        mPresenter.loadHistoryTransaction("");
     }
 
     @Override
