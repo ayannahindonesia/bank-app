@@ -2,9 +2,6 @@ package com.ayannah.asira.screen.loan;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -21,6 +18,7 @@ import androidx.appcompat.app.AlertDialog;
 
 import com.ayannah.asira.R;
 import com.ayannah.asira.custom.PlafondEditText;
+import com.ayannah.asira.data.model.Products;
 import com.ayannah.asira.data.model.ReasonLoan;
 import com.ayannah.asira.data.model.ServiceProducts;
 import com.ayannah.asira.screen.summary.SummaryTransactionActivity;
@@ -35,7 +33,6 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import butterknife.OnItemSelected;
 
 public class LoanFragment extends BaseFragment implements LoanContract.View {
 
@@ -116,7 +113,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
     private String convSetup;
 
     private List<String> productName;
-    private ServiceProducts mServiceProducts;
+    private ArrayList<Products> mServiceProducts = new ArrayList<>();
     private NumberSeparatorTextWatcher plafonNumberSeparator;
 
     @Inject
@@ -266,14 +263,13 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
 
         if (size > 0) {
 
-            //set global variable to get all value from service product
-            mServiceProducts = serviceProducts;
-
             productName = new ArrayList<>();
 
             for (int i = 0; i < size; i++) {
                 if (serviceProducts.getProducts().get(i).getStatus().equals("active")) {
                     productName.add(serviceProducts.getProducts().get(i).getName());
+                    //set global variable to get all value from service product
+                    mServiceProducts.add(serviceProducts.getProducts().get(i));
                 }
             }
 
@@ -306,12 +302,12 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
                     jumlahPencairan.setText("-");
 
                     //set min and max plafond based on selected product
-                    minPlafond = serviceProducts.getProducts().get(position).getMinLoan();
-                    maxPlafond = serviceProducts.getProducts().get(position).getMaxLoan();
+                    minPlafond = mServiceProducts.get(position).getMinLoan();
+                    maxPlafond = mServiceProducts.get(position).getMaxLoan();
 
                     //set min and max tenor based on selected product
-                    minTenor = serviceProducts.getProducts().get(position).getMinTimespan();
-                    maxTenor = serviceProducts.getProducts().get(position).getMaxTimespan();
+                    minTenor = mServiceProducts.get(position).getMinTimespan();
+                    maxTenor = mServiceProducts.get(position).getMaxTimespan();
                     int maxTenorSeekbar = ((maxTenor-minTenor)/6);
                     installment.setMax(maxTenorSeekbar);
 
@@ -319,15 +315,15 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
                     tvInstallment.setText(String.format("%s bulan", installmentTenor));
 
                     //set plafond sesuai dengan product yang dipilih
-                    plafonMinMax.setText(String.format("Min %s - Max %s", CommonUtils.setRupiahCurrency(serviceProducts.getProducts().get(position).getMinLoan()),
-                            CommonUtils.setRupiahCurrency(serviceProducts.getProducts().get(position).getMaxLoan())));
+                    plafonMinMax.setText(String.format("Min %s - Max %s", CommonUtils.setRupiahCurrency(mServiceProducts.get(position).getMinLoan()),
+                            CommonUtils.setRupiahCurrency(mServiceProducts.get(position).getMaxLoan())));
 
                     //set listener if user click back on the phone after type number of plafond
                     plafondCustom.setOnHideSoftKeyboardAction((keyCode, event) -> {
 
                         if (keyCode == KeyEvent.KEYCODE_BACK){
 
-                            CalculateData(position, serviceProducts);
+                            CalculateData(position, mServiceProducts);
 
                         }
                     });
@@ -337,7 +333,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
 
                         if(keyCode == EditorInfo.IME_ACTION_DONE){
 
-                            CalculateData(position, serviceProducts);
+                            CalculateData(position, mServiceProducts);
 
                         }
                         return false;
@@ -360,7 +356,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
         dialog.dismiss();
     }
 
-    private void CalculateData(int position, ServiceProducts serviceProducts) {
+    private void CalculateData(int position, List<Products> serviceProducts) {
 
         if(!plafondCustom.getText().toString().trim().isEmpty()){
 
@@ -369,16 +365,16 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
             //get value from edittext to set plafond
             int nominal = Integer.parseInt(plafondCustom.getText().toString().replaceAll(",", ""));
             int nominalRound = roundingValue(nominal);
-            administration = calculateAdministration(nominalRound, serviceProducts.getProducts().get(position).getFees().get(0).getAmount(), serviceProducts.getProducts().get(position).getAsnFee());
-            productID = mServiceProducts.getProducts().get(position).getId();
+            administration = calculateAdministration(nominalRound, mServiceProducts.get(position).getFees().get(0).getAmount(), mServiceProducts.get(position).getAsnFee());
+            productID = mServiceProducts.get(position).getId();
 
-            if(nominalRound < serviceProducts.getProducts().get(position).getMinLoan()){
+            if(nominalRound < mServiceProducts.get(position).getMinLoan()){
 
                 // jumlah pinjaman lebih kecil dari batas minimum
                 Toast.makeText(parentActivity(), "Jumlah pinjmana lebih kecil dari batas minimum", Toast.LENGTH_SHORT).show();
 
 
-            }else if(nominalRound > serviceProducts.getProducts().get(position).getMaxLoan()){
+            }else if(nominalRound > mServiceProducts.get(position).getMaxLoan()){
 
                 // Jumlaj pinhaman lebih besar dari batas maksimum
                 Toast.makeText(parentActivity(), "Jumlah pinjmana lebih besar dari batas maximum", Toast.LENGTH_SHORT).show();
@@ -397,7 +393,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
                 installmentTenor = minTenor;
 
                 //calculate bunga
-                interest = serviceProducts.getProducts().get(position).getInterest();
+                interest = mServiceProducts.get(position).getInterest();
                 totalBunga = (int) (loanAmount * interest) / 100;
 
                 //calculate angsuran perbulan
