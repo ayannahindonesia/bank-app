@@ -1,12 +1,22 @@
 package com.ayannah.asira.screen.summary;
 
+import android.util.Log;
+
 import androidx.annotation.Nullable;
 
+import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.ANConstants;
+import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.JSONObjectRequestListener;
+import com.ayannah.asira.BuildConfig;
+import com.ayannah.asira.data.local.PreferenceDataSource;
+import com.ayannah.asira.data.local.PreferenceRepository;
 import com.ayannah.asira.data.remote.RemoteRepository;
 import com.google.gson.JsonObject;
+import com.rx2androidnetworking.Rx2AndroidNetworking;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import javax.inject.Inject;
@@ -23,10 +33,12 @@ public class SummaryTransactionPresenter implements SummaryTransactionContract.P
 
     private RemoteRepository remoteRepository;
     private CompositeDisposable mComposite;
+    private PreferenceRepository preferenceRepository;
 
     @Inject
-    SummaryTransactionPresenter(RemoteRepository remoteRepository){
+    SummaryTransactionPresenter(RemoteRepository remoteRepository, PreferenceRepository preferenceRepository){
         this.remoteRepository = remoteRepository;
+        this.preferenceRepository = preferenceRepository;
 
         mComposite = new CompositeDisposable();
     }
@@ -38,28 +50,30 @@ public class SummaryTransactionPresenter implements SummaryTransactionContract.P
             return;
         }
 
-        mComposite.add(remoteRepository.postLoan(json)
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(response ->{
+        AndroidNetworking.post(BuildConfig.API_URL + "borrower/loan")
+                .addHeaders("Authorization", preferenceRepository.getUserToken())
+                .addApplicationJsonBody(json)
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getAsJSONObject(new JSONObjectRequestListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
 
-            mView.successLoanApplication(String.valueOf(response.getId()));
+                        try {
 
-        }, error ->{
+                            mView.successLoanApplication(String.valueOf(response.getInt("id")));
 
-            ANError anError = (ANError) error;
-            if(anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
-                mView.showErrorMessages("Connection Error");
-            }else {
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
 
-                if(anError.getErrorBody() != null){
+                    @Override
+                    public void onError(ANError anError) {
+                        Log.d("verify Loan: ", "gagal");
+                    }
+                });
 
-                    JSONObject jsonObject = new JSONObject(anError.getErrorBody());
-                    mView.showErrorMessages(jsonObject.optString("message"));
-                }
-            }
-
-        }));
 
     }
 
@@ -82,28 +96,6 @@ public class SummaryTransactionPresenter implements SummaryTransactionContract.P
         if(mView == null){
             return;
         }
-
-//        mComposite.add(remoteRepository.getOTPForLoan(idLoan)
-//        .subscribeOn(Schedulers.io())
-//        .observeOn(AndroidSchedulers.mainThread())
-//        .subscribe(response -> {
-//
-//
-//
-//        }, error -> {
-//
-//            ANError anError = (ANError) error;
-//            if(anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
-//                mView.showErrorMessages("Connection Error");
-//            }else {
-//
-//                if(anError.getErrorBody() != null){
-//
-//                    JSONObject jsonObject = new JSONObject(anError.getErrorBody());
-//                    mView.showErrorMessages(jsonObject.optString("message"));
-//                }
-//            }
-//        }));
 
         mComposite.add(Completable.fromAction(() -> {
 
