@@ -2,6 +2,7 @@ package com.ayannah.asira.data.model.Loans;
 
 import java.util.List;
 
+import com.ayannah.asira.data.model.FeesItem;
 import com.ayannah.asira.data.model.UserProfile;
 import com.google.gson.annotations.SerializedName;
 

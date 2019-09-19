@@ -15,10 +15,10 @@ import android.widget.Toast;
 import com.ayannah.asira.R;
 import com.ayannah.asira.data.local.ServiceProductLocal;
 import com.ayannah.asira.data.model.Loans.DataItem;
-import com.ayannah.asira.data.model.Loans.FeesItem;
 import com.ayannah.asira.dialog.BottomSheetDialogGlobal;
 import com.ayannah.asira.screen.otpphone.VerificationOTPActivity;
 import com.ayannah.asira.util.CommonUtils;
+import com.google.android.gms.common.internal.service.Common;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,7 +37,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import dagger.android.support.DaggerAppCompatActivity;
 
-public class DetailTransaksiActivity extends DaggerAppCompatActivity implements DetailTransaksiContract.View  {
+public class DetailTransaksiActivity extends DaggerAppCompatActivity implements DetailTransaksiContract.View {
 
     public static final String ID_LOAN = "idloan";
 
@@ -142,8 +142,8 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
 
     @Override
     public void loadAllInformation(DataItem dataItem) {
-        ServiceProductLocal serviceProductLocal = new ServiceProductLocal(getBaseContext());
         try {
+            ServiceProductLocal serviceProductLocal = new ServiceProductLocal(getBaseContext());
             JSONArray jsonArray1 = new JSONArray(serviceProductLocal.getServiceProducts());
             for (int j = 0; j < jsonArray1.length(); j++) {
                 JSONObject jsonObject2 = new JSONObject(String.valueOf(jsonArray1.get(j)));
@@ -152,75 +152,87 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
                     produk.setText(jsonObject2.get("name").toString());
                 }
             }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
 
-        idLoan = dataItem.getId();
+            idLoan = dataItem.getId();
 
-        noPeminjaman.setText(String.valueOf(dataItem.getId()));
+            noPeminjaman.setText(String.valueOf(dataItem.getId()));
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss.SSS'Z'", Locale.getDefault());
-        SimpleDateFormat sdfUsed = new SimpleDateFormat("dd MMM yyyy HH:mm:ss", Locale.getDefault());
-        Date getDate = new Date();
-        try {
-            getDate = sdf.parse(dataItem.getCreatedTime());
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        dateCreated.setText(sdfUsed.format(getDate));
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss.SSS'Z'", Locale.getDefault());
+            SimpleDateFormat sdfUsed = new SimpleDateFormat("dd MMM yyyy HH:mm:ss", Locale.getDefault());
+            Date getDate = new Date();
+            try {
+                getDate = sdf.parse(dataItem.getCreatedTime());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            dateCreated.setText(sdfUsed.format(getDate));
 
-        switch (dataItem.getStatus().toLowerCase()){
-            case STATUS_APPROVED:
-                status.setBackgroundResource(R.drawable.badge_diterima);
-                status.setText(getResources().getString(R.string.accept));
-                break;
-            case STATUS_PROCESSING:
-                status.setBackgroundResource(R.drawable.badge_tidak_lengkap);
-                status.setText(getResources().getString(R.string.processing));
-                break;
-            case STATUS_REJECTED:
-                status.setBackgroundResource(R.drawable.badge_ditolak);
-                status.setText(getResources().getString(R.string.reject));
-                break;
-        }
-
-        tujuan.setText(dataItem.getLoanIntention());
-
-        detailTujuan.setText(dataItem.getIntentionDetails());
-
-        jumlahPinjaman.setText(CommonUtils.setRupiahCurrency(dataItem.getLoanAmount()));
-
-        tenor.setText(String.format("%s Bulan", dataItem.getInstallment()));
-
-        double calInterest = ((double)dataItem.getLoanAmount() * 1.5 /100);
-        interest.setText(CommonUtils.setRupiahCurrency( (int) calInterest ));
-
-        if(dataItem.getFees().size() > 0){
-
-            fees.setText(CommonUtils.setRupiahCurrency(dataItem.getFees().get(0).getAmount()));
-
-            for(FeesItem fee:dataItem.getFees()){
-
-                admin = fee.getAmount();
+            switch (dataItem.getStatus().toLowerCase()) {
+                case STATUS_APPROVED:
+                    status.setBackgroundResource(R.drawable.badge_diterima);
+                    status.setText(getResources().getString(R.string.accept));
+                    break;
+                case STATUS_PROCESSING:
+                    status.setBackgroundResource(R.drawable.badge_tidak_lengkap);
+                    status.setText(getResources().getString(R.string.processing));
+                    break;
+                case STATUS_REJECTED:
+                    status.setBackgroundResource(R.drawable.badge_ditolak);
+                    status.setText(getResources().getString(R.string.reject));
+                    break;
             }
 
-            calculateTotalBiaya = ((int)calInterest * dataItem.getInstallment()) + (admin * dataItem.getInstallment()) + dataItem.getLoanAmount();
-        }else {
+            tujuan.setText(dataItem.getLoanIntention());
 
-            calculateTotalBiaya = ((int)calInterest * dataItem.getInstallment())  + dataItem.getLoanAmount();
+            detailTujuan.setText(dataItem.getIntentionDetails());
 
-        }
+            jumlahPinjaman.setText(CommonUtils.setRupiahCurrency(dataItem.getLoanAmount()));
 
-        angsuran.setText(CommonUtils.setRupiahCurrency((int) Math.floor(dataItem.getLayawayPlan())));
+            tenor.setText(String.format("%s Bulan", dataItem.getInstallment()));
 
-        totalBiaya.setText(CommonUtils.setRupiahCurrency(calculateTotalBiaya));
+            double calInterest = ((double) dataItem.getLoanAmount() * dataItem.getInterest() / 100);
+            interest.setText(CommonUtils.setRupiahCurrency((int) calInterest));
+
+            String asnFee="";
+            for (int j = 0; j < jsonArray1.length(); j++) {
+                JSONObject jsonObject2 = new JSONObject(String.valueOf(jsonArray1.get(j)));
+                if (dataItem.getProduct().equals(jsonObject2.get("id").toString())) {
+//                    productNya = jsonObject2.get("name").toString();
+                    asnFee=jsonObject2.get("asn_fee").toString();
+                }
+            }
+
+            fees.setText(CommonUtils.setRupiahCurrency(calculateAdministration(dataItem.getLoanAmount(), dataItem.getFees().get(0).getAmount(), asnFee)));
+
+//        if(dataItem.getFees().size() > 0){
+//
+//            fees.setText(CommonUtils.setRupiahCurrency(dataItem.getFees().get(0).getAmount()));
+//
+//            for(FeesItem fee:dataItem.getFees()){
+//
+//                admin = fee.getAmount();
+//            }
+//
+//            calculateTotalBiaya = ((int)calInterest * dataItem.getInstallment()) + (admin * dataItem.getInstallment()) + dataItem.getLoanAmount();
+//        }else {
+//
+//            calculateTotalBiaya = ((int)calInterest * dataItem.getInstallment())  + dataItem.getLoanAmount();
+//
+//        }
+
+            angsuran.setText(CommonUtils.setRupiahCurrency((int) Math.floor(dataItem.getLayawayPlan())));
+
+            totalBiaya.setText(CommonUtils.setRupiahCurrency(calculateTotalBiaya));
 
 //        produk.setText();
 
-        if(!dataItem.isOtpVerified()){
+            if (!dataItem.isOtpVerified()) {
 
-            btn_verfiedLoan.setVisibility(View.VISIBLE);
+                btn_verfiedLoan.setVisibility(View.VISIBLE);
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
 
         dismissDialog();
@@ -235,7 +247,7 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
         Jika tidak ada, maka sebaliknya
          */
 
-        if(isExist){
+        if (isExist) {
 
             //true
             BottomSheetDialogGlobal dialog = new BottomSheetDialogGlobal().show(getSupportFragmentManager(),
@@ -260,7 +272,7 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
                 }
             });
 
-        }else {
+        } else {
 
             //false
             Intent submit = new Intent(this, VerificationOTPActivity.class);
@@ -273,7 +285,7 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
     }
 
     @OnClick(R.id.verfiedLoan)
-    void onClickSubmitLoan(){
+    void onClickSubmitLoan() {
 
         Intent submit = new Intent(this, VerificationOTPActivity.class);
         submit.putExtra(VerificationOTPActivity.PURPOSES, "resubmit_loan");
@@ -302,5 +314,42 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
     protected void onDestroy() {
         super.onDestroy();
         mUnbinder.unbind();
+    }
+
+    //hitung biaya adminsitrasi
+    //tes bkin formulasi administrasi
+    private int calculateAdministration(int plafon, String adminFee, String asnFee) {
+        int calAdminFee;
+        int calAsnFee;
+
+        if (adminFee.contains("%")) {
+            double adminFeeX = Double.parseDouble(adminFee.replace("%", ""));
+            calAdminFee = (int) (plafon * adminFeeX / 100);
+        } else {
+            calAdminFee = Integer.parseInt(adminFee);
+        }
+
+        if (asnFee.contains("%")) {
+            double asnFeeX = Double.parseDouble(asnFee.replace("%", ""));
+            calAsnFee = (int) (plafon * asnFeeX / 100);
+        } else {
+            calAsnFee = Integer.parseInt(asnFee);
+        }
+
+//        int admin = plafon * calAdminFee / 100;
+//
+//        int asnfees = 0;
+//
+//        if (asnFee > 100) {
+//
+//            asnfees = asnFee;
+//
+//        } else {
+//
+//            asnfees = plafon * asnFee / 100;
+//        }
+
+        return calAdminFee + calAsnFee;
+
     }
 }
