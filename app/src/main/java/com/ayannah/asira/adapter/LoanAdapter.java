@@ -116,7 +116,7 @@ public class LoanAdapter extends RecyclerView.Adapter<LoanAdapter.LoadViewHolder
                 JSONArray jsonArray1 = new JSONArray(serviceProductLocal.getServiceProducts());
                 for (int j = 0; j < jsonArray1.length(); j++) {
                     JSONObject jsonObject2 = new JSONObject(String.valueOf(jsonArray1.get(j)));
-                    if (param.getService().equals(jsonObject2.get("id").toString())) {
+                    if (param.getProduct().equals(jsonObject2.get("id").toString())) {
                         productNya = jsonObject2.get("name").toString();
                     }
                 }
