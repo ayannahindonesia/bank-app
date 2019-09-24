@@ -22,6 +22,8 @@ import com.ayannah.asira.screen.navigationmenu.infokeuangan.InformasiKeuanganAct
 import com.ayannah.asira.screen.navigationmenu.infokeuangan.InformasiKeuanganModule;
 import com.ayannah.asira.screen.navigationmenu.infopribadi.InfoPribadiActivity;
 import com.ayannah.asira.screen.navigationmenu.infopribadi.InfoPribadiModule;
+import com.ayannah.asira.screen.notifpage.NotifPageActivity;
+import com.ayannah.asira.screen.notifpage.NotifPageModule;
 import com.ayannah.asira.screen.otpphone.VerificationOTPActivity;
 import com.ayannah.asira.screen.otpphone.VerificationOTPModule;
 import com.ayannah.asira.screen.register.addaccountbank.AddAccountBankActivity;
@@ -138,5 +140,9 @@ abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = CreateNewPassModule.class)
     abstract CreateNewPassActivity createNewPassActivity();
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = NotifPageModule.class)
+    abstract NotifPageActivity notifPageActivity();
 
 }

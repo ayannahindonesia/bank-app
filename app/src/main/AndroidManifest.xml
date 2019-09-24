@@ -38,6 +38,7 @@
                     android:pathPrefix="/deepLinks/" />
             </intent-filter>
         </activity>
+        <activity android:name=".screen.notifpage.NotifPageActivity"/>
         <activity android:name="com.ayannah.asira.screen.resetpassword.ResetPasswordActivity" />
         <activity android:name="com.ayannah.asira.screen.success.SuccessActivity" />
         <activity android:name="com.ayannah.asira.screen.login.LoginActivity">
