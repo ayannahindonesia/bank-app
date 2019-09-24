@@ -20,6 +20,7 @@ import com.ayannah.asira.screen.otpphone.VerificationOTPActivity;
 import com.google.gson.JsonObject;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.annotation.Length;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 
 import java.util.List;
@@ -98,6 +99,7 @@ public class FormOtherFragment extends BaseFragment implements FormOtherContract
 
     @NotEmpty(message = "Masukan No Handphone Kerabat Anda", trim = true)
     @BindView(R.id.etRelatedHP)
+    @Length(min = 10, message = "Minimal 10 digit, Maximal 14 digit", max = 14)
     EditText etRelatedHP;
 
     @BindView(R.id.etRelatedPhone)

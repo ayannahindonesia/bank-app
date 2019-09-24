@@ -37,7 +37,6 @@ import com.ayannah.asira.screen.historyloan.HistoryLoanActivity;
 import com.ayannah.asira.screen.navigationmenu.datapendukung.DataPendukungActivity;
 import com.ayannah.asira.R;
 import com.ayannah.asira.adapter.BeritaPromoAdapter;
-import com.ayannah.asira.adapter.LoanAdapter;
 import com.ayannah.asira.base.BaseFragment;
 import com.ayannah.asira.data.model.BeritaPromo;
 import com.ayannah.asira.dialog.BottomSheetDialogLogout;
@@ -45,6 +44,7 @@ import com.ayannah.asira.screen.login.LoginActivity;
 import com.ayannah.asira.screen.navigationmenu.akunsaya.AkunSayaActivity;
 import com.ayannah.asira.screen.navigationmenu.infopribadi.InfoPribadiActivity;
 import com.ayannah.asira.screen.navigationmenu.infokeuangan.InformasiKeuanganActivity;
+import com.ayannah.asira.screen.notifpage.NotifPageActivity;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
@@ -80,9 +80,6 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
 
     @BindView(R.id.nav_view)
     NavigationView navigationView;
-
-    @Inject
-    LoanAdapter mAdapter;
 
     @Inject
     BeritaPromoAdapter mAdapterNewsPromo;
@@ -426,7 +423,11 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
 
     @OnClick(R.id.notification)
     void onClickNotif(){
-        Toast.makeText(parentActivity(), "Test", Toast.LENGTH_SHORT).show();
+
+        Intent notif = new Intent(parentActivity(), NotifPageActivity.class);
+        notif.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(notif);
+
     }
 
 }

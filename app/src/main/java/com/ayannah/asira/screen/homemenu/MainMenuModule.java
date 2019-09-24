@@ -3,7 +3,6 @@ package com.ayannah.asira.screen.homemenu;
 import android.app.Application;
 
 import com.ayannah.asira.adapter.BeritaPromoAdapter;
-import com.ayannah.asira.adapter.LoanAdapter;
 import com.ayannah.asira.adapter.MenuProductAdapter;
 import com.ayannah.asira.di.ActivityScoped;
 import com.ayannah.asira.di.FragmentScoped;
@@ -23,12 +22,6 @@ public abstract class MainMenuModule {
     @ActivityScoped
     @Binds
     abstract MainMenuContract.Presenter requestPresenter(MainMenuPresenter presenter);
-
-    @Provides
-    @ActivityScoped
-    static LoanAdapter loanAdapter(Application application){
-        return new LoanAdapter(application);
-    }
 
     @Provides
     @ActivityScoped

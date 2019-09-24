@@ -1,6 +1,7 @@
 package com.ayannah.asira.screen.notifpage;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.ayannah.asira.R;
 import com.ayannah.asira.adapter.CommonListAdapter;
 import com.ayannah.asira.base.BaseFragment;
+import com.ayannah.asira.custom.CommonListListener;
 
 import java.util.List;
 
@@ -38,6 +40,8 @@ public class NotifPageFragment extends BaseFragment implements NotifPageContract
     public void onResume() {
         super.onResume();
 
+        mPresenter.takeView(this);
+
         mPresenter.getListNotification();
     }
 
@@ -50,9 +54,13 @@ public class NotifPageFragment extends BaseFragment implements NotifPageContract
     protected void initView(Bundle state) {
 
         rvNotif.setLayoutManager(new LinearLayoutManager(parentActivity()));
+
         rvNotif.setHasFixedSize(true);
+
         rvNotif.addItemDecoration(new DividerItemDecoration(parentActivity(), DividerItemDecoration.VERTICAL));
+
         rvNotif.setAdapter(adapter);
+
     }
 
     @Override
@@ -67,6 +75,7 @@ public class NotifPageFragment extends BaseFragment implements NotifPageContract
 
         adapter.setDataNotificationMessages(results);
 
+        adapter.setOnClickListnerNotifAdapter(data -> Toast.makeText(parentActivity(), data, Toast.LENGTH_SHORT).show());
 
     }
 }

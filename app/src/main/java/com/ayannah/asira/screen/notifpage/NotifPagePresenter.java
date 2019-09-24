@@ -2,6 +2,8 @@ package com.ayannah.asira.screen.notifpage;
 
 import android.app.Application;
 
+import androidx.annotation.Nullable;
+
 import com.ayannah.asira.adapter.CommonListAdapter;
 import com.ayannah.asira.data.remote.RemoteRepository;
 
@@ -18,8 +20,8 @@ public class NotifPagePresenter implements NotifPageContract.Presenter {
     private CompositeDisposable mComposite;
     private RemoteRepository remotRepo;
 
-    @Inject
-    NotifPageContract.View mView;
+    @Nullable
+    private NotifPageContract.View mView;
 
     @Inject
     NotifPagePresenter(Application application, RemoteRepository remotRepo){
@@ -32,6 +34,11 @@ public class NotifPagePresenter implements NotifPageContract.Presenter {
 
     @Override
     public void getListNotification() {
+
+
+        if(mView == null){
+            return;
+        }
 
         List<String> datas = new ArrayList<>();
 

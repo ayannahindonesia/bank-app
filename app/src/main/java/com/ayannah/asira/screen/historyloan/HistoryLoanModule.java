@@ -1,8 +1,7 @@
 package com.ayannah.asira.screen.historyloan;
 
-import android.app.Application;
 
-import com.ayannah.asira.adapter.LoanAdapter;
+import com.ayannah.asira.adapter.CommonListAdapter;
 import com.ayannah.asira.di.ActivityScoped;
 import com.ayannah.asira.di.FragmentScoped;
 
@@ -24,8 +23,7 @@ public abstract class HistoryLoanModule {
 
     @Provides
     @ActivityScoped
-    static LoanAdapter loanAdapter(Application application){
-        return new LoanAdapter(application);
-
+    static CommonListAdapter adapter(){
+        return new CommonListAdapter(CommonListAdapter.VIEW_LOAN_HISTORY);
     }
 }

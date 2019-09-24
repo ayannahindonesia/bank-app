@@ -31,6 +31,7 @@ import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.ConfirmPassword;
 import com.mobsandgeeks.saripaar.annotation.Email;
 import com.mobsandgeeks.saripaar.annotation.Length;
+import com.mobsandgeeks.saripaar.annotation.Min;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.mobsandgeeks.saripaar.annotation.Password;
 
@@ -77,7 +78,8 @@ public class AddDocumentFragment extends BaseFragment implements AddDocumentCont
     @BindView(R.id.regist_email)
     EditText email;
 
-    @NotEmpty(message = "Masukan Nomor Handphone Anda", trim = true)
+    @NotEmpty(message = "Masukan Nomor Handphone Anda, min 10 digit", trim = true)
+    @Length(min = 10, message = "Minimal 10 digit, Maximal 14 digit", max = 14)
     @BindView(R.id.regist_phone)
     EditText phone;
 

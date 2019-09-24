@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ayannah.asira.R;
-import com.ayannah.asira.adapter.LoanAdapter;
+import com.ayannah.asira.adapter.CommonListAdapter;
 import com.ayannah.asira.base.BaseFragment;
 import com.ayannah.asira.data.model.Loans.DataItem;
 import com.ayannah.asira.dialog.BottomSortHistoryLoan;
@@ -45,7 +45,7 @@ public class HistoryLoanFragment extends BaseFragment implements
     TextView nodata;
 
     @Inject
-    LoanAdapter mAdapter;
+    CommonListAdapter mAdapterLoans;
 
     private BottomSortHistoryLoan bottomSortHistoryLoan;
 
@@ -75,7 +75,7 @@ public class HistoryLoanFragment extends BaseFragment implements
         recyclerView.setLayoutManager(new LinearLayoutManager(parentActivity()));
         recyclerView.addItemDecoration(new DividerItemDecoration(parentActivity(), DividerItemDecoration.VERTICAL));
         recyclerView.setHasFixedSize(true);
-        recyclerView.setAdapter(mAdapter);
+        recyclerView.setAdapter(mAdapterLoans);
 
         bottomSortHistoryLoan = new BottomSortHistoryLoan();
 
@@ -111,7 +111,7 @@ public class HistoryLoanFragment extends BaseFragment implements
             recyclerView.setVisibility(View.VISIBLE);
             nodata.setVisibility(View.GONE);
 
-            mAdapter.setLoanData(results);
+            mAdapterLoans.setDateLoans(results);
 
         }else {
 
@@ -120,7 +120,7 @@ public class HistoryLoanFragment extends BaseFragment implements
 
         }
 
-        mAdapter.setLoanListener(loans -> {
+        mAdapterLoans.setOnClickListenerLoanAdapter(loans -> {
 
             Intent intent = new Intent(parentActivity(), DetailTransaksiActivity.class);
             intent.putExtra(DetailTransaksiActivity.ID_LOAN, String.valueOf(loans.getId()));
@@ -151,5 +151,6 @@ public class HistoryLoanFragment extends BaseFragment implements
         mPresenter.loadHistoryTransaction(status);
 
         bottomSortHistoryLoan.dismiss();
+
     }
 }
