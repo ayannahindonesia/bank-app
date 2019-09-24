@@ -12,6 +12,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,6 +53,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class MainMenuFragment extends BaseFragment implements MainMenuContract.View, NavigationView.OnNavigationItemSelectedListener{
 
@@ -63,6 +65,9 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
+
+    @BindView(R.id.notification)
+    RelativeLayout notification;
 
     @BindView(R.id.recycler_menuproducts)
     RecyclerView recycler_menuproducts;
@@ -170,44 +175,44 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
     }
 
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        parentActivity().getMenuInflater().inflate(R.menu.main_menu, menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        int id = item.getItemId();
-
-        if(id == R.id.action_settings){
-
-            Toast.makeText(parentActivity(), "Settings", Toast.LENGTH_SHORT).show();
-
-        }else{
-
-            BottomSheetDialogLogout logout = new BottomSheetDialogLogout();
-            logout.showNow(parentActivity().getSupportFragmentManager(), "TAG");
-            logout.setOnClickListener(new BottomSheetDialogLogout.BottomSheetDialofLogoutListener() {
-                @Override
-                public void onClickYes() {
-                    logout.dismiss();
-
-                    mPresenter.logout();
-                }
-
-                @Override
-                public void onClickNo() {
-
-                    logout.dismiss();
-                }
-            });
-            
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public void onCreateOptionsMenu(Menu menu) {
+//        super.onCreateOptionsMenu(menu);
+//        parentActivity().getMenuInflater().inflate(R.menu.main_menu);
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//
+//        int id = item.getItemId();
+//
+//        if(id == R.id.action_settings){
+//
+//            Toast.makeText(parentActivity(), "Settings", Toast.LENGTH_SHORT).show();
+//
+//        }else{
+//
+//            BottomSheetDialogLogout logout = new BottomSheetDialogLogout();
+//            logout.showNow(parentActivity().getSupportFragmentManager(), "TAG");
+//            logout.setOnClickListener(new BottomSheetDialogLogout.BottomSheetDialofLogoutListener() {
+//                @Override
+//                public void onClickYes() {
+//                    logout.dismiss();
+//
+//                    mPresenter.logout();
+//                }
+//
+//                @Override
+//                public void onClickNo() {
+//
+//                    logout.dismiss();
+//                }
+//            });
+//
+//        }
+//
+//        return super.onOptionsItemSelected(item);
+//    }
 
     @Override
     public void showErrorMessage(String message) {
@@ -394,11 +399,34 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
 
             Intent pinjamansaya = new Intent(parentActivity(), HistoryLoanActivity.class);
             startActivity(pinjamansaya);
+        } else if (id == R.id.nav_logout) {
+
+            BottomSheetDialogLogout logout = new BottomSheetDialogLogout();
+            logout.showNow(parentActivity().getSupportFragmentManager(), "TAG");
+            logout.setOnClickListener(new BottomSheetDialogLogout.BottomSheetDialofLogoutListener() {
+                @Override
+                public void onClickYes() {
+                    logout.dismiss();
+
+                    mPresenter.logout();
+                }
+
+                @Override
+                public void onClickNo() {
+
+                    logout.dismiss();
+                }
+            });
         }
 
         drawer.closeDrawer(GravityCompat.START);
 
         return false;
     }
+
+    @OnClick(R.id.notification)
+    void onClickNotif(){
+        Toast.makeText(parentActivity(), "Test", Toast.LENGTH_SHORT).show();
+    }
+
 }
-;
