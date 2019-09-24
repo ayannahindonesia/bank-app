@@ -13,6 +13,7 @@ public class PreferenceDataSource implements PreferenceRepository {
     private SharedPreferences mPreferences;
 
     //token purposes
+    private static final String PREF_TOKEN_LENDER = "TOKEN_PUBLIC_LENDER";
     private static final String PREF_TOKEN_PUBLIC = "TOKEN_PUBLIC";
     private static final String PREF_USER_TOKEN = "USER_TOKEN";
 
@@ -708,5 +709,17 @@ public class PreferenceDataSource implements PreferenceRepository {
     @Override
     public String getUserNickname() {
         return mPreferences.getString(PREF_USER_NICKNAME, "");
+    }
+
+
+
+    @Override
+    public void setPublicTokenLender(String token) {
+        mPreferences.edit().putString(PREF_TOKEN_LENDER, token).apply();
+    }
+
+    @Override
+    public String getPublicTokenLender() {
+        return mPreferences.getString(PREF_TOKEN_LENDER, "");
     }
 }

@@ -29,6 +29,8 @@ public interface RemoteRepository {
 
     Single<Kelurahan> getKelurahan(String idKecamatan);
 
+    Single<Token> getTokenLender();
+
     Single<Token> getToken();
 
     Single<Token> getTokenClient(JsonObject json);

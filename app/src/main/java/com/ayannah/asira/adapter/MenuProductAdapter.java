@@ -115,7 +115,7 @@ public class MenuProductAdapter extends RecyclerView.Adapter<MenuProductAdapter.
 
             PreferenceDataSource preferenceDataSource = new PreferenceDataSource(application);
 
-            AndroidNetworking.get(BuildConfig.API_URL + "client/imagefile/{file_id}")
+            AndroidNetworking.get(BuildConfig.API_URL_LENDER + "admin/image/{file_id}")
                     .addHeaders("Authorization", preferenceDataSource.getPublicToken())
                     .addPathParameter("file_id", String.valueOf(param.getImageId()))
                     .setPriority(Priority.MEDIUM)

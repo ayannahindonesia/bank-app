@@ -90,6 +90,17 @@ public class RemoteDataSource implements RemoteRepository {
     }
 
     @Override
+    public Single<Token> getTokenLender() {
+
+        String credential = Credentials.basic("adminkey", "adminsecret");
+        return Rx2AndroidNetworking.get(BuildConfig.API_URL + "clientauth")
+                .addHeaders("Authorization", credential)
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getObjectSingle(Token.class);
+    }
+
+    @Override
     public Single<Token> getToken() {
 
         String credential = Credentials.basic("androkey", "androsecret");

@@ -188,6 +188,33 @@ public class MainMenuPresenter implements MainMenuContract.Presenter {
     }
 
     @Override
+    public void getTokenLender() {
+
+        mComposite.add(remotRepo.getTokenLender()
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(response -> {
+
+            prefRepo.setPublicTokenLender("Bearer "+response.getToken());
+
+        }, error -> {
+
+            ANError anError = (ANError) error;
+            if(anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
+                mView.showErrorMessage("Connection Error"  + " Code: "+anError.getErrorCode());
+            }else {
+
+                if(anError.getErrorBody() != null){
+
+                    JSONObject jsonObject = new JSONObject(anError.getErrorBody());
+                    mView.showErrorMessage(jsonObject.optString("message") + " Code: "+anError.getErrorCode());
+                }
+            }
+
+        }));
+    }
+
+    @Override
     public void getCurrentUserIdentity() {
 
         if(mView == null){

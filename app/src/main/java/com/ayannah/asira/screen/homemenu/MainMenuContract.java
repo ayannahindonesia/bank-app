@@ -30,6 +30,8 @@ public interface MainMenuContract {
 
     interface Presenter extends BasePresenter<View>{
 
+        void getTokenLender();
+
         void getCurrentUserIdentity();
 
         void getMainMenu();

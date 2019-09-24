@@ -65,6 +65,12 @@ public class DataItem{
 	@SerializedName("service")
 	private String service;
 
+	@SerializedName("disburse_date")
+	private String disburseDate;
+
+	@SerializedName("disburse_amount")
+	private int disburseAmount;
+
 	public Owner getOwner(){
 		return owner;
 	}
@@ -139,5 +145,13 @@ public class DataItem{
 
 	public String getService() {
 		return service;
+	}
+
+	public String getDisburseDate() {
+		return disburseDate;
+	}
+
+	public int getDisburseAmount() {
+		return disburseAmount;
 	}
 }

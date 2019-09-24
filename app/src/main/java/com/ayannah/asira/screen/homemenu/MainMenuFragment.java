@@ -122,6 +122,8 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
         dialog = builder.create();
 
         dialog.show();
+        mPresenter.getTokenLender();
+        
         mPresenter.notifLoanRequest();
 
         mPresenter.getCurrentUserIdentity();
