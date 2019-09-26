@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -93,6 +94,12 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
     @BindView(R.id.produk)
     TextView produk;
 
+    @BindView(R.id.dateDisbursement)
+    TextView dateDisbursement;
+
+    @BindView(R.id.lltDisbursement)
+    LinearLayout lltDisbursement;
+
     private Unbinder mUnbinder;
 
     int admin = 0;
@@ -160,8 +167,10 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss.SSS'Z'", Locale.getDefault());
             SimpleDateFormat sdfUsed = new SimpleDateFormat("dd MMM yyyy HH:mm:ss", Locale.getDefault());
             Date getDate = new Date();
+            Date getDateDisbursement = new Date();
             try {
                 getDate = sdf.parse(dataItem.getCreatedTime());
+                getDateDisbursement = sdf.parse(dataItem.getDisburseDate());
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -171,14 +180,18 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
                 case STATUS_APPROVED:
                     status.setBackgroundResource(R.drawable.badge_diterima);
                     status.setText(getResources().getString(R.string.accept));
+                    lltDisbursement.setVisibility(View.VISIBLE);
+                    dateDisbursement.setText(sdfUsed.format(getDateDisbursement));
                     break;
                 case STATUS_PROCESSING:
                     status.setBackgroundResource(R.drawable.badge_tidak_lengkap);
                     status.setText(getResources().getString(R.string.processing));
+                    lltDisbursement.setVisibility(View.GONE);
                     break;
                 case STATUS_REJECTED:
                     status.setBackgroundResource(R.drawable.badge_ditolak);
                     status.setText(getResources().getString(R.string.reject));
+                    lltDisbursement.setVisibility(View.GONE);
                     break;
             }
 

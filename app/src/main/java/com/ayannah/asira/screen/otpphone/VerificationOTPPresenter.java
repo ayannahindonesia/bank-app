@@ -216,6 +216,7 @@ public class VerificationOTPPresenter implements VerificationOTPContract.Present
                     preferenceRepository.setUserMarriageStatus(response.getMarriageStatus());
                     preferenceRepository.setUserSpouseName(response.getSpouseName());
                     preferenceRepository.setSpouseBirthDate(response.getSpouseBirthday());
+                    preferenceRepository.setSpouseEducation(response.getSpouseLasteducation());
                     preferenceRepository.setUserAddress(response.getAddress());
                     preferenceRepository.setUserProvince(response.getProvince());
                     preferenceRepository.setUserCity(response.getCity());
@@ -246,12 +247,16 @@ public class VerificationOTPPresenter implements VerificationOTPContract.Present
                     preferenceRepository.setUserOtherIncome(String.valueOf(response.getOtherIncome()));
                     preferenceRepository.setuserOtherSourceIncome(response.getOtherIncomesource());
 
+                    preferenceRepository.setIDCardImageID(response.getIdCardImage().getInt64());
+                    preferenceRepository.setTaxIDImageID(response.getTaxIDImage().getInt64());
+                    preferenceRepository.setBankID(response.getBank().getInt64());
+
                     preferenceRepository.setUserLogged(true);
                     preferenceRepository.setUserSetup(true);
 
-                    //set nationality and nickname
-                    preferenceRepository.setUserNickname(response.getNickname());
+                    //add new field for nickname and nationality
                     preferenceRepository.setUserNationality(response.getNationality());
+                    preferenceRepository.setUserNickname(response.getNickname());
 
                     mView.loginComplete();
 
