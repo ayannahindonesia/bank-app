@@ -228,4 +228,7 @@ public interface PreferenceRepository {
 
     String getUserNickname();
 
+    void setPublicTokenLender(String s);
+
+    String getPublicTokenLender();
 }

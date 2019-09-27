@@ -60,8 +60,13 @@ import com.ayannah.asira.service.CheckRepaymentLoanService;
 import com.ayannah.asira.util.NotificationHelper;
 import com.google.android.material.navigation.NavigationView;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import javax.inject.Inject;
 
@@ -138,6 +143,8 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
         dialog = builder.create();
 
         dialog.show();
+        mPresenter.getTokenLender();
+        
         mPresenter.notifLoanRequest();
 
         mPresenter.getCurrentUserIdentity();
@@ -258,7 +265,6 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
 
         mAdapterMenu.setOnClickListener(menuProduct -> {
 
-
             if (statusLoan.equals("processing")) {
 
                 bottomSheetDialogGlobal = new BottomSheetDialogGlobal().show(parentActivity().getSupportFragmentManager(),
@@ -317,11 +323,36 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
     @Override
     public void showDataLoan(List<DataItem> items) {
 
-        //untuk cek loan yang berstatus processing
         for(DataItem data: items){
 
-            if(data.getStatus().toLowerCase().equals("processing")){
-                isLoanReqAvail = true;
+            //untuk cek loan yang berstatus processing
+//            if(data.getStatus().toLowerCase().equals("processing")){
+//                isLoanReqAvail = true;
+//            }
+
+            /*
+            untuk triggered bottom sheet fragment jika user sebelumnya sudah mengajukan peminjaman
+            karena user hanya boleh mengajukan peminjaman 1x
+            */
+            try {
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+                Date dueDate = sdf.parse(data.getDisburseDate());
+                Calendar dueDateCalendar = Calendar.getInstance(TimeZone.getDefault());
+                dueDateCalendar.setTime(dueDate);
+                dueDateCalendar.add(Calendar.MONTH, data.getInstallment());
+                dueDate = dueDateCalendar.getTime();
+                Calendar localCalendar = Calendar.getInstance(TimeZone.getDefault());
+                Date currentTime = localCalendar.getTime();
+
+                if (currentTime.before(dueDate) || data.getStatus().toLowerCase().equals("processing")) {
+                    statusLoan = "processing";
+                    isLoanReqAvail = true;
+                    break;
+                } else {
+                    statusLoan = "";
+                }
+            } catch (ParseException e) {
+                e.printStackTrace();
             }
 
         }
@@ -330,14 +361,14 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
          untuk triggered bottom sheet fragment jika user sebelumnya sudah mengajukan peminjaman
          karena user hanya boleh mengajukan peminjaman 1x
          */
-        for (DataItem data:items){
-
-            if(data.getStatus().toLowerCase().equals("processing")){
-                statusLoan = data.getStatus().toLowerCase();
-                break;
-            }
-
-        }
+//        for (DataItem data:items){
+//
+//            if(data.getStatus().toLowerCase().equals("processing")){
+//                statusLoan = data.getStatus().toLowerCase();
+//                break;
+//            }
+//
+//        }
 
         //show notif to menu Pinjaman saya di navigation bar menu
         if(isLoanReqAvail) {
