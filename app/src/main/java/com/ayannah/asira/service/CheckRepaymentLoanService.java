@@ -18,47 +18,18 @@ import androidx.core.app.NotificationManagerCompat;
 
 import com.ayannah.asira.R;
 import com.ayannah.asira.screen.historyloan.HistoryLoanActivity;
+import com.ayannah.asira.util.NotificationHelper;
 
 public class CheckRepaymentLoanService extends JobService {
 
 
-    NotificationManager notificationManager;
+    NotificationHelper notificationHelper;
 
     @Override
     public boolean onStartJob(JobParameters params) {
 
-        String CHANNEL_ID = "repayment_loan";
-        String CHANNEL_NAME = "channel_repayment";
-        int notificationID = 222;
-
-        Toast.makeText(this, "notif run", Toast.LENGTH_SHORT).show();
-
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-
-            notificationManager = (NotificationManager) getApplicationContext().getSystemService(NOTIFICATION_SERVICE);
-
-            NotificationChannel mChannel = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT);
-            mChannel.setLightColor(Color.CYAN);
-            mChannel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
-
-            notificationManager.createNotificationChannel(mChannel);
-        }
-
-        Intent intent = new Intent(this, HistoryLoanActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-        PendingIntent pendingIntent = PendingIntent.getService(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        NotificationCompat.Builder notifCompat = new NotificationCompat.Builder(getApplicationContext(), CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_asira_logo)
-                .setContentTitle("Test Title")
-                .setContentText("Test message")
-                .setPriority(Notification.PRIORITY_DEFAULT)
-                .setDefaults(Notification.DEFAULT_VIBRATE)
-                .setContentIntent(pendingIntent)
-                .setAutoCancel(true);
-
-        notificationManager.notify(notificationID, notifCompat.build());
+        notificationHelper = new NotificationHelper(this);
+        notificationHelper.createNotification("Pelunasan pinjman", "Kurang 3 hari lagi, dibayar yak");
 
 
         jobFinished(params, false);

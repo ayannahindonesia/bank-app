@@ -57,6 +57,7 @@ import com.ayannah.asira.screen.navigationmenu.infopribadi.InfoPribadiActivity;
 import com.ayannah.asira.screen.navigationmenu.infokeuangan.InformasiKeuanganActivity;
 import com.ayannah.asira.screen.notifpage.NotifPageActivity;
 import com.ayannah.asira.service.CheckRepaymentLoanService;
+import com.ayannah.asira.util.NotificationHelper;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
@@ -427,13 +428,13 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
     @OnClick(R.id.notification)
     void onClickNotif(){
 
-//        Intent notif = new Intent(parentActivity(), NotifPageActivity.class);
-//        notif.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//        startActivity(notif);
+        Intent notif = new Intent(parentActivity(), NotifPageActivity.class);
+        notif.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(notif);
 
-        JobScheduler jobScheduler = (JobScheduler)parentActivity().getSystemService(Context.JOB_SCHEDULER_SERVICE);
-        jobScheduler.cancel(JOBID);
-        Log.e("serviceTop", "serviceTop");
+//        JobScheduler jobScheduler = (JobScheduler)parentActivity().getSystemService(Context.JOB_SCHEDULER_SERVICE);
+//        jobScheduler.cancel(JOBID);
+//        Log.e("serviceTop", "serviceTop");
 
     }
 
