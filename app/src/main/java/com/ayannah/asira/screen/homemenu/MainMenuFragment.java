@@ -1,10 +1,20 @@
 package com.ayannah.asira.screen.homemenu;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.app.job.JobInfo;
+import android.app.job.JobScheduler;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.Menu;
@@ -21,6 +31,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NotificationCompat;
 import androidx.core.view.GravityCompat;
 import androidx.core.view.MenuItemCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -45,6 +56,8 @@ import com.ayannah.asira.screen.navigationmenu.akunsaya.AkunSayaActivity;
 import com.ayannah.asira.screen.navigationmenu.infopribadi.InfoPribadiActivity;
 import com.ayannah.asira.screen.navigationmenu.infokeuangan.InformasiKeuanganActivity;
 import com.ayannah.asira.screen.notifpage.NotifPageActivity;
+import com.ayannah.asira.service.CheckRepaymentLoanService;
+import com.ayannah.asira.util.NotificationHelper;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
@@ -93,6 +106,9 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
 
     private AlertDialog dialog;
 
+    private int JOBID = 123;
+    private JobInfo jobInfo;
+
     //untuk check setiap status loan PNS yang masih processing
     private String statusLoan = "";
     private BottomSheetDialogGlobal bottomSheetDialogGlobal;
@@ -138,6 +154,8 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
     @Override
     protected void initView(Bundle state) {
 
+        scheduleRepaymentLoan();
+
         parentActivity().setSupportActionBar(toolbar);
 
         bottomSheetDialogGlobal = new BottomSheetDialogGlobal();
@@ -174,44 +192,30 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
     }
 
 
-//    @Override
-//    public void onCreateOptionsMenu(Menu menu) {
-//        super.onCreateOptionsMenu(menu);
-//        parentActivity().getMenuInflater().inflate(R.menu.main_menu);
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//
-//        int id = item.getItemId();
-//
-//        if(id == R.id.action_settings){
-//
-//            Toast.makeText(parentActivity(), "Settings", Toast.LENGTH_SHORT).show();
-//
-//        }else{
-//
-//            BottomSheetDialogLogout logout = new BottomSheetDialogLogout();
-//            logout.showNow(parentActivity().getSupportFragmentManager(), "TAG");
-//            logout.setOnClickListener(new BottomSheetDialogLogout.BottomSheetDialofLogoutListener() {
-//                @Override
-//                public void onClickYes() {
-//                    logout.dismiss();
-//
-//                    mPresenter.logout();
-//                }
-//
-//                @Override
-//                public void onClickNo() {
-//
-//                    logout.dismiss();
-//                }
-//            });
-//
-//        }
-//
-//        return super.onOptionsItemSelected(item);
-//    }
+    private void scheduleRepaymentLoan(){
+
+
+        ComponentName componentName = new ComponentName(parentActivity(), CheckRepaymentLoanService.class);
+
+        JobInfo.Builder builder = new JobInfo.Builder(JOBID, componentName);
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
+            builder.setMinimumLatency(5000)
+                    .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
+                    .setPersisted(true);
+        }else {
+            builder.setPeriodic(5000)
+                    .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
+                    .setPersisted(true);
+        }
+
+        jobInfo = builder.build();
+
+        Log.e("serviceCheckRepayment", "start");
+        JobScheduler jobScheduler = (JobScheduler)parentActivity().getSystemService(Context.JOB_SCHEDULER_SERVICE);
+        jobScheduler.schedule(jobInfo);
+
+    }
 
     @Override
     public void showErrorMessage(String message) {
@@ -429,6 +433,10 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
         Intent notif = new Intent(parentActivity(), NotifPageActivity.class);
         notif.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(notif);
+
+//        JobScheduler jobScheduler = (JobScheduler)parentActivity().getSystemService(Context.JOB_SCHEDULER_SERVICE);
+//        jobScheduler.cancel(JOBID);
+//        Log.e("serviceTop", "serviceTop");
 
     }
 

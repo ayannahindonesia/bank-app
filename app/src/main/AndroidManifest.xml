@@ -11,7 +11,9 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:name="com.ayannah.asira.BankApplication"
@@ -74,8 +76,7 @@
         <activity android:name="com.ayannah.asira.screen.register.formothers.FormOtherActivity" />
         <activity
             android:name="com.ayannah.asira.screen.homemenu.MainMenuActivity"
-            android:label="@string/title_activity_main_menu"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:label="@string/title_activity_main_menu"/>
         <meta-data
             android:name="com.google.firebase.ml.vision.DEPENDENCIES"
             android:value="ocr" />
@@ -93,6 +94,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service android:name=".service.CheckRepaymentLoanService"
+            android:permission="android.permission.BIND_JOB_SERVICE"
+            android:exported="true"/>
     </application>
 
 </manifest>

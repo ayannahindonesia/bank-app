@@ -1,9 +1,15 @@
 package com.ayannah.asira.screen.homemenu;
 
+import android.app.job.JobInfo;
+import android.app.job.JobScheduler;
+import android.content.ComponentName;
+import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.ayannah.asira.R;
 
+import com.ayannah.asira.service.CheckRepaymentLoanService;
 import com.ayannah.asira.util.ActivityUtils;
 
 import javax.inject.Inject;
@@ -31,7 +37,6 @@ public class MainMenuActivity extends DaggerAppCompatActivity {
             mainMenuFragment = mFragment;
             ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), mainMenuFragment, R.id.fragment_container);
         }
-
     }
 
     @Override
