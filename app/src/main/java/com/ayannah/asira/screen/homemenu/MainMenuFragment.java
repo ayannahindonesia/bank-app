@@ -32,6 +32,10 @@ import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 
+import com.androidnetworking.AndroidNetworking;
+import com.androidnetworking.common.Priority;
+import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.ayannah.asira.adapter.MenuProductAdapter;
 import com.ayannah.asira.data.model.BankService;
 import com.ayannah.asira.data.model.Loans.DataItem;
@@ -51,6 +55,9 @@ import com.ayannah.asira.screen.navigationmenu.infokeuangan.InformasiKeuanganAct
 import com.ayannah.asira.screen.notifpage.NotifPageActivity;
 import com.ayannah.asira.workmanager.RxNotifLoanWorker;
 import com.google.android.material.navigation.NavigationView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -131,6 +138,7 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
     public void onResume() {
         super.onResume();
         mPresenter.takeView(this);
+        statusLoan = "";
 
         AlertDialog.Builder builder = new AlertDialog.Builder(parentActivity());
         builder.setCancelable(false);
@@ -294,7 +302,7 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
 
                     }
                 });
-            }else {
+            } else {
 
                 Intent intent = new Intent(parentActivity(), EarningActivity.class);
                 intent.putExtra("id", menuProduct.getId());
@@ -335,21 +343,40 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
             */
             try {
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+                SimpleDateFormat sdfCurrent = new SimpleDateFormat("yyyy-MM-dd HH:mm");
                 Date dueDate = sdf.parse(data.getDisburseDate());
                 Calendar dueDateCalendar = Calendar.getInstance(TimeZone.getDefault());
                 dueDateCalendar.setTime(dueDate);
                 dueDateCalendar.add(Calendar.MONTH, data.getInstallment());
+                dueDateCalendar.add(Calendar.DATE, 1);
                 dueDate = dueDateCalendar.getTime();
-                Calendar localCalendar = Calendar.getInstance(TimeZone.getDefault());
-                Date currentTime = localCalendar.getTime();
 
-                if (currentTime.before(dueDate) || data.getStatus().toLowerCase().equals("processing")) {
-                    statusLoan = "processing";
-                    isLoanReqAvail = true;
-                    break;
-                } else {
-                    statusLoan = "";
-                }
+                final Date[] currentTime = {new Date()};
+
+                Date finalDueDate = dueDate;
+                AndroidNetworking.get("http://api.geonames.org/timezoneJSON?lat=-6.2293867&lng=106.6894286&username=asira_geonames")
+                        .setPriority(Priority.MEDIUM)
+                        .build()
+                        .getAsJSONObject(new JSONObjectRequestListener() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                try {
+                                    currentTime[0] = sdfCurrent.parse(response.getString("time"));
+                                    if (currentTime[0].before(finalDueDate) || data.getStatus().toLowerCase().equals("processing")) {
+                                        statusLoan = "processing";
+                                        isLoanReqAvail = true;
+                                    }
+                                } catch (ParseException | JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+                            @Override
+                            public void onError(ANError anError) {
+                                Log.d("GeoName Error: ", "Error on get server time");
+                            }
+                        });
+
             } catch (ParseException e) {
                 e.printStackTrace();
             }
