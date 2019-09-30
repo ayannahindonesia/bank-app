@@ -34,8 +34,6 @@ import com.ayannah.asira.screen.register.choosebank.ChooseBankActivity;
 import com.ayannah.asira.screen.register.choosebank.ChooseBankModule;
 import com.ayannah.asira.screen.register.formBorrower.FormBorrowerActivity;
 import com.ayannah.asira.screen.register.formBorrower.FormBorrowerModule;
-import com.ayannah.asira.screen.register.formemailphone.FormEmailPhoneActivity;
-import com.ayannah.asira.screen.register.formemailphone.FormEmailPhoneModule;
 import com.ayannah.asira.screen.register.formjobearning.FormJobEarningActivity;
 import com.ayannah.asira.screen.register.formjobearning.FormJobEarningModule;
 import com.ayannah.asira.screen.register.formothers.FormOtherActivity;
@@ -96,10 +94,6 @@ abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = HistoryLoanModule.class)
     abstract HistoryLoanActivity historyLoanActivity();
-
-    @ActivityScoped
-    @ContributesAndroidInjector(modules = FormEmailPhoneModule.class)
-    abstract FormEmailPhoneActivity formEmailPhoneActivity();
 
     @ActivityScoped
     @ContributesAndroidInjector(modules = FormJobEarningModule.class)

@@ -99,7 +99,7 @@ public class RxNotifLoanWorker extends RxWorker {
                     }
                 });
 
-        return Single.just(Result.retry());
+        return Single.just(Result.success());
     }
 
     private void callNotification(String name, String dueDate){
