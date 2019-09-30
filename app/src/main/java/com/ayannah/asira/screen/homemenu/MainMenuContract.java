@@ -26,11 +26,15 @@ public interface MainMenuContract {
         void showDataLoan(List<DataItem> items);
 
         void dismissDialog();
+
+        void showUserData(String name, String token);
     }
 
     interface Presenter extends BasePresenter<View>{
 
         void getTokenLender();
+
+        void getUser();
 
         void getCurrentUserIdentity();
 

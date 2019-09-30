@@ -1,43 +1,36 @@
 package com.ayannah.asira.screen.homemenu;
 
-import android.app.Notification;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.app.job.JobInfo;
-import android.app.job.JobScheduler;
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.NotificationCompat;
 import androidx.core.view.GravityCompat;
 import androidx.core.view.MenuItemCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.work.Data;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkInfo;
+import androidx.work.WorkManager;
 
 import com.ayannah.asira.adapter.MenuProductAdapter;
 import com.ayannah.asira.data.model.BankService;
@@ -56,8 +49,7 @@ import com.ayannah.asira.screen.navigationmenu.akunsaya.AkunSayaActivity;
 import com.ayannah.asira.screen.navigationmenu.infopribadi.InfoPribadiActivity;
 import com.ayannah.asira.screen.navigationmenu.infokeuangan.InformasiKeuanganActivity;
 import com.ayannah.asira.screen.notifpage.NotifPageActivity;
-import com.ayannah.asira.service.CheckRepaymentLoanService;
-import com.ayannah.asira.util.NotificationHelper;
+import com.ayannah.asira.workmanager.RxNotifLoanWorker;
 import com.google.android.material.navigation.NavigationView;
 
 import java.text.ParseException;
@@ -67,6 +59,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
@@ -114,6 +107,8 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
     private int JOBID = 123;
     private JobInfo jobInfo;
 
+    private WorkManager mWorkManager;
+
     //untuk check setiap status loan PNS yang masih processing
     private String statusLoan = "";
     private BottomSheetDialogGlobal bottomSheetDialogGlobal;
@@ -153,13 +148,14 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
 
         mPresenter.getMainMenu();
 
+        mPresenter.getUser();
 
     }
 
     @Override
     protected void initView(Bundle state) {
 
-        scheduleRepaymentLoan();
+        mWorkManager = WorkManager.getInstance();
 
         parentActivity().setSupportActionBar(toolbar);
 
@@ -196,29 +192,32 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
 
     }
 
+    private void scheduleLoan(String name, String userToken){
 
-    private void scheduleRepaymentLoan(){
+        //sendData ro workmanager when run
+        Data data = new Data.Builder()
+                .putString("userToken", userToken)
+                .putString("name", name)
+                .build();
 
+        PeriodicWorkRequest saveRequest =
+                new PeriodicWorkRequest.Builder(RxNotifLoanWorker.class, 2, TimeUnit.MINUTES)
+                        .setInputData(data)
+                        .build();
 
-        ComponentName componentName = new ComponentName(parentActivity(), CheckRepaymentLoanService.class);
+        mWorkManager.enqueue(saveRequest);
 
-        JobInfo.Builder builder = new JobInfo.Builder(JOBID, componentName);
+        mWorkManager.getWorkInfoByIdLiveData(saveRequest.getId()).observe(parentActivity(), new Observer<WorkInfo>() {
+            @Override
+            public void onChanged(WorkInfo workInfo) {
 
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
-            builder.setMinimumLatency(5000)
-                    .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
-                    .setPersisted(true);
-        }else {
-            builder.setPeriodic(5000)
-                    .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
-                    .setPersisted(true);
-        }
+                if(workInfo != null){
 
-        jobInfo = builder.build();
-
-        Log.e("serviceCheckRepayment", "start");
-        JobScheduler jobScheduler = (JobScheduler)parentActivity().getSystemService(Context.JOB_SCHEDULER_SERVICE);
-        jobScheduler.schedule(jobInfo);
+                    WorkInfo.State state = workInfo.getState();
+                    Log.e("statusWorkManager", state.toString());
+                }
+            }
+        });
 
     }
 
@@ -387,6 +386,12 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
     }
 
     @Override
+    public void showUserData(String name, String token) {
+
+        scheduleLoan(name, token);
+    }
+
+    @Override
     public void displayUserIdentity(String name, String email) {
 
         //unutk menampiljan identitas user di menu navigation bar
@@ -441,6 +446,8 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
                     logout.dismiss();
 
                     mPresenter.logout();
+
+                    mWorkManager.cancelAllWork();
                 }
 
                 @Override

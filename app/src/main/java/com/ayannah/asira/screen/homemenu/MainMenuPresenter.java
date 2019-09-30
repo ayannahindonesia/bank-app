@@ -215,6 +215,15 @@ public class MainMenuPresenter implements MainMenuContract.Presenter {
     }
 
     @Override
+    public void getUser() {
+
+        if(mView != null){
+
+            mView.showUserData(prefRepo.getEmployerName(), prefRepo.getUserToken());
+        }
+    }
+
+    @Override
     public void getCurrentUserIdentity() {
 
         if(mView == null){
