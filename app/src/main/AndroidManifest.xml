@@ -96,9 +96,6 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".service.CheckRepaymentLoanService"
-            android:permission="android.permission.BIND_JOB_SERVICE"
-            android:exported="true"/>
     </application>
 
 </manifest>

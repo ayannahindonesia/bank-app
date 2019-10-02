@@ -353,8 +353,10 @@ public class AddDocumentFragment extends BaseFragment implements AddDocumentCont
 //        form.putExtras(bundle);
 //        startActivity(form);
 
+        String pnumber = "62"+phone.getText().toString().trim();
+
         dialog.show();
-        mPresenter.checkMandatoryItem(etKTP.getText().toString(), phone.getText().toString(), email.getText().toString(), etNPWP.getText().toString());
+        mPresenter.checkMandatoryItem(etKTP.getText().toString(), pnumber, email.getText().toString(), etNPWP.getText().toString());
     }
 
     @Override
@@ -396,7 +398,7 @@ public class AddDocumentFragment extends BaseFragment implements AddDocumentCont
         }
     }
 
-    public  Bitmap decodedFile(String path) {//you can provide file path here
+    private   Bitmap decodedFile(String path) {//you can provide file path here
         int orientation;
         try {
             if (path == null) {
@@ -495,12 +497,14 @@ public class AddDocumentFragment extends BaseFragment implements AddDocumentCont
             bundle = new Bundle();
         }
 
+        String pnumber = "62"+phone.getText().toString().trim();
+
         bundle.putString(FormOtherFragment.PHOTO_KTP, pictKTP64);
         bundle.putString(FormOtherFragment.PHOTO_NPWP, pictNPWP64);
         bundle.putString(FormOtherFragment.KTP_NO, etKTP.getText().toString());
         bundle.putString(FormOtherFragment.NPWP_NO, etNPWP.getText().toString());
         bundle.putString(FormOtherFragment.EMAIL, email.getText().toString());
-        bundle.putString(FormOtherFragment.PHONE, phone.getText().toString());
+        bundle.putString(FormOtherFragment.PHONE, pnumber);
         bundle.putString(FormOtherFragment.PASS, pass.getText().toString());
         bundle.putString(FormOtherFragment.CONF_PASS, passRetype.getText().toString());
 

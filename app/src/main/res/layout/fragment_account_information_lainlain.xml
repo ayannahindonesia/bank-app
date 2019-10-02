@@ -66,8 +66,6 @@
                 <EditText
                     android:id="@+id/etRelatedName"
                     android:inputType="text"
-                    android:paddingStart="@dimen/dp12"
-                    android:paddingEnd="@dimen/dp12"
                     android:imeOptions="actionNext"
                     android:hint="John Doe"
                     android:textSize="@dimen/fontNormal"
@@ -81,6 +79,7 @@
                     android:textColor="@android:color/black"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
+
                 <Spinner
                     android:id="@+id/spHubungan"
                     android:inputType="textPersonName"
@@ -103,8 +102,6 @@
                     android:lines="2"
                     android:hint="Tulis Alamat"
                     android:gravity="top"
-                    android:paddingStart="@dimen/dp12"
-                    android:paddingEnd="@dimen/dp12"
                     android:imeOptions="actionNext"
                     android:textSize="@dimen/fontNormal"
                     android:layout_width="match_parent"
@@ -120,8 +117,6 @@
                 <EditText
                     android:id="@+id/etRelatedPhone"
                     android:inputType="phone"
-                    android:paddingStart="@dimen/dp12"
-                    android:paddingEnd="@dimen/dp12"
                     android:hint="02112345678"
                     android:imeOptions="actionNext"
                     android:textSize="@dimen/fontNormal"
@@ -138,8 +133,6 @@
                 <EditText
                     android:id="@+id/etRelatedHP"
                     android:inputType="phone"
-                    android:paddingStart="@dimen/dp12"
-                    android:paddingEnd="@dimen/dp12"
                     android:imeOptions="actionNext"
                     android:hint="081234567890"
                     android:textSize="@dimen/fontNormal"
@@ -154,8 +147,6 @@
         </RelativeLayout>
 
     </ScrollView>
-
-
 
     <Button
         android:id="@+id/buttonNext"
