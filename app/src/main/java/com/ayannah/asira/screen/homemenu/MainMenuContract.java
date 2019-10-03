@@ -26,6 +26,8 @@ public interface MainMenuContract {
         void showDataLoan(List<DataItem> items);
 
         void dismissDialog();
+
+        void successGetPublicTokenLender();
     }
 
     interface Presenter extends BasePresenter<View>{
@@ -41,5 +43,7 @@ public interface MainMenuContract {
         void notifLoanRequest();
 
         void logout();
+
+        void getTokenAdminLender();
     }
 }

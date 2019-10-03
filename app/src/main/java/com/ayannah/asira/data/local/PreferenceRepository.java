@@ -231,4 +231,8 @@ public interface PreferenceRepository {
     void setPublicTokenLender(String s);
 
     String getPublicTokenLender();
+
+    void setAdminTokenLender(String s);
+
+    String getAdminTokenLender();
 }

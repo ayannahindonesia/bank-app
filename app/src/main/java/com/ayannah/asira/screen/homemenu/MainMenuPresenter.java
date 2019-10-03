@@ -189,6 +189,9 @@ public class MainMenuPresenter implements MainMenuContract.Presenter {
 
     @Override
     public void getTokenLender() {
+        if(mView == null){
+            return;
+        }
 
         mComposite.add(remotRepo.getTokenLender()
         .subscribeOn(Schedulers.io())
@@ -196,6 +199,8 @@ public class MainMenuPresenter implements MainMenuContract.Presenter {
         .subscribe(response -> {
 
             prefRepo.setPublicTokenLender("Bearer "+response.getToken());
+
+            mView.successGetPublicTokenLender();
 
         }, error -> {
 
@@ -235,5 +240,31 @@ public class MainMenuPresenter implements MainMenuContract.Presenter {
 
         mView.showLogoutComplete();
 
+    }
+
+    @Override
+    public void getTokenAdminLender() {
+        mComposite.add(remotRepo.getTokenAdminLender()
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(response -> {
+
+            prefRepo.setAdminTokenLender("Bearer "+response.getToken());
+
+        }, error -> {
+
+            ANError anError = (ANError) error;
+            if(anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
+                mView.showErrorMessage("Connection Error"  + " Code: "+anError.getErrorCode());
+            }else {
+
+                if(anError.getErrorBody() != null){
+
+                    JSONObject jsonObject = new JSONObject(anError.getErrorBody());
+                    mView.showErrorMessage(jsonObject.optString("message") + " Code: "+anError.getErrorCode());
+                }
+            }
+
+        }));
     }
 }

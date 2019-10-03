@@ -411,6 +411,11 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
     }
 
     @Override
+    public void successGetPublicTokenLender() {
+        mPresenter.getTokenAdminLender();
+    }
+
+    @Override
     public void displayUserIdentity(String name, String email) {
 
         //unutk menampiljan identitas user di menu navigation bar
