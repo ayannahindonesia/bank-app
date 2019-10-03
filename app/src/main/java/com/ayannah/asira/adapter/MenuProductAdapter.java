@@ -32,6 +32,7 @@ import com.google.gson.JsonObject;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -132,6 +133,8 @@ public class MenuProductAdapter extends RecyclerView.Adapter<MenuProductAdapter.
                                 ivIconProduct.setImageBitmap(decodedByte);
 
                             } catch (JSONException e) {
+                                e.printStackTrace();
+                            } catch (Exception e) {
                                 e.printStackTrace();
                             }
 
