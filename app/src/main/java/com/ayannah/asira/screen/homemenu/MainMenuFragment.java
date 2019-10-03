@@ -1,10 +1,15 @@
 package com.ayannah.asira.screen.homemenu;
 
 import android.app.job.JobInfo;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.TypedValue;
@@ -197,6 +202,22 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
         recyclerViewBeritaPromo.setLayoutManager(new LinearLayoutManager(parentActivity(), RecyclerView.HORIZONTAL, false));
         recyclerViewBeritaPromo.setHasFixedSize(true);
         recyclerViewBeritaPromo.setAdapter(mAdapterNewsPromo);
+
+        NotificationManager mNotificationManager = (NotificationManager) parentActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+
+        Notification.Builder builder = new Notification.Builder(parentActivity().getApplicationContext())
+                .setContentTitle("")
+                .setContentText("")
+                .setSmallIcon(R.drawable.ic_asira);
+
+        // Since android Oreo notification channel is needed.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            String channelId = parentActivity().getString(R.string.default_notification_channel_id);
+            NotificationChannel channel = new NotificationChannel(channelId,   "Asira_Title", NotificationManager.IMPORTANCE_DEFAULT);
+            channel.setDescription("Asira_Body");
+            mNotificationManager.createNotificationChannel(channel);
+            builder.setChannelId(channelId);
+        }
 
     }
 
