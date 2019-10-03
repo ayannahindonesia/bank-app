@@ -116,7 +116,7 @@ public class MenuProductAdapter extends RecyclerView.Adapter<MenuProductAdapter.
             PreferenceDataSource preferenceDataSource = new PreferenceDataSource(application);
 
             AndroidNetworking.get(BuildConfig.API_URL_LENDER + "admin/image/{file_id}")
-                    .addHeaders("Authorization", preferenceDataSource.getPublicToken())
+                    .addHeaders("Authorization", preferenceDataSource.getAdminTokenLender())
                     .addPathParameter("file_id", String.valueOf(param.getImageId()))
                     .setPriority(Priority.MEDIUM)
                     .build()
@@ -140,7 +140,24 @@ public class MenuProductAdapter extends RecyclerView.Adapter<MenuProductAdapter.
                         @Override
                         public void onError(ANError anError) {
 
-                            ivIconProduct.setImageResource(R.drawable.ic_menu_pns);
+                            ANError anError1 = (ANError) anError;
+                            if(anError1.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
+                                Toast.makeText(application, "Connection Error", Toast.LENGTH_SHORT).show();
+                            } else {
+
+                                if(anError1.getErrorBody() != null){
+
+                                    try {
+                                        JSONObject jsonObject = new JSONObject(anError1.getErrorBody());
+                                        Toast.makeText(application, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            }
+
+                            ivIconProduct.setImageResource(R.drawable.ic_broken_image);
+                            ivIconProduct.setPadding(30,30,30,30);
                         }
                     });
 

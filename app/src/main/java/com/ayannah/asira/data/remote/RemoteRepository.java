@@ -17,6 +17,7 @@ import com.ayannah.asira.data.model.UserProfile;
 import com.google.gson.JsonObject;
 
 import io.reactivex.Single;
+import io.reactivex.disposables.Disposable;
 import okhttp3.Response;
 
 public interface RemoteRepository {
@@ -70,4 +71,6 @@ public interface RemoteRepository {
     Single<ServiceProducts> getAllProducts();
 
     Single<ReasonLoan> getReasons();
+
+    Single<Token> getTokenAdminLender();
 }

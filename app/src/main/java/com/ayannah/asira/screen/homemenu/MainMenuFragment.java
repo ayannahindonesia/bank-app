@@ -414,6 +414,11 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
     }
 
     @Override
+    public void successGetPublicTokenLender() {
+        mPresenter.getTokenAdminLender();
+    }
+
+    @Override
     public void showUserData(String name, String token) {
 
         scheduleLoan(name, token);

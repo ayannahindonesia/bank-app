@@ -28,6 +28,8 @@ public interface MainMenuContract {
         void dismissDialog();
 
         void showUserData(String name, String token);
+
+        void successGetPublicTokenLender();
     }
 
     interface Presenter extends BasePresenter<View>{
@@ -45,5 +47,7 @@ public interface MainMenuContract {
         void notifLoanRequest();
 
         void logout();
+
+        void getTokenAdminLender();
     }
 }

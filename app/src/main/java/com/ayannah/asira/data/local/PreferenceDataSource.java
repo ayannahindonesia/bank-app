@@ -14,6 +14,7 @@ public class PreferenceDataSource implements PreferenceRepository {
 
     //token purposes
     private static final String PREF_TOKEN_LENDER = "TOKEN_PUBLIC_LENDER";
+    private static final String PREF_TOKEN_ADMIN_LENDER = "TOKEN_ADMIN_LENDER";
     private static final String PREF_TOKEN_PUBLIC = "TOKEN_PUBLIC";
     private static final String PREF_USER_TOKEN = "USER_TOKEN";
 
@@ -712,7 +713,6 @@ public class PreferenceDataSource implements PreferenceRepository {
     }
 
 
-
     @Override
     public void setPublicTokenLender(String token) {
         mPreferences.edit().putString(PREF_TOKEN_LENDER, token).apply();
@@ -722,4 +722,13 @@ public class PreferenceDataSource implements PreferenceRepository {
     public String getPublicTokenLender() {
         return mPreferences.getString(PREF_TOKEN_LENDER, "");
     }
+
+    @Override
+    public void setAdminTokenLender(String tokenLender) {
+        mPreferences.edit().putString(PREF_TOKEN_ADMIN_LENDER, tokenLender).apply();
+    }
+
+    @Override
+    public String getAdminTokenLender() { return mPreferences.getString(PREF_TOKEN_ADMIN_LENDER, ""); }
+
 }

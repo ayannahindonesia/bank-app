@@ -92,8 +92,8 @@ public class RemoteDataSource implements RemoteRepository {
     @Override
     public Single<Token> getTokenLender() {
 
-        String credential = Credentials.basic("adminkey", "adminsecret");
-        return Rx2AndroidNetworking.get(BuildConfig.API_URL + "clientauth")
+        String credential = Credentials.basic("reactkey", "reactsecret");
+        return Rx2AndroidNetworking.get(BuildConfig.API_URL_LENDER + "clientauth")
                 .addHeaders("Authorization", credential)
                 .setPriority(Priority.MEDIUM)
                 .build()
@@ -351,5 +351,20 @@ public class RemoteDataSource implements RemoteRepository {
                 .setPriority(Priority.MEDIUM)
                 .build()
                 .getObjectSingle(ReasonLoan.class);
+    }
+
+    @Override
+    public Single<Token> getTokenAdminLender() {
+
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("key", "adminkey");
+        jsonObject.addProperty("password", "adminsecret");
+
+        return Rx2AndroidNetworking.post(BuildConfig.API_URL_LENDER + "client/admin_login")
+                .addHeaders("Authorization", preferenceRepository.getPublicTokenLender())
+                .addApplicationJsonBody(jsonObject)
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getObjectSingle(Token.class);
     }
 }
