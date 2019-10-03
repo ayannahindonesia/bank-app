@@ -209,7 +209,7 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
                 .build();
 
         PeriodicWorkRequest saveRequest =
-                new PeriodicWorkRequest.Builder(RxNotifLoanWorker.class, 60, TimeUnit.SECONDS)
+                new PeriodicWorkRequest.Builder(RxNotifLoanWorker.class, 30, TimeUnit.SECONDS)
                         .setInputData(data)
                         .build();
 
@@ -265,6 +265,7 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
         for(BankService.Data x:results) {
             if (x.getStatus().equals(ACTIVE)) {
                 menus.add(x);
+
             }
         }
 

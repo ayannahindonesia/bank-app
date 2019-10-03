@@ -2,6 +2,7 @@ package com.ayannah.asira.screen.summary;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.TextView;
@@ -28,6 +29,8 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 public class SummaryTransactionFragment extends BaseFragment implements SummaryTransactionContract.View, Validator.ValidationListener {
+
+    private static final String TAG = SummaryTransactionFragment.class.getSimpleName();
 
     @Inject
     SummaryTransactionContract.Presenter mPresenter;
@@ -212,12 +215,21 @@ public class SummaryTransactionFragment extends BaseFragment implements SummaryT
 
         if (tujuan.isEmpty()){
             json.addProperty("intention_details", "-");
+            Log.e(TAG, "loanAmount "+ "-");
         }else {
             json.addProperty("intention_details", tujuan);
+            Log.e(TAG, "loanAmount "+tujuan);
         }
 
         json.addProperty("product", productid);
         json.addProperty("service", layanan);
+
+        Log.e(TAG, "loanAmount "+x);
+        Log.e(TAG, "loanAmount "+tenor);
+        Log.e(TAG, "loanAmount "+alasan);
+        Log.e(TAG, "loanAmount "+productid);
+        Log.e(TAG, "loanAmount "+layanan);
+
 
         mPresenter.loanApplication(json);
 

@@ -1,5 +1,6 @@
 package com.ayannah.asira.util;
 
+import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -40,6 +41,7 @@ public class NotificationHelper {
         mBuilder.setContentTitle(title);
         mBuilder.setContentText(message);
         mBuilder.setAutoCancel(true);
+        mBuilder.setPriority(Notification.PRIORITY_MAX);
         mBuilder.setContentIntent(pendingIntent);
 
         //init notification manager

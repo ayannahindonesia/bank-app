@@ -12,10 +12,7 @@ import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.ayannah.asira.BuildConfig;
-import com.ayannah.asira.data.local.PreferenceRepository;
 import com.ayannah.asira.util.NotificationHelper;
-import com.google.gson.JsonArray;
-import com.rx2androidnetworking.Rx2AndroidNetworking;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -27,11 +24,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-import javax.inject.Inject;
-
 import io.reactivex.Single;
 
 public class RxNotifLoanWorker extends RxWorker {
+
+    private final String TAG = RxNotifLoanWorker.class.getSimpleName();
 
 //    private SimpleDateFormat sdf_from_backend = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss.SSS'Z'", Locale.getDefault());
     private SimpleDateFormat sdf_from_backend = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss'Z'", Locale.getDefault());
@@ -66,22 +63,48 @@ public class RxNotifLoanWorker extends RxWorker {
 
                                 String status = data.getJSONObject(i).getString("status");
 
-                                //count due date
+                                //get tenor
+                                int tenor = data.getJSONObject(i).getInt("installment");
 
+                                //get distburse date untuk notif tiap bulan
+                                String getDisburseDate = data.getJSONObject(i).getString("disburse_date");
+                                Log.e(TAG, "getDisburseDate: "+getDisburseDate);
 
-                                Calendar calendar = Calendar.getInstance();
-                                String curDate = sdf_from_backend.format(calendar.getTime());
-                                String dueDate = data.getJSONObject(i).getString("due_date");
+                                /*
+                                Check tiap bulan (tergantung tenor), setiap 3 hari sebelum disburse date,
+                                maka akan tampilkan notif
+                                 */
+                                Calendar curCalendar = Calendar.getInstance();
+                                Calendar disburseCalendar = Calendar.getInstance();
 
-                                Date _dueDate= sdf_from_backend.parse(dueDate);
-                                Date _curDate = sdf_from_backend.parse(curDate);
+                                Date disDate = sdf_from_backend.parse(getDisburseDate);
+                                disburseCalendar.set(disDate.getYear(), disDate.getMonth(), disDate.getDay());
+                                disburseCalendar.setTime(disDate);
 
-                                long diff = _dueDate.getTime() - _curDate.getTime();
-                                long days = diff / (24 * 60 * 60 * 1000);
+                                for(int j = tenor; j > 0; j--){
 
-                                if(status.equals("approved") && days == 3){
+                                    //add a month of disburse date
+                                    disburseCalendar.add(Calendar.MONTH, 1);
 
-                                    callNotification(name, view_sdf.format(_dueDate));
+                                    //set to String to get date format yyyy-MM-dd'T'hh:mm:ss'Z'
+                                    String sCurrentDate = sdf_from_backend.format(curCalendar.getTime());
+                                    String sDisburseDate = sdf_from_backend.format(disburseCalendar.getTime());
+
+                                    //convert to date again
+                                    Date curDate = sdf_from_backend.parse(sCurrentDate);
+                                    Date disburseDate = sdf_from_backend.parse(sDisburseDate);
+
+                                    //check perbedaan waktu jika kurang dari 3 hari
+                                    long diff = disburseDate.getTime() - curDate.getTime();
+                                    long days = diff / (24 * 60 * 60 *1000);
+                                    Log.e(TAG, String.format("disdate: %s, days: %s", sDisburseDate, days));
+
+                                    if(days == 3 && status.equals("approved")){
+
+                                        callNotification(name, view_sdf.format(disburseDate));
+                                        break;
+
+                                    }
 
                                 }
                             }
@@ -105,7 +128,7 @@ public class RxNotifLoanWorker extends RxWorker {
     private void callNotification(String name, String dueDate){
 
         NotificationHelper notificationHelper = new NotificationHelper(getApplicationContext());
-        notificationHelper.createNotification("Asira", String.format("Hi %s, %s jangan lupa bayar tagihan yah sayangku", name, dueDate));
+        notificationHelper.createNotification("Asira", String.format("Hi %s, tanggal %s menjadi tanggal untuk mencicil bayar pinjamanmu", name, dueDate));
 
     }
 }
