@@ -99,7 +99,7 @@ public class RxNotifLoanWorker extends RxWorker {
                                     long days = diff / (24 * 60 * 60 *1000);
                                     Log.e(TAG, String.format("disdate: %s, days: %s", sDisburseDate, days));
 
-                                    if(days == 3 && status.equals("approved")){
+                                    if((days == 3 || days == 2) && status.equals("approved")){
 
                                         callNotification(name, view_sdf.format(disburseDate));
                                         break;
