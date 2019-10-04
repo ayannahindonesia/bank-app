@@ -209,7 +209,7 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
                 .build();
 
         PeriodicWorkRequest saveRequest =
-                new PeriodicWorkRequest.Builder(RxNotifLoanWorker.class, 30, TimeUnit.SECONDS)
+                new PeriodicWorkRequest.Builder(RxNotifLoanWorker.class, 1, TimeUnit.HOURS)
                         .setInputData(data)
                         .build();
 

@@ -39,7 +39,7 @@ public class NotificationHelper {
         mBuilder = new NotificationCompat.Builder(mContext);
         mBuilder.setSmallIcon(R.drawable.ic_monetization);
         mBuilder.setContentTitle(title);
-        mBuilder.setContentText(message);
+        mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(message));
         mBuilder.setAutoCancel(true);
         mBuilder.setPriority(Notification.PRIORITY_MAX);
         mBuilder.setContentIntent(pendingIntent);

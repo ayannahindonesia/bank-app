@@ -219,7 +219,7 @@ public class MainMenuPresenter implements MainMenuContract.Presenter {
 
         if(mView != null){
 
-            mView.showUserData(prefRepo.getEmployerName(), prefRepo.getUserToken());
+            mView.showUserData(prefRepo.getUserName(), prefRepo.getUserToken());
         }
     }
 
