@@ -152,17 +152,10 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
 
         dialog.show();
         mPresenter.getTokenLender();
-        
-        mPresenter.notifLoanRequest();
 
         mPresenter.getCurrentUserIdentity();
 
         mPresenter.loadPromoAndNews();
-
-        mPresenter.getMainMenu();
-
-        mPresenter.getUser();
-
     }
 
     @Override
@@ -402,6 +395,8 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
             } catch (ParseException e) {
                 e.printStackTrace();
             }
+
+            mPresenter.getMainMenu();
 
         }
 

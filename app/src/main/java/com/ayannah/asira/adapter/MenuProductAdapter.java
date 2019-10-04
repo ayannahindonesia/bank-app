@@ -132,10 +132,11 @@ public class MenuProductAdapter extends RecyclerView.Adapter<MenuProductAdapter.
                                 Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0,decodedString.length);
                                 ivIconProduct.setImageBitmap(decodedByte);
 
-                            } catch (JSONException e) {
-                                e.printStackTrace();
                             } catch (Exception e) {
                                 e.printStackTrace();
+                                Toast.makeText(application, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                ivIconProduct.setImageResource(R.drawable.ic_broken_image);
+                                ivIconProduct.setPadding(30,30,30,30);
                             }
 
                         }
