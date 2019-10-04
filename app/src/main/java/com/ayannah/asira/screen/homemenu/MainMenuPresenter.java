@@ -251,6 +251,8 @@ public class MainMenuPresenter implements MainMenuContract.Presenter {
 
             prefRepo.setAdminTokenLender("Bearer "+response.getToken());
 
+            notifLoanRequest();
+
         }, error -> {
 
             ANError anError = (ANError) error;

@@ -51,8 +51,7 @@
         </activity>
         <activity
             android:name="com.ayannah.asira.screen.historyloan.HistoryLoanActivity"
-            android:label="@string/title_activity_history_loan"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:label="@string/title_activity_history_loan" />
         <activity android:name="com.ayannah.asira.screen.navigationmenu.akunsaya.AkunSayaActivity" />
         <activity android:name="com.ayannah.asira.screen.navigationmenu.datapendukung.DataPendukungActivity" />
         <activity android:name="com.ayannah.asira.screen.navigationmenu.infokeuangan.InformasiKeuanganActivity" />
