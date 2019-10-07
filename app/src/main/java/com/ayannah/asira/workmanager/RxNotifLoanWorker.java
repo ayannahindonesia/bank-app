@@ -34,6 +34,7 @@ public class RxNotifLoanWorker extends RxWorker {
     private SimpleDateFormat sdf_from_backend = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss'Z'", Locale.getDefault());
     private SimpleDateFormat sdf_base = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
     private SimpleDateFormat view_sdf = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault());
+    private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
 
     public RxNotifLoanWorker(@NonNull Context appContext, @NonNull WorkerParameters workerParams) {
         super(appContext, workerParams);
@@ -87,19 +88,23 @@ public class RxNotifLoanWorker extends RxWorker {
                                     disburseCalendar.add(Calendar.MONTH, 1);
 
                                     //set to String to get date format yyyy-MM-dd'T'hh:mm:ss'Z'
-                                    String sCurrentDate = sdf_from_backend.format(curCalendar.getTime());
-                                    String sDisburseDate = sdf_from_backend.format(disburseCalendar.getTime());
+//                                    String sCurrentDate = sdf_from_backend.format(curCalendar.getTime());
+//                                    String sDisburseDate = sdf_from_backend.format(disburseCalendar.getTime());
+                                    String sCurrentDate = sdf.format(curCalendar.getTime());
+                                    String sDisburseDate = sdf.format(disburseCalendar.getTime());
 
                                     //convert to date again
-                                    Date curDate = sdf_from_backend.parse(sCurrentDate);
-                                    Date disburseDate = sdf_from_backend.parse(sDisburseDate);
+//                                    Date curDate = sdf_from_backend.parse(sCurrentDate);
+//                                    Date disburseDate = sdf_from_backend.parse(sDisburseDate);
+                                    Date curDate = sdf.parse(sCurrentDate);
+                                    Date disburseDate = sdf.parse(sDisburseDate);
 
                                     //check perbedaan waktu jika kurang dari 3 hari
                                     long diff = disburseDate.getTime() - curDate.getTime();
                                     long days = diff / (24 * 60 * 60 *1000);
                                     Log.e(TAG, String.format("disdate: %s, days: %s", sDisburseDate, days));
 
-                                    if((days == 3 || days == 2) && status.equals("approved")){
+                                    if((days == 3) && status.equals("approved")){
 
                                         callNotification(name, view_sdf.format(disburseDate));
                                         break;
