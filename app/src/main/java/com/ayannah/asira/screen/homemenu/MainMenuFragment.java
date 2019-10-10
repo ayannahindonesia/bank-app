@@ -347,11 +347,6 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
 
         for(DataItem data: items){
 
-            //untuk cek loan yang berstatus processing
-//            if(data.getStatus().toLowerCase().equals("processing")){
-//                isLoanReqAvail = true;
-//            }
-
             /*
             untuk triggered bottom sheet fragment jika user sebelumnya sudah mengajukan peminjaman
             karena user hanya boleh mengajukan peminjaman 1x
@@ -396,23 +391,14 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
                 e.printStackTrace();
             }
 
-            mPresenter.getMainMenu();
-
         }
+
+        mPresenter.getMainMenu();
 
         /*
          untuk triggered bottom sheet fragment jika user sebelumnya sudah mengajukan peminjaman
          karena user hanya boleh mengajukan peminjaman 1x
          */
-//        for (DataItem data:items){
-//
-//            if(data.getStatus().toLowerCase().equals("processing")){
-//                statusLoan = data.getStatus().toLowerCase();
-//                break;
-//            }
-//
-//        }
-
         //show notif to menu Pinjaman saya di navigation bar menu
         if(isLoanReqAvail) {
             pinjamanSaya.setGravity(Gravity.CENTER);

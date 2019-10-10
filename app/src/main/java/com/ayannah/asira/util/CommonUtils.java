@@ -18,6 +18,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import javax.net.ssl.HttpsURLConnection;
+
 public class CommonUtils {
 
     public static String setRupiahCurrency(int value){
@@ -95,6 +97,44 @@ public class CommonUtils {
 
         } else {
             result = "Terjadi kesalahan";
+        }
+
+        return result;
+
+    }
+
+    public static String errorResponseWithStatusCode(Throwable error){
+
+        String result = null;
+
+        ANError anError = (ANError) error;
+
+        if(anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
+
+            result = "Tidak ada koneksi internet";
+
+        }else if(anError.getErrorCode() == HttpsURLConnection.HTTP_BAD_GATEWAY ||
+                anError.getErrorCode() == HttpsURLConnection.HTTP_SERVER_ERROR){
+
+            result = String.format("Code: %s\nSedang dalam perbaikan, silakan coba beberapa saat lagi.", anError.getErrorCode());
+
+
+        }else {
+
+            if(anError.getErrorBody() != null){
+
+                try {
+
+                    JSONObject jsonObject = new JSONObject(anError.getErrorBody());
+                    result = jsonObject.optString("message");
+
+                } catch (JSONException e) {
+
+                    e.printStackTrace();
+                }
+
+            }
+
         }
 
         return result;

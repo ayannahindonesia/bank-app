@@ -11,6 +11,7 @@ import com.ayannah.asira.data.local.BankServiceInterface;
 import com.ayannah.asira.data.local.PreferenceRepository;
 import com.ayannah.asira.data.model.BeritaPromo;
 import com.ayannah.asira.data.remote.RemoteRepository;
+import com.ayannah.asira.util.CommonUtils;
 
 import org.json.JSONObject;
 
@@ -91,41 +92,6 @@ public class MainMenuPresenter implements MainMenuContract.Presenter {
 
         }));
 
-//        List<MenuProduct> menus = new ArrayList<>();
-//
-//        MenuProduct pinjamanPns = new MenuProduct();
-//        pinjamanPns.setName("Pinjaman PNS");
-//        pinjamanPns.setLogoProduct(R.drawable.ic_menu_pns);
-//
-//        MenuProduct pinjamanPersonal = new MenuProduct();
-//        pinjamanPersonal.setName("Pinjaman\nPersonal");
-//        pinjamanPersonal.setLogoProduct(R.drawable.ic_menu_personal);
-//
-//        MenuProduct pinjamanPensiunan = new MenuProduct();
-//        pinjamanPensiunan.setName("Pinjaman\nPensiunan");
-//        pinjamanPensiunan.setLogoProduct(R.drawable.ic_menu_pensiunan);
-//
-//        MenuProduct pinjamanUmkm = new MenuProduct();
-//        pinjamanUmkm.setName("Pinjaman\nUMKM");
-//        pinjamanUmkm.setLogoProduct(R.drawable.ic_menu_umkm);
-//
-//        MenuProduct pinjamanMicro = new MenuProduct();
-//        pinjamanMicro.setName("Pinjaman\nMikro");
-//        pinjamanMicro.setLogoProduct(R.drawable.ic_menu_micro);
-//
-//        MenuProduct lainlain = new MenuProduct();
-//        lainlain.setName("Lain-lain");
-//        lainlain.setLogoProduct(R.drawable.loan);
-//
-//        menus.add(pinjamanPns);
-//        menus.add(pinjamanPersonal);
-//        menus.add(pinjamanPensiunan);
-//        menus.add(pinjamanUmkm);
-//        menus.add(pinjamanMicro);
-//        menus.add(lainlain);
-//
-//        mView.showMainMenu(menus);
-
     }
 
     @Override
@@ -163,10 +129,7 @@ public class MainMenuPresenter implements MainMenuContract.Presenter {
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(response -> {
 
-            if(response.getData().size() > 0){
-
-                mView.showDataLoan(response.getData());
-            }
+            mView.showDataLoan(response.getData());
 
 
         }, error -> {
@@ -204,17 +167,7 @@ public class MainMenuPresenter implements MainMenuContract.Presenter {
 
         }, error -> {
 
-            ANError anError = (ANError) error;
-            if(anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
-                mView.showErrorMessage("Connection Error"  + " Code: "+anError.getErrorCode());
-            }else {
-
-                if(anError.getErrorBody() != null){
-
-                    JSONObject jsonObject = new JSONObject(anError.getErrorBody());
-                    mView.showErrorMessage(jsonObject.optString("message") + " Code: "+anError.getErrorCode());
-                }
-            }
+            mView.showErrorMessage(CommonUtils.errorResponseWithStatusCode(error));
 
         }));
     }

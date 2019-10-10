@@ -27,6 +27,7 @@ import com.ayannah.asira.data.local.PreferenceDataSource;
 import com.ayannah.asira.data.local.PreferenceRepository;
 import com.ayannah.asira.data.model.BankService;
 import com.ayannah.asira.data.model.MenuProduct;
+import com.ayannah.asira.util.ImageUtils;
 import com.google.gson.JsonObject;
 
 import org.json.JSONException;
@@ -40,6 +41,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MenuProductAdapter extends RecyclerView.Adapter<MenuProductAdapter.MenuProductVH> {
+
+    private final String TAG = MenuProductAdapter.class.getSimpleName();
 
     private List<MenuProduct> menuProducts;
     private List<BankService.Data> menus;
@@ -127,16 +130,19 @@ public class MenuProductAdapter extends RecyclerView.Adapter<MenuProductAdapter.
 
                             try {
                                 String sImage = response.getString("image_string");
+                                Log.e(TAG, sImage);
 
-                                byte[] decodedString = Base64.decode(sImage, Base64.DEFAULT);
-                                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0,decodedString.length);
-                                ivIconProduct.setImageBitmap(decodedByte);
+                                ImageUtils.setImageBitmapWithEmptyImage(itemView.getContext(), ivIconProduct, sImage);
+
+//                                byte[] decodedString = Base64.decode(sImage, Base64.DEFAULT);
+//                                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0,decodedString.length);
+//                                ivIconProduct.setImageBitmap(decodedByte);
 
                             } catch (Exception e) {
                                 e.printStackTrace();
-                                Toast.makeText(application, e.getMessage(), Toast.LENGTH_SHORT).show();
-                                ivIconProduct.setImageResource(R.drawable.ic_broken_image);
-                                ivIconProduct.setPadding(30,30,30,30);
+//                                Toast.makeText(application, e.getMessage(), Toast.LENGTH_SHORT).show();
+//                                ivIconProduct.setImageResource(R.drawable.ic_broken_image);
+//                                ivIconProduct.setPadding(30,30,30,30);
                             }
 
                         }

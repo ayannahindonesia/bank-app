@@ -2,6 +2,7 @@ package com.ayannah.asira.screen.historyloan;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -28,6 +29,8 @@ import butterknife.OnClick;
 public class HistoryLoanFragment extends BaseFragment implements
         HistoryLoanContract.View,
         BottomSortHistoryLoan.SortHistoryLoanListener {
+
+    private final String TAG = HistoryLoanFragment.class.getSimpleName();
 
     @Inject
     HistoryLoanContract.Presenter mPresenter;
@@ -103,6 +106,8 @@ public class HistoryLoanFragment extends BaseFragment implements
 
     @Override
     public void showAllTransaction(List<DataItem> results) {
+
+        Log.e(TAG, "totaldata: "+results.size());
 
         progressLoading.setVisibility(View.GONE);
 
