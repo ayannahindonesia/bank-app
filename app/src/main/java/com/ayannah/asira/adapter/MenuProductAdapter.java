@@ -132,7 +132,7 @@ public class MenuProductAdapter extends RecyclerView.Adapter<MenuProductAdapter.
                                 String sImage = response.getString("image_string");
                                 Log.e(TAG, sImage);
 
-                                ImageUtils.setImageBitmapWithEmptyImage(itemView.getContext(), ivIconProduct, sImage);
+                                ImageUtils.setImageBitmapWithEmptyImage(ivIconProduct, sImage);
 
 //                                byte[] decodedString = Base64.decode(sImage, Base64.DEFAULT);
 //                                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0,decodedString.length);

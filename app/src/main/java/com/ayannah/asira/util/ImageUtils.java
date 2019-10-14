@@ -11,9 +11,9 @@ import com.ayannah.asira.R;
 
 public class ImageUtils {
 
-    public static void setImageBitmapWithEmptyImage(Context context, ImageView imageView, String imageBase64){
+    public static void setImageBitmapWithEmptyImage(ImageView imageView, String imageBase64){
 
-        if(imageBase64 != null){
+        if(imageBase64.length() > 15){
 
             byte[] decodeImageString = Base64.decode(imageBase64, Base64.DEFAULT);
 

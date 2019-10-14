@@ -8,7 +8,9 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -41,6 +43,18 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
 
     @BindView(R.id.seekbarTenorCicilan)
     SeekBar installment;
+
+    @BindView(R.id.lyDataProdukEmpty)
+    RelativeLayout lyDataProdukEmpty;
+
+//    @BindView(R.id.refresh)
+//    ImageView refresh;
+
+    @BindView(R.id.lyDataAlasanEmpty)
+    RelativeLayout lyDataAlasanEmpty;
+
+//    @BindView(R.id.refreshAlasan)
+//    ImageView refreshAlasan;
 
     @BindView(R.id.nominalPinjaman)
     TextView amountLoan;
@@ -168,9 +182,6 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
                     //calculate angsuran perbulan
                     angsurnaPerbulan = calculateAngsuranPerBulan(convSetup);
 
-//                //calculate jumlapencairan
-//                countPencairan = calculatePotongPlafond(loanAmount)/installmentTenor;
-
                     tvInstallment.setText(String.format("%s bulan", installmentTenor));
                     biayaAdmin.setText(CommonUtils.setRupiahCurrency((int) Math.floor(administration)));
                     tvBunga.setText(CommonUtils.setRupiahCurrency((int) Math.floor(totalBunga)));
@@ -178,7 +189,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
                     jumlahPencairan.setText(CommonUtils.setRupiahCurrency((int) Math.floor(countPencairan)));
 
                 } else {
-//                    Toast.makeText(parentActivity(), "Masukan Jumlah Pinjaman Terlebih Dahulu", Toast.LENGTH_LONG).show();
+
                     installment.setProgress(0);
                 }
 
@@ -197,60 +208,6 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
 
     }
 
-
-    @OnClick(R.id.buttonPinjam)
-    void onClickPinjam(){
-        Bundle bundle = parentActivity().getIntent().getExtras();
-        assert bundle != null;
-
-        //user should choose product or product must be not null
-        if (productName == null) {
-            Toast.makeText(parentActivity(), "Produk Tidak Boleh Kosong", Toast.LENGTH_LONG).show();
-            return;
-        }
-
-        //user should input plafond
-        if(loanAmount == 0 || loanAmount < minPlafond || loanAmount > maxPlafond){
-
-            CalculateData(selectedProduct, mServiceProducts);
-
-        }
-
-        Intent intent = new Intent(parentActivity(), SummaryTransactionActivity.class);
-
-        intent.putExtra(SummaryTransactionActivity.PINJAMAN, loanAmount);
-        intent.putExtra(SummaryTransactionActivity.TENOR, installmentTenor);
-        intent.putExtra(SummaryTransactionActivity.ANGSURAN_BULAN, angsurnaPerbulan);
-        intent.putExtra(SummaryTransactionActivity.PRODUK, spProducts.getSelectedItem().toString());
-        intent.putExtra(SummaryTransactionActivity.PRODUCTID, productID);
-        intent.putExtra(SummaryTransactionActivity.ADMIN, administration);
-        intent.putExtra(SummaryTransactionActivity.INTEREST, totalBunga);
-        intent.putExtra(SummaryTransactionActivity.PENCAIRAN, countPencairan);
-
-        if(spAlasanPinjam.getSelectedItem().toString().equals("Lain-lain")){
-
-            if(etAlasan.getText().toString().trim().isEmpty()){
-
-                Toast.makeText(parentActivity(), "Mohon diisi alasannya", Toast.LENGTH_SHORT).show();
-                etAlasan.requestFocus();
-                return;
-            }
-
-            intent.putExtra(SummaryTransactionActivity.ALASAN, etAlasan.getText().toString());
-
-
-        } else {
-
-            intent.putExtra(SummaryTransactionActivity.ALASAN, spAlasanPinjam.getSelectedItem().toString());
-
-        }
-
-        intent.putExtra(SummaryTransactionActivity.TUJUAN, etTujuan.getText().toString());
-        intent.putExtra(SummaryTransactionActivity.LAYANAN, bundle.getInt("idService"));
-        startActivity(intent);
-
-    }
-
     @Override
     public void showErrorMessage(String message) {
         dialog.dismiss();
@@ -262,6 +219,9 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
         int size = serviceProducts.getProducts().size();
 
         if (size > 0) {
+
+            spProducts.setVisibility(View.VISIBLE);
+            lyDataProdukEmpty.setVisibility(View.GONE);
 
             productName = new ArrayList<>();
 
@@ -351,8 +311,12 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
 
         } else {
 
-            Toast.makeText(parentActivity(), "Produk Kosong", Toast.LENGTH_LONG).show();
+            Toast.makeText(parentActivity(), "Data Produk Kosong", Toast.LENGTH_LONG).show();
+            spProducts.setVisibility(View.GONE);
+            lyDataProdukEmpty.setVisibility(View.VISIBLE);
+
         }
+
         dialog.dismiss();
     }
 
@@ -450,32 +414,44 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
     @Override
     public void showReason(List<ReasonLoan.Data> data) {
 
-        List<String> chooser = new ArrayList<>();
-        for(ReasonLoan.Data x:data){
-            if(x.getStatus().equals("active")) {
-                chooser.add(x.getName());
-            }
-        }
-        chooser.add("Lain-lain");
+        if(data.size() > 0) {
 
-        ArrayAdapter<String> mAdapterAlasan = new ArrayAdapter<>(parentActivity(), R.layout.item_custom_spinner, chooser);
-        spAlasanPinjam.setAdapter(mAdapterAlasan);
-        spAlasanPinjam.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if(parent.getSelectedItem().equals("Lain-lain")){
+            spAlasanPinjam.setVisibility(View.VISIBLE);
+            lyDataAlasanEmpty.setVisibility(View.GONE);
 
-                    lyAlasanLain.setVisibility(View.VISIBLE);
-                }else {
-                    lyAlasanLain.setVisibility(View.GONE);
+            List<String> chooser = new ArrayList<>();
+            for (ReasonLoan.Data x : data) {
+                if (x.getStatus().equals("active")) {
+                    chooser.add(x.getName());
                 }
             }
+            chooser.add("Lain-lain");
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
+            ArrayAdapter<String> mAdapterAlasan = new ArrayAdapter<>(parentActivity(), R.layout.item_custom_spinner, chooser);
+            spAlasanPinjam.setAdapter(mAdapterAlasan);
+            spAlasanPinjam.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    if (parent.getSelectedItem().equals("Lain-lain")) {
 
-            }
-        });
+                        lyAlasanLain.setVisibility(View.VISIBLE);
+                    } else {
+                        lyAlasanLain.setVisibility(View.GONE);
+                    }
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+        }else {
+
+            Toast.makeText(parentActivity(), "Data Alasan Peminjaman Kosong", Toast.LENGTH_SHORT).show();
+            spAlasanPinjam.setVisibility(View.GONE);
+            lyDataAlasanEmpty.setVisibility(View.VISIBLE);
+
+        }
     }
 
     @Override
@@ -543,6 +519,75 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
         plafondCustom.setText("");
 
     }
+
+    @OnClick(R.id.buttonPinjam)
+    void onClickPinjam(){
+        Bundle bundle = parentActivity().getIntent().getExtras();
+        assert bundle != null;
+
+        //user should choose product or product must be not null
+        if (productName == null) {
+            Toast.makeText(parentActivity(), "Produk Tidak Boleh Kosong", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        //user should input plafond
+        if(loanAmount == 0 || loanAmount < minPlafond || loanAmount > maxPlafond){
+
+            CalculateData(selectedProduct, mServiceProducts);
+
+        }
+
+        Intent intent = new Intent(parentActivity(), SummaryTransactionActivity.class);
+
+        intent.putExtra(SummaryTransactionActivity.PINJAMAN, loanAmount);
+        intent.putExtra(SummaryTransactionActivity.TENOR, installmentTenor);
+        intent.putExtra(SummaryTransactionActivity.ANGSURAN_BULAN, angsurnaPerbulan);
+        intent.putExtra(SummaryTransactionActivity.PRODUK, spProducts.getSelectedItem().toString());
+        intent.putExtra(SummaryTransactionActivity.PRODUCTID, productID);
+        intent.putExtra(SummaryTransactionActivity.ADMIN, administration);
+        intent.putExtra(SummaryTransactionActivity.INTEREST, totalBunga);
+        intent.putExtra(SummaryTransactionActivity.PENCAIRAN, countPencairan);
+
+        if(spAlasanPinjam.getSelectedItem().toString().equals("Lain-lain")){
+
+            if(etAlasan.getText().toString().trim().isEmpty()){
+
+                Toast.makeText(parentActivity(), "Mohon diisi alasannya", Toast.LENGTH_SHORT).show();
+                etAlasan.requestFocus();
+                return;
+            }
+
+            intent.putExtra(SummaryTransactionActivity.ALASAN, etAlasan.getText().toString());
+
+
+        } else {
+
+            intent.putExtra(SummaryTransactionActivity.ALASAN, spAlasanPinjam.getSelectedItem().toString());
+
+        }
+
+        intent.putExtra(SummaryTransactionActivity.TUJUAN, etTujuan.getText().toString());
+        intent.putExtra(SummaryTransactionActivity.LAYANAN, bundle.getInt("idService"));
+        startActivity(intent);
+
+    }
+
+    @OnClick(R.id.refresh)
+    void onClickRefreshProduct(){
+
+        mPresenter.getProducts();
+
+    }
+
+    @OnClick(R.id.refreshAlasan)
+    void onClickRefreshAlasan(){
+
+        mPresenter.getReasonLoan();
+
+    }
+
+
 
     private double calculateAngsuranPerBulan(String jenisPotong) {
 
