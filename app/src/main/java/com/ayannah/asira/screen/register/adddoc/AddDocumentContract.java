@@ -9,7 +9,7 @@ public interface AddDocumentContract {
 
         void showErrorMessage(String message);
 
-        void successCheckMandotryEntity(String message);
+        void successCheckMandotryEntity(String message, String pnumber);
 
         void dialogDismiss();
     }

@@ -24,6 +24,7 @@ public class ImageUtils {
         }else{
 
             imageView.setImageResource(R.drawable.ic_broken_image);
+            imageView.setPadding(30,30,30,30);
         }
 
     }

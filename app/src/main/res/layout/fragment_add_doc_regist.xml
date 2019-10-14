@@ -184,6 +184,7 @@
                     android:inputType="phone"
                     android:textSize="@dimen/fontNormal"
                     android:imeOptions="actionNext"
+                    android:maxLength="18"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     tools:ignore="Autofill" />

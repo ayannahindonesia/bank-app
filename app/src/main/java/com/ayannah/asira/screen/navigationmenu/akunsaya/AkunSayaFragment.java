@@ -95,7 +95,7 @@ public class AkunSayaFragment extends BaseFragment implements AkunSayaContract.V
 
     @Override
     public void showDataUser(PreferenceRepository preferenceRepository) {
-        phoneNumber.setText(preferenceRepository.getUserPhone());
+        phoneNumber.setText(formatPhoneString(preferenceRepository.getUserPhone()));
         etName.setText(preferenceRepository.getUserName());
         etEmail.setText(preferenceRepository.getUserEmail());
 
@@ -105,6 +105,10 @@ public class AkunSayaFragment extends BaseFragment implements AkunSayaContract.V
 //        etPassword.setText(preferenceRepository);
 //        etPasswordRetype.setText(preferenceRepository.);
     }
+
+    private String formatPhoneString(String userPhone) {
+
+        return userPhone.substring(0,2) + " " + userPhone.substring(2,5) + " " + userPhone.substring(5,9)  + " " + userPhone.substring(9);    }
 
     @Override
     public void berhasil() {

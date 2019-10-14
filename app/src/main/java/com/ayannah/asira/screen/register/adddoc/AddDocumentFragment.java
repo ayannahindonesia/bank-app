@@ -10,6 +10,7 @@ import android.media.ExifInterface;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.text.Editable;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -45,6 +46,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import butterknife.OnTextChanged;
 
 public class AddDocumentFragment extends BaseFragment implements AddDocumentContract.View, Validator.ValidationListener {
 
@@ -353,7 +355,14 @@ public class AddDocumentFragment extends BaseFragment implements AddDocumentCont
 //        form.putExtras(bundle);
 //        startActivity(form);
 
-        String pnumber = "62"+phone.getText().toString().trim();
+        String pnumber;
+        if (phone.getText().toString().trim().substring(0,1).equals("0")) {
+            pnumber = "62" + phone.getText().toString().trim().substring(1);
+        } else if (phone.getText().toString().trim().substring(0,2).equals("62")) {
+            pnumber = phone.getText().toString().trim();
+        } else {
+            pnumber = "62"+phone.getText().toString().trim();
+        }
 
         dialog.show();
         mPresenter.checkMandatoryItem(etKTP.getText().toString(), pnumber, email.getText().toString(), etNPWP.getText().toString());
@@ -486,7 +495,7 @@ public class AddDocumentFragment extends BaseFragment implements AddDocumentCont
     }
 
     @Override
-    public void successCheckMandotryEntity(String message) {
+    public void successCheckMandotryEntity(String message, String pnumber) {
 
         dialogDismiss();
 
@@ -497,7 +506,7 @@ public class AddDocumentFragment extends BaseFragment implements AddDocumentCont
             bundle = new Bundle();
         }
 
-        String pnumber = "62"+phone.getText().toString().trim();
+//        String pnumber = "62"+phone.getText().toString().trim();
 
         bundle.putString(FormOtherFragment.PHOTO_KTP, pictKTP64);
         bundle.putString(FormOtherFragment.PHOTO_NPWP, pictNPWP64);
@@ -543,5 +552,13 @@ public class AddDocumentFragment extends BaseFragment implements AddDocumentCont
         else if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_180) {  return 180; }
         else if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_270) {  return 270; }
         return 0;
+    }
+
+    @OnTextChanged(value = R.id.regist_phone, callback = OnTextChanged.Callback.TEXT_CHANGED)
+    void et_onTextChange_registPhone(Editable editable) {
+        if (editable.toString().equals("0")) {
+            Toast.makeText(getContext(), "Masukan tanpa diawali angka 0", Toast.LENGTH_LONG).show();
+            phone.setText("");
+        }
     }
 }

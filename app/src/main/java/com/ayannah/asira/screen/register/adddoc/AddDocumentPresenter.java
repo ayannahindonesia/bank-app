@@ -53,7 +53,7 @@ public class AddDocumentPresenter implements AddDocumentContract.Presenter {
 
             if(response.isStatus()){
 
-                mView.successCheckMandotryEntity(response.getMessage());
+                mView.successCheckMandotryEntity(response.getMessage(), phoneNumber);
 
             }
 
