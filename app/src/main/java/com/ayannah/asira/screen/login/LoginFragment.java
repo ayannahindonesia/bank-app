@@ -2,6 +2,7 @@ package com.ayannah.asira.screen.login;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -26,6 +27,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import butterknife.OnTextChanged;
 
 public class LoginFragment extends BaseFragment implements
         LoginContract.View, Validator.ValidationListener {
@@ -171,7 +173,11 @@ public class LoginFragment extends BaseFragment implements
         }else {
 
             dialog.show();
-            mPresenter.getPublicToken(phone, pass);
+            if (phone.substring(0,1).equals("0")) {
+                mPresenter.getPublicToken("62" + phone.substring(1), pass);
+            } else {
+                mPresenter.getPublicToken("62" + phone, pass);
+            }
 
         }
 
@@ -199,5 +205,13 @@ public class LoginFragment extends BaseFragment implements
             }
         }
 
+    }
+
+    @OnTextChanged(value =R.id.etPhone, callback = OnTextChanged.Callback.TEXT_CHANGED)
+    void et_onchanged_phone(Editable editable) {
+        if (editable.toString().equals("0")) {
+            etPhone.setText("");
+            Toast.makeText(getContext(), "Masukan tanpa diawali angka 0", Toast.LENGTH_LONG).show();
+        }
     }
 }
