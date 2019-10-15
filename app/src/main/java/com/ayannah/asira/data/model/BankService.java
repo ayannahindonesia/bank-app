@@ -27,6 +27,9 @@ public class BankService extends BankBaseResponse {
         @SerializedName("name")
         private String name;
 
+        @SerializedName("bank_id")
+        private int bankId;
+
         @SerializedName("image_id")
         private int imageId;
 
@@ -51,6 +54,10 @@ public class BankService extends BankBaseResponse {
 
         public int getImageId() {
             return imageId;
+        }
+
+        public int getBankId() {
+            return bankId;
         }
 
         public String getStatus() {

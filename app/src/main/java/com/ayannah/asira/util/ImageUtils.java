@@ -19,7 +19,12 @@ public class ImageUtils {
 
             Bitmap bitmap = BitmapFactory.decodeByteArray(decodeImageString, 0, decodeImageString.length);
 
-            imageView.setImageBitmap(bitmap);
+            if (bitmap!=null) {
+                imageView.setImageBitmap(bitmap);
+            } else {
+                imageView.setImageResource(R.drawable.ic_broken_image);
+                imageView.setPadding(30,30,30,30);
+            }
 
         }else{
 
