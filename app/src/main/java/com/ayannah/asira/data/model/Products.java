@@ -35,9 +35,6 @@ public class Products {
 	@SerializedName("service")
 	private int service;
 
-	@SerializedName("asn_fee")
-	private String asnFee;
-
 	@SerializedName("name")
 	private String name;
 
@@ -125,14 +122,6 @@ public class Products {
 
 	public int getService(){
 		return service;
-	}
-
-	public void setAsnFee(String asnFee){
-		this.asnFee = asnFee;
-	}
-
-	public String getAsnFee(){
-		return asnFee;
 	}
 
 	public void setName(String name){

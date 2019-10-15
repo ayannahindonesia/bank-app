@@ -20,6 +20,7 @@ import androidx.appcompat.app.AlertDialog;
 
 import com.ayannah.asira.R;
 import com.ayannah.asira.custom.PlafondEditText;
+import com.ayannah.asira.data.model.FeesItem;
 import com.ayannah.asira.data.model.Products;
 import com.ayannah.asira.data.model.ReasonLoan;
 import com.ayannah.asira.data.model.ServiceProducts;
@@ -329,19 +330,49 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
             //get value from edittext to set plafond
             int nominal = Integer.parseInt(plafondCustom.getText().toString().replaceAll(",", ""));
             int nominalRound = roundingValue(nominal);
-            administration = calculateAdministration(nominalRound, mServiceProducts.get(position).getFees().get(0).getAmount(), mServiceProducts.get(position).getAsnFee());
+
+            //calculate asn value
+            for (FeesItem data: mServiceProducts.get(position).getFees()){
+
+                if(data.getDescription().equals("Convenience Fee")){
+                    administration = calculateAdministration(nominalRound, mServiceProducts.get(position).getFees().get(0).getAmount(),data.getAmount());
+                }
+
+            }
+
             productID = mServiceProducts.get(position).getId();
 
             if(nominalRound < mServiceProducts.get(position).getMinLoan()){
 
                 // jumlah pinjaman lebih kecil dari batas minimum
                 Toast.makeText(parentActivity(), "Jumlah pinjmana lebih kecil dari batas minimum", Toast.LENGTH_SHORT).show();
+                loanAmount = 0;
+                interest = 0;
+                totalBunga = 0;
+                angsurnaPerbulan = 0;
+                countPencairan = 0;
+
+                biayaAdmin.setText("-");
+                tvBunga.setText("-");
+                tvAngsuran.setText("-");
+                jumlahPencairan.setText("-");
 
 
             }else if(nominalRound > mServiceProducts.get(position).getMaxLoan()){
 
-                // Jumlaj pinhaman lebih besar dari batas maksimum
+                // Jumlah pinhaman lebih besar dari batas maksimum
                 Toast.makeText(parentActivity(), "Jumlah pinjmana lebih besar dari batas maximum", Toast.LENGTH_SHORT).show();
+                loanAmount = 0;
+                interest = 0;
+                totalBunga = 0;
+                angsurnaPerbulan = 0;
+                countPencairan = 0;
+
+                biayaAdmin.setText("-");
+                tvBunga.setText("-");
+                tvAngsuran.setText("-");
+                jumlahPencairan.setText("-");
+
 
             }else {
 
@@ -353,7 +384,6 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
                 loanAmount = Integer.parseInt(value);
 
                 //base on seekbar installment
-//                installmentTenor = (installment.getVerticalScrollbarPosition()+1) * 6;
                 installmentTenor = minTenor;
 
                 //calculate bunga
@@ -362,21 +392,6 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
 
                 //calculate angsuran perbulan
                 angsurnaPerbulan = calculateAngsuranPerBulan(convSetup);
-
-//                //calculate jumlapencairan
-//                int asnfee = 0;
-//                if(serviceProducts.getProducts().get(position).getAsnFee().contains("%")){
-//
-//                    asnfee = Integer.parseInt(serviceProducts.getProducts().get(position).getAsnFee().replaceAll("%", ""));
-//
-//                    countPencairan = calculateJumlahPencairanInPercent(loanAmount, asnfee)/installmentTenor;
-//
-//                }else {
-//
-//                    asnfee = Integer.parseInt(serviceProducts.getProducts().get(position).getAsnFee());
-//
-//                    countPencairan = (calculatePotongPlafond(loanAmount) - asnfee) /installmentTenor;
-//                }
 
                 if (convSetup.equals(POTONG_PLAFON)) {
                     countPencairan = loanAmount - administration;
@@ -496,19 +511,6 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
             calAsnFee = Integer.parseInt(asnFee);
         }
 
-//        int admin = plafon * calAdminFee / 100;
-//
-//        int asnfees = 0;
-//
-//        if (asnFee > 100) {
-//
-//            asnfees = asnFee;
-//
-//        } else {
-//
-//            asnfees = plafon * asnFee / 100;
-//        }
-
         return calAdminFee + calAsnFee;
 
     }
@@ -533,8 +535,9 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
 
         //user should input plafond
         if(loanAmount == 0 || loanAmount < minPlafond || loanAmount > maxPlafond){
-
-            CalculateData(selectedProduct, mServiceProducts);
+            Toast.makeText(parentActivity(), "Mohon masukkan jumlah pinjaman dengan benar", Toast.LENGTH_SHORT).show();
+            return;
+//            CalculateData(selectedProduct, mServiceProducts);
 
         }
 
