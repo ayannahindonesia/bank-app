@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.ayannah.asira.R;
 import com.ayannah.asira.data.local.ServiceProductLocal;
+import com.ayannah.asira.data.model.FeesItem;
 import com.ayannah.asira.data.model.Loans.DataItem;
 import com.ayannah.asira.dialog.BottomSheetDialogGlobal;
 import com.ayannah.asira.screen.otpphone.VerificationOTPActivity;
@@ -28,6 +29,7 @@ import org.json.JSONObject;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import javax.inject.Inject;
@@ -101,8 +103,7 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
     LinearLayout lltDisbursement;
 
     private Unbinder mUnbinder;
-
-    int admin = 0;
+    
     int calculateTotalBiaya = 0;
     int idLoan = 0;
     private AlertDialog dialog;
@@ -207,38 +208,11 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
             double calInterest = ((double) dataItem.getLoanAmount() * dataItem.getInterest() / 100);
             interest.setText(CommonUtils.setRupiahCurrency((int) calInterest));
 
-            String asnFee="";
-            for (int j = 0; j < jsonArray1.length(); j++) {
-                JSONObject jsonObject2 = new JSONObject(String.valueOf(jsonArray1.get(j)));
-                if (dataItem.getProduct().equals(jsonObject2.get("id").toString())) {
-//                    productNya = jsonObject2.get("name").toString();
-                    asnFee=jsonObject2.get("asn_fee").toString();
-                }
-            }
-
-            fees.setText(CommonUtils.setRupiahCurrency(calculateAdministration(dataItem.getLoanAmount(), dataItem.getFees().get(0).getAmount(), asnFee)));
-
-//        if(dataItem.getFees().size() > 0){
-//
-//            fees.setText(CommonUtils.setRupiahCurrency(dataItem.getFees().get(0).getAmount()));
-//
-//            for(FeesItem fee:dataItem.getFees()){
-//
-//                admin = fee.getAmount();
-//            }
-//
-//            calculateTotalBiaya = ((int)calInterest * dataItem.getInstallment()) + (admin * dataItem.getInstallment()) + dataItem.getLoanAmount();
-//        }else {
-//
-//            calculateTotalBiaya = ((int)calInterest * dataItem.getInstallment())  + dataItem.getLoanAmount();
-//
-//        }
+            fees.setText(CommonUtils.setRupiahCurrency(calculateAdministration_v2(dataItem.getLoanAmount(), dataItem.getFees())));
 
             angsuran.setText(CommonUtils.setRupiahCurrency((int) Math.floor(dataItem.getLayawayPlan())));
 
             totalBiaya.setText(CommonUtils.setRupiahCurrency(calculateTotalBiaya));
-
-//        produk.setText();
 
             if (!dataItem.isOtpVerified()) {
 
@@ -350,20 +324,32 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
             calAsnFee = Integer.parseInt(asnFee);
         }
 
-//        int admin = plafon * calAdminFee / 100;
-//
-//        int asnfees = 0;
-//
-//        if (asnFee > 100) {
-//
-//            asnfees = asnFee;
-//
-//        } else {
-//
-//            asnfees = plafon * asnFee / 100;
-//        }
-
         return calAdminFee + calAsnFee;
+
+    }
+
+    private int calculateAdministration_v2(int plafon, List<FeesItem> fees){
+
+        int result = 0;
+        double tempCount;
+
+        if(fees.size() > 0) {
+            for (FeesItem param : fees) {
+
+                if (param.getAmount().contains("%")) {
+
+                    tempCount = Double.parseDouble(param.getAmount().replace("%", ""));
+                    result = result + ((int) (plafon * tempCount) / 100);
+
+                } else {
+
+                    result = result + Integer.parseInt(param.getAmount());
+                }
+
+            }
+        }
+
+        return result;
 
     }
 }

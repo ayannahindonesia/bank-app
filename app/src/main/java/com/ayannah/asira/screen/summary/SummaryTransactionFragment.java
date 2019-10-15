@@ -147,8 +147,8 @@ public class SummaryTransactionFragment extends BaseFragment implements SummaryT
 
         jumlahPencairan.setText(CommonUtils.setRupiahCurrency((int)pencairan));
 
-        double calAngsuran = (pinjaman + interest + calBiayaAdmin)/tenor;
-        tvAngsuran.setText(CommonUtils.setRupiahCurrency((int) Math.floor(calAngsuran)));
+//        double calAngsuran = (pinjaman + interest + calBiayaAdmin)/tenor;
+        tvAngsuran.setText(CommonUtils.setRupiahCurrency((int) Math.floor(angsuranBulan)));
 
         tvAlasan.setText(alasan);
 
