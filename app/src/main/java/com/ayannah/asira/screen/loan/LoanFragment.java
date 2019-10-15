@@ -2,6 +2,7 @@ package com.ayannah.asira.screen.loan;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -48,14 +49,8 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
     @BindView(R.id.lyDataProdukEmpty)
     RelativeLayout lyDataProdukEmpty;
 
-//    @BindView(R.id.refresh)
-//    ImageView refresh;
-
     @BindView(R.id.lyDataAlasanEmpty)
     RelativeLayout lyDataAlasanEmpty;
-
-//    @BindView(R.id.refreshAlasan)
-//    ImageView refreshAlasan;
 
     @BindView(R.id.nominalPinjaman)
     TextView amountLoan;
@@ -332,13 +327,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
             int nominalRound = roundingValue(nominal);
 
             //calculate asn value
-            for (FeesItem data: mServiceProducts.get(position).getFees()){
-
-                if(data.getDescription().equals("Convenience Fee")){
-                    administration = calculateAdministration(nominalRound, mServiceProducts.get(position).getFees().get(0).getAmount(),data.getAmount());
-                }
-
-            }
+            administration = calculateAdministration_v2(nominalRound, mServiceProducts.get(position).getFees());
 
             productID = mServiceProducts.get(position).getId();
 
@@ -478,19 +467,6 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
 
     }
 
-    private double calculatePotongPlafond(double plafond){
-
-        return plafond - administration;
-    }
-
-    //hitung jumlah pencairan dengan membebankan keccicilan
-    private double calculateJumlahPencairanInPercent(double plafond, int asnFee){
-
-        double countAsnFee = plafond * asnFee / 100;
-
-        return plafond - (administration + countAsnFee);
-    }
-
     //hitung biaya adminsitrasi
     //tes bkin formulasi administrasi
     private int calculateAdministration(int plafon, String adminFee, String asnFee){
@@ -515,10 +491,36 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
 
     }
 
+    private int calculateAdministration_v2(int plafon, List<FeesItem> fees){
+
+        int result = 0;
+        double tempCount;
+
+        if(fees.size() > 0) {
+            for (FeesItem param : fees) {
+
+                if (param.getAmount().contains("%")) {
+
+                    tempCount = Double.parseDouble(param.getAmount().replace("%", ""));
+                    result = result + ((int) (plafon * tempCount) / 100);
+
+                } else {
+
+                    result = result + Integer.parseInt(param.getAmount());
+                }
+
+            }
+        }
+
+        return result;
+
+    }
+
     @OnClick(R.id.plafondCustom)
     void onClickPlafondEdittext(){
 
         plafondCustom.setText("");
+        loanAmount = 0;
 
     }
 
@@ -537,7 +539,6 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
         if(loanAmount == 0 || loanAmount < minPlafond || loanAmount > maxPlafond){
             Toast.makeText(parentActivity(), "Mohon masukkan jumlah pinjaman dengan benar", Toast.LENGTH_SHORT).show();
             return;
-//            CalculateData(selectedProduct, mServiceProducts);
 
         }
 
