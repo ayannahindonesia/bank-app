@@ -1,8 +1,11 @@
 package com.ayannah.asira.data.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
-public class UserProfile{
+public class UserProfile implements Parcelable {
 
 	@SerializedName("birthday")
 	private String birthday;
@@ -165,6 +168,73 @@ public class UserProfile{
 
 	@SerializedName("taxid_image")
 	private TaxIDImage taxIDImage;
+
+	protected UserProfile(Parcel in) {
+		birthday = in.readString();
+		relatedPhonenumber = in.readString();
+		updatedTime = in.readString();
+		taxidNumber = in.readString();
+		idcardNumber = in.readString();
+		occupation = in.readString();
+		gender = in.readString();
+		city = in.readString();
+		motherName = in.readString();
+		directSuperiorname = in.readString();
+		bankAccountnumber = in.readString();
+		employerName = in.readString();
+		hamlets = in.readString();
+		relatedHomenumber = in.readString();
+		suspendedTime = in.readString();
+		neighbourAssociation = in.readString();
+		spouseName = in.readString();
+		bank = in.readParcelable(Bank.class.getClassLoader());
+		otpVerified = in.readByte() != 0;
+		password = in.readString();
+		fieldOfWork = in.readString();
+		province = in.readString();
+		spouseBirthday = in.readString();
+		id = in.readInt();
+		department = in.readString();
+		email = in.readString();
+		createdTime = in.readString();
+		livedFor = in.readInt();
+		address = in.readString();
+		spouseLasteducation = in.readString();
+		otherIncome = in.readInt();
+		homePhonenumber = in.readString();
+		monthlyIncome = in.readInt();
+		homeOwnership = in.readString();
+		lastEducation = in.readString();
+		marriageStatus = in.readString();
+		relatedPersonname = in.readString();
+		relatedRelation = in.readString();
+		employerAddress = in.readString();
+		birthplace = in.readString();
+		beenWorkingfor = in.readInt();
+		phone = in.readString();
+		subdistrict = in.readString();
+		employeeId = in.readString();
+		otherIncomesource = in.readString();
+		urbanVillage = in.readString();
+		fullname = in.readString();
+		nickname = in.readString();
+		nationality = in.readString();
+		employerNumber = in.readString();
+		relatedAddress = in.readString();
+		dependants = in.readInt();
+	}
+
+	public static final Creator<UserProfile> CREATOR = new Creator<UserProfile>() {
+		@Override
+		public UserProfile createFromParcel(Parcel in) {
+			return new UserProfile(in);
+		}
+
+		@Override
+		public UserProfile[] newArray(int size) {
+			return new UserProfile[size];
+		}
+	};
 
 	public String getBirthday(){
 		return birthday;
@@ -380,5 +450,66 @@ public class UserProfile{
 
 	public TaxIDImage getTaxIDImage() {
 		return taxIDImage;
+	}
+
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeString(birthday);
+		dest.writeString(relatedPhonenumber);
+		dest.writeString(updatedTime);
+		dest.writeString(taxidNumber);
+		dest.writeString(idcardNumber);
+		dest.writeString(occupation);
+		dest.writeString(gender);
+		dest.writeString(city);
+		dest.writeString(motherName);
+		dest.writeString(directSuperiorname);
+		dest.writeString(bankAccountnumber);
+		dest.writeString(employerName);
+		dest.writeString(hamlets);
+		dest.writeString(relatedHomenumber);
+		dest.writeString(suspendedTime);
+		dest.writeString(neighbourAssociation);
+		dest.writeString(spouseName);
+		dest.writeParcelable(bank, flags);
+		dest.writeByte((byte) (otpVerified ? 1 : 0));
+		dest.writeString(password);
+		dest.writeString(fieldOfWork);
+		dest.writeString(province);
+		dest.writeString(spouseBirthday);
+		dest.writeInt(id);
+		dest.writeString(department);
+		dest.writeString(email);
+		dest.writeString(createdTime);
+		dest.writeInt(livedFor);
+		dest.writeString(address);
+		dest.writeString(spouseLasteducation);
+		dest.writeInt(otherIncome);
+		dest.writeString(homePhonenumber);
+		dest.writeInt(monthlyIncome);
+		dest.writeString(homeOwnership);
+		dest.writeString(lastEducation);
+		dest.writeString(marriageStatus);
+		dest.writeString(relatedPersonname);
+		dest.writeString(relatedRelation);
+		dest.writeString(employerAddress);
+		dest.writeString(birthplace);
+		dest.writeInt(beenWorkingfor);
+		dest.writeString(phone);
+		dest.writeString(subdistrict);
+		dest.writeString(employeeId);
+		dest.writeString(otherIncomesource);
+		dest.writeString(urbanVillage);
+		dest.writeString(fullname);
+		dest.writeString(nickname);
+		dest.writeString(nationality);
+		dest.writeString(employerNumber);
+		dest.writeString(relatedAddress);
+		dest.writeInt(dependants);
 	}
 }

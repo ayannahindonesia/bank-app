@@ -95,6 +95,7 @@ public class DataItem implements Parcelable {
 		loanAmount = in.readInt();
 		otpVerified = in.readByte() != 0;
 		interest = in.readDouble();
+		borrowerInfo = in.readParcelable(UserProfile.class.getClassLoader());
 		installment = in.readInt();
 		layawayPlan = in.readDouble();
 		totalLoan = in.readInt();
@@ -235,6 +236,7 @@ public class DataItem implements Parcelable {
 		dest.writeInt(loanAmount);
 		dest.writeByte((byte) (otpVerified ? 1 : 0));
 		dest.writeDouble(interest);
+		dest.writeParcelable(borrowerInfo, flags);
 		dest.writeInt(installment);
 		dest.writeDouble(layawayPlan);
 		dest.writeInt(totalLoan);

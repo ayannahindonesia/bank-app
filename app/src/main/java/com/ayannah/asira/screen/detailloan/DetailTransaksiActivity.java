@@ -44,7 +44,6 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
 
     public static final String ID_LOAN = "idloan";
     public static final String LOAN_DETAIL = "loanDetail";
-    private DataItem loanDeatil;
 
     private final static String STATUS_PROCESSING = "processing";
     private final static String STATUS_APPROVED = "approved";
@@ -61,6 +60,9 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
 
     @Inject
     String id_loan;
+
+    @Inject
+    DataItem loanDetails;
 
     @BindView(R.id.noPeminjaman)
     TextView noPeminjaman;
@@ -138,9 +140,7 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setTitle("Detil Pinjaman");
 
-        loanDeatil = (DataItem) Objects.requireNonNull(getIntent().getExtras()).get(LOAN_DETAIL);
-
-        loadAllInformation(loanDeatil);
+        loadAllInformation(loanDetails);
     }
 
     @Override
