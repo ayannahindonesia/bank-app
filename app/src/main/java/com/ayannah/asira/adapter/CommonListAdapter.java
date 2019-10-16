@@ -195,42 +195,42 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         private void bind(DataItem param){
 
-            JSONObject jsonObject = null;
-            String serviceNya = "";
-            String productNya = "";
-
-            BankServiceLocal bankServiceLocal = new BankServiceLocal(itemView.getContext());
-            ServiceProductLocal serviceProductLocal = new ServiceProductLocal(itemView.getContext());
-
-            try {
-
-                JSONArray jsonArray = new JSONArray(bankServiceLocal.getBankService());
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    JSONObject jsonObject1 = new JSONObject(String.valueOf(jsonArray.get(i)));
-                    if (param.getService().equals(jsonObject1.get("id").toString())) {
-                        serviceNya = jsonObject1.get("name").toString();
-                    }
-                }
-
-                JSONArray jsonArray1 = new JSONArray(serviceProductLocal.getServiceProducts());
-                for (int j = 0; j < jsonArray1.length(); j++) {
-                    JSONObject jsonObject2 = new JSONObject(String.valueOf(jsonArray1.get(j)));
-                    if (param.getProduct().equals(jsonObject2.get("id").toString())) {
-                        productNya = jsonObject2.get("name").toString();
-                    }
-                }
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+//            JSONObject jsonObject = null;
+//            String serviceNya = "";
+//            String productNya = "";
+//
+//            BankServiceLocal bankServiceLocal = new BankServiceLocal(itemView.getContext());
+//            ServiceProductLocal serviceProductLocal = new ServiceProductLocal(itemView.getContext());
+//
+//            try {
+//
+//                JSONArray jsonArray = new JSONArray(bankServiceLocal.getBankService());
+//                for (int i = 0; i < jsonArray.length(); i++) {
+//                    JSONObject jsonObject1 = new JSONObject(String.valueOf(jsonArray.get(i)));
+//                    if (param.getService().equals(jsonObject1.get("id").toString())) {
+//                        serviceNya = jsonObject1.get("name").toString();
+//                    }
+//                }
+//
+//                JSONArray jsonArray1 = new JSONArray(serviceProductLocal.getServiceProducts());
+//                for (int j = 0; j < jsonArray1.length(); j++) {
+//                    JSONObject jsonObject2 = new JSONObject(String.valueOf(jsonArray1.get(j)));
+//                    if (param.getProduct().equals(jsonObject2.get("id").toString())) {
+//                        productNya = jsonObject2.get("name").toString();
+//                    }
+//                }
+//
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//            }
 
 //            numLoan.setText(param.getService() + " - " + param.getId());
 //            numLoan.setText(String.format("%s - ", param.getService()));
 //            numLoan.setText(String.format("%1$s - %2$s", param.getService(), param.getId()));
-            numLoan.setText(String.format("%1$s - %2$s", serviceNya, param.getId()));
+            numLoan.setText(String.format("%1$s - %2$s", param.getServiceName(), param.getId()));
 
 //            typeLoan.setText(param.getService());
-            typeLoan.setText(productNya);
+            typeLoan.setText(param.getProductName());
 
 //            if(param.isOtpVerified()){
 //

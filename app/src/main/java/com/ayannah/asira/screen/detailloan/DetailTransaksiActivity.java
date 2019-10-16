@@ -20,7 +20,6 @@ import com.ayannah.asira.data.model.Loans.DataItem;
 import com.ayannah.asira.dialog.BottomSheetDialogGlobal;
 import com.ayannah.asira.screen.otpphone.VerificationOTPActivity;
 import com.ayannah.asira.util.CommonUtils;
-import com.google.android.gms.common.internal.service.Common;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,6 +30,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -43,6 +43,8 @@ import dagger.android.support.DaggerAppCompatActivity;
 public class DetailTransaksiActivity extends DaggerAppCompatActivity implements DetailTransaksiContract.View {
 
     public static final String ID_LOAN = "idloan";
+    public static final String LOAN_DETAIL = "loanDetail";
+    private DataItem loanDeatil;
 
     private final static String STATUS_PROCESSING = "processing";
     private final static String STATUS_APPROVED = "approved";
@@ -118,9 +120,9 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
         builder.setView(R.layout.progress_bar);
         dialog = builder.create();
 
-        dialog.show();
+//        dialog.show();
 
-        mPresenter.getInformationLoan(id_loan);
+//        mPresenter.getInformationLoan(id_loan);
     }
 
     @Override
@@ -136,6 +138,9 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setTitle("Detil Pinjaman");
 
+        loanDeatil = (DataItem) Objects.requireNonNull(getIntent().getExtras()).get(LOAN_DETAIL);
+
+        loadAllInformation(loanDeatil);
     }
 
     @Override
@@ -150,80 +155,76 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
 
     @Override
     public void loadAllInformation(DataItem dataItem) {
-        try {
-            ServiceProductLocal serviceProductLocal = new ServiceProductLocal(getBaseContext());
-            JSONArray jsonArray1 = new JSONArray(serviceProductLocal.getServiceProducts());
-            for (int j = 0; j < jsonArray1.length(); j++) {
-                JSONObject jsonObject2 = new JSONObject(String.valueOf(jsonArray1.get(j)));
-                if (dataItem.getProduct().equals(jsonObject2.get("id").toString())) {
+        //            ServiceProductLocal serviceProductLocal = new ServiceProductLocal(getBaseContext());
+//            JSONArray jsonArray1 = new JSONArray(serviceProductLocal.getServiceProducts());
+//            for (int j = 0; j < jsonArray1.length(); j++) {
+//                JSONObject jsonObject2 = new JSONObject(String.valueOf(jsonArray1.get(j)));
+//                if (dataItem.getProduct().equals(jsonObject2.get("id").toString())) {
 //                    productNya = jsonObject2.get("name").toString();
-                    produk.setText(jsonObject2.get("name").toString());
-                }
-            }
+//                    produk.setText(jsonObject2.get("name").toString());
+//                }
+//            }
 
-            idLoan = dataItem.getId();
+        produk.setText(dataItem.getProductName());
+        idLoan = dataItem.getId();
 
-            noPeminjaman.setText(String.valueOf(dataItem.getId()));
+        noPeminjaman.setText(String.valueOf(dataItem.getId()));
 
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss.SSS'Z'", Locale.getDefault());
-            SimpleDateFormat sdfDibursement = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss'Z'", Locale.getDefault());
-            SimpleDateFormat sdfUsed = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
-            Date getDate = new Date();
-            Date getDateDisbursement = new Date();
-            try {
-                getDate = sdf.parse(dataItem.getCreatedTime());
-                getDateDisbursement = sdfDibursement.parse(dataItem.getDisburseDate());
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            dateCreated.setText(sdfUsed.format(getDate));
-
-            switch (dataItem.getStatus().toLowerCase()) {
-                case STATUS_APPROVED:
-                    status.setBackgroundResource(R.drawable.badge_diterima);
-                    status.setText(getResources().getString(R.string.accept));
-                    lltDisbursement.setVisibility(View.VISIBLE);
-                    dateDisbursement.setText(sdfUsed.format(getDateDisbursement));
-                    break;
-                case STATUS_PROCESSING:
-                    status.setBackgroundResource(R.drawable.badge_tidak_lengkap);
-                    status.setText(getResources().getString(R.string.processing));
-                    lltDisbursement.setVisibility(View.GONE);
-                    break;
-                case STATUS_REJECTED:
-                    status.setBackgroundResource(R.drawable.badge_ditolak);
-                    status.setText(getResources().getString(R.string.reject));
-                    lltDisbursement.setVisibility(View.GONE);
-                    break;
-            }
-
-            tujuan.setText(dataItem.getLoanIntention());
-
-            detailTujuan.setText(dataItem.getIntentionDetails());
-
-            jumlahPinjaman.setText(CommonUtils.setRupiahCurrency(dataItem.getLoanAmount()));
-
-            tenor.setText(String.format("%s Bulan", dataItem.getInstallment()));
-
-            double calInterest = ((double) dataItem.getLoanAmount() * dataItem.getInterest() / 100);
-            interest.setText(CommonUtils.setRupiahCurrency((int) calInterest));
-
-            fees.setText(CommonUtils.setRupiahCurrency(calculateAdministration_v2(dataItem.getLoanAmount(), dataItem.getFees())));
-
-            angsuran.setText(CommonUtils.setRupiahCurrency((int) Math.floor(dataItem.getLayawayPlan())));
-
-            totalBiaya.setText(CommonUtils.setRupiahCurrency(calculateTotalBiaya));
-
-            if (!dataItem.isOtpVerified()) {
-
-                btn_verfiedLoan.setVisibility(View.VISIBLE);
-            }
-
-        } catch (JSONException e) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss.SSS'Z'", Locale.getDefault());
+        SimpleDateFormat sdfDibursement = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss'Z'", Locale.getDefault());
+        SimpleDateFormat sdfUsed = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
+        Date getDate = new Date();
+        Date getDateDisbursement = new Date();
+        try {
+            getDate = sdf.parse(dataItem.getCreatedTime());
+            getDateDisbursement = sdfDibursement.parse(dataItem.getDisburseDate());
+        } catch (ParseException e) {
             e.printStackTrace();
         }
+        dateCreated.setText(sdfUsed.format(getDate));
 
-        dismissDialog();
+        switch (dataItem.getStatus().toLowerCase()) {
+            case STATUS_APPROVED:
+                status.setBackgroundResource(R.drawable.badge_diterima);
+                status.setText(getResources().getString(R.string.accept));
+                lltDisbursement.setVisibility(View.VISIBLE);
+                dateDisbursement.setText(sdfUsed.format(getDateDisbursement));
+                break;
+            case STATUS_PROCESSING:
+                status.setBackgroundResource(R.drawable.badge_tidak_lengkap);
+                status.setText(getResources().getString(R.string.processing));
+                lltDisbursement.setVisibility(View.GONE);
+                break;
+            case STATUS_REJECTED:
+                status.setBackgroundResource(R.drawable.badge_ditolak);
+                status.setText(getResources().getString(R.string.reject));
+                lltDisbursement.setVisibility(View.GONE);
+                break;
+        }
+
+        tujuan.setText(dataItem.getLoanIntention());
+
+        detailTujuan.setText(dataItem.getIntentionDetails());
+
+        jumlahPinjaman.setText(CommonUtils.setRupiahCurrency(dataItem.getLoanAmount()));
+
+        tenor.setText(String.format("%s Bulan", dataItem.getInstallment()));
+
+        double calInterest = ((double) dataItem.getLoanAmount() * dataItem.getInterest() / 100);
+        interest.setText(CommonUtils.setRupiahCurrency((int) calInterest));
+
+        fees.setText(CommonUtils.setRupiahCurrency(calculateAdministration_v2(dataItem.getLoanAmount(), dataItem.getFees())));
+
+        angsuran.setText(CommonUtils.setRupiahCurrency((int) Math.floor(dataItem.getLayawayPlan())));
+
+        totalBiaya.setText(CommonUtils.setRupiahCurrency(calculateTotalBiaya));
+
+        if (!dataItem.isOtpVerified()) {
+
+            btn_verfiedLoan.setVisibility(View.VISIBLE);
+        }
+
+//        dismissDialog();
 
     }
 

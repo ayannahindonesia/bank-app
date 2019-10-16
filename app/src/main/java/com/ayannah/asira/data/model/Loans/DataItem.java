@@ -1,12 +1,16 @@
 package com.ayannah.asira.data.model.Loans;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.io.Serializable;
 import java.util.List;
 
 import com.ayannah.asira.data.model.FeesItem;
 import com.ayannah.asira.data.model.UserProfile;
 import com.google.gson.annotations.SerializedName;
 
-public class DataItem{
+public class DataItem implements Parcelable {
 
 	@SerializedName("owner")
 	private Owner owner;
@@ -70,6 +74,53 @@ public class DataItem{
 
 	@SerializedName("disburse_amount")
 	private int disburseAmount;
+
+	@SerializedName("reject_reason")
+	private String rejectReason;
+
+	@SerializedName("product_name")
+	private String productName;
+
+	@SerializedName("service_name")
+	private String serviceName;
+
+	protected DataItem(Parcel in) {
+		owner = in.readParcelable(Owner.class.getClassLoader());
+		createdTime = in.readString();
+		updatedTime = in.readString();
+		fees = in.createTypedArrayList(FeesItem.CREATOR);
+		loanIntention = in.readString();
+		dueDate = in.readString();
+		intentionDetails = in.readString();
+		loanAmount = in.readInt();
+		otpVerified = in.readByte() != 0;
+		interest = in.readDouble();
+		installment = in.readInt();
+		layawayPlan = in.readDouble();
+		totalLoan = in.readInt();
+		id = in.readInt();
+		deletedTime = in.readString();
+		status = in.readString();
+		product = in.readString();
+		service = in.readString();
+		disburseDate = in.readString();
+		disburseAmount = in.readInt();
+		rejectReason = in.readString();
+		productName = in.readString();
+		serviceName = in.readString();
+	}
+
+	public static final Creator<DataItem> CREATOR = new Creator<DataItem>() {
+		@Override
+		public DataItem createFromParcel(Parcel in) {
+			return new DataItem(in);
+		}
+
+		@Override
+		public DataItem[] newArray(int size) {
+			return new DataItem[size];
+		}
+	};
 
 	public Owner getOwner(){
 		return owner;
@@ -153,5 +204,49 @@ public class DataItem{
 
 	public int getDisburseAmount() {
 		return disburseAmount;
+	}
+
+	public String getRejectReason() {
+		return rejectReason;
+	}
+
+	public String getProductName() {
+		return productName;
+	}
+
+	public String getServiceName() {
+		return serviceName;
+	}
+
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeParcelable(owner, flags);
+		dest.writeString(createdTime);
+		dest.writeString(updatedTime);
+		dest.writeTypedList(fees);
+		dest.writeString(loanIntention);
+		dest.writeString(dueDate);
+		dest.writeString(intentionDetails);
+		dest.writeInt(loanAmount);
+		dest.writeByte((byte) (otpVerified ? 1 : 0));
+		dest.writeDouble(interest);
+		dest.writeInt(installment);
+		dest.writeDouble(layawayPlan);
+		dest.writeInt(totalLoan);
+		dest.writeInt(id);
+		dest.writeString(deletedTime);
+		dest.writeString(status);
+		dest.writeString(product);
+		dest.writeString(service);
+		dest.writeString(disburseDate);
+		dest.writeInt(disburseAmount);
+		dest.writeString(rejectReason);
+		dest.writeString(productName);
+		dest.writeString(serviceName);
 	}
 }

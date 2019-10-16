@@ -129,6 +129,7 @@ public class HistoryLoanFragment extends BaseFragment implements
 
             Intent intent = new Intent(parentActivity(), DetailTransaksiActivity.class);
             intent.putExtra(DetailTransaksiActivity.ID_LOAN, String.valueOf(loans.getId()));
+            intent.putExtra(DetailTransaksiActivity.LOAN_DETAIL, loans);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
 
