@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -110,6 +111,9 @@ public class MenuProductAdapter extends RecyclerView.Adapter<MenuProductAdapter.
         @BindView(R.id.nameProduct)
         TextView tvNameProduct;
 
+        @BindView(R.id.pbIconService)
+        ProgressBar pbIconService;
+
         MenuProductVH(View itemView){
             super(itemView);
             ButterKnife.bind(this,itemView);
@@ -118,6 +122,9 @@ public class MenuProductAdapter extends RecyclerView.Adapter<MenuProductAdapter.
         private void bind(BankService.Data param){
 
             PreferenceDataSource preferenceDataSource = new PreferenceDataSource(application);
+
+            pbIconService.setVisibility(View.VISIBLE);
+            ivIconProduct.setVisibility(View.GONE);
 
             AndroidNetworking.get(BuildConfig.API_URL_LENDER + "admin/image/{file_id}")
                     .addHeaders("Authorization", preferenceDataSource.getAdminTokenLender())
@@ -132,7 +139,9 @@ public class MenuProductAdapter extends RecyclerView.Adapter<MenuProductAdapter.
                                 String sImage = response.getString("image_string");
                                 Log.e(TAG, sImage);
 
+                                pbIconService.setVisibility(View.GONE);
                                 ImageUtils.setImageBitmapWithEmptyImage(ivIconProduct, sImage);
+                                ivIconProduct.setVisibility(View.VISIBLE);
 
 //                                byte[] decodedString = Base64.decode(sImage, Base64.DEFAULT);
 //                                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0,decodedString.length);
