@@ -70,7 +70,16 @@ public class SummaryTransactionPresenter implements SummaryTransactionContract.P
 
                     @Override
                     public void onError(ANError anError) {
-                        Log.d("verify Loan: ", "gagal");
+
+                        if(anError.getErrorBody() != null){
+
+                            Log.d("verify Loan: ", "gagal");
+                            Log.d("verify Loan: ", "errpr:"+anError.getErrorCode());
+                            Log.d("verify Loan: ", "body: "+anError.getErrorBody());
+
+
+                        }
+
                     }
                 });
 

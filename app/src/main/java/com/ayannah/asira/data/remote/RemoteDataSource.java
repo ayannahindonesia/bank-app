@@ -336,7 +336,17 @@ public class RemoteDataSource implements RemoteRepository {
     }
 
     @Override
-    public Single<ServiceProducts> getAllProducts() {
+    public Single<ServiceProducts> getAllProducts(String idService) {
+        return Rx2AndroidNetworking.get(BuildConfig.API_URL + "borrower/bank_products")
+                .addHeaders("Authorization", preferenceRepository.getUserToken())
+                .addQueryParameter("service_id", idService)
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getObjectSingle(ServiceProducts.class);
+    }
+
+    @Override
+    public Single<ServiceProducts> getAllProductsGlobal() {
         return Rx2AndroidNetworking.get(BuildConfig.API_URL + "borrower/bank_products")
                 .addHeaders("Authorization", preferenceRepository.getUserToken())
                 .setPriority(Priority.MEDIUM)

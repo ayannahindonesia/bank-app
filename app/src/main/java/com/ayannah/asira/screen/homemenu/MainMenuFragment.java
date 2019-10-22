@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -322,6 +323,8 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
                 Intent intent = new Intent(parentActivity(), EarningActivity.class);
                 intent.putExtra("id", menuProduct.getId());
                 intent.putExtra("name", menuProduct.getName());
+                intent.putExtra(EarningActivity.ID_SERVICE, String.valueOf(menuProduct.getId()));
+
                 startActivity(intent);
             }
 

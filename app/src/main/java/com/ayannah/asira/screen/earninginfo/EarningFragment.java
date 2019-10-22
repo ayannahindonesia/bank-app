@@ -47,6 +47,9 @@ public class EarningFragment extends BaseFragment implements EarningContract.Vie
     @BindView(R.id.etSumberPendapatanLain)
     EditText etSumberPendapatanLain;
 
+    @Inject
+    String idService;
+
     private BottomChangingIncome popUpChangingIncome;
     private Validator validator;
     private AlertDialog dialog;
@@ -213,7 +216,9 @@ public class EarningFragment extends BaseFragment implements EarningContract.Vie
 
         dialog.dismiss();
         Intent intent = new Intent(parentActivity(), LoanActivity.class);
-        intent.putExtra("idService", bundle.getInt("id"));
+//        intent.putExtra("idService", bundle.getInt("id"));
+        intent.putExtra(LoanActivity.IDSERVICE, idService);
+
         startActivity(intent);
     }
 
@@ -229,7 +234,9 @@ public class EarningFragment extends BaseFragment implements EarningContract.Vie
         assert bundle != null;
 
         Intent pinjaman = new Intent(parentActivity(), LoanActivity.class);
-        pinjaman.putExtra("idService", bundle.getInt("id"));
+//        pinjaman.putExtra("idService", bundle.getInt("id"));
+        pinjaman.putExtra(LoanActivity.IDSERVICE, idService);
+
         popUpChangingIncome.dismiss();
         startActivity(pinjaman);
 

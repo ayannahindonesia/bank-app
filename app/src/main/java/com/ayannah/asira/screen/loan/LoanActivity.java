@@ -17,6 +17,9 @@ import butterknife.Unbinder;
 import dagger.android.support.DaggerAppCompatActivity;
 
 public class LoanActivity extends DaggerAppCompatActivity {
+
+    public static final String IDSERVICE = "IDSERVICE";
+
     @Inject
     LoanFragment mFragment;
 

@@ -5,7 +5,10 @@ import com.ayannah.asira.di.FragmentScoped;
 
 import dagger.Binds;
 import dagger.Module;
+import dagger.Provides;
 import dagger.android.ContributesAndroidInjector;
+
+import static com.ayannah.asira.screen.loan.LoanActivity.IDSERVICE;
 
 @Module
 public abstract class LoanModule {
@@ -17,5 +20,11 @@ public abstract class LoanModule {
     @ActivityScoped
     @Binds
     abstract LoanContract.Presenter requestPresenter(LoanPresenter presenter);
+
+    @Provides
+    @ActivityScoped
+    static String idService(LoanActivity activity){
+        return activity.getIntent().getStringExtra(IDSERVICE);
+    }
 
 }

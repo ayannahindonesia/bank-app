@@ -94,6 +94,9 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
     @BindView(R.id.plafondCustom)
     PlafondEditText plafondCustom;
 
+    @Inject
+    String idService;
+
     private AlertDialog dialog;
 
     private int selectedProduct = 0;
@@ -145,7 +148,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
         dialog = builder.create();
 
         dialog.show();
-        mPresenter.getProducts();
+        mPresenter.getProducts(idService);
 
         mPresenter.getReasonLoan();
 
@@ -580,7 +583,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
     @OnClick(R.id.refresh)
     void onClickRefreshProduct(){
 
-        mPresenter.getProducts();
+        mPresenter.getProducts(idService);
 
     }
 

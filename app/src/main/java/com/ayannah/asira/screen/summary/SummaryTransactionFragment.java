@@ -59,9 +59,6 @@ public class SummaryTransactionFragment extends BaseFragment implements SummaryT
     @BindView(R.id.tujuanPinjam)
     TextView tvTujuanPinjam;
 
-//    @BindView(R.id.jatuhTempo)
-//    TextView jatuhTempo;
-
     @Checked(message = "Mohon klik untuk menyetujuinya")
     @BindView(R.id.checkDisclaimer)
     CheckBox checkDisclaimer;
@@ -215,20 +212,20 @@ public class SummaryTransactionFragment extends BaseFragment implements SummaryT
 
         if (tujuan.isEmpty()){
             json.addProperty("intention_details", "-");
-            Log.e(TAG, "loanAmount "+ "-");
+            Log.e(TAG, "intention_details "+ "-");
         }else {
             json.addProperty("intention_details", tujuan);
-            Log.e(TAG, "loanAmount "+tujuan);
+            Log.e(TAG, "intention_details "+tujuan);
         }
 
         json.addProperty("product", productid);
         json.addProperty("service", layanan);
 
-        Log.e(TAG, "loanAmount "+x);
-        Log.e(TAG, "loanAmount "+tenor);
-        Log.e(TAG, "loanAmount "+alasan);
-        Log.e(TAG, "loanAmount "+productid);
-        Log.e(TAG, "loanAmount "+layanan);
+        Log.e(TAG, "loan_amount "+x);
+        Log.e(TAG, "installment "+tenor);
+        Log.e(TAG, "loan_intention "+alasan);
+        Log.e(TAG, "product "+productid);
+        Log.e(TAG, "service "+layanan);
 
 
         mPresenter.loanApplication(json);

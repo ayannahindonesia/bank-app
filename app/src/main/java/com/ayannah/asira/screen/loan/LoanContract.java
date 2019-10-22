@@ -22,7 +22,7 @@ public interface LoanContract {
 
     interface Presenter extends BasePresenter<View>{
 
-        void getProducts();
+        void getProducts(String idService);
 
         void getReasonLoan();
 

@@ -75,7 +75,7 @@ public class HistoryLoanPresenter implements HistoryLoanContract.Presenter {
             return;
         }
 
-        mComposite.add(remoteRepository.getAllProducts()
+        mComposite.add(remoteRepository.getAllProductsGlobal()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> {

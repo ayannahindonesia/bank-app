@@ -51,12 +51,12 @@ public class LoanPresenter implements LoanContract.Presenter {
     }
 
     @Override
-    public void getProducts() {
+    public void getProducts(String idService) {
         if(mView == null){
             return;
         }
 
-        mComposite.add(remoteRepository.getAllProducts()
+        mComposite.add(remoteRepository.getAllProducts(idService)
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(response -> {
@@ -80,6 +80,7 @@ public class LoanPresenter implements LoanContract.Presenter {
             mView.showReason(response.getData());
 
         }, error -> mView.showErrorMessage(CommonUtils.commonErrorFormat(error))));
+
     }
 
     @Override

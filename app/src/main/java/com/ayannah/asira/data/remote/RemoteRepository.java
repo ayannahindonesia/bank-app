@@ -68,7 +68,9 @@ public interface RemoteRepository {
 
     Single<BankService> getBankServices();
 
-    Single<ServiceProducts> getAllProducts();
+    Single<ServiceProducts> getAllProducts(String idService);
+
+    Single<ServiceProducts> getAllProductsGlobal();
 
     Single<ReasonLoan> getReasons();
 
