@@ -16,9 +16,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <ProgressBar
+            android:id="@+id/pbIconService"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:indeterminateDrawable="@drawable/custom_progressbar"/>
+
         <ImageView
             android:id="@+id/iconProduct"
             android:layout_gravity="center_horizontal"
+            android:visibility="gone"
             android:layout_width="50dp"
             android:layout_height="50dp" />
 
