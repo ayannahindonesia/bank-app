@@ -77,7 +77,8 @@
     <string name="processing">Menunggu Konfirmasi</string>
     <string name="accept">Diterima</string>
     <string name="reject">Ditolak</string>
-    <string name="pending">Pending</string>
+    <string name="pending">Tertunda</string>
+    <string name="confirm">Terkonfirmasi</string>
     <string name="msg_token_fmt" translatable="false">InstanceID Token: %s</string>
     <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
 

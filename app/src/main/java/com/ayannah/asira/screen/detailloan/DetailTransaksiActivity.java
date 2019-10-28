@@ -106,6 +106,18 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
     @BindView(R.id.lltDisbursement)
     LinearLayout lltDisbursement;
 
+    @BindView(R.id.disbursementStatus)
+    TextView disbursementStatus;
+
+    @BindView(R.id.lltDisbursementDate)
+    LinearLayout lltDisbursementDate;
+
+    @BindView(R.id.rejectReason)
+    TextView rejectReason;
+
+    @BindView(R.id.lltRejectReason)
+    LinearLayout lltRejectReason;
+
     private Unbinder mUnbinder;
     
     int calculateTotalBiaya = 0;
@@ -189,16 +201,30 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
                 status.setText(getResources().getString(R.string.accept));
                 lltDisbursement.setVisibility(View.VISIBLE);
                 dateDisbursement.setText(sdfUsed.format(getDateDisbursement));
+                if (dataItem.getDisburseStatus().toLowerCase().equals("processing")) {
+                    lltDisbursementDate.setVisibility(View.GONE);
+                    disbursementStatus.setText(R.string.processing);
+                } else if (dataItem.getDisburseStatus().toLowerCase().equals("confirmed")) {
+                    lltDisbursementDate.setVisibility(View.VISIBLE);
+                    disbursementStatus.setText(R.string.confirm);
+                } else {
+                    lltDisbursementDate.setVisibility(View.GONE);
+                    disbursementStatus.setText("");
+                }
+                lltRejectReason.setVisibility(View.GONE);
                 break;
             case STATUS_PROCESSING:
                 status.setBackgroundResource(R.drawable.badge_tidak_lengkap);
                 status.setText(getResources().getString(R.string.processing));
                 lltDisbursement.setVisibility(View.GONE);
+                lltRejectReason.setVisibility(View.GONE);
                 break;
             case STATUS_REJECTED:
                 status.setBackgroundResource(R.drawable.badge_ditolak);
                 status.setText(getResources().getString(R.string.reject));
                 lltDisbursement.setVisibility(View.GONE);
+                lltRejectReason.setVisibility(View.VISIBLE);
+                rejectReason.setText(dataItem.getRejectReason());
                 break;
         }
 

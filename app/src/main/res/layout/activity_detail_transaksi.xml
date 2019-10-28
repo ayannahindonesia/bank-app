@@ -101,10 +101,43 @@
                 android:id="@+id/lltDisbursement"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:orientation="vertical">
 
                 <LinearLayout
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:padding="@dimen/dp12"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:text="Status Pencairan"
+                        android:textSize="@dimen/fontNormal"
+                        android:textColor="@android:color/black"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/disbursementStatus"
+                        tools:text="Proses"
+                        android:textAlignment="textEnd"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/fontNormal"
+                        android:textColor="@android:color/black"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+                <View
+                    android:background="@color/darkgreybackground"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.3dp"/>
+
+                <LinearLayout
+                    android:id="@+id/lltDisbursementDate"
                     android:orientation="horizontal"
                     android:weightSum="2"
                     android:padding="@dimen/dp12"
@@ -169,6 +202,39 @@
                     android:layout_height="wrap_content" />
 
             </RelativeLayout>
+            <View
+                android:background="@color/darkgreybackground"
+                android:layout_width="match_parent"
+                android:layout_height="0.3dp"/>
+
+            <LinearLayout
+                android:id="@+id/lltRejectReason"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:padding="@dimen/dp12"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="Alasan Penolakan"
+                    android:textSize="@dimen/fontNormal"
+                    android:textColor="@android:color/black"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/rejectReason"
+                    android:text=""
+                    android:textAlignment="textEnd"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/fontNormal"
+                    android:textColor="@android:color/black"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
             <View
                 android:background="@color/darkgreybackground"
                 android:layout_width="match_parent"

@@ -72,6 +72,9 @@ public class DataItem implements Parcelable {
 	@SerializedName("disburse_date")
 	private String disburseDate;
 
+	@SerializedName("disburse_status")
+	private String disburseStatus;
+
 	@SerializedName("disburse_amount")
 	private int disburseAmount;
 
@@ -105,6 +108,7 @@ public class DataItem implements Parcelable {
 		product = in.readString();
 		service = in.readString();
 		disburseDate = in.readString();
+		disburseStatus = in.readString();
 		disburseAmount = in.readInt();
 		rejectReason = in.readString();
 		productName = in.readString();
@@ -203,6 +207,10 @@ public class DataItem implements Parcelable {
 		return disburseDate;
 	}
 
+	public String getDisburseStatus() {
+		return disburseStatus;
+	}
+
 	public int getDisburseAmount() {
 		return disburseAmount;
 	}
@@ -246,6 +254,7 @@ public class DataItem implements Parcelable {
 		dest.writeString(product);
 		dest.writeString(service);
 		dest.writeString(disburseDate);
+		dest.writeString(disburseStatus);
 		dest.writeInt(disburseAmount);
 		dest.writeString(rejectReason);
 		dest.writeString(productName);
