@@ -74,7 +74,6 @@ public class MainMenuPresenter implements MainMenuContract.Presenter {
 
             mView.loadAllServiceMenu(response.getData());
 
-            mView.dismissDialog();
 
         }, error -> {
 
