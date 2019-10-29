@@ -122,6 +122,8 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
 
     private WorkManager mWorkManager;
 
+    private final Date[] currentTime = {new Date()};;
+
     //untuk check setiap status loan PNS yang masih processing
     private String statusLoan = "";
     private BottomSheetDialogGlobal bottomSheetDialogGlobal;
@@ -152,11 +154,37 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
         dialog = builder.create();
 
         dialog.show();
-        mPresenter.getTokenLender();
+        getCurrentTimeOnline();
+
+//        mPresenter.getTokenLender();
 
         mPresenter.getCurrentUserIdentity();
 
         mPresenter.loadPromoAndNews();
+    }
+
+    private void getCurrentTimeOnline() {
+        SimpleDateFormat sdfCurrent = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+
+        AndroidNetworking.get("http://api.geonames.org/timezoneJSON?lat=-6.2293867&lng=106.6894286&username=asira_geonames")
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getAsJSONObject(new JSONObjectRequestListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            currentTime[0] = sdfCurrent.parse(response.getString("time"));
+                            mPresenter.getTokenLender();
+                        } catch (ParseException | JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onError(ANError anError) {
+                        Log.d("GeoName Error: ", "Error on get server time");
+                    }
+                });
     }
 
     @Override
@@ -330,6 +358,7 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
 
         });
 
+        dialog.dismiss();
     }
 
     @Override
@@ -357,7 +386,7 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
             */
             try {
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-                SimpleDateFormat sdfCurrent = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+//                SimpleDateFormat sdfCurrent = new SimpleDateFormat("yyyy-MM-dd HH:mm");
                 Date dueDate = sdf.parse(data.getDisburseDate());
                 Calendar dueDateCalendar = Calendar.getInstance(TimeZone.getDefault());
                 dueDateCalendar.setTime(dueDate);
@@ -365,39 +394,35 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
                 dueDateCalendar.add(Calendar.DATE, 1);
                 dueDate = dueDateCalendar.getTime();
 
-                final Date[] currentTime = {new Date()};
-
                 Date finalDueDate = dueDate;
-                AndroidNetworking.get("http://api.geonames.org/timezoneJSON?lat=-6.2293867&lng=106.6894286&username=asira_geonames")
-                        .setPriority(Priority.MEDIUM)
-                        .build()
-                        .getAsJSONObject(new JSONObjectRequestListener() {
-                            @Override
-                            public void onResponse(JSONObject response) {
-                                try {
-                                    currentTime[0] = sdfCurrent.parse(response.getString("time"));
+//                AndroidNetworking.get("http://api.geonames.org/timezoneJSON?lat=-6.2293867&lng=106.6894286&username=asira_geonames")
+//                        .setPriority(Priority.MEDIUM)
+//                        .build()
+//                        .getAsJSONObject(new JSONObjectRequestListener() {
+//                            @Override
+//                            public void onResponse(JSONObject response) {
+//                                try {
+//                                    currentTime[0] = sdfCurrent.parse(response.getString("time"));
                                     if (currentTime[0].before(finalDueDate) || data.getStatus().toLowerCase().equals("processing")) {
                                         statusLoan = "processing";
                                         isLoanReqAvail = true;
                                     }
-                                } catch (ParseException | JSONException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-
-                            @Override
-                            public void onError(ANError anError) {
-                                Log.d("GeoName Error: ", "Error on get server time");
-                            }
-                        });
+//                                } catch (ParseException | JSONException e) {
+//                                    e.printStackTrace();
+//                                }
+//                            }
+//
+//                            @Override
+//                            public void onError(ANError anError) {
+//                                Log.d("GeoName Error: ", "Error on get server time");
+//                            }
+//                        });
 
             } catch (ParseException e) {
                 e.printStackTrace();
             }
 
         }
-
-        dialog.dismiss();
 
         mPresenter.getMainMenu();
 
