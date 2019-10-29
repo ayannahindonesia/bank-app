@@ -37,7 +37,8 @@
                 android:weightSum="2"
                 android:padding="@dimen/dp12"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_border_bottom_line">
 
                 <TextView
                     android:text="Nomor Aplikasi Peminjaman"
@@ -45,7 +46,7 @@
                     android:textColor="@android:color/black"
                     android:layout_weight="1"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"/>
 
                 <TextView
                     android:id="@+id/noPeminjaman"
@@ -59,17 +60,14 @@
                     android:layout_height="wrap_content" />
 
             </LinearLayout>
-            <View
-                android:background="@color/darkgreybackground"
-                android:layout_width="match_parent"
-                android:layout_height="0.3dp"/>
 
             <LinearLayout
                 android:orientation="horizontal"
                 android:weightSum="2"
                 android:padding="@dimen/dp12"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_border_bottom_line">
 
                 <TextView
                     android:text="Pengajuan Pada Tanggal"
@@ -92,11 +90,6 @@
 
             </LinearLayout>
 
-            <View
-                android:background="@color/darkgreybackground"
-                android:layout_width="match_parent"
-                android:layout_height="0.3dp"/>
-
             <LinearLayout
                 android:id="@+id/lltDisbursement"
                 android:layout_width="match_parent"
@@ -109,7 +102,8 @@
                     android:weightSum="2"
                     android:padding="@dimen/dp12"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_border_bottom_line">
 
                     <TextView
                         android:text="Status Pencairan"
@@ -131,10 +125,6 @@
                         android:layout_height="wrap_content" />
 
                 </LinearLayout>
-                <View
-                    android:background="@color/darkgreybackground"
-                    android:layout_width="match_parent"
-                    android:layout_height="0.3dp"/>
 
                 <LinearLayout
                     android:id="@+id/lltDisbursementDate"
@@ -142,7 +132,8 @@
                     android:weightSum="2"
                     android:padding="@dimen/dp12"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_border_bottom_line">
 
                     <TextView
                         android:text="Tanggal Pencairan"
@@ -164,10 +155,6 @@
                         android:layout_height="wrap_content" />
 
                 </LinearLayout>
-                <View
-                    android:background="@color/darkgreybackground"
-                    android:layout_width="match_parent"
-                    android:layout_height="0.3dp"/>
 
             </LinearLayout>
 
@@ -175,7 +162,8 @@
                 android:orientation="horizontal"
                 android:padding="@dimen/dp12"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_border_bottom_line">
 
                 <TextView
                     android:text="Status"
@@ -202,10 +190,6 @@
                     android:layout_height="wrap_content" />
 
             </RelativeLayout>
-            <View
-                android:background="@color/darkgreybackground"
-                android:layout_width="match_parent"
-                android:layout_height="0.3dp"/>
 
             <LinearLayout
                 android:id="@+id/lltRejectReason"
@@ -213,7 +197,8 @@
                 android:weightSum="2"
                 android:padding="@dimen/dp12"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_border_bottom_line">
 
                 <TextView
                     android:text="Alasan Penolakan"
@@ -235,17 +220,14 @@
                     android:layout_height="wrap_content" />
 
             </LinearLayout>
-            <View
-                android:background="@color/darkgreybackground"
-                android:layout_width="match_parent"
-                android:layout_height="0.3dp"/>
 
             <LinearLayout
                 android:orientation="horizontal"
                 android:weightSum="2"
                 android:padding="@dimen/dp12"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_border_bottom_line">
 
                 <TextView
                     android:text="Produk"
@@ -267,17 +249,14 @@
                     android:layout_height="wrap_content" />
 
             </LinearLayout>
-            <View
-                android:background="@color/darkgreybackground"
-                android:layout_width="match_parent"
-                android:layout_height="0.3dp"/>
 
             <LinearLayout
                 android:orientation="horizontal"
                 android:weightSum="2"
                 android:padding="@dimen/dp12"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_border_bottom_line">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -299,16 +278,14 @@
                     android:layout_height="wrap_content" />
 
             </LinearLayout>
-            <View
-                android:background="@color/darkgreybackground"
-                android:layout_width="match_parent"
-                android:layout_height="0.3dp"/>
+
             <LinearLayout
                 android:orientation="horizontal"
                 android:weightSum="2"
                 android:padding="@dimen/dp12"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_border_bottom_line">
 
                 <TextView
                     android:text="Detail Tujuan"
@@ -330,17 +307,14 @@
                     android:layout_height="wrap_content" />
 
             </LinearLayout>
-            <View
-                android:background="@color/darkgreybackground"
-                android:layout_width="match_parent"
-                android:layout_height="0.3dp"/>
 
             <LinearLayout
                 android:orientation="horizontal"
                 android:weightSum="2"
                 android:padding="@dimen/dp12"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_border_bottom_line">
 
                 <TextView
                     android:text="Jumlah Pinjaman "
@@ -362,17 +336,14 @@
                     android:layout_height="wrap_content" />
 
             </LinearLayout>
-            <View
-                android:background="@color/darkgreybackground"
-                android:layout_width="match_parent"
-                android:layout_height="0.3dp"/>
 
             <LinearLayout
                 android:orientation="horizontal"
                 android:weightSum="2"
                 android:padding="@dimen/dp12"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_border_bottom_line">
 
                 <TextView
                     android:text="Tenor Pinjaman "
@@ -394,17 +365,14 @@
                     android:layout_height="wrap_content" />
 
             </LinearLayout>
-            <View
-                android:background="@color/darkgreybackground"
-                android:layout_width="match_parent"
-                android:layout_height="0.3dp"/>
 
             <LinearLayout
                 android:orientation="horizontal"
                 android:weightSum="2"
                 android:padding="@dimen/dp12"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_border_bottom_line">
 
                 <TextView
                     android:text="Bunga"
@@ -426,17 +394,14 @@
                     android:layout_height="wrap_content" />
 
             </LinearLayout>
-            <View
-                android:background="@color/darkgreybackground"
-                android:layout_width="match_parent"
-                android:layout_height="0.3dp"/>
 
             <LinearLayout
                 android:orientation="horizontal"
                 android:weightSum="2"
                 android:padding="@dimen/dp12"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_border_bottom_line">
 
                 <TextView
                     android:text="Biaya Admin"
@@ -458,17 +423,14 @@
                     android:layout_height="wrap_content" />
 
             </LinearLayout>
-            <View
-                android:background="@color/darkgreybackground"
-                android:layout_width="match_parent"
-                android:layout_height="0.3dp"/>
 
             <LinearLayout
                 android:orientation="horizontal"
                 android:weightSum="2"
                 android:padding="@dimen/dp12"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_border_bottom_line">
 
                 <TextView
                     android:text="Angsuran per Bulan "
@@ -490,10 +452,6 @@
                     android:layout_height="wrap_content" />
 
             </LinearLayout>
-            <View
-                android:background="@color/darkgreybackground"
-                android:layout_width="match_parent"
-                android:layout_height="0.3dp"/>
 
             <LinearLayout
                 android:orientation="horizontal"
@@ -501,7 +459,8 @@
                 android:padding="@dimen/dp12"
                 android:visibility="gone"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_border_bottom_line">
 
                 <TextView
                     android:text="Total Biaya"
@@ -523,11 +482,6 @@
                     android:layout_height="wrap_content" />
 
             </LinearLayout>
-            <View
-                android:background="@color/darkgreybackground"
-                android:visibility="gone"
-                android:layout_width="match_parent"
-                android:layout_height="0.3dp"/>
 
         </LinearLayout>
 

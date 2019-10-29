@@ -330,7 +330,6 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
 
         });
 
-        dialog.dismiss();
     }
 
     @Override
@@ -397,6 +396,8 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
             }
 
         }
+
+        dialog.dismiss();
 
         mPresenter.getMainMenu();
 
