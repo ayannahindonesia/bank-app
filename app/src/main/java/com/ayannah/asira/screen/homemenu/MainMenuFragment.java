@@ -61,6 +61,7 @@ import com.ayannah.asira.screen.navigationmenu.infokeuangan.InformasiKeuanganAct
 import com.ayannah.asira.screen.notifpage.NotifPageActivity;
 import com.ayannah.asira.workmanager.RxNotifLoanWorker;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import org.json.JSONException;
 import org.json.JSONObject;

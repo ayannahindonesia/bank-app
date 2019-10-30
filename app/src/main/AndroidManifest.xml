@@ -71,7 +71,6 @@
         <activity android:name="com.ayannah.asira.screen.register.choosebank.ChooseBankActivity" />
         <activity android:name="com.ayannah.asira.screen.register.formBorrower.FormBorrowerActivity" />
         <activity android:name="com.ayannah.asira.screen.register.adddoc.AddDocumentActivity" />
-        <activity android:name="com.ayannah.asira.screen.register.formemailphone.FormEmailPhoneActivity" />
         <activity android:name="com.ayannah.asira.screen.register.formjobearning.FormJobEarningActivity" />
         <activity android:name="com.ayannah.asira.screen.register.formothers.FormOtherActivity" />
         <activity

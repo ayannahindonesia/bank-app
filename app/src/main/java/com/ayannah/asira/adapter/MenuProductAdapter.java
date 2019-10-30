@@ -137,7 +137,6 @@ public class MenuProductAdapter extends RecyclerView.Adapter<MenuProductAdapter.
 
                             try {
                                 String sImage = response.getString("image_string");
-                                Log.e(TAG, sImage);
 
                                 pbIconService.setVisibility(View.GONE);
                                 ImageUtils.setImageBitmapWithEmptyImage(ivIconProduct, sImage);
@@ -149,9 +148,6 @@ public class MenuProductAdapter extends RecyclerView.Adapter<MenuProductAdapter.
 
                             } catch (Exception e) {
                                 e.printStackTrace();
-//                                Toast.makeText(application, e.getMessage(), Toast.LENGTH_SHORT).show();
-//                                ivIconProduct.setImageResource(R.drawable.ic_broken_image);
-//                                ivIconProduct.setPadding(30,30,30,30);
                             }
 
                         }

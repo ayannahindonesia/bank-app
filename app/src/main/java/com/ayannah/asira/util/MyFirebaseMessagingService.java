@@ -8,10 +8,13 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 
 import com.ayannah.asira.R;
 import com.ayannah.asira.screen.homemenu.MainMenuActivity;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -20,11 +23,22 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private static final String TAG = "MyFirebaseMsgService";
 
     @Override
+    public void onNewToken(@NonNull String token) {
+        super.onNewToken(token);
+
+        Log.e(TAG, "onNewToken: "+token);
+    }
+
+    @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         //Displaying data in log
         //It is optional
-        Log.d(TAG, "From: " + remoteMessage.getFrom());
-        Log.d(TAG, "Notification Message Body: " + remoteMessage.getNotification().getBody());
+//        Log.d(TAG, "From: " + remoteMessage.getFrom());
+//        Log.d(TAG, "Notification Message Body: " + remoteMessage.getNotification().getBody());
+
+        String token = FirebaseInstanceId.getInstance().getToken();
+        Log.e(TAG, "onMessageReceived: "+token);
+        Log.e(TAG, remoteMessage.getNotification().getBody());
 
         //Calling method to generate notification
         sendNotification(remoteMessage.getNotification().getBody());
