@@ -520,10 +520,10 @@
                         android:id="@+id/etTujuan"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/border_pinjaman"
                         android:hint="Tuliskan detail tujuan"
                         android:inputType="text"
-                        android:background="@drawable/border_pinjaman"
-                        android:layout_marginTop="10dp"
                         android:paddingStart="6dp"
                         android:paddingEnd="6dp"
                         android:textSize="@dimen/fontLarge" />

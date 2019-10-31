@@ -432,7 +432,6 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
                     chooser.add(x.getName());
                 }
             }
-            chooser.add("Lain-lain");
 
             ArrayAdapter<String> mAdapterAlasan = new ArrayAdapter<>(parentActivity(), R.layout.item_custom_spinner, chooser);
             spAlasanPinjam.setAdapter(mAdapterAlasan);
@@ -565,16 +564,17 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
                 return;
             }
 
-            intent.putExtra(SummaryTransactionActivity.ALASAN, etAlasan.getText().toString());
-
+            String tujuanLainlain = etAlasan.getText().toString() + " " + etTujuan.getText().toString();
+            intent.putExtra(SummaryTransactionActivity.ALASAN,  spAlasanPinjam.getSelectedItem().toString());
+            intent.putExtra(SummaryTransactionActivity.TUJUAN, tujuanLainlain);
 
         } else {
 
             intent.putExtra(SummaryTransactionActivity.ALASAN, spAlasanPinjam.getSelectedItem().toString());
+            intent.putExtra(SummaryTransactionActivity.TUJUAN, etTujuan.getText().toString());
 
         }
 
-        intent.putExtra(SummaryTransactionActivity.TUJUAN, etTujuan.getText().toString());
         intent.putExtra(SummaryTransactionActivity.LAYANAN, bundle.getInt("idService"));
         startActivity(intent);
 

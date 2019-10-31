@@ -212,21 +212,12 @@ public class SummaryTransactionFragment extends BaseFragment implements SummaryT
 
         if (tujuan.isEmpty()){
             json.addProperty("intention_details", "-");
-            Log.e(TAG, "intention_details "+ "-");
         }else {
             json.addProperty("intention_details", tujuan);
-            Log.e(TAG, "intention_details "+tujuan);
         }
 
         json.addProperty("product", productid);
         json.addProperty("service", layanan);
-
-        Log.e(TAG, "loan_amount "+x);
-        Log.e(TAG, "installment "+tenor);
-        Log.e(TAG, "loan_intention "+alasan);
-        Log.e(TAG, "product "+productid);
-        Log.e(TAG, "service "+layanan);
-
 
         mPresenter.loanApplication(json);
 
