@@ -61,7 +61,6 @@ import com.ayannah.asira.screen.navigationmenu.infokeuangan.InformasiKeuanganAct
 import com.ayannah.asira.screen.notifpage.NotifPageActivity;
 import com.ayannah.asira.workmanager.RxNotifLoanWorker;
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.iid.FirebaseInstanceId;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -83,7 +82,6 @@ import butterknife.OnClick;
 public class MainMenuFragment extends BaseFragment implements MainMenuContract.View, NavigationView.OnNavigationItemSelectedListener{
 
     private String ACTIVE = "active";
-    
 
     @Inject
     MainMenuContract.Presenter mPresenter;
@@ -123,7 +121,7 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
 
     private WorkManager mWorkManager;
 
-    private final Date[] currentTime = {new Date()};;
+    private final Date[] currentTime = {new Date()};
 
     //untuk check setiap status loan PNS yang masih processing
     private String statusLoan = "";
@@ -177,6 +175,8 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
                             currentTime[0] = sdfCurrent.parse(response.getString("time"));
                             mPresenter.getTokenLender();
                         } catch (ParseException | JSONException e) {
+                            currentTime[0] = Calendar.getInstance().getTime();
+                            mPresenter.getTokenLender();
                             e.printStackTrace();
                         }
                     }
@@ -184,6 +184,8 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
                     @Override
                     public void onError(ANError anError) {
                         Log.d("GeoName Error: ", "Error on get server time");
+                        currentTime[0] = Calendar.getInstance().getTime();
+                        mPresenter.getTokenLender();
                     }
                 });
     }
@@ -404,10 +406,10 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
 //                            public void onResponse(JSONObject response) {
 //                                try {
 //                                    currentTime[0] = sdfCurrent.parse(response.getString("time"));
-                                    if (currentTime[0].before(finalDueDate) || data.getStatus().toLowerCase().equals("processing")) {
-                                        statusLoan = "processing";
-                                        isLoanReqAvail = true;
-                                    }
+                if (currentTime[0].before(finalDueDate) || data.getStatus().toLowerCase().equals("processing")) {
+                    statusLoan = "processing";
+                    isLoanReqAvail = true;
+                }
 //                                } catch (ParseException | JSONException e) {
 //                                    e.printStackTrace();
 //                                }
