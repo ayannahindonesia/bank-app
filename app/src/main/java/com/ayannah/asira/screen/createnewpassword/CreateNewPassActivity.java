@@ -12,7 +12,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.ayannah.asira.R;
-import com.ayannah.asira.screen.login.LoginActivity;
+import com.ayannah.asira.screen.borrower.login.LoginActivity;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.ConfirmPassword;

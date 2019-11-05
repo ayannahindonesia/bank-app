@@ -11,7 +11,7 @@ import android.widget.CheckBox;
 import android.widget.Toast;
 
 import com.ayannah.asira.R;
-import com.ayannah.asira.screen.otpphone.VerificationOTPActivity;
+import com.ayannah.asira.screen.borrower.otpphone.VerificationOTPActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

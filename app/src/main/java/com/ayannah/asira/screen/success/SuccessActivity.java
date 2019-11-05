@@ -5,8 +5,8 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import com.ayannah.asira.R;
-import com.ayannah.asira.screen.homemenu.MainMenuActivity;
-import com.ayannah.asira.screen.login.LoginActivity;
+import com.ayannah.asira.screen.borrower.homemenu.MainMenuActivity;
+import com.ayannah.asira.screen.borrower.login.LoginActivity;
 
 import javax.inject.Inject;
 import javax.inject.Named;

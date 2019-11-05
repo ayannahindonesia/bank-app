@@ -14,23 +14,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ayannah.asira.R;
-import com.ayannah.asira.data.local.ServiceProductLocal;
 import com.ayannah.asira.data.model.FeesItem;
 import com.ayannah.asira.data.model.Loans.DataItem;
 import com.ayannah.asira.dialog.BottomSheetDialogGlobal;
-import com.ayannah.asira.screen.otpphone.VerificationOTPActivity;
+import com.ayannah.asira.screen.borrower.otpphone.VerificationOTPActivity;
 import com.ayannah.asira.util.CommonUtils;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
 
 import javax.inject.Inject;
 
