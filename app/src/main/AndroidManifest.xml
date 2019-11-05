@@ -41,10 +41,10 @@
                     android:pathPrefix="/deepLinks/" />
             </intent-filter>
         </activity>
-        <activity android:name=".screen.notifpage.NotifPageActivity"/>
+        <activity android:name=".screen.borrower.notifpage.NotifPageActivity"/>
         <activity android:name="com.ayannah.asira.screen.resetpassword.ResetPasswordActivity" />
         <activity android:name="com.ayannah.asira.screen.success.SuccessActivity" />
-        <activity android:name="com.ayannah.asira.screen.login.LoginActivity">
+        <activity android:name="com.ayannah.asira.screen.borrower.login.LoginActivity">
             <!--<intent-filter>-->
                 <!--<action android:name="android.intent.action.MAIN" />-->
                 <!--<action android:name="android.intent.action.VIEW" />-->
@@ -54,15 +54,15 @@
         <activity
             android:name="com.ayannah.asira.screen.historyloan.HistoryLoanActivity"
             android:label="@string/title_activity_history_loan" />
-        <activity android:name="com.ayannah.asira.screen.navigationmenu.akunsaya.AkunSayaActivity" />
-        <activity android:name="com.ayannah.asira.screen.navigationmenu.datapendukung.DataPendukungActivity" />
-        <activity android:name="com.ayannah.asira.screen.navigationmenu.infokeuangan.InformasiKeuanganActivity" />
+        <activity android:name="com.ayannah.asira.screen.borrower.navigationmenu.akunsaya.AkunSayaActivity" />
+        <activity android:name="com.ayannah.asira.screen.borrower.navigationmenu.datapendukung.DataPendukungActivity" />
+        <activity android:name="com.ayannah.asira.screen.borrower.navigationmenu.infokeuangan.InformasiKeuanganActivity" />
         <activity android:name="com.ayannah.asira.screen.summary.SummaryTransactionActivity" />
         <activity android:name="com.ayannah.asira.screen.earninginfo.EarningActivity" />
-        <activity android:name="com.ayannah.asira.screen.navigationmenu.infopribadi.InfoPribadiActivity" />
+        <activity android:name="com.ayannah.asira.screen.borrower.navigationmenu.infopribadi.InfoPribadiActivity" />
         <activity android:name="com.ayannah.asira.screen.disclaimer.DisclaimerActivity" />
         <activity
-            android:name="com.ayannah.asira.screen.otpphone.VerificationOTPActivity"
+            android:name="com.ayannah.asira.screen.borrower.otpphone.VerificationOTPActivity"
             android:label="@string/title_activity_verification_otp"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name="com.ayannah.asira.screen.detailloan.DetailTransaksiActivity" />
@@ -74,7 +74,7 @@
         <activity android:name="com.ayannah.asira.screen.register.formjobearning.FormJobEarningActivity" />
         <activity android:name="com.ayannah.asira.screen.register.formothers.FormOtherActivity" />
         <activity
-            android:name="com.ayannah.asira.screen.homemenu.MainMenuActivity"
+            android:name="com.ayannah.asira.screen.borrower.homemenu.MainMenuActivity"
             android:label="@string/title_activity_main_menu"/>
         <meta-data
             android:name="com.google.firebase.ml.vision.DEPENDENCIES"

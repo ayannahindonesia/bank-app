@@ -4,7 +4,6 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.media.RingtoneManager;
@@ -17,18 +16,13 @@ import androidx.core.app.NotificationCompat;
 
 import com.ayannah.asira.R;
 import com.ayannah.asira.screen.historyloan.HistoryLoanActivity;
-import com.ayannah.asira.screen.homemenu.MainMenuActivity;
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Locale;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
