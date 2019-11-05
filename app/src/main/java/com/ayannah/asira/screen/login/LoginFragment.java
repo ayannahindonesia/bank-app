@@ -141,7 +141,7 @@ public class LoginFragment extends BaseFragment implements
 
         Toast.makeText(parentActivity(), "Akun belum terverifikasi", Toast.LENGTH_LONG).show();
 
-        String phone = etPhone.getText().toString().trim();
+        String phone = String.format("62%s", etPhone.getText().toString().trim());
 
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("phone", phone);
@@ -155,7 +155,7 @@ public class LoginFragment extends BaseFragment implements
 
         Intent submit = new Intent(parentActivity(), VerificationOTPActivity.class);
         submit.putExtra(VerificationOTPActivity.PURPOSES, "resubmit_regist");
-        submit.putExtra(FormOtherFragment.PHONE, etPhone.getText().toString().trim());
+        submit.putExtra(FormOtherFragment.PHONE, String.format("62%s", etPhone.getText().toString().trim()));
         submit.putExtra(FormOtherFragment.PASS, etPassword.getText().toString().trim());
         startActivity(submit);
     }
