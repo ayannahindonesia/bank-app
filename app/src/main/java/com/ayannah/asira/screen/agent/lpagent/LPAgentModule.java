@@ -1,4 +1,4 @@
-package com.ayannah.asira.screen.agent;
+package com.ayannah.asira.screen.agent.lpagent;
 
 import com.ayannah.asira.di.FragmentScoped;
 

@@ -1,7 +1,7 @@
 package com.ayannah.asira.di;
 
-import com.ayannah.asira.screen.agent.LPAgentActivtiy;
-import com.ayannah.asira.screen.agent.LPAgentModule;
+import com.ayannah.asira.screen.agent.lpagent.LPAgentActivtiy;
+import com.ayannah.asira.screen.agent.lpagent.LPAgentModule;
 import com.ayannah.asira.screen.createnewpassword.CreateNewPassActivity;
 import com.ayannah.asira.screen.createnewpassword.CreateNewPassModule;
 import com.ayannah.asira.screen.detailloan.DetailTransaksiActivity;
