@@ -37,7 +37,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="@dimen/nav_header_vertical_spacing"
-                tools:text="Lisa syalala"
+                android:text="Lisa syalala"
                 android:textColor="@android:color/white"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
@@ -46,7 +46,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="@dimen/nav_header_vertical_spacing"
-                tools:text="PT. Agen Satu Jaya"
+                android:text="PT. Agen Satu Jaya"
                 android:textColor="@android:color/white"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
@@ -55,7 +55,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="@dimen/nav_header_vertical_spacing"
-                tools:text="10986"
+                android:text="10986"
                 android:textColor="@android:color/white"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
@@ -68,7 +68,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        tools:text="Agen_Ayannah1"
+        android:text="Agen_Ayannah1"
         android:textColor="@android:color/white"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 

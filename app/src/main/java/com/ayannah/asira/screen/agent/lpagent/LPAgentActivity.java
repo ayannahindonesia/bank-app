@@ -11,7 +11,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import dagger.android.support.DaggerAppCompatActivity;
 
-public class LPAgentActivtiy extends DaggerAppCompatActivity {
+public class LPAgentActivity extends DaggerAppCompatActivity {
 
     @Inject
     LPAgentFragment mFragment;

@@ -1,6 +1,6 @@
 package com.ayannah.asira.di;
 
-import com.ayannah.asira.screen.agent.lpagent.LPAgentActivtiy;
+import com.ayannah.asira.screen.agent.lpagent.LPAgentActivity;
 import com.ayannah.asira.screen.agent.lpagent.LPAgentModule;
 import com.ayannah.asira.screen.createnewpassword.CreateNewPassActivity;
 import com.ayannah.asira.screen.createnewpassword.CreateNewPassModule;
@@ -143,6 +143,6 @@ abstract class ActivityBindingModule {
 
     @ActivityScoped
     @ContributesAndroidInjector(modules = LPAgentModule.class)
-    abstract LPAgentActivtiy lpAgentActivtiy();
+    abstract LPAgentActivity lpAgentActivity();
 
 }

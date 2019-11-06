@@ -2,6 +2,7 @@ package com.ayannah.asira.screen.agent.lpagent;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -19,7 +20,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class LPAgentFragment extends BaseFragment implements NavigationView.OnNavigationItemSelectedListener {
+public class LPAgentFragment extends BaseFragment implements LPAgentContract.View, NavigationView.OnNavigationItemSelectedListener {
 
     @Inject
     LPAgentContract.Presenter mPresenter;
@@ -39,6 +40,8 @@ public class LPAgentFragment extends BaseFragment implements NavigationView.OnNa
     @Override
     public void onResume() {
         super.onResume();
+        mPresenter.takeView(this);
+
     }
 
     @Override
@@ -102,6 +105,8 @@ public class LPAgentFragment extends BaseFragment implements NavigationView.OnNa
 
     @OnClick(R.id.notification)
     void onClickNotif(){
+
+        Toast.makeText(parentActivity(), "notif", Toast.LENGTH_SHORT).show();
 
     }
 
