@@ -10,6 +10,8 @@ import com.androidnetworking.common.ANConstants;
 import com.androidnetworking.error.ANError;
 import com.ayannah.asira.data.local.PreferenceRepository;
 import com.ayannah.asira.data.remote.RemoteRepository;
+import com.ayannah.asira.util.CommonUtils;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.JsonObject;
 
 import org.json.JSONObject;
@@ -196,7 +198,8 @@ public class LoginPresenter implements LoginContract.Presenter {
             preferenceRepository.setUserNationality(response.getNationality());
             preferenceRepository.setUserNickname(response.getNickname());
 
-            mView.loginComplete();
+//            mView.loginComplete();
+            sendFCMTokenUser();
 
         }, error ->{
 
@@ -223,6 +226,31 @@ public class LoginPresenter implements LoginContract.Presenter {
 
         }));
 
+    }
+
+    private void sendFCMTokenUser() {
+
+        String token = FirebaseInstanceId.getInstance().getToken();
+
+        if(mView == null){
+            return;
+        }
+
+        mComposite.add(remotRepo.sendUserFCMToken(token)
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(res -> {
+
+            Log.e(TAG, "fcm token sent");
+            Log.e(TAG, token);
+
+            mView.loginComplete();
+
+        }, error ->{
+
+            mView.showErrorMessage(CommonUtils.commonErrorFormat(error));
+
+        }));
     }
 
     @Override

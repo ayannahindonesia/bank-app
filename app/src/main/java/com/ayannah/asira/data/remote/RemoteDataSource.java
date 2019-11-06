@@ -15,6 +15,7 @@ import com.ayannah.asira.data.model.BankDetail;
 import com.ayannah.asira.data.model.BankList;
 import com.ayannah.asira.data.model.BankService;
 import com.ayannah.asira.data.model.CheckAccount;
+import com.ayannah.asira.data.model.FCMTokenResponse;
 import com.ayannah.asira.data.model.Kabupaten;
 import com.ayannah.asira.data.model.Kecamatan;
 import com.ayannah.asira.data.model.Kelurahan;
@@ -376,5 +377,19 @@ public class RemoteDataSource implements RemoteRepository {
                 .setPriority(Priority.MEDIUM)
                 .build()
                 .getObjectSingle(Token.class);
+    }
+
+    @Override
+    public Single<FCMTokenResponse> sendUserFCMToken(String fcmToken) {
+
+        JsonObject json = new JsonObject();
+        json.addProperty("fcm_token", fcmToken);
+
+        return Rx2AndroidNetworking.patch(BuildConfig.API_URL + "borrower/fcm_token_update")
+                .addHeaders("Authorization", preferenceRepository.getUserToken())
+                .addApplicationJsonBody(json)
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getObjectSingle(FCMTokenResponse.class);
     }
 }

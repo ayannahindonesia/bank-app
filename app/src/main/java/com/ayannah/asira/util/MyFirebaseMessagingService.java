@@ -46,8 +46,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
 
-        Log.e(TAG, remoteMessage.getNotification().getBody());
-
         try {
             JSONObject json = new JSONObject(remoteMessage.getNotification().getBody());
             String updateTime = json.getString("updated_time");
@@ -79,7 +77,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            NotificationChannel notificationChannel = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_HIGH);
+            NotificationChannel notificationChannel = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT);
             notificationChannel.setLightColor(Color.BLUE);
             notificationChannel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
 
@@ -100,6 +98,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 .setContentTitle("ASIRA - AYANNAH")
                 .setContentText(messageBody)
                 .setAutoCancel(true)
+                .setChannelId(CHANNEL_ID)
                 .setSound(defaultSoundUri)
                 .setPriority(Notification.PRIORITY_MAX)
                 .setContentIntent(pendingIntent);

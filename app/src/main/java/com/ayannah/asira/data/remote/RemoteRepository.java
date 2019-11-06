@@ -4,6 +4,7 @@ import com.ayannah.asira.data.model.BankDetail;
 import com.ayannah.asira.data.model.BankList;
 import com.ayannah.asira.data.model.BankService;
 import com.ayannah.asira.data.model.CheckAccount;
+import com.ayannah.asira.data.model.FCMTokenResponse;
 import com.ayannah.asira.data.model.Kabupaten;
 import com.ayannah.asira.data.model.Kecamatan;
 import com.ayannah.asira.data.model.Kelurahan;
@@ -75,4 +76,6 @@ public interface RemoteRepository {
     Single<ReasonLoan> getReasons();
 
     Single<Token> getTokenAdminLender();
+
+    Single<FCMTokenResponse> sendUserFCMToken(String fcmToken);
 }

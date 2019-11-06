@@ -227,21 +227,21 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
         recyclerViewBeritaPromo.setHasFixedSize(true);
         recyclerViewBeritaPromo.setAdapter(mAdapterNewsPromo);
 
-        NotificationManager mNotificationManager = (NotificationManager) parentActivity().getSystemService(Context.NOTIFICATION_SERVICE);
-
-        Notification.Builder builder = new Notification.Builder(parentActivity().getApplicationContext())
-                .setContentTitle("")
-                .setContentText("")
-                .setSmallIcon(R.drawable.ic_asira);
-
-        // Since android Oreo notification channel is needed.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            String channelId = parentActivity().getString(R.string.default_notification_channel_id);
-            NotificationChannel channel = new NotificationChannel(channelId,   "Asira_Title", NotificationManager.IMPORTANCE_DEFAULT);
-            channel.setDescription("Asira_Body");
-            mNotificationManager.createNotificationChannel(channel);
-            builder.setChannelId(channelId);
-        }
+//        NotificationManager mNotificationManager = (NotificationManager) parentActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+//
+//        Notification.Builder builder = new Notification.Builder(parentActivity().getApplicationContext())
+//                .setContentTitle("")
+//                .setContentText("")
+//                .setSmallIcon(R.drawable.ic_asira);
+//
+//        // Since android Oreo notification channel is needed.
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//            String channelId = parentActivity().getString(R.string.default_notification_channel_id);
+//            NotificationChannel channel = new NotificationChannel(channelId,   "Asira_Title", NotificationManager.IMPORTANCE_DEFAULT);
+//            channel.setDescription("Asira_Body");
+//            mNotificationManager.createNotificationChannel(channel);
+//            builder.setChannelId(channelId);
+//        }
 
     }
 
@@ -318,45 +318,52 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
 
         mAdapterMenu.setOnClickListener(menuProduct -> {
 
-            if (statusLoan.equals("processing")) {
+//            if (statusLoan.equals("processing")) {
+//
+//                bottomSheetDialogGlobal = new BottomSheetDialogGlobal().show(parentActivity().getSupportFragmentManager(),
+//                        BottomSheetDialogGlobal.FORBIDDEN_LOAN_PNS,
+//                        "Pengajuan Pinjaman Terakhir Sedang Proses",
+//                        "Kamu belum bisa mengajukan peminjaman hingga pengajuan sebelumnya telah selesai dari proses.",
+//                        R.drawable.img_processing);
+//                bottomSheetDialogGlobal.setOnClickBottomSheetInstruction(new BottomSheetDialogGlobal.BottomSheetInstructionListener() {
+//                    @Override
+//                    public void onClickButtonDismiss() {
+//
+//                        bottomSheetDialogGlobal.dismiss();
+//
+//                        Intent intent = new Intent(parentActivity(), HistoryLoanActivity.class);
+//                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                        startActivity(intent);
+//                    }
+//
+//                    @Override
+//                    public void onClickButtonYes() {
+//                        //nothing to do
+//
+//                    }
+//
+//                    @Override
+//                    public void closeApps() {
+//                        //nothing to do
+//
+//                    }
+//                });
+//            } else {
+//
+//                Intent intent = new Intent(parentActivity(), EarningActivity.class);
+//                intent.putExtra("id", menuProduct.getId());
+//                intent.putExtra("name", menuProduct.getName());
+//                intent.putExtra(EarningActivity.ID_SERVICE, String.valueOf(menuProduct.getId()));
+//
+//                startActivity(intent);
+//            }
 
-                bottomSheetDialogGlobal = new BottomSheetDialogGlobal().show(parentActivity().getSupportFragmentManager(),
-                        BottomSheetDialogGlobal.FORBIDDEN_LOAN_PNS,
-                        "Pengajuan Pinjaman Terakhir Sedang Proses",
-                        "Kamu belum bisa mengajukan peminjaman hingga pengajuan sebelumnya telah selesai dari proses.",
-                        R.drawable.img_processing);
-                bottomSheetDialogGlobal.setOnClickBottomSheetInstruction(new BottomSheetDialogGlobal.BottomSheetInstructionListener() {
-                    @Override
-                    public void onClickButtonDismiss() {
+            Intent intent = new Intent(parentActivity(), EarningActivity.class);
+            intent.putExtra("id", menuProduct.getId());
+            intent.putExtra("name", menuProduct.getName());
+            intent.putExtra(EarningActivity.ID_SERVICE, String.valueOf(menuProduct.getId()));
 
-                        bottomSheetDialogGlobal.dismiss();
-
-                        Intent intent = new Intent(parentActivity(), HistoryLoanActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        startActivity(intent);
-                    }
-
-                    @Override
-                    public void onClickButtonYes() {
-                        //nothing to do
-
-                    }
-
-                    @Override
-                    public void closeApps() {
-                        //nothing to do
-
-                    }
-                });
-            } else {
-
-                Intent intent = new Intent(parentActivity(), EarningActivity.class);
-                intent.putExtra("id", menuProduct.getId());
-                intent.putExtra("name", menuProduct.getName());
-                intent.putExtra(EarningActivity.ID_SERVICE, String.valueOf(menuProduct.getId()));
-
-                startActivity(intent);
-            }
+            startActivity(intent);
 
         });
 
