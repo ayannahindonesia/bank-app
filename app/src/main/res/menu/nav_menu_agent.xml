@@ -14,36 +14,22 @@
                     android:icon="@drawable/ic_informasi_pribadi"
                     android:title="@string/menu_akun_saya"/>
                 <item
-                    android:id="@+id/nav_pinjaman_saya"
+                    android:id="@+id/nav_pengajuan_pinjaman"
                     android:icon="@drawable/ic_loan_history"
-                    android:title="@string/title_pinjaman_saya"
-                    app:actionViewClass="android.widget.TextView"/>
+                    android:title="@string/title_pengajuan_pinjaman" />
                 <item
-                    android:id="@+id/nav_personalInfo"
-                    android:icon="@drawable/ic_assignment"
-                    android:title="@string/menu_personalInfo"/>
-                <item
-                    android:id="@+id/nav_infoPekerjaan"
-                    android:icon="@drawable/ic_work"
-                    android:title="@string/menu_workInfo" />
-                <item
-                    android:id="@+id/nav_datapendukung"
+                    android:id="@+id/nav_datapencairan"
                     android:icon="@drawable/ic_informasi_keuangan"
-                    android:title="@string/menu_dataPendukung" />
+                    android:title="@string/title_pencairan" />
                 <item
                     android:id="@+id/nav_logout"
                     android:icon="@drawable/ic_power"
-                    android:title="@string/menu_logout" />
+                    android:title="@string/title_keluar" />
 
             </group>
 
         </menu>
 
     </item>
-
-    <!--<item-->
-        <!--android:id="@+id/nav_logout"-->
-        <!--android:icon="@drawable/ic_logout"-->
-        <!--android:title="@string/menu_logout"/>-->
 
 </menu>

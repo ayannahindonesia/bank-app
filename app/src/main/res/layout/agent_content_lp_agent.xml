@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".screen.borrower.homemenu.MainMenuActivity"
+    android:background="@color/graybackground"
+    tools:showIn="@layout/agent_view_landing_page_agent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="150dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/nasabahBaru"
+                android:layout_width="220dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_nasabah_baru"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:textSize="@dimen/fontLarge"
+                    android:layout_gravity="center"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"
+                    android:textAlignment="center"
+                    android:text="Pendaftaran Nasabah Baru"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/nasabahTerdaftar"
+                android:layout_width="220dp"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="15dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_nasabah_terdaftar"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:textSize="@dimen/fontLarge"
+                    android:layout_gravity="center"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"
+                    android:textAlignment="center"
+                    android:text="Nasabah Terdaftar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+
+    </RelativeLayout>
+
+
+
+</androidx.core.widget.NestedScrollView>

@@ -1,5 +1,7 @@
 package com.ayannah.asira.di;
 
+import com.ayannah.asira.screen.agent.LPAgentActivtiy;
+import com.ayannah.asira.screen.agent.LPAgentModule;
 import com.ayannah.asira.screen.createnewpassword.CreateNewPassActivity;
 import com.ayannah.asira.screen.createnewpassword.CreateNewPassModule;
 import com.ayannah.asira.screen.detailloan.DetailTransaksiActivity;
@@ -138,5 +140,9 @@ abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = NotifPageModule.class)
     abstract NotifPageActivity notifPageActivity();
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = LPAgentModule.class)
+    abstract LPAgentActivtiy lpAgentActivtiy();
 
 }

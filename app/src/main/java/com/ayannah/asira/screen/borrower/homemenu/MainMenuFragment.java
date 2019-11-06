@@ -538,10 +538,6 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
         notif.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(notif);
 
-//        JobScheduler jobScheduler = (JobScheduler)parentActivity().getSystemService(Context.JOB_SCHEDULER_SERVICE);
-//        jobScheduler.cancel(JOBID);
-//        Log.e("serviceTop", "serviceTop");
-
     }
 
 }
