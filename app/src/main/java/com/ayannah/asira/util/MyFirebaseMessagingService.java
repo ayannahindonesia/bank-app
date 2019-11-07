@@ -47,13 +47,38 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     public void onMessageReceived(RemoteMessage remoteMessage) {
 
         Log.e(TAG, remoteMessage.getData().toString());
+        /*
+        format response from backend through fcm:
 
-        String status = remoteMessage.getData().get("status");
-        String id = remoteMessage.getData().get("id");
-        String amount = remoteMessage.getData().get("loan");
+        {JsonData={"id":"6","status":"approved"}, Body=Loan id 6 diterima oleh Bank Bank A. Dapatkan dicairkan pada 2019-11-06 00:00:00 +0000 UTC, Title=Status Pinjaman Anda}
+         */
 
-        String message = String.format("Pinjaman kamu sebesar %s nomor %s telah %s", amount, id, status);
-        sendNotification(message);
+        if(remoteMessage.getData().size() > 0){
+
+            try {
+                JSONObject obj = new JSONObject(remoteMessage.getData().get("JsonData"));
+
+//                String id = obj.getString("id");
+//                Log.e(TAG, "json messege recieve: "+id);
+                String body = remoteMessage.getData().get("Body");
+                sendNotification(body);
+
+//                String id = obj.getString("id");
+//                String status = obj.getString("status");
+
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+//        String status = remoteMessage.getData().get("status");
+//        String id = remoteMessage.getData().get("id");
+//        String amount = remoteMessage.getData().get("loan");
+//
+//        String message = String.format("Pinjaman kamu sebesar %s nomor %s telah %s", amount, id, status);
+//        sendNotification(message);
 
 //        try {
 //            JSONObject json = new JSONObject(remoteMessage.getNotification().getBody());
@@ -105,6 +130,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_notif_asira)
                 .setContentTitle("ASIRA - AYANNAH")
+                .setStyle(new NotificationCompat.BigTextStyle().bigText(messageBody))
                 .setContentText(messageBody)
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)
