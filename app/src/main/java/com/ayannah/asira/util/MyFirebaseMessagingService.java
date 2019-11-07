@@ -46,27 +46,36 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
 
-        try {
-            JSONObject json = new JSONObject(remoteMessage.getNotification().getBody());
-            String updateTime = json.getString("updated_time");
-            String status = json.getString("status");
-            String id_loan = json.getString("id");
+        Log.e(TAG, remoteMessage.getData().toString());
 
-            JSONObject objBorrower = json.getJSONObject("borrower_info");
-            String borrowerName = objBorrower.getString("fullname");
+        String status = remoteMessage.getData().get("status");
+        String id = remoteMessage.getData().get("id");
+        String amount = remoteMessage.getData().get("loan");
 
-//            Date dUpdateTime = sdf.parse(updateTime);
-            String message = String.format("Hi %s, pinjaman kamu dengan nomor %s telah di %s pada tanggal %s. Mohon cek di ASIRA",
-                    borrowerName,
-                    id_loan,
-                    status,
-                    updateTime);
+        String message = String.format("Pinjaman kamu sebesar %s nomor %s telah %s", amount, id, status);
+        sendNotification(message);
 
-            sendNotification(message);
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            JSONObject json = new JSONObject(remoteMessage.getNotification().getBody());
+//            String updateTime = json.getString("updated_time");
+//            String status = json.getString("status");
+//            String id_loan = json.getString("id");
+//
+//            JSONObject objBorrower = json.getJSONObject("borrower_info");
+//            String borrowerName = objBorrower.getString("fullname");
+//
+////            Date dUpdateTime = sdf.parse(updateTime);
+//            String message = String.format("Hi %s, pinjaman kamu dengan nomor %s telah di %s pada tanggal %s. Mohon cek di ASIRA",
+//                    borrowerName,
+//                    id_loan,
+//                    status,
+//                    updateTime);
+//
+//            sendNotification(message);
+//
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
 
     }
 
@@ -98,7 +107,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 .setContentTitle("ASIRA - AYANNAH")
                 .setContentText(messageBody)
                 .setAutoCancel(true)
-                .setChannelId(CHANNEL_ID)
                 .setSound(defaultSoundUri)
                 .setPriority(Notification.PRIORITY_MAX)
                 .setContentIntent(pendingIntent);
