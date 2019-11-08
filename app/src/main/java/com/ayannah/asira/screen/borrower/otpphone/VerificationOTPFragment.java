@@ -112,8 +112,10 @@ public class VerificationOTPFragment extends BaseFragment implements Verificatio
 
                 resubmitLoanRequest(idLoan);
             } else if (purpose.equals(RESUBMIT_REGIST)) {
+
                 resubmitRegister(charSequence);
             } else {
+
                 dialog.dismiss();
             }
 

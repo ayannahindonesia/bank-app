@@ -12,6 +12,8 @@ import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.ayannah.asira.BuildConfig;
 import com.ayannah.asira.data.local.PreferenceRepository;
 import com.ayannah.asira.data.remote.RemoteRepository;
+import com.ayannah.asira.util.CommonUtils;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.JsonObject;
 
 import org.json.JSONException;
@@ -59,7 +61,7 @@ public class VerificationOTPPresenter implements VerificationOTPContract.Present
         .subscribe(response -> {
 
             Log.d("Succeess: ", "OTP Verified");
-            Toast.makeText(application, "Pendaftaran Berhasil!", Toast.LENGTH_LONG).show();
+
             mView.OTPVerified();
 
         }, error -> {
@@ -191,7 +193,6 @@ public class VerificationOTPPresenter implements VerificationOTPContract.Present
     @Override
     public void setUserIdentity() {
         if(mView == null){
-            Toast.makeText(application, "something wrong in setUserIdentity()", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -258,9 +259,9 @@ public class VerificationOTPPresenter implements VerificationOTPContract.Present
                     preferenceRepository.setUserNationality(response.getNationality());
                     preferenceRepository.setUserNickname(response.getNickname());
 
-                    mView.loginComplete();
 
-                    Log.d(TAG, "function loginComplete() executedd!");
+                    sendTokenDeviceToDB();
+//                    mView.loginComplete();
 
                 }, error ->{
 
@@ -311,5 +312,23 @@ public class VerificationOTPPresenter implements VerificationOTPContract.Present
                         }
                     }
                 }));
+    }
+
+    private void sendTokenDeviceToDB(){
+
+        if(mView == null){
+            return;
+        }
+
+        String token = FirebaseInstanceId.getInstance().getToken();
+        mComposite.add(remotRepo.sendUserFCMToken(token)
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(response -> {
+
+            mView.loginComplete();
+
+        }, error -> mView.showErrorMessage(CommonUtils.commonErrorFormat(error))));
+
     }
 }
