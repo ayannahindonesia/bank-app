@@ -21,6 +21,7 @@ public class PreferenceDataSource implements PreferenceRepository {
     //for login privilledge purposes
     private static final String PREF_IS_LOGGED = "IS_LOGGED";
     private static final String PREF_USER_SETUP = "USER_SETUP";
+    private static final String PREF_IS_AGENT_LOGGED = "AGENT_IS_LOGIN";
 
     //user attributes
     private static final String PREF_ID_USER = "ID_USER";
@@ -730,5 +731,15 @@ public class PreferenceDataSource implements PreferenceRepository {
 
     @Override
     public String getAdminTokenLender() { return mPreferences.getString(PREF_TOKEN_ADMIN_LENDER, ""); }
+
+    @Override
+    public void setAgentLogged(boolean isAgentLogged) {
+        mPreferences.edit().putBoolean(PREF_IS_AGENT_LOGGED, isAgentLogged).apply();
+    }
+
+    @Override
+    public boolean isAgentLogged() {
+        return mPreferences.getBoolean(PREF_IS_AGENT_LOGGED, false);
+    }
 
 }

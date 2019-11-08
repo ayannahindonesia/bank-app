@@ -29,6 +29,14 @@ public class ChooseLoginPresenter implements ChooseLoginContract.Presenter {
     }
 
     @Override
+    public boolean isUserLogged() {
+        return preferenceRepository.isUserLogged();
+    }
+
+    @Override
+    public boolean isAgentLogged() { return preferenceRepository.isAgentLogged(); }
+
+    @Override
     public void takeView(ChooseLoginContract.View view) {
         mView = view;
     }

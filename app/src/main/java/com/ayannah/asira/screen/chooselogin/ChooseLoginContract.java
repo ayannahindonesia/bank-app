@@ -12,5 +12,8 @@ public interface ChooseLoginContract {
 
     interface Presenter extends BasePresenter<ChooseLoginContract.View> {
 
+        boolean isUserLogged();
+
+        boolean isAgentLogged();
     }
 }

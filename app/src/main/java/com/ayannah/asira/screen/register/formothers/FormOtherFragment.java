@@ -183,7 +183,7 @@ public class FormOtherFragment extends BaseFragment implements FormOtherContract
         assert bundle != null;
 
         Intent verification = new Intent(parentActivity(), VerificationOTPActivity.class);
-        verification.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        verification.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         verification.putExtra("purpose", "regist");
         verification.putExtra(PHONE, bundle.getString(PHONE));
         verification.putExtra(PASS, bundle.getString(PASS));
