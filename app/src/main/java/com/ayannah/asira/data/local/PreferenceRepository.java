@@ -235,4 +235,8 @@ public interface PreferenceRepository {
     void setAdminTokenLender(String s);
 
     String getAdminTokenLender();
+
+    void setAgentLogged(boolean isAgentLogged);
+
+    boolean isAgentLogged();
 }
