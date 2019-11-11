@@ -1,5 +1,7 @@
 package com.ayannah.asira.di;
 
+import com.ayannah.asira.screen.agent.loginagent.LoginAgentActivity;
+import com.ayannah.asira.screen.agent.loginagent.LoginAgentModule;
 import com.ayannah.asira.screen.agent.lpagent.LPAgentActivity;
 import com.ayannah.asira.screen.agent.lpagent.LPAgentModule;
 import com.ayannah.asira.screen.chooselogin.ChooseLoginActivity;
@@ -151,4 +153,7 @@ abstract class ActivityBindingModule {
     @ContributesAndroidInjector(modules = ChooseLoginModule.class)
     abstract ChooseLoginActivity chooseLoginActivity();
 
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = LoginAgentModule.class)
+    abstract LoginAgentActivity loginAgentActivity();
 }

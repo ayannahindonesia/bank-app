@@ -10,6 +10,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 
 import com.ayannah.asira.R;
+import com.ayannah.asira.screen.agent.loginagent.LoginAgentActivity;
 import com.ayannah.asira.screen.agent.lpagent.LPAgentActivity;
 import com.ayannah.asira.screen.borrower.homemenu.MainMenuActivity;
 import com.ayannah.asira.screen.borrower.login.LoginActivity;
@@ -72,7 +73,10 @@ public class ChooseLoginActivity extends DaggerAppCompatActivity implements Choo
 
     @OnClick(R.id.btnAgent)
     void agentFlow() {
-        Toast.makeText(getBaseContext(), "Something BIG is under development", Toast.LENGTH_LONG).show();
+//        Toast.makeText(getBaseContext(), "Something BIG is under development", Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(this, LoginAgentActivity.class);
+        intent.putExtra("isBorrower", false);
+        startActivity(intent);
     }
 
     @OnClick(R.id.btnPersonal)
