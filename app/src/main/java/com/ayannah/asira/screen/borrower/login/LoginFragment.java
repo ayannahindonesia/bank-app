@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 
+import com.ayannah.asira.dialog.BottomSheetKebijakan;
 import com.ayannah.asira.screen.borrower.homemenu.MainMenuActivity;
 import com.ayannah.asira.R;
 import com.ayannah.asira.base.BaseFragment;
@@ -97,8 +98,24 @@ public class LoginFragment extends BaseFragment implements
     @OnClick(R.id.btnRegister)
     void onClickRegister(){
 
-        Intent regist = new Intent(parentActivity(), ChooseBankActivity.class);
-        startActivity(regist);
+        BottomSheetKebijakan bsk = new BottomSheetKebijakan();
+        bsk.showNow(parentActivity().getSupportFragmentManager(), "kebijakanPrivasi");
+        bsk.setOnCheckListener(new BottomSheetKebijakan.BottomSheetKebijakanListener() {
+            @Override
+            public void onCheckSetuju(boolean isChecked) {
+
+                if(isChecked){
+
+                    bsk.dismiss();
+
+                    Intent regist = new Intent(parentActivity(), ChooseBankActivity.class);
+                    startActivity(regist);
+                }
+
+            }
+        });
+
+
     }
 
     @Override
