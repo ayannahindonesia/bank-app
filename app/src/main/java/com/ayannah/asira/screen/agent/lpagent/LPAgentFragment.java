@@ -1,5 +1,6 @@
 package com.ayannah.asira.screen.agent.lpagent;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -13,6 +14,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.ayannah.asira.R;
 import com.ayannah.asira.base.BaseFragment;
+import com.ayannah.asira.screen.agent.registerborrower.choosebank.ChooseBankAgentActivity;
 import com.google.android.material.navigation.NavigationView;
 
 import javax.inject.Inject;
@@ -112,8 +114,8 @@ public class LPAgentFragment extends BaseFragment implements LPAgentContract.Vie
 
     @OnClick(R.id.nasabahBaru)
     void onClickNasabahBaru(){
-
-
+        Intent intent = new Intent(parentActivity(), ChooseBankAgentActivity.class);
+        startActivity(intent);
     }
 
     @OnClick(R.id.nasabahTerdaftar)

@@ -103,6 +103,8 @@
         </activity>
         <activity android:name=".screen.chooselogin.ChooseLoginActivity"/>
         <activity android:name=".screen.agent.loginagent.LoginAgentActivity"/>
+        <activity android:name=".screen.agent.registerborrower.choosebank.ChooseBankAgentActivity"/>
+        <activity android:name=".screen.agent.registerborrower.addaccountbank.AddAccountBankAgentActivity"/>
 
         <service
             android:name=".util.MyFirebaseMessagingService"
