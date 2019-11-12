@@ -101,6 +101,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".screen.chooselogin.ChooseLoginActivity"/>
+        <activity android:name=".screen.agent.loginagent.LoginAgentActivity"/>
 
         <service
             android:name=".util.MyFirebaseMessagingService"

@@ -1,7 +1,11 @@
 package com.ayannah.asira.di;
 
+import com.ayannah.asira.screen.agent.loginagent.LoginAgentActivity;
+import com.ayannah.asira.screen.agent.loginagent.LoginAgentModule;
 import com.ayannah.asira.screen.agent.lpagent.LPAgentActivity;
 import com.ayannah.asira.screen.agent.lpagent.LPAgentModule;
+import com.ayannah.asira.screen.chooselogin.ChooseLoginActivity;
+import com.ayannah.asira.screen.chooselogin.ChooseLoginModule;
 import com.ayannah.asira.screen.createnewpassword.CreateNewPassActivity;
 import com.ayannah.asira.screen.createnewpassword.CreateNewPassModule;
 import com.ayannah.asira.screen.detailloan.DetailTransaksiActivity;
@@ -145,4 +149,11 @@ abstract class ActivityBindingModule {
     @ContributesAndroidInjector(modules = LPAgentModule.class)
     abstract LPAgentActivity lpAgentActivity();
 
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = ChooseLoginModule.class)
+    abstract ChooseLoginActivity chooseLoginActivity();
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = LoginAgentModule.class)
+    abstract LoginAgentActivity loginAgentActivity();
 }

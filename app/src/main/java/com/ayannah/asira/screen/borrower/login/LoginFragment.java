@@ -126,7 +126,7 @@ public class LoginFragment extends BaseFragment implements
         Toast.makeText(parentActivity(), "Login berhasil", Toast.LENGTH_SHORT).show();
 
         Intent login = new Intent(parentActivity(), MainMenuActivity.class);
-        login.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        login.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(login);
 
         dialog.dismiss();

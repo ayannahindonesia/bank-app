@@ -112,13 +112,13 @@ public class LPAgentFragment extends BaseFragment implements LPAgentContract.Vie
 
     @OnClick(R.id.nasabahBaru)
     void onClickNasabahBaru(){
-
+        Toast.makeText(parentActivity(), "You must be so exciting for new feature! :)", Toast.LENGTH_LONG).show();
 
     }
 
     @OnClick(R.id.nasabahTerdaftar)
     void onClickNasabahTerdaftar(){
-
+        Toast.makeText(parentActivity(), "Something fun under develop", Toast.LENGTH_LONG).show();
 
     }
 }
