@@ -17,7 +17,7 @@
             android:textColor="@android:color/black"
             android:textSize="@dimen/fontLarge"
             android:textStyle="bold"
-            tools:text="Persetujuan Pembuatan Rekening"/>
+            android:text="Persetujuan Pembuatan Rekening"/>
 
         <ImageButton
             android:id="@+id/close"
