@@ -1,7 +1,11 @@
 package com.ayannah.asira.screen.register.addaccountbank;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.StyleSpan;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -79,6 +83,7 @@ public class AddAccountBankFragment extends BaseFragment implements AddAccountBa
 
                 BottomSheetAggreement bsk = new BottomSheetAggreement();
 
+                bsk.setBankName(bName);
                 bsk.showNow(parentActivity().getSupportFragmentManager(), "aggreeement");
                 bsk.setOnCheckListener(new BottomSheetAggreement.BottomSheetKebijakanListener() {
 

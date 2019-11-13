@@ -1,6 +1,10 @@
 package com.ayannah.asira.dialog;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,8 +32,14 @@ public class BottomSheetAggreement extends BottomSheetDialogFragment {
     @BindView(R.id.title)
     TextView title;
 
+    private String bankName;
+
     public void setOnCheckListener(BottomSheetKebijakanListener listener){
         this.listener = listener;
+    }
+
+    public void setBankName(String result){
+        this.bankName = result;
     }
 
     @Nullable
@@ -37,6 +47,15 @@ public class BottomSheetAggreement extends BottomSheetDialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.bottom_dialog_aggreement, container, false);
         mUnbinder = ButterKnife.bind(this, view);
+
+        String first = "Apakah anda bersedia jika data yang dimasukkan akan digunakan juga sebagai ";
+        String boldText = "data pengajuan rekening baru";
+        String bank = " di "+ bankName + "?";
+
+        //bold text
+        SpannableString span = new SpannableString(first + boldText + bank);
+        span.setSpan(new StyleSpan(Typeface.BOLD), first.length(), first.length() + boldText.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        desc.setText(span);
 
         return view;
     }
