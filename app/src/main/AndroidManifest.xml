@@ -105,6 +105,7 @@
         <activity android:name=".screen.agent.loginagent.LoginAgentActivity"/>
         <activity android:name=".screen.agent.registerborrower.choosebank.ChooseBankAgentActivity"/>
         <activity android:name=".screen.agent.registerborrower.addaccountbank.AddAccountBankAgentActivity"/>
+        <activity android:name=".screen.agent.registerborrower.adddoc.AddDocumentAgentActivity"/>
 
         <service
             android:name=".util.MyFirebaseMessagingService"

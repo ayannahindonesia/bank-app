@@ -6,6 +6,8 @@ import com.ayannah.asira.screen.agent.lpagent.LPAgentActivity;
 import com.ayannah.asira.screen.agent.lpagent.LPAgentModule;
 import com.ayannah.asira.screen.agent.registerborrower.addaccountbank.AddAccountBankAgentActivity;
 import com.ayannah.asira.screen.agent.registerborrower.addaccountbank.AddAccountBankAgentModule;
+import com.ayannah.asira.screen.agent.registerborrower.adddoc.AddDocumentAgentActivity;
+import com.ayannah.asira.screen.agent.registerborrower.adddoc.AddDocumentAgentModule;
 import com.ayannah.asira.screen.agent.registerborrower.choosebank.ChooseBankAgentActivity;
 import com.ayannah.asira.screen.agent.registerborrower.choosebank.ChooseBankAgentModule;
 import com.ayannah.asira.screen.chooselogin.ChooseLoginActivity;
@@ -169,5 +171,7 @@ abstract class ActivityBindingModule {
     @ContributesAndroidInjector(modules = AddAccountBankAgentModule.class)
     abstract AddAccountBankAgentActivity addAccountBankAgentModule();
 
-
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = AddDocumentAgentModule.class)
+    abstract AddDocumentAgentActivity addDocumentAgentActivity();
 }

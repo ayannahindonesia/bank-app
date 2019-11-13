@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.ayannah.asira.R;
 import com.ayannah.asira.base.BaseFragment;
 import com.ayannah.asira.dialog.BottomSheetDialogGlobal;
+import com.ayannah.asira.screen.agent.registerborrower.adddoc.AddDocumentAgentActivity;
 import com.ayannah.asira.screen.register.formothers.FormOtherFragment;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
@@ -63,12 +64,12 @@ public class AddAccountBankAgentFragment extends BaseFragment implements AddAcco
         dialog.setOnClickBottomSheetInstruction(new BottomSheetDialogGlobal.BottomSheetInstructionListener() {
             @Override
             public void onClickButtonDismiss() {
-//                Bundle bundle1 = parentActivity().getIntent().getExtras();
-//                dialog.dismiss();
-//                Intent doc = new Intent(parentActivity(), AddDocumentAgentActivity.class);
-//                doc.putExtras(bundle1);
-//                parentActivity().finish();
-//                startActivity(doc);
+                Bundle bundle1 = parentActivity().getIntent().getExtras();
+                dialog.dismiss();
+                Intent doc = new Intent(parentActivity(), AddDocumentAgentActivity.class);
+                doc.putExtras(bundle1);
+                parentActivity().finish();
+                startActivity(doc);
             }
 
             @Override
@@ -92,14 +93,14 @@ public class AddAccountBankAgentFragment extends BaseFragment implements AddAcco
 
     @Override
     public void onValidationSucceeded() {
-//        Bundle bundle = parentActivity().getIntent().getExtras();
-//        bundle.putString(FormOtherFragment.ACC_NUMBER, accNumber.getText().toString());
-//
-//        Intent doc = new Intent(parentActivity(), AddDocumentActivity.class);
-//        doc.putExtras(bundle);
-//        doc.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//        doc.putExtras(bundle);
-//        startActivity(doc);
+        Bundle bundle = parentActivity().getIntent().getExtras();
+        bundle.putString(FormOtherFragment.ACC_NUMBER, accNumber.getText().toString());
+
+        Intent doc = new Intent(parentActivity(), AddDocumentAgentActivity.class);
+        doc.putExtras(bundle);
+        doc.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        doc.putExtras(bundle);
+        startActivity(doc);
     }
 
     @Override
