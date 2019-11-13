@@ -5,9 +5,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ProgressBar
+        android:id="@+id/progress_horizontal"
+        style="@style/progress_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_15sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginLeft="@dimen/dp14"
+        android:layout_marginRight="@dimen/dp14"
+        android:max="5"
+        android:progress="2"
+        android:progressDrawable="@drawable/progress_horizontal" />
+
     <ScrollView
         android:id="@+id/svMain"
         android:layout_width="match_parent"
+        android:layout_below="@+id/progress_horizontal"
         android:layout_height="match_parent"
         android:layout_above="@+id/btnNext">
 
@@ -16,15 +30,6 @@
             android:padding="@dimen/dp14"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
-            <ProgressBar
-                style="@style/progress_horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_15sdp"
-                android:layout_marginBottom="@dimen/_20sdp"
-                android:max="5"
-                android:progress="2"
-                android:progressDrawable="@drawable/progress_horizontal" />
             
             <TextView
                 android:text="Tambahkan Foto KTP Anda"

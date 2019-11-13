@@ -25,6 +25,7 @@ import androidx.appcompat.app.AlertDialog;
 import com.ayannah.asira.R;
 import com.ayannah.asira.base.BaseFragment;
 import com.ayannah.asira.dialog.BottomSheetDialogGlobal;
+import com.ayannah.asira.screen.agent.registerborrower.formborrower.FormBorrowerAgentActivity;
 import com.ayannah.asira.screen.register.formothers.FormOtherFragment;
 import com.ayannah.asira.util.CameraTakeBeforeM;
 import com.ayannah.asira.util.CameraTakeM;
@@ -515,9 +516,9 @@ public class AddDocumentAgentFragment extends BaseFragment implements AddDocumen
         bundle.putString(FormOtherFragment.EMAIL, email.getText().toString());
         bundle.putString(FormOtherFragment.PHONE, pnumber);
 
-//        Intent form = new Intent(parentActivity(), FormBorrowerAgentActivity.class);
-//        form.putExtras(bundle);
-//        startActivity(form);
+        Intent form = new Intent(parentActivity(), FormBorrowerAgentActivity.class);
+        form.putExtras(bundle);
+        startActivity(form);
 
     }
 

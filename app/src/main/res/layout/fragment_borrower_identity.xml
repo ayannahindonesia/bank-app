@@ -6,9 +6,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ProgressBar
+        android:id="@+id/progressbar"
+        style="@style/progress_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_15sdp"
+        android:layout_margin="@dimen/_20sdp"
+        android:max="5"
+        android:progress="3"
+        android:progressDrawable="@drawable/progress_horizontal" />
+
     <ScrollView
         android:id="@+id/scrollview"
-        android:layout_below="@+id/lltProgressBar"
+        android:layout_below="@+id/progressbar"
         android:layout_above="@id/buttonNext"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -16,16 +26,6 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
-            <ProgressBar
-                android:id="@+id/progressbar"
-                style="@style/progress_horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_15sdp"
-                android:layout_margin="@dimen/_20sdp"
-                android:max="5"
-                android:progress="3"
-                android:progressDrawable="@drawable/progress_horizontal" />
 
             <TextView
                 android:id="@+id/dataPemohon"

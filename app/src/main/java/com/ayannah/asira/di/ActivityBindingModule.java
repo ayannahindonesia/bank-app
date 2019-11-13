@@ -10,6 +10,8 @@ import com.ayannah.asira.screen.agent.registerborrower.adddoc.AddDocumentAgentAc
 import com.ayannah.asira.screen.agent.registerborrower.adddoc.AddDocumentAgentModule;
 import com.ayannah.asira.screen.agent.registerborrower.choosebank.ChooseBankAgentActivity;
 import com.ayannah.asira.screen.agent.registerborrower.choosebank.ChooseBankAgentModule;
+import com.ayannah.asira.screen.agent.registerborrower.formborrower.FormBorrowerAgentActivity;
+import com.ayannah.asira.screen.agent.registerborrower.formborrower.FormBorrowerAgentModule;
 import com.ayannah.asira.screen.chooselogin.ChooseLoginActivity;
 import com.ayannah.asira.screen.chooselogin.ChooseLoginModule;
 import com.ayannah.asira.screen.createnewpassword.CreateNewPassActivity;
@@ -174,4 +176,8 @@ abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = AddDocumentAgentModule.class)
     abstract AddDocumentAgentActivity addDocumentAgentActivity();
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = FormBorrowerAgentModule.class)
+    abstract FormBorrowerAgentActivity formBorrowerAgentActivity();
 }

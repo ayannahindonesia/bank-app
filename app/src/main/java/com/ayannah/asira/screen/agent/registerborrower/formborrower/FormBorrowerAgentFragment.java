@@ -1,4 +1,4 @@
-package com.ayannah.asira.screen.register.formBorrower;
+package com.ayannah.asira.screen.agent.registerborrower.formborrower;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
@@ -23,8 +23,6 @@ import com.ayannah.asira.data.model.Kabupaten;
 import com.ayannah.asira.data.model.Kecamatan;
 import com.ayannah.asira.data.model.Kelurahan;
 import com.ayannah.asira.data.model.Provinsi;
-import com.ayannah.asira.screen.register.formjobearning.FormJobEarningActivity;
-import com.ayannah.asira.screen.register.formjobearning.FormJobEarningFragment;
 import com.ayannah.asira.screen.register.formothers.FormOtherFragment;
 import com.ayannah.asira.util.DatePickerCustom;
 import com.mobsandgeeks.saripaar.ValidationError;
@@ -46,12 +44,12 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.OnItemSelected;
 
-public class FormBorrowerFragment extends BaseFragment implements FormBorrowerContract.View, Validator.ValidationListener {
+public class FormBorrowerAgentFragment extends BaseFragment implements FormBorrowerAgentContract.View, Validator.ValidationListener {
 
     private String gender = "";
 
     @Inject
-    FormBorrowerContract.Presenter mPresenter;
+    FormBorrowerAgentContract.Presenter mPresenter;
 
     @NotEmpty(message = "Masukan Nama Anda", trim = true)
     @BindView(R.id.regist_name)
@@ -95,7 +93,6 @@ public class FormBorrowerFragment extends BaseFragment implements FormBorrowerCo
     EditText etRw;
 
     @BindView(R.id.regist_phoneBorrower)
-    @NotEmpty(trim = true)
     EditText etTelpRumah;
 
     @NotEmpty(message = "Masukan Lama Menempati Rumah", trim = true)
@@ -157,7 +154,7 @@ public class FormBorrowerFragment extends BaseFragment implements FormBorrowerCo
 
     private Validator validator;
 
-    private FormJobEarningFragment fragment = new FormJobEarningFragment();
+//    private FormJobEarningAgentFragment fragment = new FormJobEarningAgentFragment();
 
     private DatePickerDialog datePickerDialog;
 
@@ -170,7 +167,7 @@ public class FormBorrowerFragment extends BaseFragment implements FormBorrowerCo
     private String[] statusTempatTinggal = {"Milik sendiri", "Milik Keluarga", "Dinas", "Sewa"};
 
     @Inject
-    public FormBorrowerFragment(){}
+    public FormBorrowerAgentFragment(){}
 
     @Override
     protected int getLayoutView() {
@@ -526,10 +523,10 @@ public class FormBorrowerFragment extends BaseFragment implements FormBorrowerCo
             bundle.putString(FormOtherFragment.HOME_STATUS, spStatusHome.getSelectedItem().toString());
             bundle.putString(FormOtherFragment.NICKNAME, regist_nickname.getText().toString());
 
-            Intent formjob = new Intent(parentActivity(), FormJobEarningActivity.class);
-            formjob.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            formjob.putExtras(bundle);
-            startActivity(formjob);
+//            Intent formjob = new Intent(parentActivity(), FormJobEarningAgentActivity.class);
+//            formjob.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//            formjob.putExtras(bundle);
+//            startActivity(formjob);
 
         } catch (ParseException e) {
             e.printStackTrace();
