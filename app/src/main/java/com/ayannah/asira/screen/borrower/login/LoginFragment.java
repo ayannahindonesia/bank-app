@@ -9,13 +9,12 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 
-import com.ayannah.asira.dialog.BottomSheetKebijakan;
 import com.ayannah.asira.screen.borrower.homemenu.MainMenuActivity;
 import com.ayannah.asira.R;
 import com.ayannah.asira.base.BaseFragment;
 import com.ayannah.asira.screen.borrower.otpphone.VerificationOTPActivity;
-import com.ayannah.asira.screen.register.choosebank.ChooseBankActivity;
 import com.ayannah.asira.screen.register.formothers.FormOtherFragment;
+import com.ayannah.asira.screen.register.termcondition.TermConditionActivity;
 import com.ayannah.asira.screen.resetpassword.ResetPasswordActivity;
 import com.google.gson.JsonObject;
 import com.mobsandgeeks.saripaar.ValidationError;
@@ -98,23 +97,8 @@ public class LoginFragment extends BaseFragment implements
     @OnClick(R.id.btnRegister)
     void onClickRegister(){
 
-        BottomSheetKebijakan bsk = new BottomSheetKebijakan();
-        bsk.showNow(parentActivity().getSupportFragmentManager(), "kebijakanPrivasi");
-        bsk.setOnCheckListener(new BottomSheetKebijakan.BottomSheetKebijakanListener() {
-            @Override
-            public void onCheckSetuju(boolean isChecked) {
-
-                if(isChecked){
-
-                    bsk.dismiss();
-
-                    Intent regist = new Intent(parentActivity(), ChooseBankActivity.class);
-                    startActivity(regist);
-                }
-
-            }
-        });
-
+        Intent kebijakan = new Intent(parentActivity(), TermConditionActivity.class);
+        startActivity(kebijakan);
 
     }
 

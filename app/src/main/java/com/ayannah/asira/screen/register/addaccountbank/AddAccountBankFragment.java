@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.ayannah.asira.R;
 import com.ayannah.asira.base.BaseFragment;
+import com.ayannah.asira.dialog.BottomSheetAggreement;
 import com.ayannah.asira.dialog.BottomSheetDialogGlobal;
 import com.ayannah.asira.screen.register.adddoc.AddDocumentActivity;
 import com.ayannah.asira.screen.register.adddoc.AddDocumentFragment;
@@ -67,12 +68,37 @@ public class AddAccountBankFragment extends BaseFragment implements AddAccountBa
         dialog.setOnClickBottomSheetInstruction(new BottomSheetDialogGlobal.BottomSheetInstructionListener() {
             @Override
             public void onClickButtonDismiss() {
-                Bundle bundle1 = parentActivity().getIntent().getExtras();
+//                Bundle bundle1 = parentActivity().getIntent().getExtras();
+//                dialog.dismiss();
+//                Intent doc = new Intent(parentActivity(), AddDocumentActivity.class);
+//                doc.putExtras(bundle1);
+//                parentActivity().finish();
+//                startActivity(doc);
+
                 dialog.dismiss();
-                Intent doc = new Intent(parentActivity(), AddDocumentActivity.class);
-                doc.putExtras(bundle1);
-                parentActivity().finish();
-                startActivity(doc);
+
+                BottomSheetAggreement bsk = new BottomSheetAggreement();
+
+                bsk.showNow(parentActivity().getSupportFragmentManager(), "aggreeement");
+                bsk.setOnCheckListener(new BottomSheetAggreement.BottomSheetKebijakanListener() {
+
+                    @Override
+                    public void onClickSetuju() {
+
+                        Bundle bundle1 = parentActivity().getIntent().getExtras();
+                        bsk.dismiss();
+                        Intent doc = new Intent(parentActivity(), AddDocumentActivity.class);
+                        doc.putExtras(bundle1);
+                        parentActivity().finish();
+                        startActivity(doc);
+
+                    }
+
+                    @Override
+                    public void onClickClose() {
+                        bsk.dismiss();
+                    }
+                });
             }
 
             @Override

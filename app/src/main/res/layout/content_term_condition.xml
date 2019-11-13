@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:orientation="vertical"
+    android:padding="10dp"
+    tools:context=".screen.register.termcondition.TermConditionActivity"
+    tools:showIn="@layout/activity_term_condition">
+
+    <RelativeLayout
+        android:id="@+id/lyKebijakan"
+        android:background="@drawable/border_disclaimer"
+        android:padding="6dp"
+        android:layout_above="@id/lyBottom"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <WebView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/webview"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/lyBottom"
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <CheckBox
+            android:id="@+id/checkBox"
+            android:layout_marginTop="10dp"
+            android:text="Ya, saya setuju dan paham."
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:id="@+id/btn_confirm"
+            android:textColor="@android:color/white"
+            android:background="@color/colorAccent"
+            android:text="Lanjutkan"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"/>
+
+    </LinearLayout>
+
+
+
+
+</RelativeLayout>

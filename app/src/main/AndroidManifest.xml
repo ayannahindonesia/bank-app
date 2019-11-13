@@ -26,7 +26,11 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:targetApi="n">
-        <activity android:name=".screen.agent.lpagent.LPAgentActivity"/>
+        <activity
+            android:name=".screen.register.termcondition.TermConditionActivity"
+            android:label="@string/title_activity_term_condition"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".screen.agent.lpagent.LPAgentActivity" />
         <activity android:name=".screen.createnewpassword.CreateNewPassActivity">
             <tools:validation testUrl="http://35.198.244.55:8000/deepLinks/" />
 
@@ -101,8 +105,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".screen.chooselogin.ChooseLoginActivity"/>
-        <activity android:name=".screen.agent.loginagent.LoginAgentActivity"/>
+        <activity android:name=".screen.chooselogin.ChooseLoginActivity" />
+        <activity android:name=".screen.agent.loginagent.LoginAgentActivity" />
 
         <service
             android:name=".util.MyFirebaseMessagingService"
