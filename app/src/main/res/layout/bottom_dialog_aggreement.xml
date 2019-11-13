@@ -17,7 +17,7 @@
             android:textColor="@android:color/black"
             android:textSize="@dimen/fontLarge"
             android:textStyle="bold"
-            android:text="Persetujuan pembuatan akun"/>
+            tools:text="Persetujuan Pembuatan Rekening"/>
 
         <ImageButton
             android:id="@+id/close"
@@ -35,7 +35,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@android:color/black"
-        android:text="Apakah anda setuju jika data anda digunakan untuk pembuatan akun bank?"/>
+        tools:text="Apakah anda setuju jika data anda digunakan untuk pembuatan akun bank?"/>
 
     <Button
         android:id="@+id/btn_confirm"
