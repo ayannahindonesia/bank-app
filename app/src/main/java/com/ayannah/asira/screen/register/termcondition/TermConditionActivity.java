@@ -52,7 +52,7 @@ public class TermConditionActivity extends AppCompatActivity {
         assert actionBar != null;
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setTitle("Kebijakan dan Privasi");
+        actionBar.setTitle("Kebijakan Privasi Asira");
 
         try {
             InputStream inputStream = getResources().openRawResource(R.raw.terms_condition);
