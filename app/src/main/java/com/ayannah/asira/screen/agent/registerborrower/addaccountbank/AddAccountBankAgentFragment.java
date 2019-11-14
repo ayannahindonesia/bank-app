@@ -11,7 +11,7 @@ import com.ayannah.asira.R;
 import com.ayannah.asira.base.BaseFragment;
 import com.ayannah.asira.dialog.BottomSheetDialogGlobal;
 import com.ayannah.asira.screen.agent.registerborrower.adddoc.AddDocumentAgentActivity;
-import com.ayannah.asira.screen.register.formothers.FormOtherFragment;
+import com.ayannah.asira.screen.agent.registerborrower.formother.FormOtherAgentFragment;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
@@ -54,7 +54,7 @@ public class AddAccountBankAgentFragment extends BaseFragment implements AddAcco
 
         Bundle bundle = parentActivity().getIntent().getExtras();
         assert bundle != null;
-        bName = bundle.getString(FormOtherFragment.BANK_NAME);
+        bName = bundle.getString(FormOtherAgentFragment.BANK_NAME);
         bankName.setText(bName);
 
         dialog = new BottomSheetDialogGlobal().show(getFragmentManager(), BottomSheetDialogGlobal.HAVE_ACC_BANK,
@@ -94,7 +94,7 @@ public class AddAccountBankAgentFragment extends BaseFragment implements AddAcco
     @Override
     public void onValidationSucceeded() {
         Bundle bundle = parentActivity().getIntent().getExtras();
-        bundle.putString(FormOtherFragment.ACC_NUMBER, accNumber.getText().toString());
+        bundle.putString(FormOtherAgentFragment.ACC_NUMBER, accNumber.getText().toString());
 
         Intent doc = new Intent(parentActivity(), AddDocumentAgentActivity.class);
         doc.putExtras(bundle);

@@ -15,9 +15,9 @@ import com.ayannah.asira.base.BaseFragment;
 import com.ayannah.asira.data.model.BankDetail;
 import com.ayannah.asira.data.model.BankList;
 import com.ayannah.asira.screen.agent.registerborrower.addaccountbank.AddAccountBankAgentActivity;
+import com.ayannah.asira.screen.agent.registerborrower.formother.FormOtherAgentFragment;
 import com.ayannah.asira.screen.register.addaccountbank.AddAccountBankFragment;
 import com.ayannah.asira.screen.register.choosebank.ChooseBankContract;
-import com.ayannah.asira.screen.register.formothers.FormOtherFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -95,8 +95,8 @@ public class ChooseBankAgentFragment extends BaseFragment implements ChooseBankA
             public void onClickItemBank(BankDetail bank) {
 
                 Bundle bundle = new Bundle();
-                bundle.putString(FormOtherFragment.BANK_NAME, bank.getName());
-                bundle.putInt(FormOtherFragment.BANK_ID, bank.getId());
+                bundle.putString(FormOtherAgentFragment.BANK_NAME, bank.getName());
+                bundle.putInt(FormOtherAgentFragment.BANK_ID, bank.getId());
 
                 Intent adddbank = new Intent(parentActivity(), AddAccountBankAgentActivity.class);
                 adddbank.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);

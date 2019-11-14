@@ -26,7 +26,7 @@ import com.ayannah.asira.R;
 import com.ayannah.asira.base.BaseFragment;
 import com.ayannah.asira.dialog.BottomSheetDialogGlobal;
 import com.ayannah.asira.screen.agent.registerborrower.formborrower.FormBorrowerAgentActivity;
-import com.ayannah.asira.screen.register.formothers.FormOtherFragment;
+import com.ayannah.asira.screen.agent.registerborrower.formother.FormOtherAgentFragment;
 import com.ayannah.asira.util.CameraTakeBeforeM;
 import com.ayannah.asira.util.CameraTakeM;
 import com.mobsandgeeks.saripaar.ValidationError;
@@ -509,12 +509,12 @@ public class AddDocumentAgentFragment extends BaseFragment implements AddDocumen
 
 //        String pnumber = "62"+phone.getText().toString().trim();
 
-        bundle.putString(FormOtherFragment.PHOTO_KTP, pictKTP64);
-        bundle.putString(FormOtherFragment.PHOTO_NPWP, pictNPWP64);
-        bundle.putString(FormOtherFragment.KTP_NO, etKTP.getText().toString());
-        bundle.putString(FormOtherFragment.NPWP_NO, etNPWP.getText().toString());
-        bundle.putString(FormOtherFragment.EMAIL, email.getText().toString());
-        bundle.putString(FormOtherFragment.PHONE, pnumber);
+        bundle.putString(FormOtherAgentFragment.PHOTO_KTP, pictKTP64);
+        bundle.putString(FormOtherAgentFragment.PHOTO_NPWP, pictNPWP64);
+        bundle.putString(FormOtherAgentFragment.KTP_NO, etKTP.getText().toString());
+        bundle.putString(FormOtherAgentFragment.NPWP_NO, etNPWP.getText().toString());
+        bundle.putString(FormOtherAgentFragment.EMAIL, email.getText().toString());
+        bundle.putString(FormOtherAgentFragment.PHONE, pnumber);
 
         Intent form = new Intent(parentActivity(), FormBorrowerAgentActivity.class);
         form.putExtras(bundle);
