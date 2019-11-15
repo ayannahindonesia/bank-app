@@ -1,7 +1,10 @@
 package com.ayannah.asira.screen.agent.lpagent;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -13,6 +16,9 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.ayannah.asira.R;
 import com.ayannah.asira.base.BaseFragment;
+import com.ayannah.asira.screen.agent.registerborrower.choosebank.ChooseBankAgentActivity;
+import com.ayannah.asira.screen.borrower.login.LoginActivity;
+import com.ayannah.asira.screen.chooselogin.ChooseLoginActivity;
 import com.google.android.material.navigation.NavigationView;
 
 import javax.inject.Inject;
@@ -41,6 +47,8 @@ public class LPAgentFragment extends BaseFragment implements LPAgentContract.Vie
     public void onResume() {
         super.onResume();
         mPresenter.takeView(this);
+
+        mPresenter.getCurrentAgentIdentity();
 
     }
 
@@ -71,6 +79,10 @@ public class LPAgentFragment extends BaseFragment implements LPAgentContract.Vie
 
         // Handle navigation view item clicks here.
         int id = menuItem.getItemId();
+
+        if (id == R.id.nav_logout) {
+            mPresenter.logout();
+        }
 
 //        if (id == R.id.nav_personalInfo) {
 //
@@ -112,13 +124,37 @@ public class LPAgentFragment extends BaseFragment implements LPAgentContract.Vie
 
     @OnClick(R.id.nasabahBaru)
     void onClickNasabahBaru(){
-        Toast.makeText(parentActivity(), "You must be so exciting for new feature! :)", Toast.LENGTH_LONG).show();
-
+        Intent intent = new Intent(parentActivity(), ChooseBankAgentActivity.class);
+        startActivity(intent);
     }
 
     @OnClick(R.id.nasabahTerdaftar)
     void onClickNasabahTerdaftar(){
         Toast.makeText(parentActivity(), "Something fun under develop", Toast.LENGTH_LONG).show();
 
+    }
+
+    @Override
+    public void displayUserIdentity(String agentName, String agentUserName, String agentID, String agentProvider) {
+
+        View headerViewNav = navigationView.getHeaderView(0);
+        TextView navAgentName = headerViewNav.findViewById(R.id.navHeader_name);
+        TextView navAgentCompany = headerViewNav.findViewById(R.id.navHeader_companyName);
+        TextView navAgentID = headerViewNav.findViewById(R.id.navHeader_num);
+        TextView navAgentUserName = headerViewNav.findViewById(R.id.navAgentUserName);
+
+        navAgentName.setText(agentName);
+        navAgentCompany.setText(agentProvider);
+        navAgentID.setText(agentID);
+        navAgentUserName.setText(agentUserName);
+
+    }
+
+    @Override
+    public void successsLogout() {
+        Intent intent = new Intent(parentActivity(), ChooseLoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        parentActivity().finish();
     }
 }

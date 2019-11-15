@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ProgressBar
+        android:id="@+id/pg"
+        style="@style/progress_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_15sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:layout_marginLeft="@dimen/margin14dp"
+        android:layout_marginRight="@dimen/margin14dp"
+        android:max="5"
+        android:progress="2"
+        android:progressDrawable="@drawable/progress_horizontal" />
+
+    <ScrollView
+        android:id="@+id/svMain"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/pg"
+        android:layout_above="@+id/btnNext">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/dp14">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tambahkan Foto KTP Anda"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/fontNormal" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="?attr/selectableItemBackground">
+
+                <ImageView
+                    android:id="@+id/imgKTP"
+                    android:layout_width="160dp"
+                    android:layout_height="95dp"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/border_card"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_upload_photo" />
+
+                <ImageView
+                    android:id="@+id/editKTP"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="-25dp"
+                    android:layout_toEndOf="@+id/imgKTP"
+                    android:src="@drawable/ic_change_photo"
+                    android:visibility="gone" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Input Nomor KTP"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/fontNormal" />
+
+                <EditText
+                    android:id="@+id/etKTP"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="1500099923888"
+                    android:imeOptions="actionNext"
+                    android:inputType="number"
+                    android:maxLength="16"
+                    android:textSize="@dimen/fontNormal" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Tambahkan Foto NPWP Anda (Optional)"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/fontNormal" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="?attr/selectableItemBackground">
+
+                <ImageView
+                    android:id="@+id/imgNPWP"
+                    android:layout_width="160dp"
+                    android:layout_height="95dp"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/border_card"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_upload_photo" />
+
+                <ImageView
+                    android:id="@+id/editNPWP"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="-25dp"
+                    android:layout_toEndOf="@+id/imgNPWP"
+                    android:src="@drawable/ic_change_photo"
+                    android:visibility="gone" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Input Nomor NPWP"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/fontNormal" />
+
+                <EditText
+                    android:id="@+id/etNPWP"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="180009937700"
+                    android:imeOptions="actionNext"
+                    android:inputType="number"
+                    android:textSize="@dimen/fontNormal" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Email"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/fontLarge" />
+
+            <EditText
+                android:id="@+id/regist_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="adrian@lorenzo.com"
+                android:imeOptions="actionNext"
+                android:inputType="textEmailAddress"
+                android:textSize="@dimen/fontNormal"
+                tools:ignore="Autofill" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nomor Ponsel"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/fontLarge" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:text="+62"
+                    android:textSize="@dimen/fontNormal" />
+
+                <EditText
+                    android:id="@+id/regist_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="contoh: 82123456789"
+                    android:imeOptions="actionNext"
+                    android:inputType="phone"
+                    android:maxLength="18"
+                    android:textSize="@dimen/fontNormal"
+                    tools:ignore="Autofill" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <Button
+        android:id="@+id/btnNext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorAccent"
+        android:text="Selanjutnya"
+        android:textColor="@android:color/white" />
+
+</RelativeLayout>

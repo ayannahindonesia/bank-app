@@ -1,4 +1,4 @@
-package com.ayannah.asira.screen.register.formBorrower;
+package com.ayannah.asira.screen.agent.registerborrower.formborrower;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
@@ -23,9 +23,8 @@ import com.ayannah.asira.data.model.Kabupaten;
 import com.ayannah.asira.data.model.Kecamatan;
 import com.ayannah.asira.data.model.Kelurahan;
 import com.ayannah.asira.data.model.Provinsi;
-import com.ayannah.asira.screen.register.formjobearning.FormJobEarningActivity;
-import com.ayannah.asira.screen.register.formjobearning.FormJobEarningFragment;
-import com.ayannah.asira.screen.register.formothers.FormOtherFragment;
+import com.ayannah.asira.screen.agent.registerborrower.formother.FormOtherAgentFragment;
+import com.ayannah.asira.screen.agent.registerborrower.jobearning.FormJobEarningAgentActivity;
 import com.ayannah.asira.util.DatePickerCustom;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
@@ -46,12 +45,12 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.OnItemSelected;
 
-public class FormBorrowerFragment extends BaseFragment implements FormBorrowerContract.View, Validator.ValidationListener {
+public class FormBorrowerAgentFragment extends BaseFragment implements FormBorrowerAgentContract.View, Validator.ValidationListener {
 
     private String gender = "";
 
     @Inject
-    FormBorrowerContract.Presenter mPresenter;
+    FormBorrowerAgentContract.Presenter mPresenter;
 
     @NotEmpty(message = "Masukan Nama Anda", trim = true)
     @BindView(R.id.regist_name)
@@ -95,7 +94,6 @@ public class FormBorrowerFragment extends BaseFragment implements FormBorrowerCo
     EditText etRw;
 
     @BindView(R.id.regist_phoneBorrower)
-    @NotEmpty(trim = true)
     EditText etTelpRumah;
 
     @NotEmpty(message = "Masukan Lama Menempati Rumah", trim = true)
@@ -157,7 +155,7 @@ public class FormBorrowerFragment extends BaseFragment implements FormBorrowerCo
 
     private Validator validator;
 
-    private FormJobEarningFragment fragment = new FormJobEarningFragment();
+//    private FormJobEarningAgentFragment fragment = new FormJobEarningAgentFragment();
 
     private DatePickerDialog datePickerDialog;
 
@@ -170,7 +168,7 @@ public class FormBorrowerFragment extends BaseFragment implements FormBorrowerCo
     private String[] statusTempatTinggal = {"Milik sendiri", "Milik Keluarga", "Dinas", "Sewa"};
 
     @Inject
-    public FormBorrowerFragment(){}
+    public FormBorrowerAgentFragment(){}
 
     @Override
     protected int getLayoutView() {
@@ -491,42 +489,42 @@ public class FormBorrowerFragment extends BaseFragment implements FormBorrowerCo
 
             Date dateBorrower = displayFormat.parse(tvDateBirthBorrower.getText().toString());
 
-            bundle.putString(FormOtherFragment.REGIST_NAME, etNameBorrower.getText().toString());
-            bundle.putString(FormOtherFragment.GENDER, gender);
-            bundle.putString(FormOtherFragment.REGIST_BIRTHDATE, serverFormat.format(dateBorrower));
-            bundle.putString(FormOtherFragment.REGIST_BIRTHPLACE, etTempatLahir.getText().toString());
-            bundle.putString(FormOtherFragment.REGIST_EDUCATION, spCollageLevel.getSelectedItem().toString());
-            bundle.putString(FormOtherFragment.MOTHER_NAME, etNamaIbu.getText().toString());
-            bundle.putString(FormOtherFragment.MARITAL_STATUS, spPerkawinan.getSelectedItem().toString());
-            bundle.putString(FormOtherFragment.SPOUSE_NAME, etNamaPasangan.getText().toString());
+            bundle.putString(FormOtherAgentFragment.REGIST_NAME, etNameBorrower.getText().toString());
+            bundle.putString(FormOtherAgentFragment.GENDER, gender);
+            bundle.putString(FormOtherAgentFragment.REGIST_BIRTHDATE, serverFormat.format(dateBorrower));
+            bundle.putString(FormOtherAgentFragment.REGIST_BIRTHPLACE, etTempatLahir.getText().toString());
+            bundle.putString(FormOtherAgentFragment.REGIST_EDUCATION, spCollageLevel.getSelectedItem().toString());
+            bundle.putString(FormOtherAgentFragment.MOTHER_NAME, etNamaIbu.getText().toString());
+            bundle.putString(FormOtherAgentFragment.MARITAL_STATUS, spPerkawinan.getSelectedItem().toString());
+            bundle.putString(FormOtherAgentFragment.SPOUSE_NAME, etNamaPasangan.getText().toString());
             if (regist_dateBirthSpouse.getText().toString().equals("dd-mm-yyyy")) {
-                bundle.putString(FormOtherFragment.SPOUSE_BIRTHDATE, null);
+                bundle.putString(FormOtherAgentFragment.SPOUSE_BIRTHDATE, null);
             } else {
                 Date dateSpouse = displayFormat.parse(regist_dateBirthSpouse.getText().toString());
-                bundle.putString(FormOtherFragment.SPOUSE_BIRTHDATE, String.valueOf(serverFormat.format(dateSpouse)));
+                bundle.putString(FormOtherAgentFragment.SPOUSE_BIRTHDATE, String.valueOf(serverFormat.format(dateSpouse)));
             }
-            bundle.putString(FormOtherFragment.SPOUSE_EDUCATION, spPendidikan.getSelectedItem().toString());
+            bundle.putString(FormOtherAgentFragment.SPOUSE_EDUCATION, spPendidikan.getSelectedItem().toString());
 
             if (spTanggungan.getSelectedItem().toString().toLowerCase().equals("lebih dari 5")) {
-                bundle.putString(FormOtherFragment.DEPENDANTS, "6");
+                bundle.putString(FormOtherAgentFragment.DEPENDANTS, "6");
             } else {
-                bundle.putString(FormOtherFragment.DEPENDANTS, spTanggungan.getSelectedItem().toString());
+                bundle.putString(FormOtherAgentFragment.DEPENDANTS, spTanggungan.getSelectedItem().toString());
             }
 
 
-            bundle.putString(FormOtherFragment.ADDRESS, etAlamatDomisili.getText().toString());
-            bundle.putString(FormOtherFragment.PROVINCE, spProvinsi.getSelectedItem().toString());
-            bundle.putString(FormOtherFragment.CITY, spKota.getSelectedItem().toString());
-            bundle.putString(FormOtherFragment.SUB_DISTRICT, spKecamatan.getSelectedItem().toString());
-            bundle.putString(FormOtherFragment.DISTRICT, spKelurahan.getSelectedItem().toString());
-            bundle.putString(FormOtherFragment.REGIST_RT, etRt.getText().toString());
-            bundle.putString(FormOtherFragment.REGIST_RW, etRw.getText().toString());
-            bundle.putString(FormOtherFragment.REGIST_PHONE, etTelpRumah.getText().toString());
-            bundle.putString(FormOtherFragment.HOME_STAY_YEAR, etLamaMenempatiRumah.getText().toString());
-            bundle.putString(FormOtherFragment.HOME_STATUS, spStatusHome.getSelectedItem().toString());
-            bundle.putString(FormOtherFragment.NICKNAME, regist_nickname.getText().toString());
+            bundle.putString(FormOtherAgentFragment.ADDRESS, etAlamatDomisili.getText().toString());
+            bundle.putString(FormOtherAgentFragment.PROVINCE, spProvinsi.getSelectedItem().toString());
+            bundle.putString(FormOtherAgentFragment.CITY, spKota.getSelectedItem().toString());
+            bundle.putString(FormOtherAgentFragment.SUB_DISTRICT, spKecamatan.getSelectedItem().toString());
+            bundle.putString(FormOtherAgentFragment.DISTRICT, spKelurahan.getSelectedItem().toString());
+            bundle.putString(FormOtherAgentFragment.REGIST_RT, etRt.getText().toString());
+            bundle.putString(FormOtherAgentFragment.REGIST_RW, etRw.getText().toString());
+            bundle.putString(FormOtherAgentFragment.REGIST_PHONE, etTelpRumah.getText().toString());
+            bundle.putString(FormOtherAgentFragment.HOME_STAY_YEAR, etLamaMenempatiRumah.getText().toString());
+            bundle.putString(FormOtherAgentFragment.HOME_STATUS, spStatusHome.getSelectedItem().toString());
+            bundle.putString(FormOtherAgentFragment.NICKNAME, regist_nickname.getText().toString());
 
-            Intent formjob = new Intent(parentActivity(), FormJobEarningActivity.class);
+            Intent formjob = new Intent(parentActivity(), FormJobEarningAgentActivity.class);
             formjob.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             formjob.putExtras(bundle);
             startActivity(formjob);

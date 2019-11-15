@@ -1,5 +1,6 @@
 package com.ayannah.asira.data.remote;
 
+import com.ayannah.asira.data.model.AgentProfile;
 import com.ayannah.asira.data.model.BankDetail;
 import com.ayannah.asira.data.model.BankList;
 import com.ayannah.asira.data.model.BankService;
@@ -17,6 +18,7 @@ import com.ayannah.asira.data.model.Token;
 import com.ayannah.asira.data.model.UserProfile;
 import com.google.gson.JsonObject;
 
+import io.reactivex.Completable;
 import io.reactivex.Single;
 import io.reactivex.disposables.Disposable;
 import okhttp3.Response;
@@ -78,4 +80,8 @@ public interface RemoteRepository {
     Single<Token> getTokenAdminLender();
 
     Single<FCMTokenResponse> sendUserFCMToken(String fcmToken);
+
+    Single<Token> getClientAgentToken(JsonObject json);
+
+    Single<AgentProfile> getAgentProfile();
 }

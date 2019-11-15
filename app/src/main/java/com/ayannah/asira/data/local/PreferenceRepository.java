@@ -239,4 +239,28 @@ public interface PreferenceRepository {
     void setAgentLogged(boolean isAgentLogged);
 
     boolean isAgentLogged();
+
+    void setAgentId(String idAgemt);
+
+    String getAgentId();
+
+    void setAgentName(String nameAgent);
+
+    String getAgentName();
+
+    void setAgentUserName(String userNameAgent);
+
+    String getAgentUserName();
+
+    void setAgentEmail(String emailAgent);
+
+    String getAgentEmail();
+
+    void setAgentPhone(String phoneAgent);
+
+    String getAgentPhone();
+
+    void setAgentProvider(String providerAgent);
+
+    String getAgentProvider();
 }

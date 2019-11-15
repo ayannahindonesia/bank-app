@@ -32,20 +32,19 @@
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".screen.agent.lpagent.LPAgentActivity" />
         <activity android:name=".screen.createnewpassword.CreateNewPassActivity">
-            <tools:validation testUrl="http://35.198.244.55:8000/deepLinks/" />
-
-            <intent-filter>
+            <tools:validation testUrl="https://ayannah.co.id/deepLinks/" />
+            <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
-                    android:host="35.198.244.55"
-                    android:pathPrefix="/deepLinks/"
-                    android:port="8000"
-                    android:scheme="http" />
+                    android:scheme="https"
+                    android:host="ayannah.co.id"
+                    android:pathPrefix="/deepLinks/" />
             </intent-filter>
+
         </activity>
         <activity android:name=".screen.borrower.notifpage.NotifPageActivity" />
         <activity android:name=".screen.resetpassword.ResetPasswordActivity" />
@@ -107,6 +106,12 @@
         </activity>
         <activity android:name=".screen.chooselogin.ChooseLoginActivity" />
         <activity android:name=".screen.agent.loginagent.LoginAgentActivity" />
+        <activity android:name=".screen.agent.registerborrower.choosebank.ChooseBankAgentActivity" />
+        <activity android:name=".screen.agent.registerborrower.addaccountbank.AddAccountBankAgentActivity" />
+        <activity android:name=".screen.agent.registerborrower.adddoc.AddDocumentAgentActivity" />
+        <activity android:name=".screen.agent.registerborrower.formborrower.FormBorrowerAgentActivity" />
+        <activity android:name=".screen.agent.registerborrower.jobearning.FormJobEarningAgentActivity" />
+        <activity android:name=".screen.agent.registerborrower.formother.FormOtherAgentActivity" />
 
         <service
             android:name=".util.MyFirebaseMessagingService"
