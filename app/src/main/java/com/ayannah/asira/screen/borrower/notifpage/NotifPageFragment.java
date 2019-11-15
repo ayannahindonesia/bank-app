@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.ayannah.asira.R;
 import com.ayannah.asira.adapter.CommonListAdapter;
 import com.ayannah.asira.base.BaseFragment;
+import com.ayannah.asira.data.model.Notif;
 
 import java.util.List;
 
@@ -69,9 +70,9 @@ public class NotifPageFragment extends BaseFragment implements NotifPageContract
     }
 
     @Override
-    public void showDataNotif(List<String> results) {
+    public void showDataNotif(List<Notif.Data> list) {
 
-        adapter.setDataNotificationMessages(results);
+        adapter.setDataNotificationMessages(list);
 
         adapter.setOnClickListnerNotifAdapter(data -> Toast.makeText(parentActivity(), data, Toast.LENGTH_SHORT).show());
 

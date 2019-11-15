@@ -22,6 +22,7 @@ import com.ayannah.asira.data.model.Kecamatan;
 import com.ayannah.asira.data.model.Kelurahan;
 import com.ayannah.asira.data.model.Loans.DataItem;
 import com.ayannah.asira.data.model.Loans.Loans;
+import com.ayannah.asira.data.model.Notif;
 import com.ayannah.asira.data.model.Provinsi;
 import com.ayannah.asira.data.model.ReasonLoan;
 import com.ayannah.asira.data.model.ServiceProducts;
@@ -413,4 +414,13 @@ public class RemoteDataSource implements RemoteRepository {
                 .getObjectSingle(AgentProfile.class);
     }
 
+    @Override
+    public Single<Notif> getListNotification() {
+        return Rx2AndroidNetworking.get(BuildConfig.API_URL + "borrower/notifications")
+                .addHeaders("Authorization", preferenceRepository.getUserToken())
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getObjectSingle(Notif.class);
+
+    }
 }

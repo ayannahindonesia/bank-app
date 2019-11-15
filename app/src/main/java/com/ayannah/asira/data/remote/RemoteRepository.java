@@ -11,6 +11,7 @@ import com.ayannah.asira.data.model.Kecamatan;
 import com.ayannah.asira.data.model.Kelurahan;
 import com.ayannah.asira.data.model.Loans.DataItem;
 import com.ayannah.asira.data.model.Loans.Loans;
+import com.ayannah.asira.data.model.Notif;
 import com.ayannah.asira.data.model.Provinsi;
 import com.ayannah.asira.data.model.ReasonLoan;
 import com.ayannah.asira.data.model.ServiceProducts;
@@ -84,4 +85,6 @@ public interface RemoteRepository {
     Single<Token> getClientAgentToken(JsonObject json);
 
     Single<AgentProfile> getAgentProfile();
+
+    Single<Notif> getListNotification();
 }

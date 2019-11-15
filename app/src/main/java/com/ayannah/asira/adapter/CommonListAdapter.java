@@ -13,6 +13,7 @@ import com.ayannah.asira.custom.CommonListListener;
 import com.ayannah.asira.data.local.BankServiceLocal;
 import com.ayannah.asira.data.local.ServiceProductLocal;
 import com.ayannah.asira.data.model.Loans.DataItem;
+import com.ayannah.asira.data.model.Notif;
 import com.ayannah.asira.util.CommonUtils;
 
 import org.json.JSONArray;
@@ -37,7 +38,7 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     private int mViewType;
 
-    private List<String> notifMessages;
+    private List<Notif.Data> notifMessages;
     private List<DataItem> loans;
 
     private CommonListListener.LoanAdapterListener loanListener;
@@ -50,7 +51,7 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         loans = new ArrayList<>();
     }
 
-    public void setDataNotificationMessages(List<String> results){
+    public void setDataNotificationMessages(List<Notif.Data> results){
 
         notifMessages.clear();
 
@@ -290,14 +291,14 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             ButterKnife.bind(this, itemView);
         }
 
-        private void bind(String param){
+        private void bind(Notif.Data param){
 
-            txtMessage.setText(param);
+            txtMessage.setText(param.getMessage_body());
 
-            itemView.setOnClickListener(v -> {
-
-                notifListener.onClickItem(param);
-            });
+//            itemView.setOnClickListener(v -> {
+//
+//                notifListener.onClickItem(param);
+//            });
 
         }
 
