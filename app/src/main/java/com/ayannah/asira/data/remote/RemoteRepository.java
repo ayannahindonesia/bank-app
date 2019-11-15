@@ -81,4 +81,6 @@ public interface RemoteRepository {
     Single<Token> getClientAgentToken(JsonObject json);
 
     Single<AgentProfile> getAgentProfile();
+
+    Single<Response> postBorrowerRegisterAgent(JsonObject jsonObject);
 }

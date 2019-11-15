@@ -16,6 +16,7 @@ import com.ayannah.asira.R;
 import com.ayannah.asira.base.BaseFragment;
 import com.ayannah.asira.data.local.PreferenceRepository;
 import com.ayannah.asira.data.remote.RemoteRepository;
+import com.ayannah.asira.screen.agent.lpagent.LPAgentActivity;
 import com.ayannah.asira.screen.borrower.otpphone.VerificationOTPActivity;
 import com.google.gson.JsonObject;
 import com.mobsandgeeks.saripaar.ValidationError;
@@ -44,8 +45,8 @@ public class FormOtherAgentFragment extends BaseFragment implements FormOtherAge
 
     public static final String EMAIL = "EMAIL";
     public static final String PHONE = "PHONE";
-    public static final String PASS = "PASS";
-    public static final String CONF_PASS = "CONF_PASS";
+//    public static final String PASS = "PASS";
+//    public static final String CONF_PASS = "CONF_PASS";
 
     public static final String KTP_NO = "KTP_NO";
     public static final String NPWP_NO = "NPWP_NO";
@@ -169,108 +170,113 @@ public class FormOtherAgentFragment extends BaseFragment implements FormOtherAge
     @Override
     public  void registerComplete() {
 
-        Bundle bundle = Objects.requireNonNull(parentActivity()).getIntent().getExtras();
-        assert bundle != null;
-        mPresenter.getUserToken(bundle.getString(PHONE), bundle.getString(PASS), "regist");
-
-    }
-
-    @Override
-    public void successGetOTP() {
-        dialog.dismiss();
-
-        Bundle bundle = Objects.requireNonNull(parentActivity()).getIntent().getExtras();
-        assert bundle != null;
-
-        Intent verification = new Intent(parentActivity(), VerificationOTPActivity.class);
-        verification.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        verification.putExtra("purpose", "regist");
-        verification.putExtra(PHONE, bundle.getString(PHONE));
-        verification.putExtra(PASS, bundle.getString(PASS));
-        startActivity(verification);
+//        Bundle bundle = Objects.requireNonNull(parentActivity()).getIntent().getExtras();
+//        assert bundle != null;
+//        mPresenter.getUserToken(bundle.getString(PHONE), bundle.getString(PASS), "regist");
+        Toast.makeText(parentActivity(), "Nasabah berhasil dimasukan", Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(parentActivity(), LPAgentActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
         parentActivity().finish();
+
     }
 
-    @Override
-    public void successGetUserToken() {
-        Bundle bundle = Objects.requireNonNull(parentActivity()).getIntent().getExtras();
-        assert bundle != null;
+//    @Override
+//    public void successGetOTP() {
+//        dialog.dismiss();
+//
+//        Bundle bundle = Objects.requireNonNull(parentActivity()).getIntent().getExtras();
+//        assert bundle != null;
+//
+//        Intent verification = new Intent(parentActivity(), VerificationOTPActivity.class);
+//        verification.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+//        verification.putExtra("purpose", "regist");
+//        verification.putExtra(PHONE, bundle.getString(PHONE));
+//        verification.putExtra(PASS, bundle.getString(PASS));
+//        startActivity(verification);
+//        parentActivity().finish();
+//    }
 
-        mPresenter.postBorrowerOTPRequest(bundle.getString(PHONE));
-    }
+//    @Override
+//    public void successGetUserToken() {
+//        Bundle bundle = Objects.requireNonNull(parentActivity()).getIntent().getExtras();
+//        assert bundle != null;
+//
+//        mPresenter.postBorrowerOTPRequest(bundle.getString(PHONE));
+//    }
 
     @Override
     public void onValidationSucceeded() {
         Bundle bundle = Objects.requireNonNull(parentActivity()).getIntent().getExtras();
         assert bundle != null;
 
-        JsonObject userProfleRequest = new JsonObject();
+        JsonObject userProfleRequestAgent = new JsonObject();
 
-        userProfleRequest.addProperty("birthday", bundle.getString(REGIST_BIRTHDATE));
-        userProfleRequest.addProperty("related_phonenumber", etRelatedHP.getText().toString());
-        userProfleRequest.addProperty("taxid_number", bundle.getString(NPWP_NO));
-        userProfleRequest.addProperty("idcard_number", bundle.getString(KTP_NO));
-        userProfleRequest.addProperty("occupation", bundle.getString(JOB_TITLE));
-        userProfleRequest.addProperty("gender", bundle.getString(GENDER));
-        userProfleRequest.addProperty("city", bundle.getString(CITY));
-        userProfleRequest.addProperty("mother_name", bundle.getString(MOTHER_NAME));
-        userProfleRequest.addProperty("direct_superiorname", bundle.getString(SUPERVISOR));
-        userProfleRequest.addProperty("bank_accountnumber", bundle.getString(ACC_NUMBER));
-        userProfleRequest.addProperty("employer_name", bundle.getString(COMPANY_NAME));
-        userProfleRequest.addProperty("hamlets", bundle.getString(REGIST_RW)); //RW
-        userProfleRequest.addProperty("related_homenumber", etRelatedPhone.getText().toString());
-        userProfleRequest.addProperty("neighbour_association", bundle.getString(REGIST_RT));
-        userProfleRequest.addProperty("spouse_name", bundle.getString(SPOUSE_NAME));
-//        userProfleRequest.setBank(1); //bank name
-        userProfleRequest.addProperty("password", bundle.getString(PASS));
-        userProfleRequest.addProperty("field_of_work", bundle.getString(OCCUPATION)); //jenis pekerjaan
-        userProfleRequest.addProperty("province", bundle.getString(PROVINCE));
-        userProfleRequest.addProperty("spouse_birthday", bundle.getString(SPOUSE_BIRTHDATE));
-        userProfleRequest.addProperty("department", bundle.getString(OCCUPATION));  //jenis pekerjaan
-        userProfleRequest.addProperty("email", bundle.getString(EMAIL));
+        userProfleRequestAgent.addProperty("birthday", bundle.getString(REGIST_BIRTHDATE));
+        userProfleRequestAgent.addProperty("related_phonenumber", etRelatedHP.getText().toString());
+        userProfleRequestAgent.addProperty("taxid_number", bundle.getString(NPWP_NO));
+        userProfleRequestAgent.addProperty("idcard_number", bundle.getString(KTP_NO));
+        userProfleRequestAgent.addProperty("occupation", bundle.getString(JOB_TITLE));
+        userProfleRequestAgent.addProperty("gender", bundle.getString(GENDER));
+        userProfleRequestAgent.addProperty("city", bundle.getString(CITY));
+        userProfleRequestAgent.addProperty("mother_name", bundle.getString(MOTHER_NAME));
+        userProfleRequestAgent.addProperty("direct_superiorname", bundle.getString(SUPERVISOR));
+        userProfleRequestAgent.addProperty("bank_accountnumber", bundle.getString(ACC_NUMBER));
+        userProfleRequestAgent.addProperty("employer_name", bundle.getString(COMPANY_NAME));
+        userProfleRequestAgent.addProperty("hamlets", bundle.getString(REGIST_RW)); //RW
+        userProfleRequestAgent.addProperty("related_homenumber", etRelatedPhone.getText().toString());
+        userProfleRequestAgent.addProperty("neighbour_association", bundle.getString(REGIST_RT));
+        userProfleRequestAgent.addProperty("spouse_name", bundle.getString(SPOUSE_NAME));
+//        userProfleRequestAgent.setBank(1); //bank name
+//        userProfleRequestAgent.addProperty("password", bundle.getString(PASS));
+        userProfleRequestAgent.addProperty("field_of_work", bundle.getString(OCCUPATION)); //jenis pekerjaan
+        userProfleRequestAgent.addProperty("province", bundle.getString(PROVINCE));
+        userProfleRequestAgent.addProperty("spouse_birthday", bundle.getString(SPOUSE_BIRTHDATE));
+        userProfleRequestAgent.addProperty("department", bundle.getString(OCCUPATION));  //jenis pekerjaan
+        userProfleRequestAgent.addProperty("email", bundle.getString(EMAIL));
         if (bundle.getString(HOME_STAY_YEAR) != null && !bundle.getString(HOME_STAY_YEAR).equals("")) {
-            userProfleRequest.addProperty("lived_for", Integer.parseInt(Objects.requireNonNull(bundle.getString(HOME_STAY_YEAR))));
+            userProfleRequestAgent.addProperty("lived_for", Integer.parseInt(Objects.requireNonNull(bundle.getString(HOME_STAY_YEAR))));
         }
-        userProfleRequest.addProperty("address", bundle.getString(ADDRESS));
-        userProfleRequest.addProperty("spouse_lasteducation", bundle.getString(SPOUSE_EDUCATION));
+        userProfleRequestAgent.addProperty("address", bundle.getString(ADDRESS));
+        userProfleRequestAgent.addProperty("spouse_lasteducation", bundle.getString(SPOUSE_EDUCATION));
         if (bundle.getString(OTHER_INCOME) != null && bundle.getString(OTHER_INCOME) != "") {
-            userProfleRequest.addProperty("other_income", Integer.parseInt(Objects.requireNonNull(bundle.getString(OTHER_INCOME))));
+            userProfleRequestAgent.addProperty("other_income", Integer.parseInt(Objects.requireNonNull(bundle.getString(OTHER_INCOME))));
         }
-        userProfleRequest.addProperty("home_phonenumber", bundle.getString(REGIST_PHONE));
+        userProfleRequestAgent.addProperty("home_phonenumber", bundle.getString(REGIST_PHONE));
         if (bundle.getString(SALARY) != null && !bundle.getString(SALARY).equals("")) {
-            userProfleRequest.addProperty("monthly_income", Integer.parseInt(Objects.requireNonNull(bundle.getString(SALARY))));
+            userProfleRequestAgent.addProperty("monthly_income", Integer.parseInt(Objects.requireNonNull(bundle.getString(SALARY))));
         }
-        userProfleRequest.addProperty("home_ownership", bundle.getString(HOME_STATUS));
-        userProfleRequest.addProperty("last_education", bundle.getString(REGIST_EDUCATION));
-        userProfleRequest.addProperty("marriage_status", bundle.getString(MARITAL_STATUS));
-        userProfleRequest.addProperty("related_personname", etRelatedName.getText().toString());
-        userProfleRequest.addProperty("related_relation", spHubungan.getSelectedItem().toString());
-        userProfleRequest.addProperty("employer_address", bundle.getString(COMPANY_ADDRESS));
-        userProfleRequest.addProperty("birthplace", bundle.getString(REGIST_BIRTHPLACE));
+        userProfleRequestAgent.addProperty("home_ownership", bundle.getString(HOME_STATUS));
+        userProfleRequestAgent.addProperty("last_education", bundle.getString(REGIST_EDUCATION));
+        userProfleRequestAgent.addProperty("marriage_status", bundle.getString(MARITAL_STATUS));
+        userProfleRequestAgent.addProperty("related_personname", etRelatedName.getText().toString());
+        userProfleRequestAgent.addProperty("related_relation", spHubungan.getSelectedItem().toString());
+        userProfleRequestAgent.addProperty("employer_address", bundle.getString(COMPANY_ADDRESS));
+        userProfleRequestAgent.addProperty("birthplace", bundle.getString(REGIST_BIRTHPLACE));
         if (bundle.getString(WORK_PERIOD) != null && !bundle.getString(WORK_PERIOD).equals("")) {
-            userProfleRequest.addProperty("been_workingfor", Integer.parseInt(Objects.requireNonNull(bundle.getString(WORK_PERIOD))));
+            userProfleRequestAgent.addProperty("been_workingfor", Integer.parseInt(Objects.requireNonNull(bundle.getString(WORK_PERIOD))));
         }
-        userProfleRequest.addProperty("phone", bundle.getString(PHONE));
+        userProfleRequestAgent.addProperty("phone", bundle.getString(PHONE));
         if (bundle.getString(DEPENDANTS) != null && !bundle.getString(DEPENDANTS).equals("")) {
-            userProfleRequest.addProperty("dependants", Integer.parseInt(Objects.requireNonNull(bundle.getString(DEPENDANTS))));
+            userProfleRequestAgent.addProperty("dependants", Integer.parseInt(Objects.requireNonNull(bundle.getString(DEPENDANTS))));
         }
-        userProfleRequest.addProperty("subdistrict", bundle.getString(DISTRICT));
-        userProfleRequest.addProperty("employee_id", bundle.getString(EMPLOYEE_ID));
-        userProfleRequest.addProperty("other_incomesource", bundle.getString(OTHER_INCOME_SOURCE));
-        userProfleRequest.addProperty("urban_village", bundle.getString(SUB_DISTRICT));
-        userProfleRequest.addProperty("fullname", bundle.getString(REGIST_NAME));
-        userProfleRequest.addProperty("employer_number", bundle.getString(COMPANY_PHONE));
-        userProfleRequest.addProperty("related_address", etRelatedAddress.getText().toString());
-        userProfleRequest.addProperty("idcard_image", bundle.getString(PHOTO_KTP));
-        userProfleRequest.addProperty("taxid_image", bundle.getString(PHOTO_NPWP));
+        userProfleRequestAgent.addProperty("subdistrict", bundle.getString(DISTRICT));
+        userProfleRequestAgent.addProperty("employee_id", bundle.getString(EMPLOYEE_ID));
+        userProfleRequestAgent.addProperty("other_incomesource", bundle.getString(OTHER_INCOME_SOURCE));
+        userProfleRequestAgent.addProperty("urban_village", bundle.getString(SUB_DISTRICT));
+        userProfleRequestAgent.addProperty("fullname", bundle.getString(REGIST_NAME));
+        userProfleRequestAgent.addProperty("employer_number", bundle.getString(COMPANY_PHONE));
+        userProfleRequestAgent.addProperty("related_address", etRelatedAddress.getText().toString());
+        userProfleRequestAgent.addProperty("idcard_image", bundle.getString(PHOTO_KTP));
+        userProfleRequestAgent.addProperty("taxid_image", bundle.getString(PHOTO_NPWP));
 
         //new
-        userProfleRequest.addProperty("bank", bundle.getInt(BANK_ID));
-        userProfleRequest.addProperty("nickname", bundle.getString(NICKNAME));
-        userProfleRequest.addProperty("nationality", "Indonesia");
+        userProfleRequestAgent.addProperty("bank", bundle.getInt(BANK_ID));
+        userProfleRequestAgent.addProperty("nickname", bundle.getString(NICKNAME));
+        userProfleRequestAgent.addProperty("nationality", "Indonesia");
 
-//        dialog.show();
-//        mPresenter.postRegisterBorrower(userProfleRequest);
+        dialog.show();
+        mPresenter.postRegisterBorrower(userProfleRequestAgent);
         Toast.makeText(parentActivity(), "Berhhasil mau kirim", Toast.LENGTH_LONG).show();
     }
 
