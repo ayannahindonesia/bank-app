@@ -7,10 +7,14 @@ public interface LoginAgentContract {
 
     interface View extends BaseView<Presenter> {
 
+        void showErrorMessage(String errorMessage);
+
+        void loginComplete();
     }
 
     interface Presenter extends BasePresenter<View> {
 
+        void getPublicToken(String username, String password);
     }
 
 }

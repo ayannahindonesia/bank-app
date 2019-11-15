@@ -11,6 +11,7 @@ import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.ayannah.asira.BuildConfig;
 import com.ayannah.asira.data.local.PreferenceRepository;
+import com.ayannah.asira.data.model.AgentProfile;
 import com.ayannah.asira.data.model.BankDetail;
 import com.ayannah.asira.data.model.BankList;
 import com.ayannah.asira.data.model.BankService;
@@ -377,4 +378,24 @@ public class RemoteDataSource implements RemoteRepository {
                 .build()
                 .getObjectSingle(Token.class);
     }
+
+    @Override
+    public Single<Token> getClientAgentToken(JsonObject json) {
+        return Rx2AndroidNetworking.post(BuildConfig.API_URL + "client/agent_login")
+                .addHeaders("Authorization", preferenceRepository.getPublicToken())
+                .addApplicationJsonBody(json)
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getObjectSingle(Token.class);
+    }
+
+    @Override
+    public Single<AgentProfile> getAgentProfile() {
+        return Rx2AndroidNetworking.get(BuildConfig.API_URL + "agent/profile")
+                .addHeaders("Authorization", preferenceRepository.getUserToken())
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getObjectSingle(AgentProfile.class);
+    }
+
 }

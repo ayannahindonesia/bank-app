@@ -82,6 +82,14 @@ public class PreferenceDataSource implements PreferenceRepository {
     private static final String PREF_USER_NICKNAME = "PREF_USER_NICKNAME";
     private static final String PREF_USER_NATIONALILTY = "PREF_USER_NATIONALILTY";
 
+    //agent atributes
+    private static final String PREF_AGENT_ID = "AGENT_ID";
+    private static final String PREF_AGENT_NAME = "AGENT_NAME";
+    private static final String PREF_AGENT_USERNAME = "AGENT_USERNAME";
+    private static final String PREF_AGENT_EMAIL = "AGENT_EMAIL";
+    private static final String PREF_AGENT_PHONE = "AGENT_PHONE";
+    private static final String PREF_AGENT_PROVIDER = "AGENT_PROVIDER";
+
     @Inject
     public PreferenceDataSource(Application application){
         mPreferences = application.getSharedPreferences(BuildConfig.APPLICATION_ID, Context.MODE_PRIVATE);
@@ -740,6 +748,66 @@ public class PreferenceDataSource implements PreferenceRepository {
     @Override
     public boolean isAgentLogged() {
         return mPreferences.getBoolean(PREF_IS_AGENT_LOGGED, false);
+    }
+
+    @Override
+    public void setAgentId(String idAgemt) {
+        mPreferences.edit().putString(PREF_AGENT_ID, idAgemt).apply();
+    }
+
+    @Override
+    public String getAgentId() {
+        return mPreferences.getString(PREF_AGENT_ID, "");
+    }
+
+    @Override
+    public void setAgentName(String nameAgent) {
+        mPreferences.edit().putString(PREF_AGENT_NAME, nameAgent).apply();
+    }
+
+    @Override
+    public String getAgentName() {
+        return mPreferences.getString(PREF_AGENT_NAME, "");
+    }
+
+    @Override
+    public void setAgentUserName(String userNameAgent) {
+        mPreferences.edit().putString(PREF_AGENT_USERNAME, userNameAgent).apply();
+    }
+
+    @Override
+    public String getAgentUserName() {
+        return mPreferences.getString(PREF_AGENT_USERNAME, "");
+    }
+
+    @Override
+    public void setAgentEmail(String emailAgent) {
+        mPreferences.edit().putString(PREF_AGENT_EMAIL, emailAgent).apply();
+    }
+
+    @Override
+    public String getAgentEmail() {
+        return mPreferences.getString(PREF_AGENT_EMAIL, "");
+    }
+
+    @Override
+    public void setAgentPhone(String phoneAgent) {
+        mPreferences.edit().putString(PREF_AGENT_PHONE, phoneAgent).apply();
+    }
+
+    @Override
+    public String getAgentPhone() {
+        return mPreferences.getString(PREF_AGENT_PHONE, "");
+    }
+
+    @Override
+    public void setAgentProvider(String providerAgent) {
+        mPreferences.edit().putString(PREF_AGENT_PROVIDER, providerAgent).apply();
+    }
+
+    @Override
+    public String getAgentProvider() {
+        return mPreferences.getString(PREF_AGENT_PROVIDER, "");
     }
 
 }

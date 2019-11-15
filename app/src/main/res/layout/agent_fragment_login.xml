@@ -30,7 +30,6 @@
             android:layout_marginTop="@dimen/_5sdp"
             android:hint="ID Pengguna"
             android:imeOptions="actionDone"
-            android:inputType="textPassword"
             android:maxLength="25"
             android:textColor="@android:color/black"
             android:textSize="@dimen/fontLarge" />

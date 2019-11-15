@@ -45,6 +45,7 @@ import com.ayannah.asira.adapter.MenuProductAdapter;
 import com.ayannah.asira.data.model.BankService;
 import com.ayannah.asira.data.model.Loans.DataItem;
 import com.ayannah.asira.dialog.BottomSheetDialogGlobal;
+import com.ayannah.asira.screen.chooselogin.ChooseLoginActivity;
 import com.ayannah.asira.screen.earninginfo.EarningActivity;
 import com.ayannah.asira.screen.historyloan.HistoryLoanActivity;
 import com.ayannah.asira.screen.borrower.navigationmenu.datapendukung.DataPendukungActivity;
@@ -372,7 +373,8 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
     @Override
     public void showLogoutComplete() {
 
-        Intent logout = new Intent(parentActivity(), LoginActivity.class);
+        Intent logout = new Intent(parentActivity(), ChooseLoginActivity.class);
+        logout.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(logout);
         parentActivity().finish();
     }
