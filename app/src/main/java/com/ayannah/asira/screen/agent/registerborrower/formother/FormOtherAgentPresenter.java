@@ -41,7 +41,7 @@ public class FormOtherAgentPresenter implements FormOtherAgentContract.Presenter
 
         Log.d(TAG, preferenceRepository.getPublicToken());
 
-        mComposite.add(remotRepo.postBorrowerRegister(jsonObjectRequest)
+        mComposite.add(remotRepo.postBorrowerRegisterAgent(jsonObjectRequest)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> {
@@ -71,76 +71,76 @@ public class FormOtherAgentPresenter implements FormOtherAgentContract.Presenter
                 }));
     }
 
-    @Override
-    public void postBorrowerOTPRequest(String phone) {
-//        if (mView==null) {
-//            Toast.makeText(application, "test", Toast.LENGTH_LONG).show();
-//            return;
-//        }
-        JsonObject json = new JsonObject();
-        json.addProperty("phone", phone);
-
-//        mComposite.add(remotRepo.postOTPRequestBorrower(json)
-//        .subscribeOn(Schedulers.io())
-//        .observeOn(AndroidSchedulers.mainThread())
-//        .subscribe(response -> {
+//    @Override
+//    public void postBorrowerOTPRequest(String phone) {
+////        if (mView==null) {
+////            Toast.makeText(application, "test", Toast.LENGTH_LONG).show();
+////            return;
+////        }
+//        JsonObject json = new JsonObject();
+//        json.addProperty("phone", phone);
 //
-//            Log.d(TAG, "Success get OTP");
-//            Log.d(TAG, response.message());
+////        mComposite.add(remotRepo.postOTPRequestBorrower(json)
+////        .subscribeOn(Schedulers.io())
+////        .observeOn(AndroidSchedulers.mainThread())
+////        .subscribe(response -> {
+////
+////            Log.d(TAG, "Success get OTP");
+////            Log.d(TAG, response.message());
+////            mView.successGetOTP();
+////
+////        }, error -> {
+////
+////            ANError anError = (ANError) error;
+////            if(anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
+////                mView.showErrorMessage("Connection Error");
+////            }else {
+////
+////                if(anError.getErrorBody() != null){
+////
+////                    JSONObject jsonObject = new JSONObject(anError.getErrorBody());
+////                    mView.showErrorMessage(jsonObject.optString("message"));
+////                }
+////            }
+////
+////        }));
+//
+//        mComposite.add(Completable.fromAction(() -> {
+//            remotRepo.postOTPRequestBorrower(json);
 //            mView.successGetOTP();
+//        }).subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe());
+//    }
+
+//    @Override
+//    public void getUserToken(String phone, String pass, String isFrom) {
+//        JsonObject json = new JsonObject();
+//        json.addProperty("key", phone);
+//        json.addProperty("password", pass);
 //
-//        }, error -> {
+//        mComposite.add(remotRepo.getTokenClient(json)
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(response -> {
 //
-//            ANError anError = (ANError) error;
-//            if(anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
-//                mView.showErrorMessage("Connection Error");
-//            }else {
+//                    preferenceRepository.setUserToken("Bearer "+response.getToken());
+//                    mView.successGetUserToken();
 //
-//                if(anError.getErrorBody() != null){
+//                }, error -> {
 //
-//                    JSONObject jsonObject = new JSONObject(anError.getErrorBody());
-//                    mView.showErrorMessage(jsonObject.optString("message"));
-//                }
-//            }
+//                    ANError anError = (ANError) error;
+//                    if(anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
+//                        mView.showErrorMessage("Connection Error");
+//                    }else {
+//                        if(anError.getErrorBody() != null){
 //
-//        }));
-
-        mComposite.add(Completable.fromAction(() -> {
-            remotRepo.postOTPRequestBorrower(json);
-            mView.successGetOTP();
-        }).subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe());
-    }
-
-    @Override
-    public void getUserToken(String phone, String pass, String isFrom) {
-        JsonObject json = new JsonObject();
-        json.addProperty("key", phone);
-        json.addProperty("password", pass);
-
-        mComposite.add(remotRepo.getTokenClient(json)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(response -> {
-
-                    preferenceRepository.setUserToken("Bearer "+response.getToken());
-                    mView.successGetUserToken();
-
-                }, error -> {
-
-                    ANError anError = (ANError) error;
-                    if(anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
-                        mView.showErrorMessage("Connection Error");
-                    }else {
-                        if(anError.getErrorBody() != null){
-
-                            JSONObject jsonObject = new JSONObject(anError.getErrorBody());
-                            mView.showErrorMessage(jsonObject.optString("message")  + " getClientToken()");
-                        }
-                    }
-                }));
-    }
+//                            JSONObject jsonObject = new JSONObject(anError.getErrorBody());
+//                            mView.showErrorMessage(jsonObject.optString("message")  + " getClientToken()");
+//                        }
+//                    }
+//                }));
+//    }
 
     @Override
     public void takeView(FormOtherAgentContract.View view) {
