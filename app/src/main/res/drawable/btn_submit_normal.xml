@@ -6,10 +6,10 @@
             <size android:height="30dp" android:width="100dp"/>
             <corners android:radius="10dp"/>
             <gradient
-                android:startColor="@color/colorAccent"
-                android:centerColor="@color/colorAccent"
+                android:startColor="@color/colorPrimaryDark"
+                android:centerColor="@color/colorPrimaryDark"
                 android:type="linear"
-                android:endColor="@color/colorAccentDark"/>
+                android:endColor="@color/colorBlueDark"/>
         </shape>
     </item>
 

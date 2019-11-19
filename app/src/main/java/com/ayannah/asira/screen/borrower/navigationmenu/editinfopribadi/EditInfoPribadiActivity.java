@@ -62,7 +62,7 @@ public class EditInfoPribadiActivity extends DaggerAppCompatActivity implements
     EditText etName;
 
     @BindView(R.id.jenisKelamin)
-    TextView jenisKelamin;
+    EditText jenisKelamin;
 
     @BindView(R.id.etKTP)
     EditText etKTP;
@@ -178,7 +178,7 @@ public class EditInfoPribadiActivity extends DaggerAppCompatActivity implements
         assert actionBar != null;
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setTitle("Perbaharui Informasi Pribadi");
+        actionBar.setTitle("Pembaharuan Data");
 
         validator = new Validator(this);
         validator.setValidationListener(this);
@@ -220,17 +220,17 @@ public class EditInfoPribadiActivity extends DaggerAppCompatActivity implements
     @Override
     public void loadInfoPribadi(PreferenceRepository data) {
 
-        etName.setText(data.getUserName());
+        etName.setText(data.getUserName().toUpperCase());
 
         if (data.getUserGender().equals("M")) {
-            jenisKelamin.setText("Laki-laki");
+            jenisKelamin.setText("LAKI-LAKI");
         } else {
-            jenisKelamin.setText("Perempuan");
+            jenisKelamin.setText("PEREMPUAN");
         }
 
         etKTP.setText(data.getIdCard());
 
-        etMomsName.setText(data.getUserMotherName());
+        etMomsName.setText(data.getUserMotherName().toUpperCase());
 
         etLamaMenempatiRumah.setText(data.getLivedFor());
 
@@ -333,7 +333,7 @@ public class EditInfoPribadiActivity extends DaggerAppCompatActivity implements
     @OnClick(R.id.buttonConfirm)
     void onClickSubmitUpdate(){
 
-//        validator.validate();
+        validator.validate();
 
     }
 
@@ -418,7 +418,7 @@ public class EditInfoPribadiActivity extends DaggerAppCompatActivity implements
         List<String> names = new ArrayList<>();
         List<String> idKab = new ArrayList<>();
 
-        names.add("Pilih Kebupaten...");
+        names.add("Pilih Kabupaten...");
         idKab.add("0");
         for(Kabupaten.KabupatenItem data: districts){
             names.add(data.getNama());
