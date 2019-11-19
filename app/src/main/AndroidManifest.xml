@@ -26,13 +26,22 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:targetApi="n">
+        <activity android:name=".screen.borrower.navigationmenu.editinfopribadi.EditInfoPribadiActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".screen.register.termcondition.TermConditionActivity"
             android:label="@string/title_activity_term_condition"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".screen.agent.lpagent.LPAgentActivity" />
         <activity android:name=".screen.createnewpassword.CreateNewPassActivity">
             <tools:validation testUrl="https://ayannah.co.id/deepLinks/" />
+
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
 
@@ -40,23 +49,15 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
-                    android:scheme="https"
                     android:host="ayannah.co.id"
-                    android:pathPrefix="/deepLinks/" />
+                    android:pathPrefix="/deepLinks/"
+                    android:scheme="https" />
             </intent-filter>
-
         </activity>
         <activity android:name=".screen.borrower.notifpage.NotifPageActivity" />
         <activity android:name=".screen.resetpassword.ResetPasswordActivity" />
         <activity android:name=".screen.success.SuccessActivity" />
-        <activity android:name=".screen.borrower.login.LoginActivity">
-
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-            <!-- <action android:name="android.intent.action.VIEW" /> -->
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
-        </activity>
+        <activity android:name=".screen.borrower.login.LoginActivity"/>
         <activity
             android:name=".screen.historyloan.HistoryLoanActivity"
             android:label="@string/title_activity_history_loan" />
@@ -97,12 +98,12 @@
             android:name=".util.CameraTakeBeforeM"
             android:configChanges="orientation|screenSize" />
         <activity android:name=".screen.SplashScreen">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <action android:name="android.intent.action.VIEW" />
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+<!--                <action android:name="android.intent.action.VIEW" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
         </activity>
         <activity android:name=".screen.chooselogin.ChooseLoginActivity" />
         <activity android:name=".screen.agent.loginagent.LoginAgentActivity" />
