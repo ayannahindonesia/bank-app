@@ -87,4 +87,6 @@ public interface RemoteRepository {
     Single<AgentProfile> getAgentProfile();
 
     Single<Notif> getListNotification();
+
+    Single<Response> postBorrowerRegisterAgent(JsonObject jsonObject);
 }

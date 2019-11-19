@@ -423,4 +423,14 @@ public class RemoteDataSource implements RemoteRepository {
                 .getObjectSingle(Notif.class);
 
     }
+    @Override
+    public Single<Response> postBorrowerRegisterAgent(JsonObject jsonObject) {
+        return Rx2AndroidNetworking.post(BuildConfig.API_URL  + "agent/register_borrower")
+                .addHeaders("Authorization", preferenceRepository.getUserToken())
+                .addApplicationJsonBody(jsonObject)
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getObjectSingle(Response.class);
+    }
+
 }
