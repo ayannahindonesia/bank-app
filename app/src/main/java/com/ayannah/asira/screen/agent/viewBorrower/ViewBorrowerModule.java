@@ -1,7 +1,9 @@
 package com.ayannah.asira.screen.agent.viewBorrower;
 
+import com.ayannah.asira.di.ActivityScoped;
 import com.ayannah.asira.di.FragmentScoped;
 
+import dagger.Binds;
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 
@@ -12,5 +14,8 @@ public abstract class ViewBorrowerModule {
     @ContributesAndroidInjector
     abstract ViewBorrowerFragment reqFragment();
 
+    @ActivityScoped
+    @Binds
+    abstract ViewBorrowerContract.Presenter reqPresenter(ViewBorrowerPresenter presenter);
 
 }
