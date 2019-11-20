@@ -7,6 +7,9 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.Toolbar;
 
 import com.ayannah.asira.R;
+import com.ayannah.asira.util.ActivityUtils;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -14,6 +17,9 @@ import butterknife.Unbinder;
 import dagger.android.support.DaggerAppCompatActivity;
 
 public class ViewBorrowerActivity extends DaggerAppCompatActivity {
+
+    @Inject
+    ViewBorrowerFragment mFragment;
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -32,6 +38,13 @@ public class ViewBorrowerActivity extends DaggerAppCompatActivity {
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle("Nasabah");
+
+        ViewBorrowerFragment viewBorrowerFragment = (ViewBorrowerFragment)getSupportFragmentManager()
+                .findFragmentById(R.id.fragment_container);
+        if(viewBorrowerFragment == null){
+            viewBorrowerFragment = mFragment;
+            ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), viewBorrowerFragment, R.id.fragment_container);
+        }
 
     }
 

@@ -13,4 +13,11 @@ public interface CommonListListener {
 
         void onClickItem(String data);
     }
+
+    interface ViewBorrowerListener{
+
+        void onClickButton();
+
+        void onClick();
+    }
 }

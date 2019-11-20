@@ -3,6 +3,8 @@ package com.ayannah.asira.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,6 +15,7 @@ import com.ayannah.asira.custom.CommonListListener;
 import com.ayannah.asira.data.local.BankServiceLocal;
 import com.ayannah.asira.data.local.ServiceProductLocal;
 import com.ayannah.asira.data.model.Loans.DataItem;
+import com.ayannah.asira.data.model.NasabahAgent;
 import com.ayannah.asira.data.model.Notif;
 import com.ayannah.asira.util.CommonUtils;
 
@@ -30,6 +33,7 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     public static final int VIEW_LOAN_HISTORY = 0;
     public static final int VIEW_NOTIFPAGE = 1;
+    public static final int VIEW_BORROWER_ON_AGENT = 2;
 
     //for loan history purposes
     private final static String STATUS_PROCESSING = "processing";
@@ -40,15 +44,18 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     private List<Notif.Data> notifMessages;
     private List<DataItem> loans;
+    private List<NasabahAgent> nasabah;
 
     private CommonListListener.LoanAdapterListener loanListener;
     private CommonListListener.NotifAdapterListener notifListener;
+    private CommonListListener.ViewBorrowerListener viewBorrowerListener;
 
     public CommonListAdapter(int viewType){
         this.mViewType = viewType;
 
         notifMessages = new ArrayList<>();
         loans = new ArrayList<>();
+        nasabah = new ArrayList<>();
     }
 
     public void setDataNotificationMessages(List<Notif.Data> results){
@@ -69,6 +76,16 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         notifyDataSetChanged();
     }
 
+    public void setListNasabah(List<NasabahAgent> results){
+
+        nasabah.clear();;
+
+        nasabah.addAll(results);
+
+        notifyDataSetChanged();
+
+    }
+
     //loan listener
     public void setOnClickListenerLoanAdapter(CommonListListener.LoanAdapterListener listenerLoanAdapter){
         this.loanListener = listenerLoanAdapter;
@@ -77,6 +94,11 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     //noitf listener
     public void setOnClickListnerNotifAdapter(CommonListListener.NotifAdapterListener listnerNotifAdapter){
         this.notifListener = listnerNotifAdapter;
+    }
+
+    //view borrower listener
+    public void setOnClickListenerViewBorrower(CommonListListener.ViewBorrowerListener listenerViewBorrower){
+        this.viewBorrowerListener = listenerViewBorrower;
     }
 
     @NonNull
@@ -97,6 +119,11 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             case VIEW_LOAN_HISTORY:
 
                 holder = new LoanHistoryVH(inflater.inflate(R.layout.item_my_loan, parent, false));
+                break;
+
+            case VIEW_BORROWER_ON_AGENT:
+
+                holder = new ViewBorrowerVH(inflater.inflate(R.layout.item_nasabah, parent, false));
                 break;
 
             default:
@@ -124,6 +151,12 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 ((LoanHistoryVH) holder).bind(loans.get(position));
 
                 break;
+
+            case VIEW_BORROWER_ON_AGENT:
+
+                ((ViewBorrowerVH) holder).bind(nasabah.get(position));
+
+                break;
         }
 
     }
@@ -143,6 +176,11 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             case VIEW_LOAN_HISTORY:
 
                 selected = VIEW_LOAN_HISTORY;
+                break;
+
+            case VIEW_BORROWER_ON_AGENT:
+
+                selected = VIEW_BORROWER_ON_AGENT;
                 break;
         }
 
@@ -164,6 +202,11 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             case VIEW_LOAN_HISTORY:
 
                 totals = loans.size();
+                break;
+
+            case VIEW_BORROWER_ON_AGENT:
+
+                totals = nasabah.size();
                 break;
 
         }
@@ -299,6 +342,42 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 //
 //                notifListener.onClickItem(param);
 //            });
+
+        }
+
+    }
+
+    /*
+        For ViewBorrowerActivity.class
+     */
+    class ViewBorrowerVH extends RecyclerView.ViewHolder{
+
+        @BindView(R.id.photoUser) ImageView ivPhotoUser;
+
+        @BindView(R.id.id_user) TextView idUser;
+
+        @BindView(R.id.name_user) TextView nameUser;
+
+        @BindView(R.id.status_user) TextView status;
+
+        @BindView(R.id.btnAjukanPinjaman) Button btnAjukan;
+
+        ViewBorrowerVH(View itemView){
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+        }
+
+        private void bind(NasabahAgent param){
+
+            idUser.setText(String.valueOf(param.getId()));
+
+            nameUser.setText(param.getName());
+
+            status.setText(param.getStatus());
+
+            btnAjukan.setOnClickListener(v -> viewBorrowerListener.onClickButton());
+
+            itemView.setOnClickListener(v -> viewBorrowerListener.onClick());
 
         }
 
