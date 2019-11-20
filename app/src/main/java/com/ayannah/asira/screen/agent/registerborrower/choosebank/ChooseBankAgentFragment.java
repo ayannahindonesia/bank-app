@@ -16,8 +16,8 @@ import com.ayannah.asira.data.model.BankDetail;
 import com.ayannah.asira.data.model.BankList;
 import com.ayannah.asira.screen.agent.registerborrower.addaccountbank.AddAccountBankAgentActivity;
 import com.ayannah.asira.screen.agent.registerborrower.formother.FormOtherAgentFragment;
+import com.ayannah.asira.screen.agent.services.ListServicesAgentActivity;
 import com.ayannah.asira.screen.register.addaccountbank.AddAccountBankFragment;
-import com.ayannah.asira.screen.register.choosebank.ChooseBankContract;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,6 +60,7 @@ public class ChooseBankAgentFragment extends BaseFragment implements ChooseBankA
 
         mPresenter.getPublicToken();
 //        mPresenter.getAllBanks();
+
     }
 
     @Override
@@ -98,10 +99,18 @@ public class ChooseBankAgentFragment extends BaseFragment implements ChooseBankA
                 bundle.putString(FormOtherAgentFragment.BANK_NAME, bank.getName());
                 bundle.putInt(FormOtherAgentFragment.BANK_ID, bank.getId());
 
-                Intent adddbank = new Intent(parentActivity(), AddAccountBankAgentActivity.class);
-                adddbank.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                adddbank.putExtras(bundle);
-                startActivity(adddbank);
+                Intent addbank;
+                if (getActivity().getIntent().getStringExtra("isFrom").equals("regBorrower")) {
+                     addbank = new Intent(parentActivity(), AddAccountBankAgentActivity.class);
+                } else {
+//                    Seharusnya intent ke kerjaan kevin yg list borrower
+//                    addbank = new Intent(parentActivity(), AddAccountBankAgentActivity.class);
+                    addbank = new Intent(parentActivity(), ListServicesAgentActivity.class);
+
+                }
+                addbank.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                addbank.putExtras(bundle);
+                startActivity(addbank);
 
             }
         });

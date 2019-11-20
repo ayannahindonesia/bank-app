@@ -89,4 +89,6 @@ public interface RemoteRepository {
     Single<Notif> getListNotification();
 
     Single<Response> postBorrowerRegisterAgent(JsonObject jsonObject);
+
+    Single<BankList> getAllBanksAgent();
 }

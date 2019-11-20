@@ -112,6 +112,7 @@
         <activity android:name=".screen.agent.registerborrower.formborrower.FormBorrowerAgentActivity" />
         <activity android:name=".screen.agent.registerborrower.jobearning.FormJobEarningAgentActivity" />
         <activity android:name=".screen.agent.registerborrower.formother.FormOtherAgentActivity" />
+        <activity android:name=".screen.agent.services.ListServicesAgentActivity" />
 
         <service
             android:name=".util.MyFirebaseMessagingService"

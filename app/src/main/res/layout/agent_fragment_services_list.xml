@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <androidx.core.widget.NestedScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/graybackground"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:context=".screen.agent.services.ListServicesAgentActivity">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/titleService"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dp14"
+                android:text="Silihkan Pilih Layanan"
+                android:textSize="@dimen/fontLarge" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_servicesmenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/titleService"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp" />
+
+            <TextView
+                android:id="@+id/titleNews"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/recycler_servicesmenu"
+                android:padding="@dimen/dp14"
+                android:text="Berita dan Promo"
+                android:textSize="@dimen/fontLarge" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvBeritaPromo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/titleNews"
+                android:padding="11dp" />
+
+        </RelativeLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

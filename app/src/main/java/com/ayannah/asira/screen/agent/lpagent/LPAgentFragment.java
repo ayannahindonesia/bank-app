@@ -125,6 +125,7 @@ public class LPAgentFragment extends BaseFragment implements LPAgentContract.Vie
     @OnClick(R.id.nasabahBaru)
     void onClickNasabahBaru(){
         Intent intent = new Intent(parentActivity(), ChooseBankAgentActivity.class);
+        intent.putExtra("isFrom", "regBorrower");
         startActivity(intent);
     }
 

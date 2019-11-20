@@ -39,7 +39,7 @@ public class ChooseBankAgentPresenter implements ChooseBankAgentContract.Present
             return;
         }
 
-        composite.add(remoteRepository.getAllBanks()
+        composite.add(remoteRepository.getAllBanksAgent()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> {
