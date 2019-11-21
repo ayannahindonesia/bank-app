@@ -1,6 +1,9 @@
 package com.ayannah.asira.screen.agent.viewBorrower;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -11,7 +14,7 @@ import com.ayannah.asira.R;
 import com.ayannah.asira.adapter.CommonListAdapter;
 import com.ayannah.asira.base.BaseFragment;
 import com.ayannah.asira.custom.CommonListListener;
-import com.ayannah.asira.data.model.NasabahAgent;
+import com.ayannah.asira.data.model.UserProfile;
 import com.ayannah.asira.dialog.BottomSheetBorrowerAgent;
 
 import java.util.List;
@@ -31,6 +34,13 @@ public class ViewBorrowerFragment extends BaseFragment implements ViewBorrowerCo
     @Inject
     CommonListAdapter adapter;
 
+    @Inject
+    String bankId;
+
+    @BindView(R.id.lyResult) LinearLayout lyResult;
+    @BindView(R.id.lyError) LinearLayout lyError;
+    @BindView(R.id.errorCode) TextView errorCode;
+    @BindView(R.id.message) TextView errorMessage;
 
     @Inject
     public ViewBorrowerFragment(){
@@ -47,7 +57,7 @@ public class ViewBorrowerFragment extends BaseFragment implements ViewBorrowerCo
         super.onResume();
         mPresenter.takeView(this);
 
-        mPresenter.getDataBorrower();
+        mPresenter.getDataBorrower(bankId);
 
     }
 
@@ -62,27 +72,55 @@ public class ViewBorrowerFragment extends BaseFragment implements ViewBorrowerCo
     }
 
     @Override
-    public void showErrorMessage(String message) {
+    public void showErrorMessage(String code) {
 
+        lyResult.setVisibility(View.GONE);
+
+        lyError.setVisibility(View.VISIBLE);
+
+        if(code.equals("0")){
+
+            errorCode.setText("0");
+            errorMessage.setText(getResources().getString(R.string.no_connection));
+
+        }else {
+
+            errorCode.setText(code);
+            errorMessage.setText(getResources().getString(R.string.error_msg_http));
+
+        }
     }
 
     @Override
-    public void getAllData(List<NasabahAgent> results) {
-        adapter.setListNasabah(results);
+    public void getAllData(int totalData, List<UserProfile> results) {
 
-        adapter.setOnClickListenerViewBorrower(new CommonListListener.ViewBorrowerListener() {
-            @Override
-            public void onClickButton() {
-                Toast.makeText(parentActivity(), "Test click", Toast.LENGTH_SHORT).show();
-            }
+        //UI
+        lyResult.setVisibility(View.VISIBLE);
+        lyError.setVisibility(View.GONE);
 
-            @Override
-            public void onClick() {
-                BottomSheetBorrowerAgent dialog = new BottomSheetBorrowerAgent();
-                dialog.showNow(parentActivity().getSupportFragmentManager(), "test");
+        if(totalData > 0){
 
-            }
-        });
+            //result
+            adapter.setListNasabah(results);
+
+            adapter.setOnClickListenerViewBorrower(new CommonListListener.ViewBorrowerListener() {
+                @Override
+                public void onClickButton() {
+
+                    Toast.makeText(parentActivity(), "Test click", Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onClick() {
+
+                    BottomSheetBorrowerAgent dialog = new BottomSheetBorrowerAgent();
+                    dialog.showNow(parentActivity().getSupportFragmentManager(), "test");
+
+                }
+            });
+
+        }
+
     }
 
 }

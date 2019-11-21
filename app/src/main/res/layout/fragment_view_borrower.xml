@@ -1,21 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:padding="14dp"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:id="@+id/title"
-        android:textColor="@android:color/black"
-        android:text="Daftar nasabah Bank A"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-    <androidx.recyclerview.widget.RecyclerView
+    <LinearLayout
+        android:id="@+id/lyError"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:id="@+id/recyclerView"/>
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        android:padding="14dp">
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/errorCode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:drawableTop="@drawable/ic_report_black"
+            android:textStyle="bold"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="40sp"
+            android:text="404"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:textColor="@color/darkgreybackground"
+            android:textSize="@dimen/fontSmall"
+            android:text="error code"/>
+
+        <TextView
+            android:id="@+id/message"
+            android:layout_marginTop="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:textColor="@color/colorBlueDark"
+            android:textSize="@dimen/fontNormal"
+            tools:text="Please contact our support system"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lyResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="14dp">
+
+        <TextView
+            android:id="@+id/title"
+            android:textColor="@android:color/black"
+            android:text="Daftar nasabah Bank A"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:id="@+id/recyclerView"/>
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>

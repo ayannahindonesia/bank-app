@@ -12,9 +12,22 @@
         android:id="@+id/root"
         android:orientation="vertical">
 
+        <View
+            android:layout_width="40dp"
+            android:layout_height="1.5dp"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@color/darkgreybackground"/>
+        <View
+            android:layout_width="40dp"
+            android:layout_height="1.5dp"
+            android:layout_marginTop="5dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@color/darkgreybackground"/>
+
         <TextView
             android:text="Id Nasabah"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
             android:textSize="@dimen/fontSmall"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>

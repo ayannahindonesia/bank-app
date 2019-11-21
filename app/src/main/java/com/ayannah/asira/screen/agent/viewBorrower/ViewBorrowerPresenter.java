@@ -4,11 +4,16 @@ import androidx.annotation.Nullable;
 
 import com.ayannah.asira.data.model.NasabahAgent;
 import com.ayannah.asira.data.remote.RemoteRepository;
+import com.ayannah.asira.util.CommonUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class ViewBorrowerPresenter implements ViewBorrowerContract.Presenter {
 
@@ -16,9 +21,14 @@ public class ViewBorrowerPresenter implements ViewBorrowerContract.Presenter {
     private ViewBorrowerContract.View mView;
 
     private RemoteRepository remoteRepository;
+    private CompositeDisposable mComposite;
 
     @Inject
-    ViewBorrowerPresenter(){
+    ViewBorrowerPresenter(RemoteRepository remoteRepository){
+
+        this.remoteRepository = remoteRepository;
+
+        mComposite = new CompositeDisposable();
 
     }
 
@@ -33,50 +43,26 @@ public class ViewBorrowerPresenter implements ViewBorrowerContract.Presenter {
     }
 
     @Override
-    public void getDataBorrower() {
+    public void getDataBorrower(String bankId) {
+
         if(mView == null){
             return;
         }
 
-        List<NasabahAgent> results = new ArrayList<>();
+        mComposite.add(remoteRepository.getListBorrower(bankId)
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(res -> {
 
-        NasabahAgent data_1 = new NasabahAgent();
-        data_1.setId(1);
-        data_1.setName("John Doe");
-        data_1.setStatus("aktif");
-        data_1.setNomorRekening("-");
-        data_1.setPinjamanKe("-");
-        data_1.setAlamat("jalan menuju kemenangan");
-        data_1.setNomorHp("081212760018");
-        data_1.setNamaPasangan("Brigita");
-        data_1.setPekerjaan("Karyawan swasta");
-        results.add(data_1);
+            //success
+            mView.getAllData(res.getTotalData(), res.getData());
 
-        NasabahAgent data_2 = new NasabahAgent();
-        data_2.setId(2);
-        data_2.setName("John Roe");
-        data_2.setStatus("aktif");
-        data_2.setNomorRekening("-");
-        data_2.setPinjamanKe("-");
-        data_2.setAlamat("jalan menuju kemenangan");
-        data_2.setNomorHp("081212760018");
-        data_2.setNamaPasangan("Brigita");
-        data_2.setPekerjaan("Karyawan swasta");
-        results.add(data_2);
+        }, error ->{
 
-        NasabahAgent data_3 = new NasabahAgent();
-        data_3.setId(3);
-        data_3.setName("John Sins");
-        data_3.setStatus("aktif");
-        data_3.setNomorRekening("-");
-        data_3.setPinjamanKe("-");
-        data_3.setAlamat("jalan menuju kemenangan");
-        data_3.setNomorHp("081212760018");
-        data_3.setNamaPasangan("Brigita");
-        data_3.setPekerjaan("Karyawan swasta");
-        results.add(data_3);
+            //error
+            mView.showErrorMessage(CommonUtils.errorResponseGetCode(error));
 
-        mView.getAllData(results);
+        }));
 
     }
 }

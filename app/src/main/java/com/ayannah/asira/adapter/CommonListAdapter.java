@@ -17,6 +17,7 @@ import com.ayannah.asira.data.local.ServiceProductLocal;
 import com.ayannah.asira.data.model.Loans.DataItem;
 import com.ayannah.asira.data.model.NasabahAgent;
 import com.ayannah.asira.data.model.Notif;
+import com.ayannah.asira.data.model.UserProfile;
 import com.ayannah.asira.util.CommonUtils;
 
 import org.json.JSONArray;
@@ -44,7 +45,7 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     private List<Notif.Data> notifMessages;
     private List<DataItem> loans;
-    private List<NasabahAgent> nasabah;
+    private List<UserProfile> nasabah;
 
     private CommonListListener.LoanAdapterListener loanListener;
     private CommonListListener.NotifAdapterListener notifListener;
@@ -76,9 +77,9 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         notifyDataSetChanged();
     }
 
-    public void setListNasabah(List<NasabahAgent> results){
+    public void setListNasabah(List<UserProfile> results){
 
-        nasabah.clear();;
+        nasabah.clear();
 
         nasabah.addAll(results);
 
@@ -367,13 +368,13 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             ButterKnife.bind(this, itemView);
         }
 
-        private void bind(NasabahAgent param){
+        private void bind(UserProfile param){
 
             idUser.setText(String.valueOf(param.getId()));
 
-            nameUser.setText(param.getName());
+            nameUser.setText(param.getEmployerName());
 
-            status.setText(param.getStatus());
+            status.setText("Aktif");
 
             btnAjukan.setOnClickListener(v -> viewBorrowerListener.onClickButton());
 

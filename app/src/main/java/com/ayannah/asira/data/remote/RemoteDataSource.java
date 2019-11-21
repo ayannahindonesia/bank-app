@@ -22,6 +22,7 @@ import com.ayannah.asira.data.model.Kecamatan;
 import com.ayannah.asira.data.model.Kelurahan;
 import com.ayannah.asira.data.model.Loans.DataItem;
 import com.ayannah.asira.data.model.Loans.Loans;
+import com.ayannah.asira.data.model.NasabahAgent;
 import com.ayannah.asira.data.model.Notif;
 import com.ayannah.asira.data.model.Provinsi;
 import com.ayannah.asira.data.model.ReasonLoan;
@@ -423,6 +424,7 @@ public class RemoteDataSource implements RemoteRepository {
                 .getObjectSingle(Notif.class);
 
     }
+
     @Override
     public Single<Response> postBorrowerRegisterAgent(JsonObject jsonObject) {
         return Rx2AndroidNetworking.post(BuildConfig.API_URL  + "agent/register_borrower")
@@ -433,4 +435,14 @@ public class RemoteDataSource implements RemoteRepository {
                 .getObjectSingle(Response.class);
     }
 
+    @Override
+    public Single<NasabahAgent> getListBorrower(String idBank) {
+        return Rx2AndroidNetworking.get(BuildConfig.API_URL + "agent/borrowers/{bankId}")
+                .addHeaders("Authorization", preferenceRepository.getUserToken())
+                .addPathParameter("bankId", idBank)
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getObjectSingle(NasabahAgent.class);
+
+    }
 }

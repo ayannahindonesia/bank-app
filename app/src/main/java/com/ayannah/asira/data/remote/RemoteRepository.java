@@ -11,6 +11,7 @@ import com.ayannah.asira.data.model.Kecamatan;
 import com.ayannah.asira.data.model.Kelurahan;
 import com.ayannah.asira.data.model.Loans.DataItem;
 import com.ayannah.asira.data.model.Loans.Loans;
+import com.ayannah.asira.data.model.NasabahAgent;
 import com.ayannah.asira.data.model.Notif;
 import com.ayannah.asira.data.model.Provinsi;
 import com.ayannah.asira.data.model.ReasonLoan;
@@ -89,4 +90,6 @@ public interface RemoteRepository {
     Single<Notif> getListNotification();
 
     Single<Response> postBorrowerRegisterAgent(JsonObject jsonObject);
+
+    Single<NasabahAgent> getListBorrower(String idBank);
 }
