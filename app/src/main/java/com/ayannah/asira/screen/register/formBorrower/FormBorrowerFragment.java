@@ -233,9 +233,9 @@ public class FormBorrowerFragment extends BaseFragment implements FormBorrowerCo
         } else {
 
             etNamaPasangan.setEnabled(false);
+            etNamaPasangan.setText("");
 
             regist_dateBirthSpouse.setEnabled(false);
-
             regist_dateBirthSpouse.setText(R.string.birthdate_format);
 
             spPendidikan.setEnabled(false);
@@ -505,8 +505,11 @@ public class FormBorrowerFragment extends BaseFragment implements FormBorrowerCo
                 Date dateSpouse = displayFormat.parse(regist_dateBirthSpouse.getText().toString());
                 bundle.putString(FormOtherFragment.SPOUSE_BIRTHDATE, String.valueOf(serverFormat.format(dateSpouse)));
             }
-            bundle.putString(FormOtherFragment.SPOUSE_EDUCATION, spPendidikan.getSelectedItem().toString());
-
+            if (spPerkawinan.getSelectedItem().toString().toLowerCase().equals("menikah")) {
+                bundle.putString(FormOtherFragment.SPOUSE_EDUCATION, spPendidikan.getSelectedItem().toString());
+            } else {
+                bundle.putString(FormOtherFragment.SPOUSE_EDUCATION, null);
+            }
             if (spTanggungan.getSelectedItem().toString().toLowerCase().equals("lebih dari 5")) {
                 bundle.putString(FormOtherFragment.DEPENDANTS, "6");
             } else {
