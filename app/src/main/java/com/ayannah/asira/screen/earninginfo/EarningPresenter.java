@@ -57,9 +57,9 @@ public class EarningPresenter implements EarningContract.Presenter {
             return;
         }
 
-        mView.loadPenghasilan(preferenceRepository.getUserPrimaryIncome(),
-                preferenceRepository.getUserOtherIncome(),
-                preferenceRepository.getUserOtherSourceIncome());
+        mView.loadPenghasilan("1000000",
+                "0",
+                "-");
     }
 
     @Override

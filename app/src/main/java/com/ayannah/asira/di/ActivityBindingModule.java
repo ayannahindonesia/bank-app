@@ -18,6 +18,10 @@ import com.ayannah.asira.screen.agent.registerborrower.jobearning.FormJobEarning
 import com.ayannah.asira.screen.agent.registerborrower.jobearning.FormJobEarningAgentModule;
 import com.ayannah.asira.screen.agent.services.ListServicesAgentActivity;
 import com.ayannah.asira.screen.agent.services.ListServicesAgentModule;
+import com.ayannah.asira.screen.agent.viewBorrower.ViewBorrowerActivity;
+import com.ayannah.asira.screen.agent.viewBorrower.ViewBorrowerModule;
+import com.ayannah.asira.screen.borrower.navigationmenu.editinfopribadi.EditInfoPribadiActivity;
+import com.ayannah.asira.screen.borrower.navigationmenu.editinfopribadi.EditInfoPribadiModule;
 import com.ayannah.asira.screen.chooselogin.ChooseLoginActivity;
 import com.ayannah.asira.screen.chooselogin.ChooseLoginModule;
 import com.ayannah.asira.screen.createnewpassword.CreateNewPassActivity;
@@ -198,4 +202,12 @@ abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = ListServicesAgentModule.class)
     abstract ListServicesAgentActivity listServicesAgentActivity();
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = EditInfoPribadiModule.class)
+    abstract EditInfoPribadiActivity editInfoPribadiActivity();
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = ViewBorrowerModule.class)
+    abstract ViewBorrowerActivity viewBorrowerActivtiy();
 }

@@ -4,8 +4,11 @@
     <color name="colorPrimary">#FFFFFF</color>
     <!--<color name="colorPrimaryDark">#00574B</color>-->
     <color name="colorPrimaryDark">#2e86de</color>
+    <color name="colorBlueDark">#0C73DA</color>
 
-    <color name="colorAccent">#FFAA68</color>
+
+    <color name="colorAccent">#F7964A</color>
+    <color name="colorAccentDark">#CA712A</color>
     <color name="colorThumb">#3D3D3D</color>
     <color name="customBlack">#202020</color>
     <color name="customRed">#A81515</color>

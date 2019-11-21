@@ -98,6 +98,9 @@ public class ListServicesAgentFragment extends BaseFragment implements ListServi
         mAdapterMenu.setOnClickListener(menuProduct -> {
 
             Intent intent = new Intent(parentActivity(), EarningActivity.class);
+            intent.putExtra("id", 1);
+            intent.putExtra("name", "halo");
+            intent.putExtra(EarningActivity.ID_SERVICE, String.valueOf(menuProduct.getId()));
             startActivity(intent);
 
         });

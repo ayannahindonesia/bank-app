@@ -39,32 +39,24 @@
 
 
                 <LinearLayout
-                    android:padding="@dimen/dp16"
+                    android:padding="@dimen/dp12"
                     android:orientation="vertical"
                     android:background="@android:color/white"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:text="Data Pemohon"
-                        android:textSize="@dimen/fontSuperLarge"
-                        android:textStyle="bold"
-                        android:textColor="@android:color/black"
-                        android:layout_marginBottom="18dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-
-                    <TextView
                         android:text="Nama (Sesuai KTP)"
                         android:textSize="@dimen/fontNormal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
-                    <TextView
+                    <EditText
                         android:id="@+id/etName"
-                        android:textColor="@android:color/black"
+                        android:inputType="textPersonName"
                         android:background="@android:color/transparent"
+                        android:enabled="false"
                         android:textSize="@dimen/fontLarge"
-                        tools:text="John Doe"
+                        android:hint="Nama Lengkap Sesuai KTP"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
@@ -74,11 +66,13 @@
                         android:textSize="@dimen/fontNormal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
-                    <TextView
+                    <EditText
                         android:id="@+id/jenisKelamin"
-                        tools:text="Pria"
+                        android:inputType="textPersonName"
+                        android:background="@android:color/transparent"
+                        android:enabled="false"
+                        android:hint="Pria"
                         android:textSize="@dimen/fontLarge"
-                        android:textColor="@android:color/black"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
@@ -88,11 +82,13 @@
                         android:textSize="@dimen/fontNormal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
-                    <TextView
+                    <EditText
                         android:id="@+id/etKTP"
                         android:textSize="@dimen/fontLarge"
-                        android:textColor="@android:color/black"
-                        tools:text="123456790"
+                        android:background="@android:color/transparent"
+                        android:enabled="false"
+                        android:inputType="number"
+                        android:hint="Nomor KTP"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
@@ -102,11 +98,16 @@
                         android:textSize="@dimen/fontNormal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
-                    <TextView
+                    <EditText
                         android:id="@+id/etDateBirth"
                         android:textSize="@dimen/fontLarge"
-                        android:textColor="@android:color/black"
-                        tools:text="123456790"
+                        android:hint="@string/birthdate_format"
+                        android:drawablePadding="5dp"
+                        android:layout_marginTop="5dp"
+                        android:gravity="center_vertical"
+                        android:drawableStart="@drawable/ic_calendar"
+                        android:background="@android:color/transparent"
+                        android:enabled="false"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
@@ -116,39 +117,12 @@
                         android:textSize="@dimen/fontNormal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
-                    <TextView
+                    <EditText
                         android:id="@+id/etBirthPlace"
                         android:textSize="@dimen/fontLarge"
-                        android:textColor="@android:color/black"
-                        tools:text="Jakarta"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-
-                    <TextView
-                        android:text="Pendidikan Terakhir"
-                        android:layout_marginTop="10dp"
-                        android:textSize="@dimen/fontNormal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-                    <TextView
-                        android:id="@+id/etCollageLevel"
-                        android:textSize="@dimen/fontLarge"
-                        android:textColor="@android:color/black"
-                        tools:text="S1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-
-                    <TextView
-                        android:text="Jumlah Tanggungan"
-                        android:layout_marginTop="10dp"
-                        android:textSize="@dimen/fontNormal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-                    <TextView
-                        android:id="@+id/tvTanggungan"
-                        android:textSize="@dimen/fontLarge"
-                        android:textColor="@android:color/black"
-                        tools:text="0"
+                        android:background="@android:color/transparent"
+                        android:enabled="false"
+                        android:hint="Tempat Lahir Sesuai KTP"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
@@ -158,27 +132,61 @@
                         android:textSize="@dimen/fontNormal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
-                    <TextView
-                        android:id="@+id/tvMomsName"
+                    <EditText
+                        android:id="@+id/etMomsName"
+                        android:hint="Maria Dela Cruz"
+                        android:background="@android:color/transparent"
+                        android:enabled="false"
+                        android:inputType="textPersonName"
+                        android:paddingEnd="@dimen/dp12"
+                        android:imeOptions="actionNext"
                         android:textSize="@dimen/fontLarge"
-                        android:textColor="@android:color/black"
-                        tools:text="Lorenzo"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        tools:ignore="Autofill" />
 
                     <TextView
-                        android:text="Status Perkawinan"
-                        android:layout_marginTop="12dp"
+                        android:text="Pendidikan Terakhir"
+                        android:layout_marginTop="10dp"
                         android:textSize="@dimen/fontNormal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
-                    <TextView
-                        android:id="@+id/tvPerkawinan"
-                        android:textSize="@dimen/fontLarge"
-                        android:textColor="@android:color/black"
-                        tools:text="Belum menikah"
+                    <Spinner
+                        android:id="@+id/spCollageLevel"
+                        android:textSize="@dimen/fontNormal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                app:cardElevation="3dp"
+                app:cardCornerRadius="3dp"
+                android:layout_marginTop="@dimen/dp10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/container2"
+                    android:orientation="vertical"
+                    android:padding="@dimen/dp10"
+                    android:background="@android:color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:text="Status Perkawinan"
+                        android:textSize="@dimen/fontNormal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                    <Spinner
+                        android:id="@+id/spPerkawinan"
+                        android:inputType="textPersonName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        tools:ignore="Autofill" />
 
                     <LinearLayout
                         android:id="@+id/lySpouse"
@@ -242,6 +250,21 @@
 
                     </LinearLayout>
 
+                    <TextView
+                        android:text="Jumlah Tanggungan (Orang)"
+                        android:textSize="@dimen/fontNormal"
+                        android:layout_marginTop="15dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                    <Spinner
+                        android:id="@+id/spTanggungan"
+                        android:inputType="number"
+                        android:imeOptions="actionNext"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        tools:ignore="Autofill" />
+
+
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
@@ -249,40 +272,45 @@
             <androidx.cardview.widget.CardView
                 app:cardElevation="3dp"
                 app:cardCornerRadius="3dp"
-                android:layout_marginTop="@dimen/dp10"
+                android:layout_marginTop="@dimen/dp18"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <LinearLayout
                     android:id="@+id/container3"
                     android:orientation="vertical"
-                    android:padding="@dimen/dp16"
+                    android:padding="@dimen/dp10"
                     android:background="@android:color/white"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <TextView
-                        android:text="Data Tempat Tinggal Pemohon"
-                        android:textSize="@dimen/fontSuperLarge"
-                        android:textStyle="bold"
-                        android:textColor="@android:color/black"
+<!--                    <TextView-->
+<!--                        android:text="Data Alamat Pemohon"-->
+<!--                        android:textSize="@dimen/fontSuperLarge"-->
+<!--                        android:textStyle="bold"-->
+<!--                        android:textColor="@android:color/black"-->
+<!--                        android:layout_marginBottom="10dp"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content" />-->
 
-                        android:layout_marginBottom="18dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
 
                     <TextView
                         android:text="Alamat Domisili"
                         android:textSize="@dimen/fontNormal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
-                    <TextView
-                        android:id="@+id/tvAlamat"
+                    <EditText
+                        android:id="@+id/etAddressBorrower"
+                        android:inputType="textMultiLine"
+                        android:lines="2"
+                        android:hint="Tulis disini..."
+                        android:gravity="top"
+                        android:paddingEnd="@dimen/dp12"
+                        android:imeOptions="actionNext"
                         android:textSize="@dimen/fontLarge"
-                        android:textColor="@android:color/black"
-                        tools:text="Jalan hararapan jaya raya no.51"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        tools:ignore="Autofill" />
 
                     <TextView
                         android:text="Provinsi"
@@ -290,13 +318,13 @@
                         android:textSize="@dimen/fontNormal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
-                    <TextView
-                        android:id="@+id/tvProvinsi"
-                        android:textSize="@dimen/fontLarge"
-                        android:textColor="@android:color/black"
-                        tools:text="Provinsi"
+                    <Spinner
+                        android:id="@+id/spProvinsi"
+                        android:imeOptions="actionNext"
+                        android:textSize="@dimen/fontNormal"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        tools:ignore="Autofill" />
 
                     <TextView
                         android:text="Kota"
@@ -304,13 +332,12 @@
                         android:textSize="@dimen/fontNormal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
-                    <TextView
-                        android:id="@+id/tvKota"
-                        android:textSize="@dimen/fontLarge"
-                        android:textColor="@android:color/black"
-                        tools:text="Kota"
+                    <Spinner
+                        android:id="@+id/spKota"
+                        android:textSize="@dimen/fontNormal"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        tools:ignore="Autofill" />
 
                     <TextView
                         android:text="Kecamatan"
@@ -318,13 +345,12 @@
                         android:textSize="@dimen/fontNormal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
-                    <TextView
-                        android:id="@+id/tvKecamatan"
-                        android:textSize="@dimen/fontLarge"
-                        android:textColor="@android:color/black"
-                        tools:text="Kecamatan"
+                    <Spinner
+                        android:id="@+id/spKecamatan"
+                        android:textSize="@dimen/fontNormal"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        tools:ignore="Autofill" />
 
                     <TextView
                         android:text="Kelurahan"
@@ -332,47 +358,64 @@
                         android:textSize="@dimen/fontNormal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
-                    <TextView
-                        android:id="@+id/tvKelurahan"
-                        android:textSize="@dimen/fontLarge"
-                        android:textColor="@android:color/black"
-                        tools:text="Kelurahan"
+                    <Spinner
+                        android:id="@+id/spKelurahan"
+                        android:imeOptions="actionNext"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        tools:ignore="Autofill" />
 
-                    <TextView
-                        android:text="RT"
-                        android:layout_marginTop="15dp"
-                        android:layout_weight="1"
-                        android:textSize="@dimen/fontNormal"
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:weightSum="2"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content">
 
-                    <TextView
-                        android:id="@+id/tvRt"
-                        android:textSize="@dimen/fontLarge"
-                        android:textColor="@android:color/black"
-                        tools:text="001"
-                        android:layout_weight="1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        <TextView
+                            android:text="RT"
+                            android:layout_weight="1"
+                            android:textSize="@dimen/fontNormal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
 
-                    <TextView
-                        android:text="RW"
-                        android:layout_marginTop="15dp"
-                        android:layout_weight="1"
-                        android:textSize="@dimen/fontNormal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        <TextView
+                            android:text="RW"
+                            android:layout_weight="1"
+                            android:textSize="@dimen/fontNormal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
 
-                    <TextView
-                        android:id="@+id/tvRw"
-                        android:textSize="@dimen/fontLarge"
-                        android:textColor="@android:color/black"
-                        tools:text="001"
-                        android:layout_weight="1"
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:weightSum="2"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content">
+
+                        <EditText
+                            android:id="@+id/rt"
+                            android:hint="001"
+                            android:inputType="number"
+                            android:layout_weight="1"
+                            android:textSize="@dimen/fontLarge"
+                            android:imeOptions="actionNext"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                        <EditText
+                            android:id="@+id/rw"
+                            android:hint="001"
+                            android:inputType="number"
+                            android:layout_weight="1"
+                            android:textSize="@dimen/fontLarge"
+                            android:imeOptions="actionNext"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
 
                     <TextView
                         android:text="Telp Rumah"
@@ -380,27 +423,46 @@
                         android:textSize="@dimen/fontNormal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
-                    <TextView
-                        android:id="@+id/tvHomeNumber"
+                    <EditText
+                        android:id="@+id/etHomeNumber"
+                        android:inputType="phone"
+                        android:imeOptions="actionNext"
+                        android:hint="02112345678"
                         android:textSize="@dimen/fontLarge"
-                        android:textColor="@android:color/black"
-                        tools:text="021 8899822"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        tools:ignore="Autofill" />
 
                     <TextView
                         android:text="Lama Menempati Rumah"
-                        android:textSize="@dimen/fontNormal"
                         android:layout_marginTop="15dp"
+                        android:textSize="@dimen/fontNormal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
-                    <TextView
-                        android:id="@+id/tvLamaMenempati"
-                        android:textSize="@dimen/fontLarge"
-                        android:textColor="@android:color/black"
-                        tools:text="1 Tahun"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content">
+
+                        <EditText
+                            android:id="@+id/etLamaMenempatiRumah"
+                            android:inputType="number"
+                            android:hint="0"
+                            android:imeOptions="actionNext"
+                            android:textSize="@dimen/fontLarge"
+                            android:layout_width="60dp"
+                            android:layout_height="wrap_content"
+                            tools:ignore="Autofill" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            android:layout_gravity="center_vertical"
+                            android:text="Tahun"
+                            android:textColor="@android:color/black"
+                            android:textSize="@dimen/fontLarge" />
+
+                    </LinearLayout>
 
                     <TextView
                         android:text="Status Tempat Tinggal"
@@ -408,31 +470,29 @@
                         android:textSize="@dimen/fontNormal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
-                    <TextView
-                        android:id="@+id/tvHomeStatus"
-                        android:textSize="@dimen/fontLarge"
-                        android:textColor="@android:color/black"
-                        tools:text="pribadi"
+                    <Spinner
+                        android:id="@+id/spStatusHome"
+                        android:imeOptions="actionNext"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        tools:ignore="Autofill" />
 
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
 
+            <Button
+                android:id="@+id/buttonConfirm"
+                android:background="@drawable/btn_submit"
+                android:textColor="@android:color/white"
+                android:layout_marginTop="15dp"
+                android:textStyle="bold"
+                android:text="Perbaharui"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
 
     </ScrollView>
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/buttonConfirm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_mode_edit_white"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_margin="20dp"/>
-
 
 </RelativeLayout>

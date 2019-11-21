@@ -17,6 +17,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.ayannah.asira.R;
 import com.ayannah.asira.base.BaseFragment;
 import com.ayannah.asira.screen.agent.registerborrower.choosebank.ChooseBankAgentActivity;
+import com.ayannah.asira.screen.agent.viewBorrower.ViewBorrowerActivity;
 import com.ayannah.asira.screen.borrower.login.LoginActivity;
 import com.ayannah.asira.screen.chooselogin.ChooseLoginActivity;
 import com.google.android.material.navigation.NavigationView;
@@ -131,8 +132,9 @@ public class LPAgentFragment extends BaseFragment implements LPAgentContract.Vie
 
     @OnClick(R.id.nasabahTerdaftar)
     void onClickNasabahTerdaftar(){
-        Toast.makeText(parentActivity(), "Something fun under develop", Toast.LENGTH_LONG).show();
-
+        Intent intent = new Intent(parentActivity(), ViewBorrowerActivity.class);
+        intent.putExtra("isFrom", "listBorrower");
+        startActivity(intent);
     }
 
     @Override

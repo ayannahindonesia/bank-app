@@ -1,4 +1,4 @@
-package com.ayannah.asira.screen.loan;
+package com.ayannah.asira.screen.agent.viewBorrower;
 
 import android.os.Bundle;
 
@@ -16,12 +16,10 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import dagger.android.support.DaggerAppCompatActivity;
 
-public class LoanActivity extends DaggerAppCompatActivity {
-
-    public static final String IDSERVICE = "IDSERVICE";
+public class ViewBorrowerActivity extends DaggerAppCompatActivity {
 
     @Inject
-    LoanFragment mFragment;
+    ViewBorrowerFragment mFragment;
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -29,9 +27,9 @@ public class LoanActivity extends DaggerAppCompatActivity {
     private Unbinder mUnbinder;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_loan);
+        setContentView(R.layout.common_activity);
         mUnbinder = ButterKnife.bind(this);
         setSupportActionBar(toolbar);
 
@@ -39,13 +37,13 @@ public class LoanActivity extends DaggerAppCompatActivity {
         assert actionBar != null;
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setTitle("Loan");
+        actionBar.setTitle("Nasabah");
 
-        LoanFragment loanFragment = (LoanFragment)getSupportFragmentManager()
+        ViewBorrowerFragment viewBorrowerFragment = (ViewBorrowerFragment)getSupportFragmentManager()
                 .findFragmentById(R.id.fragment_container);
-        if(loanFragment == null){
-            loanFragment = mFragment;
-            ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), loanFragment, R.id.fragment_container);
+        if(viewBorrowerFragment == null){
+            viewBorrowerFragment = mFragment;
+            ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), viewBorrowerFragment, R.id.fragment_container);
         }
 
     }
@@ -58,7 +56,7 @@ public class LoanActivity extends DaggerAppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
         mUnbinder.unbind();
+        super.onDestroy();
     }
 }
