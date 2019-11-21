@@ -163,6 +163,11 @@ public class EditInfoPribadiActivity extends DaggerAppCompatActivity implements
         super.onResume();
         mPresenter.takeView(this);
 
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(false);
+        builder.setView(R.layout.progress_bar);
+        dialogAlert = builder.create();
+
         mPresenter.getInfoPribadiUser();
 
     }
