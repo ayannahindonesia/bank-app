@@ -1,104 +1,57 @@
 package com.ayannah.asira.data.model;
 
+import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
+
 public class NasabahAgent {
 
-    private int id;
-    private String profilePict;
-    private String name;
-    private String status;
-    private String nomorRekening;
-    private String pinjamanKe;
-    private String alamat;
-    private String nomorHp;
-    private String statusNikah;
-    private String namaPasangan;
-    private String pekerjaan;
+    @SerializedName("total_data")
+    private int totalData;
 
-    public int getId() {
-        return id;
+    @SerializedName("rows")
+    private int rows;
+
+    @SerializedName("current_page")
+    private int current_page;
+
+    @SerializedName("last_page")
+    private int last_page;
+
+    @SerializedName("from")
+    private int from;
+
+    @SerializedName("to")
+    private int to;
+
+    @SerializedName("data")
+    private List<UserProfile> data;
+
+    public int getTotalData() {
+        return totalData;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public int getRows() {
+        return rows;
     }
 
-    public String getProfilePict() {
-        return profilePict;
+    public int getCurrent_page() {
+        return current_page;
     }
 
-    public void setProfilePict(String profilePict) {
-        this.profilePict = profilePict;
+    public int getLast_page() {
+        return last_page;
     }
 
-    public String getName() {
-        return name;
+    public int getFrom() {
+        return from;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public int getTo() {
+        return to;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getNomorRekening() {
-        return nomorRekening;
-    }
-
-    public void setNomorRekening(String nomorRekening) {
-        this.nomorRekening = nomorRekening;
-    }
-
-    public String getPinjamanKe() {
-        return pinjamanKe;
-    }
-
-    public void setPinjamanKe(String pinjamanKe) {
-        this.pinjamanKe = pinjamanKe;
-    }
-
-    public String getAlamat() {
-        return alamat;
-    }
-
-    public void setAlamat(String alamat) {
-        this.alamat = alamat;
-    }
-
-    public String getNomorHp() {
-        return nomorHp;
-    }
-
-    public void setNomorHp(String nomorHp) {
-        this.nomorHp = nomorHp;
-    }
-
-    public String getStatusNikah() {
-        return statusNikah;
-    }
-
-    public void setStatusNikah(String statusNikah) {
-        this.statusNikah = statusNikah;
-    }
-
-    public String getNamaPasangan() {
-        return namaPasangan;
-    }
-
-    public void setNamaPasangan(String namaPasangan) {
-        this.namaPasangan = namaPasangan;
-    }
-
-    public String getPekerjaan() {
-        return pekerjaan;
-    }
-
-    public void setPekerjaan(String pekerjaan) {
-        this.pekerjaan = pekerjaan;
+    public List<UserProfile> getData() {
+        return data;
     }
 }

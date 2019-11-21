@@ -18,6 +18,8 @@ import dagger.android.support.DaggerAppCompatActivity;
 
 public class ViewBorrowerActivity extends DaggerAppCompatActivity {
 
+    public static final String BANK_ID = "BANK_ID";
+
     @Inject
     ViewBorrowerFragment mFragment;
 

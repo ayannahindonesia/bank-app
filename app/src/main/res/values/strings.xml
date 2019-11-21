@@ -87,4 +87,7 @@
     <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
     <string name="title_activity_term_condition">TermConditionActivity</string>
 
+    <string name="no_connection">Jaringan internet tidak tersedia</string>
+    <string name="error_msg_http">Terjadi kesalahan. Mohon coba beberapa saat lagi</string>
+
 </resources>

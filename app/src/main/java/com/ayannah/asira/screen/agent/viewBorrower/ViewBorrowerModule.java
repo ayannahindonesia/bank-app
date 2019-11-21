@@ -9,6 +9,8 @@ import dagger.Module;
 import dagger.Provides;
 import dagger.android.ContributesAndroidInjector;
 
+import static com.ayannah.asira.screen.agent.viewBorrower.ViewBorrowerActivity.BANK_ID;
+
 @Module
 public abstract class ViewBorrowerModule {
 
@@ -24,6 +26,12 @@ public abstract class ViewBorrowerModule {
     @ActivityScoped
     static CommonListAdapter adapter(){
         return new CommonListAdapter(CommonListAdapter.VIEW_BORROWER_ON_AGENT);
+    }
+
+    @Provides
+    @ActivityScoped
+    static String bank_id(ViewBorrowerActivity activity){
+        return activity.getIntent().getStringExtra(BANK_ID);
     }
 
 }
