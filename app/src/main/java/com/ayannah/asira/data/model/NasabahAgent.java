@@ -25,7 +25,7 @@ public class NasabahAgent {
     private int to;
 
     @SerializedName("data")
-    private List<UserProfile> data;
+    private List<UserBorrower> data;
 
     public int getTotalData() {
         return totalData;
@@ -51,7 +51,7 @@ public class NasabahAgent {
         return to;
     }
 
-    public List<UserProfile> getData() {
+    public List<UserBorrower> getData() {
         return data;
     }
 }

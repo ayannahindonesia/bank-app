@@ -2,8 +2,7 @@ package com.ayannah.asira.screen.agent.viewBorrower;
 
 import com.ayannah.asira.base.BasePresenter;
 import com.ayannah.asira.base.BaseView;
-import com.ayannah.asira.data.model.NasabahAgent;
-import com.ayannah.asira.data.model.UserProfile;
+import com.ayannah.asira.data.model.UserBorrower;
 
 import java.util.List;
 
@@ -13,7 +12,7 @@ public interface ViewBorrowerContract {
 
         void showErrorMessage(String code);
 
-        void getAllData(int totalData, List<UserProfile> results);
+        void getAllData(int totalData, List<UserBorrower> results);
 
     }
 

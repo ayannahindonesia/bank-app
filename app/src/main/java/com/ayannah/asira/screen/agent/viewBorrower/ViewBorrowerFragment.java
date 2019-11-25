@@ -15,7 +15,7 @@ import com.ayannah.asira.R;
 import com.ayannah.asira.adapter.CommonListAdapter;
 import com.ayannah.asira.base.BaseFragment;
 import com.ayannah.asira.custom.CommonListListener;
-import com.ayannah.asira.data.model.UserProfile;
+import com.ayannah.asira.data.model.UserBorrower;
 import com.ayannah.asira.dialog.BottomSheetBorrowerAgent;
 
 import java.util.List;
@@ -101,7 +101,7 @@ public class ViewBorrowerFragment extends BaseFragment implements ViewBorrowerCo
     }
 
     @Override
-    public void getAllData(int totalData, List<UserProfile> results) {
+    public void getAllData(int totalData, List<UserBorrower> results) {
 
         //UI
         pbLoading.setVisibility(View.GONE);
@@ -122,7 +122,7 @@ public class ViewBorrowerFragment extends BaseFragment implements ViewBorrowerCo
                 }
 
                 @Override
-                public void onClick() {
+                public void onClick(UserBorrower user) {
 
                     BottomSheetBorrowerAgent dialog = new BottomSheetBorrowerAgent();
                     dialog.showNow(parentActivity().getSupportFragmentManager(), "test");
