@@ -12,17 +12,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ayannah.asira.R;
 import com.ayannah.asira.custom.CommonListListener;
-import com.ayannah.asira.data.local.BankServiceLocal;
-import com.ayannah.asira.data.local.ServiceProductLocal;
 import com.ayannah.asira.data.model.Loans.DataItem;
-import com.ayannah.asira.data.model.NasabahAgent;
 import com.ayannah.asira.data.model.Notif;
-import com.ayannah.asira.data.model.UserProfile;
+import com.ayannah.asira.data.model.UserBorrower;
 import com.ayannah.asira.util.CommonUtils;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +38,7 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     private List<Notif.Data> notifMessages;
     private List<DataItem> loans;
-    private List<UserProfile> nasabah;
+    private List<UserBorrower> nasabah;
 
     private CommonListListener.LoanAdapterListener loanListener;
     private CommonListListener.NotifAdapterListener notifListener;
@@ -77,7 +70,7 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         notifyDataSetChanged();
     }
 
-    public void setListNasabah(List<UserProfile> results){
+    public void setListNasabah(List<UserBorrower> results){
 
         nasabah.clear();
 
@@ -368,17 +361,17 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             ButterKnife.bind(this, itemView);
         }
 
-        private void bind(UserProfile param){
+        private void bind(UserBorrower param){
 
             idUser.setText(String.valueOf(param.getId()));
 
             nameUser.setText(param.getEmployerName());
 
-            status.setText("Aktif");
+            status.setText(param.getStatus());
 
             btnAjukan.setOnClickListener(v -> viewBorrowerListener.onClickButton());
 
-            itemView.setOnClickListener(v -> viewBorrowerListener.onClick());
+            itemView.setOnClickListener(v -> viewBorrowerListener.onClick(param));
 
         }
 

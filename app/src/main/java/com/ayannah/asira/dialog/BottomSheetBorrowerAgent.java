@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import com.ayannah.asira.R;
+import com.ayannah.asira.data.model.UserBorrower;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
@@ -30,8 +31,13 @@ public class BottomSheetBorrowerAgent extends BottomSheetDialogFragment {
     @BindView(R.id.pekerjaan) TextView pekerjaan;
     @BindView(R.id.root) LinearLayout linearLayout;
 
+    private UserBorrower user;
 
     private BottomSheetBehavior mBehavior;
+
+    public void setUserIdentity(UserBorrower user){
+        this.user = user;
+    }
 
     @NonNull
     @Override
@@ -48,7 +54,31 @@ public class BottomSheetBorrowerAgent extends BottomSheetDialogFragment {
 
         dialog.setContentView(view);
         mBehavior = BottomSheetBehavior.from((View) view.getParent());
+
+        fillBorrowerIdentity();
+
         return dialog;
+    }
+
+    private void fillBorrowerIdentity() {
+
+        idNasabah.setText(String.valueOf(user.getId()));
+
+        nameNasabah.setText(user.getEmployerName());
+
+        statusNasabah.setText(user.getStatus());
+
+        noRekening.setText(user.getBankAccountnumber().isEmpty() ? "-" : user.getBankAccountnumber());
+
+        pinjaman.setText(user.getNthLoans() == 0 ? "-" : String.valueOf(user.getNthLoans()));
+
+        nomorHp.setText(user.getPhone());
+
+        statusPernikahan.setText(user.getMarriageStatus());
+
+        namaPasangan.setText(user.getSpouseName());
+
+        pekerjaan.setText(user.getEmployerName());
     }
 
     @Override

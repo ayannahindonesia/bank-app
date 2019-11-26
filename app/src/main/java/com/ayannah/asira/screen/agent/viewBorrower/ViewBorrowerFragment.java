@@ -3,6 +3,7 @@ package com.ayannah.asira.screen.agent.viewBorrower;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,7 +15,7 @@ import com.ayannah.asira.R;
 import com.ayannah.asira.adapter.CommonListAdapter;
 import com.ayannah.asira.base.BaseFragment;
 import com.ayannah.asira.custom.CommonListListener;
-import com.ayannah.asira.data.model.UserProfile;
+import com.ayannah.asira.data.model.UserBorrower;
 import com.ayannah.asira.dialog.BottomSheetBorrowerAgent;
 
 import java.util.List;
@@ -28,8 +29,14 @@ public class ViewBorrowerFragment extends BaseFragment implements ViewBorrowerCo
     @Inject
     ViewBorrowerContract.Presenter mPresenter;
 
+    @BindView(R.id.pbLoading)
+    ProgressBar pbLoading;
+
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
+
+    @BindView(R.id.tvEmptyNasabah)
+    TextView tvEmptyNasabah;
 
     @Inject
     CommonListAdapter adapter;
@@ -74,6 +81,8 @@ public class ViewBorrowerFragment extends BaseFragment implements ViewBorrowerCo
     @Override
     public void showErrorMessage(String code) {
 
+        pbLoading.setVisibility(View.GONE);
+
         lyResult.setVisibility(View.GONE);
 
         lyError.setVisibility(View.VISIBLE);
@@ -92,13 +101,15 @@ public class ViewBorrowerFragment extends BaseFragment implements ViewBorrowerCo
     }
 
     @Override
-    public void getAllData(int totalData, List<UserProfile> results) {
+    public void getAllData(int totalData, List<UserBorrower> results) {
 
         //UI
-        lyResult.setVisibility(View.VISIBLE);
-        lyError.setVisibility(View.GONE);
+        pbLoading.setVisibility(View.GONE);
 
         if(totalData > 0){
+
+            lyResult.setVisibility(View.VISIBLE);
+            lyError.setVisibility(View.GONE);
 
             //result
             adapter.setListNasabah(results);
@@ -111,13 +122,21 @@ public class ViewBorrowerFragment extends BaseFragment implements ViewBorrowerCo
                 }
 
                 @Override
-                public void onClick() {
+                public void onClick(UserBorrower user) {
 
                     BottomSheetBorrowerAgent dialog = new BottomSheetBorrowerAgent();
                     dialog.showNow(parentActivity().getSupportFragmentManager(), "test");
 
                 }
             });
+
+        }else {
+
+            lyError.setVisibility(View.GONE);
+
+            lyResult.setVisibility(View.GONE);
+
+            tvEmptyNasabah.setVisibility(View.VISIBLE);
 
         }
 
