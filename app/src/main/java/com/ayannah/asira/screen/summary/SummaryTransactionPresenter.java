@@ -48,6 +48,29 @@ public class SummaryTransactionPresenter implements SummaryTransactionContract.P
             return;
         }
 
+        mComposite.add(remoteRepository.getUserLogin()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(res -> {
+
+                    if(res.getBankAccountnumber().isEmpty() || res.getBankAccountnumber() == null){
+
+                        mView.cannotMakingLoan();
+
+                    }else {
+
+                        preferenceRepository.setBankAccountBorrower(res.getBankAccountnumber());
+
+                        createLoan(json);
+                    }
+
+                }, error -> mView.showErrorMessages(CommonUtils.commonErrorFormat(error))));
+
+
+    }
+
+    private void createLoan(JsonObject json) {
+
         AndroidNetworking.post(BuildConfig.API_URL + "borrower/loan")
                 .addHeaders("Authorization", preferenceRepository.getUserToken())
                 .addApplicationJsonBody(json)
@@ -59,11 +82,11 @@ public class SummaryTransactionPresenter implements SummaryTransactionContract.P
 
                         try {
 
-                            //check account number borrower is ada apa engga
+                            if(mView != null){
 
-                            checkBorrowerAccountNumber(String.valueOf(response.getInt("id")));
+                                mView.successLoanApplication(String.valueOf(response.getInt("id")));
 
-//                            mView.successLoanApplication(String.valueOf(response.getInt("id")));
+                            }
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -86,31 +109,6 @@ public class SummaryTransactionPresenter implements SummaryTransactionContract.P
                 });
 
 
-    }
-
-    private void checkBorrowerAccountNumber(String id) {
-
-        if(mView == null){
-            return;
-        }
-
-        mComposite.add(remoteRepository.getUserLogin()
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(res -> {
-
-            if(res.getBankAccountnumber().isEmpty() || res.getBankAccountnumber() == null){
-
-                mView.cannotMakingLoan();
-
-            }else {
-
-                preferenceRepository.setBankAccountBorrower(res.getBankAccountnumber());
-
-                mView.successLoanApplication(id);
-            }
-
-        }, error -> mView.showErrorMessages(CommonUtils.commonErrorFormat(error))));
     }
 
     @Override
@@ -139,9 +137,9 @@ public class SummaryTransactionPresenter implements SummaryTransactionContract.P
 
             mView.successGetOtp("888999", idLoan);
         })
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe());
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe());
 
     }
 }
