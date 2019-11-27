@@ -263,4 +263,8 @@ public interface PreferenceRepository {
     void setAgentProvider(String providerAgent);
 
     String getAgentProvider();
+
+    void setBankAccountBorrower(String accountNumber);
+
+    String getBankAccountBorrower();
 }

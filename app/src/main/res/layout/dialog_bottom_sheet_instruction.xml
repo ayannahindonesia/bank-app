@@ -32,7 +32,7 @@
 
     <ImageView
         android:id="@+id/imageInstruction"
-        android:scaleType="center"
+        android:scaleType="fitCenter"
         android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="150dp" />
@@ -72,6 +72,7 @@
         android:background="@color/colorAccent"
         android:layout_marginTop="20dp"
         android:text="Ok"
+        android:textColor="@android:color/white"
         android:textSize="@dimen/fontNormal"
         android:layout_width="match_parent"
         android:layout_height="35dp" />
