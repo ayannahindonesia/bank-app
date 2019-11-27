@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.ayannah.asira.R;
 import com.ayannah.asira.base.BaseFragment;
+import com.ayannah.asira.dialog.BottomSheetDialogGlobal;
 import com.ayannah.asira.screen.borrower.otpphone.VerificationOTPActivity;
 import com.ayannah.asira.util.CommonUtils;
 import com.google.gson.JsonObject;
@@ -195,6 +196,34 @@ public class SummaryTransactionFragment extends BaseFragment implements SummaryT
         intent.putExtra("id_loan", id_loan);
         startActivity(intent);
         parentActivity().finish();
+    }
+
+    @Override
+    public void cannotMakingLoan() {
+
+        BottomSheetDialogGlobal dialog = new BottomSheetDialogGlobal().show(parentActivity().getSupportFragmentManager(), BottomSheetDialogGlobal.NO_ACCOUNT_NUMBER,
+                "Gagal mengajukan pinjaman",
+                "Kamu belum bisa mengajukan pinjaman karena belum memiliki nomor rekening pada bank ini.",
+                R.drawable.no_account_number);
+
+        dialog.setOnClickBottomSheetInstruction(new BottomSheetDialogGlobal.BottomSheetInstructionListener() {
+            @Override
+            public void onClickButtonDismiss() {
+
+            }
+
+            @Override
+            public void onClickButtonYes() {
+
+            }
+
+            @Override
+            public void closeApps() {
+
+                dialog.dismiss();
+
+            }
+        });
     }
 
 

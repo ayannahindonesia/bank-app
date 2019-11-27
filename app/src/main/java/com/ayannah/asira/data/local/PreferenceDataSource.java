@@ -74,6 +74,8 @@ public class PreferenceDataSource implements PreferenceRepository {
     private static final String PREF_USER_TAX_ID_IMAGE = "TAX_ID_IMAGE";
     private static final String PREF_USER_BANK_ID = "BANK_ID";
 
+    private static final String PREF_BANK_ACCOUNT_BORROWER = "PREF_BANK_ACCOUNT_BORROWER";
+
     //user income
     private static final String PREF_USER_PRIMARY_INCOME = "USER_PRIMARY_INCOME";
     private static final String PREF_USER_OTHER_INCOME = "USER_OTHER_INCOME";
@@ -808,6 +810,16 @@ public class PreferenceDataSource implements PreferenceRepository {
     @Override
     public String getAgentProvider() {
         return mPreferences.getString(PREF_AGENT_PROVIDER, "");
+    }
+
+    @Override
+    public void setBankAccountBorrower(String accountNumber) {
+        mPreferences.edit().putString(PREF_BANK_ACCOUNT_BORROWER, accountNumber).apply();
+    }
+
+    @Override
+    public String getBankAccountBorrower() {
+        return mPreferences.getString(PREF_BANK_ACCOUNT_BORROWER, "");
     }
 
 }

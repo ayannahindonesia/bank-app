@@ -5,16 +5,14 @@ import android.util.Log;
 import androidx.annotation.Nullable;
 
 import com.androidnetworking.AndroidNetworking;
-import com.androidnetworking.common.ANConstants;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.ayannah.asira.BuildConfig;
-import com.ayannah.asira.data.local.PreferenceDataSource;
 import com.ayannah.asira.data.local.PreferenceRepository;
 import com.ayannah.asira.data.remote.RemoteRepository;
+import com.ayannah.asira.util.CommonUtils;
 import com.google.gson.JsonObject;
-import com.rx2androidnetworking.Rx2AndroidNetworking;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -61,7 +59,11 @@ public class SummaryTransactionPresenter implements SummaryTransactionContract.P
 
                         try {
 
-                            mView.successLoanApplication(String.valueOf(response.getInt("id")));
+                            //check account number borrower is ada apa engga
+
+                            checkBorrowerAccountNumber(String.valueOf(response.getInt("id")));
+
+//                            mView.successLoanApplication(String.valueOf(response.getInt("id")));
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -84,6 +86,31 @@ public class SummaryTransactionPresenter implements SummaryTransactionContract.P
                 });
 
 
+    }
+
+    private void checkBorrowerAccountNumber(String id) {
+
+        if(mView == null){
+            return;
+        }
+
+        mComposite.add(remoteRepository.getUserLogin()
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(res -> {
+
+            if(res.getBankAccountnumber().isEmpty() || res.getBankAccountnumber() == null){
+
+                mView.cannotMakingLoan();
+
+            }else {
+
+                preferenceRepository.setBankAccountBorrower(res.getBankAccountnumber());
+
+                mView.successLoanApplication(id);
+            }
+
+        }, error -> mView.showErrorMessages(CommonUtils.commonErrorFormat(error))));
     }
 
     @Override

@@ -198,6 +198,8 @@ public class LoginPresenter implements LoginContract.Presenter {
             preferenceRepository.setUserNationality(response.getNationality());
             preferenceRepository.setUserNickname(response.getNickname());
 
+            preferenceRepository.setBankAccountBorrower(response.getBankAccountnumber());
+
 //            mView.loginComplete();
             sendFCMTokenUser();
 

@@ -125,6 +125,7 @@ public class ViewBorrowerFragment extends BaseFragment implements ViewBorrowerCo
                 public void onClick(UserBorrower user) {
 
                     BottomSheetBorrowerAgent dialog = new BottomSheetBorrowerAgent();
+                    dialog.setUserIdentity(user);
                     dialog.showNow(parentActivity().getSupportFragmentManager(), "test");
 
                 }
