@@ -564,17 +564,17 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
                 return;
             }
 
-            String tujuanLainlain = etAlasan.getText().toString() + " " + etTujuan.getText().toString();
-            intent.putExtra(SummaryTransactionActivity.ALASAN,  spAlasanPinjam.getSelectedItem().toString());
-            intent.putExtra(SummaryTransactionActivity.TUJUAN, tujuanLainlain);
+            String otherLainLain = String.format("%s (%s)", spAlasanPinjam.getSelectedItem().toString(), etAlasan.getText().toString());
+            intent.putExtra(SummaryTransactionActivity.ALASAN,  otherLainLain);
 
         } else {
 
             intent.putExtra(SummaryTransactionActivity.ALASAN, spAlasanPinjam.getSelectedItem().toString());
-            intent.putExtra(SummaryTransactionActivity.TUJUAN, etTujuan.getText().toString());
+
 
         }
 
+        intent.putExtra(SummaryTransactionActivity.TUJUAN, etTujuan.getText().toString());
         intent.putExtra(SummaryTransactionActivity.LAYANAN, bundle.getInt("idService"));
         startActivity(intent);
 
