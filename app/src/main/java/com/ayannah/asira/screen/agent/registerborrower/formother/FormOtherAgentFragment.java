@@ -216,7 +216,7 @@ public class FormOtherAgentFragment extends BaseFragment implements FormOtherAge
         userProfleRequestAgent.addProperty("related_phonenumber", etRelatedHP.getText().toString());
         userProfleRequestAgent.addProperty("taxid_number", bundle.getString(NPWP_NO));
         userProfleRequestAgent.addProperty("idcard_number", bundle.getString(KTP_NO));
-        userProfleRequestAgent.addProperty("occupation", bundle.getString(JOB_TITLE));
+        userProfleRequestAgent.addProperty("occupation", bundle.getString(OCCUPATION));
         userProfleRequestAgent.addProperty("gender", bundle.getString(GENDER));
         userProfleRequestAgent.addProperty("city", bundle.getString(CITY));
         userProfleRequestAgent.addProperty("mother_name", bundle.getString(MOTHER_NAME));
@@ -232,7 +232,7 @@ public class FormOtherAgentFragment extends BaseFragment implements FormOtherAge
         userProfleRequestAgent.addProperty("field_of_work", bundle.getString(OCCUPATION)); //jenis pekerjaan
         userProfleRequestAgent.addProperty("province", bundle.getString(PROVINCE));
         userProfleRequestAgent.addProperty("spouse_birthday", bundle.getString(SPOUSE_BIRTHDATE));
-        userProfleRequestAgent.addProperty("department", bundle.getString(OCCUPATION));  //jenis pekerjaan
+        userProfleRequestAgent.addProperty("department", bundle.getString(JOB_TITLE));  //jenis pekerjaan
         userProfleRequestAgent.addProperty("email", bundle.getString(EMAIL));
         if (bundle.getString(HOME_STAY_YEAR) != null && !bundle.getString(HOME_STAY_YEAR).equals("")) {
             userProfleRequestAgent.addProperty("lived_for", Integer.parseInt(Objects.requireNonNull(bundle.getString(HOME_STAY_YEAR))));
