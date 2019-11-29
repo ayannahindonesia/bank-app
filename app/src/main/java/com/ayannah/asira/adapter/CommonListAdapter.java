@@ -365,7 +365,7 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
             idUser.setText(String.valueOf(param.getId()));
 
-            nameUser.setText(param.getEmployerName());
+            nameUser.setText(param.getFullname());
 
             status.setText(param.getStatus());
 

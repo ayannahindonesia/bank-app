@@ -64,7 +64,7 @@ public class BottomSheetBorrowerAgent extends BottomSheetDialogFragment {
 
         idNasabah.setText(String.valueOf(user.getId()));
 
-        nameNasabah.setText(user.getEmployerName());
+        nameNasabah.setText(user.getFullname());
 
         statusNasabah.setText(user.getStatus());
 
@@ -78,7 +78,7 @@ public class BottomSheetBorrowerAgent extends BottomSheetDialogFragment {
 
         namaPasangan.setText(user.getSpouseName());
 
-        pekerjaan.setText(user.getEmployerName());
+        pekerjaan.setText(user.getOccupation());
     }
 
     @Override
