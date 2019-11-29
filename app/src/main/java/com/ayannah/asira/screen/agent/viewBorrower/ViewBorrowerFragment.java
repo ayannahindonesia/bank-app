@@ -1,6 +1,8 @@
 package com.ayannah.asira.screen.agent.viewBorrower;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -17,7 +19,9 @@ import com.ayannah.asira.base.BaseFragment;
 import com.ayannah.asira.custom.CommonListListener;
 import com.ayannah.asira.data.model.UserBorrower;
 import com.ayannah.asira.dialog.BottomSheetBorrowerAgent;
+import com.ayannah.asira.screen.agent.services.ListServicesAgentActivity;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -41,8 +45,7 @@ public class ViewBorrowerFragment extends BaseFragment implements ViewBorrowerCo
     @Inject
     CommonListAdapter adapter;
 
-    @Inject
-    String bankId;
+    private String bank_Id;
 
     @BindView(R.id.lyResult) LinearLayout lyResult;
     @BindView(R.id.lyError) LinearLayout lyError;
@@ -64,7 +67,12 @@ public class ViewBorrowerFragment extends BaseFragment implements ViewBorrowerCo
         super.onResume();
         mPresenter.takeView(this);
 
-        mPresenter.getDataBorrower(bankId);
+        mPresenter.getLenderToken();
+
+        bank_Id = getActivity().getIntent().getStringExtra(ViewBorrowerActivity.BANK_ID);
+
+        pbLoading.setVisibility(View.VISIBLE);
+        mPresenter.getDataBorrower(bank_Id);
 
     }
 
@@ -116,18 +124,18 @@ public class ViewBorrowerFragment extends BaseFragment implements ViewBorrowerCo
 
             adapter.setOnClickListenerViewBorrower(new CommonListListener.ViewBorrowerListener() {
                 @Override
-                public void onClickButton() {
-
-                    Toast.makeText(parentActivity(), "Test click", Toast.LENGTH_SHORT).show();
+                public void onClickButton(UserBorrower user) {
+                    Intent intent = new Intent(parentActivity(), ListServicesAgentActivity.class);
+                    intent.putExtra("user", (Serializable) user);
+                    intent.putExtra(ListServicesAgentActivity.BANK_ID, bank_Id);
+                    startActivity(intent);
                 }
 
                 @Override
                 public void onClick(UserBorrower user) {
-
                     BottomSheetBorrowerAgent dialog = new BottomSheetBorrowerAgent();
                     dialog.setUserIdentity(user);
-                    dialog.showNow(parentActivity().getSupportFragmentManager(), "test");
-
+                    dialog.showNow(parentActivity().getSupportFragmentManager(), "BottomDialogShow");
                 }
             });
 

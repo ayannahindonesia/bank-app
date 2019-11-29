@@ -29,7 +29,7 @@ public class LoanActivity extends DaggerAppCompatActivity {
     private Unbinder mUnbinder;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loan);
         mUnbinder = ButterKnife.bind(this);

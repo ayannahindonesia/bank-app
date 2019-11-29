@@ -63,5 +63,25 @@ public class BankService extends BankBaseResponse {
         public String getStatus() {
             return status;
         }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public void setBankId(int bankId) {
+            this.bankId = bankId;
+        }
+
+        public void setImageId(int imageId) {
+            this.imageId = imageId;
+        }
+
+        public void setStatus(String status) {
+            this.status = status;
+        }
     }
 }

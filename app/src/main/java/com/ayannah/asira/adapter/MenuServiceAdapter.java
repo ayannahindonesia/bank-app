@@ -1,11 +1,6 @@
 package com.ayannah.asira.adapter;
 
 import android.app.Application;
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.util.Base64;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,25 +20,22 @@ import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.ayannah.asira.BuildConfig;
 import com.ayannah.asira.R;
 import com.ayannah.asira.data.local.PreferenceDataSource;
-import com.ayannah.asira.data.local.PreferenceRepository;
 import com.ayannah.asira.data.model.BankService;
 import com.ayannah.asira.data.model.MenuProduct;
 import com.ayannah.asira.util.ImageUtils;
-import com.google.gson.JsonObject;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MenuProductAdapter extends RecyclerView.Adapter<MenuProductAdapter.MenuProductVH> {
+public class MenuServiceAdapter extends RecyclerView.Adapter<MenuServiceAdapter.MenuProductVH> {
 
-    private final String TAG = MenuProductAdapter.class.getSimpleName();
+    private final String TAG = MenuServiceAdapter.class.getSimpleName();
 
     private List<MenuProduct> menuProducts;
     private List<BankService.Data> menus;
@@ -51,7 +43,7 @@ public class MenuProductAdapter extends RecyclerView.Adapter<MenuProductAdapter.
     private Application application;
     private MenuProductListener listener;
 
-    public MenuProductAdapter(Application application){
+    public MenuServiceAdapter(Application application){
 
         this.application = application;
 

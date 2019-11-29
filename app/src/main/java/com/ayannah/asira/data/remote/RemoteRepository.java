@@ -5,16 +5,19 @@ import com.ayannah.asira.data.model.BankDetail;
 import com.ayannah.asira.data.model.BankList;
 import com.ayannah.asira.data.model.BankService;
 import com.ayannah.asira.data.model.CheckAccount;
+import com.ayannah.asira.data.model.CheckBorrower;
 import com.ayannah.asira.data.model.FCMTokenResponse;
 import com.ayannah.asira.data.model.Kabupaten;
 import com.ayannah.asira.data.model.Kecamatan;
 import com.ayannah.asira.data.model.Kelurahan;
 import com.ayannah.asira.data.model.Loans.DataItem;
 import com.ayannah.asira.data.model.Loans.Loans;
+import com.ayannah.asira.data.model.NasabahAgent;
 import com.ayannah.asira.data.model.Notif;
 import com.ayannah.asira.data.model.Provinsi;
 import com.ayannah.asira.data.model.ReasonLoan;
 import com.ayannah.asira.data.model.ServiceProducts;
+import com.ayannah.asira.data.model.ServiceProductsAgent;
 import com.ayannah.asira.data.model.Token;
 import com.ayannah.asira.data.model.UserProfile;
 import com.google.gson.JsonObject;
@@ -89,4 +92,14 @@ public interface RemoteRepository {
     Single<Notif> getListNotification();
 
     Single<Response> postBorrowerRegisterAgent(JsonObject jsonObject);
+
+    Single<BankList> getAllBanksAgent();
+
+    Single<NasabahAgent> getListBorrower(String idBank);
+
+    Single<CheckBorrower> checkExistingBorrowerAgent(JsonObject paramCheckBorrower);
+
+    Single<BankService> getServicesAgent(String bank_id);
+
+    Single<ServiceProductsAgent> getAllProductsAgent(String idService);
 }

@@ -1,4 +1,4 @@
-package com.ayannah.asira.screen.agent.registerborrower.choosebank;
+package com.ayannah.asira.screen.agent.loan;
 
 import android.os.Bundle;
 
@@ -14,13 +14,15 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import dagger.Binds;
 import dagger.android.support.DaggerAppCompatActivity;
 
-public class ChooseBankAgentActivity extends DaggerAppCompatActivity {
+public class LoanAgentActivity extends DaggerAppCompatActivity {
+
+    public static final String IDSERVICE = "IDSERVICE";
+    public static final String IDBANK = "IDBANK";
 
     @Inject
-    ChooseBankAgentFragment mFragment;
+    LoanAgentFragment mFragment;
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -28,33 +30,35 @@ public class ChooseBankAgentActivity extends DaggerAppCompatActivity {
     private Unbinder mUnbinder;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.agent_activity_choose_bank);
+        setContentView(R.layout.activity_loan);
         mUnbinder = ButterKnife.bind(this);
-
         setSupportActionBar(toolbar);
 
         ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
+        actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle("Loan");
 
-        ChooseBankAgentFragment chooseBankAgentFragment = (ChooseBankAgentFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
-        if (chooseBankAgentFragment == null) {
-            chooseBankAgentFragment = mFragment;
-            ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), chooseBankAgentFragment, R.id.fragment_container);
+        LoanAgentFragment loanFragment = (LoanAgentFragment)getSupportFragmentManager()
+                .findFragmentById(R.id.fragment_container);
+        if(loanFragment == null){
+            loanFragment = mFragment;
+            ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), loanFragment, R.id.fragment_container);
         }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mUnbinder.unbind();
     }
 
     @Override
     public boolean onSupportNavigateUp() {
         finish();
         return super.onSupportNavigateUp();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mUnbinder.unbind();
     }
 }

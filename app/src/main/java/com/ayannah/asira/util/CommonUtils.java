@@ -141,4 +141,24 @@ public class CommonUtils {
 
     }
 
+    public static String errorResponseGetCode(Throwable error) {
+
+        String result;
+
+        ANError anError = (ANError) error;
+
+        if(anError.getErrorCode() != 0){
+
+            result = String.valueOf(anError.getErrorCode());
+
+        }else {
+
+            result = "Internet terputus";
+
+        }
+
+        return result;
+
+    }
+
 }

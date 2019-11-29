@@ -16,8 +16,9 @@ import com.ayannah.asira.data.model.BankDetail;
 import com.ayannah.asira.data.model.BankList;
 import com.ayannah.asira.screen.agent.registerborrower.addaccountbank.AddAccountBankAgentActivity;
 import com.ayannah.asira.screen.agent.registerborrower.formother.FormOtherAgentFragment;
+import com.ayannah.asira.screen.agent.services.ListServicesAgentActivity;
+import com.ayannah.asira.screen.agent.viewBorrower.ViewBorrowerActivity;
 import com.ayannah.asira.screen.register.addaccountbank.AddAccountBankFragment;
-import com.ayannah.asira.screen.register.choosebank.ChooseBankContract;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,6 +61,7 @@ public class ChooseBankAgentFragment extends BaseFragment implements ChooseBankA
 
         mPresenter.getPublicToken();
 //        mPresenter.getAllBanks();
+
     }
 
     @Override
@@ -94,14 +96,21 @@ public class ChooseBankAgentFragment extends BaseFragment implements ChooseBankA
             @Override
             public void onClickItemBank(BankDetail bank) {
 
-                Bundle bundle = new Bundle();
-                bundle.putString(FormOtherAgentFragment.BANK_NAME, bank.getName());
-                bundle.putInt(FormOtherAgentFragment.BANK_ID, bank.getId());
+                Intent addbank;
+                if (getActivity().getIntent().getStringExtra("isFrom").equals("regBorrower")) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString(FormOtherAgentFragment.BANK_ID, String.valueOf(bank.getId()));
+                    bundle.putString(FormOtherAgentFragment.BANK_NAME, bank.getName());
+                    addbank = new Intent(parentActivity(), AddAccountBankAgentActivity.class);
+                    addbank.putExtras(bundle);
+                } else {
+//                    addbank = new Intent(parentActivity(), AddAccountBankAgentActivity.class);
+                    addbank = new Intent(parentActivity(), ViewBorrowerActivity.class);
+                    addbank.putExtra(ViewBorrowerActivity.BANK_ID, String.valueOf(bank.getId()));
 
-                Intent adddbank = new Intent(parentActivity(), AddAccountBankAgentActivity.class);
-                adddbank.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                adddbank.putExtras(bundle);
-                startActivity(adddbank);
+                }
+                addbank.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(addbank);
 
             }
         });

@@ -1,8 +1,7 @@
-package com.ayannah.asira.screen.agent.registerborrower.choosebank;
+package com.ayannah.asira.screen.agent.services;
 
 import android.os.Bundle;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.Toolbar;
 
@@ -14,13 +13,14 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import dagger.Binds;
 import dagger.android.support.DaggerAppCompatActivity;
 
-public class ChooseBankAgentActivity extends DaggerAppCompatActivity {
+public class ListServicesAgentActivity extends DaggerAppCompatActivity {
+
+    public static final String BANK_ID = "bank_id";
 
     @Inject
-    ChooseBankAgentFragment mFragment;
+    ListServicesAgentFragment mFragment;
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -28,9 +28,9 @@ public class ChooseBankAgentActivity extends DaggerAppCompatActivity {
     private Unbinder mUnbinder;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.agent_activity_choose_bank);
+        setContentView(R.layout.agent_activity_service_list);
         mUnbinder = ButterKnife.bind(this);
 
         setSupportActionBar(toolbar);
@@ -39,11 +39,13 @@ public class ChooseBankAgentActivity extends DaggerAppCompatActivity {
         assert actionBar != null;
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        ChooseBankAgentFragment chooseBankAgentFragment = (ChooseBankAgentFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
-        if (chooseBankAgentFragment == null) {
-            chooseBankAgentFragment = mFragment;
-            ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), chooseBankAgentFragment, R.id.fragment_container);
+        ListServicesAgentFragment listServicesAgentFragment = (ListServicesAgentFragment)getSupportFragmentManager()
+                .findFragmentById(R.id.fragment_container);
+        if(listServicesAgentFragment == null){
+            listServicesAgentFragment = mFragment;
+            ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), listServicesAgentFragment, R.id.fragment_container);
         }
+
     }
 
     @Override

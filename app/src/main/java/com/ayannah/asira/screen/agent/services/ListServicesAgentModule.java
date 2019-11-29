@@ -1,4 +1,4 @@
-package com.ayannah.asira.screen.borrower.homemenu;
+package com.ayannah.asira.screen.agent.services;
 
 import android.app.Application;
 
@@ -13,25 +13,25 @@ import dagger.Provides;
 import dagger.android.ContributesAndroidInjector;
 
 @Module
-public abstract class MainMenuModule {
+public abstract class ListServicesAgentModule {
 
     @FragmentScoped
     @ContributesAndroidInjector
-    abstract MainMenuFragment requestFragment();
+    abstract ListServicesAgentFragment requestFragment();
 
     @ActivityScoped
     @Binds
-    abstract MainMenuContract.Presenter requestPresenter(MainMenuPresenter presenter);
-
-    @Provides
-    @ActivityScoped
-    static BeritaPromoAdapter beritaPromoAdapter(Application application){
-        return new BeritaPromoAdapter(application);
-    }
+    abstract ListServicesAgentContract.Presenter requestPresenter(ListServicesAgentPresenter presenter);
 
     @Provides
     @ActivityScoped
     static MenuServiceAdapter menuAdapter(Application application){
         return new MenuServiceAdapter(application);
+    }
+
+    @Provides
+    @ActivityScoped
+    static BeritaPromoAdapter beritaPromoAdapter(Application application){
+        return new BeritaPromoAdapter(application);
     }
 }

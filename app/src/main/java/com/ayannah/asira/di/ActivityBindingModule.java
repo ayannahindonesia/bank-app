@@ -1,5 +1,7 @@
 package com.ayannah.asira.di;
 
+import com.ayannah.asira.screen.agent.loan.LoanAgentActivity;
+import com.ayannah.asira.screen.agent.loan.LoanAgentModule;
 import com.ayannah.asira.screen.agent.loginagent.LoginAgentActivity;
 import com.ayannah.asira.screen.agent.loginagent.LoginAgentModule;
 import com.ayannah.asira.screen.agent.lpagent.LPAgentActivity;
@@ -16,6 +18,10 @@ import com.ayannah.asira.screen.agent.registerborrower.formother.FormOtherAgentA
 import com.ayannah.asira.screen.agent.registerborrower.formother.FormOtherAgentModule;
 import com.ayannah.asira.screen.agent.registerborrower.jobearning.FormJobEarningAgentActivity;
 import com.ayannah.asira.screen.agent.registerborrower.jobearning.FormJobEarningAgentModule;
+import com.ayannah.asira.screen.agent.services.ListServicesAgentActivity;
+import com.ayannah.asira.screen.agent.services.ListServicesAgentModule;
+import com.ayannah.asira.screen.agent.viewBorrower.ViewBorrowerActivity;
+import com.ayannah.asira.screen.agent.viewBorrower.ViewBorrowerModule;
 import com.ayannah.asira.screen.borrower.navigationmenu.editinfopribadi.EditInfoPribadiActivity;
 import com.ayannah.asira.screen.borrower.navigationmenu.editinfopribadi.EditInfoPribadiModule;
 import com.ayannah.asira.screen.chooselogin.ChooseLoginActivity;
@@ -196,6 +202,18 @@ abstract class ActivityBindingModule {
     abstract FormOtherAgentActivity formOtherAgentActivity();
 
     @ActivityScoped
+    @ContributesAndroidInjector(modules = ListServicesAgentModule.class)
+    abstract ListServicesAgentActivity listServicesAgentActivity();
+
+    @ActivityScoped
     @ContributesAndroidInjector(modules = EditInfoPribadiModule.class)
     abstract EditInfoPribadiActivity editInfoPribadiActivity();
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = ViewBorrowerModule.class)
+    abstract ViewBorrowerActivity viewBorrowerActivtiy();
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = LoanAgentModule.class)
+    abstract LoanAgentActivity loanAgentActivity();
 }

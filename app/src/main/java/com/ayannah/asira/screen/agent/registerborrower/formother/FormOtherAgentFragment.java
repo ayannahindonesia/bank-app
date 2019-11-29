@@ -271,7 +271,7 @@ public class FormOtherAgentFragment extends BaseFragment implements FormOtherAge
         userProfleRequestAgent.addProperty("taxid_image", bundle.getString(PHOTO_NPWP));
 
         //new
-        userProfleRequestAgent.addProperty("bank", bundle.getInt(BANK_ID));
+        userProfleRequestAgent.addProperty("bank", Integer.parseInt(bundle.getString(BANK_ID)));
         userProfleRequestAgent.addProperty("nickname", bundle.getString(NICKNAME));
         userProfleRequestAgent.addProperty("nationality", "Indonesia");
 

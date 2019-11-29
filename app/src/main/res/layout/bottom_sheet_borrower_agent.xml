@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:id="@+id/baseLinear"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/margin16dp"
+        android:id="@+id/root"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="40dp"
+            android:layout_height="1.5dp"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@color/darkgreybackground"/>
+        <View
+            android:layout_width="40dp"
+            android:layout_height="1.5dp"
+            android:layout_marginTop="5dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@color/darkgreybackground"/>
+
+        <TextView
+            android:text="Id Nasabah"
+            android:layout_marginTop="15dp"
+            android:textSize="@dimen/fontSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/id"
+            android:text="1"
+            android:textSize="@dimen/fontLarge"
+            android:textColor="@android:color/black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:text="Nama Nasabah"
+            android:layout_marginTop="10dp"
+            android:textSize="@dimen/fontSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/nama"
+            android:text="John Doe"
+            android:textSize="@dimen/fontLarge"
+            android:textColor="@android:color/black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:text="Status Nasabah"
+            android:layout_marginTop="10dp"
+            android:textSize="@dimen/fontSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/status"
+            android:text="Status Nasabah"
+            android:textSize="@dimen/fontLarge"
+            android:textColor="@android:color/black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:text="Nomor Rekening"
+            android:layout_marginTop="10dp"
+            android:textSize="@dimen/fontSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/norek"
+            android:text="5730331462"
+            android:textSize="@dimen/fontLarge"
+            android:textColor="@android:color/black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:text="Pinjaman ke-"
+            android:layout_marginTop="10dp"
+            android:textSize="@dimen/fontSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/pinjaman"
+            android:text="1"
+            android:textSize="@dimen/fontLarge"
+            android:textColor="@android:color/black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:text="Alamat"
+            android:layout_marginTop="10dp"
+            android:textSize="@dimen/fontSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/alamat"
+            android:text="jalan menuju kemenangan"
+            android:textSize="@dimen/fontLarge"
+            android:textColor="@android:color/black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:text="Nomor HP"
+            android:layout_marginTop="10dp"
+            android:textSize="@dimen/fontSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/nomorHp"
+            android:text="081212760018"
+            android:textSize="@dimen/fontLarge"
+            android:textColor="@android:color/black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:text="Status pernikahan"
+            android:layout_marginTop="10dp"
+            android:textSize="@dimen/fontSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/statusPernikahan"
+            android:text="Menikah"
+            android:textSize="@dimen/fontLarge"
+            android:textColor="@android:color/black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:text="Nama pasangan"
+            android:layout_marginTop="10dp"
+            android:textSize="@dimen/fontSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/namaPasangan"
+            android:text="Brigita"
+            android:textSize="@dimen/fontLarge"
+            android:textColor="@android:color/black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:text="Pekerjaan"
+            android:layout_marginTop="10dp"
+            android:textSize="@dimen/fontSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/pekerjaan"
+            android:text="Karyawan swasta"
+            android:textSize="@dimen/fontLarge"
+            android:textColor="@android:color/black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>

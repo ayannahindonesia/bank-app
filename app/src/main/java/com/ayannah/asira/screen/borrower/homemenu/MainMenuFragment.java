@@ -1,15 +1,10 @@
 package com.ayannah.asira.screen.borrower.homemenu;
 
 import android.app.job.JobInfo;
-import android.app.Notification;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.TypedValue;
@@ -41,7 +36,7 @@ import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
-import com.ayannah.asira.adapter.MenuProductAdapter;
+import com.ayannah.asira.adapter.MenuServiceAdapter;
 import com.ayannah.asira.data.model.BankService;
 import com.ayannah.asira.data.model.Loans.DataItem;
 import com.ayannah.asira.dialog.BottomSheetDialogGlobal;
@@ -54,7 +49,6 @@ import com.ayannah.asira.adapter.BeritaPromoAdapter;
 import com.ayannah.asira.base.BaseFragment;
 import com.ayannah.asira.data.model.BeritaPromo;
 import com.ayannah.asira.dialog.BottomSheetDialogLogout;
-import com.ayannah.asira.screen.borrower.login.LoginActivity;
 import com.ayannah.asira.screen.borrower.navigationmenu.akunsaya.AkunSayaActivity;
 import com.ayannah.asira.screen.borrower.navigationmenu.infopribadi.InfoPribadiActivity;
 import com.ayannah.asira.screen.borrower.navigationmenu.infokeuangan.InformasiKeuanganActivity;
@@ -108,7 +102,7 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
     BeritaPromoAdapter mAdapterNewsPromo;
 
     @Inject
-    MenuProductAdapter mAdapterMenu;
+    MenuServiceAdapter mAdapterMenu;
 
     private TextView pinjamanSaya;
 
@@ -228,22 +222,6 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
         recyclerViewBeritaPromo.setHasFixedSize(true);
         recyclerViewBeritaPromo.setAdapter(mAdapterNewsPromo);
 
-//        NotificationManager mNotificationManager = (NotificationManager) parentActivity().getSystemService(Context.NOTIFICATION_SERVICE);
-//
-//        Notification.Builder builder = new Notification.Builder(parentActivity().getApplicationContext())
-//                .setContentTitle("")
-//                .setContentText("")
-//                .setSmallIcon(R.drawable.ic_asira);
-//
-//        // Since android Oreo notification channel is needed.
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//            String channelId = parentActivity().getString(R.string.default_notification_channel_id);
-//            NotificationChannel channel = new NotificationChannel(channelId,   "Asira_Title", NotificationManager.IMPORTANCE_DEFAULT);
-//            channel.setDescription("Asira_Body");
-//            mNotificationManager.createNotificationChannel(channel);
-//            builder.setChannelId(channelId);
-//        }
-
     }
 
     private void scheduleLoan(String name, String userToken){
@@ -319,45 +297,51 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
 
         mAdapterMenu.setOnClickListener(menuProduct -> {
 
-            if (statusLoan.equals("processing")) {
+//            if (statusLoan.equals("processing")) {
+//
+//                bottomSheetDialogGlobal = new BottomSheetDialogGlobal().show(parentActivity().getSupportFragmentManager(),
+//                        BottomSheetDialogGlobal.FORBIDDEN_LOAN_PNS,
+//                        "Pengajuan Pinjaman Terakhir Sedang Proses",
+//                        "Kamu belum bisa mengajukan peminjaman hingga pengajuan sebelumnya telah selesai dari proses.",
+//                        R.drawable.img_processing);
+//                bottomSheetDialogGlobal.setOnClickBottomSheetInstruction(new BottomSheetDialogGlobal.BottomSheetInstructionListener() {
+//                    @Override
+//                    public void onClickButtonDismiss() {
+//
+//                        bottomSheetDialogGlobal.dismiss();
+//
+//                        Intent intent = new Intent(parentActivity(), HistoryLoanActivity.class);
+//                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                        startActivity(intent);
+//                    }
+//
+//                    @Override
+//                    public void onClickButtonYes() {
+//                        //nothing to do
+//
+//                    }
+//
+//                    @Override
+//                    public void closeApps() {
+//                        //nothing to do
+//
+//                    }
+//                });
+//            } else {
+//
+//                Intent intent = new Intent(parentActivity(), EarningActivity.class);
+//                intent.putExtra("id", menuProduct.getId());
+//                intent.putExtra("name", menuProduct.getName());
+//                intent.putExtra(EarningActivity.ID_SERVICE, String.valueOf(menuProduct.getId()));
+//
+//                startActivity(intent);
+//            }
 
-                bottomSheetDialogGlobal = new BottomSheetDialogGlobal().show(parentActivity().getSupportFragmentManager(),
-                        BottomSheetDialogGlobal.FORBIDDEN_LOAN_PNS,
-                        "Pengajuan Pinjaman Terakhir Sedang Proses",
-                        "Kamu belum bisa mengajukan peminjaman hingga pengajuan sebelumnya telah selesai dari proses.",
-                        R.drawable.img_processing);
-                bottomSheetDialogGlobal.setOnClickBottomSheetInstruction(new BottomSheetDialogGlobal.BottomSheetInstructionListener() {
-                    @Override
-                    public void onClickButtonDismiss() {
-
-                        bottomSheetDialogGlobal.dismiss();
-
-                        Intent intent = new Intent(parentActivity(), HistoryLoanActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        startActivity(intent);
-                    }
-
-                    @Override
-                    public void onClickButtonYes() {
-                        //nothing to do
-
-                    }
-
-                    @Override
-                    public void closeApps() {
-                        //nothing to do
-
-                    }
-                });
-            } else {
-
-                Intent intent = new Intent(parentActivity(), EarningActivity.class);
-                intent.putExtra("id", menuProduct.getId());
-                intent.putExtra("name", menuProduct.getName());
-                intent.putExtra(EarningActivity.ID_SERVICE, String.valueOf(menuProduct.getId()));
-
-                startActivity(intent);
-            }
+            Intent intent = new Intent(parentActivity(), EarningActivity.class);
+            intent.putExtra("id", menuProduct.getId());
+            intent.putExtra("name", menuProduct.getName());
+            intent.putExtra(EarningActivity.ID_SERVICE, String.valueOf(menuProduct.getId()));
+            startActivity(intent);
 
         });
 

@@ -356,7 +356,7 @@ public class AddDocumentAgentFragment extends BaseFragment implements AddDocumen
             }
 
             dialog.show();
-            mPresenter.checkMandatoryItem(etKTP.getText().toString(), pnumber, email.getText().toString(), etNPWP.getText().toString());
+            mPresenter.checkExistingBorrowerAgent(etKTP.getText().toString(), pnumber, email.getText().toString(), etNPWP.getText().toString());
         } else {
             email.setError("Format email salah");
         }
@@ -496,7 +496,7 @@ public class AddDocumentAgentFragment extends BaseFragment implements AddDocumen
     }
 
     @Override
-    public void successCheckMandotryEntity(String message, String pnumber) {
+    public void successCheckMandotryEntity(String pnumber) {
 
         dialogDismiss();
 
