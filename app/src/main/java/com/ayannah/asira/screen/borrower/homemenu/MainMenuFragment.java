@@ -330,6 +330,7 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
             } else {
 
                 Intent intent = new Intent(parentActivity(), EarningActivity.class);
+                intent.putExtra("isFrom", "borrower");
                 intent.putExtra("id", menuProduct.getId());
                 intent.putExtra("name", menuProduct.getName());
                 intent.putExtra(EarningActivity.ID_SERVICE, String.valueOf(menuProduct.getId()));

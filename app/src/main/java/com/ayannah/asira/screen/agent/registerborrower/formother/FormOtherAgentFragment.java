@@ -277,7 +277,6 @@ public class FormOtherAgentFragment extends BaseFragment implements FormOtherAge
 
         dialog.show();
         mPresenter.postRegisterBorrower(userProfleRequestAgent);
-        Toast.makeText(parentActivity(), "Berhhasil mau kirim", Toast.LENGTH_LONG).show();
     }
 
     @Override
