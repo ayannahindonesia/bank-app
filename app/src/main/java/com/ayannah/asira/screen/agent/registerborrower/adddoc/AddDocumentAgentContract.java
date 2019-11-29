@@ -9,14 +9,14 @@ public interface AddDocumentAgentContract {
 
         void showErrorMessage(String message);
 
-        void successCheckMandotryEntity(String message, String pnumber);
+        void successCheckMandotryEntity(String pnumber);
 
         void dialogDismiss();
     }
 
     interface Presenter extends BasePresenter<View> {
 
-        void checkMandatoryItem(String ktp, String phoneNumber, String email,String npwp);
+        void checkExistingBorrowerAgent(String ktp, String phoneNumber, String email,String npwp);
 
         void checkPublicToken();
     }

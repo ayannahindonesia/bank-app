@@ -12,7 +12,9 @@ import androidx.appcompat.app.AlertDialog;
 
 import com.ayannah.asira.R;
 import com.ayannah.asira.base.BaseFragment;
+import com.ayannah.asira.data.model.UserBorrower;
 import com.ayannah.asira.dialog.BottomChangingIncome;
+import com.ayannah.asira.screen.agent.loan.LoanAgentActivity;
 import com.ayannah.asira.screen.loan.LoanActivity;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
@@ -72,7 +74,15 @@ public class EarningFragment extends BaseFragment implements EarningContract.Vie
         builder.setView(R.layout.progress_bar);
         dialog = builder.create();
 
-        mPresenter.getPenghasilan();
+        if (getActivity().getIntent().getStringExtra("isFrom").toLowerCase().equals("agent")) {
+//            Toast.makeText(parentActivity(), "dari Agent", Toast.LENGTH_SHORT).show();
+            UserBorrower userBorrower = (UserBorrower) getActivity().getIntent().getSerializableExtra("user");
+            loadPenghasilan(String.valueOf(userBorrower.getMonthlyIncome()),
+                    String.valueOf(userBorrower.getOtherIncome()),
+                    userBorrower.getOtherIncomesource());
+        } else {
+            mPresenter.getPenghasilan();
+        }
     }
 
     @Override
@@ -233,9 +243,16 @@ public class EarningFragment extends BaseFragment implements EarningContract.Vie
         Bundle bundle = parentActivity().getIntent().getExtras();
         assert bundle != null;
 
-        Intent pinjaman = new Intent(parentActivity(), LoanActivity.class);
+        Intent pinjaman;
+        if (getActivity().getIntent().getStringExtra("isFrom").toLowerCase().equals("agent")) {
+            pinjaman = new Intent(parentActivity(), LoanAgentActivity.class);
+            pinjaman.putExtra(LoanAgentActivity.IDSERVICE, idService);
+            pinjaman.putExtra(LoanAgentActivity.IDBANK, "1");
+        } else {
+            pinjaman = new Intent(parentActivity(), LoanActivity.class);
 //        pinjaman.putExtra("idService", bundle.getInt("id"));
-        pinjaman.putExtra(LoanActivity.IDSERVICE, idService);
+            pinjaman.putExtra(LoanActivity.IDSERVICE, idService);
+        }
 
         popUpChangingIncome.dismiss();
         startActivity(pinjaman);

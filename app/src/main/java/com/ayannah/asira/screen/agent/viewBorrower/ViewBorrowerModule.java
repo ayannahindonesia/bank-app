@@ -4,6 +4,8 @@ import com.ayannah.asira.adapter.CommonListAdapter;
 import com.ayannah.asira.di.ActivityScoped;
 import com.ayannah.asira.di.FragmentScoped;
 
+import javax.inject.Named;
+
 import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
@@ -28,10 +30,11 @@ public abstract class ViewBorrowerModule {
         return new CommonListAdapter(CommonListAdapter.VIEW_BORROWER_ON_AGENT);
     }
 
-    @Provides
-    @ActivityScoped
-    static String bank_id(ViewBorrowerActivity activity){
-        return activity.getIntent().getStringExtra(BANK_ID);
-    }
+//    @Provides
+//    @ActivityScoped
+//    @Named("bank_id")
+//    static String bank_id(ViewBorrowerActivity activity){
+//        return activity.getIntent().getStringExtra(BANK_ID);
+//    }
 
 }

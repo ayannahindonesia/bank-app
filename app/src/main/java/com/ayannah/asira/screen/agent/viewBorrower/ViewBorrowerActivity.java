@@ -18,7 +18,7 @@ import dagger.android.support.DaggerAppCompatActivity;
 
 public class ViewBorrowerActivity extends DaggerAppCompatActivity {
 
-    public static final String BANK_ID = "BANK_ID";
+    public static final String BANK_ID = "bank_id";
 
     @Inject
     ViewBorrowerFragment mFragment;
@@ -29,7 +29,7 @@ public class ViewBorrowerActivity extends DaggerAppCompatActivity {
     private Unbinder mUnbinder;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.common_activity);
         mUnbinder = ButterKnife.bind(this);

@@ -1,5 +1,7 @@
 package com.ayannah.asira.di;
 
+import com.ayannah.asira.screen.agent.loan.LoanAgentActivity;
+import com.ayannah.asira.screen.agent.loan.LoanAgentModule;
 import com.ayannah.asira.screen.agent.loginagent.LoginAgentActivity;
 import com.ayannah.asira.screen.agent.loginagent.LoginAgentModule;
 import com.ayannah.asira.screen.agent.lpagent.LPAgentActivity;
@@ -210,4 +212,8 @@ abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = ViewBorrowerModule.class)
     abstract ViewBorrowerActivity viewBorrowerActivtiy();
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = LoanAgentModule.class)
+    abstract LoanAgentActivity loanAgentActivity();
 }

@@ -5,7 +5,9 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
-public class UserBorrower implements Parcelable {
+import java.io.Serializable;
+
+public class UserBorrower implements Parcelable, Serializable {
 
 	@SerializedName("birthday")
 	private String birthday;
@@ -232,6 +234,8 @@ public class UserBorrower implements Parcelable {
 		relatedAddress = in.readString();
 		dependants = in.readInt();
 	}
+
+	public UserBorrower() {}
 
 	public static final Creator<UserBorrower> CREATOR = new Creator<UserBorrower>() {
 		@Override

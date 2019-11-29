@@ -9,6 +9,7 @@ import com.androidnetworking.common.ANConstants;
 import com.androidnetworking.error.ANError;
 import com.ayannah.asira.data.local.PreferenceRepository;
 import com.ayannah.asira.data.remote.RemoteRepository;
+import com.google.gson.JsonObject;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -38,23 +39,32 @@ public class AddDocumentAgentPresenter implements AddDocumentAgentContract.Prese
         mComposite = new CompositeDisposable();
     }
 
-    @Override
-    public void checkMandatoryItem(String ktp, String phoneNumber, String email, String npwp) {
+    public void checkExistingBorrowerAgent(String ktp, String phoneNumber, String email, String npwp) {
 
         if(mView == null){
             Toast.makeText(application, "something wrong on check mandatory", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        mComposite.add(remoteRepository.checkAccount(email, phoneNumber, ktp, npwp)
+        JsonObject paramCheckBorrower = new JsonObject();
+        paramCheckBorrower.addProperty("idcard_number", ktp);
+        paramCheckBorrower.addProperty("taxid_number", npwp);
+        paramCheckBorrower.addProperty("phone", phoneNumber);
+        paramCheckBorrower.addProperty("email", email);
+
+        mComposite.add(remoteRepository.checkExistingBorrowerAgent(paramCheckBorrower)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> {
 
-                    if(response.isStatus()){
-
-                        mView.successCheckMandotryEntity(response.getMessage(), phoneNumber);
-
+                    if (response.isStatus()) {
+                        StringBuilder field = new StringBuilder();
+                        for (int i=0; i<response.getFields().size(); i++) {
+                            field.append(response.getFields().get(i)).append(" ");
+                        }
+                        mView.showErrorMessage(field + " Sudah Digunakan");
+                    } else {
+                        mView.successCheckMandotryEntity(phoneNumber);
                     }
 
                 }, error -> {

@@ -17,7 +17,7 @@ public interface CommonListListener {
 
     interface ViewBorrowerListener{
 
-        void onClickButton();
+        void onClickButton(UserBorrower user);
 
         void onClick(UserBorrower user);
     }

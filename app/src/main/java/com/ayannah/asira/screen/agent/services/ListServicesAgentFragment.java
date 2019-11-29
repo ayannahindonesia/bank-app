@@ -2,6 +2,7 @@ package com.ayannah.asira.screen.agent.services;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -14,8 +15,10 @@ import com.ayannah.asira.adapter.MenuServiceAdapter;
 import com.ayannah.asira.base.BaseFragment;
 import com.ayannah.asira.data.model.BankService;
 import com.ayannah.asira.data.model.BeritaPromo;
+import com.ayannah.asira.data.model.UserBorrower;
 import com.ayannah.asira.screen.earninginfo.EarningActivity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,6 +42,9 @@ public class ListServicesAgentFragment extends BaseFragment implements ListServi
 
     @Inject
     MenuServiceAdapter mAdapterMenu;
+
+    String bank_id;
+    UserBorrower user;
 
     @Inject
     public ListServicesAgentFragment(){}
@@ -66,7 +72,11 @@ public class ListServicesAgentFragment extends BaseFragment implements ListServi
         super.onResume();
         mPresenter.takeView(this);
 
-        mPresenter.getAllService();
+        bank_id = getActivity().getIntent().getStringExtra(ListServicesAgentActivity.BANK_ID);
+
+        user = (UserBorrower) getActivity().getIntent().getSerializableExtra("user");
+
+        mPresenter.getAllService(bank_id);
 
         mPresenter.loadPromoAndNews();
     }
@@ -88,7 +98,7 @@ public class ListServicesAgentFragment extends BaseFragment implements ListServi
         List<BankService.Data> menus = new ArrayList<>();
 
         for(BankService.Data x:datas) {
-            if (x.getStatus().equals("Active")) {
+            if (x.getStatus().toLowerCase().equals("active")) {
                 menus.add(x);
             }
         }
@@ -98,8 +108,10 @@ public class ListServicesAgentFragment extends BaseFragment implements ListServi
         mAdapterMenu.setOnClickListener(menuProduct -> {
 
             Intent intent = new Intent(parentActivity(), EarningActivity.class);
-            intent.putExtra("id", 1);
-            intent.putExtra("name", "halo");
+            intent.putExtra("user", (Serializable) user);
+            intent.putExtra("isFrom", "agent");
+            intent.putExtra("id", menuProduct.getId());
+            intent.putExtra("name", menuProduct.getName());
             intent.putExtra(EarningActivity.ID_SERVICE, String.valueOf(menuProduct.getId()));
             startActivity(intent);
 
@@ -110,6 +122,11 @@ public class ListServicesAgentFragment extends BaseFragment implements ListServi
     @Override
     public void showPromoAndNews(List<BeritaPromo> listBeritaPromo) {
         mAdapterNewsPromo.setBeritaNews(listBeritaPromo);
+    }
+
+    @Override
+    public void showErrorMessage(String err) {
+        Toast.makeText(parentActivity(), err, Toast.LENGTH_SHORT).show();
     }
 
 }

@@ -96,20 +96,20 @@ public class ChooseBankAgentFragment extends BaseFragment implements ChooseBankA
             @Override
             public void onClickItemBank(BankDetail bank) {
 
-                Bundle bundle = new Bundle();
-                bundle.putString(FormOtherAgentFragment.BANK_NAME, bank.getName());
-                bundle.putInt(FormOtherAgentFragment.BANK_ID, bank.getId());
-
                 Intent addbank;
                 if (getActivity().getIntent().getStringExtra("isFrom").equals("regBorrower")) {
-                     addbank = new Intent(parentActivity(), AddAccountBankAgentActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString(FormOtherAgentFragment.BANK_ID, String.valueOf(bank.getId()));
+                    bundle.putString(FormOtherAgentFragment.BANK_NAME, bank.getName());
+                    addbank = new Intent(parentActivity(), AddAccountBankAgentActivity.class);
+                    addbank.putExtras(bundle);
                 } else {
 //                    addbank = new Intent(parentActivity(), AddAccountBankAgentActivity.class);
                     addbank = new Intent(parentActivity(), ViewBorrowerActivity.class);
+                    addbank.putExtra(ViewBorrowerActivity.BANK_ID, String.valueOf(bank.getId()));
 
                 }
                 addbank.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                addbank.putExtras(bundle);
                 startActivity(addbank);
 
             }

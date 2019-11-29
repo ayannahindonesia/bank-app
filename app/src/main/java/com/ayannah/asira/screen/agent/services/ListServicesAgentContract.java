@@ -13,11 +13,13 @@ public interface ListServicesAgentContract {
         void setAllServices(List<BankService.Data> datas);
 
         void showPromoAndNews(List<BeritaPromo> listBeritaPromo);
+
+        void showErrorMessage(String err);
     }
 
     interface Presenter extends BasePresenter<View> {
 
-        void getAllService();
+        void getAllService(String bank_id);
 
         void loadPromoAndNews();
     }

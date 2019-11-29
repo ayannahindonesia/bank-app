@@ -1,4 +1,4 @@
-package com.ayannah.asira.screen.loan;
+package com.ayannah.asira.screen.agent.loan;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,8 +21,10 @@ import com.ayannah.asira.R;
 import com.ayannah.asira.custom.PlafondEditText;
 import com.ayannah.asira.data.model.FeesItem;
 import com.ayannah.asira.data.model.Products;
+import com.ayannah.asira.data.model.ProductsAgent;
 import com.ayannah.asira.data.model.ReasonLoan;
 import com.ayannah.asira.data.model.ServiceProducts;
+import com.ayannah.asira.data.model.ServiceProductsAgent;
 import com.ayannah.asira.screen.summary.SummaryTransactionActivity;
 import com.ayannah.asira.base.BaseFragment;
 import com.ayannah.asira.util.CommonUtils;
@@ -38,10 +40,10 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class LoanFragment extends BaseFragment implements LoanContract.View {
+public class LoanAgentFragment extends BaseFragment implements LoanAgentContract.View {
 
     @Inject
-    LoanContract.Presenter mPresenter;
+    LoanAgentContract.Presenter mPresenter;
 
     @BindView(R.id.seekbarTenorCicilan)
     SeekBar installment;
@@ -126,11 +128,11 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
     private String convSetup;
 
     private List<String> productName;
-    private ArrayList<Products> mServiceProducts = new ArrayList<>();
+    private ArrayList<ProductsAgent> mServiceProducts = new ArrayList<>();
     private NumberSeparatorTextWatcher plafonNumberSeparator;
 
     @Inject
-    public LoanFragment(){}
+    public LoanAgentFragment(){}
 
     @Override
     protected int getLayoutView() {
@@ -150,9 +152,9 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
         dialog.show();
         mPresenter.getProducts(idService);
 
-        mPresenter.getReasonLoan();
+        mPresenter.getLoanIntention();
 
-        mPresenter.getRulesFormula();
+        mPresenter.getRulesFormula(getActivity().getIntent().getStringExtra(LoanAgentActivity.IDBANK));
 
     }
 
@@ -214,7 +216,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
     }
 
     @Override
-    public void successGetProducts(ServiceProducts serviceProducts) {
+    public void successGetProducts(ServiceProductsAgent serviceProducts) {
         int size = serviceProducts.getProducts().size();
 
         if (size > 0) {
@@ -242,7 +244,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
                     //set global variable to get value from selected product which user selected
                     selectedProduct = position;
 
-                            //set default loan
+                    //set default loan
                     installment.setProgress(0);
                     administration = 0;
 
@@ -319,7 +321,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
         dialog.dismiss();
     }
 
-    private void CalculateData(int position, List<Products> serviceProducts) {
+    private void CalculateData(int position, List<ProductsAgent> serviceProducts) {
 
         if(!plafondCustom.getText().toString().trim().isEmpty()){
 
@@ -614,7 +616,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
     @OnClick(R.id.refreshAlasan)
     void onClickRefreshAlasan(){
 
-        mPresenter.getReasonLoan();
+        mPresenter.getLoanIntention();
 
     }
 

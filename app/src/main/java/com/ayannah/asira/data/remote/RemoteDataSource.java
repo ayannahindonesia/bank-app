@@ -16,6 +16,7 @@ import com.ayannah.asira.data.model.BankDetail;
 import com.ayannah.asira.data.model.BankList;
 import com.ayannah.asira.data.model.BankService;
 import com.ayannah.asira.data.model.CheckAccount;
+import com.ayannah.asira.data.model.CheckBorrower;
 import com.ayannah.asira.data.model.FCMTokenResponse;
 import com.ayannah.asira.data.model.Kabupaten;
 import com.ayannah.asira.data.model.Kecamatan;
@@ -27,6 +28,7 @@ import com.ayannah.asira.data.model.Notif;
 import com.ayannah.asira.data.model.Provinsi;
 import com.ayannah.asira.data.model.ReasonLoan;
 import com.ayannah.asira.data.model.ServiceProducts;
+import com.ayannah.asira.data.model.ServiceProductsAgent;
 import com.ayannah.asira.data.model.Token;
 import com.ayannah.asira.data.model.UserProfile;
 import com.google.gson.JsonObject;
@@ -453,5 +455,37 @@ public class RemoteDataSource implements RemoteRepository {
                 .build()
                 .getObjectSingle(NasabahAgent.class);
 
+    }
+
+    @Override
+    public Single<CheckBorrower> checkExistingBorrowerAgent(JsonObject paramCheckBorrower) {
+        return Rx2AndroidNetworking.post(BuildConfig.API_URL + "agent/checks_borrower")
+                .addHeaders("Authorization", preferenceRepository.getUserToken())
+                .addApplicationJsonBody(paramCheckBorrower)
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getObjectSingle(CheckBorrower.class);
+    }
+
+    @Override
+    public Single<BankService> getServicesAgent(String bank_id) {
+        return Rx2AndroidNetworking.get(BuildConfig.API_URL + "agent/bank_services")
+                .addHeaders("Authorization", preferenceRepository.getUserToken())
+                .addQueryParameter("bank_id", bank_id)
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getObjectSingle(BankService.class);
+    }
+
+
+
+    @Override
+    public Single<ServiceProductsAgent> getAllProductsAgent(String idService) {
+        return Rx2AndroidNetworking.get(BuildConfig.API_URL + "agent/bank_products")
+                .addHeaders("Authorization", preferenceRepository.getUserToken())
+                .addQueryParameter("service_id", idService)
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getObjectSingle(ServiceProductsAgent.class);
     }
 }

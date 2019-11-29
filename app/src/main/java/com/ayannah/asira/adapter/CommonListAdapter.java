@@ -369,7 +369,7 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
             status.setText(param.getStatus());
 
-            btnAjukan.setOnClickListener(v -> viewBorrowerListener.onClickButton());
+            btnAjukan.setOnClickListener(v -> viewBorrowerListener.onClickButton(param));
 
             itemView.setOnClickListener(v -> viewBorrowerListener.onClick(param));
 
