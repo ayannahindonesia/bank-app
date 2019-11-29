@@ -67,6 +67,8 @@ public class ViewBorrowerFragment extends BaseFragment implements ViewBorrowerCo
         super.onResume();
         mPresenter.takeView(this);
 
+        mPresenter.getLenderToken();
+
         bank_Id = getActivity().getIntent().getStringExtra(ViewBorrowerActivity.BANK_ID);
 
         pbLoading.setVisibility(View.VISIBLE);

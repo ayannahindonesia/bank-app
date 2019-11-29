@@ -20,5 +20,8 @@ public interface ViewBorrowerContract {
 
         void getDataBorrower(String bankId);
 
+        void getLenderToken();
+
+        void getTokenAdminLender();
     }
 }
