@@ -1,5 +1,10 @@
 package com.ayannah.asira.di;
 
+import com.ayannah.asira.screen.agent.listloan.ListLoanActivtiy;
+import com.ayannah.asira.screen.agent.listloan.ListLoanModule;
+import com.ayannah.asira.screen.agent.listloan.ditolak.DitolakModule;
+import com.ayannah.asira.screen.agent.listloan.pencairan.PencairanModule;
+import com.ayannah.asira.screen.agent.listloan.pengajuan.PengajuanModule;
 import com.ayannah.asira.screen.agent.loan.LoanAgentActivity;
 import com.ayannah.asira.screen.agent.loan.LoanAgentModule;
 import com.ayannah.asira.screen.agent.loginagent.LoginAgentActivity;
@@ -216,4 +221,12 @@ abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = LoanAgentModule.class)
     abstract LoanAgentActivity loanAgentActivity();
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = {
+            ListLoanModule.class,
+            PengajuanModule.class,
+            PencairanModule.class,
+            DitolakModule.class})
+    abstract ListLoanActivtiy listLoanActivtiy();
 }
