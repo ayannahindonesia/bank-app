@@ -39,7 +39,7 @@ public class RefreshTokenInterceptor implements Interceptor {
                 ///request token public to asira
                 String credential = Credentials.basic("androkey", "androsecret");
                 Request refreshTokenPublic = originRequest.newBuilder()
-                        .url("http://asira.ayannah.com/api-borrower/clientauth") //http://asira.ayannah.com/
+                        .url("https://staging.ayannah.co.id/api-borrower/clientauth") //http://asira.ayannah.com/
                         .header("Authorization", credential)
                         .build();
 

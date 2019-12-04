@@ -5,6 +5,10 @@
         <domain includeSubdomains="true">dev.farizdotid.com</domain>
         <domain includeSubdomains="true">35.198.244.55</domain>
         <domain includeSubdomains="true">api.geonames.org</domain>
+        <domain includeSubdomains="true">staging.ayannah.co.id</domain>
+        <trust-anchors>
+            <certificates src="@raw/asira"/>
+        </trust-anchors>
     </domain-config>
 
 </network-security-config>

@@ -159,29 +159,29 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
     private void getCurrentTimeOnline() {
         SimpleDateFormat sdfCurrent = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
-        AndroidNetworking.get("http://api.geonames.org/timezoneJSON?lat=-6.2293867&lng=106.6894286&username=asira_geonames")
-                .setPriority(Priority.MEDIUM)
-                .build()
-                .getAsJSONObject(new JSONObjectRequestListener() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            currentTime[0] = sdfCurrent.parse(response.getString("time"));
-                            mPresenter.getTokenLender();
-                        } catch (ParseException | JSONException e) {
-                            currentTime[0] = Calendar.getInstance().getTime();
-                            mPresenter.getTokenLender();
-                            e.printStackTrace();
-                        }
-                    }
-
-                    @Override
-                    public void onError(ANError anError) {
-                        Log.d("GeoName Error: ", "Error on get server time");
+//        AndroidNetworking.get("http://api.geonames.org/timezoneJSON?lat=-6.2293867&lng=106.6894286&username=asira_geonames")
+//                .setPriority(Priority.MEDIUM)
+//                .build()
+//                .getAsJSONObject(new JSONObjectRequestListener() {
+//                    @Override
+//                    public void onResponse(JSONObject response) {
+//                        try {
+//                            currentTime[0] = sdfCurrent.parse(response.getString("time"));
+//                            mPresenter.getTokenLender();
+//                        } catch (ParseException | JSONException e) {
+//                            currentTime[0] = Calendar.getInstance().getTime();
+//                            mPresenter.getTokenLender();
+//                            e.printStackTrace();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onError(ANError anError) {
+//                        Log.d("GeoName Error: ", "Error on get server time");
                         currentTime[0] = Calendar.getInstance().getTime();
                         mPresenter.getTokenLender();
-                    }
-                });
+//                    }
+//                });
     }
 
     @Override
