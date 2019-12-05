@@ -67,6 +67,12 @@ public class ListLoanActivtiy extends DaggerAppCompatActivity implements ListLoa
 
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return super.onSupportNavigateUp();
+    }
+
     private void setUpAdapter() {
 
         List<Fragment> fragments = new ArrayList<>();

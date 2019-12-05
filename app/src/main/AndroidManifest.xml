@@ -26,14 +26,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:targetApi="n">
-        <activity android:name=".screen.agent.listloan.ListLoanActivtiy">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".screen.agent.selectbank.SelectBankActivity"/>
+        <activity android:name=".screen.agent.listloan.ListLoanActivtiy"/>
         <activity android:name=".screen.borrower.navigationmenu.editinfopribadi.EditInfoPribadiActivity" />
         <activity
             android:name=".screen.register.termcondition.TermConditionActivity"
@@ -100,12 +94,14 @@
             android:name=".util.CameraTakeBeforeM"
             android:configChanges="orientation|screenSize" />
         <activity android:name=".screen.SplashScreen">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-<!--                <action android:name="android.intent.action.VIEW" />-->
 
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+             <intent-filter>
+             <action android:name="android.intent.action.MAIN" />
+             <action android:name="android.intent.action.VIEW" />
+
+
+             <category android:name="android.intent.category.LAUNCHER" />
+             </intent-filter>
         </activity>
         <activity android:name=".screen.chooselogin.ChooseLoginActivity" />
         <activity android:name=".screen.agent.loginagent.LoginAgentActivity" />

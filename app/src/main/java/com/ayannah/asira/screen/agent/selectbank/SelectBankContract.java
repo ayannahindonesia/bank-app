@@ -1,24 +1,22 @@
-package com.ayannah.asira.screen.agent.listloan.pengajuan;
+package com.ayannah.asira.screen.agent.selectbank;
 
 import com.ayannah.asira.base.BasePresenter;
 import com.ayannah.asira.base.BaseView;
-import com.ayannah.asira.data.model.DummyLoanBorrower;
+import com.ayannah.asira.data.model.BankTypeDummy;
 
 import java.util.List;
 
-public interface PengajuanContract {
+public interface SelectBankContract {
 
     interface View extends BaseView<Presenter>{
 
         void showErrorMessage(String message);
 
-        void showOnProcessLoan(List<DummyLoanBorrower> results);
-
+        void showBanks(List<BankTypeDummy> results);
     }
 
     interface Presenter extends BasePresenter<View>{
 
-        void getOnProcessLoan();
-
+        void getBanks();
     }
 }

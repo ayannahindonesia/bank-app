@@ -1,5 +1,6 @@
 package com.ayannah.asira.custom;
 
+import com.ayannah.asira.data.model.DummyLoanBorrower;
 import com.ayannah.asira.data.model.Loans.DataItem;
 import com.ayannah.asira.data.model.UserBorrower;
 
@@ -20,6 +21,11 @@ public interface CommonListListener {
         void onClickButton(UserBorrower user);
 
         void onClick(UserBorrower user);
+    }
+
+    interface ListLoanAgent{
+
+        void onClickItem(DummyLoanBorrower loan);
     }
 
 }

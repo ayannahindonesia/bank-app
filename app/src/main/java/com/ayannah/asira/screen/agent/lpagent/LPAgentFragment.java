@@ -17,6 +17,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.ayannah.asira.R;
 import com.ayannah.asira.base.BaseFragment;
 import com.ayannah.asira.screen.agent.registerborrower.choosebank.ChooseBankAgentActivity;
+import com.ayannah.asira.screen.agent.selectbank.SelectBankActivity;
 import com.ayannah.asira.screen.agent.viewBorrower.ViewBorrowerActivity;
 import com.ayannah.asira.screen.borrower.login.LoginActivity;
 import com.ayannah.asira.screen.chooselogin.ChooseLoginActivity;
@@ -82,34 +83,16 @@ public class LPAgentFragment extends BaseFragment implements LPAgentContract.Vie
         int id = menuItem.getItemId();
 
         if (id == R.id.nav_logout) {
-            mPresenter.logout();
-        }
 
-//        if (id == R.id.nav_personalInfo) {
-//
-//            Intent perInfo = new Intent(parentActivity(), InfoPribadiActivity.class);
-//            startActivity(perInfo);
-//
-//        } else if (id == R.id.nav_infoPekerjaan) {
-//
-//            Intent keuangan = new Intent(parentActivity(), InformasiKeuanganActivity.class);
-//            startActivity(keuangan);
-//
-//        } else if(id == R.id.nav_datapendukung){
-//
-//            Intent datapendukung = new Intent(parentActivity(), DataPendukungActivity.class);
-//            startActivity(datapendukung);
-//
-//        }
-//        else if (id == R.id.nav_akun_saya){
-//
-//            Intent akusaya  = new Intent(parentActivity(), AkunSayaActivity.class);
-//            startActivity(akusaya);
-//        } else if(id == R.id.nav_pinjaman_saya){
-//
-//            Intent pinjamansaya = new Intent(parentActivity(), HistoryLoanActivity.class);
-//            startActivity(pinjamansaya);
-//        }
+            mPresenter.logout();
+
+        }else if(id == R.id.pengajuan_pinjaman){
+
+            Intent intent = new Intent(parentActivity(), ChooseBankAgentActivity.class);
+            intent.putExtra("isFrom", "listLoanRequest");
+            startActivity(intent);
+
+        }
 
         drawer.closeDrawer(GravityCompat.START);
 

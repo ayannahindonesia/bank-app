@@ -23,6 +23,8 @@ import com.ayannah.asira.screen.agent.registerborrower.formother.FormOtherAgentA
 import com.ayannah.asira.screen.agent.registerborrower.formother.FormOtherAgentModule;
 import com.ayannah.asira.screen.agent.registerborrower.jobearning.FormJobEarningAgentActivity;
 import com.ayannah.asira.screen.agent.registerborrower.jobearning.FormJobEarningAgentModule;
+import com.ayannah.asira.screen.agent.selectbank.SelectBankActivity;
+import com.ayannah.asira.screen.agent.selectbank.SelectBankModule;
 import com.ayannah.asira.screen.agent.services.ListServicesAgentActivity;
 import com.ayannah.asira.screen.agent.services.ListServicesAgentModule;
 import com.ayannah.asira.screen.agent.viewBorrower.ViewBorrowerActivity;
@@ -229,4 +231,8 @@ abstract class ActivityBindingModule {
             PencairanModule.class,
             DitolakModule.class})
     abstract ListLoanActivtiy listLoanActivtiy();
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = SelectBankModule.class)
+    abstract SelectBankActivity selectBankActivity();
 }
