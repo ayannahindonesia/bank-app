@@ -535,7 +535,15 @@ public class LoanAgentFragment extends BaseFragment implements LoanAgentContract
 
                 } else {
 
-                    result = result + Integer.parseInt(param.getAmount());
+                    if (param.getAmount().toLowerCase().contains(".")) {
+
+                        result = result + (int) Double.parseDouble(param.getAmount());
+
+                    } else {
+
+                        result = result + Integer.parseInt(param.getAmount());
+
+                    }
                 }
 
             }
