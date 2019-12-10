@@ -243,9 +243,6 @@ public class LoginPresenter implements LoginContract.Presenter {
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(res -> {
 
-            Log.e(TAG, "fcm token sent");
-            Log.e(TAG, token);
-
             mView.loginComplete();
 
         }, error ->{

@@ -314,12 +314,6 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
     protected void onDestroy() {
         super.onDestroy();
         mUnbinder.unbind();

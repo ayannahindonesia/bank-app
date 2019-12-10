@@ -12,6 +12,7 @@ import com.ayannah.asira.data.local.PreferenceRepository;
 import com.ayannah.asira.data.model.BeritaPromo;
 import com.ayannah.asira.data.remote.RemoteRepository;
 import com.ayannah.asira.util.CommonUtils;
+import com.google.gson.JsonObject;
 
 import org.json.JSONObject;
 
@@ -197,9 +198,20 @@ public class MainMenuPresenter implements MainMenuContract.Presenter {
             return;
         }
 
-        prefRepo.clearAll();
+        mComposite.add(remotRepo.sendUserFCMToken("")
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(res -> {
 
-        mView.showLogoutComplete();
+            prefRepo.clearAll();
+
+            mView.showLogoutComplete();
+
+        }, error ->{
+
+            mView.showErrorMessage(CommonUtils.errorResponseWithStatusCode(error));
+
+        }));
 
     }
 
