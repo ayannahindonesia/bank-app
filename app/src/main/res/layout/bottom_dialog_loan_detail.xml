@@ -262,6 +262,81 @@
             android:layout_marginBottom="10dp"
             android:textSize="@dimen/fontLarge"/>
 
+        <LinearLayout
+            android:id="@+id/lltTanggalApproval"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:text="Tanggal Approval"
+                android:textSize="@dimen/fontNormal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"/>
+
+            <TextView
+                android:id="@+id/tanggalApproval"
+                android:textColor="@color/colorBlueDark"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="xyz"
+                android:layout_marginBottom="10dp"
+                android:textSize="@dimen/fontLarge"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lltTanggalPencairan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:text="Tanggal Approval"
+                android:textSize="@dimen/fontNormal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"/>
+
+            <TextView
+                android:id="@+id/tanggalPencairan"
+                android:textColor="@color/colorBlueDark"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="xyz"
+                android:layout_marginBottom="10dp"
+                android:textSize="@dimen/fontLarge"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lltRejactReason"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:text="Alasan Ditolak"
+                android:textSize="@dimen/fontNormal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"/>
+
+            <TextView
+                android:id="@+id/rejectReason"
+                android:textColor="@color/colorBlueDark"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="xyz"
+                android:layout_marginBottom="10dp"
+                android:textSize="@dimen/fontLarge"/>
+
+        </LinearLayout>
+
 <!--        <TextView-->
 <!--            android:text="Nama nasabah"-->
 <!--            android:textSize="@dimen/fontNormal"-->

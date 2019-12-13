@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -59,6 +60,13 @@ public class BottomSheetLoanDetail extends BottomSheetDialogFragment {
     @BindView(R.id.detail) TextView detail;
     @BindView(R.id.tanggalPengajuan) TextView tanggalPengajuan;
 
+    @BindView(R.id.lltTanggalApproval) LinearLayout lltTanggalApproval;
+    @BindView(R.id.lltTanggalPencairan) LinearLayout lltTanggalPencairan;
+    @BindView(R.id.lltRejactReason) LinearLayout lltRejactReason;
+    @BindView(R.id.rejectReason) TextView rejectReason;
+    @BindView(R.id.tanggalPencairan) TextView tanggalPencairan;
+    @BindView(R.id.tanggalApproval) TextView tanggalApproval;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -70,11 +78,19 @@ public class BottomSheetLoanDetail extends BottomSheetDialogFragment {
         nama.setText(item.getBorrowerInfo().getFullname());
 
         if(item.getStatus().equals("approved")){
-            status.setText("Diterima");
+            if (item.getDisburseStatus().equals("confirmed")) {
+                status.setText("Sudah DIcairkan");
+            } else {
+                status.setText("Diterima");
+            }
+            lltTanggalApproval.setVisibility(View.VISIBLE);
+            lltTanggalPencairan.setVisibility(View.VISIBLE);
         }else if(item.getStatus().equals("processing")){
             status.setText("Dalam proses");
         }else {
             status.setText("Ditolak");
+            lltTanggalApproval.setVisibility(View.VISIBLE);
+            lltRejactReason.setVisibility(View.VISIBLE);
         }
 
 
@@ -118,15 +134,24 @@ public class BottomSheetLoanDetail extends BottomSheetDialogFragment {
         detail.setText(item.getIntentionDetails());
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss.SSS'Z'", Locale.getDefault());
+        SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss'Z'", Locale.getDefault());
         SimpleDateFormat sdfUsed = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
-        Date getDate = new Date();
         try {
+            Date getDate = new Date();
             getDate = sdf.parse(item.getCreatedTime());
+            tanggalPengajuan.setText(sdfUsed.format(getDate));
+
+            Date getDatePencairan = new Date();
+            getDatePencairan = sdf2.parse(item.getDisburseDate());
+            tanggalPencairan.setText(sdfUsed.format(getDatePencairan));
+
+            Date getDateApproval = new Date();
+            getDateApproval = sdf.parse(item.getUpdatedTime());
+            tanggalApproval.setText(sdfUsed.format(getDateApproval));
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
-        tanggalPengajuan.setText(sdfUsed.format(getDate));
+        rejectReason.setText(item.getRejectReason());
 
         return view;
     }

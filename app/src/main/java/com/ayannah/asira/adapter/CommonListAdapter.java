@@ -446,9 +446,13 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 statusLoanBorrower.setText("Dalam proses");
 
             }else if(param.getStatus().equals("approved")){
-
-                statusLoanBorrower.setBackgroundResource(R.drawable.badge_diterima);
-                statusLoanBorrower.setText("Diterima");
+                if (param.getDisburseStatus().equals("confirmed")) {
+                    statusLoanBorrower.setBackgroundResource(R.drawable.badge_dicairkan);
+                    statusLoanBorrower.setText("Sudah Dicairkan");
+                } else {
+                    statusLoanBorrower.setBackgroundResource(R.drawable.badge_diterima);
+                    statusLoanBorrower.setText("Diterima");
+                }
 
             }else {
 
