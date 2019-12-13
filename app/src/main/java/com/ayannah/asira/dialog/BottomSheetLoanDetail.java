@@ -67,7 +67,7 @@ public class BottomSheetLoanDetail extends BottomSheetDialogFragment {
 
         idpinjaman.setText(String.valueOf(item.getId()));
 
-        nama.setText(item.getBorrowerInfo().getEmployerName());
+        nama.setText(item.getBorrowerInfo().getFullname());
 
         if(item.getStatus().equals("approved")){
             status.setText("Diterima");
@@ -78,7 +78,7 @@ public class BottomSheetLoanDetail extends BottomSheetDialogFragment {
         }
 
 
-        jenis.setText(item.getProductName());
+        jenis.setText(item.getServiceName());
 
         produk.setText(item.getProductName());
 
