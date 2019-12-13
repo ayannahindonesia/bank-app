@@ -25,7 +25,7 @@ public interface CommonListListener {
 
     interface ListLoanAgent{
 
-        void onClickItem(DummyLoanBorrower loan);
+        void onClickItem(DataItem loan);
     }
 
 }

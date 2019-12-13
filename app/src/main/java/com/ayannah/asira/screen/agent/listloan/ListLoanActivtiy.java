@@ -27,6 +27,8 @@ import dagger.android.support.DaggerAppCompatActivity;
 
 public class ListLoanActivtiy extends DaggerAppCompatActivity implements ListLoanContract.View {
 
+    public static final String BANKID = "BANKID";
+
     @BindView(R.id.tabLayout)
     TabLayout tabs;
 

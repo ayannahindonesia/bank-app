@@ -41,7 +41,7 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private List<Notif.Data> notifMessages;
     private List<DataItem> loans;
     private List<UserBorrower> nasabah;
-    private List<DummyLoanBorrower> loanBorrowersAgent;
+    private List<DataItem> loanBorrowersAgent;
 
     private CommonListListener.LoanAdapterListener loanListener;
     private CommonListListener.NotifAdapterListener notifListener;
@@ -85,7 +85,7 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     }
 
-    public void setListLoanBorrowersAgent(List<DummyLoanBorrower> results){
+    public void setListLoanBorrowersAgent(List<DataItem> results){
 
         loanBorrowersAgent.clear();
 
@@ -433,24 +433,28 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             ButterKnife.bind(this, itemView);
         }
 
-        private void bind(DummyLoanBorrower param){
+        private void bind(DataItem param){
 
-            name.setText(param.getName());
-            loanTotalBorrower.setText(CommonUtils.setRupiahCurrency(param.getTotal()));
-            tenorLoanBorrower.setText(String.format("%s Bulan", param.getTenor()));
-            productBorrower.setText(param.getNamaProduk());
+            name.setText(param.getBorrowerInfo().getEmployerName());
+            loanTotalBorrower.setText(CommonUtils.setRupiahCurrency(param.getLoanAmount()));
+            tenorLoanBorrower.setText(String.format("%s Bulan", param.getInstallment()));
+            productBorrower.setText(param.getProductName());
 
-            if(param.getStatus().equals("Dalam proses")){
+            if(param.getStatus().equals("processing")){
 
                 statusLoanBorrower.setBackgroundResource(R.drawable.badge_tidak_lengkap);
-            }else if(param.getStatus().equals("Diterima")){
+                statusLoanBorrower.setText("Dalam proses");
+
+            }else if(param.getStatus().equals("approved")){
 
                 statusLoanBorrower.setBackgroundResource(R.drawable.badge_diterima);
+                statusLoanBorrower.setText("Diterima");
+
             }else {
 
+                statusLoanBorrower.setText("Ditolak");
                 statusLoanBorrower.setBackgroundResource(R.drawable.badge_ditolak);
             }
-            statusLoanBorrower.setText(param.getStatus());
 
             itemView.setOnClickListener(v -> listLoanAgentListener.onClickItem(param));
 

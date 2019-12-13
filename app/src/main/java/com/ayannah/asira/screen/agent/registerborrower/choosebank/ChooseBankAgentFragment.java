@@ -107,11 +107,13 @@ public class ChooseBankAgentFragment extends BaseFragment implements ChooseBankA
                 }else if(parentActivity().getIntent().getStringExtra("isFrom").equals("listLoanRequest")){
 
                     addbank = new Intent(parentActivity(), ListLoanActivtiy.class);
+                    addbank.putExtra(ListLoanActivtiy.BANKID, bank.getId());
 
                 }else {
 //                    addbank = new Intent(parentActivity(), AddAccountBankAgentActivity.class);
                     addbank = new Intent(parentActivity(), ViewBorrowerActivity.class);
                     addbank.putExtra(ViewBorrowerActivity.BANK_ID, String.valueOf(bank.getId()));
+                    addbank.putExtra(ViewBorrowerActivity.BANK_NAME, bank.getName());
 
                 }
                 addbank.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);

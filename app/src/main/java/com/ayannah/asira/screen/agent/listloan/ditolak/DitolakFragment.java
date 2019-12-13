@@ -12,6 +12,9 @@ import com.ayannah.asira.adapter.CommonListAdapter;
 import com.ayannah.asira.base.BaseFragment;
 import com.ayannah.asira.custom.CommonListListener;
 import com.ayannah.asira.data.model.DummyLoanBorrower;
+import com.ayannah.asira.data.model.Loans.DataItem;
+import com.ayannah.asira.dialog.BottomSheetLoanDetail;
+import com.ayannah.asira.screen.agent.listloan.ListLoanActivtiy;
 
 import java.util.List;
 
@@ -30,6 +33,8 @@ public class DitolakFragment extends BaseFragment implements DitolakContract.Vie
     @BindView(R.id.recyclerViewDitolak)
     RecyclerView recyclerViewDitolak;
 
+    private int bankId;
+
     @Inject
     public DitolakFragment(){
 
@@ -40,7 +45,7 @@ public class DitolakFragment extends BaseFragment implements DitolakContract.Vie
         super.onResume();
         mPresenter.takeView(this);
 
-        mPresenter.getOnDitolak();
+        mPresenter.getOnDitolak(bankId);
     }
 
     @Override
@@ -51,6 +56,8 @@ public class DitolakFragment extends BaseFragment implements DitolakContract.Vie
 
     @Override
     protected void initView(Bundle state) {
+
+        bankId = parentActivity().getIntent().getIntExtra(ListLoanActivtiy.BANKID, 0);
 
         recyclerViewDitolak.setLayoutManager(new LinearLayoutManager(parentActivity()));
         recyclerViewDitolak.setHasFixedSize(true);
@@ -66,13 +73,22 @@ public class DitolakFragment extends BaseFragment implements DitolakContract.Vie
     }
 
     @Override
-    public void showOnDitolakLoan(List<DummyLoanBorrower> results) {
+    public void showOnDitolakLoan(List<DataItem> results) {
 
         adapterDitolak.setListLoanBorrowersAgent(results);
         adapterDitolak.setOnClickListenerLoanBorrowerOnAgent(new CommonListListener.ListLoanAgent() {
             @Override
-            public void onClickItem(DummyLoanBorrower loan) {
+            public void onClickItem(DataItem loan) {
 
+                BottomSheetLoanDetail dialog = new BottomSheetLoanDetail();
+                dialog.setDataLoan(loan);
+                dialog.showNow(parentActivity().getSupportFragmentManager(), "ditolak");
+                dialog.setOnClickListener(new BottomSheetLoanDetail.BottomSheetLoanDetailListener() {
+                    @Override
+                    public void close() {
+                        dialog.dismiss();
+                    }
+                });
 
             }
         });

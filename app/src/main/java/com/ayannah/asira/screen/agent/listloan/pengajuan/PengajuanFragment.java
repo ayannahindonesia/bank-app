@@ -12,6 +12,9 @@ import com.ayannah.asira.adapter.CommonListAdapter;
 import com.ayannah.asira.base.BaseFragment;
 import com.ayannah.asira.custom.CommonListListener;
 import com.ayannah.asira.data.model.DummyLoanBorrower;
+import com.ayannah.asira.data.model.Loans.DataItem;
+import com.ayannah.asira.dialog.BottomSheetLoanDetail;
+import com.ayannah.asira.screen.agent.listloan.ListLoanActivtiy;
 
 import java.util.List;
 
@@ -32,6 +35,8 @@ public class PengajuanFragment extends BaseFragment implements PengajuanContract
     @BindView(R.id.recyclerViewPengajuan)
     RecyclerView recyclerViewPengajuan;
 
+    private int bankid;
+
     @Inject
     public PengajuanFragment(){}
 
@@ -45,12 +50,14 @@ public class PengajuanFragment extends BaseFragment implements PengajuanContract
         super.onResume();
         mPresenter.takeView(this);
 
-        mPresenter.getOnProcessLoan();
+        mPresenter.getOnProcessLoan(bankid);
 
     }
 
     @Override
     protected void initView(Bundle state) {
+
+        bankid = parentActivity().getIntent().getIntExtra(ListLoanActivtiy.BANKID, 0);
 
         recyclerViewPengajuan.setLayoutManager(new LinearLayoutManager(parentActivity()));
         recyclerViewPengajuan.setHasFixedSize(true);
@@ -67,14 +74,21 @@ public class PengajuanFragment extends BaseFragment implements PengajuanContract
     }
 
     @Override
-    public void showOnProcessLoan(List<DummyLoanBorrower> results) {
+    public void showOnProcessLoan(List<DataItem> results) {
 
         adapterPengajuan.setListLoanBorrowersAgent(results);
-        adapterPengajuan.setOnClickListenerLoanBorrowerOnAgent(new CommonListListener.ListLoanAgent() {
-            @Override
-            public void onClickItem(DummyLoanBorrower loan) {
+        adapterPengajuan.setOnClickListenerLoanBorrowerOnAgent(loan -> {
 
-            }
+            BottomSheetLoanDetail dialog = new BottomSheetLoanDetail();
+            dialog.setDataLoan(loan);
+            dialog.showNow(parentActivity().getSupportFragmentManager(), "pengajuan");
+            dialog.setOnClickListener(new BottomSheetLoanDetail.BottomSheetLoanDetailListener() {
+                @Override
+                public void close() {
+                    dialog.dismiss();
+                }
+            });
+
         });
     }
 }

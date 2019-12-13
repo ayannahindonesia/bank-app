@@ -22,4 +22,5 @@ public abstract class PengajuanModule {
     static CommonListAdapter adapterPengajuan(){
         return new CommonListAdapter(CommonListAdapter.VIEW_LIST_BORROWERS_LOAN_AGENT);
     }
+
 }

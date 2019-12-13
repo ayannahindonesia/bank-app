@@ -1,19 +1,36 @@
 package com.ayannah.asira.screen.agent.listloan.pencairan;
 
+import android.util.Log;
+
 import com.ayannah.asira.data.model.DummyLoanBorrower;
+import com.ayannah.asira.data.model.Loans.DataItem;
+import com.ayannah.asira.data.remote.RemoteRepository;
+import com.ayannah.asira.util.CommonUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
+
 public class PencairanPresenter implements PencairanContract.Presenter {
+
+    private static final String TAG = PencairanPresenter.class.getSimpleName();
 
     private PencairanContract.View mView;
 
-    @Inject
-    PencairanPresenter(){
+    private CompositeDisposable mComposite;
+    private RemoteRepository remoteRepository;
 
+    @Inject
+    PencairanPresenter(RemoteRepository remoteRepository){
+
+        this.remoteRepository = remoteRepository;
+
+        mComposite = new CompositeDisposable();
     }
 
     @Override
@@ -29,50 +46,36 @@ public class PencairanPresenter implements PencairanContract.Presenter {
     }
 
     @Override
-    public void getOnPencairan() {
+    public void getOnPencairan(int idBank) {
 
         if(mView == null){
             return;
         }
 
-        List<DummyLoanBorrower> results = new ArrayList<>();
+        mComposite.add(remoteRepository.getAgentLoan(String.valueOf(idBank))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(res -> {
 
-        DummyLoanBorrower data = new DummyLoanBorrower();
-        data.setId("1");
-        data.setAdminFee("15000");
-        data.setAngsuran(12);
-        data.setConvenieceFee("12000");
-        data.setDateRequest("21 November 2019");
-        data.setDetailTujuan("Untuk minjam uang, pinjam aja.");
-        data.setImbal(10);
-        data.setLayanan("Layanan layananku");
-        data.setName("Dinand");
-        data.setNamaProduk("Product orange");
-        data.setPinjamanPokok("12000000");
-        data.setStatus("Diterima");
-        data.setTotal(13240000);
-        data.setTenor(12);
-        data.setTujuan("Pinjam");
-        results.add(data);
+                    Log.e(TAG, "total: "+res.getTotalData());
 
-        DummyLoanBorrower data_d = new DummyLoanBorrower();
-        data_d.setId("2");
-        data_d.setAdminFee("15000");
-        data_d.setAngsuran(12);
-        data_d.setConvenieceFee("12000");
-        data_d.setDateRequest("20 November 2019");
-        data_d.setDetailTujuan("Untuk minjam uang, pinjam aja.");
-        data_d.setImbal(10);
-        data_d.setLayanan("Layanan layananku");
-        data_d.setName("Christian");
-        data_d.setNamaProduk("Product apple");
-        data_d.setPinjamanPokok("12000000");
-        data_d.setStatus("Diterima");
-        data_d.setTotal(13240000);
-        data_d.setTenor(12);
-        data_d.setTujuan("Pinjam");
-        results.add(data_d);
+                    if(res.getTotalData() > 0) {
 
-        mView.showOnPencairan(results);
+                        List<DataItem> processing = new ArrayList<>();
+
+                        for(DataItem item: res.getData()){
+
+                            if(item.getStatus().contains("approved")){
+                                processing.add(item);
+                            }
+                        }
+
+                        mView.showOnPencairan(processing);
+
+                    }
+                }, error ->{
+
+                    mView.showErrorMessage(CommonUtils.errorResponseGetCode(error));
+                }));
     }
 }

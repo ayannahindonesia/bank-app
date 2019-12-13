@@ -3,6 +3,7 @@ package com.ayannah.asira.screen.agent.listloan.ditolak;
 import com.ayannah.asira.base.BasePresenter;
 import com.ayannah.asira.base.BaseView;
 import com.ayannah.asira.data.model.DummyLoanBorrower;
+import com.ayannah.asira.data.model.Loans.DataItem;
 
 import java.util.List;
 
@@ -12,13 +13,13 @@ public interface DitolakContract {
 
         void showErrorMessage(String message);
 
-        void showOnDitolakLoan(List<DummyLoanBorrower> results);
+        void showOnDitolakLoan(List<DataItem> results);
 
     }
 
     interface Presenter extends BasePresenter<View> {
 
-        void getOnDitolak();
+        void getOnDitolak(int bankId);
 
     }
 }

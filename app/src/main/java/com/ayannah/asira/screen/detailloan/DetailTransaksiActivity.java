@@ -137,6 +137,7 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_transaksi);
+
         mUnbinder = ButterKnife.bind(this);
         setSupportActionBar(toolbar);
 
