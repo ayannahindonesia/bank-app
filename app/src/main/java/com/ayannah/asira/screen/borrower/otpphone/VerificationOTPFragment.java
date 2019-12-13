@@ -55,6 +55,7 @@ public class VerificationOTPFragment extends BaseFragment implements Verificatio
     private String RESUBMIT_LOAN = "resubmit_loan";
     private String RESUBMIT_REGIST = "resubmit_regist";
     private String POST_PINJAMAN = "post_pinjaman";
+    private String POST_PINJAMAN_AGENT = "post_pinjaman_agent";
 
     private AlertDialog dialog;
 
@@ -114,12 +115,25 @@ public class VerificationOTPFragment extends BaseFragment implements Verificatio
             } else if (purpose.equals(RESUBMIT_REGIST)) {
 
                 resubmitRegister(charSequence);
+            } else if (purpose.equals(POST_PINJAMAN_AGENT)) {
+
+                loanRequestAgent(charSequence);
             } else {
 
                 dialog.dismiss();
             }
 
         }
+    }
+
+    private void loanRequestAgent(CharSequence charSequence) {
+        String id_loan = parentActivity().getIntent().getStringExtra("id_loan");
+        String otp_loan = charSequence.toString();
+
+        JsonObject json = new JsonObject();
+        json.addProperty("otp_code", otp_loan);
+
+        mPresenter.postVerifyLoanByOTPAgent(id_loan, json);
     }
 
     private void resubmitRegister(CharSequence charSequence) {
@@ -187,6 +201,10 @@ public class VerificationOTPFragment extends BaseFragment implements Verificatio
         dialog.dismiss();
 
         Intent intent = new Intent(parentActivity(), SuccessActivity.class);
+        if (purpose.equals(POST_PINJAMAN_AGENT)) {
+            intent.putExtra(SuccessActivity.SUCCESS_COND, 2);
+        }
+
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         intent.putExtra(SuccessActivity.SUCCESS_TITLE, "Verifikasi Berhasil!");
         intent.putExtra(SuccessActivity.SUCCESS_DESC, "Pengajuan pinjaman berhasil diverifikasi. Silakan menunggu beberapa saat hingga ada konfirmasi dari bank. Terima kasih.");

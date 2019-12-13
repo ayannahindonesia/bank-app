@@ -278,6 +278,57 @@ public class VerificationOTPPresenter implements VerificationOTPContract.Present
                 }));
     }
 
+    @Override
+    public void postVerifyLoanByOTPAgent(String id_loan, JsonObject json) {
+        if(mView == null){
+
+            return;
+        }
+
+        mComposite.add(Completable.fromAction(() -> {
+
+            AndroidNetworking.post(BuildConfig.API_URL + "agent/loan/{idloan}/verify")
+                    .addHeaders("Authorization", preferenceRepository.getUserToken())
+                    .addPathParameter("idloan", id_loan)
+                    .addApplicationJsonBody(json)
+                    .setPriority(Priority.MEDIUM)
+                    .build()
+                    .getAsJSONObject(new JSONObjectRequestListener() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            Log.d("verify Loan: ", "Sukses");
+                            mView.successVerifyLoan();
+                        }
+
+                        @Override
+                        public void onError(ANError anError) {
+                            Log.d("verify Loan: ", "gagal");
+                            if (anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
+                                mView.showErrorMessage("Tidak Ada Koneksi");
+                            } else {
+                                if(anError.getErrorBody() != null){
+
+                                    JSONObject jsonObject2 = null;
+                                    try {
+                                        jsonObject2 = new JSONObject(anError.getErrorBody());
+                                        mView.showErrorMessage(jsonObject2.optString("message"));
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+
+                                }
+                            }
+                        }
+                    });
+
+//            mView.successVerifyLoan();
+
+        })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe());
+    }
+
     private void getClientToken(String phone, String pass, String isFrom) {
         JsonObject json = new JsonObject();
         json.addProperty("key", phone);

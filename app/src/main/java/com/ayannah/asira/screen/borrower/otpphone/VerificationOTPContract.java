@@ -30,5 +30,7 @@ public interface VerificationOTPContract {
         void getPublicToken(String phone, String pass, String isFrom);
 
         void setUserIdentity();
+
+        void postVerifyLoanByOTPAgent(String id_loan, JsonObject json);
     }
 }
