@@ -22,6 +22,7 @@ public class BottomSheetBorrowerAgent extends BottomSheetDialogFragment {
 
     @BindView(R.id.id) TextView idNasabah;
     @BindView(R.id.nama) TextView nameNasabah;
+    @BindView(R.id.alamat) TextView alamat;
     @BindView(R.id.status) TextView statusNasabah;
     @BindView(R.id.norek) TextView noRekening;
     @BindView(R.id.pinjaman) TextView pinjaman;
@@ -65,6 +66,8 @@ public class BottomSheetBorrowerAgent extends BottomSheetDialogFragment {
         idNasabah.setText(String.valueOf(user.getId()));
 
         nameNasabah.setText(user.getFullname());
+
+        alamat.setText(user.getAddress());
 
         statusNasabah.setText(user.getStatus());
 

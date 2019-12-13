@@ -14,7 +14,7 @@
                     android:icon="@drawable/ic_informasi_pribadi"
                     android:title="@string/menu_akun_saya"/>
                 <item
-                    android:id="@+id/nav_pengajuan_pinjaman"
+                    android:id="@+id/pengajuan_pinjaman"
                     android:icon="@drawable/ic_loan_history"
                     android:title="@string/title_pengajuan_pinjaman" />
                 <item

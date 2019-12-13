@@ -30,8 +30,8 @@ public class BankService extends BankBaseResponse {
         @SerializedName("bank_id")
         private int bankId;
 
-        @SerializedName("image_id")
-        private int imageId;
+        @SerializedName("image")
+        private String image;
 
         @SerializedName("status")
         private String status;
@@ -52,8 +52,8 @@ public class BankService extends BankBaseResponse {
             return name;
         }
 
-        public int getImageId() {
-            return imageId;
+        public String getImage() {
+            return image;
         }
 
         public int getBankId() {
@@ -74,10 +74,6 @@ public class BankService extends BankBaseResponse {
 
         public void setBankId(int bankId) {
             this.bankId = bankId;
-        }
-
-        public void setImageId(int imageId) {
-            this.imageId = imageId;
         }
 
         public void setStatus(String status) {

@@ -1,10 +1,10 @@
-package com.ayannah.asira.screen.agent.viewBorrower;
+package com.ayannah.asira.screen.agent.selectbank;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.widget.Toolbar;
 
 import com.ayannah.asira.R;
 import com.ayannah.asira.util.ActivityUtils;
@@ -16,13 +16,10 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import dagger.android.support.DaggerAppCompatActivity;
 
-public class ViewBorrowerActivity extends DaggerAppCompatActivity {
-
-    public static final String BANK_ID = "bank_id";
-    public static final String BANK_NAME = "bank_name";
+public class SelectBankActivity extends DaggerAppCompatActivity {
 
     @Inject
-    ViewBorrowerFragment mFragment;
+    SelectBankFragment mFragment;
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -40,26 +37,25 @@ public class ViewBorrowerActivity extends DaggerAppCompatActivity {
         assert actionBar != null;
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setTitle("Nasabah");
+        actionBar.setTitle("Pilih Bank");
 
-        ViewBorrowerFragment viewBorrowerFragment = (ViewBorrowerFragment)getSupportFragmentManager()
+        SelectBankFragment selectBankFragment = (SelectBankFragment)getSupportFragmentManager()
                 .findFragmentById(R.id.fragment_container);
-        if(viewBorrowerFragment == null){
-            viewBorrowerFragment = mFragment;
-            ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), viewBorrowerFragment, R.id.fragment_container);
+        if(selectBankFragment == null){
+            selectBankFragment = mFragment;
+            ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), selectBankFragment, R.id.fragment_container);
         }
+    }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mUnbinder.unbind();
     }
 
     @Override
     public boolean onSupportNavigateUp() {
         finish();
         return super.onSupportNavigateUp();
-    }
-
-    @Override
-    protected void onDestroy() {
-        mUnbinder.unbind();
-        super.onDestroy();
     }
 }
