@@ -24,5 +24,8 @@ public interface SummaryTransactionContract {
 
         void requestOTPForLoan(String idLoan);
 
+        void postLoanAgent(JsonObject json);
+
+        void requestOTPForLoanAgent(String id_loan);
     }
 }
