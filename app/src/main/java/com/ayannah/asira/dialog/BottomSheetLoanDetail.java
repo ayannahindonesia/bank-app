@@ -81,18 +81,18 @@ public class BottomSheetLoanDetail extends BottomSheetDialogFragment {
 
         idpinjaman.setText(String.valueOf(item.getId()));
 
-        nama.setText(String.format("%s (%s)", item.getBorrowerInfo().getFullname(), item.getBorrowerInfo().getNickname()));
+        nama.setText(String.format("%s", item.getBorrowerInfo().getFullname()));
 
         if(item.getStatus().equals("approved")){
             if (item.getDisburseStatus().equals("confirmed")) {
-                status.setText("Sudah DIcairkan");
+                status.setText("Sudah Dicairkan");
             } else {
                 status.setText("Diterima");
             }
             lltTanggalApproval.setVisibility(View.VISIBLE);
             lltTanggalPencairan.setVisibility(View.VISIBLE);
         }else if(item.getStatus().equals("processing")){
-            status.setText("Dalam proses");
+            status.setText("Dalam Proses");
         }else {
             status.setText("Ditolak");
             lltTanggalApproval.setVisibility(View.VISIBLE);

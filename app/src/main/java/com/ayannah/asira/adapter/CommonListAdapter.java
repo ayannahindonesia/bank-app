@@ -422,6 +422,7 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
      */
     class ViewListLoanBorrowerOnAgent extends RecyclerView.ViewHolder{
 
+        @BindView(R.id.idLoan) TextView idLoan;
         @BindView(R.id.nameBorrower) TextView name;
         @BindView(R.id.loanTotalBorrower) TextView loanTotalBorrower;
         @BindView(R.id.tenorLoanBorrower) TextView tenorLoanBorrower;
@@ -435,7 +436,8 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         private void bind(DataItem param){
 
-            name.setText(param.getBorrowerInfo().getEmployerName());
+            idLoan.setText(String.valueOf(param.getId()));
+            name.setText(param.getBorrowerInfo().getFullname());
             loanTotalBorrower.setText(CommonUtils.setRupiahCurrency(param.getLoanAmount()));
             tenorLoanBorrower.setText(String.format("%s Bulan", param.getInstallment()));
             productBorrower.setText(param.getProductName());
@@ -443,7 +445,7 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             if(param.getStatus().equals("processing")){
 
                 statusLoanBorrower.setBackgroundResource(R.drawable.badge_tidak_lengkap);
-                statusLoanBorrower.setText("Dalam proses");
+                statusLoanBorrower.setText("Dalam Proses");
 
             }else if(param.getStatus().equals("approved")){
                 if (param.getDisburseStatus().equals("confirmed")) {
