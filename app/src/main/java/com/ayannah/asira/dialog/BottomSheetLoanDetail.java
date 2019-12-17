@@ -112,7 +112,7 @@ public class BottomSheetLoanDetail extends BottomSheetDialogFragment {
 
         angsuran.setText(CommonUtils.setRupiahCurrency((int) Math.floor(item.getLayawayPlan())));
 
-        imbalHasil.setText("Imbal Hasil "+ (int)item.getInterest() +"%");
+        imbalHasil.setText("Imbal Hasil ("+ (int)item.getInterest() +"%)");
 
         double xyz = (item.getInterest() * (double)item.getLoanAmount())/100;
         double loanAmount = Double.parseDouble(String.valueOf(item.getLoanAmount()));
@@ -126,7 +126,7 @@ public class BottomSheetLoanDetail extends BottomSheetDialogFragment {
                     double x = Double.parseDouble(data.getAmount());
                     double percentageAdmin = ( x / loanAmount) * 100;
 
-                    tvAdminFee.setText("Admin Fee "+checkDecimal(percentageAdmin) +"%");
+                    tvAdminFee.setText("Admin Fee ("+checkDecimal(percentageAdmin) +"%)");
                     admin.setText(CommonUtils.setRupiahCurrency((int) Math.floor(x)));
 
                 }else {
@@ -134,7 +134,7 @@ public class BottomSheetLoanDetail extends BottomSheetDialogFragment {
                     double y = Double.parseDouble(data.getAmount());
                     double percentageConvenience = (y/loanAmount) * 100;
 
-                    tvConvenience.setText("Convenience Fee "+checkDecimal(percentageConvenience) + "%");
+                    tvConvenience.setText("Convenience Fee ("+checkDecimal(percentageConvenience) + "%)");
                     convenience.setText(CommonUtils.setRupiahCurrency((int) Math.floor(y)));
 
                 }
