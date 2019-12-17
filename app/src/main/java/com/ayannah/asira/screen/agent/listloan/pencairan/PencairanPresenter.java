@@ -65,7 +65,7 @@ public class PencairanPresenter implements PencairanContract.Presenter {
 
                         for(DataItem item: res.getData()){
 
-                            if(item.getStatus().contains("approved")){
+                            if(item.getStatus().contains("approved") || item.getStatus().contains("disbursed")){
                                 processing.add(item);
                             }
                         }
