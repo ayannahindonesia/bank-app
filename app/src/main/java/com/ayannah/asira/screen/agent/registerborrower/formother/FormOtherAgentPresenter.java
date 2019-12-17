@@ -46,8 +46,6 @@ public class FormOtherAgentPresenter implements FormOtherAgentContract.Presenter
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> {
 
-                    Log.d(TAG, "Register Borrower Complete");
-
                     mView.registerComplete();
 
                 }, error -> {

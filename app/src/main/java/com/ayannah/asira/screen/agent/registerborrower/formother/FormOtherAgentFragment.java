@@ -170,10 +170,8 @@ public class FormOtherAgentFragment extends BaseFragment implements FormOtherAge
     @Override
     public  void registerComplete() {
 
-//        Bundle bundle = Objects.requireNonNull(parentActivity()).getIntent().getExtras();
-//        assert bundle != null;
-//        mPresenter.getUserToken(bundle.getString(PHONE), bundle.getString(PASS), "regist");
         Toast.makeText(parentActivity(), "Nasabah berhasil dimasukan", Toast.LENGTH_LONG).show();
+
         Intent intent = new Intent(parentActivity(), LPAgentActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);

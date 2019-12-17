@@ -178,9 +178,10 @@ public class BottomSheetLoanDetail extends BottomSheetDialogFragment {
 
         String result = null;
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss.SSS'Z'", Locale.getDefault());
-        SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss'Z'", Locale.getDefault());
-        SimpleDateFormat sdfUsed = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
+        Locale locale = new Locale("in", "ID");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss.SSS'Z'", locale);
+        SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss'Z'", locale);
+        SimpleDateFormat sdfUsed = new SimpleDateFormat("dd MMMM yyyy", locale);
 
         Date date;
 
