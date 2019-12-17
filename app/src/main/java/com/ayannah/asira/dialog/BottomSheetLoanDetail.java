@@ -116,6 +116,7 @@ public class BottomSheetLoanDetail extends BottomSheetDialogFragment {
 
         double xyz = (item.getInterest() * (double)item.getLoanAmount())/100;
         double loanAmount = Double.parseDouble(String.valueOf(item.getLoanAmount()));
+        float loanAmountx = Float.parseFloat(String.valueOf(item.getLoanAmount()));
         imbal.setText(CommonUtils.setRupiahCurrency((int) Math.floor(xyz)));
 
         if(item.getFees().size() > 0) {
@@ -123,19 +124,25 @@ public class BottomSheetLoanDetail extends BottomSheetDialogFragment {
 
                 if (data.getDescription().contains("Admin Fee")){
 
-                    double x = Double.parseDouble(data.getAmount());
-                    double percentageAdmin = ( x / loanAmount) * 100;
+//                    double x = Double.parseDouble(data.getAmount());
+//                    double percentageAdmin = ( x / loanAmount) * 100;
 
-                    tvAdminFee.setText("Admin Fee "+checkDecimal(percentageAdmin) +"%");
-                    admin.setText(CommonUtils.setRupiahCurrency((int) Math.floor(x)));
+                    float xx = Float.parseFloat(data.getAmount());
+                    float percentageAdminx = (xx / loanAmountx) * 100;
+
+                    tvAdminFee.setText("Admin Fee "+checkDecimal(percentageAdminx) +"%");
+                    admin.setText(CommonUtils.setRupiahCurrency((int) Math.floor(xx)));
 
                 }else {
 
-                    double y = Double.parseDouble(data.getAmount());
-                    double percentageConvenience = (y/loanAmount) * 100;
+//                    double y = Double.parseDouble(data.getAmount());
+//                    double percentageConvenience = (y/loanAmount) * 100;
 
-                    tvConvenience.setText("Convenience Fee "+checkDecimal(percentageConvenience) + "%");
-                    convenience.setText(CommonUtils.setRupiahCurrency((int) Math.floor(y)));
+                    float yy = Float.parseFloat(data.getAmount());
+                    float percentageConveniencex = (yy/loanAmountx) * 100;
+
+                    tvConvenience.setText("Convenience Fee "+checkDecimal(percentageConveniencex) + "%");
+                    convenience.setText(CommonUtils.setRupiahCurrency((int) Math.floor(yy)));
 
                 }
 
@@ -157,7 +164,7 @@ public class BottomSheetLoanDetail extends BottomSheetDialogFragment {
         return view;
     }
 
-    private String checkDecimal(double percentageAdmin) {
+    private String checkDecimal(float percentageAdmin) {
 
         String convertToString = String.valueOf(percentageAdmin);
 

@@ -60,6 +60,7 @@ public class PencairanFragment extends BaseFragment implements PencairanContract
     protected void initView(Bundle state) {
 
         bankid = parentActivity().getIntent().getIntExtra(ListLoanActivtiy.BANKID, 0);
+        Log.e("PencairanFragment.class", "idbank "+bankid);
 
         recyclerViewPencairan.setLayoutManager(new LinearLayoutManager(parentActivity()));
         recyclerViewPencairan.setHasFixedSize(true);

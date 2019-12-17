@@ -201,7 +201,7 @@
             android:textSize="@dimen/fontLarge"/>
 
         <TextView
-            android:text="Tenor (bulan)"
+            android:text="Tenor (Bulan)"
             android:textSize="@dimen/fontNormal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
