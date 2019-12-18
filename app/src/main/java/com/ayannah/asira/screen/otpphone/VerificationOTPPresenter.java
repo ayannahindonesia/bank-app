@@ -357,7 +357,9 @@ public class VerificationOTPPresenter implements VerificationOTPContract.Present
                     @Override
                     public void onError(ANError anError) {
 
-                        mView.showErrorMessage(String.valueOf(anError.getErrorCode()));
+                        String msg = String.format("Kode OTP salah (%s)", anError.getErrorCode());
+
+                        mView.showErrorMessage(msg);
 
                     }
                 });
