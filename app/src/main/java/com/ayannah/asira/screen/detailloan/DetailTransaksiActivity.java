@@ -177,9 +177,10 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
 
         noPeminjaman.setText(String.valueOf(dataItem.getId()));
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss.SSS'Z'", Locale.getDefault());
-        SimpleDateFormat sdfDibursement = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss'Z'", Locale.getDefault());
-        SimpleDateFormat sdfUsed = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
+        Locale locale = new Locale("in", "ID");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss.SSS'Z'",locale);
+        SimpleDateFormat sdfDibursement = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss'Z'", locale);
+        SimpleDateFormat sdfUsed = new SimpleDateFormat("dd MMMM yyyy", locale);
         Date getDate = new Date();
         Date getDateDisbursement = new Date();
         try {

@@ -80,8 +80,9 @@ public class InfoPribadiActivity extends DaggerAppCompatActivity implements
     @BindView(R.id.tvLamaMenempati) TextView lamaMenempatiRumah;
     @BindView(R.id.tvHomeStatus) TextView statusKepemilikanRumah;
 
-    private DateFormat displayFormat = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault());
-    private DateFormat serverFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault());
+    Locale locale = new Locale("in", "ID");
+    private DateFormat displayFormat = new SimpleDateFormat("dd MMM yyyy", locale);
+    private DateFormat serverFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'",  locale);
 
 
     @Override
