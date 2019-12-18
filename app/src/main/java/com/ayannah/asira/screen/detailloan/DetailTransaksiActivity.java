@@ -6,7 +6,6 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -17,7 +16,7 @@ import com.ayannah.asira.R;
 import com.ayannah.asira.data.model.FeesItem;
 import com.ayannah.asira.data.model.Loans.DataItem;
 import com.ayannah.asira.dialog.BottomSheetDialogGlobal;
-import com.ayannah.asira.screen.borrower.otpphone.VerificationOTPActivity;
+import com.ayannah.asira.screen.otpphone.VerificationOTPActivity;
 import com.ayannah.asira.util.CommonUtils;
 
 import java.text.ParseException;

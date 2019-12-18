@@ -1,7 +1,8 @@
-package com.ayannah.asira.screen.borrower.otpphone;
+package com.ayannah.asira.screen.otpphone;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -11,6 +12,7 @@ import androidx.appcompat.app.AlertDialog;
 import com.ayannah.asira.R;
 import com.ayannah.asira.base.BaseFragment;
 import com.ayannah.asira.custom.PinEntryEditText;
+import com.ayannah.asira.screen.agent.lpagent.LPAgentActivity;
 import com.ayannah.asira.screen.borrower.homemenu.MainMenuActivity;
 import com.ayannah.asira.screen.register.formothers.FormOtherFragment;
 import com.ayannah.asira.screen.success.SuccessActivity;
@@ -23,6 +25,8 @@ import butterknife.BindView;
 import butterknife.OnTextChanged;
 
 public class VerificationOTPFragment extends BaseFragment implements VerificationOTPContract.View {
+
+    private static final String TAG = VerificationOTPActivity.class.getSimpleName();
 
     @BindView(R.id.secretDummyCode)
     TextView secretDummyCode;
@@ -56,6 +60,7 @@ public class VerificationOTPFragment extends BaseFragment implements Verificatio
     private String RESUBMIT_REGIST = "resubmit_regist";
     private String POST_PINJAMAN = "post_pinjaman";
     private String POST_PINJAMAN_AGENT = "post_pinjaman_agent";
+    private String REGISTER_BORROWER = "REGISTER_BORROWER";
 
     private AlertDialog dialog;
 
@@ -118,12 +123,26 @@ public class VerificationOTPFragment extends BaseFragment implements Verificatio
             } else if (purpose.equals(POST_PINJAMAN_AGENT)) {
 
                 loanRequestAgent(charSequence);
-            } else {
+            } else if(purpose.equals(REGISTER_BORROWER)){
+
+                registerBorrowerFromAgentSide(charSequence);
+
+            }else {
 
                 dialog.dismiss();
             }
 
         }
+    }
+
+    private void registerBorrowerFromAgentSide(CharSequence otpcode) {
+
+        String id_borrower = parentActivity().getIntent().getStringExtra("id_borrower");
+
+        Log.e(TAG, id_borrower);
+
+        mPresenter.postOTPforRegisterBorrower(id_borrower, otpcode.toString());
+
     }
 
     private void loanRequestAgent(CharSequence charSequence) {
@@ -236,5 +255,17 @@ public class VerificationOTPFragment extends BaseFragment implements Verificatio
         startActivity(login);
 
         parentActivity().finish();
+    }
+
+    @Override
+    public void successCreateBorrower() {
+
+        dialog.dismiss();
+
+        Intent intent = new Intent(parentActivity(), LPAgentActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        parentActivity().finish();
+
     }
 }

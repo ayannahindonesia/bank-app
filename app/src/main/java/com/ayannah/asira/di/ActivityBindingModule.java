@@ -57,8 +57,8 @@ import com.ayannah.asira.screen.borrower.navigationmenu.infopribadi.InfoPribadiA
 import com.ayannah.asira.screen.borrower.navigationmenu.infopribadi.InfoPribadiModule;
 import com.ayannah.asira.screen.borrower.notifpage.NotifPageActivity;
 import com.ayannah.asira.screen.borrower.notifpage.NotifPageModule;
-import com.ayannah.asira.screen.borrower.otpphone.VerificationOTPActivity;
-import com.ayannah.asira.screen.borrower.otpphone.VerificationOTPModule;
+import com.ayannah.asira.screen.otpphone.VerificationOTPActivity;
+import com.ayannah.asira.screen.otpphone.VerificationOTPModule;
 import com.ayannah.asira.screen.register.addaccountbank.AddAccountBankActivity;
 import com.ayannah.asira.screen.register.addaccountbank.AddAccountBankModule;
 import com.ayannah.asira.screen.register.adddoc.AddDocumentActivity;

@@ -12,7 +12,7 @@ import androidx.appcompat.app.AlertDialog;
 import com.ayannah.asira.screen.borrower.homemenu.MainMenuActivity;
 import com.ayannah.asira.R;
 import com.ayannah.asira.base.BaseFragment;
-import com.ayannah.asira.screen.borrower.otpphone.VerificationOTPActivity;
+import com.ayannah.asira.screen.otpphone.VerificationOTPActivity;
 import com.ayannah.asira.screen.register.formothers.FormOtherFragment;
 import com.ayannah.asira.screen.register.termcondition.TermConditionActivity;
 import com.ayannah.asira.screen.resetpassword.ResetPasswordActivity;

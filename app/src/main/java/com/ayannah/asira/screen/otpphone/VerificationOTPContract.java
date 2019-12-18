@@ -1,4 +1,4 @@
-package com.ayannah.asira.screen.borrower.otpphone;
+package com.ayannah.asira.screen.otpphone;
 
 import com.ayannah.asira.base.BasePresenter;
 import com.ayannah.asira.base.BaseView;
@@ -17,6 +17,8 @@ public interface VerificationOTPContract {
         void showErrorMessage(String connection_error);
 
         void loginComplete();
+
+        void successCreateBorrower();
     }
 
     interface Presenter extends BasePresenter<View> {
@@ -32,5 +34,7 @@ public interface VerificationOTPContract {
         void setUserIdentity();
 
         void postVerifyLoanByOTPAgent(String id_loan, JsonObject json);
+
+        void postOTPforRegisterBorrower(String id_borrower, String otp_code);
     }
 }

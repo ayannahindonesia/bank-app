@@ -59,8 +59,10 @@ public class LoginAgentPresenter implements LoginAgentContract.Presenter {
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(response -> {
+
             preferenceRepository.setPublicToken("Bearer "+response.getToken());
             getClientToken(username, password);
+
         }, error -> {
             ANError anError = (ANError) error;
             if (anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)) {

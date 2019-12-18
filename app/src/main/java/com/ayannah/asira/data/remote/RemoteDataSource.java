@@ -30,6 +30,7 @@ import com.ayannah.asira.data.model.ReasonLoan;
 import com.ayannah.asira.data.model.ServiceProducts;
 import com.ayannah.asira.data.model.ServiceProductsAgent;
 import com.ayannah.asira.data.model.Token;
+import com.ayannah.asira.data.model.UserBorrower;
 import com.ayannah.asira.data.model.UserProfile;
 import com.google.gson.JsonObject;
 import com.rx2androidnetworking.Rx2AndroidNetworking;
@@ -428,13 +429,13 @@ public class RemoteDataSource implements RemoteRepository {
     }
 
     @Override
-    public Single<Response> postBorrowerRegisterAgent(JsonObject jsonObject) {
+    public Single<UserBorrower> postBorrowerRegisterAgent(JsonObject jsonObject) {
         return Rx2AndroidNetworking.post(BuildConfig.API_URL  + "agent/register_borrower")
                 .addHeaders("Authorization", preferenceRepository.getUserToken())
                 .addApplicationJsonBody(jsonObject)
                 .setPriority(Priority.MEDIUM)
                 .build()
-                .getObjectSingle(Response.class);
+                .getObjectSingle(UserBorrower.class);
     }
 
     @Override
