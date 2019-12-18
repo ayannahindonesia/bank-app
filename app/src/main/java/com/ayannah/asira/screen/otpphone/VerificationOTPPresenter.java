@@ -1,8 +1,7 @@
-package com.ayannah.asira.screen.borrower.otpphone;
+package com.ayannah.asira.screen.otpphone;
 
 import android.app.Application;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.ANConstants;
@@ -15,6 +14,7 @@ import com.ayannah.asira.data.remote.RemoteRepository;
 import com.ayannah.asira.util.CommonUtils;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.JsonObject;
+import com.rx2androidnetworking.Rx2AndroidNetworking;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -327,6 +327,40 @@ public class VerificationOTPPresenter implements VerificationOTPContract.Present
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe());
+    }
+
+    @Override
+    public void postOTPforRegisterBorrower(String id_borrower, String otp_code) {
+
+        if(mView == null){
+            return;
+        }
+
+        JsonObject json = new JsonObject();
+        json.addProperty("phone", preferenceRepository.getAgentPhone());
+        json.addProperty("otp_code", otp_code);
+
+        Rx2AndroidNetworking.post(BuildConfig.API_URL + "agent/otp_verify/{id}")
+                .addHeaders("Authorization", preferenceRepository.getUserToken())
+                .addPathParameter("id", id_borrower)
+                .addApplicationJsonBody(json)
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getAsJSONObject(new JSONObjectRequestListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        mView.successCreateBorrower();
+
+                    }
+
+                    @Override
+                    public void onError(ANError anError) {
+
+                        mView.showErrorMessage(String.valueOf(anError.getErrorCode()));
+
+                    }
+                });
     }
 
     private void getClientToken(String phone, String pass, String isFrom) {

@@ -16,8 +16,7 @@ import com.ayannah.asira.R;
 import com.ayannah.asira.base.BaseFragment;
 import com.ayannah.asira.data.local.PreferenceRepository;
 import com.ayannah.asira.data.remote.RemoteRepository;
-import com.ayannah.asira.screen.agent.lpagent.LPAgentActivity;
-import com.ayannah.asira.screen.borrower.otpphone.VerificationOTPActivity;
+import com.ayannah.asira.screen.otpphone.VerificationOTPActivity;
 import com.google.gson.JsonObject;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
@@ -168,40 +167,17 @@ public class FormOtherAgentFragment extends BaseFragment implements FormOtherAge
     }
 
     @Override
-    public  void registerComplete() {
+    public  void registerComplete(String id_borrower, String phone_agent) {
 
-        Toast.makeText(parentActivity(), "Nasabah berhasil dimasukan", Toast.LENGTH_LONG).show();
+        dialog.dismiss();
 
-        Intent intent = new Intent(parentActivity(), LPAgentActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        Intent intent = new Intent(parentActivity(), VerificationOTPActivity.class);
+        intent.putExtra(VerificationOTPActivity.PURPOSES, "REGISTER_BORROWER");
+        intent.putExtra("id_borrower", id_borrower);
         startActivity(intent);
-        parentActivity().finish();
 
     }
 
-//    @Override
-//    public void successGetOTP() {
-//        dialog.dismiss();
-//
-//        Bundle bundle = Objects.requireNonNull(parentActivity()).getIntent().getExtras();
-//        assert bundle != null;
-//
-//        Intent verification = new Intent(parentActivity(), VerificationOTPActivity.class);
-//        verification.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-//        verification.putExtra("purpose", "regist");
-//        verification.putExtra(PHONE, bundle.getString(PHONE));
-//        verification.putExtra(PASS, bundle.getString(PASS));
-//        startActivity(verification);
-//        parentActivity().finish();
-//    }
-
-//    @Override
-//    public void successGetUserToken() {
-//        Bundle bundle = Objects.requireNonNull(parentActivity()).getIntent().getExtras();
-//        assert bundle != null;
-//
-//        mPresenter.postBorrowerOTPRequest(bundle.getString(PHONE));
-//    }
 
     @Override
     public void onValidationSucceeded() {

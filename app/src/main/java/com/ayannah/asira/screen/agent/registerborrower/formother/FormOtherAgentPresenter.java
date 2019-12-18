@@ -4,11 +4,16 @@ import android.app.Application;
 import android.util.Log;
 
 import com.androidnetworking.common.ANConstants;
+import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.JSONObjectRequestListener;
+import com.ayannah.asira.BuildConfig;
 import com.ayannah.asira.data.local.PreferenceRepository;
 import com.ayannah.asira.data.remote.RemoteRepository;
 import com.google.gson.JsonObject;
+import com.rx2androidnetworking.Rx2AndroidNetworking;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import javax.inject.Inject;
@@ -17,6 +22,7 @@ import io.reactivex.Completable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.Response;
 
 public class FormOtherAgentPresenter implements FormOtherAgentContract.Presenter {
 
@@ -39,14 +45,13 @@ public class FormOtherAgentPresenter implements FormOtherAgentContract.Presenter
     @Override
     public void postRegisterBorrower(JsonObject jsonObjectRequest) {
 
-        Log.d(TAG, preferenceRepository.getPublicToken());
-
         mComposite.add(remotRepo.postBorrowerRegisterAgent(jsonObjectRequest)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> {
 
-                    mView.registerComplete();
+                    //doing otp request using id borrower
+                    otpRequest(response.getId());
 
                 }, error -> {
 
@@ -69,76 +74,52 @@ public class FormOtherAgentPresenter implements FormOtherAgentContract.Presenter
                 }));
     }
 
-//    @Override
-//    public void postBorrowerOTPRequest(String phone) {
-////        if (mView==null) {
-////            Toast.makeText(application, "test", Toast.LENGTH_LONG).show();
-////            return;
-////        }
-//        JsonObject json = new JsonObject();
-//        json.addProperty("phone", phone);
-//
-////        mComposite.add(remotRepo.postOTPRequestBorrower(json)
-////        .subscribeOn(Schedulers.io())
-////        .observeOn(AndroidSchedulers.mainThread())
-////        .subscribe(response -> {
-////
-////            Log.d(TAG, "Success get OTP");
-////            Log.d(TAG, response.message());
-////            mView.successGetOTP();
-////
-////        }, error -> {
-////
-////            ANError anError = (ANError) error;
-////            if(anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
-////                mView.showErrorMessage("Connection Error");
-////            }else {
-////
-////                if(anError.getErrorBody() != null){
-////
-////                    JSONObject jsonObject = new JSONObject(anError.getErrorBody());
-////                    mView.showErrorMessage(jsonObject.optString("message"));
-////                }
-////            }
-////
-////        }));
-//
-//        mComposite.add(Completable.fromAction(() -> {
-//            remotRepo.postOTPRequestBorrower(json);
-//            mView.successGetOTP();
-//        }).subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe());
-//    }
+    private void otpRequest(int id_borrower) {
 
-//    @Override
-//    public void getUserToken(String phone, String pass, String isFrom) {
-//        JsonObject json = new JsonObject();
-//        json.addProperty("key", phone);
-//        json.addProperty("password", pass);
-//
-//        mComposite.add(remotRepo.getTokenClient(json)
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(response -> {
-//
-//                    preferenceRepository.setUserToken("Bearer "+response.getToken());
-//                    mView.successGetUserToken();
-//
-//                }, error -> {
-//
-//                    ANError anError = (ANError) error;
-//                    if(anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
-//                        mView.showErrorMessage("Connection Error");
-//                    }else {
-//                        if(anError.getErrorBody() != null){
-//
-//                            JSONObject jsonObject = new JSONObject(anError.getErrorBody());
-//                            mView.showErrorMessage(jsonObject.optString("message")  + " getClientToken()");
-//                        }
-//                    }
-//                }));
-//    }
+//        Log.e(TAG, "id: "+id_borrower);
+//        Log.e(TAG, "phone agent: "+preferenceRepository.getAgentPhone());
+
+        JsonObject json = new JsonObject();
+        json.addProperty("phone", preferenceRepository.getAgentPhone());
+
+        Rx2AndroidNetworking.post(BuildConfig.API_URL + "agent/otp_request/{id}")
+                .addHeaders("Authorization", preferenceRepository.getUserToken())
+                .addPathParameter("id", String.valueOf(id_borrower))
+                .addApplicationJsonBody(json)
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getAsJSONObject(new JSONObjectRequestListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        //success
+                        mView.registerComplete(String.valueOf(id_borrower), preferenceRepository.getAgentPhone());
+
+                    }
+
+                    @Override
+                    public void onError(ANError anError) {
+
+                        if(anError.getErrorBody() != null){
+                            try {
+
+                                JSONObject obj = new JSONObject(anError.getErrorBody());
+                                mView.showErrorMessage(obj.optString("message"));
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                        }else {
+
+                            mView.showErrorMessage("Error: "+anError.getErrorCode());
+
+                        }
+
+                    }
+                });
+
+    }
 
     @Override
     public void takeView(FormOtherAgentContract.View view) {

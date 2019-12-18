@@ -19,6 +19,7 @@ import com.ayannah.asira.data.model.ReasonLoan;
 import com.ayannah.asira.data.model.ServiceProducts;
 import com.ayannah.asira.data.model.ServiceProductsAgent;
 import com.ayannah.asira.data.model.Token;
+import com.ayannah.asira.data.model.UserBorrower;
 import com.ayannah.asira.data.model.UserProfile;
 import com.google.gson.JsonObject;
 
@@ -91,7 +92,7 @@ public interface RemoteRepository {
 
     Single<Notif> getListNotification();
 
-    Single<Response> postBorrowerRegisterAgent(JsonObject jsonObject);
+    Single<UserBorrower> postBorrowerRegisterAgent(JsonObject jsonObject);
 
     Single<BankList> getAllBanksAgent();
 

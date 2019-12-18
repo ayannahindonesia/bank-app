@@ -65,7 +65,7 @@
         <activity android:name=".screen.borrower.navigationmenu.infopribadi.InfoPribadiActivity" />
         <activity android:name=".screen.disclaimer.DisclaimerActivity" />
         <activity
-            android:name=".screen.borrower.otpphone.VerificationOTPActivity"
+            android:name=".screen.otpphone.VerificationOTPActivity"
             android:label="@string/title_activity_verification_otp"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".screen.detailloan.DetailTransaksiActivity" />

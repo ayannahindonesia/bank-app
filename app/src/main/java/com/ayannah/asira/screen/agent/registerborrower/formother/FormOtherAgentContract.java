@@ -10,7 +10,7 @@ public interface FormOtherAgentContract {
 
         void showErrorMessage(String message);
 
-        void registerComplete();
+        void registerComplete(String id_borrower, String phone_agent);
     }
 
     interface Presenter extends BasePresenter<View> {

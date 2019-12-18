@@ -10,7 +10,7 @@ import android.widget.Toast;
 import com.ayannah.asira.R;
 import com.ayannah.asira.base.BaseFragment;
 import com.ayannah.asira.dialog.BottomSheetDialogGlobal;
-import com.ayannah.asira.screen.borrower.otpphone.VerificationOTPActivity;
+import com.ayannah.asira.screen.otpphone.VerificationOTPActivity;
 import com.ayannah.asira.util.CommonUtils;
 import com.google.gson.JsonObject;
 import com.mobsandgeeks.saripaar.ValidationError;

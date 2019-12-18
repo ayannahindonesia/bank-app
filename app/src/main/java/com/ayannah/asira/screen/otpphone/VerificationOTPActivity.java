@@ -1,4 +1,4 @@
-package com.ayannah.asira.screen.borrower.otpphone;
+package com.ayannah.asira.screen.otpphone;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -86,6 +86,10 @@ public class VerificationOTPActivity extends DaggerAppCompatActivity {
 
                 alertCancel(getResources().getString(R.string.resubmit_regist_alert));
                 break;
+            case "REGISTER_BORROWER":
+
+                alertCancel("Tunda verifikasi pendaftaran peminjam?");
+
             default:
                 super.onBackPressed();
                 break;

@@ -20,6 +20,7 @@ import com.ayannah.asira.custom.CommonListListener;
 import com.ayannah.asira.data.model.UserBorrower;
 import com.ayannah.asira.dialog.BottomSheetBorrowerAgent;
 import com.ayannah.asira.screen.agent.services.ListServicesAgentActivity;
+import com.ayannah.asira.screen.otpphone.VerificationOTPActivity;
 
 import java.io.Serializable;
 import java.util.List;
@@ -132,10 +133,18 @@ public class ViewBorrowerFragment extends BaseFragment implements ViewBorrowerCo
             adapter.setOnClickListenerViewBorrower(new CommonListListener.ViewBorrowerListener() {
                 @Override
                 public void onClickButton(UserBorrower user) {
-                    Intent intent = new Intent(parentActivity(), ListServicesAgentActivity.class);
-                    intent.putExtra("user", (Serializable) user);
-                    intent.putExtra(ListServicesAgentActivity.BANK_ID, bank_Id);
-                    startActivity(intent);
+                    if(user.isOtpVerified()){
+                        Intent intent = new Intent(parentActivity(), ListServicesAgentActivity.class);
+                        intent.putExtra("user", (Serializable) user);
+                        intent.putExtra(ListServicesAgentActivity.BANK_ID, bank_Id);
+                        startActivity(intent);
+                    }else {
+
+                        Intent otp = new Intent(parentActivity(), VerificationOTPActivity.class);
+                        otp.putExtra(VerificationOTPActivity.PURPOSES, "REGISTER_BORROWER");
+                        otp.putExtra("id_borrower", String.valueOf(user.getId()));
+                        startActivity(otp);
+                    }
                 }
 
                 @Override
