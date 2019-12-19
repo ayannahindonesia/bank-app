@@ -30,6 +30,9 @@ public class DatePickerCustom extends DialogFragment implements DatePickerDialog
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+        Locale locale = new Locale("in", "ID");
+        Locale.setDefault(locale);
+
         final Calendar c = Calendar.getInstance();
         int year = c.get(Calendar.YEAR) - 17;
         int month = c.get(Calendar.MONTH);
@@ -58,7 +61,7 @@ public class DatePickerCustom extends DialogFragment implements DatePickerDialog
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
 
-        SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault());
+        SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy", new Locale("in", "ID"));
 
         Calendar calendar = Calendar.getInstance();
         calendar.set(year, month, dayOfMonth);

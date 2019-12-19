@@ -150,7 +150,7 @@ public class EditInfoPribadiActivity extends DaggerAppCompatActivity implements
     String kecamatan;
     String kelurahan;
 
-    DateFormat displayFormat = new SimpleDateFormat("dd MMM yyyy");
+    DateFormat displayFormat = new SimpleDateFormat("dd MMM yyyy", new Locale("in", "ID"));
     DateFormat serverFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
 
     private Validator validator;
@@ -366,7 +366,7 @@ public class EditInfoPribadiActivity extends DaggerAppCompatActivity implements
                     @Override
                     public void onDateSelected(Date date) {
 
-                        SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault());
+                        SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy", new Locale("in", "ID"));
 
                         dateBirthSpouse.setText(sdf.format(date));
 

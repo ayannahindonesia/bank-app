@@ -38,6 +38,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import javax.inject.Inject;
 
@@ -159,8 +160,8 @@ public class FormBorrowerAgentFragment extends BaseFragment implements FormBorro
 
     private DatePickerDialog datePickerDialog;
 
-    DateFormat displayFormat = new SimpleDateFormat("dd MMM yyyy");
-    DateFormat serverFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+    DateFormat displayFormat = new SimpleDateFormat("dd MMM yyyy", new Locale("in", "ID"));
+    DateFormat serverFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", new Locale("in", "ID"));
 
     private String[] educationRepo = {"S2", "S1", "SMA/SMK", "SMP", "Tidak ada status pendidikan"};
     private String[] statusPerkawinan = {"Belum Menikah", "Menikah", "Duda", "Janda"};

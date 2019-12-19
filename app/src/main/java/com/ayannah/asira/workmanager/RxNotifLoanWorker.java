@@ -31,10 +31,11 @@ public class RxNotifLoanWorker extends RxWorker {
     private final String TAG = RxNotifLoanWorker.class.getSimpleName();
 
 //    private SimpleDateFormat sdf_from_backend = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss.SSS'Z'", Locale.getDefault());
+    Locale locale = new Locale("in", "ID");
     private SimpleDateFormat sdf_from_backend = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss'Z'", Locale.getDefault());
-    private SimpleDateFormat sdf_base = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
-    private SimpleDateFormat view_sdf = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault());
-    private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+    private SimpleDateFormat sdf_base = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", locale);
+    private SimpleDateFormat view_sdf = new SimpleDateFormat("dd MMM yyyy", locale);
+    private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", locale);
 
     public RxNotifLoanWorker(@NonNull Context appContext, @NonNull WorkerParameters workerParams) {
         super(appContext, workerParams);
