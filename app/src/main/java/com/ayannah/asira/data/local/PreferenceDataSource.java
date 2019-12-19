@@ -5,6 +5,10 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.ayannah.asira.BuildConfig;
+import com.ayannah.asira.data.model.Bank;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -91,6 +95,10 @@ public class PreferenceDataSource implements PreferenceRepository {
     private static final String PREF_AGENT_EMAIL = "AGENT_EMAIL";
     private static final String PREF_AGENT_PHONE = "AGENT_PHONE";
     private static final String PREF_AGENT_PROVIDER = "AGENT_PROVIDER";
+    private static final String PREF_AGENT_CATEGORY = "AGENT_CATEGORY";
+    private static final String PREF_AGENT_STATUS = "AGENT_STATUS";
+    private static final String PREF_AGENT_BANKS = "AGENT_BANKS";
+    private static final String PREF_AGENT_BANKS_NAME = "AGENT_BANKS_NAME";
 
     @Inject
     public PreferenceDataSource(Application application){
@@ -820,6 +828,46 @@ public class PreferenceDataSource implements PreferenceRepository {
     @Override
     public String getBankAccountBorrower() {
         return mPreferences.getString(PREF_BANK_ACCOUNT_BORROWER, "");
+    }
+
+    @Override
+    public void setAgentCategory(String agentCategory) {
+        mPreferences.edit().putString(PREF_AGENT_CATEGORY, agentCategory).apply();
+    }
+
+    @Override
+    public String getAgentCategory() {
+        return mPreferences.getString(PREF_AGENT_CATEGORY, "");
+    }
+
+    @Override
+    public void setAgentStatus(String agentStatus) {
+        mPreferences.edit().putString(PREF_AGENT_STATUS, agentStatus).apply();
+    }
+
+    @Override
+    public String getAgentStatus() {
+        return mPreferences.getString(PREF_AGENT_STATUS, "");
+    }
+
+    @Override
+    public void setAgentBanks(String agentBanks) {
+        mPreferences.edit().putString(PREF_AGENT_BANKS, agentBanks).apply();
+    }
+
+    @Override
+    public String getAgentBanks() {
+        return mPreferences.getString(PREF_AGENT_BANKS, "");
+    }
+
+    @Override
+    public void setAgentBanksName(String agentBanksName) {
+        mPreferences.edit().putString(PREF_AGENT_BANKS_NAME, agentBanksName).apply();
+    }
+
+    @Override
+    public String getAgentBanksName() {
+        return mPreferences.getString(PREF_AGENT_BANKS_NAME, "");
     }
 
 }

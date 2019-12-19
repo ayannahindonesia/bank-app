@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,7 +13,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ayannah.asira.R;
 import com.ayannah.asira.custom.CommonListListener;
-import com.ayannah.asira.data.model.DummyLoanBorrower;
+import com.ayannah.asira.data.model.Bank;
+import com.ayannah.asira.data.model.BankDetail;
+import com.ayannah.asira.data.model.BankList;
 import com.ayannah.asira.data.model.Loans.DataItem;
 import com.ayannah.asira.data.model.Notif;
 import com.ayannah.asira.data.model.UserBorrower;
@@ -30,6 +33,7 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public static final int VIEW_NOTIFPAGE = 1;
     public static final int VIEW_BORROWER_ON_AGENT = 2;
     public static final int VIEW_LIST_BORROWERS_LOAN_AGENT = 3;
+    public static final int VIEW_BANK_LIST = 3;
 
     //for loan history purposes
     private final static String STATUS_PROCESSING = "processing";
@@ -42,11 +46,13 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private List<DataItem> loans;
     private List<UserBorrower> nasabah;
     private List<DataItem> loanBorrowersAgent;
+    private List<BankDetail> banks;
 
     private CommonListListener.LoanAdapterListener loanListener;
     private CommonListListener.NotifAdapterListener notifListener;
     private CommonListListener.ViewBorrowerListener viewBorrowerListener;
     private CommonListListener.ListLoanAgent listLoanAgentListener;
+    private CommonListListener.BankListListener bankListListener;
 
     public CommonListAdapter(int viewType){
         this.mViewType = viewType;
@@ -55,6 +61,7 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         loans = new ArrayList<>();
         nasabah = new ArrayList<>();
         loanBorrowersAgent = new ArrayList<>();
+        banks = new ArrayList<>();
     }
 
     public void setDataNotificationMessages(List<Notif.Data> results){
@@ -94,6 +101,16 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         notifyDataSetChanged();
     }
 
+    public void setBanks(List<BankDetail> bankDetails) {
+
+        banks.clear();
+
+        banks.addAll(bankDetails);
+
+        notifyDataSetChanged();
+
+    }
+
     //loan listener
     public void setOnClickListenerLoanAdapter(CommonListListener.LoanAdapterListener listenerLoanAdapter){
         this.loanListener = listenerLoanAdapter;
@@ -112,6 +129,11 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     //view loan borrower on agent side
     public void setOnClickListenerLoanBorrowerOnAgent(CommonListListener.ListLoanAgent listLoanAgentListener){
         this.listLoanAgentListener = listLoanAgentListener;
+    }
+
+    //bank list listener
+    public void setOnClickListenerBankList(CommonListListener.BankListListener bankListListener){
+        this.bankListListener = bankListListener;
     }
 
     @NonNull
@@ -142,6 +164,11 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             case VIEW_LIST_BORROWERS_LOAN_AGENT:
 
                 holder = new ViewListLoanBorrowerOnAgent(inflater.inflate(R.layout.item_loan_borrower_on_agent, parent, false));
+                break;
+
+            case VIEW_BANK_LIST:
+
+                holder = new BankListHolder(inflater.inflate(R.layout.item_banks, parent, false));
                 break;
 
             default:
@@ -181,6 +208,12 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 ((ViewListLoanBorrowerOnAgent) holder).bind(loanBorrowersAgent.get(position));
 
                 break;
+
+            case VIEW_BANK_LIST:
+
+                ((BankListHolder) holder).bind(banks.get(position));
+
+                break;
         }
 
     }
@@ -210,6 +243,11 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             case VIEW_LIST_BORROWERS_LOAN_AGENT:
 
                 selected = VIEW_LIST_BORROWERS_LOAN_AGENT;
+                break;
+
+            case VIEW_BANK_LIST:
+
+                selected = VIEW_BANK_LIST;
                 break;
         }
 
@@ -241,6 +279,11 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             case VIEW_LIST_BORROWERS_LOAN_AGENT:
 
                 totals = loanBorrowersAgent.size();
+                break;
+
+            case VIEW_BANK_LIST:
+
+                totals = banks.size();
                 break;
 
         }
@@ -464,6 +507,30 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
             itemView.setOnClickListener(v -> listLoanAgentListener.onClickItem(param));
 
+        }
+    }
+
+    /*
+        For AgentProfileBankListActivity.class
+     */
+    class BankListHolder extends RecyclerView.ViewHolder {
+
+        @BindView(R.id.listLltBank) LinearLayout listLltBank;
+        @BindView(R.id.listImgBank) ImageView listImgBank;
+        @BindView(R.id.listTxtBankName) TextView listTxtBankName;
+
+        BankListHolder(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+        }
+
+        private void bind(BankDetail bankDetail) {
+//            listImgBank.setImageBitmap();
+            listTxtBankName.setText(bankDetail.getName());
+
+            itemView.setOnClickListener(v ->
+                    bankListListener.onClickItem(bankDetail, itemView, listLltBank)
+            );
         }
     }
 

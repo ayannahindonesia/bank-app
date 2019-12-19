@@ -23,6 +23,8 @@ import com.ayannah.asira.data.model.UserBorrower;
 import com.ayannah.asira.data.model.UserProfile;
 import com.google.gson.JsonObject;
 
+import org.json.JSONObject;
+
 import io.reactivex.Completable;
 import io.reactivex.Single;
 import io.reactivex.disposables.Disposable;
@@ -107,4 +109,6 @@ public interface RemoteRepository {
     void getOTPForLoanAgent(String id_loan);
 
     Single<Loans> getAgentLoan(String idBank);
+
+    Single<AgentProfile> patchAgentProfile(JSONObject jsonPatchAgentProfile);
 }

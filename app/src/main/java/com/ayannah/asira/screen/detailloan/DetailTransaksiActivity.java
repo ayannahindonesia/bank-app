@@ -368,6 +368,7 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
                         result = result + Integer.parseInt(param.getAmount());
 
                     }
+
                 }
 
             }

@@ -1,6 +1,10 @@
 package com.ayannah.asira.custom;
 
-import com.ayannah.asira.data.model.DummyLoanBorrower;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+
+import com.ayannah.asira.data.model.BankDetail;
 import com.ayannah.asira.data.model.Loans.DataItem;
 import com.ayannah.asira.data.model.UserBorrower;
 
@@ -26,6 +30,11 @@ public interface CommonListListener {
     interface ListLoanAgent{
 
         void onClickItem(DataItem loan);
+    }
+
+    interface BankListListener{
+        void onClickItem(BankDetail bankDetail, View itemView, LinearLayout linearLayout);
+
     }
 
 }

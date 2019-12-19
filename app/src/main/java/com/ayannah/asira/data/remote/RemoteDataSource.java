@@ -518,4 +518,14 @@ public class RemoteDataSource implements RemoteRepository {
                 .build()
                 .getObjectSingle(Loans.class);
     }
+
+    @Override
+    public Single<AgentProfile> patchAgentProfile(JSONObject jsonPatchAgentProfile) {
+        return Rx2AndroidNetworking.patch(BuildConfig.API_URL + "agent/profile")
+                .addHeaders("Authorization", preferenceRepository.getUserToken())
+                .addApplicationJsonBody(jsonPatchAgentProfile)
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getObjectSingle(AgentProfile.class);
+    }
 }

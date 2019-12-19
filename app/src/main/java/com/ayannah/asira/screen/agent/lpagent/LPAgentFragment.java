@@ -16,6 +16,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.ayannah.asira.R;
 import com.ayannah.asira.base.BaseFragment;
+import com.ayannah.asira.screen.agent.navigationmenu.agentprofile.AgentProfileActivity;
 import com.ayannah.asira.screen.agent.registerborrower.choosebank.ChooseBankAgentActivity;
 import com.ayannah.asira.screen.agent.selectbank.SelectBankActivity;
 import com.ayannah.asira.screen.agent.viewBorrower.ViewBorrowerActivity;
@@ -92,6 +93,9 @@ public class LPAgentFragment extends BaseFragment implements LPAgentContract.Vie
             intent.putExtra("isFrom", "listLoanRequest");
             startActivity(intent);
 
+        } else if (id == R.id.nav_akun_saya) {
+            Intent intent = new Intent(parentActivity(), AgentProfileActivity.class);
+            startActivity(intent);
         }
 
         drawer.closeDrawer(GravityCompat.START);

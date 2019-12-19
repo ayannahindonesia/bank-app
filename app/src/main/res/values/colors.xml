@@ -16,4 +16,5 @@
     <color name="darkgreybackground">#636e72</color>
     <color name="textDark">#C9D8E0</color>
     <color name="darkgreen">#158A46</color>
+    <color name="transdarkgreen">#22158A46</color>
 </resources>
