@@ -13,7 +13,6 @@
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
-            android:background="?attr/colorPrimary"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:popupTheme="@style/AppTheme.PopupOverlay"/>
@@ -23,56 +22,73 @@
     <LinearLayout
         android:orientation="vertical"
         android:padding="@dimen/dp16"
+        android:background="@color/colorAsiraPrimary"
         android:layout_below="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <ScrollView
-            android:background="@drawable/border_disclaimer"
             android:layout_width="match_parent"
-            android:layout_marginTop="@dimen/dp12"
-            android:layout_height="350dp">
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:orientation="vertical"
-                android:padding="@dimen/dp20"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-                <TextView
-                    android:text="@string/disclaimer_paragraph1"
-                    android:textSize="@dimen/fontLarge"
-                    android:lineSpacingExtra="2dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
 
-                <TextView
-                    android:text="@string/disclaimer_paragraph2"
-                    android:textSize="@dimen/fontLarge"
-                    android:layout_marginTop="@dimen/dp12"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:padding="@dimen/dp16"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border_disclaimer"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:text="@string/disclaimer_paragraph1"
+                        android:textSize="@dimen/fontLarge"
+                        android:lineSpacingExtra="2dp"
+                        android:fontFamily="man"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:text="@string/disclaimer_paragraph2"
+                        android:textSize="@dimen/fontLarge"
+                        android:layout_marginTop="@dimen/dp12"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <CheckBox
+                        android:id="@+id/cbAgree"
+                        android:text="Ya, saya setuju dan paham"
+                        android:fontFamily="@font/manrope_bold"
+                        android:layout_marginTop="@dimen/_15sdp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/buttonNext"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:textAllCaps="false"
+                    android:background="@drawable/button_register"
+                    android:text="selanjutnya"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold" />
+
+
             </LinearLayout>
 
         </ScrollView>
 
-        <CheckBox
-            android:id="@+id/cbAgree"
-            android:text="Ya, Saya Setuju"
-            android:layout_marginTop="@dimen/dp12"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/buttonNext"
-        android:layout_alignParentBottom="true"
-        android:background="@color/colorAccent"
-        android:textColor="@android:color/white"
-        android:text="Selanjutnya"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+
+
 
 </RelativeLayout>

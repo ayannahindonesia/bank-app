@@ -8,6 +8,7 @@
     <color name="colorAsiraPrimary">#D6FEFF</color>
     <color name="colorAsiraPrimaryDark">#BDECEE</color>
     <color name="colorAsiraAccent">#FBB96E</color>
+    <color name="colorAsiraAccentDisabled">#F5CEA2</color>
     <color name="colorAsiraText">#2076B8</color>
     <color name="colorAsiraWhite">#FFFFFF</color>
     <color name="colorAsiraGrey">#969696</color>

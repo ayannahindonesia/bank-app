@@ -34,9 +34,8 @@ public class DisclaimerActivity extends AppCompatActivity {
 
         ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
-        actionBar.setDisplayShowTitleEnabled(true);
+        actionBar.setDisplayShowTitleEnabled(false);
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setTitle("Disclaimer");
         
         
     }
