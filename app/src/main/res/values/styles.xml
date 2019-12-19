@@ -1,13 +1,16 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <!--Theme.AppCompat.Light.DarkActionBar-->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
 
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/colorAsiraPrimary</item>
+        <item name="colorPrimaryDark">@color/colorAsiraPrimaryDark</item>
+        <item name="colorAccent">@color/colorAsiraAccent</item>
+        <item name="android:statusBarColor">@color/colorAsiraPrimary</item>
+        <item name="android:windowLightStatusBar" tools:ignore="NewApi">true</item>
+
     </style>
 
     <style name="AppTheme.NoActionBar">

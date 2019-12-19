@@ -2,21 +2,21 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="@dimen/margin14dp"
+    android:background="@drawable/bg_login"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/logoBank"
+        android:layout_width="match_parent"
+        android:layout_height="62dp"
+        android:src="@drawable/ic_asira" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:weightSum="10">
-
-        <ImageView
-            android:id="@+id/logoBank"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="2.5"
-            android:src="@drawable/ic_asira" />
+        android:orientation="vertical">
 
         <LinearLayout
             android:id="@+id/lyButton"
@@ -26,61 +26,63 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/btnPersonal"
-                android:layout_width="@dimen/_180sdp"
-                android:layout_height="@dimen/_60sdp"
-                android:background="@drawable/square_blue"
-                android:gravity="center"
-                android:text="Personal"
-                android:textColor="@android:color/white"
-                android:textSize="@dimen/_18sdp"
-                android:textStyle="bold" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/btnAgent"
-                android:layout_width="@dimen/_180sdp"
-                android:layout_height="@dimen/_60sdp"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:background="@drawable/square_yellow"
-                android:gravity="center"
-                android:text="Agen"
-                android:textColor="@android:color/white"
-                android:textSize="@dimen/_18sdp"
-                android:textStyle="bold" />
+                <ImageView
+                    android:id="@+id/btnPersonal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:src="@drawable/personal_btn"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:textColor="@color/colorAsiraText"
+                    android:textSize="@dimen/fontBigWumbo"
+                    android:text="Personal"
+                    android:padding="10dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/btnAgent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center"
+                    android:src="@drawable/agen_btn"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:textColor="@color/colorAsiraText"
+                    android:textSize="@dimen/fontBigWumbo"
+                    android:text="Agen"
+                    android:padding="10dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </RelativeLayout>
 
         </LinearLayout>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:layout_alignParentBottom="true"
-            android:background="@color/colorPrimaryDark">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:orientation="vertical"
-                android:padding="@dimen/_7sdp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Powered by"
-                    android:textColor="@android:color/white"
-                    android:textSize="@dimen/fontSmall" />
-
-                <ImageView
-                    android:layout_width="@dimen/_100sdp"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/ayannah_dark_logo" />
-
-            </LinearLayout>
-
-        </RelativeLayout>
-
     </LinearLayout>
+
+    <ImageView
+        android:src="@drawable/powered_by_ayannah"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
 </RelativeLayout>

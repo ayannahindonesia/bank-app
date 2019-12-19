@@ -2,9 +2,16 @@
 <resources>
     <!--<color name="colorPrimary">#008577</color>-->
     <color name="colorPrimary">#FFFFFF</color>
-    <!--<color name="colorPrimaryDark">#00574B</color>-->
     <color name="colorPrimaryDark">#2e86de</color>
     <color name="colorBlueDark">#0C73DA</color>
+
+    <color name="colorAsiraPrimary">#D6FEFF</color>
+    <color name="colorAsiraPrimaryDark">#BDECEE</color>
+    <color name="colorAsiraAccent">#FBB96E</color>
+    <color name="colorAsiraText">#2076B8</color>
+    <color name="colorAsiraWhite">#FFFFFF</color>
+    <color name="colorAsiraGrey">#969696</color>
+
 
 
     <color name="colorAccent">#F7964A</color>
