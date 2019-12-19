@@ -33,7 +33,7 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public static final int VIEW_NOTIFPAGE = 1;
     public static final int VIEW_BORROWER_ON_AGENT = 2;
     public static final int VIEW_LIST_BORROWERS_LOAN_AGENT = 3;
-    public static final int VIEW_BANK_LIST = 3;
+    public static final int VIEW_BANK_LIST = 4;
 
     //for loan history purposes
     private final static String STATUS_PROCESSING = "processing";
