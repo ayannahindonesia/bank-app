@@ -22,6 +22,8 @@ import com.ayannah.asira.data.model.Token;
 import com.ayannah.asira.data.model.UserProfile;
 import com.google.gson.JsonObject;
 
+import org.json.JSONObject;
+
 import io.reactivex.Completable;
 import io.reactivex.Single;
 import io.reactivex.disposables.Disposable;
@@ -102,4 +104,6 @@ public interface RemoteRepository {
     Single<BankService> getServicesAgent(String bank_id);
 
     Single<ServiceProductsAgent> getAllProductsAgent(String idService);
+
+    Single<AgentProfile> patchAgentProfile(JSONObject jsonPatchAgentProfile);
 }

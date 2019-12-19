@@ -267,4 +267,20 @@ public interface PreferenceRepository {
     void setBankAccountBorrower(String accountNumber);
 
     String getBankAccountBorrower();
+
+    void setAgentCategory(String agentCategory);
+
+    String getAgentCategory();
+
+    void setAgentStatus(String agentStatus);
+
+    String getAgentStatus();
+
+    void setAgentBanks(String agentBanks);
+
+    String getAgentBanks();
+
+    void setAgentBanksName(String agentBanksName);
+
+    String getAgentBanksName();
 }

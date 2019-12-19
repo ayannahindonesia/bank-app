@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AgentProfile implements Parcelable {
@@ -43,7 +44,10 @@ public class AgentProfile implements Parcelable {
     public AgentProvider agentProvider;
 
     @SerializedName("banks")
-    public List<Integer> banks = null;
+    public ArrayList<Integer> banks = null;
+
+    @SerializedName("bank_names")
+    public ArrayList<String> banksName = null;
 
     @SerializedName("status")
     public String status;
@@ -52,6 +56,9 @@ public class AgentProfile implements Parcelable {
     public String fcmToken;
 
     protected AgentProfile(Parcel in) {
+        banks = new ArrayList<Integer>();
+        banksName = new ArrayList<String>();
+
         id = in.readInt();
         createdTime = in.readString();
         updatedTime = in.readString();
@@ -63,6 +70,8 @@ public class AgentProfile implements Parcelable {
         phone = in.readString();
         category = in.readString();
         agentProvider = in.readParcelable(AgentProvider.class.getClassLoader());
+        banks = in.readArrayList(Integer.class.getClassLoader());
+        banksName = in.readArrayList(String.class.getClassLoader());
         status = in.readString();
         fcmToken = in.readString();
     }
@@ -97,6 +106,8 @@ public class AgentProfile implements Parcelable {
         dest.writeString(phone);
         dest.writeString(category);
         dest.writeParcelable(agentProvider, flags);
+        dest.writeList(banks);
+        dest.writeList(banksName);
         dest.writeString(status);
         dest.writeString(fcmToken);
     }
@@ -145,8 +156,12 @@ public class AgentProfile implements Parcelable {
         return agentProvider;
     }
 
-    public List<Integer> getBanks() {
+    public ArrayList<Integer> getBanks() {
         return banks;
+    }
+
+    public ArrayList<String> getBanksName() {
+        return banksName;
     }
 
     public String getStatus() {

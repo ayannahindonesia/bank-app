@@ -9,6 +9,7 @@ import com.androidnetworking.common.ANConstants;
 import com.androidnetworking.error.ANError;
 import com.ayannah.asira.data.local.PreferenceRepository;
 import com.ayannah.asira.data.remote.RemoteRepository;
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import org.json.JSONObject;
@@ -124,6 +125,10 @@ public class LoginAgentPresenter implements LoginAgentContract.Presenter {
                     preferenceRepository.setAgentEmail(response.getEmail());
                     preferenceRepository.setAgentPhone(response.getPhone());
                     preferenceRepository.setAgentProvider(String.valueOf(response.getAgentProvider().getInt64()));
+                    preferenceRepository.setAgentCategory(response.getCategory());
+                    preferenceRepository.setAgentBanks(response.getBanks().toString());
+                    preferenceRepository.setAgentBanksName(response.getBanksName().toString().replace("[", "").replace("]",""));
+                    preferenceRepository.setAgentStatus(response.getStatus());
                     preferenceRepository.setAgentLogged(true);
 
                     mView.loginComplete();

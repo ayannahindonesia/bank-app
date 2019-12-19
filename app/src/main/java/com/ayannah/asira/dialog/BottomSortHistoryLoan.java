@@ -54,7 +54,7 @@ public class BottomSortHistoryLoan extends BottomSheetDialogFragment {
 
         rejected.setOnClickListener(v -> listener.onClickStatus("rejected"));
 
-        accepted.setOnClickListener(v -> listener.onClickStatus("accepted"));
+        accepted.setOnClickListener(v -> listener.onClickStatus("approved"));
 
         return view;
     }
