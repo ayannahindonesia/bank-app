@@ -3,8 +3,14 @@ package com.ayannah.asira.screen.borrower.login;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -43,8 +49,18 @@ public class LoginFragment extends BaseFragment implements
     @BindView(R.id.etPassword)
     EditText etPassword;
 
+    @BindView(R.id.lyLogin)
+    RelativeLayout lyLogin;
+
+    @BindView(R.id.openPass)
+    ImageButton openPass;
+
+    @BindView(R.id.invisiblePass)
+    ImageButton invisiblePass;
+
     private Validator validator;
     private AlertDialog dialog;
+    private boolean isPwdVisible = false;
 
     @Inject
     public LoginFragment(){}
@@ -74,8 +90,43 @@ public class LoginFragment extends BaseFragment implements
     @Override
     protected void initView(Bundle state) {
 
+        Animation slideUp = AnimationUtils.loadAnimation(parentActivity(), R.anim.slide_up);
+        lyLogin.startAnimation(slideUp);
+
         validator = new Validator(this);
         validator.setValidationListener(this);
+
+    }
+
+    @OnClick(R.id.openPass)
+    void visiblePass(){
+
+        if(!isPwdVisible){
+
+            openPass.setVisibility(View.GONE);
+            invisiblePass.setVisibility(View.VISIBLE);
+
+            etPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+            etPassword.setSelection(etPassword.getText().length());
+
+            isPwdVisible = true;
+        }
+
+    }
+
+    @OnClick(R.id.invisiblePass)
+    void invisiblePass(){
+
+        if(isPwdVisible){
+
+            openPass.setVisibility(View.VISIBLE);
+            invisiblePass.setVisibility(View.GONE);
+
+            etPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+            etPassword.setSelection(etPassword.getText().length());
+
+            isPwdVisible = false;
+        }
 
     }
 

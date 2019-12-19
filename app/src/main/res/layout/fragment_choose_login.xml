@@ -14,68 +14,68 @@
         android:src="@drawable/ic_asira" />
 
     <LinearLayout
+        android:layout_below="@+id/logoBank"
+        android:layout_marginTop="50dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/lyButton"
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="6.5"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/manrope_bold"
+            android:paddingStart="25dp"
+            android:textSize="65sp"
+            android:layout_marginBottom="15dp"
+            android:textColor="@color/colorAsiraText"
+            android:text="Hai.."/>
 
-            <RelativeLayout
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/btnPersonal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:src="@drawable/personal_btn" />
 
-                <ImageView
-                    android:id="@+id/btnPersonal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:src="@drawable/personal_btn"
-                    android:textStyle="bold" />
+            <TextView
+                android:textColor="@color/colorAsiraText"
+                android:textSize="@dimen/fontSuperLarge"
+                android:text="Personal"
+                android:padding="10dp"
+                android:fontFamily="@font/manrope_bold"
+                android:layout_marginStart="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
-                <TextView
-                    android:textColor="@color/colorAsiraText"
-                    android:textSize="@dimen/fontBigWumbo"
-                    android:text="Personal"
-                    android:padding="10dp"
-                    android:layout_marginStart="30dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+        </RelativeLayout>
 
-            </RelativeLayout>
-
-
-            <RelativeLayout
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/btnAgent"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:src="@drawable/agen_btn" />
 
-                <ImageView
-                    android:id="@+id/btnAgent"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:gravity="center"
-                    android:src="@drawable/agen_btn"
-                    android:textStyle="bold" />
+            <TextView
+                android:textColor="@color/colorAsiraText"
+                android:textSize="@dimen/fontSuperLarge"
+                android:text="Agen"
+                android:padding="10dp"
+                android:fontFamily="@font/manrope_bold"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
-                <TextView
-                    android:textColor="@color/colorAsiraText"
-                    android:textSize="@dimen/fontBigWumbo"
-                    android:text="Agen"
-                    android:padding="10dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginStart="30dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-            </RelativeLayout>
-
-        </LinearLayout>
+        </RelativeLayout>
 
     </LinearLayout>
 

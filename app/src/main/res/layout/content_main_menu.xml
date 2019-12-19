@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".screen.borrower.homemenu.MainMenuActivity"
-    android:background="@color/graybackground"
     tools:showIn="@layout/app_bar_main_menu">
 
     <RelativeLayout
@@ -15,26 +14,40 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_menuproducts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:paddingStart="5dp"
-            android:paddingEnd="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:paddingEnd="5dp" />
 
-        <TextView
-            android:id="@+id/titleNews"
-            android:text="Berita dan Promo"
-            android:textSize="@dimen/fontLarge"
-            android:padding="@dimen/dp14"
-            android:layout_below="@+id/recycler_menuproducts"
+        <LinearLayout
+            android:id="@+id/lltTitle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/recycler_menuproducts"
+            android:padding="@dimen/dp14">
+
+            <TextView
+                android:id="@+id/titleNews"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border_orange"
+                android:fontFamily="@font/manrope_extrabold"
+                android:paddingTop="@dimen/_2sdp"
+                android:paddingBottom="@dimen/_2sdp"
+                android:paddingLeft="@dimen/_10sdp"
+                android:paddingRight="@dimen/_10sdp"
+                android:text="Berita &amp; Promo"
+                android:textColor="@color/textColorAsira"
+                android:textSize="@dimen/_10sdp" />
+
+        </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvBeritaPromo"
-            android:layout_below="@+id/titleNews"
-            android:padding="11dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lltTitle"
+            android:padding="11dp" />
 
     </RelativeLayout>
 

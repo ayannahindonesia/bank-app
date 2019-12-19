@@ -2,6 +2,7 @@ package com.ayannah.asira.screen.chooselogin;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,10 +30,10 @@ public class ChooseLoginActivity extends DaggerAppCompatActivity implements Choo
     ChooseLoginContract.Presenter mPresenter;
 
     @BindView(R.id.btnPersonal)
-    TextView btnPersonal;
+    ImageView btnPersonal;
 
     @BindView(R.id.btnAgent)
-    TextView btnAgent;
+    ImageView btnAgent;
 
     private Unbinder mUnbinder;
 

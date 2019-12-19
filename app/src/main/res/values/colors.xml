@@ -19,8 +19,11 @@
     <color name="colorThumb">#3D3D3D</color>
     <color name="customBlack">#202020</color>
     <color name="customRed">#A81515</color>
-    <color name="graybackground">#dfe6e9</color>
+    <color name="graybackground">#F6FAFB</color>
     <color name="darkgreybackground">#636e72</color>
     <color name="textDark">#C9D8E0</color>
     <color name="darkgreen">#158A46</color>
+
+
+    <color name="textColorAsira">#2076B8</color>
 </resources>
