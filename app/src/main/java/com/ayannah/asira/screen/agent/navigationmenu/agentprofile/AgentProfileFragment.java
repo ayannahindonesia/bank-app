@@ -10,6 +10,8 @@ import android.provider.MediaStore;
 import android.util.Base64;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -88,6 +90,12 @@ public class AgentProfileFragment extends BaseFragment implements AgentProfileCo
     @BindView(R.id.imgProfile)
     CircleImageView imgProfile;
 
+    @BindView(R.id.rltBankService)
+    RelativeLayout rltBankService;
+
+    @BindView(R.id.txtBankServiceTitle)
+    TextView txtBankServiceTitle;
+
     private Bitmap imageBitmap;
     private List<Integer> banksSelectedID = new ArrayList<>();
 
@@ -132,7 +140,14 @@ public class AgentProfileFragment extends BaseFragment implements AgentProfileCo
 
     @Override
     public void loadAgentProfile(PreferenceRepository preferenceRepository) {
-        mPresenter.getProviderName(preferenceRepository.getAgentProvider());
+        if (preferenceRepository.getAgentCategory().toLowerCase().equals("account_executive")) {
+            txtAgentProvider.setText(preferenceRepository.getAgentBanksName());
+            rltBankService.setVisibility(View.GONE);
+            txtBankServiceTitle.setVisibility(View.GONE);
+        } else {
+            mPresenter.getProviderName(preferenceRepository.getAgentProvider());
+            etAgentBanks.setText(preferenceRepository.getAgentBanksName());
+        }
 
         txtIdAgent.setText(preferenceRepository.getAgentId());
         txtAgentName.setText(preferenceRepository.getAgentName());
@@ -140,7 +155,7 @@ public class AgentProfileFragment extends BaseFragment implements AgentProfileCo
         etAgentEmail.setText(preferenceRepository.getAgentEmail());
         etAgentHp.setText(preferenceRepository.getAgentPhone());
         txtAgentCat.setText(translateAgentCat(preferenceRepository.getAgentCategory()));
-        etAgentBanks.setText(preferenceRepository.getAgentBanksName());
+
         txtStatus.setText(translateAgentStatus(preferenceRepository.getAgentStatus()));
     }
 
