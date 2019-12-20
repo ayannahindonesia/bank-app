@@ -132,15 +132,33 @@ public class AgentProfileFragment extends BaseFragment implements AgentProfileCo
 
     @Override
     public void loadAgentProfile(PreferenceRepository preferenceRepository) {
+        mPresenter.getProviderName(preferenceRepository.getAgentProvider());
+
         txtIdAgent.setText(preferenceRepository.getAgentId());
         txtAgentName.setText(preferenceRepository.getAgentName());
         txtAgentUserName.setText(preferenceRepository.getAgentUserName());
         etAgentEmail.setText(preferenceRepository.getAgentEmail());
         etAgentHp.setText(preferenceRepository.getAgentPhone());
-        txtAgentCat.setText(preferenceRepository.getAgentCategory());
-        txtAgentProvider.setText(preferenceRepository.getAgentProvider());
+        txtAgentCat.setText(translateAgentCat(preferenceRepository.getAgentCategory()));
         etAgentBanks.setText(preferenceRepository.getAgentBanksName());
-        txtStatus.setText(preferenceRepository.getAgentStatus());
+        txtStatus.setText(translateAgentStatus(preferenceRepository.getAgentStatus()));
+    }
+
+    private String translateAgentCat(String agentCategory) {
+        if (agentCategory.toLowerCase().equals("agent")) {
+            return "Agen";
+        } else {
+            return "Account Executive";
+        }
+    }
+
+    private String translateAgentStatus(String agentStatus) {
+        if (agentStatus.toLowerCase().equals("active")) {
+            return "Aktif";
+        } else {
+            return "Tidak Aktif";
+        }
+
     }
 
     @Override
@@ -156,6 +174,11 @@ public class AgentProfileFragment extends BaseFragment implements AgentProfileCo
     public void successUpdatePhotoAgent() {
         imgProfile.setImageBitmap(imageBitmap);
         Toast.makeText(parentActivity(), "Foto Berhasil disimpan", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void setAgentProviderName(String name) {
+        txtAgentProvider.setText(name);
     }
 
     @Override

@@ -45,4 +45,16 @@ public class AgentProfileActivity extends DaggerAppCompatActivity {
             ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), agentProfileFragment, R.id.fragment_container);
         }
     }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return super.onSupportNavigateUp();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mUnbinder.unbind();
+    }
 }

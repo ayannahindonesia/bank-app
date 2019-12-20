@@ -11,6 +11,8 @@ public interface LPAgentContract {
         void displayUserIdentity(String agentName, String agentUserName, String agentID, String agentProvider);
 
         void successsLogout();
+
+        void showErrorMessage(String errorResponseWithStatusCode);
     }
 
     interface Presenter extends BasePresenter<View>{
@@ -19,5 +21,7 @@ public interface LPAgentContract {
         void getCurrentAgentIdentity();
 
         void logout();
+
+        void getTokenLender();
     }
 }

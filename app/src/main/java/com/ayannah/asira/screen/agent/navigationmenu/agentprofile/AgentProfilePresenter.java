@@ -113,4 +113,30 @@ public class AgentProfilePresenter implements AgentProfileContract.Presenter {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void getProviderName(String agentProvider) {
+        if (mView == null) {
+            return;
+        }
+
+        mComposite.add(remoteRepository.getAgentProvider(agentProvider)
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(res -> {
+            mView.setAgentProviderName(res.getName());
+        }, err -> {
+            ANError anError = (ANError) err;
+            if (anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)) {
+                mView.showErrorMessage("Connection Error " + " on getClientToken()");
+            } else {
+
+                if (anError.getErrorBody() != null) {
+
+                    JSONObject jsonObject = new JSONObject(anError.getErrorBody());
+                    mView.showErrorMessage(jsonObject.optString("message"));
+                }
+            }
+        }));
+    }
 }

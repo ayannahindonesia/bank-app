@@ -53,6 +53,8 @@ public class LPAgentFragment extends BaseFragment implements LPAgentContract.Vie
 
         mPresenter.getCurrentAgentIdentity();
 
+        mPresenter.getTokenLender();
+
     }
 
     @Override
@@ -147,4 +149,10 @@ public class LPAgentFragment extends BaseFragment implements LPAgentContract.Vie
         startActivity(intent);
         parentActivity().finish();
     }
+
+    @Override
+    public void showErrorMessage(String errorResponseWithStatusCode) {
+        Toast.makeText(parentActivity(), String.format("%s. Silakan buka beberapa saat lagi, karena sedang dalam perbaikan", errorResponseWithStatusCode), Toast.LENGTH_SHORT).show();
+    }
+
 }

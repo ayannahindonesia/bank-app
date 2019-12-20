@@ -12,6 +12,7 @@ import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.ayannah.asira.BuildConfig;
 import com.ayannah.asira.data.local.PreferenceRepository;
 import com.ayannah.asira.data.model.AgentProfile;
+import com.ayannah.asira.data.model.AgentProviderDetail;
 import com.ayannah.asira.data.model.BankDetail;
 import com.ayannah.asira.data.model.BankList;
 import com.ayannah.asira.data.model.BankService;
@@ -41,6 +42,7 @@ import org.json.JSONObject;
 import javax.inject.Inject;
 
 import io.reactivex.Single;
+import io.reactivex.disposables.Disposable;
 import okhttp3.Credentials;
 import okhttp3.Response;
 
@@ -527,5 +529,15 @@ public class RemoteDataSource implements RemoteRepository {
                 .setPriority(Priority.MEDIUM)
                 .build()
                 .getObjectSingle(AgentProfile.class);
+    }
+
+    @Override
+    public Single<AgentProviderDetail> getAgentProvider(String agentProviderID) {
+        return Rx2AndroidNetworking.get(BuildConfig.API_URL_LENDER + "admin/agent_providers/{agentProviderID}")
+                .addHeaders("Authorization", preferenceRepository.getAdminTokenLender())
+                .addPathParameter("agentProviderID", agentProviderID)
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getObjectSingle(AgentProviderDetail.class);
     }
 }
