@@ -158,6 +158,7 @@
                 android:textSize="@dimen/_14sdp" />
 
             <TextView
+                android:id="@+id/txtBankServiceTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Bank Pelayanan"
@@ -165,6 +166,7 @@
                 android:textStyle="bold" />
 
             <RelativeLayout
+                android:id="@+id/rltBankService"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
