@@ -1,6 +1,7 @@
 package com.ayannah.asira.data.remote;
 
 import com.ayannah.asira.data.model.AgentProfile;
+import com.ayannah.asira.data.model.AgentProviderDetail;
 import com.ayannah.asira.data.model.BankDetail;
 import com.ayannah.asira.data.model.BankList;
 import com.ayannah.asira.data.model.BankService;
@@ -106,4 +107,6 @@ public interface RemoteRepository {
     Single<ServiceProductsAgent> getAllProductsAgent(String idService);
 
     Single<AgentProfile> patchAgentProfile(JSONObject jsonPatchAgentProfile);
+
+    Single<AgentProviderDetail> getAgentProvider(String agentProvider);
 }

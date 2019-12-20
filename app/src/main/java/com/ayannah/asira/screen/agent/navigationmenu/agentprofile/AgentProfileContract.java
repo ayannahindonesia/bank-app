@@ -18,6 +18,8 @@ public interface AgentProfileContract {
         void successUpdateProfileAgent();
 
         void successUpdatePhotoAgent();
+
+        void setAgentProviderName(String name);
     }
 
     interface Presenter extends BasePresenter<View> {
@@ -27,5 +29,7 @@ public interface AgentProfileContract {
         void patchDataAgent(JSONObject jsonPatchAgentProfile);
 
         void patchAgentPhotoProfile(String pict);
+
+        void getProviderName(String agentProvider);
     }
 }
