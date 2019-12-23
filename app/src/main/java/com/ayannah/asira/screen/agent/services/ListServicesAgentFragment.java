@@ -113,6 +113,7 @@ public class ListServicesAgentFragment extends BaseFragment implements ListServi
             intent.putExtra("id", menuProduct.getId());
             intent.putExtra("name", menuProduct.getName());
             intent.putExtra(EarningActivity.ID_SERVICE, String.valueOf(menuProduct.getId()));
+            intent.putExtra(EarningActivity.IDBANK, String.valueOf(menuProduct.getId()));
             startActivity(intent);
 
         });
