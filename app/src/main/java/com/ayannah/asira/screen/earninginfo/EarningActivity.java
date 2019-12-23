@@ -17,6 +17,7 @@ import dagger.android.support.DaggerAppCompatActivity;
 public class EarningActivity extends DaggerAppCompatActivity {
 
     public static final String ID_SERVICE = "IDSERVICE";
+    public static final String IDBANK = "IDBANK";
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;

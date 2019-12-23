@@ -56,6 +56,7 @@ public class EarningFragment extends BaseFragment implements EarningContract.Vie
     private Validator validator;
     private AlertDialog dialog;
     private UserBorrower userBorrower;
+    private String idbank;
 
     @Inject
     public EarningFragment(){}
@@ -74,6 +75,8 @@ public class EarningFragment extends BaseFragment implements EarningContract.Vie
         builder.setCancelable(false);
         builder.setView(R.layout.progress_bar);
         dialog = builder.create();
+
+        idbank = getActivity().getIntent().getStringExtra(EarningActivity.IDBANK);
 
         if (getActivity().getIntent().getStringExtra("isFrom").toLowerCase().equals("agent")) {
 //            Toast.makeText(parentActivity(), "dari Agent", Toast.LENGTH_SHORT).show();
@@ -230,7 +233,7 @@ public class EarningFragment extends BaseFragment implements EarningContract.Vie
         if (getActivity().getIntent().getStringExtra("isFrom").toLowerCase().equals("agent")) {
             intent = new Intent(parentActivity(), LoanAgentActivity.class);
             intent.putExtra(LoanAgentActivity.IDSERVICE, idService);
-            intent.putExtra(LoanAgentActivity.IDBANK, "1");
+            intent.putExtra(LoanAgentActivity.IDBANK, idbank);
         } else {
             intent = new Intent(parentActivity(), LoanActivity.class);
 //        pinjaman.putExtra("idService", bundle.getInt("id"));
@@ -255,7 +258,7 @@ public class EarningFragment extends BaseFragment implements EarningContract.Vie
         if (getActivity().getIntent().getStringExtra("isFrom").toLowerCase().equals("agent")) {
             pinjaman = new Intent(parentActivity(), LoanAgentActivity.class);
             pinjaman.putExtra(LoanAgentActivity.IDSERVICE, idService);
-            pinjaman.putExtra(LoanAgentActivity.IDBANK, "1");
+            pinjaman.putExtra(LoanAgentActivity.IDBANK, idbank);
         } else {
             pinjaman = new Intent(parentActivity(), LoanActivity.class);
 //        pinjaman.putExtra("idService", bundle.getInt("id"));
