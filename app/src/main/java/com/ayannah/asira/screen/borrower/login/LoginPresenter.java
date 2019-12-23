@@ -187,8 +187,8 @@ public class LoginPresenter implements LoginContract.Presenter {
             preferenceRepository.setUserOtherIncome(String.valueOf(response.getOtherIncome()));
             preferenceRepository.setuserOtherSourceIncome(response.getOtherIncomesource());
 
-            preferenceRepository.setIDCardImageID(response.getIdCardImage().getInt64());
-            preferenceRepository.setTaxIDImageID(response.getTaxIDImage().getInt64());
+            preferenceRepository.setIDCardImageID(response.getIdCardImage());
+            preferenceRepository.setTaxIDImageID(response.getTaxIDImage());
             preferenceRepository.setBankID(response.getBank().getInt64());
 
             preferenceRepository.setUserLogged(true);

@@ -8,9 +8,9 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,22 +21,17 @@ import androidx.core.content.ContextCompat;
 import com.ayannah.asira.R;
 import com.ayannah.asira.base.BaseFragment;
 import com.ayannah.asira.data.local.PreferenceRepository;
-import com.ayannah.asira.data.model.Bank;
 import com.ayannah.asira.data.model.BankDetail;
 import com.ayannah.asira.screen.agent.navigationmenu.agentprofile.ListBanks.AgentProfileBankListActivity;
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -97,7 +92,7 @@ public class AgentProfileFragment extends BaseFragment implements AgentProfileCo
     TextView txtBankServiceTitle;
 
     private Bitmap imageBitmap;
-    private List<Integer> banksSelectedID = new ArrayList<>();
+    private ArrayList<Integer> banksSelectedID = new ArrayList<>();
 
     @Inject
     public AgentProfileFragment(){}
@@ -210,20 +205,16 @@ public class AgentProfileFragment extends BaseFragment implements AgentProfileCo
                 switch (which) {
                     case DialogInterface.BUTTON_POSITIVE:
 
-                        try {
-                            JSONArray arr = new JSONArray();
-                            for (int i=0; i<banksSelectedID.size(); i++) {
-                                arr.put(banksSelectedID.get(i));
-                            }
-
-                            JSONObject jsonPatchAgentProfile = new JSONObject();
-                            jsonPatchAgentProfile.put("email", etAgentEmail.getText().toString());
-                            jsonPatchAgentProfile.put("phone", etAgentHp.getText().toString());
-//                            jsonPatchAgentProfile.put("banks", arr);
-                            mPresenter.patchDataAgent(jsonPatchAgentProfile);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+                        JsonArray arr = new JsonArray();
+                        for (int i=0; i<banksSelectedID.size(); i++) {
+                            arr.add(banksSelectedID.get(i));
                         }
+
+                        JsonObject jsonPatchAgentProfile = new JsonObject();
+                        jsonPatchAgentProfile.addProperty("email", etAgentEmail.getText().toString());
+                        jsonPatchAgentProfile.addProperty("phone", etAgentHp.getText().toString());
+                        jsonPatchAgentProfile.add("banks", arr);
+                        mPresenter.patchDataAgent(jsonPatchAgentProfile);
 
                         break;
 

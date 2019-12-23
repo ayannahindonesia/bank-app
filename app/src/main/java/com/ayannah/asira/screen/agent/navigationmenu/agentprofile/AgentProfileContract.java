@@ -26,7 +26,7 @@ public interface AgentProfileContract {
 
         void setAgentProfile();
 
-        void patchDataAgent(JSONObject jsonPatchAgentProfile);
+        void patchDataAgent(JsonObject jsonPatchAgentProfile);
 
         void patchAgentPhotoProfile(String pict);
 

@@ -56,7 +56,7 @@ public class EarningFragment extends BaseFragment implements EarningContract.Vie
     private BottomChangingIncome popUpChangingIncome;
     private Validator validator;
     private AlertDialog dialog;
-    UserBorrower userBorrower;
+    private UserBorrower userBorrower;
 
     @Inject
     public EarningFragment(){}
@@ -78,7 +78,7 @@ public class EarningFragment extends BaseFragment implements EarningContract.Vie
 
         if (getActivity().getIntent().getStringExtra("isFrom").toLowerCase().equals("agent")) {
 //            Toast.makeText(parentActivity(), "dari Agent", Toast.LENGTH_SHORT).show();
-            userBorrower = (UserBorrower) getActivity().getIntent().getSerializableExtra("user");
+             userBorrower = (UserBorrower) getActivity().getIntent().getSerializableExtra("user");
             loadPenghasilan(String.valueOf(userBorrower.getMonthlyIncome()),
                     String.valueOf(userBorrower.getOtherIncome()),
                     userBorrower.getOtherIncomesource());
@@ -290,7 +290,11 @@ public class EarningFragment extends BaseFragment implements EarningContract.Vie
         String others = etSumberPendapatanLain.getText().toString().trim();
 
         dialog.show();
-        mPresenter.updateUserIncome(primary, secondaru, others);
+        if (getActivity().getIntent().getStringExtra("isFrom").toLowerCase().equals("agent")) {
+            mPresenter.updateUserIncomeFromAgent(primary, secondaru, others, String.valueOf(userBorrower.getId()));
+        } else {
+            mPresenter.updateUserIncome(primary, secondaru, others);
+        }
     }
 
     @Override

@@ -522,7 +522,7 @@ public class RemoteDataSource implements RemoteRepository {
     }
 
     @Override
-    public Single<AgentProfile> patchAgentProfile(JSONObject jsonPatchAgentProfile) {
+    public Single<AgentProfile> patchAgentProfile(JsonObject jsonPatchAgentProfile) {
         return Rx2AndroidNetworking.patch(BuildConfig.API_URL + "agent/profile")
                 .addHeaders("Authorization", preferenceRepository.getUserToken())
                 .addApplicationJsonBody(jsonPatchAgentProfile)
@@ -539,5 +539,16 @@ public class RemoteDataSource implements RemoteRepository {
                 .setPriority(Priority.MEDIUM)
                 .build()
                 .getObjectSingle(AgentProviderDetail.class);
+    }
+
+    @Override
+    public Single<UserProfile> updateProfileFromAgent(JsonObject json, String borrowerID) {
+        return Rx2AndroidNetworking.patch(BuildConfig.API_URL + "agent/borrower/{borrower_id}")
+                .addHeaders("Authorization", preferenceRepository.getUserToken())
+                .addPathParameter("borrower_id", borrowerID)
+                .addApplicationJsonBody(json)
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getObjectSingle(UserProfile.class);
     }
 }

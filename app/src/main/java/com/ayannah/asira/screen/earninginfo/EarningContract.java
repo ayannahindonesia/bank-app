@@ -21,5 +21,6 @@ public interface EarningContract {
 
         void updateUserIncome(int primaryIncome, int secondaryIncome, String otherIncomeSource);
 
+        void updateUserIncomeFromAgent(int primary, int secondary, String others, String borrowerID);
     }
 }

@@ -208,13 +208,13 @@ public interface PreferenceRepository {
 
     String getTaxIDImage();
 
-    void setIDCardImageID(int idCardImageID);
+    void setIDCardImageID(String idCardImageID);
 
-    int getIDCardImageID();
+    String getIDCardImageID();
 
-    void setTaxIDImageID(int taxIDImageID);
+    void setTaxIDImageID(String taxIDImageID);
 
-    int getTaxIDImageID();
+    String getTaxIDImageID();
 
     void setBankID(int bankID);
 

@@ -166,10 +166,10 @@ public class UserBorrower implements Parcelable, Serializable {
 	private int dependants;
 
 	@SerializedName("idcard_image")
-	private IDCardImage idCardImage;
+	private String idCardImage;
 
 	@SerializedName("taxid_image")
-	private TaxIDImage taxIDImage;
+	private String taxIDImage;
 
 	@SerializedName("agnet_id")
 	private AgentId agentId;
@@ -457,11 +457,11 @@ public class UserBorrower implements Parcelable, Serializable {
 		return dependants;
 	}
 
-	public IDCardImage getIdCardImage() {
+	public String getIdCardImage() {
 		return idCardImage;
 	}
 
-	public TaxIDImage getTaxIDImage() {
+	public String getTaxIDImage() {
 		return taxIDImage;
 	}
 
@@ -536,5 +536,7 @@ public class UserBorrower implements Parcelable, Serializable {
 		dest.writeString(employerNumber);
 		dest.writeString(relatedAddress);
 		dest.writeInt(dependants);
+		dest.writeString(taxIDImage);
+		dest.writeString(idCardImage);
 	}
 }
