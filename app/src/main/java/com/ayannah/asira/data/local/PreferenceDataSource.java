@@ -682,23 +682,23 @@ public class PreferenceDataSource implements PreferenceRepository {
     }
 
     @Override
-    public void setIDCardImageID(int idCardImageID) {
-        mPreferences.edit().putInt(PREF_USER_ID_CARD_ID, idCardImageID).apply();
+    public void setIDCardImageID(String idCardImageID) {
+        mPreferences.edit().putString(PREF_USER_ID_CARD_ID, idCardImageID).apply();
     }
 
     @Override
-    public int getIDCardImageID() {
-        return mPreferences.getInt(PREF_USER_ID_CARD_ID, 0);
+    public String getIDCardImageID() {
+        return mPreferences.getString(PREF_USER_ID_CARD_ID, "");
     }
 
     @Override
-    public void setTaxIDImageID(int taxIDImageID) {
-        mPreferences.edit().putInt(PREF_USER_TAX_CARD_ID, taxIDImageID).apply();
+    public void setTaxIDImageID(String taxIDImageID) {
+        mPreferences.edit().putString(PREF_USER_TAX_CARD_ID, taxIDImageID).apply();
     }
 
     @Override
-    public int getTaxIDImageID() {
-        return mPreferences.getInt(PREF_USER_TAX_CARD_ID, 0);
+    public String getTaxIDImageID() {
+        return mPreferences.getString(PREF_USER_TAX_CARD_ID, "");
     }
 
     @Override

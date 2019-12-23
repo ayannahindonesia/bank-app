@@ -109,4 +109,6 @@ public interface RemoteRepository {
     Single<AgentProfile> patchAgentProfile(JsonObject jsonPatchAgentProfile);
 
     Single<AgentProviderDetail> getAgentProvider(String agentProvider);
+
+    Single<UserProfile> updateProfileFromAgent(JsonObject json, String borrowerID);
 }
