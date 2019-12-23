@@ -6,7 +6,6 @@ import com.ayannah.asira.data.local.PreferenceRepository;
 import com.ayannah.asira.data.remote.RemoteRepository;
 import com.google.gson.JsonObject;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import javax.inject.Inject;
@@ -48,7 +47,7 @@ public class AgentProfilePresenter implements AgentProfileContract.Presenter {
     }
 
     @Override
-    public void patchDataAgent(JSONObject jsonPatchAgentProfile) {
+    public void patchDataAgent(JsonObject jsonPatchAgentProfile) {
         if (mView == null) {
             return;
         }
@@ -60,6 +59,7 @@ public class AgentProfilePresenter implements AgentProfileContract.Presenter {
 
                     preferenceRepository.setAgentEmail(res.getEmail());
                     preferenceRepository.setAgentPhone(res.getPhone());
+                    preferenceRepository.setAgentBanksName(res.getBanksName().toString().replace("[", "").replace("]",""));
                     mView.successUpdateProfileAgent();
 
                 }, error -> {
@@ -84,34 +84,30 @@ public class AgentProfilePresenter implements AgentProfileContract.Presenter {
             return;
         }
 
-        try {
-            JSONObject jsonImagePhotoProfile = new JSONObject();
-            jsonImagePhotoProfile.put("image", pict);
+        JsonObject jsonImagePhotoProfile = new JsonObject();
+        jsonImagePhotoProfile.addProperty("image", pict);
 
-            mComposite.add(remoteRepository.patchAgentProfile(jsonImagePhotoProfile)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(res -> {
+        mComposite.add(remoteRepository.patchAgentProfile(jsonImagePhotoProfile)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(res -> {
 
-                        mView.successUpdatePhotoAgent();
+                    mView.successUpdatePhotoAgent();
 
-                    }, error -> {
+                }, error -> {
 
-                        ANError anError = (ANError) error;
-                        if (anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)) {
-                            mView.showErrorMessage("Connection Error " + " on getClientToken()");
-                        } else {
+                    ANError anError = (ANError) error;
+                    if (anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)) {
+                        mView.showErrorMessage("Connection Error " + " on getClientToken()");
+                    } else {
 
-                            if (anError.getErrorBody() != null) {
+                        if (anError.getErrorBody() != null) {
 
-                                JSONObject jsonObject = new JSONObject(anError.getErrorBody());
-                                mView.showErrorMessage(jsonObject.optString("message"));
-                            }
+                            JSONObject jsonObject = new JSONObject(anError.getErrorBody());
+                            mView.showErrorMessage(jsonObject.optString("message"));
                         }
-                    }));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+                    }
+                }));
     }
 
     @Override

@@ -492,7 +492,7 @@ public class RemoteDataSource implements RemoteRepository {
     }
 
     @Override
-    public Single<AgentProfile> patchAgentProfile(JSONObject jsonPatchAgentProfile) {
+    public Single<AgentProfile> patchAgentProfile(JsonObject jsonPatchAgentProfile) {
         return Rx2AndroidNetworking.patch(BuildConfig.API_URL + "agent/profile")
                 .addHeaders("Authorization", preferenceRepository.getUserToken())
                 .addApplicationJsonBody(jsonPatchAgentProfile)

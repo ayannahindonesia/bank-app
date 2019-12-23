@@ -106,7 +106,7 @@ public interface RemoteRepository {
 
     Single<ServiceProductsAgent> getAllProductsAgent(String idService);
 
-    Single<AgentProfile> patchAgentProfile(JSONObject jsonPatchAgentProfile);
+    Single<AgentProfile> patchAgentProfile(JsonObject jsonPatchAgentProfile);
 
     Single<AgentProviderDetail> getAgentProvider(String agentProvider);
 }
