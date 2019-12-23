@@ -226,9 +226,16 @@ public class EarningFragment extends BaseFragment implements EarningContract.Vie
         assert bundle != null;
 
         dialog.dismiss();
-        Intent intent = new Intent(parentActivity(), LoanActivity.class);
-//        intent.putExtra("idService", bundle.getInt("id"));
-        intent.putExtra(LoanActivity.IDSERVICE, idService);
+        Intent intent;
+        if (getActivity().getIntent().getStringExtra("isFrom").toLowerCase().equals("agent")) {
+            intent = new Intent(parentActivity(), LoanAgentActivity.class);
+            intent.putExtra(LoanAgentActivity.IDSERVICE, idService);
+            intent.putExtra(LoanAgentActivity.IDBANK, "1");
+        } else {
+            intent = new Intent(parentActivity(), LoanActivity.class);
+//        pinjaman.putExtra("idService", bundle.getInt("id"));
+            intent.putExtra(LoanActivity.IDSERVICE, idService);
+        }
 
         startActivity(intent);
     }
