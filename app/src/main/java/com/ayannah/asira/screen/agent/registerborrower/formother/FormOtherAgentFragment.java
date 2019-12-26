@@ -51,6 +51,7 @@ public class FormOtherAgentFragment extends BaseFragment implements FormOtherAge
     public static final String NPWP_NO = "NPWP_NO";
     public static final String PHOTO_KTP = "PHOTO_KTP";
     public static final String PHOTO_NPWP = "PHOTO_NPWP";
+    public static final String PHOTO_PP = "PHOTO_PP";
 
     public static final String REGIST_NAME = "REGIST_NAME";
     public static final String GENDER = "GENDER";
@@ -243,6 +244,7 @@ public class FormOtherAgentFragment extends BaseFragment implements FormOtherAge
         userProfleRequestAgent.addProperty("related_address", etRelatedAddress.getText().toString());
         userProfleRequestAgent.addProperty("idcard_image", bundle.getString(PHOTO_KTP));
         userProfleRequestAgent.addProperty("taxid_image", bundle.getString(PHOTO_NPWP));
+//        userProfleRequestAgent.addProperty(, bundle.getString(PHOTO_PP));
 
         //new
         userProfleRequestAgent.addProperty("bank", Integer.parseInt(bundle.getString(BANK_ID)));

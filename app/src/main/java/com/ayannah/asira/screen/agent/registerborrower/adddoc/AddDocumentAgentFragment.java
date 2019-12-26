@@ -3,6 +3,7 @@ package com.ayannah.asira.screen.agent.registerborrower.adddoc;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
@@ -10,6 +11,7 @@ import android.media.ExifInterface;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.util.Base64;
@@ -21,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.ContextCompat;
 
 import com.ayannah.asira.R;
 import com.ayannah.asira.base.BaseFragment;
@@ -31,11 +34,7 @@ import com.ayannah.asira.util.CameraTakeBeforeM;
 import com.ayannah.asira.util.CameraTakeM;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
-import com.mobsandgeeks.saripaar.annotation.ConfirmPassword;
-import com.mobsandgeeks.saripaar.annotation.Email;
 import com.mobsandgeeks.saripaar.annotation.Length;
-import com.mobsandgeeks.saripaar.annotation.NotEmpty;
-import com.mobsandgeeks.saripaar.annotation.Password;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -48,6 +47,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class AddDocumentAgentFragment extends BaseFragment implements AddDocumentAgentContract.View, Validator.ValidationListener {
 
@@ -82,13 +82,17 @@ public class AddDocumentAgentFragment extends BaseFragment implements AddDocumen
     @BindView(R.id.regist_phone)
     EditText phone;
 
+    @BindView(R.id.imgProfile)
+    CircleImageView imgProfile;
+
     private Validator validator;
 
+    private static final int PP = 8;
     private static final int KTP = 9;
     private static final int NPWP = 10;
 
     private BottomSheetDialogGlobal bottomDialog;
-    private String pictKTP64, pictNPWP64;
+    private String pictKTP64, pictNPWP64, pictPP64;
     private AlertDialog dialog;
 
     @Inject
@@ -317,6 +321,27 @@ public class AddDocumentAgentFragment extends BaseFragment implements AddDocumen
                     }
 
                     break;
+
+                case PP:
+
+                    try {
+
+                        Bundle extras = data.getExtras();
+                        Bitmap imageBitmap = (Bitmap) extras.get("data");
+
+                        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                        imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+                        byte[] byteArray = byteArrayOutputStream .toByteArray();
+
+                        pictPP64 = Base64.encodeToString(byteArray, Base64.NO_WRAP);
+
+                        imgProfile.setImageBitmap(imageBitmap);
+
+                    } catch (Exception e) {
+                        Log.d("Error", e.getMessage());
+                    }
+
+                    break;
             }
 
         }
@@ -511,6 +536,7 @@ public class AddDocumentAgentFragment extends BaseFragment implements AddDocumen
 
         bundle.putString(FormOtherAgentFragment.PHOTO_KTP, pictKTP64);
         bundle.putString(FormOtherAgentFragment.PHOTO_NPWP, pictNPWP64);
+        bundle.putString(FormOtherAgentFragment.PHOTO_PP, pictPP64);
         bundle.putString(FormOtherAgentFragment.KTP_NO, etKTP.getText().toString());
         bundle.putString(FormOtherAgentFragment.NPWP_NO, etNPWP.getText().toString());
         bundle.putString(FormOtherAgentFragment.EMAIL, email.getText().toString());
@@ -558,6 +584,27 @@ public class AddDocumentAgentFragment extends BaseFragment implements AddDocumen
         if (editable.toString().equals("0")) {
             Toast.makeText(getContext(), "Masukan tanpa diawali angka 0", Toast.LENGTH_LONG).show();
             phone.setText("");
+        }
+    }
+
+    @OnClick(R.id.rltImageProfile)
+    void cameraTake() {
+
+        if (ContextCompat.checkSelfPermission(parentActivity(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED ||
+                ContextCompat.checkSelfPermission(parentActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ||
+                ContextCompat.checkSelfPermission(parentActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            // Permission is not granted
+            needPermission(new String[]{
+                    Manifest.permission.CAMERA,
+                    Manifest.permission.READ_EXTERNAL_STORAGE,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+            });
+        } else {
+            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            if (takePictureIntent.resolveActivity(parentActivity().getPackageManager()) != null) {
+                startActivityForResult(takePictureIntent, PP);
+            }
+
         }
     }
 }
