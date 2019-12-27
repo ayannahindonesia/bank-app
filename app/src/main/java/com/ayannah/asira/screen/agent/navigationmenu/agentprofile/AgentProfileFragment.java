@@ -93,6 +93,7 @@ public class AgentProfileFragment extends BaseFragment implements AgentProfileCo
 
     private Bitmap imageBitmap;
     private ArrayList<Integer> banksSelectedID = new ArrayList<>();
+    private boolean bankSelectFromList = false;
 
     @Inject
     public AgentProfileFragment(){}
@@ -107,7 +108,9 @@ public class AgentProfileFragment extends BaseFragment implements AgentProfileCo
         builder.setView(R.layout.progress_bar);
         dialogAlert = builder.create();
 
-        mPresenter.setAgentProfile();
+        if (!bankSelectFromList) {
+            mPresenter.setAgentProfile();
+        }
 
         etAgentBanks.setKeyListener(null);
     }
@@ -152,6 +155,7 @@ public class AgentProfileFragment extends BaseFragment implements AgentProfileCo
         txtAgentCat.setText(translateAgentCat(preferenceRepository.getAgentCategory()));
 
         txtStatus.setText(translateAgentStatus(preferenceRepository.getAgentStatus()));
+        bankSelectFromList = false;
     }
 
     private String translateAgentCat(String agentCategory) {
@@ -328,6 +332,7 @@ public class AgentProfileFragment extends BaseFragment implements AgentProfileCo
                 banksSelectedID.add(banksSelected.get(i).getId());
             }
             etAgentBanks.setText(s);
+            bankSelectFromList = true;
         }
     }
 
