@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
+    android:layout_marginBottom="@dimen/_4sdp"
     android:layout_height="wrap_content"
-    android:layout_margin="5dp"
     android:background="@android:color/white"
-    app:cardCornerRadius="@dimen/_10sdp"
-    app:cardElevation="4dp">
+    app:cardCornerRadius="@dimen/_4sdp"
+    app:cardElevation="3dp">
 
     <LinearLayout
         android:padding="@dimen/dp14"
@@ -26,14 +26,14 @@
         <ImageView
             android:id="@+id/iconProduct"
             android:layout_gravity="center_horizontal"
-            android:layout_width="50dp"
-            android:layout_height="50dp" />
+            android:layout_width="80dp"
+            android:layout_height="60dp" />
 
         <TextView
             android:id="@+id/nameProduct"
-            android:textColor="@color/textColorAsira"
+            android:textColor="@color/colorAsiraText"
             android:fontFamily="@font/manrope_bold"
-            android:textSize="@dimen/fontLarge"
+            android:textSize="@dimen/fontNormal"
             android:layout_marginTop="10dp"
             tools:text="Pinjaman PNS"
             android:textAlignment="center"

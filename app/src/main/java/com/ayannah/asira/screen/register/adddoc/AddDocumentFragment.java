@@ -99,7 +99,6 @@ public class AddDocumentFragment extends BaseFragment implements AddDocumentCont
     private static final int KTP = 9;
     private static final int NPWP = 10;
 
-    private BottomSheetDialogGlobal bottomDialog;
     private String pictKTP64, pictNPWP64;
     private AlertDialog dialog;
 
@@ -138,31 +137,6 @@ public class AddDocumentFragment extends BaseFragment implements AddDocumentCont
 
         validator = new Validator(this);
         validator.setValidationListener(this);
-
-        ///show dialog instruction
-        bottomDialog = new BottomSheetDialogGlobal().show(parentActivity().getSupportFragmentManager(),
-                BottomSheetDialogGlobal.KTP_NPWP,
-                "Upload kartu identitas anda",
-                "Silahkan menambahkan foto kartu identitas pribadi anda seperti KTP dan NPWP (opsional) pribadi anda",
-                R.drawable.identity_card);
-        bottomDialog.setOnClickBottomSheetInstruction(new BottomSheetDialogGlobal.BottomSheetInstructionListener() {
-            @Override
-            public void onClickButtonDismiss() {
-
-                bottomDialog.dismiss();
-
-            }
-
-            @Override
-            public void onClickButtonYes() {
-                //dont do anything in here
-            }
-
-            @Override
-            public void closeApps() {
-                //dont do anything in here
-            }
-        });
 
     }
 
@@ -338,23 +312,6 @@ public class AddDocumentFragment extends BaseFragment implements AddDocumentCont
     @Override
     public void onValidationSucceeded() {
 
-//        Bundle bundle = parentActivity().getIntent().getExtras();
-//
-//        if(bundle == null){
-//            bundle = new Bundle();
-//        }
-//
-//        bundle.putString(FormOtherFragment.KTP_NO, etKTP.getText().toString());
-//        bundle.putString(FormOtherFragment.NPWP_NO, etNPWP.getText().toString());
-//        bundle.putString(FormOtherFragment.EMAIL, email.getText().toString());
-//        bundle.putString(FormOtherFragment.PHONE, phone.getText().toString());
-//        bundle.putString(FormOtherFragment.PASS, pass.getText().toString());
-//        bundle.putString(FormOtherFragment.CONF_PASS, passRetype.getText().toString());
-//
-//        Intent form = new Intent(parentActivity(), FormBorrowerActivity.class);
-//        form.putExtras(bundle);
-//        startActivity(form);
-
         String pnumber;
         if (phone.getText().toString().trim().substring(0,1).equals("0")) {
             pnumber = "62" + phone.getText().toString().trim().substring(1);
@@ -505,8 +462,6 @@ public class AddDocumentFragment extends BaseFragment implements AddDocumentCont
 
             bundle = new Bundle();
         }
-
-//        String pnumber = "62"+phone.getText().toString().trim();
 
         bundle.putString(FormOtherFragment.PHOTO_KTP, pictKTP64);
         bundle.putString(FormOtherFragment.PHOTO_NPWP, pictNPWP64);

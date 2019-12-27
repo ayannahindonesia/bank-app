@@ -67,13 +67,14 @@ public class VerificationOTPPresenter implements VerificationOTPContract.Present
         }, error -> {
 
              if (((ANError) error).getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
-                mView.showErrorMessage("Tidak Ada Koneksi");
-//                Toast.makeText(application, "Tidak Ada Koneksi", Toast.LENGTH_LONG).show();
+
+                mView.showErrorMessage("Tidak Ada Koneksi", 0);
+
             } else {
                 if(((ANError) error).getErrorBody() != null){
 
                     JSONObject jsonObject2 = new JSONObject(((ANError) error).getErrorBody());
-                    mView.showErrorMessage(jsonObject2.optString("message"));
+                    mView.showErrorMessage(jsonObject2.optString("message"), ((ANError) error).getErrorCode());
 
                 }
             }
@@ -101,22 +102,22 @@ public class VerificationOTPPresenter implements VerificationOTPContract.Present
                     .getAsJSONObject(new JSONObjectRequestListener() {
                         @Override
                         public void onResponse(JSONObject response) {
-                            Log.d("verify Loan: ", "Sukses");
+
                             mView.successVerifyLoan();
                         }
 
                         @Override
                         public void onError(ANError anError) {
-                            Log.d("verify Loan: ", "gagal");
+
                             if (anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
-                                mView.showErrorMessage("Tidak Ada Koneksi");
+                                mView.showErrorMessage("Tidak Ada Koneksi", 0);
                             } else {
                                 if(anError.getErrorBody() != null){
 
                                     JSONObject jsonObject2 = null;
                                     try {
                                         jsonObject2 = new JSONObject(anError.getErrorBody());
-                                        mView.showErrorMessage(jsonObject2.optString("message"));
+                                        mView.showErrorMessage(jsonObject2.optString("message"), anError.getErrorCode());
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     }
@@ -160,10 +161,10 @@ public class VerificationOTPPresenter implements VerificationOTPContract.Present
                         try {
                             JSONObject jsonObject2 = new JSONObject(anError.getErrorBody());
                             if (anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
-                                mView.showErrorMessage("Tidak Ada Koneksi");
+                                mView.showErrorMessage("Tidak Ada Koneksi", 0);
                             } else {
                                 if(anError.getErrorBody() != null){
-                                    mView.showErrorMessage(jsonObject2.optString("message"));
+                                    mView.showErrorMessage(jsonObject2.optString("message"), anError.getErrorCode());
                                 }
                             }
                         } catch (JSONException e) {
@@ -248,8 +249,10 @@ public class VerificationOTPPresenter implements VerificationOTPContract.Present
                     preferenceRepository.setUserOtherIncome(String.valueOf(response.getOtherIncome()));
                     preferenceRepository.setuserOtherSourceIncome(response.getOtherIncomesource());
 
-                    preferenceRepository.setIDCardImageID(response.getIdCardImage().getInt64());
-                    preferenceRepository.setTaxIDImageID(response.getTaxIDImage().getInt64());
+//                    preferenceRepository.setIDCardImageID(response.getIdCardImage().getInt64());
+//                    preferenceRepository.setTaxIDImageID(response.getTaxIDImage().getInt64());
+                    preferenceRepository.setIdCardImg(response.getIdCardImage());
+                    preferenceRepository.setTaxCardImg(response.getTaxIDImage());
                     preferenceRepository.setBankID(response.getBank().getInt64());
 
                     preferenceRepository.setUserLogged(true);
@@ -260,6 +263,7 @@ public class VerificationOTPPresenter implements VerificationOTPContract.Present
                     preferenceRepository.setUserNickname(response.getNickname());
 
 
+                    Log.e(TAG, "time to send token fcm device");
                     sendTokenDeviceToDB();
 //                    mView.loginComplete();
 
@@ -267,12 +271,12 @@ public class VerificationOTPPresenter implements VerificationOTPContract.Present
 
                     ANError anError = (ANError) error;
                     if(anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
-                        mView.showErrorMessage("Tidak Ada Koneksi");
+                        mView.showErrorMessage("Tidak Ada Koneksi", 0);
                     }else {
                         if(anError.getErrorBody() != null){
 
                             JSONObject jsonObject = new JSONObject(anError.getErrorBody());
-                            mView.showErrorMessage(jsonObject.optString("message") + " setUserIdentity()");
+                            mView.showErrorMessage(jsonObject.optString("message"), anError.getErrorCode());
                         }
                     }
                 }));
@@ -304,14 +308,14 @@ public class VerificationOTPPresenter implements VerificationOTPContract.Present
                         public void onError(ANError anError) {
                             Log.d("verify Loan: ", "gagal");
                             if (anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
-                                mView.showErrorMessage("Tidak Ada Koneksi");
+                                mView.showErrorMessage("Tidak Ada Koneksi", 0);
                             } else {
                                 if(anError.getErrorBody() != null){
 
                                     JSONObject jsonObject2 = null;
                                     try {
                                         jsonObject2 = new JSONObject(anError.getErrorBody());
-                                        mView.showErrorMessage(jsonObject2.optString("message"));
+                                        mView.showErrorMessage(jsonObject2.optString("message"), anError.getErrorCode());
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     }
@@ -359,7 +363,7 @@ public class VerificationOTPPresenter implements VerificationOTPContract.Present
 
                         String msg = String.format("Kode OTP salah (%s)", anError.getErrorCode());
 
-                        mView.showErrorMessage(msg);
+                        mView.showErrorMessage(msg, anError.getErrorCode());
 
                     }
                 });
@@ -379,8 +383,6 @@ public class VerificationOTPPresenter implements VerificationOTPContract.Present
 
                     preferenceRepository.setUserToken("Bearer "+response.getToken());
 
-                    Log.d(TAG, "create token client complete");
-
                     //set User Identity
                     if (isFrom.equals("otp")) {
                         mView.completeCreateUserToken();
@@ -390,12 +392,12 @@ public class VerificationOTPPresenter implements VerificationOTPContract.Present
 
                     ANError anError = (ANError) error;
                     if(anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
-                        mView.showErrorMessage("Connection Error");
+                        mView.showErrorMessage("Tidak ada koneksi", 0);
                     }else {
                         if(anError.getErrorBody() != null){
 
                             JSONObject jsonObject = new JSONObject(anError.getErrorBody());
-                            mView.showErrorMessage(jsonObject.optString("message")  + " getClientToken()");
+                            mView.showErrorMessage(jsonObject.optString("message"), anError.getErrorCode());
                         }
                     }
                 }));
@@ -408,6 +410,7 @@ public class VerificationOTPPresenter implements VerificationOTPContract.Present
         }
 
         String token = FirebaseInstanceId.getInstance().getToken();
+
         mComposite.add(remotRepo.sendUserFCMToken(token)
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
@@ -415,7 +418,14 @@ public class VerificationOTPPresenter implements VerificationOTPContract.Present
 
             mView.loginComplete();
 
-        }, error -> mView.showErrorMessage(CommonUtils.commonErrorFormat(error))));
+        }, error -> {
+
+            ANError anError = (ANError) error;
+
+            mView.showErrorMessage(CommonUtils.commonErrorFormat(error), anError.getErrorCode());
+
+
+        }));
 
     }
 }

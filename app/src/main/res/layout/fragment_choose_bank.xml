@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
+    android:background="@color/colorAsiraPrimary"
+    android:padding="@dimen/_10sdp"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/title"
         android:text="Silakan Pilih Bank"
-        android:textColor="@android:color/black"
-        android:padding="@dimen/dp12"
-        android:textAlignment="center"
-        android:textSize="@dimen/fontLarge"
-        android:layout_marginBottom="10dp"
+        android:textColor="@color/colorAsiraText"
+        android:padding="@dimen/_10sdp"
+        android:fontFamily="@font/manrope_bold"
+        android:textSize="@dimen/fontNormal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

@@ -29,8 +29,12 @@ import com.ayannah.asira.screen.agent.services.ListServicesAgentActivity;
 import com.ayannah.asira.screen.agent.services.ListServicesAgentModule;
 import com.ayannah.asira.screen.agent.viewBorrower.ViewBorrowerActivity;
 import com.ayannah.asira.screen.agent.viewBorrower.ViewBorrowerModule;
-import com.ayannah.asira.screen.borrower.navigationmenu.editinfopribadi.EditInfoPribadiActivity;
-import com.ayannah.asira.screen.borrower.navigationmenu.editinfopribadi.EditInfoPribadiModule;
+import com.ayannah.asira.screen.borrower.borrower_landing_page.BorrowerLandingModule;
+import com.ayannah.asira.screen.borrower.borrower_landing_page.BorrowerLandingPage;
+import com.ayannah.asira.screen.borrower.profile_menu.editinfopribadi.EditInfoPribadiActivity;
+import com.ayannah.asira.screen.borrower.profile_menu.editinfopribadi.EditInfoPribadiModule;
+import com.ayannah.asira.screen.borrower.tab_profile.ProfileModule;
+import com.ayannah.asira.screen.borrower.tab_rewards.RewardsModule;
 import com.ayannah.asira.screen.chooselogin.ChooseLoginActivity;
 import com.ayannah.asira.screen.chooselogin.ChooseLoginModule;
 import com.ayannah.asira.screen.createnewpassword.CreateNewPassActivity;
@@ -39,22 +43,20 @@ import com.ayannah.asira.screen.detailloan.DetailTransaksiActivity;
 import com.ayannah.asira.screen.detailloan.DetailTransaksiModule;
 import com.ayannah.asira.screen.earninginfo.EarningActivity;
 import com.ayannah.asira.screen.earninginfo.EarningModule;
-import com.ayannah.asira.screen.historyloan.HistoryLoanActivity;
-import com.ayannah.asira.screen.historyloan.HistoryLoanModule;
-import com.ayannah.asira.screen.borrower.homemenu.MainMenuActivity;
-import com.ayannah.asira.screen.borrower.homemenu.MainMenuModule;
+import com.ayannah.asira.screen.borrower.tab_historyloan.HistoryLoanModule;
+import com.ayannah.asira.screen.borrower.tab_beranda.MainMenuModule;
 import com.ayannah.asira.screen.loan.LoanActivity;
 import com.ayannah.asira.screen.loan.LoanModule;
 import com.ayannah.asira.screen.borrower.login.LoginActivity;
 import com.ayannah.asira.screen.borrower.login.LoginModule;
-import com.ayannah.asira.screen.borrower.navigationmenu.akunsaya.AkunSayaActivity;
-import com.ayannah.asira.screen.borrower.navigationmenu.akunsaya.AkunSayaModule;
-import com.ayannah.asira.screen.borrower.navigationmenu.datapendukung.DataPendukungActivity;
-import com.ayannah.asira.screen.borrower.navigationmenu.datapendukung.DataPendukungModule;
-import com.ayannah.asira.screen.borrower.navigationmenu.infokeuangan.InformasiKeuanganActivity;
-import com.ayannah.asira.screen.borrower.navigationmenu.infokeuangan.InformasiKeuanganModule;
-import com.ayannah.asira.screen.borrower.navigationmenu.infopribadi.InfoPribadiActivity;
-import com.ayannah.asira.screen.borrower.navigationmenu.infopribadi.InfoPribadiModule;
+import com.ayannah.asira.screen.borrower.profile_menu.akunsaya.AkunSayaActivity;
+import com.ayannah.asira.screen.borrower.profile_menu.akunsaya.AkunSayaModule;
+import com.ayannah.asira.screen.borrower.profile_menu.datapendukung.DataPendukungActivity;
+import com.ayannah.asira.screen.borrower.profile_menu.datapendukung.DataPendukungModule;
+import com.ayannah.asira.screen.borrower.profile_menu.infokeuangan.InformasiKeuanganActivity;
+import com.ayannah.asira.screen.borrower.profile_menu.infokeuangan.InformasiKeuanganModule;
+import com.ayannah.asira.screen.borrower.profile_menu.infopribadi.InfoPribadiActivity;
+import com.ayannah.asira.screen.borrower.profile_menu.infopribadi.InfoPribadiModule;
 import com.ayannah.asira.screen.borrower.notifpage.NotifPageActivity;
 import com.ayannah.asira.screen.borrower.notifpage.NotifPageModule;
 import com.ayannah.asira.screen.otpphone.VerificationOTPActivity;
@@ -101,8 +103,13 @@ abstract class ActivityBindingModule {
     abstract AddDocumentActivity addDocumentActivity();
 
     @ActivityScoped
-    @ContributesAndroidInjector(modules = MainMenuModule.class)
-    abstract MainMenuActivity mainMenuActivity();
+    @ContributesAndroidInjector(modules = {
+            BorrowerLandingModule.class,
+            MainMenuModule.class,
+            HistoryLoanModule.class,
+            RewardsModule.class,
+            ProfileModule.class})
+    abstract BorrowerLandingPage borrowerLandingPage();
 
     @ActivityScoped
     @ContributesAndroidInjector(modules = AkunSayaModule.class)
@@ -123,10 +130,6 @@ abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = EarningModule.class)
     abstract EarningActivity earningActivity();
-
-    @ActivityScoped
-    @ContributesAndroidInjector(modules = HistoryLoanModule.class)
-    abstract HistoryLoanActivity historyLoanActivity();
 
     @ActivityScoped
     @ContributesAndroidInjector(modules = FormJobEarningModule.class)

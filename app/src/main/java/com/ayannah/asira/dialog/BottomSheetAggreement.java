@@ -67,18 +67,18 @@ public class BottomSheetAggreement extends BottomSheetDialogFragment {
 
     }
 
-    @OnClick(R.id.close)
-    void onClickClose(){
-
-        listener.onClickClose();
-
-    }
+//    @OnClick(R.id.close)
+//    void onClickClose(){
+//
+//        listener.onClickClose();
+//
+//    }
 
     public interface BottomSheetKebijakanListener{
 
         void onClickSetuju();
 
-        void onClickClose();
+//        void onClickClose();
 
     }
 

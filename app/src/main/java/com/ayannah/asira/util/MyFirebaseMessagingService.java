@@ -15,7 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 
 import com.ayannah.asira.R;
-import com.ayannah.asira.screen.historyloan.HistoryLoanActivity;
+import com.ayannah.asira.screen.borrower.borrower_landing_page.BorrowerLandingPage;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -121,7 +121,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         }
 
-        Intent intent = new Intent(this, HistoryLoanActivity.class);
+        Intent intent = new Intent(this, BorrowerLandingPage.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,
                 PendingIntent.FLAG_UPDATE_CURRENT);

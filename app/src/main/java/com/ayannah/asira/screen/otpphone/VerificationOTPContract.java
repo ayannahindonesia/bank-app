@@ -14,7 +14,7 @@ public interface VerificationOTPContract {
 
         void completeCreateUserToken();
 
-        void showErrorMessage(String connection_error);
+        void showErrorMessage(String message, int codeError);
 
         void loginComplete();
 

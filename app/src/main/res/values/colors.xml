@@ -12,8 +12,9 @@
     <color name="colorAsiraText">#2076B8</color>
     <color name="colorAsiraWhite">#FFFFFF</color>
     <color name="colorAsiraGrey">#969696</color>
-
-
+    <color name="colorAsiraPurple">#7373EC</color>
+    <color name="colorAsiraDarkBlue">#0F3E82</color>
+    <color name="colorAsiraTopUp">#86EBEE</color>
 
     <color name="colorAccent">#F7964A</color>
     <color name="colorAccentDark">#CA712A</color>
@@ -25,6 +26,6 @@
     <color name="textDark">#C9D8E0</color>
     <color name="darkgreen">#158A46</color>
 
-
     <color name="textColorAsira">#2076B8</color>
+
 </resources>

@@ -6,7 +6,7 @@ import android.widget.TextView;
 
 import com.ayannah.asira.R;
 import com.ayannah.asira.screen.agent.lpagent.LPAgentActivity;
-import com.ayannah.asira.screen.borrower.homemenu.MainMenuActivity;
+import com.ayannah.asira.screen.borrower.borrower_landing_page.BorrowerLandingPage;
 import com.ayannah.asira.screen.borrower.login.LoginActivity;
 
 import javax.inject.Inject;
@@ -23,7 +23,6 @@ public class SuccessActivity extends DaggerAppCompatActivity {
     public static final String SUCCESS_TITLE = "title";
     public static final String SUCCESS_DESC = "desc";
     public static final String SUCCESS_COND = "cond";
-
 
     @Inject
     @Named("title")
@@ -75,7 +74,7 @@ public class SuccessActivity extends DaggerAppCompatActivity {
 
         }else {
 
-            Intent main = new Intent(this, MainMenuActivity.class);
+            Intent main = new Intent(this, BorrowerLandingPage.class);
             main.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(main);
             finish();

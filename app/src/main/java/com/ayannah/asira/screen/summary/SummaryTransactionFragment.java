@@ -3,7 +3,9 @@ package com.ayannah.asira.screen.summary;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -65,6 +67,9 @@ public class SummaryTransactionFragment extends BaseFragment implements SummaryT
 
     @BindView(R.id.selectedProduct)
     TextView tvSelectedProduct;
+
+    @BindView(R.id.buttonSubmit)
+    Button buttonSubmit;
 
     //value purposes
     @Inject
@@ -167,13 +172,34 @@ public class SummaryTransactionFragment extends BaseFragment implements SummaryT
         validator = new Validator(this);
         validator.setValidationListener(this);
 
+        checkDisclaimer.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                if(isChecked){
+
+                    buttonSubmit.setBackgroundResource(R.drawable.button_register);
+
+                }else {
+
+                    buttonSubmit.setBackgroundResource(R.drawable.button_register_disabled);
+
+                }
+
+            }
+        });
+
     }
 
     @OnClick(R.id.buttonSubmit)
     void onClickSubmit(){
 
         //validate before submit
-        validator.validate();
+        if(checkDisclaimer.isChecked()) {
+            validator.validate();
+        }else {
+            Toast.makeText(parentActivity(), "Mohon setujui Syarat dan Ketentuan", Toast.LENGTH_SHORT).show();
+        }
 
     }
 

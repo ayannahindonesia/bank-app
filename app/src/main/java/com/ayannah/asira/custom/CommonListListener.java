@@ -28,4 +28,9 @@ public interface CommonListListener {
         void onClickItem(DataItem loan);
     }
 
+    interface CommonStringItemClickListener{
+
+        void onClickItem(String item);
+    }
+
 }

@@ -103,9 +103,6 @@ public class MenuServiceAdapter extends RecyclerView.Adapter<MenuServiceAdapter.
         @BindView(R.id.nameProduct)
         TextView tvNameProduct;
 
-//        @BindView(R.id.pbIconService)
-//        ProgressBar pbIconService;
-
         MenuProductVH(View itemView){
             super(itemView);
             ButterKnife.bind(this,itemView);
@@ -115,60 +112,11 @@ public class MenuServiceAdapter extends RecyclerView.Adapter<MenuServiceAdapter.
 
             ImageUtils.displayImageFromUrlWithErrorDrawable(itemView.getContext(), ivIconProduct, param.getImage(), null, R.drawable.custom_progressbar);
 
-//            pbIconService.setVisibility(View.VISIBLE);
-//            ivIconProduct.setVisibility(View.GONE);
-
-//            AndroidNetworking.get(BuildConfig.API_URL_LENDER + "admin/image/{file_id}")
-//                    .addHeaders("Authorization", preferenceDataSource.getAdminTokenLender())
-//                    .addPathParameter("file_id", String.valueOf(param.getImageId()))
-//                    .setPriority(Priority.MEDIUM)
-//                    .build()
-//                    .getAsJSONObject(new JSONObjectRequestListener() {
-//                        @Override
-//                        public void onResponse(JSONObject response) {
-//
-//                            try {
-//                                String sImage = response.getString("image_string");
-//
-//                                pbIconService.setVisibility(View.GONE);
-//                                ImageUtils.setImageBitmapWithEmptyImage(ivIconProduct, sImage);
-//                                ivIconProduct.setVisibility(View.VISIBLE);
-//
-////                                byte[] decodedString = Base64.decode(sImage, Base64.DEFAULT);
-////                                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0,decodedString.length);
-////                                ivIconProduct.setImageBitmap(decodedByte);
-//
-//                            } catch (Exception e) {
-//                                e.printStackTrace();
-//                            }
-//
-//                        }
-//
-//                        @Override
-//                        public void onError(ANError anError) {
-//
-//                            ANError anError1 = (ANError) anError;
-//                            if(anError1.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
-//                                Toast.makeText(application, "Connection Error", Toast.LENGTH_SHORT).show();
-//                            } else {
-//
-//                                if(anError1.getErrorBody() != null){
-//
-//                                    try {
-//                                        JSONObject jsonObject = new JSONObject(anError1.getErrorBody());
-//                                        Toast.makeText(application, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
-//                                    } catch (JSONException e) {
-//                                        e.printStackTrace();
-//                                    }
-//                                }
-//                            }
-//
-//                            ivIconProduct.setImageResource(R.drawable.ic_broken_image);
-//                            ivIconProduct.setPadding(30,30,30,30);
-//                        }
-//                    });
-
-            tvNameProduct.setText(param.getName());
+            if(param.getName().contains("Pinjaman")) {
+                tvNameProduct.setText(param.getName().substring(8));
+            }else {
+                tvNameProduct.setText(param.getName());
+            }
 
             itemView.setOnClickListener(view -> listener.onClickMenu(param));
 

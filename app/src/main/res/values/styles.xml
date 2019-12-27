@@ -12,6 +12,7 @@
         <item name="android:windowLightStatusBar" tools:ignore="NewApi">true</item>
         <item name="android:fontFamily">@font/manrope_medium</item>
         <item name="homeAsUpIndicator">@drawable/ic_custom_back_btn</item>
+        <item name="bottomSheetDialogTheme">@style/CustomBottomSheetFragmentTheme</item>
 
     </style>
 
@@ -40,6 +41,23 @@
         <item name="android:maxHeight">20dip</item>
         <item name="android:mirrorForRtl">true</item>
         <item name="android:fontFamily">@font/manrope_regular</item>
+    </style>
+
+    <style name="CustomTitleActionBar" parent="android:TextAppearance">
+        <item name="android:fontFamily">@font/manrope_bold</item>
+        <item name="android:textColor">@color/colorAsiraText</item>
+    </style>
+    
+    <style name="CustomBottomSheetFragmentTheme" parent="Theme.Design.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/AppModalStyle</item>
+    </style>
+
+    <style name="AppModalStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/bg_bottom_sheet</item>
+    </style>
+
+    <style name="BottomNavigationTextDefault" parent="@style/TextAppearance.AppCompat.Caption">
+        <item name="android:textSize">@dimen/fontNormal</item>
     </style>
 
 </resources>

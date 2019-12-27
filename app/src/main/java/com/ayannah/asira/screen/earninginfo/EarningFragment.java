@@ -77,7 +77,7 @@ public class EarningFragment extends BaseFragment implements EarningContract.Vie
         dialog = builder.create();
 
         if (getActivity().getIntent().getStringExtra("isFrom").toLowerCase().equals("agent")) {
-//            Toast.makeText(parentActivity(), "dari Agent", Toast.LENGTH_SHORT).show();
+
             userBorrower = (UserBorrower) getActivity().getIntent().getSerializableExtra("user");
             loadPenghasilan(String.valueOf(userBorrower.getMonthlyIncome()),
                     String.valueOf(userBorrower.getOtherIncome()),

@@ -267,4 +267,12 @@ public interface PreferenceRepository {
     void setBankAccountBorrower(String accountNumber);
 
     String getBankAccountBorrower();
+
+    void setIdCardImg(String image);
+
+    String getIdCardImg();
+
+    void setTaxCardImg(String image);
+
+    String getTaxCardImg();
 }

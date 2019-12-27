@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import com.ayannah.asira.R;
-import com.ayannah.asira.screen.borrower.homemenu.MainMenuActivity;
+import com.ayannah.asira.screen.borrower.borrower_landing_page.BorrowerLandingPage;
 import com.ayannah.asira.screen.borrower.login.LoginActivity;
 import com.ayannah.asira.util.ActivityUtils;
 
@@ -110,7 +110,7 @@ public class VerificationOTPActivity extends DaggerAppCompatActivity {
                     startActivity(intent);
                 } else if (getIntent().getStringExtra(PURPOSES).equals("post_pinjaman")) {
                     Toast.makeText(VerificationOTPActivity.this, "Silahkan masuk ke halaman 'Pinjaman Saya'\nuntuk aktivasi pengajuan Anada", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(getBaseContext(), MainMenuActivity.class);
+                    Intent intent = new Intent(getBaseContext(), BorrowerLandingPage.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                     startActivity(intent);
                 } else {

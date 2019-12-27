@@ -1,67 +1,148 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="@color/colorAsiraPrimary"
     android:layout_height="match_parent">
 
     <LinearLayout
         android:id="@+id/bank"
         android:layout_marginTop="@dimen/dp10"
-        android:padding="@dimen/dp12"
+        android:padding="@dimen/_16sdp"
         android:layout_width="match_parent"
         android:orientation="vertical"
         android:layout_height="wrap_content">
 
-        <ProgressBar
-            style="@style/progress_horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_15sdp"
-            android:layout_marginBottom="@dimen/_20sdp"
-            android:max="5"
-            android:progress="1"
-            android:progressDrawable="@drawable/progress_horizontal" />
+<!--        <ProgressBar-->
+<!--            style="@style/progress_horizontal"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="@dimen/_15sdp"-->
+<!--            android:layout_marginBottom="@dimen/_20sdp"-->
+<!--            android:max="5"-->
+<!--            android:progress="1"-->
+<!--            android:progressDrawable="@drawable/progress_horizontal" />-->
 
-        <ImageView
-            android:src="@drawable/ic_bank"
-            android:layout_width="match_parent"
-            android:layout_height="50dp" />
-
-        <TextView
-            android:id="@+id/bankName"
-            android:text="Bank X"
-            android:textStyle="bold"
-            android:textColor="@android:color/black"
-            android:textSize="@dimen/fontSuperLarge"
-            android:textAlignment="center"
-            android:layout_marginTop="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/dp12"
-            android:text="Masukan Nomor Rekening Bank"
-            android:textColor="@android:color/black" />
+            android:weightSum="5"
+            android:padding="@dimen/_7sdp"
+            android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/regist_accNumber"
-            android:textColor="@android:color/black"
-            android:inputType="number"
-            android:layout_margin="@dimen/dp12"
-            android:layout_marginTop="10dp"
-            android:textSize="@dimen/fontLarge"
+            <ImageView
+                android:src="@drawable/selected_indicator_page"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="15dp"/>
+
+            <ImageView
+                android:src="@drawable/indicator_page"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="15dp"/>
+
+            <ImageView
+                android:src="@drawable/indicator_page"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="15dp"/>
+
+            <ImageView
+                android:src="@drawable/indicator_page"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="15dp"/>
+
+            <ImageView
+                android:src="@drawable/indicator_page"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="15dp"/>
+
+        </LinearLayout>
+
+        <androidx.cardview.widget.CardView
+            android:layout_marginTop="@dimen/_14sdp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="6dp"
+            app:cardElevation="3dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_45sdp"
+                    android:background="@color/colorAsiraPurple"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:src="@drawable/ic_bank_white"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_20sdp"
+                    android:background="@android:color/white"
+                    android:orientation="vertical">
+
+                    <!--        <TextView-->
+                    <!--            android:id="@+id/bankName"-->
+                    <!--            android:text="Bank X"-->
+                    <!--            android:textStyle="bold"-->
+                    <!--            android:textColor="@android:color/black"-->
+                    <!--            android:textSize="@dimen/fontSuperLarge"-->
+                    <!--            android:textAlignment="center"-->
+                    <!--            android:layout_marginTop="10dp"-->
+                    <!--            android:layout_width="match_parent"-->
+                    <!--            android:layout_height="wrap_content" />-->
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/manrope_bold"
+                        android:textSize="@dimen/fontNormal"
+                        android:text="Masukan Nomor Rekening Bank"
+                        android:textColor="@color/colorAsiraText" />
+
+                    <EditText
+                        android:id="@+id/regist_accNumber"
+                        android:textColor="@android:color/black"
+                        android:inputType="number"
+                        android:textSize="@dimen/fontLarge"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
 
     </LinearLayout>
 
     <Button
         android:id="@+id/buttonNext"
         android:layout_alignParentBottom="true"
-        android:background="@color/colorAccent"
+        android:background="@drawable/button_register"
         android:text="Selanjutnya"
+        android:layout_margin="@dimen/_16sdp"
+        android:textAllCaps="false"
+        android:fontFamily="@font/manrope_bold"
         android:textColor="@android:color/white"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="35dp" />
 
 </RelativeLayout>

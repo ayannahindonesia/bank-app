@@ -15,9 +15,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 
-import com.ayannah.asira.screen.borrower.homemenu.MainMenuActivity;
 import com.ayannah.asira.R;
 import com.ayannah.asira.base.BaseFragment;
+import com.ayannah.asira.screen.borrower.borrower_landing_page.BorrowerLandingPage;
 import com.ayannah.asira.screen.otpphone.VerificationOTPActivity;
 import com.ayannah.asira.screen.register.formothers.FormOtherFragment;
 import com.ayannah.asira.screen.register.termcondition.TermConditionActivity;
@@ -176,7 +176,7 @@ public class LoginFragment extends BaseFragment implements
     public void loginComplete() {
         Toast.makeText(parentActivity(), "Login berhasil", Toast.LENGTH_SHORT).show();
 
-        Intent login = new Intent(parentActivity(), MainMenuActivity.class);
+        Intent login = new Intent(parentActivity(), BorrowerLandingPage.class);
         login.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(login);
 
