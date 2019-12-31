@@ -32,6 +32,7 @@ import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -93,6 +94,7 @@ public class AgentProfileFragment extends BaseFragment implements AgentProfileCo
 
     private Bitmap imageBitmap;
     private ArrayList<Integer> banksSelectedID = new ArrayList<>();
+    private ArrayList<Integer> banksSelectedIDServer = new ArrayList<>();
     private boolean bankSelectFromList = false;
 
     @Inject
@@ -156,6 +158,11 @@ public class AgentProfileFragment extends BaseFragment implements AgentProfileCo
 
         txtStatus.setText(translateAgentStatus(preferenceRepository.getAgentStatus()));
         bankSelectFromList = false;
+
+        List<String> arrayList = new ArrayList<String>    (Arrays.asList(preferenceRepository.getAgentBanks().split(",")));
+        for(String fav:arrayList){
+            banksSelectedIDServer.add(Integer.parseInt(fav.trim()));
+        }
     }
 
     private String translateAgentCat(String agentCategory) {
@@ -179,9 +186,9 @@ public class AgentProfileFragment extends BaseFragment implements AgentProfileCo
     public void successUpdateProfileAgent() {
         Toast.makeText(parentActivity(), "Data Berhasil Dirubah", Toast.LENGTH_SHORT).show();
 
-        Intent intent = new Intent(parentActivity(), AgentProfileActivity.class);
-        startActivity(intent);
-        parentActivity().finish();
+//        Intent intent = new Intent(parentActivity(), AgentProfileActivity.class);
+//        startActivity(intent);
+//        parentActivity().finish();
     }
 
     @Override
@@ -331,6 +338,7 @@ public class AgentProfileFragment extends BaseFragment implements AgentProfileCo
                 }
                 banksSelectedID.add(banksSelected.get(i).getId());
             }
+
             etAgentBanks.setText(s);
             bankSelectFromList = true;
         }
@@ -339,6 +347,8 @@ public class AgentProfileFragment extends BaseFragment implements AgentProfileCo
     @OnClick(R.id.imgAddBanks)
     void addBanks() {
         Intent intent = new Intent(parentActivity(), AgentProfileBankListActivity.class);
+        intent.putExtra("currentSelectedBanks", banksSelectedID);
+        intent.putExtra("currentSelectedBanksServer", banksSelectedIDServer);
         startActivityForResult(intent, 2);
     }
 
