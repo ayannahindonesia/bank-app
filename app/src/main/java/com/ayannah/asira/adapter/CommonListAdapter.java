@@ -20,6 +20,7 @@ import com.ayannah.asira.data.model.Loans.DataItem;
 import com.ayannah.asira.data.model.Notif;
 import com.ayannah.asira.data.model.UserBorrower;
 import com.ayannah.asira.util.CommonUtils;
+import com.ayannah.asira.util.ImageUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -445,6 +446,8 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
 
         private void bind(UserBorrower param){
+
+            ImageUtils.displayImageFromUrlWithErrorDrawable(itemView.getContext(), ivPhotoUser, param.getImage(), null, R.drawable.custom_progressbar);
 
             idUser.setText(String.valueOf(param.getId()));
 

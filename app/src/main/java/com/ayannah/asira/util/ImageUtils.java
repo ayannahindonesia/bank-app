@@ -55,6 +55,7 @@ public class ImageUtils {
     public static void displayImageFromUrlWithErrorDrawable(Context context, ImageView imageView, String imageUrl, RequestListener<Drawable> listener, int drawable) {
         RequestOptions options = new RequestOptions()
                 .dontAnimate()
+                .error(R.drawable.user_profile_default)
                 .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC);
 
         GlideApp.with(context)

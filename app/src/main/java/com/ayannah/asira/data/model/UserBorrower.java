@@ -180,6 +180,9 @@ public class UserBorrower implements Parcelable, Serializable {
 	@SerializedName("nth_loans")
 	private int nthLoans;
 
+	@SerializedName("image")
+	private String image;
+
 	protected UserBorrower(Parcel in) {
 		birthday = in.readString();
 		relatedPhonenumber = in.readString();
@@ -233,6 +236,7 @@ public class UserBorrower implements Parcelable, Serializable {
 		employerNumber = in.readString();
 		relatedAddress = in.readString();
 		dependants = in.readInt();
+		image = in.readString();
 	}
 
 	public UserBorrower() {}
@@ -477,6 +481,10 @@ public class UserBorrower implements Parcelable, Serializable {
 		return nthLoans;
 	}
 
+	public String getImage() {
+		return image;
+	}
+
 	@Override
 	public int describeContents() {
 		return 0;
@@ -538,5 +546,6 @@ public class UserBorrower implements Parcelable, Serializable {
 		dest.writeInt(dependants);
 		dest.writeString(taxIDImage);
 		dest.writeString(idCardImage);
+		dest.writeString(image);
 	}
 }
