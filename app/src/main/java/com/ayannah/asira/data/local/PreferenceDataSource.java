@@ -100,6 +100,12 @@ public class PreferenceDataSource implements PreferenceRepository {
     private static final String PREF_AGENT_BANKS = "AGENT_BANKS";
     private static final String PREF_AGENT_BANKS_NAME = "AGENT_BANKS_NAME";
 
+    //for agent purposes
+    private static final String PREF_AGENT_PRIMARY_INCOME_BORROWER = "PREF_AGENT_PRIMARY_INCOME_BORROWER";
+    private static final String PREF_AGENT_SECONDARY_INCOME_BORROWER = "PREF_AGENT_SECONDARY_INCOME_BORROWER";
+    private static final String PREF_AGENT_OTHER_INCOME_BORROWER = "PREF_AGENT_OTHER_INCOME_BORROWER";
+
+
     @Inject
     public PreferenceDataSource(Application application){
         mPreferences = application.getSharedPreferences(BuildConfig.APPLICATION_ID, Context.MODE_PRIVATE);
@@ -870,4 +876,36 @@ public class PreferenceDataSource implements PreferenceRepository {
         return mPreferences.getString(PREF_AGENT_BANKS_NAME, "");
     }
 
+    @Override
+    public void setPrimaryIncomeBorrower(int income) {
+        mPreferences.edit().putInt(PREF_AGENT_PRIMARY_INCOME_BORROWER, income).apply();
+    }
+
+    @Override
+    public int getPrimaryIncomeBorrower() {
+        return mPreferences.getInt(PREF_AGENT_PRIMARY_INCOME_BORROWER, 0);
+    }
+
+    @Override
+    public void setSecondaryIncomeBorrower(int income) {
+
+        mPreferences.edit().putInt(PREF_AGENT_SECONDARY_INCOME_BORROWER, income).apply();
+
+    }
+
+    @Override
+    public int getSecondaryIncomeBorrower() {
+        return mPreferences.getInt(PREF_AGENT_SECONDARY_INCOME_BORROWER, 0);
+    }
+
+    @Override
+    public void setOtherIncomeBorrower(String otherIncome) {
+
+        mPreferences.edit().putString(PREF_AGENT_OTHER_INCOME_BORROWER, otherIncome).apply();
+    }
+
+    @Override
+    public String getOtherIncomeBorrower() {
+        return mPreferences.getString(PREF_AGENT_OTHER_INCOME_BORROWER, "");
+    }
 }

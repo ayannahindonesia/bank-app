@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -34,6 +35,8 @@ import butterknife.OnClick;
 public class EarningFragment extends BaseFragment implements EarningContract.View,
         BottomChangingIncome.BottomSheetChangingIncomeListener,
         Validator.ValidationListener {
+
+    private static String TAG = EarningFragment.class.getSimpleName();
 
     @Inject
     EarningContract.Presenter mPresenter;
@@ -82,9 +85,12 @@ public class EarningFragment extends BaseFragment implements EarningContract.Vie
         if (getActivity().getIntent().getStringExtra("isFrom").toLowerCase().equals("agent")) {
 //            Toast.makeText(parentActivity(), "dari Agent", Toast.LENGTH_SHORT).show();
              userBorrower = (UserBorrower) getActivity().getIntent().getSerializableExtra("user");
-            loadPenghasilan(String.valueOf(userBorrower.getMonthlyIncome()),
-                    String.valueOf(userBorrower.getOtherIncome()),
-                    userBorrower.getOtherIncomesource());
+
+             mPresenter.retrieveBorrowerIncomeDetail();
+//            loadPenghasilan(String.valueOf(userBorrower.getMonthlyIncome()),
+//                    String.valueOf(userBorrower.getOtherIncome()),
+//                    userBorrower.getOtherIncomesource());
+
         } else {
             mPresenter.getPenghasilan();
         }
@@ -202,6 +208,7 @@ public class EarningFragment extends BaseFragment implements EarningContract.Vie
 
         dialog.dismiss();
         Toast.makeText(parentActivity(), message, Toast.LENGTH_SHORT).show();
+        Log.e(TAG, message);
 
     }
 
@@ -244,6 +251,13 @@ public class EarningFragment extends BaseFragment implements EarningContract.Vie
         intent.putExtra(LoanActivity.IDSERVICE, idService);
 
         startActivity(intent);
+    }
+
+    @Override
+    public void getBorrowerIncomeDetail(int primaryIncome, int secondaryIncome, String otherIncome) {
+
+        loadPenghasilan(String.valueOf(primaryIncome), String.valueOf(secondaryIncome), otherIncome);
+
     }
 
     @Override

@@ -134,10 +134,14 @@ public class ViewBorrowerFragment extends BaseFragment implements ViewBorrowerCo
                 @Override
                 public void onClickButton(UserBorrower user) {
                     if(user.isOtpVerified()){
+
+                        mPresenter.setDataSelectedBorrower(user);
+
                         Intent intent = new Intent(parentActivity(), ListServicesAgentActivity.class);
                         intent.putExtra("user", (Serializable) user);
                         intent.putExtra(ListServicesAgentActivity.BANK_ID, bank_Id);
                         startActivity(intent);
+
                     }else {
 
                         Intent otp = new Intent(parentActivity(), VerificationOTPActivity.class);

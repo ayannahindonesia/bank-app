@@ -283,4 +283,16 @@ public interface PreferenceRepository {
     void setAgentBanksName(String agentBanksName);
 
     String getAgentBanksName();
+
+    void setPrimaryIncomeBorrower(int income);
+
+    int getPrimaryIncomeBorrower();
+
+    void setSecondaryIncomeBorrower(int income);
+
+    int getSecondaryIncomeBorrower();
+
+    void setOtherIncomeBorrower(String otherIncome);
+
+    String getOtherIncomeBorrower();
 }
