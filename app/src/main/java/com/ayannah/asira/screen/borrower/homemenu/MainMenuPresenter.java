@@ -242,4 +242,16 @@ public class MainMenuPresenter implements MainMenuContract.Presenter {
 
         }));
     }
+
+    @Override
+    public void getCurrentTime() {
+        mComposite.add(remotRepo.getCurrentTime()
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(res -> {
+            mView.successGetCurrentTime(res.getTime());
+        }, err -> {
+            mView.successGetCurrentTime(null);
+        }));
+    }
 }

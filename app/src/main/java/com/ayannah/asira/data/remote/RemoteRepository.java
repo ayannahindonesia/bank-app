@@ -7,6 +7,7 @@ import com.ayannah.asira.data.model.BankList;
 import com.ayannah.asira.data.model.BankService;
 import com.ayannah.asira.data.model.CheckAccount;
 import com.ayannah.asira.data.model.CheckBorrower;
+import com.ayannah.asira.data.model.CurrentTime;
 import com.ayannah.asira.data.model.FCMTokenResponse;
 import com.ayannah.asira.data.model.Kabupaten;
 import com.ayannah.asira.data.model.Kecamatan;
@@ -116,4 +117,6 @@ public interface RemoteRepository {
     Single<AgentProviderDetail> getAgentProvider(String agentProvider);
 
     Single<UserProfile> updateProfileFromAgent(JsonObject json, String borrowerID);
+
+    Single<CurrentTime> getCurrentTime();
 }

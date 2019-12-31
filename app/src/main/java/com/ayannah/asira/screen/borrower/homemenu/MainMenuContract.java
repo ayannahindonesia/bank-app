@@ -30,6 +30,8 @@ public interface MainMenuContract {
         void showUserData(String name, String token);
 
         void successGetPublicTokenLender();
+
+        void successGetCurrentTime(String time);
     }
 
     interface Presenter extends BasePresenter<View>{
@@ -49,5 +51,7 @@ public interface MainMenuContract {
         void logout();
 
         void getTokenAdminLender();
+
+        void getCurrentTime();
     }
 }

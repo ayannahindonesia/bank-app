@@ -18,6 +18,7 @@ import com.ayannah.asira.data.model.BankList;
 import com.ayannah.asira.data.model.BankService;
 import com.ayannah.asira.data.model.CheckAccount;
 import com.ayannah.asira.data.model.CheckBorrower;
+import com.ayannah.asira.data.model.CurrentTime;
 import com.ayannah.asira.data.model.FCMTokenResponse;
 import com.ayannah.asira.data.model.Kabupaten;
 import com.ayannah.asira.data.model.Kecamatan;
@@ -550,5 +551,14 @@ public class RemoteDataSource implements RemoteRepository {
                 .setPriority(Priority.MEDIUM)
                 .build()
                 .getObjectSingle(UserProfile.class);
+    }
+
+    @Override
+    public Single<CurrentTime> getCurrentTime() {
+        return Rx2AndroidNetworking.get(BuildConfig.API_URL + "client/serviceinfo")
+                .addHeaders("Authorization", preferenceRepository.getPublicToken())
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getObjectSingle(CurrentTime.class);
     }
 }
