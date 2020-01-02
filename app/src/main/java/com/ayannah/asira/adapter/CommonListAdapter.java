@@ -48,6 +48,8 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private List<UserBorrower> nasabah;
     private List<DataItem> loanBorrowersAgent;
     private List<BankDetail> banks;
+    private ArrayList<Integer> banksSelectedID;
+    private ArrayList<Integer> banksSelectedIDServer;
 
     private CommonListListener.LoanAdapterListener loanListener;
     private CommonListListener.NotifAdapterListener notifListener;
@@ -63,6 +65,8 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         nasabah = new ArrayList<>();
         loanBorrowersAgent = new ArrayList<>();
         banks = new ArrayList<>();
+        banksSelectedID = new ArrayList<>();
+        banksSelectedIDServer = new ArrayList<>();
     }
 
     public void setDataNotificationMessages(List<Notif.Data> results){
@@ -102,11 +106,15 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         notifyDataSetChanged();
     }
 
-    public void setBanks(List<BankDetail> bankDetails) {
+    public void setBanks(List<BankDetail> bankDetails, ArrayList<Integer> banksSelectedIDs, ArrayList<Integer> banksSelectedIDServers) {
 
         banks.clear();
 
         banks.addAll(bankDetails);
+
+        banksSelectedID.addAll(banksSelectedIDs);
+
+        banksSelectedIDServer.addAll(banksSelectedIDServers);
 
         notifyDataSetChanged();
 
@@ -530,6 +538,19 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         private void bind(BankDetail bankDetail) {
 //            listImgBank.setImageBitmap();
             listTxtBankName.setText(bankDetail.getName());
+
+            for (int i=0; i<banksSelectedID.size(); i++) {
+                if (bankDetail.getId().toString().equals(banksSelectedID.get(i).toString())) {
+                    listLltBank.setBackgroundResource(R.color.transdarkgreen);
+                }
+            }
+
+            for (int i=0; i<banksSelectedIDServer.size(); i++) {
+                if (bankDetail.getId().toString().equals(banksSelectedIDServer.get(i).toString())) {
+                    listLltBank.setEnabled(false);
+                    listLltBank.setBackgroundResource(R.color.transdarkgreen);
+                }
+            }
 
             itemView.setOnClickListener(v ->
                     bankListListener.onClickItem(bankDetail, itemView, listLltBank)

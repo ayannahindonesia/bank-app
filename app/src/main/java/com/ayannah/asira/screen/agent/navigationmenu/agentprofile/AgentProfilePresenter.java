@@ -59,6 +59,7 @@ public class AgentProfilePresenter implements AgentProfileContract.Presenter {
 
                     preferenceRepository.setAgentEmail(res.getEmail());
                     preferenceRepository.setAgentPhone(res.getPhone());
+                    preferenceRepository.setAgentBanks(res.getBanks().toString().replace("[", "").replace("]", ""));
                     preferenceRepository.setAgentBanksName(res.getBanksName().toString().replace("[", "").replace("]",""));
                     mView.successUpdateProfileAgent();
 

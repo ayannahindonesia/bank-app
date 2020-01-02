@@ -128,7 +128,7 @@ public class LoginAgentPresenter implements LoginAgentContract.Presenter {
                     preferenceRepository.setAgentPhone(response.getPhone());
                     preferenceRepository.setAgentProvider(String.valueOf(response.getAgentProvider().getInt64()));
                     preferenceRepository.setAgentCategory(response.getCategory());
-                    preferenceRepository.setAgentBanks(response.getBanks().toString());
+                    preferenceRepository.setAgentBanks(response.getBanks().toString().replace("[", "").replace("]", ""));
                     preferenceRepository.setAgentBanksName(response.getBanksName().toString().replace("[", "").replace("]",""));
                     preferenceRepository.setAgentStatus(response.getStatus());
                     preferenceRepository.setAgentLogged(true);

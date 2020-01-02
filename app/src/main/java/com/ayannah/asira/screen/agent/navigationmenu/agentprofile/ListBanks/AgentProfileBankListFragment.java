@@ -22,7 +22,9 @@ import com.ayannah.asira.data.model.BankList;
 import com.mobsandgeeks.saripaar.Validator;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.inject.Inject;
 
@@ -49,6 +51,8 @@ public class AgentProfileBankListFragment extends BaseFragment implements AgentP
     CommonListAdapter mAdapterLoans;
 
     ArrayList<BankDetail> bankSelected = new ArrayList<>();
+    private ArrayList<Integer> banksSelectedID = new ArrayList<>();
+    private ArrayList<Integer> banksSelectedIDServer = new ArrayList<>();
 
     @Inject
     public AgentProfileBankListFragment(){}
@@ -67,6 +71,9 @@ public class AgentProfileBankListFragment extends BaseFragment implements AgentP
         builder.setCancelable(false);
         builder.setView(R.layout.progress_bar);
         dialogAlert = builder.create();
+
+        banksSelectedID = (ArrayList<Integer>) parentActivity().getIntent().getExtras().get("currentSelectedBanks");
+        banksSelectedIDServer = (ArrayList<Integer>) parentActivity().getIntent().getExtras().get("currentSelectedBanksServer");
 
         dialogAlert.show();
         mPresenter.getAllBanks();
@@ -100,8 +107,21 @@ public class AgentProfileBankListFragment extends BaseFragment implements AgentP
                 bankDetail.setId(response.getData().get(i).getId());
 
                 listBanks.add(bankDetail);
+                for (int j=0; j<banksSelectedIDServer.size(); j++) {
+                    if (response.getData().get(i).getId().toString().equals(banksSelectedIDServer.get(j).toString())) {
+                        bankSelected.add(response.getData().get(i));
+                    }
+                }
+                for (int k=0; k<banksSelectedID.size(); k++) {
+                    if (response.getData().get(i).getId().toString().equals(banksSelectedID.get(k).toString())) {
+                        bankSelected.add(response.getData().get(i));
+                    }
+                }
+
             }
-            mAdapterLoans.setBanks(listBanks);
+
+            removeDuplicates(bankSelected);
+            mAdapterLoans.setBanks(listBanks, banksSelectedID, banksSelectedIDServer);
         } else {
             txtBanksNull.setVisibility(View.VISIBLE);
             recyclerListBanks.setVisibility(View.GONE);
@@ -119,13 +139,24 @@ public class AgentProfileBankListFragment extends BaseFragment implements AgentP
                 }
             }
         });
+
+    }
+
+    private void removeDuplicates(ArrayList<BankDetail> bankSelecteds) {
+        Set<BankDetail> set = new HashSet<>(bankSelecteds);
+        bankSelected.clear();
+        bankSelected.addAll(set);
     }
 
     @OnClick(R.id.btnSelectBanks)
     void banksSelected() {
+        removeDuplicates(bankSelected);
+
         Intent intent = new Intent();
         intent.putExtra("intent", bankSelected);
         parentActivity().setResult(RESULT_OK, intent);
         parentActivity().finish();
     }
+
+
 }
