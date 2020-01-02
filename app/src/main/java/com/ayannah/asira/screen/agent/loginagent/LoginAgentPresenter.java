@@ -123,6 +123,7 @@ public class LoginAgentPresenter implements LoginAgentContract.Presenter {
 
                     preferenceRepository.setAgentId(String.valueOf(response.getId()));
                     preferenceRepository.setAgentName(response.getName());
+                    preferenceRepository.setAgentProfileImage(response.getImageProfile());
                     preferenceRepository.setAgentUserName(response.getUsername());
                     preferenceRepository.setAgentEmail(response.getEmail());
                     preferenceRepository.setAgentPhone(response.getPhone());

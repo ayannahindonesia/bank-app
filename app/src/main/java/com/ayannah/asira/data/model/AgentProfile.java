@@ -43,6 +43,9 @@ public class AgentProfile implements Parcelable {
     @SerializedName("agent_provider")
     public AgentProvider agentProvider;
 
+    @SerializedName("image")
+    public String imageProfile;
+
     @SerializedName("banks")
     public ArrayList<Integer> banks = null;
 
@@ -170,5 +173,9 @@ public class AgentProfile implements Parcelable {
 
     public String getFcmToken() {
         return fcmToken;
+    }
+
+    public String getImageProfile() {
+        return imageProfile;
     }
 }

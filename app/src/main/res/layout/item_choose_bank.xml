@@ -15,6 +15,7 @@
         android:layout_height="wrap_content">
 
         <ImageView
+            android:id="@+id/imageBank"
             android:src="@drawable/ic_bank"
             android:layout_gravity="center_horizontal"
             android:layout_width="50dp"

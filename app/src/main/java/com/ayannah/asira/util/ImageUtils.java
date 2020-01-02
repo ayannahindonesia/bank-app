@@ -62,22 +62,6 @@ public class ImageUtils {
                 .asBitmap()
                 .apply(options)
                 .load(imageUrl)
-                .centerCrop()
-                .placeholder(drawable)
-                .listener(new RequestListener<Bitmap>() {
-                    @Override
-                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
-                        Log.e("ImageUtils", "image cannot load");
-                        Log.e("ImageUtils", e.getMessage());
-                        return false;
-                    }
-
-                    @Override
-                    public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
-                        return false;
-                    }
-
-                })
                 .into(new BitmapImageViewTarget(imageView) {
                     @Override
                     protected void setResource(Bitmap resource) {
