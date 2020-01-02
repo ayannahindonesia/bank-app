@@ -4,6 +4,7 @@ import android.app.Application;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ayannah.asira.R;
 import com.ayannah.asira.data.model.BankDetail;
+import com.ayannah.asira.util.ImageUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,6 +70,9 @@ public class ChooseBankAdapter extends RecyclerView.Adapter<ChooseBankAdapter.Ch
 
     class ChooseBankVH extends RecyclerView.ViewHolder{
 
+        @BindView(R.id.imageBank)
+        ImageView icBank;
+
         @BindView(R.id.tvNameBank)
         TextView nameBank;
 
@@ -79,6 +84,7 @@ public class ChooseBankAdapter extends RecyclerView.Adapter<ChooseBankAdapter.Ch
 
         private void binf(BankDetail bank){
 
+            ImageUtils.displayImageFromUrlWithErrorDrawable(itemView.getContext(), icBank, bank.getImage(), null, R.drawable.ic_bank);
             nameBank.setText(bank.getName());
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

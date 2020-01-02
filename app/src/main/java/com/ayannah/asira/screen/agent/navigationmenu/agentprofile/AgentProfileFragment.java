@@ -8,7 +8,6 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
@@ -23,7 +22,7 @@ import com.ayannah.asira.base.BaseFragment;
 import com.ayannah.asira.data.local.PreferenceRepository;
 import com.ayannah.asira.data.model.BankDetail;
 import com.ayannah.asira.screen.agent.navigationmenu.agentprofile.ListBanks.AgentProfileBankListActivity;
-import com.google.gson.Gson;
+import com.ayannah.asira.util.ImageUtils;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.mobsandgeeks.saripaar.ValidationError;
@@ -135,6 +134,9 @@ public class AgentProfileFragment extends BaseFragment implements AgentProfileCo
 
     @Override
     public void loadAgentProfile(PreferenceRepository preferenceRepository) {
+
+        ImageUtils.displayImageFromUrlWithErrorDrawable(parentActivity(), imgProfile, preferenceRepository.getAgentProfileImage(), null, R.drawable.user_profile_default);
+
         if (preferenceRepository.getAgentCategory().toLowerCase().equals("account_executive")) {
             txtAgentProvider.setText(preferenceRepository.getAgentBanksName());
             rltBankService.setVisibility(View.GONE);

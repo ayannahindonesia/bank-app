@@ -28,7 +28,6 @@ import butterknife.BindView;
 public class ChooseBankFragment extends BaseFragment implements ChooseBankContract.View {
 
     ChooseBankAdapter mAdapter;
-    List<BankDetail> listBanks;
 
     @Inject
     ChooseBankContract.Presenter mPresenter;
@@ -81,20 +80,14 @@ public class ChooseBankFragment extends BaseFragment implements ChooseBankContra
     @Override
     public void successGetAllBanks(BankList bankList) {
         dialog.dismiss();
-        listBanks = new ArrayList<>();
-        for (int i=0; i<bankList.getTotalData(); i++) {
-            BankDetail bankDetail = new BankDetail();
-            bankDetail.setName(bankList.getData().get(i).getName());
-            bankDetail.setId(bankList.getData().get(i).getId());
-
-            listBanks.add(bankDetail);
-        }
 
         mAdapter = new ChooseBankAdapter(getActivity().getApplication());
-        mAdapter.setItemBank(listBanks);
+        mAdapter.setItemBank(bankList.getData());
+
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(mAdapter);
+
         mAdapter.setOnClickBankListener(new ChooseBankAdapter.ChooseBankListener() {
             @Override
             public void onClickItemBank(BankDetail bank) {

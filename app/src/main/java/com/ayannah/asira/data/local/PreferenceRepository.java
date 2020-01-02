@@ -252,6 +252,10 @@ public interface PreferenceRepository {
 
     String getAgentUserName();
 
+    void setAgentProfileImage(String imgUrl);
+
+    String getAgentProfileImage();
+
     void setAgentEmail(String emailAgent);
 
     String getAgentEmail();

@@ -91,6 +91,7 @@ public class PreferenceDataSource implements PreferenceRepository {
     //agent atributes
     private static final String PREF_AGENT_ID = "AGENT_ID";
     private static final String PREF_AGENT_NAME = "AGENT_NAME";
+    private static final String PREF_AGENT_PROFILE_IMG = "AGENT_PROFILE_IMG";
     private static final String PREF_AGENT_USERNAME = "AGENT_USERNAME";
     private static final String PREF_AGENT_EMAIL = "AGENT_EMAIL";
     private static final String PREF_AGENT_PHONE = "AGENT_PHONE";
@@ -794,6 +795,16 @@ public class PreferenceDataSource implements PreferenceRepository {
     @Override
     public String getAgentUserName() {
         return mPreferences.getString(PREF_AGENT_USERNAME, "");
+    }
+
+    @Override
+    public void setAgentProfileImage(String imgUrl) {
+        mPreferences.edit().putString(PREF_AGENT_PROFILE_IMG, imgUrl).apply();
+    }
+
+    @Override
+    public String getAgentProfileImage() {
+        return mPreferences.getString(PREF_AGENT_PROFILE_IMG, "");
     }
 
     @Override
