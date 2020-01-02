@@ -93,6 +93,7 @@ public class AgentProfilePresenter implements AgentProfileContract.Presenter {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(res -> {
 
+                    preferenceRepository.setAgentProfileImage(res.getImageProfile());
                     mView.successUpdatePhotoAgent();
 
                 }, error -> {
