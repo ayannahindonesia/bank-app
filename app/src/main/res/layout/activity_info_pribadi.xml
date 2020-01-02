@@ -13,14 +13,16 @@
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
-            android:background="?attr/colorPrimary"
+            android:background="@color/colorAsiraWhite"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:popupTheme="@style/AppTheme.PopupOverlay"/>
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:titleTextAppearance="@style/CustomTitleActionBar"/>
 
     </com.google.android.material.appbar.AppBarLayout>
 
     <ScrollView
+        android:background="@color/graybackground"
         android:layout_below="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -46,22 +48,15 @@
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:text="Data Pemohon"
-                        android:textSize="@dimen/fontSuperLarge"
-                        android:textStyle="bold"
-                        android:textColor="@android:color/black"
-                        android:layout_marginBottom="18dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-
-                    <TextView
                         android:text="Nama (Sesuai KTP)"
                         android:textSize="@dimen/fontNormal"
+                        android:textColor="@color/colorAsiraText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                     <TextView
                         android:id="@+id/etName"
-                        android:textColor="@android:color/black"
+                        android:textColor="@color/colorAsiraText"
+                        android:fontFamily="@font/manrope_bold"
                         android:background="@android:color/transparent"
                         android:textSize="@dimen/fontLarge"
                         tools:text="John Doe"
@@ -70,6 +65,7 @@
 
                     <TextView
                         android:text="Jenis Kelamin"
+                        android:textColor="@color/colorAsiraText"
                         android:layout_marginTop="10dp"
                         android:textSize="@dimen/fontNormal"
                         android:layout_width="match_parent"
@@ -78,12 +74,14 @@
                         android:id="@+id/jenisKelamin"
                         tools:text="Pria"
                         android:textSize="@dimen/fontLarge"
-                        android:textColor="@android:color/black"
+                        android:textColor="@color/colorAsiraText"
+                        android:fontFamily="@font/manrope_bold"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
                     <TextView
                         android:text="No. KTP"
+                        android:textColor="@color/colorAsiraText"
                         android:layout_marginTop="10dp"
                         android:textSize="@dimen/fontNormal"
                         android:layout_width="match_parent"
@@ -91,13 +89,15 @@
                     <TextView
                         android:id="@+id/etKTP"
                         android:textSize="@dimen/fontLarge"
-                        android:textColor="@android:color/black"
+                        android:textColor="@color/colorAsiraText"
+                        android:fontFamily="@font/manrope_bold"
                         tools:text="123456790"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
                     <TextView
                         android:text="Tanggal Lahir"
+                        android:textColor="@color/colorAsiraText"
                         android:layout_marginTop="10dp"
                         android:textSize="@dimen/fontNormal"
                         android:layout_width="match_parent"
@@ -105,13 +105,15 @@
                     <TextView
                         android:id="@+id/etDateBirth"
                         android:textSize="@dimen/fontLarge"
-                        android:textColor="@android:color/black"
+                        android:textColor="@color/colorAsiraText"
+                        android:fontFamily="@font/manrope_bold"
                         tools:text="123456790"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
                     <TextView
                         android:text="Tempat Lahir"
+                        android:textColor="@color/colorAsiraText"
                         android:layout_marginTop="10dp"
                         android:textSize="@dimen/fontNormal"
                         android:layout_width="match_parent"
@@ -119,13 +121,15 @@
                     <TextView
                         android:id="@+id/etBirthPlace"
                         android:textSize="@dimen/fontLarge"
-                        android:textColor="@android:color/black"
+                        android:textColor="@color/colorAsiraText"
+                        android:fontFamily="@font/manrope_bold"
                         tools:text="Jakarta"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
                     <TextView
                         android:text="Pendidikan Terakhir"
+                        android:textColor="@color/colorAsiraText"
                         android:layout_marginTop="10dp"
                         android:textSize="@dimen/fontNormal"
                         android:layout_width="match_parent"
@@ -133,13 +137,15 @@
                     <TextView
                         android:id="@+id/etCollageLevel"
                         android:textSize="@dimen/fontLarge"
-                        android:textColor="@android:color/black"
+                        android:textColor="@color/colorAsiraText"
+                        android:fontFamily="@font/manrope_bold"
                         tools:text="S1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
                     <TextView
                         android:text="Jumlah Tanggungan"
+                        android:textColor="@color/colorAsiraText"
                         android:layout_marginTop="10dp"
                         android:textSize="@dimen/fontNormal"
                         android:layout_width="match_parent"
@@ -147,13 +153,15 @@
                     <TextView
                         android:id="@+id/tvTanggungan"
                         android:textSize="@dimen/fontLarge"
-                        android:textColor="@android:color/black"
+                        android:textColor="@color/colorAsiraText"
+                        android:fontFamily="@font/manrope_bold"
                         tools:text="0"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
                     <TextView
                         android:text="Nama Ibu Kandung"
+                        android:textColor="@color/colorAsiraText"
                         android:layout_marginTop="10dp"
                         android:textSize="@dimen/fontNormal"
                         android:layout_width="match_parent"
@@ -161,7 +169,8 @@
                     <TextView
                         android:id="@+id/tvMomsName"
                         android:textSize="@dimen/fontLarge"
-                        android:textColor="@android:color/black"
+                        android:textColor="@color/colorAsiraText"
+                        android:fontFamily="@font/manrope_bold"
                         tools:text="Lorenzo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
@@ -170,12 +179,14 @@
                         android:text="Status Perkawinan"
                         android:layout_marginTop="12dp"
                         android:textSize="@dimen/fontNormal"
+                        android:textColor="@color/colorAsiraText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                     <TextView
                         android:id="@+id/tvPerkawinan"
                         android:textSize="@dimen/fontLarge"
-                        android:textColor="@android:color/black"
+                        android:textColor="@color/colorAsiraText"
+                        android:fontFamily="@font/manrope_bold"
                         tools:text="Belum menikah"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
@@ -189,7 +200,7 @@
 
                         <TextView
                             android:text="Nama Pasangan"
-                            android:textColor="@android:color/black"
+                            android:textColor="@color/colorAsiraText"
                             android:textSize="@dimen/fontLarge"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
@@ -200,6 +211,8 @@
                             android:paddingStart="@dimen/dp12"
                             android:paddingEnd="@dimen/dp12"
                             android:imeOptions="actionNext"
+                            android:textColor="@color/colorAsiraText"
+                            android:fontFamily="@font/manrope_bold"
                             android:textSize="@dimen/fontNormal"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -209,7 +222,7 @@
                             android:text="Tanggal Lahir Pasangan"
                             android:layout_marginTop="10dp"
                             android:textSize="@dimen/fontLarge"
-                            android:textColor="@android:color/black"
+                            android:textColor="@color/colorAsiraText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
 
@@ -218,7 +231,8 @@
                             android:drawablePadding="5dp"
                             android:gravity="center_vertical"
                             android:drawableStart="@drawable/ic_calendar"
-                            android:textColor="@android:color/black"
+                            android:textColor="@color/colorAsiraText"
+                            android:fontFamily="@font/manrope_bold"
                             android:background="@android:color/transparent"
                             android:textSize="@dimen/fontNormal"
                             android:layout_width="match_parent"
@@ -227,7 +241,7 @@
 
                         <TextView
                             android:text="Pendidikan"
-                            android:textColor="@android:color/black"
+                            android:textColor="@color/colorAsiraText"
                             android:textSize="@dimen/fontLarge"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
@@ -236,6 +250,7 @@
                             android:paddingStart="@dimen/dp12"
                             android:paddingEnd="@dimen/dp12"
                             android:textSize="@dimen/fontNormal"
+                            android:background="@drawable/spinner_bg_default"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             tools:ignore="Autofill" />
@@ -249,7 +264,7 @@
             <androidx.cardview.widget.CardView
                 app:cardElevation="3dp"
                 app:cardCornerRadius="3dp"
-                android:layout_marginTop="@dimen/dp10"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -262,30 +277,23 @@
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:text="Data Tempat Tinggal Pemohon"
-                        android:textSize="@dimen/fontSuperLarge"
-                        android:textStyle="bold"
-                        android:textColor="@android:color/black"
-
-                        android:layout_marginBottom="18dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-
-                    <TextView
                         android:text="Alamat Domisili"
+                        android:textColor="@color/colorAsiraText"
                         android:textSize="@dimen/fontNormal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                     <TextView
                         android:id="@+id/tvAlamat"
                         android:textSize="@dimen/fontLarge"
-                        android:textColor="@android:color/black"
+                        android:textColor="@color/colorAsiraText"
+                        android:fontFamily="@font/manrope_bold"
                         tools:text="Jalan hararapan jaya raya no.51"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
                     <TextView
                         android:text="Provinsi"
+                        android:textColor="@color/colorAsiraText"
                         android:layout_marginTop="15dp"
                         android:textSize="@dimen/fontNormal"
                         android:layout_width="match_parent"
@@ -293,13 +301,15 @@
                     <TextView
                         android:id="@+id/tvProvinsi"
                         android:textSize="@dimen/fontLarge"
-                        android:textColor="@android:color/black"
+                        android:textColor="@color/colorAsiraText"
+                        android:fontFamily="@font/manrope_bold"
                         tools:text="Provinsi"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
                     <TextView
                         android:text="Kota"
+                        android:textColor="@color/colorAsiraText"
                         android:layout_marginTop="15dp"
                         android:textSize="@dimen/fontNormal"
                         android:layout_width="match_parent"
@@ -307,13 +317,15 @@
                     <TextView
                         android:id="@+id/tvKota"
                         android:textSize="@dimen/fontLarge"
-                        android:textColor="@android:color/black"
+                        android:textColor="@color/colorAsiraText"
+                        android:fontFamily="@font/manrope_bold"
                         tools:text="Kota"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
                     <TextView
                         android:text="Kecamatan"
+                        android:textColor="@color/colorAsiraText"
                         android:layout_marginTop="15dp"
                         android:textSize="@dimen/fontNormal"
                         android:layout_width="match_parent"
@@ -321,13 +333,15 @@
                     <TextView
                         android:id="@+id/tvKecamatan"
                         android:textSize="@dimen/fontLarge"
-                        android:textColor="@android:color/black"
+                        android:textColor="@color/colorAsiraText"
+                        android:fontFamily="@font/manrope_bold"
                         tools:text="Kecamatan"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
                     <TextView
                         android:text="Kelurahan"
+                        android:textColor="@color/colorAsiraText"
                         android:layout_marginTop="15dp"
                         android:textSize="@dimen/fontNormal"
                         android:layout_width="match_parent"
@@ -335,13 +349,15 @@
                     <TextView
                         android:id="@+id/tvKelurahan"
                         android:textSize="@dimen/fontLarge"
-                        android:textColor="@android:color/black"
+                        android:textColor="@color/colorAsiraText"
+                        android:fontFamily="@font/manrope_bold"
                         tools:text="Kelurahan"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
                     <TextView
                         android:text="RT"
+                        android:textColor="@color/colorAsiraText"
                         android:layout_marginTop="15dp"
                         android:layout_weight="1"
                         android:textSize="@dimen/fontNormal"
@@ -351,7 +367,8 @@
                     <TextView
                         android:id="@+id/tvRt"
                         android:textSize="@dimen/fontLarge"
-                        android:textColor="@android:color/black"
+                        android:textColor="@color/colorAsiraText"
+                        android:fontFamily="@font/manrope_bold"
                         tools:text="001"
                         android:layout_weight="1"
                         android:layout_width="match_parent"
@@ -359,6 +376,7 @@
 
                     <TextView
                         android:text="RW"
+                        android:textColor="@color/colorAsiraText"
                         android:layout_marginTop="15dp"
                         android:layout_weight="1"
                         android:textSize="@dimen/fontNormal"
@@ -368,7 +386,8 @@
                     <TextView
                         android:id="@+id/tvRw"
                         android:textSize="@dimen/fontLarge"
-                        android:textColor="@android:color/black"
+                        android:textColor="@color/colorAsiraText"
+                        android:fontFamily="@font/manrope_bold"
                         tools:text="001"
                         android:layout_weight="1"
                         android:layout_width="match_parent"
@@ -376,6 +395,7 @@
 
                     <TextView
                         android:text="Telp Rumah"
+                        android:textColor="@color/colorAsiraText"
                         android:layout_marginTop="15dp"
                         android:textSize="@dimen/fontNormal"
                         android:layout_width="match_parent"
@@ -383,7 +403,8 @@
                     <TextView
                         android:id="@+id/tvHomeNumber"
                         android:textSize="@dimen/fontLarge"
-                        android:textColor="@android:color/black"
+                        android:textColor="@color/colorAsiraText"
+                        android:fontFamily="@font/manrope_bold"
                         tools:text="021 8899822"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
@@ -391,13 +412,15 @@
                     <TextView
                         android:text="Lama Menempati Rumah"
                         android:textSize="@dimen/fontNormal"
+                        android:textColor="@color/colorAsiraText"
                         android:layout_marginTop="15dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                     <TextView
                         android:id="@+id/tvLamaMenempati"
                         android:textSize="@dimen/fontLarge"
-                        android:textColor="@android:color/black"
+                        android:textColor="@color/colorAsiraText"
+                        android:fontFamily="@font/manrope_bold"
                         tools:text="1 Tahun"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
@@ -405,13 +428,15 @@
                     <TextView
                         android:text="Status Tempat Tinggal"
                         android:layout_marginTop="15dp"
+                        android:textColor="@color/colorAsiraText"
                         android:textSize="@dimen/fontNormal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                     <TextView
                         android:id="@+id/tvHomeStatus"
                         android:textSize="@dimen/fontLarge"
-                        android:textColor="@android:color/black"
+                        android:textColor="@color/colorAsiraText"
+                        android:fontFamily="@font/manrope_bold"
                         tools:text="pribadi"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />

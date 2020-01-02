@@ -83,7 +83,7 @@ public class EarningFragment extends BaseFragment implements EarningContract.Vie
         idbank = getActivity().getIntent().getStringExtra(EarningActivity.IDBANK);
 
         if (getActivity().getIntent().getStringExtra("isFrom").toLowerCase().equals("agent")) {
-//            Toast.makeText(parentActivity(), "dari Agent", Toast.LENGTH_SHORT).show();
+
              userBorrower = (UserBorrower) getActivity().getIntent().getSerializableExtra("user");
 
              mPresenter.retrieveBorrowerIncomeDetail();

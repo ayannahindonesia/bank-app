@@ -35,8 +35,8 @@ public class AddAccountBankFragment extends BaseFragment implements AddAccountBa
 
     BottomSheetDialogGlobal dialog;
 
-    @BindView(R.id.bankName)
-    TextView bankName;
+//    @BindView(R.id.bankName)
+//    TextView bankName;
     String bName = null;
 
     @NotEmpty(message = "Masukan nomor rekening")
@@ -63,7 +63,7 @@ public class AddAccountBankFragment extends BaseFragment implements AddAccountBa
         Bundle bundle = parentActivity().getIntent().getExtras();
         assert bundle != null;
         bName = bundle.getString(FormOtherFragment.BANK_NAME);
-        bankName.setText(bName);
+//        bankName.setText(bName);
 
         dialog = new BottomSheetDialogGlobal().show(getFragmentManager(), BottomSheetDialogGlobal.HAVE_ACC_BANK,
                 "Kepemilikan Rekening",
@@ -99,10 +99,10 @@ public class AddAccountBankFragment extends BaseFragment implements AddAccountBa
 
                     }
 
-                    @Override
-                    public void onClickClose() {
-                        bsk.dismiss();
-                    }
+//                    @Override
+//                    public void onClickClose() {
+//                        bsk.dismiss();
+//                    }
                 });
             }
 

@@ -28,7 +28,7 @@ public class AgentProfileActivity extends DaggerAppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_akun_saya);
+        setContentView(R.layout.common_activity);
         mUnbinder = ButterKnife.bind(this);
         setSupportActionBar(toolbar);
 

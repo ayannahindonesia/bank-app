@@ -1,71 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/graybackground"
+    android:background="@color/colorAsiraPrimary"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ScrollView
-        android:id="@+id/scrollview"
-        android:layout_above="@id/buttonNext"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
-        <RelativeLayout
+        <LinearLayout
+            android:id="@+id/progressbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp14"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/dp14"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:orientation="horizontal"
+            android:padding="@dimen/_7sdp"
+            android:weightSum="5">
 
-            <ProgressBar
-                android:id="@+id/progressbar"
-                style="@style/progress_horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_15sdp"
-                android:layout_margin="@dimen/_20sdp"
-                android:max="5"
-                android:progress="5"
-                android:progressDrawable="@drawable/progress_horizontal" />
+            <ImageView
+                android:src="@drawable/indicator_page"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="15dp"/>
 
-            <TextView
-                android:id="@+id/dataPemohon"
-                android:text="Data Tambahan Lain-lain"
-                android:textAlignment="center"
-                android:layout_below="@+id/progressbar"
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/fontNormal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+            <ImageView
+                android:src="@drawable/indicator_page"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="15dp"/>
+
+            <ImageView
+                android:src="@drawable/indicator_page"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="15dp"/>
+
+            <ImageView
+                android:src="@drawable/indicator_page"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="15dp"/>
+
+            <ImageView
+                android:src="@drawable/selected_indicator_page"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="15dp"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/dataPemohon"
+            android:text="Data Tambahan Lain-lain"
+            android:textAlignment="center"
+            android:textColor="@color/colorAsiraText"
+            android:fontFamily="@font/manrope_bold"
+            android:textSize="@dimen/fontNormal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp20"
+            android:layout_marginStart="@dimen/dp20"
+            android:layout_marginEnd="@dimen/dp20"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="3dp">
 
             <LinearLayout
                 android:id="@+id/container1"
                 android:orientation="vertical"
-                android:layout_marginTop="@dimen/dp20"
-                android:layout_marginStart="@dimen/dp20"
-                android:layout_marginEnd="@dimen/dp20"
-                android:layout_below="@+id/dataPemohon"
                 android:padding="@dimen/dp16"
                 android:background="@android:color/white"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:text="Lain-lain"
-                    android:textColor="@android:color/black"
-                    android:textSize="@dimen/fontSuperLarge"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-                <TextView
                     android:text="Nama Orang Tidak Serumah Yang Dapat Dihubungi"
-                    android:textColor="@android:color/black"
+                    android:textColor="@color/colorAsiraText"
                     android:textSize="@dimen/fontLarge"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
                 <EditText
                     android:id="@+id/etRelatedName"
                     android:inputType="text"
+                    android:backgroundTint="@color/colorAsiraText"
                     android:imeOptions="actionNext"
                     android:hint="John Doe"
                     android:textSize="@dimen/fontNormal"
@@ -76,7 +102,8 @@
                 <TextView
                     android:text="Hubungan"
                     android:textSize="@dimen/fontLarge"
-                    android:textColor="@android:color/black"
+                    android:textColor="@color/colorAsiraText"
+                    android:layout_marginTop="@dimen/_10sdp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
@@ -85,14 +112,15 @@
                     android:inputType="textPersonName"
                     android:imeOptions="actionNext"
                     android:textSize="@dimen/fontNormal"
+                    android:background="@drawable/spinner_bg_default"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     tools:ignore="Autofill" />
 
                 <TextView
                     android:text="Alamat Rumah"
-                    android:layout_marginTop="@dimen/dp10"
-                    android:textColor="@android:color/black"
+                    android:textColor="@color/colorAsiraText"
+                    android:layout_marginTop="@dimen/_10sdp"
                     android:textSize="@dimen/fontLarge"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
@@ -101,6 +129,7 @@
                     android:inputType="textMultiLine"
                     android:lines="2"
                     android:hint="Tulis Alamat"
+                    android:backgroundTint="@color/colorAsiraText"
                     android:gravity="top"
                     android:imeOptions="actionNext"
                     android:textSize="@dimen/fontNormal"
@@ -110,7 +139,8 @@
 
                 <TextView
                     android:text="No.Telp"
-                    android:textColor="@android:color/black"
+                    android:textColor="@color/colorAsiraText"
+                    android:layout_marginTop="@dimen/_10sdp"
                     android:textSize="@dimen/fontLarge"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
@@ -119,6 +149,7 @@
                     android:inputType="phone"
                     android:hint="02112345678"
                     android:imeOptions="actionNext"
+                    android:backgroundTint="@color/colorAsiraText"
                     android:textSize="@dimen/fontNormal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -126,7 +157,8 @@
 
                 <TextView
                     android:text="No. HP"
-                    android:textColor="@android:color/black"
+                    android:textColor="@color/colorAsiraText"
+                    android:layout_marginTop="@dimen/_10sdp"
                     android:textSize="@dimen/fontLarge"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
@@ -134,6 +166,7 @@
                     android:id="@+id/etRelatedHP"
                     android:inputType="phone"
                     android:imeOptions="actionNext"
+                    android:backgroundTint="@color/colorAsiraText"
                     android:hint="081234567890"
                     android:textSize="@dimen/fontNormal"
                     android:layout_width="match_parent"
@@ -142,18 +175,23 @@
 
             </LinearLayout>
 
+        </androidx.cardview.widget.CardView>
 
 
-        </RelativeLayout>
 
-    </ScrollView>
+        <Button
+            android:id="@+id/buttonNext"
+            android:text="Selanjutnya"
+            android:background="@drawable/button_register"
+            android:textColor="@android:color/white"
+            android:textAllCaps="false"
+            android:layout_margin="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_16sdp"
+            android:layout_width="match_parent"
+            android:layout_height="35dp" />
 
-    <Button
-        android:id="@+id/buttonNext"
-        android:text="Selanjutnya"
-        android:background="@color/colorAccent"
-        android:textColor="@android:color/white"
-        android:layout_alignParentBottom="true"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-</RelativeLayout>
+
+
+    </LinearLayout>
+
+</ScrollView>

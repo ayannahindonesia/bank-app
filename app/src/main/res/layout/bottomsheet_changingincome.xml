@@ -1,28 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:padding="@dimen/dp16"
+    android:padding="@dimen/_18sdp"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="#99FFFFFF">
 
-    <View
-        android:layout_width="50dp"
-        android:layout_height="3dp"
-        android:layout_gravity="center_horizontal"
-        android:background="@color/graybackground"/>
+<!--    <View-->
+<!--        android:layout_width="50dp"-->
+<!--        android:layout_height="3dp"-->
+<!--        android:layout_gravity="center_horizontal"-->
+<!--        android:background="@color/graybackground"/>-->
 
-    <View
-        android:layout_width="50dp"
-        android:layout_marginTop="5dp"
-        android:layout_height="3dp"
-        android:layout_gravity="center_horizontal"
-        android:background="@color/graybackground"/>
-
-    <ImageView
-        android:src="@drawable/profit"
-        android:layout_marginTop="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="65dp" />
+<!--    <View-->
+<!--        android:layout_width="50dp"-->
+<!--        android:layout_marginTop="5dp"-->
+<!--        android:layout_height="3dp"-->
+<!--        android:layout_gravity="center_horizontal"-->
+<!--        android:background="@color/graybackground"/>-->
 
     <LinearLayout
         android:orientation="vertical"
@@ -39,7 +34,7 @@
             <TextView
                 android:text="Penghasilan per Bulan:"
                 android:layout_weight="1"
-                android:textColor="@android:color/black"
+                android:textColor="@color/colorAsiraText"
                 android:textSize="@dimen/fontNormal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -47,9 +42,9 @@
             <TextView
                 android:id="@+id/currentSalary"
                 android:text="Rp25000000"
-                android:textStyle="bold"
                 android:textSize="@dimen/fontNormal"
-                android:textColor="@android:color/holo_green_dark"
+                android:fontFamily="@font/manrope_bold"
+                android:textColor="@color/colorAsiraAccent"
                 android:textAlignment="textEnd"
                 android:layout_weight="1"
                 android:layout_width="match_parent"
@@ -67,7 +62,7 @@
             <TextView
                 android:text="Penghasilan Lain-lain:"
                 android:layout_weight="1"
-                android:textColor="@android:color/black"
+                android:textColor="@color/colorAsiraText"
                 android:textSize="@dimen/fontNormal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -75,8 +70,8 @@
             <TextView
                 android:id="@+id/anotherIncome"
                 android:text="Rp5000000"
-                android:textStyle="bold"
-                android:textColor="@android:color/holo_green_dark"
+                android:fontFamily="@font/manrope_bold"
+                android:textColor="@color/colorAsiraAccent"
                 android:textAlignment="textEnd"
                 android:textSize="@dimen/fontNormal"
                 android:layout_weight="1"
@@ -96,15 +91,15 @@
                 android:text="Sumber Pendapatan Lain:"
                 android:layout_weight="1"
                 android:textSize="@dimen/fontNormal"
-                android:textColor="@android:color/black"
+                android:textColor="@color/colorAsiraText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
             <TextView
                 android:id="@+id/otherSourceIncome"
-                android:textStyle="bold"
                 android:textSize="@dimen/fontNormal"
-                android:textColor="@android:color/holo_green_dark"
+                android:fontFamily="@font/manrope_bold"
+                android:textColor="@color/colorAsiraAccent"
                 android:textAlignment="textEnd"
                 android:text="-"
                 android:layout_weight="1"
@@ -123,47 +118,41 @@
         android:textAlignment="center"
         android:textSize="@dimen/fontNormal"
         android:textStyle="bold"
-        android:textColor="@android:color/black"
+        android:textColor="@color/colorAsiraText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <LinearLayout
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginBottom="@dimen/_20sdp"
         android:weightSum="2"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/no"
-            android:text="Tidak"
-            android:background="?attr/selectableItemBackground"
-            android:textAlignment="center"
-            android:clickable="true"
-            android:textStyle="bold"
-            android:layout_margin="2.55dp"
-            android:focusable="true"
-            android:layout_weight="1"
-            android:padding="@dimen/dp12"
-            android:textColor="@color/colorPrimaryDark"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <TextView
+        <Button
             android:id="@+id/yes"
             android:text="Ya"
-            android:background="?attr/selectableItemBackground"
-            android:clickable="true"
-            android:focusable="true"
-            android:textStyle="bold"
-            android:layout_margin="2.5dp"
-            android:padding="@dimen/dp12"
+            android:textAllCaps="false"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:background="@drawable/button_register"
+            android:layout_weight="1"
+            android:textColor="@color/colorAsiraWhite"
+            android:layout_width="match_parent"
+            android:layout_height="35dp" />
+
+
+        <Button
+            android:id="@+id/no"
+            android:text="Tidak"
+            android:textAllCaps="false"
+            android:background="@drawable/button_login"
             android:textAlignment="center"
             android:layout_weight="1"
-            android:textColor="@color/colorAccent"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:textColor="@color/colorAsiraWhite"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
+            android:layout_height="35dp" />
 
 
     </LinearLayout>

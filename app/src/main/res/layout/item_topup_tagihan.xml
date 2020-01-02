@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="100dp"
+    android:layout_marginEnd="@dimen/_16sdp"
+    android:layout_marginBottom="@dimen/_4sdp"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="@dimen/dp10"
+    app:cardElevation="3dp">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:background="@color/colorAsiraWhite"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:src="@drawable/topup_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/titleItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Title"
+            android:textAlignment="center"
+            android:padding="@dimen/_8sdp"
+            android:textColor="@color/colorAsiraText"
+            android:fontFamily="@font/manrope_bold"
+            android:textSize="@dimen/fontNormal" />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

@@ -35,6 +35,8 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public static final int VIEW_BORROWER_ON_AGENT = 2;
     public static final int VIEW_LIST_BORROWERS_LOAN_AGENT = 3;
     public static final int VIEW_BANK_LIST = 4;
+    public static final int VIEW_LIST_TOPUP_TAGIHAN = 5;
+
 
     //for loan history purposes
     private final static String STATUS_PROCESSING = "processing";
@@ -50,12 +52,14 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private List<BankDetail> banks;
     private ArrayList<Integer> banksSelectedID;
     private ArrayList<Integer> banksSelectedIDServer;
+    private List<String> menuTopupTagihan;
 
     private CommonListListener.LoanAdapterListener loanListener;
     private CommonListListener.NotifAdapterListener notifListener;
     private CommonListListener.ViewBorrowerListener viewBorrowerListener;
     private CommonListListener.ListLoanAgent listLoanAgentListener;
     private CommonListListener.BankListListener bankListListener;
+    private CommonListListener.CommonStringItemClickListener commonStringItemClickListener;
 
     public CommonListAdapter(int viewType){
         this.mViewType = viewType;
@@ -67,6 +71,7 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         banks = new ArrayList<>();
         banksSelectedID = new ArrayList<>();
         banksSelectedIDServer = new ArrayList<>();
+        menuTopupTagihan = new ArrayList<>();
     }
 
     public void setDataNotificationMessages(List<Notif.Data> results){
@@ -120,6 +125,15 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     }
 
+    public void setMenuTopupTagihan(List<String> results){
+
+        menuTopupTagihan.clear();
+
+        menuTopupTagihan.addAll(results);
+
+        notifyDataSetChanged();
+    }
+
     //loan listener
     public void setOnClickListenerLoanAdapter(CommonListListener.LoanAdapterListener listenerLoanAdapter){
         this.loanListener = listenerLoanAdapter;
@@ -143,6 +157,10 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     //bank list listener
     public void setOnClickListenerBankList(CommonListListener.BankListListener bankListListener){
         this.bankListListener = bankListListener;
+    }
+
+    public void setOnClickMenuTopUpTaguhan(CommonListListener.CommonStringItemClickListener clickMenuTopUpTaguhan){
+        this.commonStringItemClickListener = clickMenuTopUpTaguhan;
     }
 
     @NonNull
@@ -178,6 +196,11 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             case VIEW_BANK_LIST:
 
                 holder = new BankListHolder(inflater.inflate(R.layout.item_banks, parent, false));
+                break;
+
+            case VIEW_LIST_TOPUP_TAGIHAN:
+
+                holder = new ViewTopupTaguhanViwewHolder(inflater.inflate(R.layout.item_topup_tagihan, parent, false));
                 break;
 
             default:
@@ -223,6 +246,12 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 ((BankListHolder) holder).bind(banks.get(position));
 
                 break;
+
+            case VIEW_LIST_TOPUP_TAGIHAN:
+
+                ((ViewTopupTaguhanViwewHolder) holder).bind(menuTopupTagihan.get(position));
+
+                break;
         }
 
     }
@@ -257,6 +286,11 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             case VIEW_BANK_LIST:
 
                 selected = VIEW_BANK_LIST;
+                break;
+
+            case VIEW_LIST_TOPUP_TAGIHAN:
+
+                selected = VIEW_LIST_TOPUP_TAGIHAN;
                 break;
         }
 
@@ -293,6 +327,11 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             case VIEW_BANK_LIST:
 
                 totals = banks.size();
+                break;
+
+            case VIEW_LIST_TOPUP_TAGIHAN:
+
+                totals = menuTopupTagihan.size();
                 break;
 
         }
@@ -555,6 +594,25 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             itemView.setOnClickListener(v ->
                     bankListListener.onClickItem(bankDetail, itemView, listLltBank)
             );
+        }
+    }
+
+    class ViewTopupTaguhanViwewHolder extends RecyclerView.ViewHolder{
+
+        @BindView(R.id.titleItem) TextView title;
+
+        ViewTopupTaguhanViwewHolder(View itemView){
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+
+        }
+
+        private void bind(String item){
+
+            title.setText(item);
+
+            itemView.setOnClickListener(v -> commonStringItemClickListener.onClickItem(item));
+
         }
     }
 

@@ -2,17 +2,12 @@ package com.ayannah.asira.screen.chooselogin;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.widget.Toolbar;
+import android.widget.ImageView;
 
 import com.ayannah.asira.R;
 import com.ayannah.asira.screen.agent.loginagent.LoginAgentActivity;
 import com.ayannah.asira.screen.agent.lpagent.LPAgentActivity;
-import com.ayannah.asira.screen.borrower.homemenu.MainMenuActivity;
+import com.ayannah.asira.screen.borrower.borrower_landing_page.BorrowerLandingPage;
 import com.ayannah.asira.screen.borrower.login.LoginActivity;
 
 import javax.inject.Inject;
@@ -29,10 +24,10 @@ public class ChooseLoginActivity extends DaggerAppCompatActivity implements Choo
     ChooseLoginContract.Presenter mPresenter;
 
     @BindView(R.id.btnPersonal)
-    TextView btnPersonal;
+    ImageView btnPersonal;
 
     @BindView(R.id.btnAgent)
-    TextView btnAgent;
+    ImageView btnAgent;
 
     private Unbinder mUnbinder;
 
@@ -57,7 +52,7 @@ public class ChooseLoginActivity extends DaggerAppCompatActivity implements Choo
     }
 
     private void loginBorrower() {
-        Intent intent = new Intent(this, MainMenuActivity.class);
+        Intent intent = new Intent(this, BorrowerLandingPage.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         finish();

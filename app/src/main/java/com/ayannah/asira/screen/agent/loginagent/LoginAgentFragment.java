@@ -2,8 +2,14 @@ package com.ayannah.asira.screen.agent.loginagent;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -36,8 +42,18 @@ public class LoginAgentFragment extends BaseFragment implements LoginAgentContra
     @BindView(R.id.etPassword)
     EditText etPassword;
 
+    @BindView(R.id.lyLogin)
+    RelativeLayout lyLogin;
+
+    @BindView(R.id.openPass)
+    ImageButton openPass;
+
+    @BindView(R.id.invisiblePass)
+    ImageButton invisiblePass;
+
     private Validator validator;
     private AlertDialog dialog;
+    private boolean isPwdVisible = false;
 
     @Inject
     public LoginAgentFragment() {
@@ -62,6 +78,10 @@ public class LoginAgentFragment extends BaseFragment implements LoginAgentContra
 
     @Override
     protected void initView(Bundle state) {
+
+        Animation slideUp = AnimationUtils.loadAnimation(parentActivity(), R.anim.slide_up);
+        lyLogin.startAnimation(slideUp);
+
         validator = new Validator(this);
         validator.setValidationListener(this);
     }
@@ -92,6 +112,38 @@ public class LoginAgentFragment extends BaseFragment implements LoginAgentContra
                 Toast.makeText(parentActivity(), message, Toast.LENGTH_LONG).show();
             }
         }
+    }
+
+    @OnClick(R.id.openPass)
+    void visiblePass(){
+
+        if(!isPwdVisible){
+
+            openPass.setVisibility(View.GONE);
+            invisiblePass.setVisibility(View.VISIBLE);
+
+            etPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+            etPassword.setSelection(etPassword.getText().length());
+
+            isPwdVisible = true;
+        }
+
+    }
+
+    @OnClick(R.id.invisiblePass)
+    void invisiblePass(){
+
+        if(isPwdVisible){
+
+            openPass.setVisibility(View.VISIBLE);
+            invisiblePass.setVisibility(View.GONE);
+
+            etPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+            etPassword.setSelection(etPassword.getText().length());
+
+            isPwdVisible = false;
+        }
+
     }
 
     @Override

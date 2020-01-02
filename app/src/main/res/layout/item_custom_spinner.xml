@@ -4,9 +4,10 @@
     android:id="@+id/customeTextSpinner"
     android:paddingTop="@dimen/dp12"
     android:paddingBottom="@dimen/dp12"
-    android:textSize="@dimen/fontLarge"
+    android:textSize="@dimen/fontNormal"
     android:paddingStart="10dp"
-    android:textColor="@android:color/black"
+    android:textColor="@color/colorAsiraText"
+    android:fontFamily="@font/manrope_bold"
     android:layout_width="match_parent"
     tools:text="Pendidikan"
     android:layout_height="wrap_content">

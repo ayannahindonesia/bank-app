@@ -37,4 +37,9 @@ public interface CommonListListener {
 
     }
 
+    interface CommonStringItemClickListener{
+
+        void onClickItem(String item);
+    }
+
 }

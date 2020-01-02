@@ -1,14 +1,23 @@
 package com.ayannah.asira.custom;
 
 import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.Typeface;
+import android.text.Editable;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 
 import androidx.appcompat.widget.AppCompatEditText;
+import androidx.core.content.res.ResourcesCompat;
+
+import com.ayannah.asira.R;
 
 public class PlafondEditText extends AppCompatEditText {
 
     private PlafondEdittextListener listener;
+
+    private Paint mTextPaint;
 
     public PlafondEditText(Context context) {
         super(context);
@@ -20,6 +29,11 @@ public class PlafondEditText extends AppCompatEditText {
 
     public PlafondEditText(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+
+        //set font
+        Typeface typeface = ResourcesCompat.getFont(context, R.font.manrope_bold);
+        setTypeface(typeface);
+        setTextColor(getResources().getColor(R.color.colorAsiraAccent));
     }
 
 
@@ -31,13 +45,6 @@ public class PlafondEditText extends AppCompatEditText {
     public boolean onKeyPreIme(int keyCode, KeyEvent event) {
 
         listener.setOnHideSoftKeyboard(keyCode, event);
-//        if(keyCode == KeyEvent.KEYCODE_BACK){
-//            //for back to previous activity
-//            InputMethodManager mgr = (InputMethodManager)getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-//            mgr.hideSoftInputFromWindow(this.getWindowToken(), 0);
-//
-//
-//        }
 
         return false;
     }

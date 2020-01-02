@@ -2,19 +2,31 @@
 <resources>
     <!--<color name="colorPrimary">#008577</color>-->
     <color name="colorPrimary">#FFFFFF</color>
-    <!--<color name="colorPrimaryDark">#00574B</color>-->
     <color name="colorPrimaryDark">#2e86de</color>
     <color name="colorBlueDark">#0C73DA</color>
 
+    <color name="colorAsiraPrimary">#D6FEFF</color>
+    <color name="colorAsiraPrimaryDark">#BDECEE</color>
+    <color name="colorAsiraAccent">#FBB96E</color>
+    <color name="colorAsiraAccentDisabled">#F5CEA2</color>
+    <color name="colorAsiraText">#2076B8</color>
+    <color name="colorAsiraWhite">#FFFFFF</color>
+    <color name="colorAsiraGrey">#969696</color>
+    <color name="colorAsiraPurple">#7373EC</color>
+    <color name="colorAsiraDarkBlue">#0F3E82</color>
+    <color name="colorAsiraTopUp">#86EBEE</color>
 
     <color name="colorAccent">#F7964A</color>
     <color name="colorAccentDark">#CA712A</color>
     <color name="colorThumb">#3D3D3D</color>
     <color name="customBlack">#202020</color>
     <color name="customRed">#A81515</color>
-    <color name="graybackground">#dfe6e9</color>
+    <color name="graybackground">#F6FAFB</color>
     <color name="darkgreybackground">#636e72</color>
     <color name="textDark">#C9D8E0</color>
     <color name="darkgreen">#158A46</color>
     <color name="transdarkgreen">#22158A46</color>
+
+    <color name="textColorAsira">#2076B8</color>
+
 </resources>

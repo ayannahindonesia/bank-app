@@ -1,11 +1,13 @@
 package com.ayannah.asira.screen.otpphone;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.util.Log;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 
@@ -13,7 +15,7 @@ import com.ayannah.asira.R;
 import com.ayannah.asira.base.BaseFragment;
 import com.ayannah.asira.custom.PinEntryEditText;
 import com.ayannah.asira.screen.agent.lpagent.LPAgentActivity;
-import com.ayannah.asira.screen.borrower.homemenu.MainMenuActivity;
+import com.ayannah.asira.screen.borrower.borrower_landing_page.BorrowerLandingPage;
 import com.ayannah.asira.screen.register.formothers.FormOtherFragment;
 import com.ayannah.asira.screen.success.SuccessActivity;
 import com.google.gson.JsonObject;
@@ -28,20 +30,20 @@ public class VerificationOTPFragment extends BaseFragment implements Verificatio
 
     private static final String TAG = VerificationOTPActivity.class.getSimpleName();
 
-    @BindView(R.id.secretDummyCode)
-    TextView secretDummyCode;
-
     @BindView(R.id.etPin)
     PinEntryEditText etPin;
 
     @BindView(R.id.loadingProgress)
     LinearLayout pgLoading;
 
-    @BindView(R.id.successIndicator)
-    LinearLayout successIndicator;
-
     @BindView(R.id.errorIndicator)
-    LinearLayout errorIndicator;
+    LinearLayout lyErrorIndicator;
+
+    @BindView(R.id.errorCode)
+    TextView errorCode;
+
+    @BindView(R.id.errorMessage)
+    TextView errorMessage;
 
     @Inject
     @Named("purpose")
@@ -50,6 +52,9 @@ public class VerificationOTPFragment extends BaseFragment implements Verificatio
     @Inject
     @Named("idloan")
     int idLoan;
+
+    private Vibrator vibrator;
+    private long[] patternVibrate ={500, 0, 500};
 
     @Inject
     VerificationOTPContract.Presenter mPresenter;
@@ -87,8 +92,9 @@ public class VerificationOTPFragment extends BaseFragment implements Verificatio
         builder.setView(R.layout.progress_bar);
         dialog = builder.create();
 
+        vibrator = (Vibrator)parentActivity().getSystemService(Context.VIBRATOR_SERVICE);
+
         //this condition for register purposes
-        //we dont use it if pinjaman purposes
         if(purpose.equals(REGISTER)){
             Bundle bundle = parentActivity().getIntent().getExtras();
             assert  bundle!=null;
@@ -101,8 +107,6 @@ public class VerificationOTPFragment extends BaseFragment implements Verificatio
     @OnTextChanged(value = R.id.etPin, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
     void afterTextChanged(CharSequence charSequence) {
         if (charSequence.length() == 6) {
-//            Bundle bundle = Objects.requireNonNull(parentActivity()).getIntent().getExtras();
-//            assert bundle != null;
 
             dialog.show();
 
@@ -199,19 +203,14 @@ public class VerificationOTPFragment extends BaseFragment implements Verificatio
 
     @Override
     public void OTPVerified() {
-//        Intent intent = new Intent(parentActivity(), MainMenuActivity.class);
-//        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//        parentActivity().startActivity(intent);
-//        parentActivity().finish();
 
         Bundle bundle = parentActivity().getIntent().getExtras();
         assert bundle != null;
         String phone = bundle.getString(FormOtherFragment.PHONE);
         String pass = bundle.getString(FormOtherFragment.PASS);
-//
+
         mPresenter.getPublicToken(phone, pass, "otp");
 
-//        mPresenter.setUserIdentity();
     }
 
     @Override
@@ -226,7 +225,7 @@ public class VerificationOTPFragment extends BaseFragment implements Verificatio
 
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         intent.putExtra(SuccessActivity.SUCCESS_TITLE, "Verifikasi Berhasil!");
-        intent.putExtra(SuccessActivity.SUCCESS_DESC, "Pengajuan pinjaman berhasil diverifikasi. Silakan menunggu beberapa saat hingga ada konfirmasi dari bank. Terima kasih.");
+        intent.putExtra(SuccessActivity.SUCCESS_DESC, "Pengajuan pinjaman berhasil diverifikasi. Silahkan menunggu beberapa saat hingga ada konfirmasi dari bank. Terima kasih.");
         parentActivity().startActivity(intent);
         parentActivity().finish();
 
@@ -235,21 +234,28 @@ public class VerificationOTPFragment extends BaseFragment implements Verificatio
 
     @Override
     public void completeCreateUserToken() {
-//        dialog.dismiss();
         mPresenter.setUserIdentity();
     }
 
     @Override
-    public void showErrorMessage(String message) {
+    public void showErrorMessage(String message, int codeError) {
         dialog.dismiss();
-        Toast.makeText(parentActivity(), message, Toast.LENGTH_LONG).show();
+
+        lyErrorIndicator.setVisibility(View.VISIBLE);
+
+        vibrator.vibrate(patternVibrate, -1);
+
+        errorCode.setText(String.format("Kode: %s", codeError));
+        errorMessage.setText(message);
+
+
     }
 
     @Override
     public void loginComplete() {
         dialog.dismiss();
 
-        Intent login = new Intent(parentActivity(), MainMenuActivity.class);
+        Intent login = new Intent(parentActivity(), BorrowerLandingPage.class);
         login.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         login.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(login);

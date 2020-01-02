@@ -31,14 +31,13 @@ public class ChooseBankActivity extends DaggerAppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_bank);
         mUnbinder = ButterKnife.bind(this);
-
         setSupportActionBar(toolbar);
 
         ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowTitleEnabled(true);
-        actionBar.setTitle("Register");
+        actionBar.setTitle("Registrasi");
 
         ChooseBankFragment chooseBankFragment = (ChooseBankFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.fragment_container);

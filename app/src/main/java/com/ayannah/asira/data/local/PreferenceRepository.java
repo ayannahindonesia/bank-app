@@ -299,4 +299,12 @@ public interface PreferenceRepository {
     void setOtherIncomeBorrower(String otherIncome);
 
     String getOtherIncomeBorrower();
+
+    void setIdCardImg(String image);
+
+    String getIdCardImg();
+
+    void setTaxCardImg(String image);
+
+    String getTaxCardImg();
 }

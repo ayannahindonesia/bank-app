@@ -70,6 +70,9 @@ public class PreferenceDataSource implements PreferenceRepository {
     private static final String PREF_USER_RELATED_BANKACCOUNTNUMBER = "RELATED_BANKACCOUNTNUMBER";
     private static final String PREF_DEPEDANTS = "DEPENDANTS";
 
+    private static final String PREF_USER_IMG_IDCARD = "IDCARD_IMG";
+    private static final String PREF_USER_IMG_TAXCARD = "TAXCARD_IMG";
+
     private static final String PREF_USER_RELATED_ADDRESS = "RELATED_ADDRESS";
     private static final String PREF_USER_ID_CARD_ID = "ID_CARD_ID";
     private static final String PREF_USER_TAX_CARD_ID = "TAX_CARD_ID";
@@ -919,4 +922,25 @@ public class PreferenceDataSource implements PreferenceRepository {
     public String getOtherIncomeBorrower() {
         return mPreferences.getString(PREF_AGENT_OTHER_INCOME_BORROWER, "");
     }
+    @Override
+    public void setIdCardImg(String image) {
+        mPreferences.edit().putString(PREF_USER_IMG_IDCARD, image).apply();
+    }
+
+    @Override
+    public String getIdCardImg() {
+        return mPreferences.getString(PREF_USER_IMG_IDCARD, "");
+    }
+
+    @Override
+    public void setTaxCardImg(String image) {
+
+        mPreferences.edit().putString(PREF_USER_IMG_TAXCARD, image).apply();
+    }
+
+    @Override
+    public String getTaxCardImg() {
+        return mPreferences.getString(PREF_USER_IMG_TAXCARD, "");
+    }
+
 }

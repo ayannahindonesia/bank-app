@@ -1,56 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorAsiraPrimary"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     android:orientation="vertical"
-    android:padding="10dp"
-    tools:context=".screen.register.termcondition.TermConditionActivity"
-    tools:showIn="@layout/activity_term_condition">
-
-    <RelativeLayout
-        android:id="@+id/lyKebijakan"
-        android:background="@drawable/border_disclaimer"
-        android:padding="6dp"
-        android:layout_above="@id/lyBottom"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <WebView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/webview"/>
-
-    </RelativeLayout>
+    android:padding="14dp">
 
     <LinearLayout
-        android:id="@+id/lyBottom"
         android:layout_width="match_parent"
-        android:layout_alignParentBottom="true"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <CheckBox
-            android:id="@+id/checkBox"
-            android:layout_marginTop="10dp"
-            android:text="Ya, saya setuju dan paham."
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="match_parent"
+            android:padding="12dp"
+            android:background="@drawable/border_disclaimer"
+            android:orientation="vertical">
+
+            <TextView
+                android:textColor="@color/colorAsiraText"
+                android:textSize="@dimen/fontSuperLarge"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/manrope_bold"
+                android:text="Kebijakan Privasi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <WebView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/webview"/>
+
+            <CheckBox
+                android:id="@+id/checkBox"
+                android:fontFamily="@font/manrope_bold"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="5dp"
+                android:textSize="@dimen/fontNormal"
+                android:text="Ya, saya setuju dan paham."
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
 
         <Button
             android:id="@+id/btn_confirm"
-            android:textColor="@android:color/white"
-            android:background="@color/colorAccent"
-            android:text="Lanjutkan"
-            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
-            android:layout_height="35dp"/>
+            android:layout_height="40dp"
+            android:textAllCaps="false"
+            android:background="@drawable/button_register_disabled"
+            android:text="selanjutnya"
+            android:layout_marginTop="@dimen/_40sdp"
+            android:layout_marginBottom="@dimen/_30sdp"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"/>
 
     </LinearLayout>
 
 
-
-
-</RelativeLayout>
+</ScrollView>

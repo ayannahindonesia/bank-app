@@ -1,88 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/graybackground"
+    android:background="@color/colorAsiraPrimary"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ProgressBar
-        android:id="@+id/progressbar"
-        style="@style/progress_horizontal"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_15sdp"
-        android:layout_margin="@dimen/_20sdp"
-        android:max="5"
-        android:progress="4"
-        android:progressDrawable="@drawable/progress_horizontal" />
+        android:layout_height="wrap_content">
 
-    <ScrollView
-        android:id="@+id/scrollview"
-        android:layout_below="@+id/progressbar"
-        android:layout_above="@id/buttonNext"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <RelativeLayout
+        <LinearLayout
+            android:id="@+id/progressbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp14"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/dp14"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:orientation="horizontal"
+            android:padding="@dimen/_7sdp"
+            android:weightSum="5">
 
-            <TextView
-                android:id="@+id/dataPemohon"
-                android:text="Informasi Pekerjaan dan Penghasilan"
-                android:textAlignment="center"
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/fontNormal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+            <ImageView
+                android:src="@drawable/indicator_page"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="15dp"/>
 
+            <ImageView
+                android:src="@drawable/indicator_page"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="15dp"/>
+
+            <ImageView
+                android:src="@drawable/indicator_page"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="15dp"/>
+
+            <ImageView
+                android:src="@drawable/selected_indicator_page"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="15dp"/>
+
+            <ImageView
+                android:src="@drawable/indicator_page"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="15dp"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/dataPemohon"
+            android:text="Informasi Pekerjaan"
+            android:textAlignment="center"
+            android:textColor="@color/colorAsiraText"
+            android:fontFamily="@font/manrope_bold"
+            android:textSize="@dimen/fontNormal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="5dp"
+            android:layout_marginTop="@dimen/dp20"
+            android:layout_marginStart="@dimen/dp20"
+            android:layout_marginEnd="@dimen/dp20"
+            app:cardElevation="3dp">
 
             <LinearLayout
                 android:id="@+id/container4"
                 android:orientation="vertical"
-                android:layout_marginTop="@dimen/dp20"
-                android:layout_marginStart="@dimen/dp20"
-                android:layout_marginEnd="@dimen/dp20"
-                android:layout_below="@+id/dataPemohon"
-                android:padding="@dimen/dp16"
+                android:padding="@dimen/_16sdp"
                 android:background="@android:color/white"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:text="Info Pekerjaan Pemohon"
-                    android:textColor="@android:color/black"
-                    android:textSize="@dimen/fontSuperLarge"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-                <TextView
                     android:text="Jenis Pekerjaan"
-                    android:layout_marginTop="15dp"
-                    android:textColor="@android:color/black"
+                    android:textColor="@color/colorAsiraText"
                     android:textSize="@dimen/fontLarge"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
                 <Spinner
                     android:id="@+id/spJenisPekerjaan"
                     android:textSize="@dimen/fontNormal"
+                    android:background="@drawable/spinner_bg_default"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     tools:ignore="Autofill" />
 
                 <TextView
                     android:text="No. Induk Pegawai"
-                    android:textColor="@android:color/black"
+                    android:textColor="@color/colorAsiraText"
+                    android:layout_marginTop="@dimen/_10sdp"
                     android:textSize="@dimen/fontLarge"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
                 <EditText
                     android:id="@+id/etEmployeeID"
                     android:hint="16000939877399"
-                    android:paddingStart="@dimen/dp12"
-                    android:paddingEnd="@dimen/dp12"
+                    android:backgroundTint="@color/colorAsiraText"
                     android:imeOptions="actionNext"
                     android:textSize="@dimen/fontNormal"
                     android:layout_width="match_parent"
@@ -91,17 +115,17 @@
 
                 <TextView
                     android:text="Nama Instansi"
-                    android:textColor="@android:color/black"
+                    android:textColor="@color/colorAsiraText"
+                    android:layout_marginTop="@dimen/_10sdp"
                     android:textSize="@dimen/fontLarge"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
                 <EditText
                     android:id="@+id/etCompanyName"
                     android:inputType="text"
-                    android:paddingStart="@dimen/dp12"
-                    android:paddingEnd="@dimen/dp12"
                     android:imeOptions="actionNext"
                     android:textSize="@dimen/fontNormal"
+                    android:backgroundTint="@color/colorAsiraText"
                     android:hint="PT ABC"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -109,8 +133,8 @@
 
                 <TextView
                     android:text="Lama Bekerja"
-                    android:textColor="@android:color/black"
-                    android:layout_marginTop="15dp"
+                    android:textColor="@color/colorAsiraText"
+                    android:layout_marginTop="@dimen/_10sdp"
                     android:textSize="@dimen/fontLarge"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
@@ -122,9 +146,8 @@
                         android:id="@+id/etLamaBekerja"
                         android:inputType="number"
                         android:hint="0"
-                        android:paddingStart="@dimen/dp12"
-                        android:paddingEnd="@dimen/dp12"
                         android:imeOptions="actionNext"
+                        android:backgroundTint="@color/colorAsiraText"
                         android:textSize="@dimen/fontNormal"
                         android:layout_width="60dp"
                         android:layout_height="wrap_content"
@@ -136,14 +159,16 @@
                         android:layout_marginStart="6dp"
                         android:layout_gravity="center_vertical"
                         android:text="Tahun"
-                        android:textColor="@android:color/black"
+                        android:fontFamily="@font/manrope_bold"
+                        android:textColor="@color/colorAsiraText"
                         android:textSize="@dimen/fontLarge" />
 
                 </LinearLayout>
 
                 <TextView
                     android:text="Alamat Kantor"
-                    android:textColor="@android:color/black"
+                    android:textColor="@color/colorAsiraText"
+                    android:layout_marginTop="@dimen/_10sdp"
                     android:textSize="@dimen/fontLarge"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
@@ -153,8 +178,7 @@
                     android:lines="2"
                     android:hint="Tulis disini..."
                     android:gravity="top"
-                    android:paddingStart="@dimen/dp12"
-                    android:paddingEnd="@dimen/dp12"
+                    android:backgroundTint="@color/colorAsiraText"
                     android:imeOptions="actionNext"
                     android:textSize="@dimen/fontNormal"
                     android:layout_width="match_parent"
@@ -164,14 +188,13 @@
                 <TextView
                     android:text="No Telepon Kantor"
                     android:textSize="@dimen/fontLarge"
-                    android:textColor="@android:color/black"
+                    android:textColor="@color/colorAsiraText"
+                    android:layout_marginTop="@dimen/_10sdp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
                 <EditText
                     android:id="@+id/etCompanyPhone"
                     android:inputType="phone"
-                    android:paddingStart="@dimen/dp12"
-                    android:paddingEnd="@dimen/dp12"
                     android:hint="02112345678"
                     android:imeOptions="actionNext"
                     android:textSize="@dimen/fontNormal"
@@ -181,15 +204,16 @@
 
                 <TextView
                     android:text="Nama Atasan"
-                    android:textColor="@android:color/black"
+                    android:textColor="@color/colorAsiraText"
+                    android:layout_marginTop="@dimen/_10sdp"
                     android:textSize="@dimen/fontLarge"
+                    android:backgroundTint="@color/colorAsiraText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
                 <EditText
                     android:id="@+id/etSpvName"
                     android:inputType="text"
-                    android:paddingStart="@dimen/dp12"
-                    android:paddingEnd="@dimen/dp12"
+                    android:backgroundTint="@color/colorAsiraText"
                     android:hint="John Doe"
                     android:imeOptions="actionNext"
                     android:textSize="@dimen/fontNormal"
@@ -199,16 +223,16 @@
 
                 <TextView
                     android:text="Jabatan"
-                    android:textColor="@android:color/black"
+                    android:textColor="@color/colorAsiraText"
+                    android:layout_marginTop="@dimen/_10sdp"
                     android:textSize="@dimen/fontLarge"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
                 <EditText
                     android:id="@+id/etJobTitle"
                     android:inputType="text"
-                    android:paddingStart="@dimen/dp12"
-                    android:paddingEnd="@dimen/dp12"
                     android:imeOptions="actionNext"
+                    android:backgroundTint="@color/colorAsiraText"
                     android:textSize="@dimen/fontNormal"
                     android:hint="CEO"
                     android:layout_width="match_parent"
@@ -218,32 +242,39 @@
 
             </LinearLayout>
 
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:text="Info Pendapatan"
+            android:textAlignment="center"
+            android:textSize="@dimen/fontNormal"
+            android:textColor="@color/colorAsiraText"
+            android:layout_marginTop="@dimen/_16sdp"
+            android:fontFamily="@font/manrope_bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp20"
+            android:layout_marginStart="@dimen/dp20"
+            android:layout_marginEnd="@dimen/dp20"
+            app:cardElevation="3dp"
+            app:cardCornerRadius="5dp">
+
             <LinearLayout
                 android:id="@+id/container5"
                 android:orientation="vertical"
-                android:layout_marginTop="@dimen/dp20"
-                android:layout_marginStart="@dimen/dp20"
-                android:layout_marginEnd="@dimen/dp20"
-                android:layout_below="@+id/container4"
                 android:padding="@dimen/dp16"
                 android:background="@android:color/white"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:text="Info Pendapatan Pemohon"
-                    android:textSize="@dimen/fontSuperLarge"
-                    android:textColor="@android:color/black"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-
-                <TextView
                     android:text="Gaji per Bulan"
                     android:textSize="@dimen/fontLarge"
-                    android:textColor="@android:color/black"
+                    android:textColor="@color/colorAsiraText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
                 <EditText
@@ -251,6 +282,7 @@
                     android:inputType="number"
                     android:imeOptions="actionNext"
                     android:hint="0"
+                    android:backgroundTint="@color/colorAsiraText"
                     android:textSize="@dimen/fontNormal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -260,13 +292,15 @@
                 <TextView
                     android:text="Pendapatan Lain (Jika Ada)"
                     android:textSize="@dimen/fontLarge"
-                    android:textColor="@android:color/black"
+                    android:textColor="@color/colorAsiraText"
+                    android:layout_marginTop="@dimen/_10sdp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
                 <EditText
                     android:id="@+id/etPendapatanLain"
                     android:inputType="number"
                     android:imeOptions="actionNext"
+                    android:backgroundTint="@color/colorAsiraText"
                     android:textSize="@dimen/fontNormal"
                     android:hint="0"
                     android:layout_width="match_parent"
@@ -276,13 +310,15 @@
                 <TextView
                     android:text="Sumber Pendapatan Lain"
                     android:textSize="@dimen/fontLarge"
-                    android:textColor="@android:color/black"
+                    android:textColor="@color/colorAsiraText"
+                    android:layout_marginTop="@dimen/_10sdp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
                 <EditText
                     android:id="@+id/etSumberPendapatanLain"
                     android:inputType="text"
                     android:imeOptions="actionNext"
+                    android:backgroundTint="@color/colorAsiraText"
                     android:textSize="@dimen/fontNormal"
                     android:hint="Sumber Pendapatan Lain"
                     android:layout_width="match_parent"
@@ -291,18 +327,21 @@
 
             </LinearLayout>
 
-        </RelativeLayout>
+        </androidx.cardview.widget.CardView>
 
-    </ScrollView>
+        <Button
+            android:id="@+id/buttonNext"
+            android:text="Selanjutnya"
+            android:background="@drawable/button_register"
+            android:layout_margin="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_136sdp"
+            android:textAllCaps="false"
+            android:fontFamily="@font/manrope_bold"
+            android:textColor="@android:color/white"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="35dp" />
 
+    </LinearLayout>
 
-
-    <Button
-        android:id="@+id/buttonNext"
-        android:text="Selanjutnya"
-        android:background="@color/colorAccent"
-        android:textColor="@android:color/white"
-        android:layout_alignParentBottom="true"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-</RelativeLayout>
+</ScrollView>
