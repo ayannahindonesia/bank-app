@@ -186,9 +186,9 @@ public class AgentProfileFragment extends BaseFragment implements AgentProfileCo
     public void successUpdateProfileAgent() {
         Toast.makeText(parentActivity(), "Data Berhasil Dirubah", Toast.LENGTH_SHORT).show();
 
-//        Intent intent = new Intent(parentActivity(), AgentProfileActivity.class);
-//        startActivity(intent);
-//        parentActivity().finish();
+        Intent intent = new Intent(parentActivity(), AgentProfileActivity.class);
+        startActivity(intent);
+        parentActivity().finish();
     }
 
     @Override
