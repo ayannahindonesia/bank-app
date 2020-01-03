@@ -14,15 +14,16 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:theme="@style/AppTheme.PopupOverlay">
+            android:theme="@style/AppTheme.PopupOverlay"
+            android:background="@drawable/btn_base_white">
 
-            <ImageView
+            <TextView
                 android:id="@+id/logoAsira"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginEnd="32dp"
-                android:src="@drawable/ic_asira" />
+                android:textColor="@color/textColorAsira"
+                android:fontFamily="@font/manrope_extrabold"
+                android:text="Pilih Produk"/>
 
         </androidx.appcompat.widget.Toolbar>
 

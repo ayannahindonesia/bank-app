@@ -18,11 +18,15 @@
 
             <TextView
                 android:id="@+id/titleService"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/dp14"
-                android:text="Silihkan Pilih Layanan"
-                android:textSize="@dimen/fontLarge" />
+                android:fontFamily="@font/manrope_extrabold"
+                android:textColor="@color/textColorAsira"
+                android:background="@drawable/bg_orange"
+                android:paddingHorizontal="@dimen/dp14"
+                android:layout_marginVertical="@dimen/_10sdp"
+                android:gravity="center"
+                android:text="Silihkan Pilih Layanan" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_servicesmenu"
@@ -34,12 +38,16 @@
 
             <TextView
                 android:id="@+id/titleNews"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/recycler_servicesmenu"
-                android:padding="@dimen/dp14"
-                android:text="Berita dan Promo"
-                android:textSize="@dimen/fontLarge" />
+                android:fontFamily="@font/manrope_extrabold"
+                android:textColor="@color/textColorAsira"
+                android:background="@drawable/bg_orange"
+                android:paddingHorizontal="@dimen/dp14"
+                android:layout_marginVertical="@dimen/_10sdp"
+                android:gravity="center"
+                android:text="Berita &amp; Promo" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvBeritaPromo"

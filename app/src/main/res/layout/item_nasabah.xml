@@ -1,67 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="horizontal"
-    android:padding="12dp"
-    android:weightSum="1"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-    <ImageView
-        android:id="@+id/photoUser"
-        android:layout_weight="0.1"
-        android:layout_width="75dp"
-        android:src="@drawable/user_profile_default"
-        android:layout_height="75dp"/>
-
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:weightSum="1">
 
     <LinearLayout
-        android:id="@+id/lyData"
-        android:padding="5dp"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
         android:layout_weight="0.8"
-        android:layout_gravity="center_vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="horizontal"
+        android:padding="12dp">
 
-        <TextView
+        <!--        <ImageView-->
+        <!--            android:id="@+id/photoUser"-->
+        <!--            android:layout_weight="0.1"-->
+        <!--            android:layout_width="75dp"-->
+        <!--            android:src="@drawable/user_profile_default"-->
+        <!--            android:layout_height="75dp" />-->
+
+        <LinearLayout
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_weight="0.1">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/photoUser"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:background="@drawable/rounded_img_layout" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lyData"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/id_user"
-            tools:text="id"
-            android:textSize="@dimen/fontNormal"
-            android:textColor="@android:color/black"/>
+            android:layout_gravity="center_vertical"
+            android:layout_weight="0.8"
+            android:orientation="vertical"
+            android:padding="5dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/name_user"
-            tools:text="name"
-            android:textSize="@dimen/fontNormal"
-            android:textColor="@android:color/black"/>
+            <TextView
+                android:id="@+id/id_user"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/fontNormal"
+                tools:text="id" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/status_user"
-            tools:text="status"
-            android:textSize="@dimen/fontNormal"
-            android:textColor="@android:color/black"/>
+            <TextView
+                android:id="@+id/name_user"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/fontNormal"
+                tools:text="name" />
 
+            <TextView
+                android:id="@+id/status_user"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/fontNormal"
+                tools:text="status" />
+
+        </LinearLayout>
     </LinearLayout>
 
     <Button
         android:id="@+id/btnAjukanPinjaman"
-        android:background="@drawable/btn_submit"
-        android:layout_width="wrap_content"
-        android:layout_weight="0.1"
-        android:layout_height="30dp"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
         android:layout_gravity="center_vertical"
         android:layout_marginStart="5dp"
-        android:layout_alignParentEnd="true"
+        android:layout_weight="0.2"
+        android:background="@drawable/btn_submit"
         android:text="Ajukan"
-        android:layout_centerVertical="true"
-        android:textColor="@android:color/white"/>
+        android:textColor="@android:color/white" />
 
 
 </LinearLayout>

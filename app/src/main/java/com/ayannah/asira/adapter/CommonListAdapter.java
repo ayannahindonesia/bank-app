@@ -28,6 +28,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -516,7 +517,8 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
      */
     class ViewBorrowerVH extends RecyclerView.ViewHolder{
 
-        @BindView(R.id.photoUser) ImageView ivPhotoUser;
+        @BindView(R.id.photoUser)
+        CircleImageView ivPhotoUser;
 
         @BindView(R.id.id_user) TextView idUser;
 
