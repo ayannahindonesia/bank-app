@@ -7,18 +7,18 @@
         android:icon="@drawable/bottom_menu_beranda"/>
 
     <item
-        android:id="@+id/pinjaman"
-        android:title="Pinjaman"
+        android:id="@+id/dataPinjaman"
+        android:title="Data Pinjaman"
         android:icon="@drawable/bottom_menu_pinjaman"/>
 
     <item
-        android:id="@+id/rewards"
-        android:title="Rewards"
+        android:id="@+id/dataPencairan"
+        android:title="Data Pencairan"
         android:icon="@drawable/bottom_menu_rewards"/>
 
     <item
-        android:id="@+id/profile"
-        android:title="Profil"
+        android:id="@+id/akun"
+        android:title="Akun"
         android:icon="@drawable/bottom_menu_akun"/>
 
 

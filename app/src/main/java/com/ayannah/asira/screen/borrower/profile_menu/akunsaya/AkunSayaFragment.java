@@ -112,7 +112,7 @@ public class AkunSayaFragment extends BaseFragment implements AkunSayaContract.V
     @Override
     public void showDataUser(PreferenceRepository preferenceRepository) {
 
-        ImageUtils.displayImageFromUrlWithErrorDrawable(parentActivity(), imgUser, "", null, R.drawable.user_profile_default);
+        ImageUtils.displayImageFromUrlWithErrorDrawable(parentActivity(), imgUser, "", null);
         tvName.setText(preferenceRepository.getUserName().toUpperCase());
 
         phoneNumber.setText(formatPhoneString(preferenceRepository.getUserPhone()));

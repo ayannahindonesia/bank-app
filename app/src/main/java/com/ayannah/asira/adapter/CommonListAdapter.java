@@ -17,6 +17,7 @@ import com.ayannah.asira.data.model.Bank;
 import com.ayannah.asira.data.model.BankDetail;
 import com.ayannah.asira.data.model.BankList;
 import com.ayannah.asira.data.model.Loans.DataItem;
+import com.ayannah.asira.data.model.MenuAgent;
 import com.ayannah.asira.data.model.Notif;
 import com.ayannah.asira.data.model.UserBorrower;
 import com.ayannah.asira.util.CommonUtils;
@@ -36,6 +37,7 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public static final int VIEW_LIST_BORROWERS_LOAN_AGENT = 3;
     public static final int VIEW_BANK_LIST = 4;
     public static final int VIEW_LIST_TOPUP_TAGIHAN = 5;
+    public static final int VIEW_AGENT_MENU = 6;
 
 
     //for loan history purposes
@@ -53,6 +55,7 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private ArrayList<Integer> banksSelectedID;
     private ArrayList<Integer> banksSelectedIDServer;
     private List<String> menuTopupTagihan;
+    private List<MenuAgent> menuAgents;
 
     private CommonListListener.LoanAdapterListener loanListener;
     private CommonListListener.NotifAdapterListener notifListener;
@@ -60,6 +63,7 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private CommonListListener.ListLoanAgent listLoanAgentListener;
     private CommonListListener.BankListListener bankListListener;
     private CommonListListener.CommonStringItemClickListener commonStringItemClickListener;
+    private CommonListListener.MenuAgentListener menuAgentListener;
 
     public CommonListAdapter(int viewType){
         this.mViewType = viewType;
@@ -72,6 +76,7 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         banksSelectedID = new ArrayList<>();
         banksSelectedIDServer = new ArrayList<>();
         menuTopupTagihan = new ArrayList<>();
+        menuAgents = new ArrayList<>();
     }
 
     public void setDataNotificationMessages(List<Notif.Data> results){
@@ -134,6 +139,15 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         notifyDataSetChanged();
     }
 
+    public void setMenuAgent(List<MenuAgent> results){
+
+        menuAgents.clear();
+
+        menuAgents.addAll(results);
+
+        notifyDataSetChanged();
+    }
+
     //loan listener
     public void setOnClickListenerLoanAdapter(CommonListListener.LoanAdapterListener listenerLoanAdapter){
         this.loanListener = listenerLoanAdapter;
@@ -161,6 +175,10 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     public void setOnClickMenuTopUpTaguhan(CommonListListener.CommonStringItemClickListener clickMenuTopUpTaguhan){
         this.commonStringItemClickListener = clickMenuTopUpTaguhan;
+    }
+
+    public void setOnClickMenuAgent(CommonListListener.MenuAgentListener menuAgentListener){
+        this.menuAgentListener = menuAgentListener;
     }
 
     @NonNull
@@ -201,6 +219,11 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             case VIEW_LIST_TOPUP_TAGIHAN:
 
                 holder = new ViewTopupTaguhanViwewHolder(inflater.inflate(R.layout.item_topup_tagihan, parent, false));
+                break;
+
+            case VIEW_AGENT_MENU:
+
+                holder = new MenuAgentViewHolder(inflater.inflate(R.layout.item_menu_agent, parent, false));
                 break;
 
             default:
@@ -252,6 +275,12 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 ((ViewTopupTaguhanViwewHolder) holder).bind(menuTopupTagihan.get(position));
 
                 break;
+
+            case VIEW_AGENT_MENU:
+
+                ((MenuAgentViewHolder) holder).bind(menuAgents.get(position));
+
+                break;
         }
 
     }
@@ -291,6 +320,11 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             case VIEW_LIST_TOPUP_TAGIHAN:
 
                 selected = VIEW_LIST_TOPUP_TAGIHAN;
+                break;
+
+            case VIEW_AGENT_MENU:
+
+                selected = VIEW_AGENT_MENU;
                 break;
         }
 
@@ -332,6 +366,11 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             case VIEW_LIST_TOPUP_TAGIHAN:
 
                 totals = menuTopupTagihan.size();
+                break;
+
+            case VIEW_AGENT_MENU:
+
+                totals = menuAgents.size();
                 break;
 
         }
@@ -494,7 +533,7 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         private void bind(UserBorrower param){
 
-            ImageUtils.displayImageFromUrlWithErrorDrawable(itemView.getContext(), ivPhotoUser, param.getImage(), null, R.drawable.custom_progressbar);
+            ImageUtils.displayImageFromUrlWithErrorDrawable(itemView.getContext(), ivPhotoUser, param.getImage(), null);
 
             idUser.setText(String.valueOf(param.getId()));
 
@@ -612,6 +651,31 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             title.setText(item);
 
             itemView.setOnClickListener(v -> commonStringItemClickListener.onClickItem(item));
+
+        }
+    }
+
+    /*
+        To Menu Agent
+     */
+    class MenuAgentViewHolder extends RecyclerView.ViewHolder{
+
+        @BindView(R.id.title)
+                TextView title;
+
+        @BindView(R.id.imgMenu)
+                ImageView imgMenu;
+
+        MenuAgentViewHolder(View itemView){
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+        }
+
+        private void bind(MenuAgent param){
+
+            title.setText(param.getName());
+
+            imgMenu.setImageResource(param.getImg());
 
         }
     }

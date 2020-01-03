@@ -31,6 +31,8 @@ import com.ayannah.asira.screen.agent.selectbank.SelectBankActivity;
 import com.ayannah.asira.screen.agent.selectbank.SelectBankModule;
 import com.ayannah.asira.screen.agent.services.ListServicesAgentActivity;
 import com.ayannah.asira.screen.agent.services.ListServicesAgentModule;
+import com.ayannah.asira.screen.agent.tab_beranda.BerandaModule;
+import com.ayannah.asira.screen.agent.tab_data_pinjaman.DataPinjamanModule;
 import com.ayannah.asira.screen.agent.viewBorrower.ViewBorrowerActivity;
 import com.ayannah.asira.screen.agent.viewBorrower.ViewBorrowerModule;
 import com.ayannah.asira.screen.borrower.borrower_landing_page.BorrowerLandingModule;
@@ -180,7 +182,11 @@ abstract class ActivityBindingModule {
     abstract NotifPageActivity notifPageActivity();
 
     @ActivityScoped
-    @ContributesAndroidInjector(modules = LPAgentModule.class)
+    @ContributesAndroidInjector(modules = {
+            LPAgentModule.class,
+            BerandaModule.class,
+            DataPinjamanModule.class
+    })
     abstract LPAgentActivity lpAgentActivity();
 
     @ActivityScoped

@@ -21,7 +21,7 @@ public class LPAgentActivity extends DaggerAppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.agent_activity_lp_agent_activtiy);
+        setContentView(R.layout.base_activity_landing_page);
         mUnbinder = ButterKnife.bind(this);
 
         LPAgentFragment lpAgentFragment = (LPAgentFragment)getSupportFragmentManager()

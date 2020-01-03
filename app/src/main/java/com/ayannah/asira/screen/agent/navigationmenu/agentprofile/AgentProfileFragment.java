@@ -140,7 +140,7 @@ public class AgentProfileFragment extends BaseFragment implements AgentProfileCo
     @Override
     public void loadAgentProfile(PreferenceRepository preferenceRepository) {
 
-        ImageUtils.displayImageFromUrlWithErrorDrawable(parentActivity(), imgProfile, preferenceRepository.getAgentProfileImage(), null, R.drawable.user_profile_default);
+        ImageUtils.displayImageFromUrlWithErrorDrawable(parentActivity(), imgProfile, preferenceRepository.getAgentProfileImage(), null);
 
         if (preferenceRepository.getAgentCategory().toLowerCase().equals("account_executive")) {
             txtAgentProvider.setText(preferenceRepository.getAgentBanksName());

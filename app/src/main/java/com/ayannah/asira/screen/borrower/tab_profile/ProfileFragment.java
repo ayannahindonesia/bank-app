@@ -65,7 +65,7 @@ public class ProfileFragment extends BaseFragment implements ProfileContract.Vie
     @Override
     public void userIdentity(PreferenceRepository user) {
 
-        ImageUtils.displayImageFromUrlWithErrorDrawable(parentActivity(), ivImage, "", null, R.drawable.user_profile_default);
+        ImageUtils.displayImageFromUrlWithErrorDrawable(parentActivity(), ivImage, "", null);
 
         name.setText(user.getUserName().toUpperCase());
 

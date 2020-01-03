@@ -84,8 +84,10 @@ public class ChooseBankAdapter extends RecyclerView.Adapter<ChooseBankAdapter.Ch
 
         private void binf(BankDetail bank){
 
-            ImageUtils.displayImageFromUrlWithErrorDrawable(itemView.getContext(), icBank, bank.getImage(), null, R.drawable.ic_bank);
+            ImageUtils.displayImageFromUrlWithErrorDrawable(itemView.getContext(), icBank, bank.getImage(), null);
+
             nameBank.setText(bank.getName());
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

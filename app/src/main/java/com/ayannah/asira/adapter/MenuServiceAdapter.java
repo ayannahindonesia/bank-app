@@ -110,7 +110,7 @@ public class MenuServiceAdapter extends RecyclerView.Adapter<MenuServiceAdapter.
 
         private void bind(BankService.Data param){
 
-            ImageUtils.displayImageFromUrlWithErrorDrawable(itemView.getContext(), ivIconProduct, param.getImage(), null, R.drawable.custom_progressbar);
+            ImageUtils.displayImageFromUrlWithErrorDrawable(itemView.getContext(), ivIconProduct, param.getImage(), null);
 
             if(param.getName().contains("Pinjaman")) {
                 tvNameProduct.setText(param.getName().substring(8));

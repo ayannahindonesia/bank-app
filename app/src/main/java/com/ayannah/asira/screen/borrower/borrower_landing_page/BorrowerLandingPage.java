@@ -23,7 +23,7 @@ public class BorrowerLandingPage extends DaggerAppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activtiy_borrower_landing_page);
+        setContentView(R.layout.base_activity_landing_page);
         mUnbinder = ButterKnife.bind(this);
 
         BorrowerLandingFragment borrowerLandingFragment = (BorrowerLandingFragment)getSupportFragmentManager()

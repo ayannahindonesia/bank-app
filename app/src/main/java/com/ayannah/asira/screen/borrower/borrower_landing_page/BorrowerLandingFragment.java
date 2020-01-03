@@ -9,7 +9,6 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.Toolbar;
 
 import com.ayannah.asira.R;
-import com.ayannah.asira.R2;
 import com.ayannah.asira.base.BaseFragment;
 import com.ayannah.asira.screen.borrower.tab_beranda.MainMenuFragment;
 import com.ayannah.asira.screen.borrower.tab_historyloan.HistoryLoanFragment;
@@ -40,7 +39,7 @@ public class BorrowerLandingFragment extends BaseFragment implements BorrowerLan
 
     @Override
     protected int getLayoutView() {
-        return R.layout.fragment_borrower_landing_page;
+        return R.layout.base_fragment_landing_page;
     }
 
     @Override
