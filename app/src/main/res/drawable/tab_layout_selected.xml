@@ -4,6 +4,7 @@
     android:shape="rectangle">
 
     <corners android:radius="25dp"/>
+    <stroke android:color="@color/colorAsiraText" android:width="3dp"/>
     <solid android:color="@color/colorAsiraWhite"/>
 
 </shape>
