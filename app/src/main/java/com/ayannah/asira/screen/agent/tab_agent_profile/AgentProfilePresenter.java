@@ -1,4 +1,4 @@
-package com.ayannah.asira.screen.agent.navigationmenu.agentprofile;
+package com.ayannah.asira.screen.agent.tab_agent_profile;
 
 import com.androidnetworking.common.ANConstants;
 import com.androidnetworking.error.ANError;
@@ -136,5 +136,15 @@ public class AgentProfilePresenter implements AgentProfileContract.Presenter {
                 }
             }
         }));
+    }
+
+    @Override
+    public void doLogout() {
+        if (mView == null) {
+            return;
+        }
+
+        preferenceRepository.clearAll();
+        mView.logoutComplete();
     }
 }

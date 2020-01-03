@@ -11,10 +11,8 @@ import com.ayannah.asira.screen.agent.loginagent.LoginAgentActivity;
 import com.ayannah.asira.screen.agent.loginagent.LoginAgentModule;
 import com.ayannah.asira.screen.agent.lpagent.LPAgentActivity;
 import com.ayannah.asira.screen.agent.lpagent.LPAgentModule;
-import com.ayannah.asira.screen.agent.navigationmenu.agentprofile.AgentProfileActivity;
 import com.ayannah.asira.screen.agent.navigationmenu.agentprofile.ListBanks.AgentProfileBankListActivity;
 import com.ayannah.asira.screen.agent.navigationmenu.agentprofile.ListBanks.AgentProfileBankListModule;
-import com.ayannah.asira.screen.agent.navigationmenu.agentprofile.AgentProfileModule;
 import com.ayannah.asira.screen.agent.registerborrower.addaccountbank.AddAccountBankAgentActivity;
 import com.ayannah.asira.screen.agent.registerborrower.addaccountbank.AddAccountBankAgentModule;
 import com.ayannah.asira.screen.agent.registerborrower.adddoc.AddDocumentAgentActivity;
@@ -31,6 +29,7 @@ import com.ayannah.asira.screen.agent.selectbank.SelectBankActivity;
 import com.ayannah.asira.screen.agent.selectbank.SelectBankModule;
 import com.ayannah.asira.screen.agent.services.ListServicesAgentActivity;
 import com.ayannah.asira.screen.agent.services.ListServicesAgentModule;
+import com.ayannah.asira.screen.agent.tab_agent_profile.AgentProfileModule;
 import com.ayannah.asira.screen.agent.tab_beranda.BerandaModule;
 import com.ayannah.asira.screen.agent.tab_data_pinjaman.DataPinjamanModule;
 import com.ayannah.asira.screen.agent.viewBorrower.ViewBorrowerActivity;
@@ -185,7 +184,8 @@ abstract class ActivityBindingModule {
     @ContributesAndroidInjector(modules = {
             LPAgentModule.class,
             BerandaModule.class,
-            DataPinjamanModule.class
+            DataPinjamanModule.class,
+            AgentProfileModule.class
     })
     abstract LPAgentActivity lpAgentActivity();
 
@@ -248,10 +248,6 @@ abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = SelectBankModule.class)
     abstract SelectBankActivity selectBankActivity();
-
-    @ActivityScoped
-    @ContributesAndroidInjector(modules = AgentProfileModule.class)
-    abstract AgentProfileActivity agentProfileActivity();
 
     @ActivityScoped
     @ContributesAndroidInjector(modules = AgentProfileBankListModule.class)

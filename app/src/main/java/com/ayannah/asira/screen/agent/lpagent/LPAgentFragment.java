@@ -16,9 +16,9 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.ayannah.asira.R;
 import com.ayannah.asira.base.BaseFragment;
-import com.ayannah.asira.screen.agent.navigationmenu.agentprofile.AgentProfileActivity;
 import com.ayannah.asira.screen.agent.registerborrower.choosebank.ChooseBankAgentActivity;
 import com.ayannah.asira.screen.agent.selectbank.SelectBankActivity;
+import com.ayannah.asira.screen.agent.tab_agent_profile.AgentProfileFragment;
 import com.ayannah.asira.screen.agent.tab_beranda.BerandaFragment;
 import com.ayannah.asira.screen.agent.tab_data_pinjaman.DataPinjamanFragment;
 import com.ayannah.asira.screen.agent.viewBorrower.ViewBorrowerActivity;
@@ -73,6 +73,7 @@ public class LPAgentFragment extends BaseFragment implements LPAgentContract.Vie
 
         BerandaFragment beranda = new BerandaFragment();
         DataPinjamanFragment dataPinjaman = new DataPinjamanFragment();
+        AgentProfileFragment agentProfil = new AgentProfileFragment();
 
         ActivityUtils.replaceFragmentToActivity(getFragmentManager(), beranda, R.id.tab_menus);
 
@@ -92,7 +93,7 @@ public class LPAgentFragment extends BaseFragment implements LPAgentContract.Vie
                     return true;
 
                 case R.id.akun:
-
+                    ActivityUtils.replaceFragmentToActivity(getFragmentManager(), agentProfil, R.id.tab_menus);
                     return true;
 
 

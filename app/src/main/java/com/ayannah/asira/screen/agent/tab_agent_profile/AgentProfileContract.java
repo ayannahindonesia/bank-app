@@ -1,14 +1,11 @@
-package com.ayannah.asira.screen.agent.navigationmenu.agentprofile;
+package com.ayannah.asira.screen.agent.tab_agent_profile;
 
 import com.ayannah.asira.base.BasePresenter;
 import com.ayannah.asira.base.BaseView;
 import com.ayannah.asira.data.local.PreferenceRepository;
 import com.google.gson.JsonObject;
 
-import org.json.JSONObject;
-
 public interface AgentProfileContract {
-
     interface View extends BaseView<Presenter> {
 
         void showErrorMessage(String message);
@@ -20,6 +17,8 @@ public interface AgentProfileContract {
         void successUpdatePhotoAgent();
 
         void setAgentProviderName(String name);
+
+        void logoutComplete();
     }
 
     interface Presenter extends BasePresenter<View> {
@@ -31,5 +30,7 @@ public interface AgentProfileContract {
         void patchAgentPhotoProfile(String pict);
 
         void getProviderName(String agentProvider);
+
+        void doLogout();
     }
 }

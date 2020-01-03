@@ -1,4 +1,4 @@
-package com.ayannah.asira.screen.agent.navigationmenu.agentprofile;
+package com.ayannah.asira.screen.agent.tab_agent_profile;
 
 import android.Manifest;
 import android.content.DialogInterface;
@@ -10,6 +10,7 @@ import android.provider.MediaStore;
 import android.util.Base64;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +23,7 @@ import com.ayannah.asira.base.BaseFragment;
 import com.ayannah.asira.data.local.PreferenceRepository;
 import com.ayannah.asira.data.model.BankDetail;
 import com.ayannah.asira.screen.agent.navigationmenu.agentprofile.ListBanks.AgentProfileBankListActivity;
+import com.ayannah.asira.screen.chooselogin.ChooseLoginActivity;
 import com.ayannah.asira.util.ImageUtils;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -86,7 +88,7 @@ public class AgentProfileFragment extends BaseFragment implements AgentProfileCo
     CircleImageView imgProfile;
 
     @BindView(R.id.rltBankService)
-    RelativeLayout rltBankService;
+    LinearLayout rltBankService;
 
     @BindView(R.id.txtBankServiceTitle)
     TextView txtBankServiceTitle;
@@ -118,7 +120,7 @@ public class AgentProfileFragment extends BaseFragment implements AgentProfileCo
 
     @Override
     protected int getLayoutView() {
-        return R.layout.fragment_agent_profile;
+        return R.layout.fragment_akun_saya_agent;
     }
 
     @Override
@@ -188,9 +190,9 @@ public class AgentProfileFragment extends BaseFragment implements AgentProfileCo
     public void successUpdateProfileAgent() {
         Toast.makeText(parentActivity(), "Data Berhasil Dirubah", Toast.LENGTH_SHORT).show();
 
-        Intent intent = new Intent(parentActivity(), AgentProfileActivity.class);
-        startActivity(intent);
-        parentActivity().finish();
+//        Intent intent = new Intent(parentActivity(), AgentProfileActivity.class);
+//        startActivity(intent);
+//        parentActivity().finish();
     }
 
     @Override
@@ -202,6 +204,14 @@ public class AgentProfileFragment extends BaseFragment implements AgentProfileCo
     @Override
     public void setAgentProviderName(String name) {
         txtAgentProvider.setText(name);
+    }
+
+    @Override
+    public void logoutComplete() {
+        Intent logout = new Intent(parentActivity(), ChooseLoginActivity.class);
+        logout.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(logout);
+        parentActivity().finish();
     }
 
     @Override
@@ -357,5 +367,34 @@ public class AgentProfileFragment extends BaseFragment implements AgentProfileCo
     @OnClick(R.id.btnSaveAgentProfile)
     void saveProfile() {
         validator.validate();
+    }
+
+    @OnClick(R.id.btnSignout)
+    void signOut() {
+        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which) {
+                    case DialogInterface.BUTTON_POSITIVE:
+
+                        mPresenter.doLogout();
+
+                        break;
+
+                    case DialogInterface.BUTTON_NEGATIVE:
+
+                        dialog.cancel();
+
+                        break;
+                }
+            }
+        };
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(parentActivity());
+        builder.setMessage("Apakah Anda Yakin Keluar?")
+                .setPositiveButton("Ya", dialogClickListener)
+                .setNegativeButton("Tidak", dialogClickListener)
+                .show();
+
     }
 }

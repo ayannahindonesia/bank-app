@@ -605,7 +605,7 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     class BankListHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.listLltBank) LinearLayout listLltBank;
-        @BindView(R.id.listImgBank) ImageView listImgBank;
+//        @BindView(R.id.listImgBank) ImageView listImgBank;
         @BindView(R.id.listTxtBankName) TextView listTxtBankName;
 
         BankListHolder(View itemView) {

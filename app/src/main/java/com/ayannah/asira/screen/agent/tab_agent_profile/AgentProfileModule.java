@@ -1,4 +1,4 @@
-package com.ayannah.asira.screen.agent.navigationmenu.agentprofile;
+package com.ayannah.asira.screen.agent.tab_agent_profile;
 
 import com.ayannah.asira.di.ActivityScoped;
 import com.ayannah.asira.di.FragmentScoped;

@@ -2,7 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/colorAsiraPrimary"
+    android:background="@color/graybackground"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -94,6 +94,8 @@
                         android:inputType="textPersonName"
                         android:textColor="@android:color/black"
                         android:textSize="@dimen/fontNormal"
+                        android:backgroundTint="@color/colorAsiraText"
+                        android:fontFamily="@font/manrope_extrabold"
                         android:imeOptions="actionNext"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -115,6 +117,8 @@
                         android:textSize="@dimen/fontNormal"
                         android:imeOptions="actionNext"
                         android:layout_width="match_parent"
+                        android:backgroundTint="@color/colorAsiraText"
+                        android:fontFamily="@font/manrope_extrabold"
                         android:layout_height="wrap_content"
                         tools:ignore="Autofill" />
 
@@ -143,6 +147,7 @@
                             android:fontFamily="@font/manrope_bold"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:buttonTint="@color/textColorAsira"
                             android:checked="true" />
 
                         <RadioButton
@@ -153,6 +158,7 @@
                             android:textColor="@color/colorAsiraText"
                             android:fontFamily="@font/manrope_bold"
                             android:enabled="false"
+                            android:buttonTint="@color/textColorAsira"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
 
@@ -181,6 +187,7 @@
                             android:layout_weight="0.5"
                             android:textColor="@color/colorAsiraText"
                             android:fontFamily="@font/manrope_bold"
+                            android:buttonTint="@color/textColorAsira"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
 
@@ -191,6 +198,7 @@
                             android:layout_weight="0.5"
                             android:textColor="@color/colorAsiraText"
                             android:fontFamily="@font/manrope_bold"
+                            android:buttonTint="@color/textColorAsira"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
 
@@ -232,6 +240,8 @@
                         android:inputType="textPersonName"
                         android:imeOptions="actionNext"
                         android:textSize="@dimen/fontNormal"
+                        android:backgroundTint="@color/colorAsiraText"
+                        android:fontFamily="@font/manrope_extrabold"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         tools:ignore="Autofill" />
@@ -267,6 +277,8 @@
                         android:hint="Maria Dela Cruz"
                         android:inputType="textPersonName"
                         android:imeOptions="actionNext"
+                        android:backgroundTint="@color/colorAsiraText"
+                        android:fontFamily="@font/manrope_extrabold"
                         android:textSize="@dimen/fontNormal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -325,6 +337,8 @@
                         android:imeOptions="actionNext"
                         android:textSize="@dimen/fontNormal"
                         android:layout_width="match_parent"
+                        android:backgroundTint="@color/colorAsiraText"
+                        android:fontFamily="@font/manrope_extrabold"
                         android:layout_height="wrap_content"
                         tools:ignore="Autofill" />
 
@@ -427,6 +441,8 @@
                         android:hint="Tulis disini..."
                         android:gravity="top"
                         android:imeOptions="actionNext"
+                        android:backgroundTint="@color/colorAsiraText"
+                        android:fontFamily="@font/manrope_extrabold"
                         android:textSize="@dimen/fontNormal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -549,6 +565,8 @@
                                 android:inputType="number"
                                 android:layout_weight="1"
                                 android:textSize="@dimen/fontNormal"
+                                android:backgroundTint="@color/colorAsiraText"
+                                android:fontFamily="@font/manrope_extrabold"
                                 android:maxLength="3"
                                 android:imeOptions="actionNext"
                                 android:layout_width="match_parent"
@@ -560,6 +578,8 @@
                                 android:maxLength="3"
                                 android:inputType="number"
                                 android:layout_weight="1"
+                                android:backgroundTint="@color/colorAsiraText"
+                                android:fontFamily="@font/manrope_extrabold"
                                 android:textSize="@dimen/fontNormal"
                                 android:imeOptions="actionNext"
                                 android:layout_width="match_parent"
@@ -583,6 +603,8 @@
                         android:inputType="phone"
                         android:imeOptions="actionNext"
                         android:hint="02112345678"
+                        android:backgroundTint="@color/colorAsiraText"
+                        android:fontFamily="@font/manrope_extrabold"
                         android:textSize="@dimen/fontNormal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -614,8 +636,9 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="6dp"
                             android:layout_gravity="center_vertical"
+                            android:fontFamily="@font/manrope_extrabold"
                             android:text="Tahun"
-                            android:textColor="@android:color/black"
+                            android:textColor="@color/textColorAsira"
                             android:textSize="@dimen/fontLarge" />
 
                     </LinearLayout>
