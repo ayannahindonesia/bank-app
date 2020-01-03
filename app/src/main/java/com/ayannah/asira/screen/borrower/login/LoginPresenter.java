@@ -11,6 +11,7 @@ import com.androidnetworking.error.ANError;
 import com.ayannah.asira.data.local.PreferenceRepository;
 import com.ayannah.asira.data.remote.RemoteRepository;
 import com.ayannah.asira.util.CommonUtils;
+import com.ayannah.asira.util.MyFirebaseMessagingService;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.JsonObject;
 
@@ -232,13 +233,11 @@ public class LoginPresenter implements LoginContract.Presenter {
 
     private void sendFCMTokenUser() {
 
-        String token = FirebaseInstanceId.getInstance().getToken();
-
         if(mView == null){
             return;
         }
 
-        mComposite.add(remotRepo.sendUserFCMToken(token)
+        mComposite.add(remotRepo.sendUserFCMToken(MyFirebaseMessagingService.TOKEN_FCM)
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(res -> {

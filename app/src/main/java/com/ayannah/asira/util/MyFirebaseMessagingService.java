@@ -31,6 +31,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss'Z'", Locale.getDefault());
     private SimpleDateFormat sdf_normal = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault());
 
+    public static String TOKEN_FCM;
+
     private NotificationManager notificationManager;
     private int NOTIF_LOAN = 1;
     private String CHANNEL_ID = "ASIRA_CHANNEL";
@@ -41,6 +43,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         super.onNewToken(token);
 
         Log.e(TAG, "onNewToken: "+token);
+        TOKEN_FCM = token;
     }
 
     @Override

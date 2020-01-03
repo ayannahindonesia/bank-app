@@ -661,10 +661,10 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     class MenuAgentViewHolder extends RecyclerView.ViewHolder{
 
         @BindView(R.id.title)
-                TextView title;
+        TextView title;
 
         @BindView(R.id.imgMenu)
-                ImageView imgMenu;
+        ImageView imgMenu;
 
         MenuAgentViewHolder(View itemView){
             super(itemView);
@@ -676,6 +676,8 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             title.setText(param.getName());
 
             imgMenu.setImageResource(param.getImg());
+
+            itemView.setOnClickListener(v -> menuAgentListener.onClick(param));
 
         }
     }

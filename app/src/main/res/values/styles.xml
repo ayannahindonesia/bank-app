@@ -60,4 +60,10 @@
         <item name="android:textSize">@dimen/fontNormal</item>
     </style>
 
+    <style name="TextTabLayout" parent="TextAppearance.Design.Tab">
+        <item name="textAllCaps">false</item>
+        <item name="android:fontFamily">@font/manrope_bold</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
 </resources>
