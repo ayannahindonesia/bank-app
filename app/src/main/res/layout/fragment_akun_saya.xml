@@ -71,7 +71,7 @@
 
         <View
             android:layout_marginTop="@dimen/_5sdp"
-            android:background="@color/colorAsiraDarkBlue"
+            android:background="@color/colorAsiraText"
             android:layout_width="match_parent"
             android:layout_height="1.5dp"/>
 

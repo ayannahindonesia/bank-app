@@ -26,8 +26,8 @@
         <ImageView
             android:id="@+id/iconProduct"
             android:layout_gravity="center_horizontal"
-            android:layout_width="80dp"
-            android:layout_height="60dp" />
+            android:layout_width="60dp"
+            android:layout_height="45dp" />
 
         <TextView
             android:id="@+id/nameProduct"
