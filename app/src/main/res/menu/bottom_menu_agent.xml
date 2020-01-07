@@ -14,7 +14,7 @@
     <item
         android:id="@+id/dataPencairan"
         android:title="Data Pencairan"
-        android:icon="@drawable/bottom_menu_rewards"/>
+        android:icon="@drawable/ic_penchairan"/>
 
     <item
         android:id="@+id/akun"

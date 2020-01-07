@@ -17,6 +17,7 @@ import com.ayannah.asira.data.model.UserBorrower;
 import com.ayannah.asira.dialog.BottomChangingIncome;
 import com.ayannah.asira.screen.agent.loan.LoanAgentActivity;
 import com.ayannah.asira.screen.loan.LoanActivity;
+import com.ayannah.asira.util.CommonUtils;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
@@ -125,9 +126,7 @@ public class EarningFragment extends BaseFragment implements EarningContract.Vie
                     originalPenghaislan = s.toString();
 
                     long longval;
-                    if(originalPenghaislan.contains(",")){
-                        originalPenghaislan = originalPenghaislan.replaceAll(",", "");
-                    }
+                    originalPenghaislan = CommonUtils.removeDelimeter(originalPenghaislan);
                     longval = Long.parseLong(originalPenghaislan);
 
                     DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance(Locale.getDefault());
@@ -168,9 +167,7 @@ public class EarningFragment extends BaseFragment implements EarningContract.Vie
                     originalStringPendapatanLain = s.toString();
 
                     long longval;
-                    if(originalStringPendapatanLain.contains(",")){
-                        originalStringPendapatanLain = originalStringPendapatanLain.replaceAll(",", "");
-                    }
+                    originalStringPendapatanLain = CommonUtils.removeDelimeter(originalStringPendapatanLain);
                     longval = Long.parseLong(originalStringPendapatanLain);
 
                     DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance(Locale.getDefault());
