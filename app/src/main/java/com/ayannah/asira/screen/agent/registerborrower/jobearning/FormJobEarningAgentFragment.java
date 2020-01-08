@@ -36,7 +36,7 @@ public class FormJobEarningAgentFragment extends BaseFragment implements Validat
     @BindView(R.id.spJenisPekerjaan)
     Spinner spJenisPekerjaan;
 
-    @NotEmpty(message = "Masukan Gaji Anda", trim = true)
+    @NotEmpty(message = "Masukan Gaji Nasabah Baru", trim = true)
     @BindView(R.id.etGajiBulanan)
     EditText etGajiBulanan;
 
@@ -46,31 +46,31 @@ public class FormJobEarningAgentFragment extends BaseFragment implements Validat
     @BindView(R.id.etSumberPendapatanLain)
     EditText etSumberPendaptanLain;
 
-    @NotEmpty(message = "Masukan Nomor Induk Pegawai Anda", trim = true)
+    @NotEmpty(message = "Masukan Nomor Induk Pegawai Nasabah Baru", trim = true)
     @BindView(R.id.etEmployeeID)
     EditText etEmployeeID;
 
-    @NotEmpty(message = "Masukan Nama Perusahaan\nTempat Anda Bekerja", trim = true)
+    @NotEmpty(message = "Masukan Nama Perusahaan\nTempat Nasabah Baru Bekerja", trim = true)
     @BindView(R.id.etCompanyName)
     EditText etCompanyName;
 
-    @NotEmpty(message = "Masukan Lama Anda Bekerja", trim = true)
+    @NotEmpty(message = "Masukan Lama Nasabah Baru Bekerja", trim = true)
     @BindView(R.id.etLamaBekerja)
     EditText etLamaBekerja;
 
-    @NotEmpty(message = "Masukan Alamat Perusahaan\nTempat Anda Bekerja", trim = true)
+    @NotEmpty(message = "Masukan Alamat Perusahaan\nTempat Nasabah Baru Bekerja", trim = true)
     @BindView(R.id.etAlamatKantor)
     EditText etAlamatKantor;
 
-//    @NotEmpty(message = "Masukan No Telpon Perusahaan\nTempat Anda Bekerja", trim = true)
+//    @NotEmpty(message = "Masukan No Telpon Perusahaan\nTempat Nasabah Baru Bekerja", trim = true)
     @BindView(R.id.etCompanyPhone)
     EditText etCompanyPhone;
 
-    @NotEmpty(message = "Masukan Nama Atasan Anda", trim = true)
+    @NotEmpty(message = "Masukan Nama Atasan Nasabah Baru", trim = true)
     @BindView(R.id.etSpvName)
     EditText etSpvName;
 
-    @NotEmpty(message = "Masukan Jabatan Anda", trim = true)
+    @NotEmpty(message = "Masukan Jabatan Nasabah Baru", trim = true)
     @BindView(R.id.etJobTitle)
     EditText etJobTitle;
 

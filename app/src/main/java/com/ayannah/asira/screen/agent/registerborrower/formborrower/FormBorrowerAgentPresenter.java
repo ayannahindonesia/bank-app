@@ -62,7 +62,6 @@ public class FormBorrowerAgentPresenter implements FormBorrowerAgentContract.Pre
 
                     if(!response.isSuccess()){
 
-                        Toast.makeText(app, response.getMessage(), Toast.LENGTH_SHORT).show();
                         mView.showProvices(response.getSemuaprovinsi());
                     }
                 }, error ->{

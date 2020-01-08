@@ -98,6 +98,12 @@ public class LoanAgentFragment extends BaseFragment implements LoanAgentContract
     @BindView(R.id.plafondCustom)
     PlafondEditText plafondCustom;
 
+    @BindView(R.id.txtOtherReasonTitle)
+    TextView txtOtherReasonTitle;
+
+    @BindView(R.id.txtReasonTitle)
+    TextView txtReasonTitle;
+
     @Inject
     String idService;
 
@@ -146,6 +152,9 @@ public class LoanAgentFragment extends BaseFragment implements LoanAgentContract
     public void onResume() {
         super.onResume();
         mPresenter.takeView(this);
+
+        txtOtherReasonTitle.setText("Mohon Masukan Alasan Nasabah Baru Meminjam");
+        txtReasonTitle.setText("Apa alasan nasabah baru mengajukan peminjaman?");
 
         if (getActivity().getIntent().getStringExtra("isFrom").toLowerCase().equals("agent")) {
             userBorrower = (UserBorrower) getActivity().getIntent().getSerializableExtra("user");

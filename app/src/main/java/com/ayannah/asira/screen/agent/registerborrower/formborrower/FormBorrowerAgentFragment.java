@@ -53,11 +53,11 @@ public class FormBorrowerAgentFragment extends BaseFragment implements FormBorro
     @Inject
     FormBorrowerAgentContract.Presenter mPresenter;
 
-    @NotEmpty(message = "Masukan Nama Anda", trim = true)
+    @NotEmpty(message = "Masukan Nama Nasabah Baru", trim = true)
     @BindView(R.id.regist_name)
     EditText etNameBorrower;
 
-    @Checked(message = "Pilih Jenis Kelamin Anda")
+    @Checked(message = "Pilih Jenis Kelamin Nasabah Baru")
     @BindView(R.id.rgJenisKelamin)
     RadioGroup rgJenisKelamin;
 
@@ -70,7 +70,7 @@ public class FormBorrowerAgentFragment extends BaseFragment implements FormBorro
     @BindView(R.id.tvGender)
     TextView tvGender;
 
-    @NotEmpty(message = "Masukan Tempat Lahir Anda", trim = true)
+    @NotEmpty(message = "Masukan Tempat Lahir Nasabah Baru", trim = true)
     @BindView(R.id.regist_tempatLahir)
     EditText etTempatLahir;
 
@@ -82,7 +82,7 @@ public class FormBorrowerAgentFragment extends BaseFragment implements FormBorro
     @NotEmpty(trim = true)
     EditText etNamaPasangan;
 
-    @NotEmpty(message = "Masukan Alamat Anda", trim = true)
+    @NotEmpty(message = "Masukan Alamat Nasabah Baru", trim = true)
     @BindView(R.id.regist_alamatDomisili)
     EditText etAlamatDomisili;
 
@@ -150,7 +150,7 @@ public class FormBorrowerAgentFragment extends BaseFragment implements FormBorro
     @BindView(R.id.rbWNA)
     RadioButton rbwna;
 
-    @NotEmpty(trim = true, message = "Masukan Nama Panggilan Anda")
+    @NotEmpty(trim = true, message = "Masukan Nama Panggilan Nasabah Baru")
     @BindView(R.id.regist_nickname)
     EditText regist_nickname;
 
@@ -251,19 +251,19 @@ public class FormBorrowerAgentFragment extends BaseFragment implements FormBorro
 
         if (tvDateBirthBorrower.getText().equals("dd-mm-yyyy")) {
 
-            tvDateBirthBorrower.setError("Pilih Tanggal Lahir Anda");
+            tvDateBirthBorrower.setError("Pilih Tanggal Lahir Nasabah Baru");
 
             tvDateBirthBorrower.setFocusableInTouchMode(true);
 
             tvDateBirthBorrower.requestFocus();
 
-            Toast.makeText(parentActivity(), "Pilih Tanggal Lahir Anda", Toast.LENGTH_LONG).show();
+            Toast.makeText(parentActivity(), "Pilih Tanggal Lahir Nasabah Baru", Toast.LENGTH_LONG).show();
 
         } else if (spPerkawinan.getSelectedItem().toString().equals("Menikah")) {
 
             if (etNamaPasangan.getText().toString().equals("")) {
 
-                etNamaPasangan.setError("Masukan Nama Pasangan Anda");
+                etNamaPasangan.setError("Masukan Nama Pasangan Nasabah Baru");
 
                 etNamaPasangan.requestFocus();
 
@@ -271,7 +271,7 @@ public class FormBorrowerAgentFragment extends BaseFragment implements FormBorro
 
                 regist_dateBirthSpouse.setError("");
 
-                Toast.makeText(parentActivity(), "Pilih Tanggal Lahir Pasangan Anda", Toast.LENGTH_LONG).show();
+                Toast.makeText(parentActivity(), "Pilih Tanggal Lahir Pasangan Nasabah Baru", Toast.LENGTH_LONG).show();
 
             } else {
 

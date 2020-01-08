@@ -98,7 +98,7 @@ public class FormOtherAgentFragment extends BaseFragment implements FormOtherAge
     @BindView(R.id.spHubungan)
     Spinner spHubungan;
 
-    @NotEmpty(message = "Masukan No Handphone Kerabat Anda", trim = true)
+    @NotEmpty(message = "Masukan No Handphone Kerabat Nasabah Baru", trim = true)
     @BindView(R.id.etRelatedHP)
     @Length(min = 10, message = "Minimal 10 digit, Maximal 14 digit", max = 14)
     EditText etRelatedHP;
@@ -106,11 +106,11 @@ public class FormOtherAgentFragment extends BaseFragment implements FormOtherAge
     @BindView(R.id.etRelatedPhone)
     EditText etRelatedPhone;
 
-    @NotEmpty(message = "Masukan Nama Kerabat Anda", trim = true)
+    @NotEmpty(message = "Masukan Nama Kerabat Nasabah Baru", trim = true)
     @BindView(R.id.etRelatedName)
     EditText etRelatedName;
 
-    @NotEmpty(message = "Masukan Alamat Kerabat Anda", trim = true)
+    @NotEmpty(message = "Masukan Alamat Kerabat Nasabah Baru", trim = true)
     @BindView(R.id.etRelatedAddress)
     EditText etRelatedAddress;
 

@@ -441,6 +441,7 @@
                 android:padding="@dimen/_16sdp">
 
                 <TextView
+                    android:id="@+id/txtReasonTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Apa alasan anda mengajukan peminjaman?"
@@ -491,6 +492,7 @@
                     android:visibility="gone">
 
                     <TextView
+                        android:id="@+id/txtOtherReasonTitle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Mohon Masukan Alasan Anda Meminjam"

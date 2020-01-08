@@ -134,8 +134,8 @@ public class AddDocumentAgentFragment extends BaseFragment implements AddDocumen
         ///show dialog instruction
         bottomDialog = new BottomSheetDialogGlobal().show(parentActivity().getSupportFragmentManager(),
                 BottomSheetDialogGlobal.KTP_NPWP,
-                "Upload kartu identitas anda",
-                "Silahkan menambahkan foto kartu identitas pribadi anda seperti KTP dan NPWP (opsional) pribadi anda",
+                "Upload kartu identitas nasabah baru",
+                "Silahkan menambahkan foto kartu identitas pribadi nasabah baru seperti KTP dan NPWP (opsional) pribadi nasabah baru",
                 R.drawable.identity_card);
         bottomDialog.setOnClickBottomSheetInstruction(new BottomSheetDialogGlobal.BottomSheetInstructionListener() {
             @Override
