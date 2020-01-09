@@ -48,7 +48,7 @@ public class AgentProfileBankListFragment extends BaseFragment implements AgentP
     TextView txtBanksNull;
 
     @Inject
-    CommonListAdapter mAdapterLoans;
+    CommonListAdapter mAdapterBanks;
 
     ArrayList<BankDetail> bankSelected = new ArrayList<>();
     private ArrayList<Integer> banksSelectedID = new ArrayList<>();
@@ -84,7 +84,7 @@ public class AgentProfileBankListFragment extends BaseFragment implements AgentP
         recyclerListBanks.setLayoutManager(new LinearLayoutManager(parentActivity()));
         recyclerListBanks.addItemDecoration(new DividerItemDecoration(parentActivity(), DividerItemDecoration.VERTICAL));
         recyclerListBanks.setHasFixedSize(true);
-        recyclerListBanks.setAdapter(mAdapterLoans);
+        recyclerListBanks.setAdapter(mAdapterBanks);
     }
 
     @Override
@@ -121,13 +121,13 @@ public class AgentProfileBankListFragment extends BaseFragment implements AgentP
             }
 
             removeDuplicates(bankSelected);
-            mAdapterLoans.setBanks(listBanks, banksSelectedID, banksSelectedIDServer);
+            mAdapterBanks.setBanks(listBanks, banksSelectedID, banksSelectedIDServer);
         } else {
             txtBanksNull.setVisibility(View.VISIBLE);
             recyclerListBanks.setVisibility(View.GONE);
         }
 
-        mAdapterLoans.setOnClickListenerBankList(new CommonListListener.BankListListener() {
+        mAdapterBanks.setOnClickListenerBankList(new CommonListListener.BankListListener() {
             @Override
             public void onClickItem(BankDetail bankDetail, View itemView, LinearLayout linearLayout) {
                 if (linearLayout.getBackground() == null) {

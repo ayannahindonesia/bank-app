@@ -291,8 +291,10 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
 
                 Date finalDueDate = dueDate;
                 if (currentTime[0].before(finalDueDate) || data.getStatus().toLowerCase().equals("processing") || !data.getDisburseStatus().equals("confirmed")) {
-                    statusLoan = "processing";
-                    isLoanReqAvail = true;
+                    if (!data.getStatus().toLowerCase().equals("rejected")) {
+                        statusLoan = "processing";
+                        isLoanReqAvail = true;
+                    }
                 }
 
             } catch (ParseException e) {

@@ -19,6 +19,8 @@ import com.ayannah.asira.screen.register.addaccountbank.AddAccountBankFragment;
 import com.ayannah.asira.screen.register.formothers.FormOtherFragment;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -82,7 +84,17 @@ public class ChooseBankFragment extends BaseFragment implements ChooseBankContra
         dialog.dismiss();
 
         mAdapter = new ChooseBankAdapter(getActivity().getApplication());
-        mAdapter.setItemBank(bankList.getData());
+//        mAdapter.setItemBank(bankList.getData());
+
+        ArrayList<BankDetail> sortedBD = new ArrayList<>(bankList.getData());
+        Collections.sort(sortedBD, new Comparator<BankDetail>() {
+            @Override
+            public int compare(BankDetail o1, BankDetail o2) {
+                return o1.getName().compareTo(o2.getName());
+            }
+        });
+
+        mAdapter.setItemBank(sortedBD);
 
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
         recyclerView.setHasFixedSize(true);
