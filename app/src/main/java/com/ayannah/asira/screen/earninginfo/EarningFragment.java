@@ -297,7 +297,7 @@ public class EarningFragment extends BaseFragment implements EarningContract.Vie
 
         int primary = Integer.parseInt(originalPenghaislan);
         int secondaru = 0;
-        if(originalStringPendapatanLain != null ){
+        if(originalStringPendapatanLain != null && !originalStringPendapatanLain.equals("") ){
             secondaru = Integer.parseInt(originalStringPendapatanLain);
         }
 
