@@ -39,6 +39,7 @@ public class FormOtherAgentFragment extends BaseFragment implements FormOtherAge
 
     public static final String BANK_NAME = "BANK_NAME";
     public static final String BANK_ID = "BANK_ID";
+    public static final String BANK_LOGO = "BANK_LOGO";
 
     public static final String ACC_NUMBER = "ACC_NUMBER";
 

@@ -302,16 +302,13 @@
 
             </androidx.cardview.widget.CardView>
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnNext"
                 android:text="Selanjutnya"
                 android:layout_marginTop="@dimen/_18sdp"
-                android:textColor="@android:color/white"
-                android:textAllCaps="false"
-                android:fontFamily="@font/manrope_bold"
-                android:background="@drawable/button_register"
+                android:backgroundTint="@color/colorAsiraAccent"
                 android:layout_width="match_parent"
-                android:layout_height="35dp" />
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
 

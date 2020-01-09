@@ -31,25 +31,22 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent">
 
-                    <Button
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnSignout"
-                        android:layout_width="90dp"
-                        android:layout_height="35dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="end"
                         android:layout_marginEnd="@dimen/_20sdp"
-                        android:background="@drawable/button_logout"
-                        android:fontFamily="@font/manrope_bold"
-                        android:text="Keluar"
-                        android:textColor="@android:color/white"
-                        android:textSize="@dimen/fontNormal" />
+                        android:backgroundTint="#ff1c1c"
+                        android:text="Keluar" />
 
-                    <Button
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/selesai"
                         android:layout_width="100dp"
                         android:layout_height="35dp"
                         android:layout_gravity="end"
                         android:layout_marginEnd="@dimen/_20sdp"
-                        android:background="@drawable/button_profile_selesai"
+                        android:backgroundTint="@color/colorAsiraDarkBlue"
                         android:fontFamily="@font/manrope_bold"
                         android:text="Selesai"
                         android:textColor="@android:color/white"
@@ -264,13 +261,13 @@
                         android:textColor="@color/colorAsiraText"
                         android:textSize="@dimen/fontNormal" />
 
-                    <Button
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnSaveAgentProfile"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/_35sdp"
+                        android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:layout_marginTop="@dimen/_10sdp"
-                        android:background="@drawable/button_register"
+                        android:backgroundTint="@color/colorAsiraAccent"
                         android:text="Simpan" />
 
                 </LinearLayout>
