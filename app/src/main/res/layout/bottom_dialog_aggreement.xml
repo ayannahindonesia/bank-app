@@ -71,14 +71,12 @@
         android:textColor="@color/colorAsiraText"
         tools:text="Apakah anda setuju jika data anda digunakan untuk pembuatan akun bank?"/>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_confirm"
-        android:textColor="@android:color/white"
-        android:background="@drawable/button_login"
         android:text="Setuju"
-        android:textAllCaps="false"
+        android:backgroundTint="@color/colorAsiraButtonBlue"
         android:layout_marginTop="@dimen/_10sdp"
         android:layout_width="match_parent"
-        android:layout_height="35dp"/>
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>

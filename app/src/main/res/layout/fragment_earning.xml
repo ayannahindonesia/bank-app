@@ -128,13 +128,10 @@
     <Button
         android:id="@+id/buttonNext"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/button_register"
-        android:textColor="@android:color/white"
-        android:textAllCaps="false"
-        android:textStyle="bold"
+        android:backgroundTint="@color/colorAsiraAccent"
         android:text="@string/earning_next"
         android:layout_width="match_parent"
-        android:layout_height="35dp"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/_16sdp"/>
 
 </RelativeLayout>

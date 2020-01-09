@@ -132,17 +132,14 @@
         </androidx.cardview.widget.CardView>
 
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/buttonConfirm"
-            android:background="@drawable/button_register"
             android:text="Ubah"
-            android:textAllCaps="false"
+            android:backgroundTint="@color/colorAsiraAccent"
             android:layout_marginTop="@dimen/_16sdp"
             android:layout_marginBottom="@dimen/_16sdp"
-            android:textColor="@android:color/white"
-            android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
-            android:layout_height="35dp" />
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 

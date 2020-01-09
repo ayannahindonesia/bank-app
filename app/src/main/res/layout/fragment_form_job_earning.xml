@@ -334,15 +334,11 @@
         <Button
             android:id="@+id/buttonNext"
             android:text="Selanjutnya"
-            android:background="@drawable/button_register"
+            android:backgroundTint="@color/colorAsiraAccent"
             android:layout_margin="@dimen/_16sdp"
             android:layout_marginTop="@dimen/_136sdp"
-            android:textAllCaps="false"
-            android:fontFamily="@font/manrope_bold"
-            android:textColor="@android:color/white"
-            android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
-            android:layout_height="35dp" />
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 

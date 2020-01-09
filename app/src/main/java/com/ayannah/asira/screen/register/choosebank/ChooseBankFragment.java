@@ -40,7 +40,6 @@ public class ChooseBankFragment extends BaseFragment implements ChooseBankContra
     @BindView(R.id.rvBank)
     RecyclerView recyclerView;
 
-    private AddAccountBankFragment fragmentadd = new AddAccountBankFragment();
     private AlertDialog dialog;
 
     @Inject
@@ -84,15 +83,9 @@ public class ChooseBankFragment extends BaseFragment implements ChooseBankContra
         dialog.dismiss();
 
         mAdapter = new ChooseBankAdapter(getActivity().getApplication());
-//        mAdapter.setItemBank(bankList.getData());
 
         ArrayList<BankDetail> sortedBD = new ArrayList<>(bankList.getData());
-        Collections.sort(sortedBD, new Comparator<BankDetail>() {
-            @Override
-            public int compare(BankDetail o1, BankDetail o2) {
-                return o1.getName().compareTo(o2.getName());
-            }
-        });
+        Collections.sort(sortedBD, (o1, o2) -> o1.getName().compareTo(o2.getName()));
 
         mAdapter.setItemBank(sortedBD);
 
@@ -100,20 +93,18 @@ public class ChooseBankFragment extends BaseFragment implements ChooseBankContra
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(mAdapter);
 
-        mAdapter.setOnClickBankListener(new ChooseBankAdapter.ChooseBankListener() {
-            @Override
-            public void onClickItemBank(BankDetail bank) {
+        mAdapter.setOnClickBankListener(bank -> {
 
-                Bundle bundle = new Bundle();
-                bundle.putString(FormOtherFragment.BANK_NAME, bank.getName());
-                bundle.putInt(FormOtherFragment.BANK_ID, bank.getId());
+            Bundle bundle = new Bundle();
+            bundle.putString(FormOtherFragment.BANK_NAME, bank.getName());
+            bundle.putInt(FormOtherFragment.BANK_ID, bank.getId());
+            bundle.putString(FormOtherFragment.BANK_LOGO, bank.getImage());
 
-                Intent adddbank = new Intent(parentActivity(), AddAccountBankActivity.class);
-                adddbank.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                adddbank.putExtras(bundle);
-                startActivity(adddbank);
+            Intent adddbank = new Intent(parentActivity(), AddAccountBankActivity.class);
+            adddbank.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            adddbank.putExtras(bundle);
+            startActivity(adddbank);
 
-            }
         });
     }
 }

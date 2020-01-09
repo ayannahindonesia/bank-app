@@ -410,16 +410,13 @@
 
         </androidx.cardview.widget.CardView>
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/buttonSubmit"
-            android:background="@drawable/button_register_disabled"
-            android:textAllCaps="false"
-            android:fontFamily="@font/manrope_bold"
-            android:textColor="@android:color/white"
+            android:backgroundTint="@color/colorAsiraAccent"
             android:text="Kirim"
             android:layout_marginTop="@dimen/_20sdp"
             android:layout_width="match_parent"
-            android:layout_height="35dp" />
+            android:layout_height="wrap_content" />
 
 
     </LinearLayout>

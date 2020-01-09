@@ -105,6 +105,8 @@ public class ChooseBankAgentFragment extends BaseFragment implements ChooseBankA
                     Bundle bundle = new Bundle();
                     bundle.putString(FormOtherAgentFragment.BANK_ID, String.valueOf(bank.getId()));
                     bundle.putString(FormOtherAgentFragment.BANK_NAME, bank.getName());
+                    bundle.putString(FormOtherAgentFragment.BANK_LOGO, bank.getImage());
+
                     addbank = new Intent(parentActivity(), AddAccountBankAgentActivity.class);
                     addbank.putExtras(bundle);
                 }else if(parentActivity().getIntent().getStringExtra("isFrom").equals("listLoanRequest")){

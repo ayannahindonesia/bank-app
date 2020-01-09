@@ -10,7 +10,8 @@
     <LinearLayout
         android:id="@+id/form"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_400sdp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/_90sdp"
         android:layout_alignParentBottom="true"
         android:padding="@dimen/_40sdp"
         android:orientation="vertical"
@@ -48,19 +49,20 @@
             android:id="@+id/akunSaya"
             android:text="Akun Saya"
             android:background="?attr/selectableItemBackground"
+            android:layout_marginTop="@dimen/_10sdp"
             android:paddingTop="@dimen/_10sdp"
             android:paddingBottom="@dimen/_10sdp"
             android:fontFamily="@font/manrope_bold"
             android:drawableEnd="@drawable/ic_chevron_right"
-            android:textSize="@dimen/fontLarge"
+            android:textSize="@dimen/fontNormal"
             android:textColor="@color/colorAsiraText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
-        <View
-            android:background="@color/colorAsiraText"
-            android:layout_width="match_parent"
-            android:layout_height="1.5dp"/>
+<!--        <View-->
+<!--            android:background="@color/colorAsiraText"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="1.5dp"/>-->
 
 
         <TextView
@@ -71,15 +73,15 @@
             android:paddingBottom="@dimen/_10sdp"
             android:fontFamily="@font/manrope_bold"
             android:drawableEnd="@drawable/ic_chevron_right"
-            android:textSize="@dimen/fontLarge"
+            android:textSize="@dimen/fontNormal"
             android:textColor="@color/colorAsiraText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
-        <View
-            android:background="@color/colorAsiraText"
-            android:layout_width="match_parent"
-            android:layout_height="1.5dp"/>
+<!--        <View-->
+<!--            android:background="@color/colorAsiraText"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="1.5dp"/>-->
 
 
         <TextView
@@ -90,15 +92,15 @@
             android:paddingBottom="@dimen/_10sdp"
             android:fontFamily="@font/manrope_bold"
             android:drawableEnd="@drawable/ic_chevron_right"
-            android:textSize="@dimen/fontLarge"
+            android:textSize="@dimen/fontNormal"
             android:textColor="@color/colorAsiraText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
-        <View
-            android:background="@color/colorAsiraText"
-            android:layout_width="match_parent"
-            android:layout_height="1.5dp"/>
+<!--        <View-->
+<!--            android:background="@color/colorAsiraText"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="1.5dp"/>-->
 
 
         <TextView
@@ -109,28 +111,30 @@
             android:paddingBottom="@dimen/_10sdp"
             android:fontFamily="@font/manrope_bold"
             android:drawableEnd="@drawable/ic_chevron_right"
-            android:textSize="@dimen/fontLarge"
+            android:textSize="@dimen/fontNormal"
             android:textColor="@color/colorAsiraText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
-        <View
-            android:background="@color/colorAsiraText"
-            android:layout_width="match_parent"
-            android:layout_height="1.5dp"/>
-
-
-        <Button
-            android:id="@+id/btnLogout"
-            android:textAllCaps="false"
-            android:textColor="@android:color/white"
-            android:text="Keluar"
-            android:layout_marginTop="@dimen/_30sdp"
-            android:background="@drawable/button_register"
-            android:layout_width="match_parent"
-            android:layout_height="35dp"/>
+<!--        <View-->
+<!--            android:background="@color/colorAsiraText"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="1.5dp"/>-->
 
     </LinearLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnLogout"
+        android:text="Keluar"
+        android:backgroundTint="@color/colorAsiraAccent"
+        android:layout_marginBottom="@dimen/_30sdp"
+        android:layout_marginStart="@dimen/_40sdp"
+        android:layout_marginEnd="@dimen/_40sdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/form"
+        />
+
 
     <ImageView
         android:id="@+id/ivImage"

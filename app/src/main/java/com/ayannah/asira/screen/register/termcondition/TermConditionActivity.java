@@ -1,9 +1,11 @@
 package com.ayannah.asira.screen.register.termcondition;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 
 import com.ayannah.asira.screen.register.choosebank.ChooseBankActivity;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -42,7 +44,12 @@ public class TermConditionActivity extends AppCompatActivity {
     WebView webView;
 
     @BindView(R.id.btn_confirm)
-    Button btn_confirm;
+    MaterialButton btn_confirm;
+
+    @BindView(R.id.btn_confirm_overlay)
+    MaterialButton btn_confirm_overlay;
+
+
 
     private Unbinder mUnbinder;
 
@@ -80,10 +87,14 @@ public class TermConditionActivity extends AppCompatActivity {
 
                 if(isChecked){
 
-                    btn_confirm.setBackgroundResource(R.drawable.button_register);
+                    btn_confirm.setVisibility(View.VISIBLE);
+                    btn_confirm_overlay.setVisibility(View.GONE);
+
                 }else {
 
-                    btn_confirm.setBackgroundResource(R.drawable.button_register_disabled);
+                    btn_confirm.setVisibility(View.GONE);
+                    btn_confirm_overlay.setVisibility(View.VISIBLE);
+
                 }
             }
         });

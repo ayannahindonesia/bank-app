@@ -2,6 +2,7 @@ package com.ayannah.asira.screen.borrower.tab_profile;
 
 import androidx.annotation.Nullable;
 
+import com.androidnetworking.error.ANError;
 import com.ayannah.asira.data.local.PreferenceRepository;
 import com.ayannah.asira.data.remote.RemoteRepository;
 import com.ayannah.asira.util.CommonUtils;
@@ -57,7 +58,8 @@ public class ProfilePresenter implements ProfileContract.Presenter {
 
                 }, error ->{
 
-                    mView.showErrorMessage(CommonUtils.errorResponseWithStatusCode(error));
+                    ANError anError = (ANError) error;
+                    mView.showErrorMessage("Terjadi kesalahan saat logout", anError.getErrorCode());
 
                 }));
     }

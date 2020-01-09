@@ -8,7 +8,7 @@ public interface ProfileContract {
 
     interface View extends BaseView<Presenter>{
 
-        void showErrorMessage(String message);
+        void showErrorMessage(String message, int errorCode);
 
         void userIdentity(PreferenceRepository user);
 

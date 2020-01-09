@@ -663,17 +663,14 @@
 
             </androidx.cardview.widget.CardView>
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/buttonNext"
                 android:text="Selanjutnya"
                 android:layout_margin="@dimen/_16sdp"
                 android:layout_marginTop="@dimen/_14sdp"
-                android:background="@drawable/button_register"
-                android:textAllCaps="false"
-                android:fontFamily="@font/manrope_bold"
-                android:textColor="@android:color/white"
+                android:backgroundTint="@color/colorAsiraAccent"
                 android:layout_width="match_parent"
-                android:layout_height="35dp" />
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
 

@@ -534,12 +534,9 @@
             android:id="@+id/buttonPinjam"
             android:layout_width="match_parent"
             android:layout_marginTop="@dimen/_30sdp"
-            android:layout_height="35dp"
-            android:fontFamily="@font/manrope_bold"
-            android:textAllCaps="false"
-            android:background="@drawable/button_register"
-            android:text="Proses"
-            android:textColor="@android:color/white" />
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorAsiraAccent"
+            android:text="Proses"/>
 
     </LinearLayout>
 

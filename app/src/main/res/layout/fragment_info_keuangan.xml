@@ -297,16 +297,14 @@
 
         </androidx.cardview.widget.CardView>
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/buttonSubmit"
-            android:background="@drawable/button_register"
-            android:textColor="@android:color/white"
             android:text="Ubah"
             android:layout_marginTop="@dimen/_20sdp"
             android:layout_marginBottom="@dimen/_20sdp"
-            android:textAllCaps="false"
+            android:backgroundTint="@color/colorAsiraAccent"
             android:layout_width="match_parent"
-            android:layout_height="35dp" />
+            android:layout_height="wrap_content" />
 
 
     </LinearLayout>

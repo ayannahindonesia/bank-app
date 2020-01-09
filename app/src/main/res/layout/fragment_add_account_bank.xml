@@ -74,20 +74,12 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <LinearLayout
+                <ImageView
+                    android:id="@+id/bankImage"
+                    android:src="@drawable/ic_bank_white"
+                    android:padding="@dimen/_10sdp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/_45sdp"
-                    android:background="@color/colorAsiraPurple"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:src="@drawable/ic_bank_white"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp" />
-
-                </LinearLayout>
+                    android:layout_height="@dimen/_160sdp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -135,16 +127,12 @@
 
     </LinearLayout>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/buttonNext"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/button_register"
-        android:text="Selanjutnya"
+        android:text="selanjutnya"
         android:layout_margin="@dimen/_16sdp"
-        android:textAllCaps="false"
-        android:fontFamily="@font/manrope_bold"
-        android:textColor="@android:color/white"
         android:layout_width="match_parent"
-        android:layout_height="35dp" />
+        android:layout_height="wrap_content" />
 
 </RelativeLayout>

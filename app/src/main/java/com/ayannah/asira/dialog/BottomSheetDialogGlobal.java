@@ -14,7 +14,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentManager;
 
 import com.ayannah.asira.R;
+import com.ayannah.asira.util.ImageUtils;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.android.material.button.MaterialButton;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,6 +27,7 @@ public class BottomSheetDialogGlobal extends BottomSheetDialogFragment {
     public static final String TITLE = "TITLE";
     public static final String DESCRRIPTION = "DESCRRIPTION";
     public static final String IMG = "IMG";
+    public static final String BANKIMG = "BANKIMG";
     public static final String TYPE = "TYPE";
 
     //type instruction
@@ -47,7 +50,7 @@ public class BottomSheetDialogGlobal extends BottomSheetDialogFragment {
     TextView desc;
 
     @BindView(R.id.buttonDialog)
-    Button btnOk;
+    MaterialButton btnOk;
 
 
     @BindView(R.id.lyButton)
@@ -65,6 +68,22 @@ public class BottomSheetDialogGlobal extends BottomSheetDialogFragment {
         args.putString(TYPE, type);
         args.putString(DESCRRIPTION, desc);
         args.putInt(IMG, imgInstruction);
+
+        BottomSheetDialogGlobal fragment = new BottomSheetDialogGlobal();
+        fragment.setArguments(args);
+        fragment.show(fragmentManager, "TAG");
+
+        return fragment;
+
+    }
+
+    public BottomSheetDialogGlobal showHaveBankAcc(FragmentManager fragmentManager, String type, String title, String desc, String img){
+
+        Bundle args = new Bundle();
+        args.putString(TITLE, title);
+        args.putString(TYPE, type);
+        args.putString(DESCRRIPTION, desc);
+        args.putString(BANKIMG, img);
 
         BottomSheetDialogGlobal fragment = new BottomSheetDialogGlobal();
         fragment.setArguments(args);
@@ -101,8 +120,8 @@ public class BottomSheetDialogGlobal extends BottomSheetDialogFragment {
                     break;
                 case HAVE_ACC_BANK:
 
+                    ImageUtils.displayImageFromUrlWithErrorDrawable(view.getContext(), ivInsrtuction, getArguments().getString(BANKIMG), null);
                     tvTitle.setText(getArguments().getString(TITLE));
-                    ivInsrtuction.setImageResource(getArguments().getInt(IMG, 0));
                     desc.setText(getArguments().getString(DESCRRIPTION));
                     btnOk.setVisibility(View.GONE);
                     lyButton.setVisibility(View.VISIBLE);
