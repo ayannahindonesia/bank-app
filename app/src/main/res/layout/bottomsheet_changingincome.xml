@@ -130,29 +130,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/yes"
             android:text="Ya"
-            android:textAllCaps="false"
+            android:backgroundTint="@color/colorAsiraButtonBlue"
             android:layout_marginEnd="@dimen/_10sdp"
-            android:background="@drawable/button_register"
             android:layout_weight="1"
-            android:textColor="@color/colorAsiraWhite"
             android:layout_width="match_parent"
-            android:layout_height="35dp" />
+            android:layout_height="wrap_content" />
 
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/no"
             android:text="Tidak"
-            android:textAllCaps="false"
-            android:background="@drawable/button_login"
-            android:textAlignment="center"
+            android:backgroundTint="@color/colorAsiraAccent"
             android:layout_weight="1"
             android:layout_marginStart="@dimen/_10sdp"
-            android:textColor="@color/colorAsiraWhite"
             android:layout_width="match_parent"
-            android:layout_height="35dp" />
+            android:layout_height="wrap_content" />
 
 
     </LinearLayout>

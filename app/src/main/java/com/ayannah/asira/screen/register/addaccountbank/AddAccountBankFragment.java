@@ -8,6 +8,7 @@ import android.text.SpannableString;
 import android.text.style.StyleSpan;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +19,7 @@ import com.ayannah.asira.dialog.BottomSheetDialogGlobal;
 import com.ayannah.asira.screen.register.adddoc.AddDocumentActivity;
 import com.ayannah.asira.screen.register.adddoc.AddDocumentFragment;
 import com.ayannah.asira.screen.register.formothers.FormOtherFragment;
+import com.ayannah.asira.util.ImageUtils;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
@@ -38,6 +40,9 @@ public class AddAccountBankFragment extends BaseFragment implements AddAccountBa
 //    @BindView(R.id.bankName)
 //    TextView bankName;
     String bName = null;
+
+    @BindView(R.id.bankImage)
+    ImageView bankImage;
 
     @NotEmpty(message = "Masukan nomor rekening")
     @BindView(R.id.regist_accNumber)
@@ -62,13 +67,17 @@ public class AddAccountBankFragment extends BaseFragment implements AddAccountBa
 
         Bundle bundle = parentActivity().getIntent().getExtras();
         assert bundle != null;
+
+        ImageUtils.displayImageFromUrlWithErrorDrawable(parentActivity(), bankImage, bundle.getString(FormOtherFragment.BANK_LOGO), null);
+
         bName = bundle.getString(FormOtherFragment.BANK_NAME);
 //        bankName.setText(bName);
 
-        dialog = new BottomSheetDialogGlobal().show(getFragmentManager(), BottomSheetDialogGlobal.HAVE_ACC_BANK,
+        dialog = new BottomSheetDialogGlobal().showHaveBankAcc(getFragmentManager(), BottomSheetDialogGlobal.HAVE_ACC_BANK,
                 "Kepemilikan Rekening",
                 "Apakah kamu memiliki nomor rekening pada "+bName,
-                R.drawable.ic_bank);
+                bundle.getString(FormOtherFragment.BANK_LOGO));
+
         dialog.setOnClickBottomSheetInstruction(new BottomSheetDialogGlobal.BottomSheetInstructionListener() {
             @Override
             public void onClickButtonDismiss() {
@@ -83,26 +92,21 @@ public class AddAccountBankFragment extends BaseFragment implements AddAccountBa
 
                 BottomSheetAggreement bsk = new BottomSheetAggreement();
 
-                bsk.setBankName(bName);
+                bsk.setBankName(bName, bundle.getString(FormOtherFragment.BANK_LOGO));
                 bsk.showNow(parentActivity().getSupportFragmentManager(), "aggreeement");
-                bsk.setOnCheckListener(new BottomSheetAggreement.BottomSheetKebijakanListener() {
-
-                    @Override
-                    public void onClickSetuju() {
-
-                        Bundle bundle1 = parentActivity().getIntent().getExtras();
-                        bsk.dismiss();
-                        Intent doc = new Intent(parentActivity(), AddDocumentActivity.class);
-                        doc.putExtras(bundle1);
-                        parentActivity().finish();
-                        startActivity(doc);
-
-                    }
-
-//                    @Override
+                //                    @Override
 //                    public void onClickClose() {
 //                        bsk.dismiss();
 //                    }
+                bsk.setOnCheckListener(() -> {
+
+                    Bundle bundle1 = parentActivity().getIntent().getExtras();
+                    bsk.dismiss();
+                    Intent doc = new Intent(parentActivity(), AddDocumentActivity.class);
+                    doc.putExtras(bundle1);
+                    parentActivity().finish();
+                    startActivity(doc);
+
                 });
             }
 

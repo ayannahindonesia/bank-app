@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ayannah.asira.R;
 import com.ayannah.asira.base.BaseFragment;
@@ -58,7 +59,9 @@ public class ProfileFragment extends BaseFragment implements ProfileContract.Vie
     }
 
     @Override
-    public void showErrorMessage(String message) {
+    public void showErrorMessage(String message, int errorCode) {
+
+        Toast.makeText(parentActivity(), String.format("%s (%s)", message, errorCode), Toast.LENGTH_SHORT).show();
 
     }
 

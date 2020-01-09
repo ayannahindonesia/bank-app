@@ -54,40 +54,31 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnYa"
             android:layout_weight="0.5"
             android:text="Ya"
             android:layout_marginEnd="15dp"
-            android:textAllCaps="false"
-            android:fontFamily="@font/manrope_bold"
-            android:background="@drawable/button_login"
-            android:textColor="@color/colorAsiraWhite"
+            android:backgroundTint="@color/colorAsiraButtonBlue"
             android:layout_width="match_parent"
-            android:layout_height="35dp" />
+            android:layout_height="wrap_content" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnBelum"
             android:text="Tidak"
-            android:textAllCaps="false"
             android:layout_marginStart="15dp"
-            android:background="@drawable/button_register"
-            android:textColor="@color/colorAsiraWhite"
+            android:backgroundTint="@color/colorAsiraAccent"
             android:layout_weight="0.5"
-            android:fontFamily="@font/manrope_bold"
             android:layout_width="match_parent"
-            android:layout_height="35dp" />
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/buttonDialog"
-        android:background="@drawable/button_register"
+        android:backgroundTint="@color/colorAsiraAccent"
         android:layout_marginTop="20dp"
         android:text="Ok"
-        android:textAllCaps="false"
-        android:textColor="@android:color/white"
-        android:textSize="@dimen/fontNormal"
         android:layout_width="match_parent"
-        android:layout_height="35dp" />
+        android:layout_height="wrap_content" />
 </LinearLayout>

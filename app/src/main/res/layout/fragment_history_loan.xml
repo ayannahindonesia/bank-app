@@ -87,17 +87,14 @@
         android:paddingEnd="12dp"
         android:paddingTop="7dp"
         android:paddingBottom="8dp"
-        android:background="@drawable/button_login"
-        android:fontFamily="@font/manrope_bold"
+        android:backgroundTint="@color/colorAsiraDarkBlue"
         android:drawablePadding="10dp"
         android:layout_marginBottom="10dp"
         android:drawableStart="@drawable/ic_filter"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:textColor="@color/colorAsiraWhite"
-        android:textSize="@dimen/fontNormal"
-        android:layout_width="325dp"
-        android:layout_height="35dp" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 
 </RelativeLayout>
