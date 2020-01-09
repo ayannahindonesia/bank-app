@@ -19,30 +19,28 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/ubah"
-            android:layout_width="90dp"
-            android:layout_height="35dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="@dimen/_10sdp"
+            android:drawableEnd="@drawable/ic_mode_edit_white"
             android:layout_marginEnd="@dimen/_20sdp"
-            android:background="@drawable/button_profile_ubah"
-            android:fontFamily="@font/manrope_bold"
+            android:backgroundTint="@color/colorAsiraDarkBlue"
             android:text="Ubah"
-            android:layout_gravity="end"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/fontNormal" />
+            android:layout_gravity="end" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/selesai"
-            android:layout_width="100dp"
-            android:visibility="gone"
-            android:layout_height="35dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableEnd="@drawable/ic_done_white"
             android:layout_marginEnd="@dimen/_20sdp"
-            android:background="@drawable/button_profile_selesai"
-            android:fontFamily="@font/manrope_bold"
+            android:backgroundTint="@color/colorAsiraDarkBlue"
             android:text="Selesai"
-            android:layout_gravity="end"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/fontNormal" />
+            android:drawablePadding="@dimen/_10sdp"
+            android:visibility="gone"
+            android:layout_gravity="end"  />
 
         <TextView
             android:id="@+id/name"

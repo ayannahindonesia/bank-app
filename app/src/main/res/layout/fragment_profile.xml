@@ -126,11 +126,12 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnLogout"
         android:text="Keluar"
+        android:backgroundTint="@color/colorAsiraAccent"
         android:layout_marginBottom="@dimen/_30sdp"
         android:layout_marginStart="@dimen/_40sdp"
         android:layout_marginEnd="@dimen/_40sdp"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="@+id/form"
         />
 
