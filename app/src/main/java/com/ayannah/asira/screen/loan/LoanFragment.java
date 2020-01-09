@@ -27,6 +27,7 @@ import com.ayannah.asira.screen.summary.SummaryTransactionActivity;
 import com.ayannah.asira.base.BaseFragment;
 import com.ayannah.asira.util.CommonUtils;
 import com.ayannah.asira.util.NumberSeparatorTextWatcher;
+import com.google.android.gms.common.internal.service.Common;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -326,7 +327,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
             installment.setProgress(0);
 
             //get value from edittext to set plafond
-            int nominal = Integer.parseInt(plafondCustom.getText().toString().replaceAll(",", ""));
+            int nominal = Integer.parseInt(CommonUtils.removeDelimeter(plafondCustom.getText().toString()));
             int nominalRound = roundingValue(nominal);
 
             //calculate asn value
@@ -372,7 +373,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
                 Toast.makeText(parentActivity(), "Diterima", Toast.LENGTH_SHORT).show();
 
                 //set rincian harga
-                String value = plafondCustom.getText().toString().replaceAll(",", "");
+                String value = CommonUtils.removeDelimeter(plafondCustom.getText().toString());
                 loanAmount = Integer.parseInt(value);
 
                 //base on seekbar installment
