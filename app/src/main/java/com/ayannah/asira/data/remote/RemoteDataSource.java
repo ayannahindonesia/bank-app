@@ -561,4 +561,14 @@ public class RemoteDataSource implements RemoteRepository {
                 .build()
                 .getObjectSingle(CurrentTime.class);
     }
+
+    @Override
+    public Single<CheckAccount> checkEmailUser(String email) {
+        return Rx2AndroidNetworking.get(BuildConfig.API_URL + "client/check_unique")
+                .addHeaders("Authorization", preferenceRepository.getPublicToken())
+                .addQueryParameter("email", email)
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getObjectSingle(CheckAccount.class);
+    }
 }

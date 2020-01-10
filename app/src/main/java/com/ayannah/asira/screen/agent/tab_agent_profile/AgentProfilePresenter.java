@@ -47,8 +47,51 @@ public class AgentProfilePresenter implements AgentProfileContract.Presenter {
     }
 
     @Override
-    public void patchDataAgent(JsonObject jsonPatchAgentProfile) {
+    public void patchDataAgent(JsonObject jsonPatchAgentProfile, String email, boolean isEmailChange) {
+
         if (mView == null) {
+            return;
+        }
+
+        if(isEmailChange){
+
+            mComposite.add(remoteRepository.checkEmailUser(email)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(res -> {
+
+                if(res.isStatus()){
+
+                    updateAgentAttribute(jsonPatchAgentProfile);
+                }
+
+            }, error -> {
+
+                ANError anError = (ANError) error;
+
+                if(anError.getErrorBody() != null) {
+                    JSONObject json = new JSONObject(anError.getErrorBody());
+                    String message = String.format("%s (kode: %s)", json.optString("message"), anError.getErrorCode());
+                    mView.showErrorMessage(message);
+
+                }else {
+
+                    mView.showErrorMessage("Terjadi kesalahan koneksi");
+
+                }
+
+            }));
+
+        }else {
+
+            updateAgentAttribute(jsonPatchAgentProfile);
+
+        }
+    }
+
+    private void updateAgentAttribute(JsonObject jsonPatchAgentProfile) {
+
+        if(mView == null){
             return;
         }
 

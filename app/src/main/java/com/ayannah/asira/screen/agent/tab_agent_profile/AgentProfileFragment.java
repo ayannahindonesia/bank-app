@@ -29,6 +29,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.annotation.Email;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 
 import java.io.ByteArrayOutputStream;
@@ -64,6 +65,7 @@ public class AgentProfileFragment extends BaseFragment implements AgentProfileCo
     TextView txtAgentUserName;
 
     @NotEmpty(message = "Alamat email tidak boleh kosong", trim = true)
+    @Email(message = "Format Email Salah")
     @BindView(R.id.etAgentEmail)
     EditText etAgentEmail;
 
@@ -97,6 +99,7 @@ public class AgentProfileFragment extends BaseFragment implements AgentProfileCo
     private ArrayList<Integer> banksSelectedID = new ArrayList<>();
     private ArrayList<Integer> banksSelectedIDServer = new ArrayList<>();
     private boolean bankSelectFromList = false;
+    private String tempEmail;
 
     @Inject
     public AgentProfileFragment(){}
@@ -222,6 +225,9 @@ public class AgentProfileFragment extends BaseFragment implements AgentProfileCo
 
     @Override
     public void onValidationSucceeded() {
+
+        tempEmail = etAgentEmail.getText().toString().trim();
+
         DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -234,16 +240,27 @@ public class AgentProfileFragment extends BaseFragment implements AgentProfileCo
                         }
 
                         JsonObject jsonPatchAgentProfile = new JsonObject();
-                        jsonPatchAgentProfile.addProperty("email", etAgentEmail.getText().toString());
                         jsonPatchAgentProfile.addProperty("phone", etAgentHp.getText().toString());
                         jsonPatchAgentProfile.add("banks", arr);
-                        mPresenter.patchDataAgent(jsonPatchAgentProfile);
+
+                        if(etAgentEmail.getText().toString().trim().equals(tempEmail)){
+
+                            jsonPatchAgentProfile.addProperty("email", tempEmail);
+                            mPresenter.patchDataAgent(jsonPatchAgentProfile, tempEmail, false);
+
+                        }else {
+
+                            jsonPatchAgentProfile.addProperty("email", etAgentEmail.getText().toString());
+                            mPresenter.patchDataAgent(jsonPatchAgentProfile, etAgentEmail.getText().toString(), true);
+
+                        }
 
                         break;
 
                     case DialogInterface.BUTTON_NEGATIVE:
 
                         dialog.cancel();
+                        tempEmail = null;
 
                         break;
                 }

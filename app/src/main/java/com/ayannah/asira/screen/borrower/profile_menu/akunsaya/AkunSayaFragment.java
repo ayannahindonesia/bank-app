@@ -3,6 +3,7 @@ package com.ayannah.asira.screen.borrower.profile_menu.akunsaya;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -73,6 +74,8 @@ public class AkunSayaFragment extends BaseFragment implements AkunSayaContract.V
 
     private AlertDialog dialogAlert;
 
+    private String tempChangeEmail;
+
     @Inject
     public AkunSayaFragment(){}
 
@@ -105,7 +108,10 @@ public class AkunSayaFragment extends BaseFragment implements AkunSayaContract.V
     public void showErrorMessage(String message) {
 
         dialogAlert.dismiss();
+
         Toast.makeText(parentActivity(), message, Toast.LENGTH_SHORT).show();
+
+        etEmail.setText(tempChangeEmail);
 
     }
 
@@ -152,6 +158,9 @@ public class AkunSayaFragment extends BaseFragment implements AkunSayaContract.V
         btnSelesai.setVisibility(View.VISIBLE);
         btnUbah.setVisibility(View.GONE);
 
+        //save current email text
+        tempChangeEmail = etEmail.getText().toString().trim();
+
         etEmail.setEnabled(true);
         etEmail.setBackgroundResource(R.color.colorAsiraPrimary);
 
@@ -180,6 +189,7 @@ public class AkunSayaFragment extends BaseFragment implements AkunSayaContract.V
         DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+
                 switch (which) {
                     case DialogInterface.BUTTON_POSITIVE:
 
@@ -193,7 +203,22 @@ public class AkunSayaFragment extends BaseFragment implements AkunSayaContract.V
                         nickname.setBackgroundResource(R.color.colorAsiraWhite);
 
                         dialogAlert.show();
-                        mPresenter.updateDataUser(etEmail.getText().toString().trim(), nickname.getText().toString().trim());
+
+                        //check if email edit text changed or not
+                        if (etEmail.getText().toString().trim().equals(tempChangeEmail)) {
+
+                            mPresenter.updateDataUser(
+                                    tempChangeEmail,
+                                    nickname.getText().toString().trim(),
+                                    false);
+
+                        } else {
+
+                            mPresenter.updateDataUser(
+                                    etEmail.getText().toString().trim(),
+                                    nickname.getText().toString().trim(),
+                                    true);
+                        }
 
                         break;
 

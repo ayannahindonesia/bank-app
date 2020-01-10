@@ -26,7 +26,7 @@
             android:paddingTop="@dimen/_20sdp"
             android:text="Berita &amp; Promo"
             android:textColor="@color/textColorAsira"
-            android:textSize="@dimen/fontSuperLarge" />
+            android:textSize="@dimen/fontTitleBank" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvBeritaPromo"
@@ -43,7 +43,7 @@
             android:paddingTop="@dimen/_20sdp"
             android:text="Top-up &amp; Tagihan"
             android:textColor="@color/textColorAsira"
-            android:textSize="@dimen/fontSuperLarge" />
+            android:textSize="@dimen/fontTitleBank" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvTopup"

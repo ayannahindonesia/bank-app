@@ -51,38 +51,81 @@ public class AkunSayaPresenter implements AkunSayaContract.Presenter {
     }
 
     @Override
-    public void updateDataUser(String email, String nickname) {
-
-        JsonObject json = new JsonObject();
-        json.addProperty("nickname", nickname);
-        json.addProperty("email", email);
+    public void updateDataUser(String email, String nickname, boolean isEmailChange) {
 
         if(mView == null){
             return;
         }
 
+        if(isEmailChange){
+
+            //check email already exist or nah
+            mComposite.add(remoteRepository.checkEmailUser(email)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(res -> {
+
+                        if(res.isStatus()){
+
+                            updatePersonalData(email, nickname);
+
+                        }
+
+                    }, error -> {
+
+                        ANError anError = (ANError) error;
+
+                        if(anError.getErrorBody() != null) {
+                            JSONObject json = new JSONObject(anError.getErrorBody());
+                            String message = String.format("%s (kode: %s)", json.optString("message"), anError.getErrorCode());
+                            mView.showErrorMessage(message);
+
+                        }else {
+
+                            mView.showErrorMessage("Terjadi kesalahan koneksi");
+
+                        }
+                    }));
+
+        }else {
+
+            updatePersonalData(email, nickname);
+
+        }
+    }
+
+    private void updatePersonalData(String email, String nickname) {
+
+        if(mView == null){
+            return;
+        }
+
+        JsonObject json = new JsonObject();
+        json.addProperty("nickname", nickname);
+        json.addProperty("email", email);
+
         mComposite.add(remoteRepository.updateProfile(json)
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(res -> {
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(res -> {
 
-            preferenceRepository.setUserNickname(res.getNickname());
-            preferenceRepository.setUserEmail(res.getEmail());
-            mView.berhasil();
+                    preferenceRepository.setUserNickname(res.getNickname());
+                    preferenceRepository.setUserEmail(res.getEmail());
+                    mView.berhasil();
 
-        }, error -> {
+                }, error -> {
 
-            ANError anError = (ANError) error;
-            if(anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
-                mView.showErrorMessage("Connection Error "  + " on getClientToken()");
-            }else {
+                    ANError anError = (ANError) error;
+                    if(anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
+                        mView.showErrorMessage("Connection Error "  + " on getClientToken()");
+                    }else {
 
-                if(anError.getErrorBody() != null){
+                        if(anError.getErrorBody() != null){
 
-                    JSONObject jsonObject = new JSONObject(anError.getErrorBody());
-                    mView.showErrorMessage(jsonObject.optString("message"));
-                }
-            }
-        }));
+                            JSONObject jsonObject = new JSONObject(anError.getErrorBody());
+                            mView.showErrorMessage(jsonObject.optString("message"));
+                        }
+                    }
+                }));
     }
 }

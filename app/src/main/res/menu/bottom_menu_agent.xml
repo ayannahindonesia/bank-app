@@ -8,12 +8,12 @@
 
     <item
         android:id="@+id/dataPinjaman"
-        android:title="Data Pinjaman"
+        android:title="Pinjaman"
         android:icon="@drawable/bottom_menu_pinjaman"/>
 
     <item
         android:id="@+id/dataPencairan"
-        android:title="Data Pencairan"
+        android:title="Pencairan"
         android:icon="@drawable/ic_penchairan"/>
 
     <item

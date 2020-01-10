@@ -11,7 +11,7 @@
     <TextView
         android:text="Silahkan Pilih Bank"
         android:fontFamily="@font/manrope_bold"
-        android:textSize="@dimen/fontNormal"
+        android:textSize="@dimen/fontTitleBank"
         android:textColor="@color/colorAsiraText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>

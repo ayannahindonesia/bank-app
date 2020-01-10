@@ -119,4 +119,6 @@ public interface RemoteRepository {
     Single<UserProfile> updateProfileFromAgent(JsonObject json, String borrowerID);
 
     Single<CurrentTime> getCurrentTime();
+
+    Single<CheckAccount> checkEmailUser(String email);
 }
