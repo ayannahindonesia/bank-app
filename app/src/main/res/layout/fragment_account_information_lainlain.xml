@@ -93,7 +93,7 @@
                     android:inputType="text"
                     android:backgroundTint="@color/colorAsiraText"
                     android:imeOptions="actionNext"
-                    android:hint="John Doe"
+                    android:hint="Smith"
                     android:textSize="@dimen/fontNormal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

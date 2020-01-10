@@ -219,7 +219,7 @@
                         android:layout_height="wrap_content" />
                     <EditText
                         android:id="@+id/regist_email"
-                        android:hint="adrian@lorenzo.com"
+                        android:hint="johndoe@asira.com"
                         android:inputType="textEmailAddress"
                         android:backgroundTint="@color/colorAsiraText"
                         android:textSize="@dimen/fontNormal"

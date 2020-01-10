@@ -87,7 +87,7 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
     private final Date[] currentTime = {new Date()};
 
     //untuk check setiap status loan PNS yang masih processing
-    private String statusLoan = "";
+    private String statusLoan;
     private BottomSheetDialogGlobal bottomSheetDialogGlobal;
 
     @Inject
@@ -108,7 +108,6 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
     public void onResume() {
         super.onResume();
         mPresenter.takeView(this);
-        statusLoan = "";
 
         AlertDialog.Builder builder = new AlertDialog.Builder(parentActivity());
         builder.setCancelable(false);
@@ -273,6 +272,8 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
 
     @Override
     public void showDataLoan(List<DataItem> items) {
+
+        statusLoan = "";
 
         for(DataItem data: items){
 
