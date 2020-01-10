@@ -5,6 +5,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -59,6 +60,9 @@ public class InfoPribadiActivity extends DaggerAppCompatActivity implements
     @BindView(R.id.tvHomeNumber) TextView telpRumah;
     @BindView(R.id.tvLamaMenempati) TextView lamaMenempatiRumah;
     @BindView(R.id.tvHomeStatus) TextView statusKepemilikanRumah;
+    @BindView(R.id.tvSpouseName) TextView namaPasangan;
+    @BindView(R.id.tvSpouseBirthdate) TextView tglLahirPasangan;
+    @BindView(R.id.tvSpouseEdu) TextView pendidikanPasangan;
 
     Locale locale = new Locale("in", "ID");
     private DateFormat displayFormat = new SimpleDateFormat("dd MMM yyyy", locale);
@@ -140,6 +144,20 @@ public class InfoPribadiActivity extends DaggerAppCompatActivity implements
         etMomsName.setText(data.getUserMotherName().toUpperCase());
 
         statusPerkawinan.setText(data.getUserMarriageStatus().toUpperCase());
+
+        if (data.getUserMarriageStatus().toLowerCase().equals("menikah")) {
+            try {
+                Date date = serverFormat.parse(data.getSpouserBirthdate());
+
+                lySpouse.setVisibility(View.VISIBLE);
+
+                pendidikanPasangan.setText(data.getSpouseEducation());
+                tglLahirPasangan.setText(displayFormat.format(date));
+                namaPasangan.setText(data.getUserSpouseName());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
 
     }
 
