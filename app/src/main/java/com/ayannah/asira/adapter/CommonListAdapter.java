@@ -380,7 +380,7 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     /*
-        For DetailTransaksiActivity.class
+        For HistoryLoanFragment.class
      */
     class LoanHistoryVH extends RecyclerView.ViewHolder{
 
@@ -404,65 +404,11 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         private void bind(DataItem param){
 
-//            JSONObject jsonObject = null;
-//            String serviceNya = "";
-//            String productNya = "";
-//
-//            BankServiceLocal bankServiceLocal = new BankServiceLocal(itemView.getContext());
-//            ServiceProductLocal serviceProductLocal = new ServiceProductLocal(itemView.getContext());
-//
-//            try {
-//
-//                JSONArray jsonArray = new JSONArray(bankServiceLocal.getBankService());
-//                for (int i = 0; i < jsonArray.length(); i++) {
-//                    JSONObject jsonObject1 = new JSONObject(String.valueOf(jsonArray.get(i)));
-//                    if (param.getService().equals(jsonObject1.get("id").toString())) {
-//                        serviceNya = jsonObject1.get("name").toString();
-//                    }
-//                }
-//
-//                JSONArray jsonArray1 = new JSONArray(serviceProductLocal.getServiceProducts());
-//                for (int j = 0; j < jsonArray1.length(); j++) {
-//                    JSONObject jsonObject2 = new JSONObject(String.valueOf(jsonArray1.get(j)));
-//                    if (param.getProduct().equals(jsonObject2.get("id").toString())) {
-//                        productNya = jsonObject2.get("name").toString();
-//                    }
-//                }
-//
-//            } catch (JSONException e) {
-//                e.printStackTrace();
-//            }
+            amount.setText(CommonUtils.setRupiahCurrency(param.getLoanAmount()));
 
-//            numLoan.setText(param.getService() + " - " + param.getId());
-//            numLoan.setText(String.format("%s - ", param.getService()));
-//            numLoan.setText(String.format("%1$s - %2$s", param.getService(), param.getId()));
-            numLoan.setText(String.format("%1$s - %2$s", param.getServiceName(), param.getId()));
-
-//            typeLoan.setText(param.getService());
             typeLoan.setText(param.getProductName());
 
-//            if(param.isOtpVerified()){
-//
-//                switch (param.getStatus().toLowerCase()){
-//                    case STATUS_ACCEPTED:
-//                        status.setText(itemView.getResources().getString(R.string.accept));
-//                        status.setBackgroundResource(R.drawable.badge_diterima);
-//                        break;
-//                    case STATUS_PROCESSING:
-//                        status.setText(itemView.getResources().getString(R.string.processing));
-//                        status.setBackgroundResource(R.drawable.badge_tidak_lengkap);
-//                        break;
-//                    case STATUS_REJECTED:
-//                        status.setText(itemView.getResources().getString(R.string.reject));
-//                        status.setBackgroundResource(R.drawable.badge_ditolak);
-//                        break;
-//                }
-//
-//            }else {
-//
-//                status.setBackgroundResource(R.drawable.badge_tertunda);
-//                status.setText("Tertunda");
-//            }
+            numLoan.setText(String.format("%1$s - %2$s", param.getServiceName(), param.getId()));
 
             switch (param.getStatus().toLowerCase()){
                 case STATUS_APPROVED:
@@ -478,8 +424,6 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     status.setBackgroundResource(R.drawable.badge_ditolak);
                     break;
             }
-
-            amount.setText(CommonUtils.setRupiahCurrency(param.getLoanAmount()));
 
             itemView.setOnClickListener(v -> loanListener.onClickItem(param));
         }
