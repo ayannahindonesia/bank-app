@@ -38,7 +38,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="4dp"
-                app:cardElevation="3dp">
+                app:cardElevation="2dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -123,7 +123,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
                 app:cardCornerRadius="4dp"
-                app:cardElevation="3dp">
+                app:cardElevation="2dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -309,7 +309,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
                 app:cardCornerRadius="4dp"
-                app:cardElevation="3dp">
+                app:cardElevation="2dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -326,8 +326,7 @@
                         android:orientation="vertical">
 
                         <LinearLayout
-                            android:orientation="horizontal"
-                            android:weightSum="2"
+                            android:orientation="vertical"
                             android:padding="@dimen/dp12"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
@@ -336,18 +335,15 @@
                                 android:text="Status Pencairan"
                                 android:textSize="@dimen/fontNormal"
                                 android:textColor="@color/colorAsiraText"
-                                android:layout_weight="1"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content" />
 
                             <TextView
                                 android:id="@+id/disbursementStatus"
                                 tools:text="Proses"
-                                android:textAlignment="textEnd"
                                 android:textSize="@dimen/fontNormal"
                                 android:textColor="@color/colorAsiraText"
                                 android:fontFamily="@font/manrope_bold"
-                                android:layout_weight="1"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content" />
 
@@ -355,8 +351,7 @@
 
                         <LinearLayout
                             android:id="@+id/lltDisbursementDate"
-                            android:orientation="horizontal"
-                            android:weightSum="2"
+                            android:orientation="vertical"
                             android:padding="@dimen/dp12"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
@@ -365,18 +360,15 @@
                                 android:text="Tanggal Pencairan"
                                 android:textSize="@dimen/fontNormal"
                                 android:textColor="@color/colorAsiraText"
-                                android:layout_weight="1"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content" />
 
                             <TextView
                                 android:id="@+id/dateDisbursement"
                                 tools:text="21 Maret 2019"
-                                android:textAlignment="textEnd"
                                 android:textSize="@dimen/fontNormal"
                                 android:textColor="@color/colorAsiraText"
                                 android:fontFamily="@font/manrope_bold"
-                                android:layout_weight="1"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content" />
 
@@ -386,8 +378,7 @@
 
                     <LinearLayout
                         android:id="@+id/lltRejectReason"
-                        android:orientation="horizontal"
-                        android:weightSum="2"
+                        android:orientation="vertical"
                         android:padding="@dimen/dp12"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
@@ -396,26 +387,22 @@
                             android:text="Alasan Penolakan"
                             android:textSize="@dimen/fontNormal"
                             android:textColor="@color/colorAsiraText"
-                            android:layout_weight="1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
 
                         <TextView
                             android:id="@+id/rejectReason"
                             android:text=""
-                            android:textAlignment="textEnd"
                             android:textSize="@dimen/fontNormal"
                             android:textColor="@color/colorAsiraText"
                             android:fontFamily="@font/manrope_bold"
-                            android:layout_weight="1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
 
                     </LinearLayout>
 
                     <LinearLayout
-                        android:orientation="horizontal"
-                        android:weightSum="2"
+                        android:orientation="vertical"
                         android:padding="@dimen/dp12"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
@@ -423,7 +410,6 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
                             android:text="Tujuan Peminjaman"
                             android:textColor="@color/colorAsiraText"
                             android:textSize="@dimen/fontNormal" />
@@ -431,19 +417,16 @@
                         <TextView
                             android:id="@+id/tujuan"
                             tools:text="Pay-off credit card bill"
-                            android:textAlignment="textEnd"
                             android:textSize="@dimen/fontNormal"
                             android:textColor="@color/colorAsiraText"
                             android:fontFamily="@font/manrope_bold"
-                            android:layout_weight="1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
 
                     </LinearLayout>
 
                     <LinearLayout
-                        android:orientation="horizontal"
-                        android:weightSum="2"
+                        android:orientation="vertical"
                         android:padding="@dimen/dp12"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
@@ -452,26 +435,22 @@
                             android:text="Detail Tujuan"
                             android:textSize="@dimen/fontNormal"
                             android:textColor="@color/colorAsiraText"
-                            android:layout_weight="1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
 
                         <TextView
                             android:id="@+id/detailTujuan"
                             tools:text="Pay-off credit card bill"
-                            android:textAlignment="textEnd"
                             android:textSize="@dimen/fontNormal"
                             android:textColor="@color/colorAsiraText"
                             android:fontFamily="@font/manrope_bold"
-                            android:layout_weight="1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
 
                     </LinearLayout>
 
                     <LinearLayout
-                        android:orientation="horizontal"
-                        android:weightSum="2"
+                        android:orientation="vertical"
                         android:padding="@dimen/dp12"
                         android:visibility="gone"
                         android:layout_width="match_parent"
@@ -481,7 +460,6 @@
                             android:text="Total Biaya"
                             android:textSize="@dimen/fontNormal"
                             android:textColor="@android:color/black"
-                            android:layout_weight="1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
 
@@ -492,7 +470,6 @@
                             android:textSize="@dimen/fontNormal"
                             android:textColor="@color/colorAsiraText"
                             android:fontFamily="@font/manrope_bold"
-                            android:layout_weight="1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
 

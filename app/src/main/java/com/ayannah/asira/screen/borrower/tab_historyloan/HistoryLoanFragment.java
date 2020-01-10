@@ -107,8 +107,6 @@ public class HistoryLoanFragment extends BaseFragment implements
     @Override
     public void showAllTransaction(List<DataItem> results) {
 
-        Log.e(TAG, "totaldata: "+results.size());
-
         progressLoading.setVisibility(View.GONE);
 
         if(results.size() > 0){
@@ -118,22 +116,22 @@ public class HistoryLoanFragment extends BaseFragment implements
 
             mAdapterLoans.setDateLoans(results);
 
+            mAdapterLoans.setOnClickListenerLoanAdapter(loans -> {
+
+                Intent intent = new Intent(parentActivity(), DetailTransaksiActivity.class);
+                intent.putExtra(DetailTransaksiActivity.ID_LOAN, String.valueOf(loans.getId()));
+                intent.putExtra(DetailTransaksiActivity.LOAN_DETAIL, loans);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+
+            });
+
         }else {
 
             recyclerView.setVisibility(View.GONE);
             nodata.setVisibility(View.VISIBLE);
 
         }
-
-        mAdapterLoans.setOnClickListenerLoanAdapter(loans -> {
-
-            Intent intent = new Intent(parentActivity(), DetailTransaksiActivity.class);
-            intent.putExtra(DetailTransaksiActivity.ID_LOAN, String.valueOf(loans.getId()));
-            intent.putExtra(DetailTransaksiActivity.LOAN_DETAIL, loans);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-
-        });
 
     }
 
