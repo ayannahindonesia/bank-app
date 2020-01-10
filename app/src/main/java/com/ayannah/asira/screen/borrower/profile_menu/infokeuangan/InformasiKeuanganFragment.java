@@ -205,7 +205,7 @@ public class InformasiKeuanganFragment extends BaseFragment implements Informasi
 
         namaAtasan.setText(user.getDirectSuperiorName());
 
-        jabatan.setText(user.getOccupation());
+        jabatan.setText(user.getDepartment());
 
         etPenghasilan.setText(String.format(Locale.getDefault(), "%,d", Integer.parseInt(user.getUserPrimaryIncome())));
 
