@@ -211,7 +211,7 @@ public class FormOtherFragment extends BaseFragment implements FormOtherContract
         userProfleRequest.addProperty("related_phonenumber", etRelatedHP.getText().toString());
         userProfleRequest.addProperty("taxid_number", bundle.getString(NPWP_NO));
         userProfleRequest.addProperty("idcard_number", bundle.getString(KTP_NO));
-        userProfleRequest.addProperty("occupation", bundle.getString(OCCUPATION));
+        userProfleRequest.addProperty("occupation", bundle.getString(JOB_TITLE));
         userProfleRequest.addProperty("gender", bundle.getString(GENDER));
         userProfleRequest.addProperty("city", bundle.getString(CITY));
         userProfleRequest.addProperty("mother_name", bundle.getString(MOTHER_NAME));
@@ -227,7 +227,7 @@ public class FormOtherFragment extends BaseFragment implements FormOtherContract
         userProfleRequest.addProperty("field_of_work", bundle.getString(OCCUPATION)); //jenis pekerjaan
         userProfleRequest.addProperty("province", bundle.getString(PROVINCE));
         userProfleRequest.addProperty("spouse_birthday", bundle.getString(SPOUSE_BIRTHDATE));
-        userProfleRequest.addProperty("department", bundle.getString(JOB_TITLE));  //jenis pekerjaan
+        userProfleRequest.addProperty("department", bundle.getString(OCCUPATION));  //same with jenis pekerjaan (occupation)
         userProfleRequest.addProperty("email", bundle.getString(EMAIL));
         if (bundle.getString(HOME_STAY_YEAR) != null && !bundle.getString(HOME_STAY_YEAR).equals("")) {
             userProfleRequest.addProperty("lived_for", Integer.parseInt(Objects.requireNonNull(bundle.getString(HOME_STAY_YEAR))));
