@@ -22,9 +22,11 @@ import com.ayannah.asira.R;
 import com.ayannah.asira.base.BaseFragment;
 import com.ayannah.asira.data.local.PreferenceRepository;
 import com.ayannah.asira.data.model.BankDetail;
+import com.ayannah.asira.screen.agent.lpagent.LPAgentActivity;
 import com.ayannah.asira.screen.agent.navigationmenu.agentprofile.ListBanks.AgentProfileBankListActivity;
 import com.ayannah.asira.screen.chooselogin.ChooseLoginActivity;
 import com.ayannah.asira.util.ImageUtils;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.mobsandgeeks.saripaar.ValidationError;
@@ -193,9 +195,10 @@ public class AgentProfileFragment extends BaseFragment implements AgentProfileCo
     public void successUpdateProfileAgent() {
         Toast.makeText(parentActivity(), "Data Berhasil Dirubah", Toast.LENGTH_SHORT).show();
 
-//        Intent intent = new Intent(parentActivity(), AgentProfileActivity.class);
-//        startActivity(intent);
-//        parentActivity().finish();
+        Intent intent = new Intent(parentActivity(), LPAgentActivity.class);
+        intent.putExtra("isFrom", "agentProfile");
+        startActivity(intent);
+        parentActivity().finish();
     }
 
     @Override

@@ -7,10 +7,12 @@ public interface LPAgentContract {
 
     interface View extends BaseView<Presenter>{
 
+        void showErrorMessage(String errorResponseWithStatusCode);
     }
 
     interface Presenter extends BasePresenter<View>{
 
 
+        void getTokenLender();
     }
 }

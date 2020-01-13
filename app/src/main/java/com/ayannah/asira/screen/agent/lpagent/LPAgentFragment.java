@@ -35,6 +35,7 @@ import butterknife.OnClick;
 
 public class LPAgentFragment extends BaseFragment implements LPAgentContract.View {
 
+    private String isFrom;
     @Inject
     LPAgentContract.Presenter mPresenter;
 
@@ -54,7 +55,15 @@ public class LPAgentFragment extends BaseFragment implements LPAgentContract.Vie
 
 //        mPresenter.getCurrentAgentIdentity();
 //
-//        mPresenter.getTokenLender();
+        mPresenter.getTokenLender();
+
+        isFrom = parentActivity().getIntent().getStringExtra("isFrom");
+
+        if (isFrom != null && !isFrom.equals("")) {
+            if (isFrom.equals("agentProfile")) {
+                bottomNavigationView.setSelectedItemId(R.id.akun);
+            }
+        }
 
     }
 
@@ -112,4 +121,8 @@ public class LPAgentFragment extends BaseFragment implements LPAgentContract.Vie
     }
 
 
+    @Override
+    public void showErrorMessage(String errorResponseWithStatusCode) {
+        Toast.makeText(parentActivity(), errorResponseWithStatusCode, Toast.LENGTH_SHORT).show();
+    }
 }
