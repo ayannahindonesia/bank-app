@@ -19,10 +19,13 @@ import com.ayannah.asira.base.BaseFragment;
 import com.ayannah.asira.custom.CommonListListener;
 import com.ayannah.asira.data.model.BankDetail;
 import com.ayannah.asira.data.model.BankList;
+import com.google.android.gms.common.util.CollectionUtils;
 import com.mobsandgeeks.saripaar.Validator;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -72,7 +75,8 @@ public class AgentProfileBankListFragment extends BaseFragment implements AgentP
         builder.setView(R.layout.progress_bar);
         dialogAlert = builder.create();
 
-        banksSelectedID = (ArrayList<Integer>) parentActivity().getIntent().getExtras().get("currentSelectedBanksServer");
+        banksSelectedID = (ArrayList<Integer>) parentActivity().getIntent().getExtras().get("currentSelectedBanks");
+        removeDuplicatesID(banksSelectedID);
         banksSelectedIDServer = (ArrayList<Integer>) parentActivity().getIntent().getExtras().get("currentSelectedBanksServer");
 
         dialogAlert.show();
@@ -130,22 +134,38 @@ public class AgentProfileBankListFragment extends BaseFragment implements AgentP
         mAdapterBanks.setOnClickListenerBankList(new CommonListListener.BankListListener() {
             @Override
             public void onClickItem(BankDetail bankDetail, View itemView, LinearLayout linearLayout) {
+                removeDuplicates(bankSelected);
                 if (linearLayout.getBackground() == null) {
                     itemView.setBackgroundColor(getResources().getColor(R.color.transdarkgreen));
                     bankSelected.add(bankDetail);
                 } else {
                     itemView.setBackground(null);
-                    bankSelected.remove(bankDetail);
+//                    bankSelected.remove(bankDetail);
+                    removeArrayItems(bankSelected, bankDetail.getId());
                 }
             }
         });
 
     }
 
+    private void removeArrayItems(ArrayList<BankDetail> currentBanks, Integer idToRemove) {
+        for (int i =0; i<currentBanks.size(); i++) {
+            if (currentBanks.get(i).getId().toString().equals(String.valueOf(idToRemove))) {
+                currentBanks.remove(i);
+            }
+        }
+    }
+
     private void removeDuplicates(ArrayList<BankDetail> bankSelecteds) {
         Set<BankDetail> set = new HashSet<>(bankSelecteds);
         bankSelected.clear();
         bankSelected.addAll(set);
+    }
+
+    private void removeDuplicatesID(ArrayList<Integer> bankSelectedsID) {
+        Set<Integer> set = new HashSet<>(bankSelectedsID);
+        banksSelectedID.clear();
+        banksSelectedID.addAll(set);
     }
 
     @OnClick(R.id.btnSelectBanks)
