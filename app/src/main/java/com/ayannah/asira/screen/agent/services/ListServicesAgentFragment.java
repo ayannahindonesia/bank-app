@@ -14,6 +14,7 @@ import com.ayannah.asira.R;
 import com.ayannah.asira.adapter.BeritaPromoAdapter;
 import com.ayannah.asira.adapter.MenuServiceAdapter;
 import com.ayannah.asira.base.BaseFragment;
+import com.ayannah.asira.custom.GridSpacingItemDecoration;
 import com.ayannah.asira.data.model.BankService;
 import com.ayannah.asira.data.model.BeritaPromo;
 import com.ayannah.asira.data.model.UserBorrower;
@@ -61,6 +62,7 @@ public class ListServicesAgentFragment extends BaseFragment implements ListServi
     protected void initView(Bundle state) {
 
         recycler_servicesmenu.setLayoutManager(new GridLayoutManager(parentActivity(), 3));
+        recycler_servicesmenu.addItemDecoration(new GridSpacingItemDecoration(3, 50));
         recycler_servicesmenu.setHasFixedSize(true);
         recycler_servicesmenu.setAdapter(mAdapterMenu);
 

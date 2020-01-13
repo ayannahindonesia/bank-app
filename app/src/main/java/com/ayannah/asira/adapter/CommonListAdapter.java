@@ -461,8 +461,7 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
      */
     class ViewBorrowerVH extends RecyclerView.ViewHolder{
 
-        @BindView(R.id.photoUser)
-        CircleImageView ivPhotoUser;
+        @BindView(R.id.photoUser) CircleImageView ivPhotoUser;
 
         @BindView(R.id.id_user) TextView idUser;
 
@@ -470,7 +469,7 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         @BindView(R.id.status_user) TextView status;
 
-        @BindView(R.id.btnAjukanPinjaman) Button btnAjukan;
+        @BindView(R.id.btnAjukanPinjaman) LinearLayout btnAjukan;
 
         ViewBorrowerVH(View itemView){
             super(itemView);

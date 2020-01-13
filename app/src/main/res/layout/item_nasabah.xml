@@ -1,87 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:weightSum="1">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardElevation="2dp"
+    app:cardCornerRadius="7dp"
+    android:layout_marginBottom="@dimen/_5sdp">
 
     <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="0.7"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="12dp">
-
-        <!--        <ImageView-->
-        <!--            android:id="@+id/photoUser"-->
-        <!--            android:layout_weight="0.1"-->
-        <!--            android:layout_width="75dp"-->
-        <!--            android:src="@drawable/user_profile_default"-->
-        <!--            android:layout_height="75dp" />-->
+        android:weightSum="1">
 
         <LinearLayout
-            android:layout_width="75dp"
-            android:layout_height="75dp"
-            android:layout_weight="0.1">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3"
+            android:padding="@dimen/_8sdp"
+            android:orientation="horizontal">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/photoUser"
-                android:layout_width="75dp"
-                android:layout_height="75dp"
+                android:layout_gravity="center_vertical"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:background="@drawable/rounded_img_layout" />
+
+            <LinearLayout
+                android:id="@+id/lyData"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:orientation="vertical"
+                android:padding="5dp">
+
+                <TextView
+                    android:id="@+id/id_user"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorAsiraText"
+                    android:textSize="@dimen/fontNormal"
+                    tools:text="id" />
+
+                <TextView
+                    android:id="@+id/name_user"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorAsiraText"
+                    android:textSize="@dimen/fontNormal"
+                    tools:text="name" />
+
+                <TextView
+                    android:id="@+id/status_user"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorAsiraText"
+                    android:textSize="@dimen/fontNormal"
+                    tools:text="status" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/lyData"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="0."
-            android:orientation="vertical"
-            android:padding="5dp">
+            android:id="@+id/btnAjukanPinjaman"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorAsiraText"
+            android:layout_weight="0.7"
+            android:orientation="vertical">
 
             <TextView
-                android:id="@+id/id_user"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@android:color/black"
+                android:textColor="@color/colorAsiraWhite"
+                android:text="Ajukan\nPinjaman"
+                android:textAlignment="center"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
                 android:textSize="@dimen/fontNormal"
-                tools:text="id" />
-
-            <TextView
-                android:id="@+id/name_user"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/fontNormal"
-                tools:text="name" />
-
-            <TextView
-                android:id="@+id/status_user"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/fontNormal"
-                tools:text="status" />
+                android:fontFamily="@font/manrope_bold"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
 
         </LinearLayout>
+
+
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btnAjukanPinjaman"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_alignParentEnd="true"
-        android:layout_centerVertical="true"
-        android:layout_gravity="center_vertical"
-        android:layout_marginStart="5dp"
-        android:layout_weight="0.3"
-        android:textSize="@dimen/_8sdp"
-        android:background="@drawable/btn_submit"
-        android:text="Ajukan\nPinjaman"
-        android:textColor="@android:color/white" />
 
-
-</LinearLayout>
+</androidx.cardview.widget.CardView>

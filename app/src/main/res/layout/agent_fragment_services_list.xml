@@ -13,6 +13,7 @@
         tools:context=".screen.agent.services.ListServicesAgentActivity">
 
         <RelativeLayout
+            android:padding="@dimen/_16sdp"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -31,10 +32,9 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_servicesmenu"
                 android:layout_width="match_parent"
+                android:layout_marginBottom="@dimen/_12sdp"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/titleService"
-                android:paddingStart="5dp"
-                android:paddingEnd="5dp" />
+                android:layout_below="@+id/titleService" />
 
             <TextView
                 android:id="@+id/titleNews"
@@ -53,8 +53,7 @@
                 android:id="@+id/rvBeritaPromo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/titleNews"
-                android:padding="11dp" />
+                android:layout_below="@+id/titleNews" />
 
         </RelativeLayout>
 
