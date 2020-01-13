@@ -231,42 +231,39 @@ public class AgentProfileFragment extends BaseFragment implements AgentProfileCo
 
         tempEmail = etAgentEmail.getText().toString().trim();
 
-        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                switch (which) {
-                    case DialogInterface.BUTTON_POSITIVE:
+        DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
+            switch (which) {
+                case DialogInterface.BUTTON_POSITIVE:
 
-                        JsonArray arr = new JsonArray();
-                        for (int i=0; i<banksSelectedID.size(); i++) {
-                            arr.add(banksSelectedID.get(i));
-                        }
+                    JsonArray arr = new JsonArray();
+                    for (int i=0; i<banksSelectedID.size(); i++) {
+                        arr.add(banksSelectedID.get(i));
+                    }
 
-                        JsonObject jsonPatchAgentProfile = new JsonObject();
-                        jsonPatchAgentProfile.addProperty("phone", etAgentHp.getText().toString());
-                        jsonPatchAgentProfile.add("banks", arr);
+                    JsonObject jsonPatchAgentProfile = new JsonObject();
+                    jsonPatchAgentProfile.addProperty("phone", etAgentHp.getText().toString());
+                    jsonPatchAgentProfile.add("banks", arr);
 
-                        if(etAgentEmail.getText().toString().trim().equals(tempEmail)){
+                    if(etAgentEmail.getText().toString().trim().equals(tempEmail)){
 
-                            jsonPatchAgentProfile.addProperty("email", tempEmail);
-                            mPresenter.patchDataAgent(jsonPatchAgentProfile, tempEmail, false);
+                        jsonPatchAgentProfile.addProperty("email", tempEmail);
+                        mPresenter.patchDataAgent(jsonPatchAgentProfile, tempEmail, false);
 
-                        }else {
+                    }else {
 
-                            jsonPatchAgentProfile.addProperty("email", etAgentEmail.getText().toString());
-                            mPresenter.patchDataAgent(jsonPatchAgentProfile, etAgentEmail.getText().toString(), true);
+                        jsonPatchAgentProfile.addProperty("email", etAgentEmail.getText().toString());
+                        mPresenter.patchDataAgent(jsonPatchAgentProfile, etAgentEmail.getText().toString(), true);
 
-                        }
+                    }
 
-                        break;
+                    break;
 
-                    case DialogInterface.BUTTON_NEGATIVE:
+                case DialogInterface.BUTTON_NEGATIVE:
 
-                        dialog.cancel();
-                        tempEmail = null;
+                    dialog.cancel();
+                    tempEmail = null;
 
-                        break;
-                }
+                    break;
             }
         };
 

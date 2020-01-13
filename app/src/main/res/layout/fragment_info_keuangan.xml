@@ -62,7 +62,7 @@
                 <EditText
                     android:id="@+id/noPegawai"
                     android:hint="16000939877399"
-                    android:inputType="number"
+                    android:inputType="text"
                     android:textColor="@color/colorAsiraText"
                     android:fontFamily="@font/manrope_bold"
                     android:backgroundTint="@color/colorAsiraText"

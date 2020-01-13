@@ -543,8 +543,6 @@ public class EditInfoPribadiActivity extends DaggerAppCompatActivity implements
         Toast.makeText(this, "Data Berhasil Dirubah", Toast.LENGTH_SHORT).show();
         dialogAlert.dismiss();
 
-        Intent intent = new Intent(this, InfoPribadiActivity.class);
-        startActivity(intent);
         finish();
 
     }
