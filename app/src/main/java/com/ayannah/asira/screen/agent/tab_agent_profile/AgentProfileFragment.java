@@ -100,7 +100,7 @@ public class AgentProfileFragment extends BaseFragment implements AgentProfileCo
     private Bitmap imageBitmap;
     private ArrayList<Integer> banksSelectedID = new ArrayList<>();
     private ArrayList<Integer> banksSelectedIDServer = new ArrayList<>();
-    public static boolean bankSelectFromList = false;
+    public static boolean bankSelectFromList;
     private String tempEmail;
 
     @Inject
@@ -173,6 +173,9 @@ public class AgentProfileFragment extends BaseFragment implements AgentProfileCo
         for(String fav:arrayList){
             banksSelectedIDServer.add(Integer.parseInt(fav.trim()));
         }
+
+        banksSelectedID.clear();
+        banksSelectedID.addAll(banksSelectedIDServer);
     }
 
     private String translateAgentCat(String agentCategory) {

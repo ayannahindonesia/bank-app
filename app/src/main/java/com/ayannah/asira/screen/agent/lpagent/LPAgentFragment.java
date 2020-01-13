@@ -62,6 +62,7 @@ public class LPAgentFragment extends BaseFragment implements LPAgentContract.Vie
         if (isFrom != null && !isFrom.equals("")) {
             if (isFrom.equals("agentProfile")) {
                 bottomNavigationView.setSelectedItemId(R.id.akun);
+                isFrom = "";
             }
         }
 
