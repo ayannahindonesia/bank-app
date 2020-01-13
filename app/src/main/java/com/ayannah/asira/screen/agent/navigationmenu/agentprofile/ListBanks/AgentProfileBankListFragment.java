@@ -72,7 +72,7 @@ public class AgentProfileBankListFragment extends BaseFragment implements AgentP
         builder.setView(R.layout.progress_bar);
         dialogAlert = builder.create();
 
-        banksSelectedID = (ArrayList<Integer>) parentActivity().getIntent().getExtras().get("currentSelectedBanks");
+        banksSelectedID = (ArrayList<Integer>) parentActivity().getIntent().getExtras().get("currentSelectedBanksServer");
         banksSelectedIDServer = (ArrayList<Integer>) parentActivity().getIntent().getExtras().get("currentSelectedBanksServer");
 
         dialogAlert.show();

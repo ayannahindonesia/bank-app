@@ -9,7 +9,7 @@
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="0.8"
+        android:layout_weight="0.7"
         android:orientation="horizontal"
         android:padding="12dp">
 
@@ -38,7 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_weight="0.8"
+            android:layout_weight="0."
             android:orientation="vertical"
             android:padding="5dp">
 
@@ -77,9 +77,10 @@
         android:layout_centerVertical="true"
         android:layout_gravity="center_vertical"
         android:layout_marginStart="5dp"
-        android:layout_weight="0.2"
+        android:layout_weight="0.3"
+        android:textSize="@dimen/_8sdp"
         android:background="@drawable/btn_submit"
-        android:text="Ajukan"
+        android:text="Ajukan\nPinjaman"
         android:textColor="@android:color/white" />
 
 

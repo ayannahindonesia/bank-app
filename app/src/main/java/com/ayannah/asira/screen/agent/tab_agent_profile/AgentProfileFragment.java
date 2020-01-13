@@ -100,7 +100,7 @@ public class AgentProfileFragment extends BaseFragment implements AgentProfileCo
     private Bitmap imageBitmap;
     private ArrayList<Integer> banksSelectedID = new ArrayList<>();
     private ArrayList<Integer> banksSelectedIDServer = new ArrayList<>();
-    private boolean bankSelectFromList = false;
+    public static boolean bankSelectFromList = false;
     private String tempEmail;
 
     @Inject
@@ -118,6 +118,7 @@ public class AgentProfileFragment extends BaseFragment implements AgentProfileCo
 
         if (!bankSelectFromList) {
             mPresenter.setAgentProfile();
+            bankSelectFromList = false;
         }
 
         etAgentBanks.setKeyListener(null);

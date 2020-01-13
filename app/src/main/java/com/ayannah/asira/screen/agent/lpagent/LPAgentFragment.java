@@ -102,6 +102,7 @@ public class LPAgentFragment extends BaseFragment implements LPAgentContract.Vie
                     return true;
 
                 case R.id.akun:
+                    AgentProfileFragment.bankSelectFromList = false;
                     ActivityUtils.replaceFragmentToActivity(getFragmentManager(), agentProfil, R.id.tab_menus);
                     return true;
 

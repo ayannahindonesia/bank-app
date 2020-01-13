@@ -122,7 +122,7 @@ public class ViewBorrowerFragment extends BaseFragment implements ViewBorrowerCo
 
         if(totalData > 0){
 
-            title.setText(String.format("Daftar nasabah Bank %s",bankName));
+            title.setText(String.format("Daftar nasabah %s", bankName.replaceAll("bank", "").replace("Bank", "")));
 
             lyResult.setVisibility(View.VISIBLE);
             lyError.setVisibility(View.GONE);
