@@ -121,6 +121,10 @@ public class SummaryTransactionFragment extends BaseFragment implements SummaryT
     @Named("borrowerID")
     int borrowerID;
 
+    @Inject
+    @Named("bankAccountNumber")
+    String bankAccountNumber;
+
     private Validator validator;
 
     @Inject
@@ -215,7 +219,33 @@ public class SummaryTransactionFragment extends BaseFragment implements SummaryT
     public void successLoanApplication(String id_loan) {
 
         if (borrowerID != 0) {
-            mPresenter.requestOTPForLoanAgent(id_loan);
+            if (bankAccountNumber.equals("") || bankAccountNumber == null) {
+                BottomSheetDialogGlobal dialogs = new BottomSheetDialogGlobal().show(parentActivity().getSupportFragmentManager(), BottomSheetDialogGlobal.NO_ACCOUNT_NUMBER_AGENT,
+                        "Nomor Rekening Nasabah Belum Tersedia",
+                        "Nasabah Anda belum bisa mengajukan pinjaman karena belum memiliki nomor rekening pada bank ini.",
+                        R.drawable.no_account_number);
+
+                dialogs.setOnClickBottomSheetInstruction(new BottomSheetDialogGlobal.BottomSheetInstructionListener() {
+                    @Override
+                    public void onClickButtonDismiss() {
+
+                    }
+
+                    @Override
+                    public void onClickButtonYes() {
+
+                    }
+
+                    @Override
+                    public void closeApps() {
+
+                        dialogs.dismiss();
+
+                    }
+                });
+            } else {
+                mPresenter.requestOTPForLoanAgent(id_loan);
+            }
         } else {
             mPresenter.requestOTPForLoan(id_loan);
         }

@@ -36,7 +36,7 @@ import butterknife.OnClick;
 
 import static android.app.Activity.RESULT_OK;
 
-public class AgentProfileBankListFragment extends BaseFragment implements AgentProfileBankListContract.View{
+public class AgentProfileBankListFragment extends BaseFragment implements AgentProfileBankListContract.View {
 
     List<BankDetail> listBanks;
     AlertDialog dialogAlert;
@@ -78,6 +78,7 @@ public class AgentProfileBankListFragment extends BaseFragment implements AgentP
         banksSelectedID = (ArrayList<Integer>) parentActivity().getIntent().getExtras().get("currentSelectedBanks");
         removeDuplicatesID(banksSelectedID);
         banksSelectedIDServer = (ArrayList<Integer>) parentActivity().getIntent().getExtras().get("currentSelectedBanksServer");
+        removeDuplicatesID(banksSelectedIDServer);
 
         dialogAlert.show();
         mPresenter.getAllBanks();
@@ -111,12 +112,12 @@ public class AgentProfileBankListFragment extends BaseFragment implements AgentP
                 bankDetail.setId(response.getData().get(i).getId());
 
                 listBanks.add(bankDetail);
-                for (int j=0; j<banksSelectedIDServer.size(); j++) {
+                for (int j = 0; j < banksSelectedIDServer.size(); j++) {
                     if (response.getData().get(i).getId().toString().equals(banksSelectedIDServer.get(j).toString())) {
                         bankSelected.add(response.getData().get(i));
                     }
                 }
-                for (int k=0; k<banksSelectedID.size(); k++) {
+                for (int k = 0; k < banksSelectedID.size(); k++) {
                     if (response.getData().get(i).getId().toString().equals(banksSelectedID.get(k).toString())) {
                         bankSelected.add(response.getData().get(i));
                     }
@@ -149,7 +150,7 @@ public class AgentProfileBankListFragment extends BaseFragment implements AgentP
     }
 
     private void removeArrayItems(ArrayList<BankDetail> currentBanks, Integer idToRemove) {
-        for (int i =0; i<currentBanks.size(); i++) {
+        for (int i = 0; i < currentBanks.size(); i++) {
             if (currentBanks.get(i).getId().toString().equals(String.valueOf(idToRemove))) {
                 currentBanks.remove(i);
             }
@@ -162,10 +163,12 @@ public class AgentProfileBankListFragment extends BaseFragment implements AgentP
         bankSelected.addAll(set);
     }
 
-    private void removeDuplicatesID(ArrayList<Integer> bankSelectedsID) {
-        Set<Integer> set = new HashSet<>(bankSelectedsID);
-        banksSelectedID.clear();
-        banksSelectedID.addAll(set);
+    private ArrayList<Integer> removeDuplicatesID(ArrayList<Integer> arrayInteger) {
+        Set<Integer> set = new HashSet<>(arrayInteger);
+        arrayInteger.clear();
+        arrayInteger.addAll(set);
+
+        return arrayInteger;
     }
 
     @OnClick(R.id.btnSelectBanks)

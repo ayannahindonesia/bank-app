@@ -37,6 +37,7 @@ public class BottomSheetDialogGlobal extends BottomSheetDialogFragment {
     public static final String RESEND_LOAN_FORBIDDEN = "RESEND_LOAN_FORBIDDEN";
     public static final String MAINTENANCE = "MAITENANCE";
     public static final String NO_ACCOUNT_NUMBER = "NO_ACCOUNT_NUMBER";
+    public static final String NO_ACCOUNT_NUMBER_AGENT = "NO_ACCOUNT_NUMBER_AGENT";
 
     private BottomSheetInstructionListener listener;
 
@@ -163,6 +164,16 @@ public class BottomSheetDialogGlobal extends BottomSheetDialogFragment {
                     tvTitle.setText("Gagal mengajukan pinjaman");
                     ivInsrtuction.setImageResource(R.drawable.no_account_number);
                     desc.setText("Akun kamu belum memilki nomor rekening bank sehingga tidak dapat mengajukan pinjaman.");
+                    lyButton.setVisibility(View.GONE);
+                    btnOk.setVisibility(View.VISIBLE);
+                    btnOk.setOnClickListener(itemView -> listener.closeApps());
+
+                    break;
+
+                case NO_ACCOUNT_NUMBER_AGENT:
+                    tvTitle.setText("Nomor Rekening Nasabah Belum Tersedia");
+                    ivInsrtuction.setImageResource(R.drawable.no_account_number);
+                    desc.setText("Nasabah Anda belum bisa mengajukan pinjaman karena belum memiliki nomor rekening pada bank ini.");
                     lyButton.setVisibility(View.GONE);
                     btnOk.setVisibility(View.VISIBLE);
                     btnOk.setOnClickListener(itemView -> listener.closeApps());

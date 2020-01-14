@@ -599,6 +599,7 @@ public class LoanAgentFragment extends BaseFragment implements LoanAgentContract
 
         if (getActivity().getIntent().getStringExtra("isFrom").toLowerCase().equals("agent")) {
             intent.putExtra(SummaryTransactionActivity.BORROWERID, userBorrower.getId());
+            intent.putExtra(SummaryTransactionActivity.BANKACCOUNTNUMBER, userBorrower.getBankAccountnumber());
         }
         intent.putExtra(SummaryTransactionActivity.PINJAMAN, loanAmount);
         intent.putExtra(SummaryTransactionActivity.TENOR, installmentTenor);

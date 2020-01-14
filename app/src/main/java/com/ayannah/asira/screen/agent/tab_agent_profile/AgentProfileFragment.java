@@ -66,7 +66,7 @@ public class AgentProfileFragment extends BaseFragment implements AgentProfileCo
     @BindView(R.id.txtAgentUserName)
     TextView txtAgentUserName;
 
-    @NotEmpty(message = "Alamat email tidak boleh kosong", trim = true)
+//    @NotEmpty(message = "Alamat email tidak boleh kosong", trim = true)
     @Email(message = "Format Email Salah")
     @BindView(R.id.etAgentEmail)
     EditText etAgentEmail;
@@ -170,6 +170,7 @@ public class AgentProfileFragment extends BaseFragment implements AgentProfileCo
         bankSelectFromList = false;
 
         List<String> arrayList = new ArrayList<String>    (Arrays.asList(preferenceRepository.getAgentBanks().split(",")));
+        banksSelectedIDServer.clear();
         for(String fav:arrayList){
             banksSelectedIDServer.add(Integer.parseInt(fav.trim()));
         }
