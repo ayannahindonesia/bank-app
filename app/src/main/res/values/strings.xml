@@ -89,5 +89,6 @@
 
     <string name="no_connection">Jaringan internet tidak tersedia</string>
     <string name="error_msg_http">Terjadi kesalahan. Mohon coba beberapa saat lagi</string>
+    <string name="error_msg">Mohon coba beberapa saat lagi. Sedang dalam perbaikan</string>
 
 </resources>

@@ -10,7 +10,7 @@ public interface HistoryLoanContract {
 
     interface View extends BaseView<Presenter>{
 
-        void showErrorMessage(String message);
+        void showErrorMessage(String message, int code);
 
         void showAllTransaction(List<DataItem> results);
     }

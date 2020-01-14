@@ -10,6 +10,8 @@ public interface SummaryTransactionContract {
 
         void showErrorMessages(String message);
 
+        void errorSendLoan(String message, int code);
+
         void successLoanApplication(String id_loan);
 
         void successGetOtp(String loanOTP, String id_loan);

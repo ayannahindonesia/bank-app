@@ -54,13 +54,16 @@ public class HistoryLoanPresenter implements HistoryLoanContract.Presenter {
 
             ANError anError = (ANError) error;
             if(anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
-                mView.showErrorMessage("Connection Error");
+                mView.showErrorMessage("Tidak ada koneksi", anError.getErrorCode());
             }else {
 
                 if(anError.getErrorBody() != null){
 
                     JSONObject jsonObject = new JSONObject(anError.getErrorBody());
-                    mView.showErrorMessage(jsonObject.optString("message"));
+                    mView.showErrorMessage(jsonObject.optString("message"), anError.getErrorCode());
+                }else {
+
+                    mView.showErrorMessage( "Mohon coba beberapa saat lagi. Sedang dalam perbaikan",anError.getErrorCode());
                 }
             }
 
@@ -87,14 +90,14 @@ public class HistoryLoanPresenter implements HistoryLoanContract.Presenter {
                 }, error -> {
                     ANError anError = (ANError) error;
                     if(anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
-                        mView.showErrorMessage("Tidak Ada Koneksi");
+                        mView.showErrorMessage("Tidak ada koneksi", anError.getErrorCode());
                     } else if (anError.getErrorBody() != null) {
 
                         JSONObject jsonObject = new JSONObject(anError.getErrorBody());
-                        mView.showErrorMessage(jsonObject.optString("message"));
+                        mView.showErrorMessage(jsonObject.optString("message"), anError.getErrorCode());
 
                     } else {
-                        mView.showErrorMessage("Terjadi Kesalahan");
+                        mView.showErrorMessage( "Mohon coba beberapa saat lagi. Sedang dalam perbaikan",anError.getErrorCode());
                     }
 
                 }));

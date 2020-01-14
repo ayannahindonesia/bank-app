@@ -79,13 +79,16 @@ public class MainMenuPresenter implements MainMenuContract.Presenter {
 
             ANError anError = (ANError) error;
             if(anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
-                mView.showErrorMessage("Connection Error" + " Code: "+anError.getErrorCode());
+                mView.showErrorMessage("Tidak ada koneksi", anError.getErrorCode());
             }else {
 
                 if(anError.getErrorBody() != null){
 
                     JSONObject jsonObject = new JSONObject(anError.getErrorBody());
-                    mView.showErrorMessage(jsonObject.optString("message") + " Code: "+anError.getErrorCode());
+                    mView.showErrorMessage(jsonObject.optString("message"), anError.getErrorCode());
+                }else {
+
+                    mView.showErrorMessage( "Mohon coba beberapa saat lagi. Sedang dalam perbaikan",anError.getErrorCode());
                 }
             }
 
@@ -153,13 +156,16 @@ public class MainMenuPresenter implements MainMenuContract.Presenter {
 
             ANError anError = (ANError) error;
             if(anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
-                mView.showErrorMessage("Connection Error"  + " Code: "+anError.getErrorCode());
+                mView.showErrorMessage("Tidak ada koneksi", anError.getErrorCode());
             }else {
 
                 if(anError.getErrorBody() != null){
 
                     JSONObject jsonObject = new JSONObject(anError.getErrorBody());
-                    mView.showErrorMessage(jsonObject.optString("message") + " Code: "+anError.getErrorCode());
+                    mView.showErrorMessage(jsonObject.optString("message") + " Code: "+anError.getErrorCode(), anError.getErrorCode());
+                }else {
+
+                    mView.showErrorMessage( "Mohon coba beberapa saat lagi. Sedang dalam perbaikan",anError.getErrorCode());
                 }
             }
 
@@ -184,7 +190,20 @@ public class MainMenuPresenter implements MainMenuContract.Presenter {
 
         }, error -> {
 
-            mView.showErrorMessage(CommonUtils.errorResponseWithStatusCode(error));
+            ANError anError = (ANError) error;
+            if(anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
+                mView.showErrorMessage("Tidak ada koneksi", anError.getErrorCode());
+            }else {
+
+                if(anError.getErrorBody() != null){
+
+                    JSONObject jsonObject = new JSONObject(anError.getErrorBody());
+                    mView.showErrorMessage(jsonObject.optString("message") + " Code: "+anError.getErrorCode(), anError.getErrorCode());
+                }else {
+
+                    mView.showErrorMessage( "Mohon coba beberapa saat lagi. Sedang dalam perbaikan",anError.getErrorCode());
+                }
+            }
 
         }));
     }
@@ -204,13 +223,16 @@ public class MainMenuPresenter implements MainMenuContract.Presenter {
 
             ANError anError = (ANError) error;
             if(anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
-                mView.showErrorMessage("Connection Error"  + " Code: "+anError.getErrorCode());
+                mView.showErrorMessage("Tidak ada koneksi", anError.getErrorCode());
             }else {
 
                 if(anError.getErrorBody() != null){
 
                     JSONObject jsonObject = new JSONObject(anError.getErrorBody());
-                    mView.showErrorMessage(jsonObject.optString("message") + " Code: "+anError.getErrorCode());
+                    mView.showErrorMessage(jsonObject.optString("message"), anError.getErrorCode());
+                }else {
+
+                    mView.showErrorMessage( "Mohon coba beberapa saat lagi. Sedang dalam perbaikan",anError.getErrorCode());
                 }
             }
 

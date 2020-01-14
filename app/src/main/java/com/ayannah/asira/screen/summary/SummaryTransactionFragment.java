@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.ayannah.asira.R;
 import com.ayannah.asira.base.BaseFragment;
+import com.ayannah.asira.dialog.BottomDialogHandlingError;
 import com.ayannah.asira.dialog.BottomSheetDialogGlobal;
 import com.ayannah.asira.screen.otpphone.VerificationOTPActivity;
 import com.ayannah.asira.util.CommonUtils;
@@ -316,6 +317,20 @@ public class SummaryTransactionFragment extends BaseFragment implements SummaryT
                 Toast.makeText(parentActivity(), message, Toast.LENGTH_SHORT).show();
             }
         }
+
+    }
+
+    @Override
+    public void errorSendLoan(String message, int code) {
+
+        BottomDialogHandlingError error = new BottomDialogHandlingError(message, code);
+        error.showNow(parentActivity().getSupportFragmentManager(), "error message");
+        error.setOnClickLister(new BottomDialogHandlingError.BottomDialogHandlingErrorListener() {
+            @Override
+            public void onClickOk() {
+                error.dismiss();
+            }
+        });
 
     }
 }

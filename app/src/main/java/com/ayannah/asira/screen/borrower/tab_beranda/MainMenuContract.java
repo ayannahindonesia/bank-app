@@ -12,7 +12,7 @@ public interface MainMenuContract {
 
     interface View extends BaseView<Presenter>{
 
-        void showErrorMessage(String message);
+        void showErrorMessage(String message, int code);
 
         void loadAllServiceMenu(List<BankService.Data> results);
 

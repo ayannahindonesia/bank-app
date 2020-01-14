@@ -16,6 +16,7 @@ import com.ayannah.asira.R;
 import com.ayannah.asira.adapter.CommonListAdapter;
 import com.ayannah.asira.base.BaseFragment;
 import com.ayannah.asira.data.model.Loans.DataItem;
+import com.ayannah.asira.dialog.BottomDialogHandlingError;
 import com.ayannah.asira.dialog.BottomSortHistoryLoan;
 import com.ayannah.asira.screen.detailloan.DetailTransaksiActivity;
 
@@ -85,9 +86,11 @@ public class HistoryLoanFragment extends BaseFragment implements
     }
 
     @Override
-    public void showErrorMessage(String message) {
+    public void showErrorMessage(String message, int code) {
 
-        Toast.makeText(parentActivity(), message, Toast.LENGTH_SHORT).show();
+        BottomDialogHandlingError error = new BottomDialogHandlingError(message, code);
+        error.showNow(parentActivity().getSupportFragmentManager(), "error message");
+        error.setOnClickLister(error::dismiss);
 
         progressLoading.setVisibility(View.GONE);
         recyclerView.setVisibility(View.GONE);

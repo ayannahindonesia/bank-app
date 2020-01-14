@@ -25,6 +25,7 @@ import com.ayannah.asira.custom.CommonListListener;
 import com.ayannah.asira.custom.GridSpacingItemDecoration;
 import com.ayannah.asira.data.model.BankService;
 import com.ayannah.asira.data.model.Loans.DataItem;
+import com.ayannah.asira.dialog.BottomDialogHandlingError;
 import com.ayannah.asira.dialog.BottomSheetDialogGlobal;
 import com.ayannah.asira.screen.chooselogin.ChooseLoginActivity;
 import com.ayannah.asira.screen.earninginfo.EarningActivity;
@@ -174,32 +175,36 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
     }
 
     @Override
-    public void showErrorMessage(String message) {
+    public void showErrorMessage(String message, int code) {
 
         dialog.dismiss();
 
-        BottomSheetDialogGlobal dialog = new BottomSheetDialogGlobal().show(parentActivity().getSupportFragmentManager(),
-                BottomSheetDialogGlobal.MAINTENANCE,
-                "Sedang Dalam Perbaikan",
-                String.format("%s. Silakan buka beberapa saat lagi, karena sedang dalam perbaikan", message),
-                R.drawable.img_processing);
-        dialog.setOnClickBottomSheetInstruction(new BottomSheetDialogGlobal.BottomSheetInstructionListener() {
-            @Override
-            public void onClickButtonDismiss() {
-                //dont do anything in here
-            }
+        BottomDialogHandlingError error = new BottomDialogHandlingError(message, code);
+        error.showNow(parentActivity().getSupportFragmentManager(), "error message");
+        error.setOnClickLister(() -> error.dismiss());
 
-            @Override
-            public void onClickButtonYes() {
-                //dont do anything in here
-            }
-
-            @Override
-            public void closeApps() {
-
-                parentActivity().finish();
-            }
-        });
+//        BottomSheetDialogGlobal dialog = new BottomSheetDialogGlobal().show(parentActivity().getSupportFragmentManager(),
+//                BottomSheetDialogGlobal.MAINTENANCE,
+//                "Sedang Dalam Perbaikan",
+//                String.format("%s. Silakan buka beberapa saat lagi, karena sedang dalam perbaikan", message),
+//                R.drawable.img_processing);
+//        dialog.setOnClickBottomSheetInstruction(new BottomSheetDialogGlobal.BottomSheetInstructionListener() {
+//            @Override
+//            public void onClickButtonDismiss() {
+//                //dont do anything in here
+//            }
+//
+//            @Override
+//            public void onClickButtonYes() {
+//                //dont do anything in here
+//            }
+//
+//            @Override
+//            public void closeApps() {
+//
+//                parentActivity().finish();
+//            }
+//        });
     }
 
     @Override
