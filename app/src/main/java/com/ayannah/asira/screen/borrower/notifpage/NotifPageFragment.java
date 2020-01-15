@@ -77,7 +77,7 @@ public class NotifPageFragment extends BaseFragment implements NotifPageContract
         Collections.sort(list, new Comparator<Notif.Data>() {
             @Override
             public int compare(Notif.Data o1, Notif.Data o2) {
-                return o2.getId().compareTo(o1.getId());
+                return Integer.parseInt(o2.getId()) - Integer.parseInt(o1.getId());
             }
         });
 
