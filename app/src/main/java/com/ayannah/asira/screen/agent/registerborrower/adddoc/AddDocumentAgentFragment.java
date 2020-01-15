@@ -27,6 +27,7 @@ import androidx.core.content.ContextCompat;
 
 import com.ayannah.asira.R;
 import com.ayannah.asira.base.BaseFragment;
+import com.ayannah.asira.dialog.BottomDialogHandlingError;
 import com.ayannah.asira.dialog.BottomSheetDialogGlobal;
 import com.ayannah.asira.screen.agent.registerborrower.formborrower.FormBorrowerAgentActivity;
 import com.ayannah.asira.screen.agent.registerborrower.formother.FormOtherAgentFragment;
@@ -513,10 +514,13 @@ public class AddDocumentAgentFragment extends BaseFragment implements AddDocumen
     }
 
     @Override
-    public void showErrorMessage(String message) {
+    public void showErrorMessage(String message, int code) {
 
         dialogDismiss();
-        Toast.makeText(parentActivity(), message, Toast.LENGTH_SHORT).show();
+
+        BottomDialogHandlingError error = new BottomDialogHandlingError(message, code);
+        error.showNow(parentActivity().getSupportFragmentManager(), "error message");
+        error.setOnClickLister(error::dismiss);
 
     }
 

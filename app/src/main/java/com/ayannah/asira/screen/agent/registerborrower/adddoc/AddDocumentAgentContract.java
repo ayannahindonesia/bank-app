@@ -7,7 +7,7 @@ public interface AddDocumentAgentContract {
 
     interface View extends BaseView<Presenter> {
 
-        void showErrorMessage(String message);
+        void showErrorMessage(String message, int code);
 
         void successCheckMandotryEntity(String pnumber);
 
