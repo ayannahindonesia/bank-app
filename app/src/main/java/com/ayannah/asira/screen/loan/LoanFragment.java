@@ -338,7 +338,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
             if(nominalRound < mServiceProducts.get(position).getMinLoan()){
 
                 // jumlah pinjaman lebih kecil dari batas minimum
-                Toast.makeText(parentActivity(), "Jumlah pinjmana lebih kecil dari batas minimum", Toast.LENGTH_SHORT).show();
+                Toast.makeText(parentActivity(), "Jumlah pinjaman lebih kecil dari batas minimum", Toast.LENGTH_SHORT).show();
                 loanAmount = 0;
                 interest = 0;
                 totalBunga = 0;
@@ -354,7 +354,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
             }else if(nominalRound > mServiceProducts.get(position).getMaxLoan()){
 
                 // Jumlah pinhaman lebih besar dari batas maksimum
-                Toast.makeText(parentActivity(), "Jumlah pinjmana lebih besar dari batas maximum", Toast.LENGTH_SHORT).show();
+                Toast.makeText(parentActivity(), "Jumlah pinjaman lebih besar dari batas maximum", Toast.LENGTH_SHORT).show();
                 loanAmount = 0;
                 interest = 0;
                 totalBunga = 0;
@@ -573,7 +573,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
 
         //user should input plafond
         if(loanAmount == 0 || loanAmount < minPlafond || loanAmount > maxPlafond){
-            Toast.makeText(parentActivity(), "Mohon masukkan jumlah pinjaman dengan benar", Toast.LENGTH_SHORT).show();
+            Toast.makeText(parentActivity(), "Mohon masukan jumlah pinjaman dengan benar", Toast.LENGTH_SHORT).show();
             return;
 
         }
