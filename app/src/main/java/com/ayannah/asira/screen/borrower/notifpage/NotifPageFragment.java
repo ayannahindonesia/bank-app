@@ -12,6 +12,8 @@ import com.ayannah.asira.adapter.CommonListAdapter;
 import com.ayannah.asira.base.BaseFragment;
 import com.ayannah.asira.data.model.Notif;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -71,6 +73,13 @@ public class NotifPageFragment extends BaseFragment implements NotifPageContract
 
     @Override
     public void showDataNotif(List<Notif.Data> list) {
+
+        Collections.sort(list, new Comparator<Notif.Data>() {
+            @Override
+            public int compare(Notif.Data o1, Notif.Data o2) {
+                return o2.getId().compareTo(o1.getId());
+            }
+        });
 
         adapter.setDataNotificationMessages(list);
 
