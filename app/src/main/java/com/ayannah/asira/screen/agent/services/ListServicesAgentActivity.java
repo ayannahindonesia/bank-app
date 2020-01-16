@@ -38,6 +38,7 @@ public class ListServicesAgentActivity extends DaggerAppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
         actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle("");
 
         ListServicesAgentFragment listServicesAgentFragment = (ListServicesAgentFragment)getSupportFragmentManager()
                 .findFragmentById(R.id.fragment_container);

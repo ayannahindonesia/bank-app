@@ -41,7 +41,6 @@ public class ChooseBankPresenter implements ChooseBankContract.Presenter {
     @Override
     public void getAllBanks() {
         if(mView == null){
-            Toast.makeText(application, "something wrong in setUserIdentity()", Toast.LENGTH_SHORT).show();
             return;
         }
 

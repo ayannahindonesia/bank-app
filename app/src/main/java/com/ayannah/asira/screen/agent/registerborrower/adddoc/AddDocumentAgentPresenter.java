@@ -57,31 +57,60 @@ public class AddDocumentAgentPresenter implements AddDocumentAgentContract.Prese
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> {
 
-                    if (response.isStatus()) {
-                        StringBuilder field = new StringBuilder();
-                        for (int i=0; i<response.getFields().size(); i++) {
-                            field.append(response.getFields().get(i)).append(" ");
-                        }
-                        mView.showErrorMessage(field + " Sudah Digunakan");
-                    } else {
+//                    if (response.isStatus()) {
+//                        StringBuilder field = new StringBuilder();
+//                        for (int i=0; i<response.getFields().size(); i++) {
+//                            field.append(response.getFields().get(i)).append(" ");
+//                        }
+//                        mView.showErrorMessage(field + " Sudah Digunakan");
+//                    } else {
+//                        mView.successCheckMandotryEntity(phoneNumber);
+//                    }
+
+                    if(response.isStatus()){
+
                         mView.successCheckMandotryEntity(phoneNumber);
+
                     }
 
                 }, error -> {
                     ANError anError = (ANError)error;
-                    if (anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)) {
-                        mView.showErrorMessage("Tidak Ada Koneksi");
-                    } else if (anError.getErrorBody() != null){
+//                    if (anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)) {
+//                        mView.showErrorMessage("Tidak Ada Koneksi");
+//                    } else if (anError.getErrorBody() != null){
+//
+//                        try {
+//                            JSONObject json = new JSONObject(anError.getErrorBody());
+//                            mView.showErrorMessage(json.optString("message"));
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//                    } else {
+//                        mView.showErrorMessage("Something wrong happend!");
+//                    }
 
-                        try {
-                            JSONObject json = new JSONObject(anError.getErrorBody());
-                            mView.showErrorMessage(json.optString("message"));
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                    if (anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)) {
+                        mView.showErrorMessage("Tidak Ada Koneksi", 0);
                     } else {
-                        mView.showErrorMessage("Something wrong happend!");
+
+                        if (anError.getErrorBody() != null){
+
+                            try {
+                                JSONObject json = new JSONObject(anError.getErrorBody());
+                                mView.showErrorMessage(json.optString("message") , anError.getErrorCode());
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                        }else {
+
+                            mView.showErrorMessage("Bad Gateway (%s)", anError.getErrorCode());
+
+                        }
+
+
                     }
+
 
                 }));
     }
@@ -105,13 +134,16 @@ public class AddDocumentAgentPresenter implements AddDocumentAgentContract.Prese
 
                     ANError anError = (ANError) error;
                     if(anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
-                        mView.showErrorMessage("Tidak Ada Koneksi");
+                        mView.showErrorMessage("Tidak Ada Koneksi", 0);
                     }else {
 
                         if(anError.getErrorBody() != null){
 
                             JSONObject jsonObject = new JSONObject(anError.getErrorBody());
-                            mView.showErrorMessage(jsonObject.optString("message"));
+                            mView.showErrorMessage(jsonObject.optString("message"), anError.getErrorCode());
+                        }else {
+                            mView.showErrorMessage("Bad Gateway (%s)", anError.getErrorCode());
+
                         }
                     }
 

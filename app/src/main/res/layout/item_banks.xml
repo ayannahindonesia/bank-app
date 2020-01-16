@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/listLltBank"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="@dimen/_10sdp">
+
+<!--    <ImageView-->
+<!--        android:id="@+id/listImgBank"-->
+<!--        android:layout_width="@dimen/_24sdp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_centerVertical="true"-->
+<!--        android:src="@drawable/ic_bank" />-->
+
+    <TextView
+        android:id="@+id/listTxtBankName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/manrope_extrabold"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:text="Bank Banks"
+        android:textColor="@color/textColorAsira" />
+
+</LinearLayout>

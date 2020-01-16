@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -12,6 +13,7 @@ import com.ayannah.asira.base.BaseFragment;
 import com.ayannah.asira.dialog.BottomSheetDialogGlobal;
 import com.ayannah.asira.screen.agent.registerborrower.adddoc.AddDocumentAgentActivity;
 import com.ayannah.asira.screen.agent.registerborrower.formother.FormOtherAgentFragment;
+import com.ayannah.asira.util.ImageUtils;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
@@ -27,9 +29,12 @@ public class AddAccountBankAgentFragment extends BaseFragment implements AddAcco
 
     BottomSheetDialogGlobal dialog;
 
-    @BindView(R.id.bankName)
-    TextView bankName;
+//    @BindView(R.id.bankName)
+//    TextView bankName;
     String bName = null;
+
+    @BindView(R.id.bankImage)
+    ImageView bankImage;
 
     @NotEmpty(message = "Masukan nomor rekening")
     @BindView(R.id.regist_accNumber)
@@ -54,13 +59,16 @@ public class AddAccountBankAgentFragment extends BaseFragment implements AddAcco
 
         Bundle bundle = parentActivity().getIntent().getExtras();
         assert bundle != null;
-        bName = bundle.getString(FormOtherAgentFragment.BANK_NAME);
-        bankName.setText(bName);
 
-        dialog = new BottomSheetDialogGlobal().show(getFragmentManager(), BottomSheetDialogGlobal.HAVE_ACC_BANK,
+        ImageUtils.displayImageFromUrlWithErrorDrawable(parentActivity(), bankImage, bundle.getString(FormOtherAgentFragment.BANK_LOGO),null);
+
+        bName = bundle.getString(FormOtherAgentFragment.BANK_NAME);
+//        bankName.setText(bName);
+
+        dialog = new BottomSheetDialogGlobal().showHaveBankAcc(getFragmentManager(), BottomSheetDialogGlobal.HAVE_ACC_BANK,
                 "Kepemilikan Rekening",
                 "Apakah kamu memiliki nomor rekening pada "+bName,
-                R.drawable.ic_bank);
+                bundle.getString(FormOtherAgentFragment.BANK_LOGO));
         dialog.setOnClickBottomSheetInstruction(new BottomSheetDialogGlobal.BottomSheetInstructionListener() {
             @Override
             public void onClickButtonDismiss() {

@@ -15,10 +15,10 @@ public class DataItem implements Parcelable {
 	@SerializedName("owner")
 	private Owner owner;
 
-	@SerializedName("created_time")
+	@SerializedName("created_at")
 	private String createdTime;
 
-	@SerializedName("updated_time")
+	@SerializedName("updated_at")
 	private String updatedTime;
 
 	@SerializedName("fees")
@@ -57,7 +57,7 @@ public class DataItem implements Parcelable {
 	@SerializedName("id")
 	private int id;
 
-	@SerializedName("deleted_time")
+	@SerializedName("deleted_at")
 	private String deletedTime;
 
 	@SerializedName("status")

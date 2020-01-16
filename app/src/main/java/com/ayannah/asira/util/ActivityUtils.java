@@ -12,4 +12,11 @@ public class ActivityUtils {
         fragmentTransaction.commit();
     }
 
+    public static void replaceFragmentToActivity(FragmentManager fragmentManager, Fragment fragment, int frame){
+        FragmentTransaction ft = fragmentManager.beginTransaction();
+//        ft.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+        ft.replace(frame, fragment);
+        ft.commit();
+    }
+
 }

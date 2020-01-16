@@ -28,6 +28,11 @@ import butterknife.Unbinder;
 
 public class BottomSheetLoanDetail extends BottomSheetDialogFragment {
 
+    private static final int CREATED = 1;
+    private static final int DISBURSE = 2;
+    private static final int APPROVE = 3;
+
+
     private Unbinder mUnbinder;
 
     private DataItem item;
@@ -54,18 +59,19 @@ public class BottomSheetLoanDetail extends BottomSheetDialogFragment {
     @BindView(R.id.angsuran) TextView angsuran;
     @BindView(R.id.imbalHasil) TextView imbalHasil;
     @BindView(R.id.imbal) TextView imbal;
+    @BindView(R.id.tvAdminFee) TextView tvAdminFee;
     @BindView(R.id.admin) TextView admin;
+    @BindView(R.id.tvConvenience) TextView tvConvenience;
     @BindView(R.id.convenience) TextView convenience;
     @BindView(R.id.tujuan) TextView tujuan;
     @BindView(R.id.detail) TextView detail;
     @BindView(R.id.tanggalPengajuan) TextView tanggalPengajuan;
-
+    @BindView(R.id.tanggalPencairan) TextView tanggalPencairan;
+    @BindView(R.id.tanggalApproval) TextView tanggalApproval;
     @BindView(R.id.lltTanggalApproval) LinearLayout lltTanggalApproval;
     @BindView(R.id.lltTanggalPencairan) LinearLayout lltTanggalPencairan;
     @BindView(R.id.lltRejactReason) LinearLayout lltRejactReason;
     @BindView(R.id.rejectReason) TextView rejectReason;
-    @BindView(R.id.tanggalPencairan) TextView tanggalPencairan;
-    @BindView(R.id.tanggalApproval) TextView tanggalApproval;
 
     @Nullable
     @Override
@@ -75,18 +81,18 @@ public class BottomSheetLoanDetail extends BottomSheetDialogFragment {
 
         idpinjaman.setText(String.valueOf(item.getId()));
 
-        nama.setText(item.getBorrowerInfo().getFullname());
+        nama.setText(String.format("%s", item.getBorrowerInfo().getFullname()));
 
         if(item.getStatus().equals("approved")){
             if (item.getDisburseStatus().equals("confirmed")) {
-                status.setText("Sudah DIcairkan");
+                status.setText("Sudah Dicairkan");
             } else {
                 status.setText("Diterima");
             }
             lltTanggalApproval.setVisibility(View.VISIBLE);
             lltTanggalPencairan.setVisibility(View.VISIBLE);
         }else if(item.getStatus().equals("processing")){
-            status.setText("Dalam proses");
+            status.setText("Dalam Proses");
         }else {
             status.setText("Ditolak");
             lltTanggalApproval.setVisibility(View.VISIBLE);
@@ -106,9 +112,11 @@ public class BottomSheetLoanDetail extends BottomSheetDialogFragment {
 
         angsuran.setText(CommonUtils.setRupiahCurrency((int) Math.floor(item.getLayawayPlan())));
 
-        imbalHasil.setText("Imbal hasil "+ (int)item.getInterest() +"%");
+        imbalHasil.setText("Imbal Hasil ("+ (int)item.getInterest() +"%)");
 
         double xyz = (item.getInterest() * (double)item.getLoanAmount())/100;
+        double loanAmount = Double.parseDouble(String.valueOf(item.getLoanAmount()));
+        float loanAmountx = Float.parseFloat(String.valueOf(item.getLoanAmount()));
         imbal.setText(CommonUtils.setRupiahCurrency((int) Math.floor(xyz)));
 
         if(item.getFees().size() > 0) {
@@ -116,13 +124,25 @@ public class BottomSheetLoanDetail extends BottomSheetDialogFragment {
 
                 if (data.getDescription().contains("Admin Fee")){
 
-                    double x = Double.parseDouble(data.getAmount());
-                    admin.setText(CommonUtils.setRupiahCurrency((int) Math.floor(x)));
+//                    double x = Double.parseDouble(data.getAmount());
+//                    double percentageAdmin = ( x / loanAmount) * 100;
+
+                    float xx = Float.parseFloat(data.getAmount());
+                    float percentageAdminx = (xx / loanAmountx) * 100;
+
+                    tvAdminFee.setText("Admin Fee ("+checkDecimal(percentageAdminx) +"%)");
+                    admin.setText(CommonUtils.setRupiahCurrency((int) Math.floor(xx)));
 
                 }else {
 
-                    double y = Double.parseDouble(data.getAmount());
-                    convenience.setText(CommonUtils.setRupiahCurrency((int) Math.floor(y)));
+//                    double y = Double.parseDouble(data.getAmount());
+//                    double percentageConvenience = (y/loanAmount) * 100;
+
+                    float yy = Float.parseFloat(data.getAmount());
+                    float percentageConveniencex = (yy/loanAmountx) * 100;
+
+                    tvConvenience.setText("Convenience Fee ("+checkDecimal(percentageConveniencex) + "%)");
+                    convenience.setText(CommonUtils.setRupiahCurrency((int) Math.floor(yy)));
 
                 }
 
@@ -133,27 +153,65 @@ public class BottomSheetLoanDetail extends BottomSheetDialogFragment {
 
         detail.setText(item.getIntentionDetails());
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss.SSS'Z'", Locale.getDefault());
-        SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss'Z'", Locale.getDefault());
-        SimpleDateFormat sdfUsed = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
-        try {
-            Date getDate = new Date();
-            getDate = sdf.parse(item.getCreatedTime());
-            tanggalPengajuan.setText(sdfUsed.format(getDate));
+        tanggalPengajuan.setText(formatDate(item.getCreatedTime(), CREATED));
 
-            Date getDatePencairan = new Date();
-            getDatePencairan = sdf2.parse(item.getDisburseDate());
-            tanggalPencairan.setText(sdfUsed.format(getDatePencairan));
+        tanggalPencairan.setText(formatDate(item.getDisburseDate(), DISBURSE));
 
-            Date getDateApproval = new Date();
-            getDateApproval = sdf.parse(item.getUpdatedTime());
-            tanggalApproval.setText(sdfUsed.format(getDateApproval));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        tanggalApproval.setText(formatDate(item.getUpdatedTime(), APPROVE));
+
         rejectReason.setText(item.getRejectReason());
 
         return view;
+    }
+
+    private String checkDecimal(float percentageAdmin) {
+
+        String convertToString = String.valueOf(percentageAdmin);
+
+        String pattern_no_decimal = "([0-99][.][0+])";
+
+        return convertToString.matches(pattern_no_decimal) ? convertToString.substring(0,1) : String.valueOf(percentageAdmin);
+
+    }
+
+    private String formatDate(String datetime, int purposes){
+
+        String result = null;
+
+        Locale locale = new Locale("in", "ID");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss.SSS'Z'", locale);
+        SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss'Z'", locale);
+        SimpleDateFormat sdfUsed = new SimpleDateFormat("dd MMMM yyyy", locale);
+
+        Date date;
+
+        try {
+
+            switch (purposes){
+
+                case CREATED:
+                case APPROVE:
+
+                    date = sdf.parse(datetime);
+
+                    result = sdfUsed.format(date);
+
+                    break;
+                case DISBURSE:
+
+                    date = sdf2.parse(datetime);
+
+                    result = sdfUsed.format(date);
+
+                    break;
+
+            }
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return result == null ? "Format date salah" : result;
     }
 
     @OnClick(R.id.close)

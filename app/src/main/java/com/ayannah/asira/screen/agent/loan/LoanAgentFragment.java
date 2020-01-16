@@ -98,6 +98,12 @@ public class LoanAgentFragment extends BaseFragment implements LoanAgentContract
     @BindView(R.id.plafondCustom)
     PlafondEditText plafondCustom;
 
+    @BindView(R.id.txtOtherReasonTitle)
+    TextView txtOtherReasonTitle;
+
+    @BindView(R.id.txtReasonTitle)
+    TextView txtReasonTitle;
+
     @Inject
     String idService;
 
@@ -146,6 +152,9 @@ public class LoanAgentFragment extends BaseFragment implements LoanAgentContract
     public void onResume() {
         super.onResume();
         mPresenter.takeView(this);
+
+        txtOtherReasonTitle.setText("Mohon Masukan Alasan Nasabah Baru Meminjam");
+        txtReasonTitle.setText("Apa alasan nasabah baru mengajukan peminjaman?");
 
         if (getActivity().getIntent().getStringExtra("isFrom").toLowerCase().equals("agent")) {
             userBorrower = (UserBorrower) getActivity().getIntent().getSerializableExtra("user");
@@ -335,7 +344,7 @@ public class LoanAgentFragment extends BaseFragment implements LoanAgentContract
             installment.setProgress(0);
 
             //get value from edittext to set plafond
-            int nominal = Integer.parseInt(plafondCustom.getText().toString().replaceAll(",", ""));
+            int nominal = Integer.parseInt(CommonUtils.removeDelimeter(plafondCustom.getText().toString()));
             int nominalRound = roundingValue(nominal);
 
             //calculate asn value
@@ -346,7 +355,7 @@ public class LoanAgentFragment extends BaseFragment implements LoanAgentContract
             if(nominalRound < mServiceProducts.get(position).getMinLoan()){
 
                 // jumlah pinjaman lebih kecil dari batas minimum
-                Toast.makeText(parentActivity(), "Jumlah pinjmana lebih kecil dari batas minimum", Toast.LENGTH_SHORT).show();
+                Toast.makeText(parentActivity(), "Jumlah pinjaman lebih kecil dari batas minimum", Toast.LENGTH_SHORT).show();
                 loanAmount = 0;
                 interest = 0;
                 totalBunga = 0;
@@ -362,7 +371,7 @@ public class LoanAgentFragment extends BaseFragment implements LoanAgentContract
             }else if(nominalRound > mServiceProducts.get(position).getMaxLoan()){
 
                 // Jumlah pinhaman lebih besar dari batas maksimum
-                Toast.makeText(parentActivity(), "Jumlah pinjmana lebih besar dari batas maximum", Toast.LENGTH_SHORT).show();
+                Toast.makeText(parentActivity(), "Jumlah pinjaman lebih besar dari batas maximum", Toast.LENGTH_SHORT).show();
                 loanAmount = 0;
                 interest = 0;
                 totalBunga = 0;
@@ -381,7 +390,7 @@ public class LoanAgentFragment extends BaseFragment implements LoanAgentContract
                 Toast.makeText(parentActivity(), "Diterima", Toast.LENGTH_SHORT).show();
 
                 //set rincian harga
-                String value = plafondCustom.getText().toString().replaceAll(",", "");
+                String value = CommonUtils.removeDelimeter(plafondCustom.getText().toString());
                 loanAmount = Integer.parseInt(value);
 
                 //base on seekbar installment
@@ -581,7 +590,7 @@ public class LoanAgentFragment extends BaseFragment implements LoanAgentContract
 
         //user should input plafond
         if(loanAmount == 0 || loanAmount < minPlafond || loanAmount > maxPlafond){
-            Toast.makeText(parentActivity(), "Mohon masukkan jumlah pinjaman dengan benar", Toast.LENGTH_SHORT).show();
+            Toast.makeText(parentActivity(), "Mohon masukan jumlah pinjaman dengan benar", Toast.LENGTH_SHORT).show();
             return;
 
         }
@@ -590,6 +599,7 @@ public class LoanAgentFragment extends BaseFragment implements LoanAgentContract
 
         if (getActivity().getIntent().getStringExtra("isFrom").toLowerCase().equals("agent")) {
             intent.putExtra(SummaryTransactionActivity.BORROWERID, userBorrower.getId());
+            intent.putExtra(SummaryTransactionActivity.BANKACCOUNTNUMBER, userBorrower.getBankAccountnumber());
         }
         intent.putExtra(SummaryTransactionActivity.PINJAMAN, loanAmount);
         intent.putExtra(SummaryTransactionActivity.TENOR, installmentTenor);

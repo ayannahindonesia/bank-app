@@ -2,48 +2,81 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:padding="16dp"
+    android:padding="@dimen/_22sdp"
+    android:background="@drawable/bg_bottom_sheet"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <RelativeLayout
+<!--    <RelativeLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content">-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/title"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:textColor="@android:color/black"-->
+<!--            android:textSize="@dimen/fontLarge"-->
+<!--            android:textStyle="bold"-->
+<!--            android:text="Persetujuan Pembuatan Rekening"/>-->
+
+<!--        <ImageButton-->
+<!--            android:id="@+id/close"-->
+<!--            android:src="@drawable/ic_close_black"-->
+<!--            android:background="?attr/selectableItemBackground"-->
+<!--            android:layout_alignParentEnd="true"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"/>-->
+
+<!--    </RelativeLayout>-->
+
+    <View
+        android:layout_width="50dp"
+        android:layout_height="3dp"
+        android:layout_gravity="center"
+        android:background="@color/graybackground"/>
+
+    <View
+        android:layout_width="50dp"
+        android:layout_height="3dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="@dimen/dp12"
+        android:layout_gravity="center"
+        android:background="@color/graybackground"/>
+
+    <ImageView
+        android:id="@+id/imageInstruction"
+        android:src="@drawable/ic_bank"
+        android:scaleType="centerInside"
+        android:layout_marginTop="5dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="100dp" />
 
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@android:color/black"
-            android:textSize="@dimen/fontLarge"
-            android:textStyle="bold"
-            android:text="Persetujuan Pembuatan Rekening"/>
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorAsiraText"
+        android:fontFamily="@font/manrope_bold"
+        android:textSize="@dimen/fontNormal"
+        android:text="Persetujuan Pembuatan Rekening"/>
 
-        <ImageButton
-            android:id="@+id/close"
-            android:src="@drawable/ic_close_black"
-            android:background="?attr/selectableItemBackground"
-            android:layout_alignParentEnd="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-    </RelativeLayout>
 
     <TextView
         android:id="@+id/desc"
-        android:layout_marginTop="13dp"
+        android:layout_marginTop="@dimen/_10sdp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@android:color/black"
+        android:textSize="@dimen/fontNormal"
+        android:textColor="@color/colorAsiraText"
         tools:text="Apakah anda setuju jika data anda digunakan untuk pembuatan akun bank?"/>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_confirm"
-        android:textColor="@android:color/white"
-        android:background="@color/colorAccent"
         android:text="Setuju"
-        android:layout_marginTop="10dp"
+        android:backgroundTint="@color/colorAsiraButtonBlue"
+        android:layout_marginTop="@dimen/_10sdp"
         android:layout_width="match_parent"
-        android:layout_height="35dp"/>
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>

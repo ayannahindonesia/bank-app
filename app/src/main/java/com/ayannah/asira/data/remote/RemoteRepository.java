@@ -1,11 +1,13 @@
 package com.ayannah.asira.data.remote;
 
 import com.ayannah.asira.data.model.AgentProfile;
+import com.ayannah.asira.data.model.AgentProviderDetail;
 import com.ayannah.asira.data.model.BankDetail;
 import com.ayannah.asira.data.model.BankList;
 import com.ayannah.asira.data.model.BankService;
 import com.ayannah.asira.data.model.CheckAccount;
 import com.ayannah.asira.data.model.CheckBorrower;
+import com.ayannah.asira.data.model.CurrentTime;
 import com.ayannah.asira.data.model.FCMTokenResponse;
 import com.ayannah.asira.data.model.Kabupaten;
 import com.ayannah.asira.data.model.Kecamatan;
@@ -19,8 +21,11 @@ import com.ayannah.asira.data.model.ReasonLoan;
 import com.ayannah.asira.data.model.ServiceProducts;
 import com.ayannah.asira.data.model.ServiceProductsAgent;
 import com.ayannah.asira.data.model.Token;
+import com.ayannah.asira.data.model.UserBorrower;
 import com.ayannah.asira.data.model.UserProfile;
 import com.google.gson.JsonObject;
+
+import org.json.JSONObject;
 
 import io.reactivex.Completable;
 import io.reactivex.Single;
@@ -91,7 +96,7 @@ public interface RemoteRepository {
 
     Single<Notif> getListNotification();
 
-    Single<Response> postBorrowerRegisterAgent(JsonObject jsonObject);
+    Single<UserBorrower> postBorrowerRegisterAgent(JsonObject jsonObject);
 
     Single<BankList> getAllBanksAgent();
 
@@ -106,4 +111,14 @@ public interface RemoteRepository {
     void getOTPForLoanAgent(String id_loan);
 
     Single<Loans> getAgentLoan(String idBank);
+
+    Single<AgentProfile> patchAgentProfile(JsonObject jsonPatchAgentProfile);
+
+    Single<AgentProviderDetail> getAgentProvider(String agentProvider);
+
+    Single<UserProfile> updateProfileFromAgent(JsonObject json, String borrowerID);
+
+    Single<CurrentTime> getCurrentTime();
+
+    Single<CheckAccount> checkEmailUser(String email);
 }

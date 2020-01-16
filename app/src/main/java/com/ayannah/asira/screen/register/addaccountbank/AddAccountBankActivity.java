@@ -37,7 +37,7 @@ public class AddAccountBankActivity extends DaggerAppCompatActivity {
         assert actionBar != null;
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowTitleEnabled(true);
-        actionBar.setTitle("Register");
+        actionBar.setTitle("Registrasi");
 
         AddAccountBankFragment addAccountBankFragment = (AddAccountBankFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.fragment_container);

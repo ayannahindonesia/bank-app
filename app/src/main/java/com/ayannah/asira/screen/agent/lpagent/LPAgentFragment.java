@@ -18,9 +18,14 @@ import com.ayannah.asira.R;
 import com.ayannah.asira.base.BaseFragment;
 import com.ayannah.asira.screen.agent.registerborrower.choosebank.ChooseBankAgentActivity;
 import com.ayannah.asira.screen.agent.selectbank.SelectBankActivity;
+import com.ayannah.asira.screen.agent.tab_agent_profile.AgentProfileFragment;
+import com.ayannah.asira.screen.agent.tab_beranda.BerandaFragment;
+import com.ayannah.asira.screen.agent.tab_data_pinjaman.DataPinjamanFragment;
 import com.ayannah.asira.screen.agent.viewBorrower.ViewBorrowerActivity;
 import com.ayannah.asira.screen.borrower.login.LoginActivity;
 import com.ayannah.asira.screen.chooselogin.ChooseLoginActivity;
+import com.ayannah.asira.util.ActivityUtils;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
 import javax.inject.Inject;
@@ -28,19 +33,17 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class LPAgentFragment extends BaseFragment implements LPAgentContract.View, NavigationView.OnNavigationItemSelectedListener {
+public class LPAgentFragment extends BaseFragment implements LPAgentContract.View {
 
+    private String isFrom;
     @Inject
     LPAgentContract.Presenter mPresenter;
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
-    @BindView(R.id.drawer_layout)
-    DrawerLayout drawer;
-
-    @BindView(R.id.nav_view)
-    NavigationView navigationView;
+    @BindView(R.id.bottomMenus)
+    BottomNavigationView bottomNavigationView;
 
     @Inject
     public LPAgentFragment(){}
@@ -50,53 +53,66 @@ public class LPAgentFragment extends BaseFragment implements LPAgentContract.Vie
         super.onResume();
         mPresenter.takeView(this);
 
-        mPresenter.getCurrentAgentIdentity();
+//        mPresenter.getCurrentAgentIdentity();
+//
+        mPresenter.getTokenLender();
+
+        isFrom = parentActivity().getIntent().getStringExtra("isFrom");
+
+        if (isFrom != null && !isFrom.equals("")) {
+            if (isFrom.equals("agentProfile")) {
+                bottomNavigationView.setSelectedItemId(R.id.akun);
+                isFrom = "";
+            }
+        }
 
     }
 
     @Override
     protected int getLayoutView() {
-        return R.layout.agent_fragment_lp_agent;
+        return R.layout.base_fragment_landing_page_agent;
     }
 
     @Override
     protected void initView(Bundle state) {
 
         parentActivity().setSupportActionBar(toolbar);
-
         ActionBar actionBar = parentActivity().getSupportActionBar();
         assert actionBar != null;
         actionBar.setDisplayShowTitleEnabled(false);
 
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                parentActivity(), drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-        navigationView.setNavigationItemSelectedListener(this);
+        BerandaFragment beranda = new BerandaFragment();
+        DataPinjamanFragment dataPinjaman = new DataPinjamanFragment();
+        AgentProfileFragment agentProfil = new AgentProfileFragment();
 
-    }
+        ActivityUtils.replaceFragmentToActivity(getFragmentManager(), beranda, R.id.tab_menus);
 
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        bottomNavigationView.setOnNavigationItemSelectedListener(menuItem -> {
+            switch (menuItem.getItemId()){
 
-        // Handle navigation view item clicks here.
-        int id = menuItem.getItemId();
+                case R.id.beranda:
+                    ActivityUtils.replaceFragmentToActivity(getFragmentManager(), beranda, R.id.tab_menus);
+                    return true;
 
-        if (id == R.id.nav_logout) {
+                case R.id.dataPinjaman:
+                    ActivityUtils.replaceFragmentToActivity(getFragmentManager(), dataPinjaman, R.id.tab_menus);
+                    return true;
 
-            mPresenter.logout();
+                case R.id.dataPencairan:
+                    Toast.makeText(parentActivity(), "Coming soon...", Toast.LENGTH_SHORT).show();
+                    return true;
 
-        }else if(id == R.id.pengajuan_pinjaman){
+                case R.id.akun:
+                    AgentProfileFragment.bankSelectFromList = false;
+                    ActivityUtils.replaceFragmentToActivity(getFragmentManager(), agentProfil, R.id.tab_menus);
+                    return true;
 
-            Intent intent = new Intent(parentActivity(), ChooseBankAgentActivity.class);
-            intent.putExtra("isFrom", "listLoanRequest");
-            startActivity(intent);
 
-        }
+            }
 
-        drawer.closeDrawer(GravityCompat.START);
+            return false;
+        });
 
-        return false;
     }
 
     @OnClick(R.id.notification)
@@ -106,41 +122,9 @@ public class LPAgentFragment extends BaseFragment implements LPAgentContract.Vie
 
     }
 
-    @OnClick(R.id.nasabahBaru)
-    void onClickNasabahBaru(){
-        Intent intent = new Intent(parentActivity(), ChooseBankAgentActivity.class);
-        intent.putExtra("isFrom", "regBorrower");
-        startActivity(intent);
-    }
-
-    @OnClick(R.id.nasabahTerdaftar)
-    void onClickNasabahTerdaftar(){
-        Intent intent = new Intent(parentActivity(), ChooseBankAgentActivity.class);
-        intent.putExtra("isFrom", "listBorrower");
-        startActivity(intent);
-    }
 
     @Override
-    public void displayUserIdentity(String agentName, String agentUserName, String agentID, String agentProvider) {
-
-        View headerViewNav = navigationView.getHeaderView(0);
-        TextView navAgentName = headerViewNav.findViewById(R.id.navHeader_name);
-        TextView navAgentCompany = headerViewNav.findViewById(R.id.navHeader_companyName);
-        TextView navAgentID = headerViewNav.findViewById(R.id.navHeader_num);
-        TextView navAgentUserName = headerViewNav.findViewById(R.id.navAgentUserName);
-
-        navAgentName.setText(agentName);
-        navAgentCompany.setText(agentProvider);
-        navAgentID.setText(agentID);
-        navAgentUserName.setText(agentUserName);
-
-    }
-
-    @Override
-    public void successsLogout() {
-        Intent intent = new Intent(parentActivity(), ChooseLoginActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-        parentActivity().finish();
+    public void showErrorMessage(String errorResponseWithStatusCode) {
+        Toast.makeText(parentActivity(), errorResponseWithStatusCode, Toast.LENGTH_SHORT).show();
     }
 }

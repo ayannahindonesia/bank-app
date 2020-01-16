@@ -3,16 +3,22 @@ package com.ayannah.asira.screen.borrower.login;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 
-import com.ayannah.asira.screen.borrower.homemenu.MainMenuActivity;
 import com.ayannah.asira.R;
 import com.ayannah.asira.base.BaseFragment;
-import com.ayannah.asira.screen.borrower.otpphone.VerificationOTPActivity;
+import com.ayannah.asira.screen.borrower.borrower_landing_page.BorrowerLandingPage;
+import com.ayannah.asira.screen.otpphone.VerificationOTPActivity;
 import com.ayannah.asira.screen.register.formothers.FormOtherFragment;
 import com.ayannah.asira.screen.register.termcondition.TermConditionActivity;
 import com.ayannah.asira.screen.resetpassword.ResetPasswordActivity;
@@ -43,8 +49,18 @@ public class LoginFragment extends BaseFragment implements
     @BindView(R.id.etPassword)
     EditText etPassword;
 
+    @BindView(R.id.lyLogin)
+    RelativeLayout lyLogin;
+
+    @BindView(R.id.openPass)
+    ImageButton openPass;
+
+    @BindView(R.id.invisiblePass)
+    ImageButton invisiblePass;
+
     private Validator validator;
     private AlertDialog dialog;
+    private boolean isPwdVisible = false;
 
     @Inject
     public LoginFragment(){}
@@ -66,7 +82,6 @@ public class LoginFragment extends BaseFragment implements
         dialog = builder.create();
 
         if(mPresenter.isUserLogged()){
-//            Toast.makeText(parentActivity(), "udah pernah login", Toast.LENGTH_SHORT).show();
             loginComplete();
         }
     }
@@ -74,8 +89,43 @@ public class LoginFragment extends BaseFragment implements
     @Override
     protected void initView(Bundle state) {
 
+        Animation slideUp = AnimationUtils.loadAnimation(parentActivity(), R.anim.slide_up);
+        lyLogin.startAnimation(slideUp);
+
         validator = new Validator(this);
         validator.setValidationListener(this);
+
+    }
+
+    @OnClick(R.id.openPass)
+    void visiblePass(){
+
+        if(!isPwdVisible){
+
+            openPass.setVisibility(View.GONE);
+            invisiblePass.setVisibility(View.VISIBLE);
+
+            etPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+            etPassword.setSelection(etPassword.getText().length());
+
+            isPwdVisible = true;
+        }
+
+    }
+
+    @OnClick(R.id.invisiblePass)
+    void invisiblePass(){
+
+        if(isPwdVisible){
+
+            openPass.setVisibility(View.VISIBLE);
+            invisiblePass.setVisibility(View.GONE);
+
+            etPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+            etPassword.setSelection(etPassword.getText().length());
+
+            isPwdVisible = false;
+        }
 
     }
 
@@ -125,7 +175,7 @@ public class LoginFragment extends BaseFragment implements
     public void loginComplete() {
         Toast.makeText(parentActivity(), "Login berhasil", Toast.LENGTH_SHORT).show();
 
-        Intent login = new Intent(parentActivity(), MainMenuActivity.class);
+        Intent login = new Intent(parentActivity(), BorrowerLandingPage.class);
         login.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(login);
 

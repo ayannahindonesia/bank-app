@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorAsiraPrimaryDark"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:id="@+id/form"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:background="@drawable/bg_bottom_sheet"
+                    android:orientation="vertical"
+                    android:padding="@dimen/_20sdp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnSignout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_marginEnd="@dimen/_20sdp"
+                        android:backgroundTint="#ff1c1c"
+                        android:text="Keluar" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/selesai"
+                        android:layout_width="100dp"
+                        android:layout_height="35dp"
+                        android:layout_gravity="end"
+                        android:layout_marginEnd="@dimen/_20sdp"
+                        android:backgroundTint="@color/colorAsiraDarkBlue"
+                        android:fontFamily="@font/manrope_bold"
+                        android:text="Selesai"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/fontNormal"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/txtAgentName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:fontFamily="@font/manrope_bold"
+                        android:padding="@dimen/_5sdp"
+                        android:text="-"
+                        android:textColor="@color/colorAsiraText"
+                        android:textSize="@dimen/fontLarge" />
+
+                    <EditText
+                        android:id="@+id/txtIdAgent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:enabled="false"
+                        android:fontFamily="@font/manrope_bold"
+                        android:hint="-"
+                        android:imeOptions="actionDone"
+                        android:inputType="textEmailAddress"
+                        android:padding="@dimen/_5sdp"
+                        android:textColor="@color/colorAsiraText"
+                        android:textSize="@dimen/fontNormal" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1.5dp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:background="@color/colorAsiraDarkBlue" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp20"
+                        android:padding="@dimen/_3sdp"
+                        android:text="Nama Pengguna"
+                        android:textColor="@color/colorAsiraText"
+                        android:textSize="@dimen/fontNormal" />
+
+                    <EditText
+                        android:id="@+id/txtAgentUserName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:background="@android:color/transparent"
+                        android:enabled="false"
+                        android:fontFamily="@font/manrope_bold"
+                        android:imeOptions="actionNext"
+                        android:inputType="textPersonName"
+                        android:padding="@dimen/_3sdp"
+                        android:textColor="@color/colorAsiraText"
+                        android:textSize="@dimen/fontNormal"
+                        tools:text="-" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp20"
+                        android:padding="@dimen/_3sdp"
+                        android:text="Email"
+                        android:textColor="@color/colorAsiraText"
+                        android:textSize="@dimen/fontNormal" />
+
+                    <EditText
+                        android:id="@+id/etAgentEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:background="@color/colorAsiraPrimary"
+                        android:fontFamily="@font/manrope_bold"
+                        android:imeOptions="actionNext"
+                        android:inputType="textPersonName"
+                        android:padding="@dimen/_3sdp"
+                        android:textColor="@color/colorAsiraText"
+                        android:textSize="@dimen/fontNormal"
+                        tools:text="-" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp20"
+                        android:padding="@dimen/_3sdp"
+                        android:text="Nomor HP"
+                        android:textColor="@color/colorAsiraText"
+                        android:textSize="@dimen/fontNormal" />
+
+                    <EditText
+                        android:id="@+id/etAgentHp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorAsiraPrimary"
+                        android:fontFamily="@font/manrope_bold"
+                        android:padding="@dimen/_3sdp"
+                        android:text="-"
+                        android:textColor="@color/colorAsiraText"
+                        android:textSize="@dimen/fontNormal" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:padding="@dimen/_3sdp"
+                        android:text="Kategori"
+                        android:textColor="@color/colorAsiraText"
+                        android:textSize="@dimen/fontNormal" />
+
+                    <EditText
+                        android:id="@+id/txtAgentCat"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:background="@android:color/transparent"
+                        android:enabled="false"
+                        android:fontFamily="@font/manrope_bold"
+                        android:inputType="textPersonName"
+                        android:padding="@dimen/_3sdp"
+                        android:text="-"
+                        android:textColor="@color/colorAsiraText"
+                        android:textSize="@dimen/fontNormal" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:padding="@dimen/_3sdp"
+                        android:text="Instansi"
+                        android:textColor="@color/colorAsiraText"
+                        android:textSize="@dimen/fontNormal" />
+
+                    <EditText
+                        android:id="@+id/txtAgentProvider"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:background="@android:color/transparent"
+                        android:enabled="false"
+                        android:fontFamily="@font/manrope_bold"
+                        android:inputType="textPersonName"
+                        android:padding="@dimen/_3sdp"
+                        android:text="-"
+                        android:textColor="@color/colorAsiraText"
+                        android:textSize="@dimen/fontNormal" />
+
+                    <TextView
+                        android:id="@+id/txtBankServiceTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:padding="@dimen/_3sdp"
+                        android:text="Bank Pelayanan"
+                        android:textColor="@color/colorAsiraText"
+                        android:textSize="@dimen/fontNormal" />
+
+                    <LinearLayout
+                        android:id="@+id/rltBankService"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <EditText
+                            android:id="@+id/etAgentBanks"
+                            android:layout_width="@dimen/_230sdp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:background="@color/colorAsiraPrimary"
+                            android:enabled="false"
+                            android:fontFamily="@font/manrope_bold"
+                            android:inputType="textPersonName"
+                            android:padding="@dimen/_3sdp"
+                            android:text="-"
+                            android:textColor="@color/colorAsiraText"
+                            android:textSize="@dimen/fontNormal" />
+
+                        <ImageView
+                            android:id="@+id/imgAddBanks"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/ic_plus_sign"/>
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:padding="@dimen/_3sdp"
+                        android:text="Status"
+                        android:textColor="@color/colorAsiraText"
+                        android:textSize="@dimen/fontNormal" />
+
+                    <EditText
+                        android:id="@+id/txtStatus"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:background="@android:color/transparent"
+                        android:enabled="false"
+                        android:fontFamily="@font/manrope_bold"
+                        android:inputType="textPersonName"
+                        android:padding="@dimen/_3sdp"
+                        android:text="-"
+                        android:textColor="@color/colorAsiraText"
+                        android:textSize="@dimen/fontNormal" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnSaveAgentProfile"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:backgroundTint="@color/colorAsiraAccent"
+                        android:text="Simpan" />
+
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rltImageProfile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toTopOf="@+id/form"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/form">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/imgProfile"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:layout_marginTop="@dimen/_20sdp"
+                        android:layout_marginStart="@dimen/_30sdp"
+                        android:background="@drawable/rounded_img_layout" />
+
+                </RelativeLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

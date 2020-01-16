@@ -9,11 +9,13 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.CAMERA"
+        android:required="true" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.VIBRATE"/>
 
     <application
         android:name=".BankApplication"
@@ -26,9 +28,10 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:targetApi="n">
+
         <activity android:name=".screen.agent.selectbank.SelectBankActivity"/>
         <activity android:name=".screen.agent.listloan.ListLoanActivtiy"/>
-        <activity android:name=".screen.borrower.navigationmenu.editinfopribadi.EditInfoPribadiActivity" />
+        <activity android:name=".screen.borrower.profile_menu.editinfopribadi.EditInfoPribadiActivity" />
         <activity
             android:name=".screen.register.termcondition.TermConditionActivity"
             android:label="@string/title_activity_term_condition"
@@ -54,20 +57,16 @@
         <activity android:name=".screen.resetpassword.ResetPasswordActivity" />
         <activity android:name=".screen.success.SuccessActivity" />
         <activity android:name=".screen.borrower.login.LoginActivity" />
-        <activity
-            android:name=".screen.historyloan.HistoryLoanActivity"
-            android:label="@string/title_activity_history_loan" />
-        <activity android:name=".screen.borrower.navigationmenu.akunsaya.AkunSayaActivity" />
-        <activity android:name=".screen.borrower.navigationmenu.datapendukung.DataPendukungActivity" />
-        <activity android:name=".screen.borrower.navigationmenu.infokeuangan.InformasiKeuanganActivity" />
+        <activity android:name=".screen.borrower.profile_menu.akunsaya.AkunSayaActivity" />
+        <activity android:name=".screen.borrower.profile_menu.datapendukung.DataPendukungActivity" />
+        <activity android:name=".screen.borrower.profile_menu.infokeuangan.InformasiKeuanganActivity" />
         <activity android:name=".screen.summary.SummaryTransactionActivity" />
         <activity android:name=".screen.earninginfo.EarningActivity" />
-        <activity android:name=".screen.borrower.navigationmenu.infopribadi.InfoPribadiActivity" />
-        <activity android:name=".screen.disclaimer.DisclaimerActivity" />
+        <activity android:name=".screen.borrower.profile_menu.infopribadi.InfoPribadiActivity" />
         <activity
-            android:name=".screen.borrower.otpphone.VerificationOTPActivity"
+            android:name=".screen.otpphone.VerificationOTPActivity"
             android:label="@string/title_activity_verification_otp"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".screen.detailloan.DetailTransaksiActivity" />
         <activity android:name=".screen.loan.LoanActivity" />
         <activity android:name=".screen.register.addaccountbank.AddAccountBankActivity" />
@@ -76,9 +75,6 @@
         <activity android:name=".screen.register.adddoc.AddDocumentActivity" />
         <activity android:name=".screen.register.formjobearning.FormJobEarningActivity" />
         <activity android:name=".screen.register.formothers.FormOtherActivity" />
-        <activity
-            android:name=".screen.borrower.homemenu.MainMenuActivity"
-            android:label="@string/title_activity_main_menu" />
 
         <meta-data
             android:name="com.google.firebase.ml.vision.DEPENDENCIES"
@@ -95,13 +91,13 @@
             android:configChanges="orientation|screenSize" />
         <activity android:name=".screen.SplashScreen">
 
-             <intent-filter>
-             <action android:name="android.intent.action.MAIN" />
-             <action android:name="android.intent.action.VIEW" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
-             <category android:name="android.intent.category.LAUNCHER" />
-             </intent-filter>
         </activity>
         <activity android:name=".screen.chooselogin.ChooseLoginActivity" />
         <activity android:name=".screen.agent.loginagent.LoginAgentActivity" />
@@ -113,6 +109,10 @@
         <activity android:name=".screen.agent.registerborrower.formother.FormOtherAgentActivity" />
         <activity android:name=".screen.agent.services.ListServicesAgentActivity" />
         <activity android:name=".screen.agent.loan.LoanAgentActivity" />
+        <activity android:name=".screen.agent.navigationmenu.agentprofile.AgentProfileActivity" />
+        <activity android:name=".screen.agent.navigationmenu.agentprofile.ListBanks.AgentProfileBankListActivity" />
+        <activity android:name=".screen.borrower.borrower_landing_page.BorrowerLandingPage"
+            android:screenOrientation="portrait"/>
 
         <service
             android:name=".util.MyFirebaseMessagingService"
@@ -121,6 +121,7 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
     </application>
 
 </manifest>

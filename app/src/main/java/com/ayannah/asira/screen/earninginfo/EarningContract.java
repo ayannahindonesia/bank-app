@@ -13,6 +13,8 @@ public interface EarningContract {
 
         void completeUpdateIncome();
 
+        void getBorrowerIncomeDetail(int primaryIncome, int secondaryIncome, String otherIncome);
+
     }
 
     interface Presenter extends BasePresenter<View>{
@@ -21,5 +23,8 @@ public interface EarningContract {
 
         void updateUserIncome(int primaryIncome, int secondaryIncome, String otherIncomeSource);
 
+        void updateUserIncomeFromAgent(int primary, int secondary, String others, String borrowerID);
+
+        void retrieveBorrowerIncomeDetail();
     }
 }

@@ -12,7 +12,7 @@ import android.os.Build;
 import androidx.core.app.NotificationCompat;
 
 import com.ayannah.asira.R;
-import com.ayannah.asira.screen.historyloan.HistoryLoanActivity;
+import com.ayannah.asira.screen.borrower.borrower_landing_page.BorrowerLandingPage;
 
 public class NotificationHelper {
 
@@ -29,7 +29,7 @@ public class NotificationHelper {
 
         //create intent to pass it into pending intent, so if user click notification,
         //would be move to specific activity
-        Intent resultIntent = new Intent(mContext, HistoryLoanActivity.class);
+        Intent resultIntent = new Intent(mContext, BorrowerLandingPage.class);
         resultIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
         //create pending intent

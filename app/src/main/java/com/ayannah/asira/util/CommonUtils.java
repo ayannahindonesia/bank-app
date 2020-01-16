@@ -161,4 +161,12 @@ public class CommonUtils {
 
     }
 
+    public static String removeDelimeter(String s) {
+        if(s.contains(",") || s.contains(".")){
+            s = s.replaceAll(",", "").replaceAll("[ .]", "");
+        }
+
+        return s;
+    }
+
 }

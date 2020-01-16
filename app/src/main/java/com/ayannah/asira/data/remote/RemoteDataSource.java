@@ -12,11 +12,13 @@ import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.ayannah.asira.BuildConfig;
 import com.ayannah.asira.data.local.PreferenceRepository;
 import com.ayannah.asira.data.model.AgentProfile;
+import com.ayannah.asira.data.model.AgentProviderDetail;
 import com.ayannah.asira.data.model.BankDetail;
 import com.ayannah.asira.data.model.BankList;
 import com.ayannah.asira.data.model.BankService;
 import com.ayannah.asira.data.model.CheckAccount;
 import com.ayannah.asira.data.model.CheckBorrower;
+import com.ayannah.asira.data.model.CurrentTime;
 import com.ayannah.asira.data.model.FCMTokenResponse;
 import com.ayannah.asira.data.model.Kabupaten;
 import com.ayannah.asira.data.model.Kecamatan;
@@ -30,6 +32,7 @@ import com.ayannah.asira.data.model.ReasonLoan;
 import com.ayannah.asira.data.model.ServiceProducts;
 import com.ayannah.asira.data.model.ServiceProductsAgent;
 import com.ayannah.asira.data.model.Token;
+import com.ayannah.asira.data.model.UserBorrower;
 import com.ayannah.asira.data.model.UserProfile;
 import com.google.gson.JsonObject;
 import com.rx2androidnetworking.Rx2AndroidNetworking;
@@ -40,6 +43,7 @@ import org.json.JSONObject;
 import javax.inject.Inject;
 
 import io.reactivex.Single;
+import io.reactivex.disposables.Disposable;
 import okhttp3.Credentials;
 import okhttp3.Response;
 
@@ -428,13 +432,13 @@ public class RemoteDataSource implements RemoteRepository {
     }
 
     @Override
-    public Single<Response> postBorrowerRegisterAgent(JsonObject jsonObject) {
+    public Single<UserBorrower> postBorrowerRegisterAgent(JsonObject jsonObject) {
         return Rx2AndroidNetworking.post(BuildConfig.API_URL  + "agent/register_borrower")
                 .addHeaders("Authorization", preferenceRepository.getUserToken())
                 .addApplicationJsonBody(jsonObject)
                 .setPriority(Priority.MEDIUM)
                 .build()
-                .getObjectSingle(Response.class);
+                .getObjectSingle(UserBorrower.class);
     }
 
     @Override
@@ -516,5 +520,55 @@ public class RemoteDataSource implements RemoteRepository {
                 .setPriority(Priority.MEDIUM)
                 .build()
                 .getObjectSingle(Loans.class);
+    }
+
+    @Override
+    public Single<AgentProfile> patchAgentProfile(JsonObject jsonPatchAgentProfile) {
+        return Rx2AndroidNetworking.patch(BuildConfig.API_URL + "agent/profile")
+                .addHeaders("Authorization", preferenceRepository.getUserToken())
+                .addApplicationJsonBody(jsonPatchAgentProfile)
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getObjectSingle(AgentProfile.class);
+    }
+
+    @Override
+    public Single<AgentProviderDetail> getAgentProvider(String agentProviderID) {
+        return Rx2AndroidNetworking.get(BuildConfig.API_URL_LENDER + "admin/agent_providers/{agentProviderID}")
+                .addHeaders("Authorization", preferenceRepository.getAdminTokenLender())
+                .addPathParameter("agentProviderID", agentProviderID)
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getObjectSingle(AgentProviderDetail.class);
+    }
+
+    @Override
+    public Single<UserProfile> updateProfileFromAgent(JsonObject json, String borrowerID) {
+        return Rx2AndroidNetworking.patch(BuildConfig.API_URL + "agent/borrower/{borrower_id}")
+                .addHeaders("Authorization", preferenceRepository.getUserToken())
+                .addPathParameter("borrower_id", borrowerID)
+                .addApplicationJsonBody(json)
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getObjectSingle(UserProfile.class);
+    }
+
+    @Override
+    public Single<CurrentTime> getCurrentTime() {
+        return Rx2AndroidNetworking.get(BuildConfig.API_URL + "client/serviceinfo")
+                .addHeaders("Authorization", preferenceRepository.getPublicToken())
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getObjectSingle(CurrentTime.class);
+    }
+
+    @Override
+    public Single<CheckAccount> checkEmailUser(String email) {
+        return Rx2AndroidNetworking.get(BuildConfig.API_URL + "client/check_unique")
+                .addHeaders("Authorization", preferenceRepository.getPublicToken())
+                .addQueryParameter("email", email)
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getObjectSingle(CheckAccount.class);
     }
 }

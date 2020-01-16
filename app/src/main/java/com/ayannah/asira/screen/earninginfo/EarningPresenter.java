@@ -8,6 +8,7 @@ import com.androidnetworking.common.ANConstants;
 import com.androidnetworking.error.ANError;
 import com.ayannah.asira.data.local.PreferenceRepository;
 import com.ayannah.asira.data.remote.RemoteRepository;
+import com.ayannah.asira.util.CommonUtils;
 import com.google.gson.JsonObject;
 
 import org.json.JSONObject;
@@ -100,5 +101,78 @@ public class EarningPresenter implements EarningContract.Presenter {
                     }
                 }));
 
+    }
+
+    @Override
+    public void updateUserIncomeFromAgent(int primary, int secondary, String others, String borrowerID) {
+        if(mView == null){
+            return;
+        }
+
+        JsonObject json = new JsonObject();
+        json.addProperty("monthly_income", primary);
+        json.addProperty("other_income", secondary);
+        json.addProperty("other_incomesource", others);
+
+        mComposite.add(remoteRepository.updateProfileFromAgent(json,borrowerID)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(res -> {
+
+                    //update borrower income data to local storage
+                    preferenceRepository.setPrimaryIncomeBorrower(primary);
+                    preferenceRepository.setSecondaryIncomeBorrower(secondary);
+                    preferenceRepository.setOtherIncomeBorrower(others);
+
+                    mView.completeUpdateIncome();
+
+
+                }, error -> {
+                    ANError anError = (ANError) error;
+                    if(anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
+                        mView.showErrorMessage("Connection Error");
+                    }else {
+
+                        if(anError.getErrorBody() != null){
+
+                            JSONObject jsonObject = new JSONObject(anError.getErrorBody());
+                            mView.showErrorMessage(jsonObject.optString("message")  + " updateUserIncome()");
+                        }
+                    }
+                }));
+
+//        mComposite.add(remoteRepository.updateBorrowerIncome(json, borrowerID)
+//        .subscribeOn(Schedulers.io())
+//        .observeOn(AndroidSchedulers.mainThread())
+//        .subscribe(res -> {
+//
+//            mView.completeUpdateIncome();
+//
+//        }, error -> {
+//
+//            ANError anError = (ANError) error;
+//
+//            if(anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
+//                mView.showErrorMessage("Tidak ada koneksi intenet");
+//            }else {
+//
+//                JSONObject obj = new JSONObject(anError.getErrorBody());
+//                mView.showErrorMessage(String.format("%s - %s - %s", obj.optString("details"), obj.optString("message"), anError.getErrorCode()));
+//            }
+//
+//        }));
+
+    }
+
+    @Override
+    public void retrieveBorrowerIncomeDetail() {
+
+        if(mView != null){
+
+            mView.getBorrowerIncomeDetail(
+                    preferenceRepository.getPrimaryIncomeBorrower(),
+                    preferenceRepository.getSecondaryIncomeBorrower(),
+                    preferenceRepository.getOtherIncomeBorrower());
+        }
     }
 }

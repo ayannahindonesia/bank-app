@@ -1,21 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:padding="14dp"
-    android:background="?attr/selectableItemBackground"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginBottom="3dp"
+    app:cardCornerRadius="5dp"
+    app:cardElevation="3dp">
 
-    <TextView
-        android:id="@+id/txtMessage"
-        android:drawableStart="@drawable/ic_notif_grey"
-        android:textColor="@android:color/black"
-        tools:text="test lah hesahd kjhf hsjkhf sdfsdf. skdjfd ksjdf . ksjdf ksdjfh klsf kjsdf slkfj dslkfj slkf."
-        android:textSize="@dimen/fontLarge"
-        android:gravity="top"
-        android:drawablePadding="10dp"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:orientation="vertical"
+        android:padding="@dimen/_16sdp">
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/headerTxtxtMessage"
+            android:textColor="@color/colorAsiraText"
+            android:fontFamily="@font/manrope_bold"
+            tools:text="Hello Asira!"
+            android:textSize="@dimen/fontNormal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/txtMessage"
+            android:textColor="@color/colorAsiraText"
+            tools:text="test lah hesahd kjhf hsjkhf sdfsdf. skdjfd ksjdf . ksjdf ksdjfh klsf kjsdf slkfj dslkfj slkf."
+            android:textSize="@dimen/fontNormal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

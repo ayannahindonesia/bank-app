@@ -1,244 +1,318 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:background="@color/graybackground"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <ProgressBar
-        android:id="@+id/progress_horizontal"
-        style="@style/progress_horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_15sdp"
-        android:layout_marginBottom="@dimen/_10sdp"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:layout_marginLeft="@dimen/dp14"
-        android:layout_marginRight="@dimen/dp14"
-        android:max="5"
-        android:progress="2"
-        android:progressDrawable="@drawable/progress_horizontal" />
 
     <ScrollView
         android:id="@+id/svMain"
         android:layout_width="match_parent"
-        android:layout_below="@+id/progress_horizontal"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/btnNext">
+        android:layout_height="match_parent">
 
         <LinearLayout
-            android:orientation="vertical"
-            android:padding="@dimen/dp14"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            
-            <TextView
-                android:text="Tambahkan Foto KTP Anda"
-                android:textSize="@dimen/fontNormal"
-                android:textColor="@android:color/black"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <RelativeLayout
-                android:background="?attr/selectableItemBackground"
-                android:layout_marginTop="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:id="@+id/imgKTP"
-                    android:scaleType="centerInside"
-                    android:layout_centerHorizontal="true"
-                    android:src="@drawable/ic_upload_photo"
-                    android:background="@drawable/border_card"
-                    android:layout_width="160dp"
-                    android:layout_height="95dp" />
-
-                <ImageView
-                    android:id="@+id/editKTP"
-                    android:src="@drawable/ic_change_photo"
-                    android:layout_toEndOf="@+id/imgKTP"
-                    android:visibility="gone"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginStart="-25dp"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp" />
-
-            </RelativeLayout>
-            
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:orientation="vertical"
-                android:layout_marginTop="10dp"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:text="Input Nomor KTP"
-                    android:textSize="@dimen/fontNormal"
-                    android:textColor="@android:color/black"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <EditText
-                    android:id="@+id/etKTP"
-                    android:hint="1500099923888"
-                    android:inputType="number"
-                    android:imeOptions="actionNext"
-                    android:maxLength="16"
-                    android:textSize="@dimen/fontNormal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-            </LinearLayout>
-
-            <TextView
-                android:text="Tambahkan Foto NPWP Anda (Optional)"
-                android:layout_marginTop="10dp"
-                android:textSize="@dimen/fontNormal"
-                android:textColor="@android:color/black"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <RelativeLayout
-                android:background="?attr/selectableItemBackground"
-                android:layout_marginTop="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:id="@+id/imgNPWP"
-                    android:scaleType="centerInside"
-                    android:layout_centerHorizontal="true"
-                    android:src="@drawable/ic_upload_photo"
-                    android:background="@drawable/border_card"
-                    android:layout_width="160dp"
-                    android:layout_height="95dp" />
-
-                <ImageView
-                    android:id="@+id/editNPWP"
-                    android:src="@drawable/ic_change_photo"
-                    android:layout_toEndOf="@+id/imgNPWP"
-                    android:visibility="gone"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginStart="-25dp"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp" />
-
-            </RelativeLayout>
+            android:padding="@dimen/_16sdp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:orientation="vertical"
-                android:layout_marginTop="10dp"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:text="Input Nomor NPWP"
-                    android:textSize="@dimen/fontNormal"
-                    android:textColor="@android:color/black"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <EditText
-                    android:id="@+id/etNPWP"
-                    android:hint="180009937700"
-                    android:inputType="number"
-                    android:textSize="@dimen/fontNormal"
-                    android:imeOptions="actionNext"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-            </LinearLayout>
-
-            <TextView
-                android:text="Email"
-                android:textSize="@dimen/fontLarge"
-                android:textColor="@android:color/black"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-            <EditText
-                android:id="@+id/regist_email"
-                android:hint="adrian@lorenzo.com"
-                android:inputType="textEmailAddress"
-                android:textSize="@dimen/fontNormal"
-                android:imeOptions="actionNext"
+                android:id="@+id/progress_horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:ignore="Autofill" />
-
-            <TextView
-                android:text="Nomor Ponsel"
-                android:textSize="@dimen/fontLarge"
-                android:layout_width="match_parent"
-                android:textColor="@android:color/black"
-                android:layout_height="wrap_content" />
-            <LinearLayout
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
                 android:orientation="horizontal"
+                android:padding="@dimen/_7sdp"
+                android:weightSum="5">
+
+                <ImageView
+                    android:src="@drawable/indicator_page"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="15dp"/>
+
+                <ImageView
+                    android:src="@drawable/selected_indicator_page"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="15dp"/>
+
+                <ImageView
+                    android:src="@drawable/indicator_page"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="15dp"/>
+
+                <ImageView
+                    android:src="@drawable/indicator_page"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="15dp"/>
+
+                <ImageView
+                    android:src="@drawable/indicator_page"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="15dp"/>
+
+            </LinearLayout>
+
+            <androidx.cardview.widget.CardView
+                app:cardCornerRadius="5dp"
+                app:cardElevation="3dp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <TextView
-                    android:text="+62"
-                    android:textSize="@dimen/fontNormal"
-                    android:layout_marginEnd="5dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:padding="@dimen/_18sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-                <EditText
-                    android:id="@+id/regist_phone"
-                    android:hint="contoh: 82123456789"
-                    android:inputType="phone"
-                    android:textSize="@dimen/fontNormal"
-                    android:imeOptions="actionNext"
-                    android:maxLength="18"
+                    <TextView
+                        android:text="Tambahkan Foto KTP Anda"
+                        android:textSize="@dimen/fontNormal"
+                        android:textColor="@color/colorAsiraText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <RelativeLayout
+                        android:background="?attr/selectableItemBackground"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/imgKTP"
+                            android:scaleType="centerInside"
+                            android:background="@drawable/bg_input_photo"
+                            android:layout_centerHorizontal="true"
+                            android:src="@drawable/ic_photo_camera"
+                            android:layout_width="match_parent"
+                            android:layout_height="125dp" />
+
+                        <ImageView
+                            android:id="@+id/editKTP"
+                            android:src="@drawable/ic_change_photo"
+                            android:layout_toEndOf="@+id/imgKTP"
+                            android:visibility="gone"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginStart="-25dp"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp" />
+
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:orientation="vertical"
+                        android:layout_marginTop="10dp"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:text="Input Nomor KTP"
+                            android:textSize="@dimen/fontNormal"
+                            android:textColor="@color/colorAsiraText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <EditText
+                            android:id="@+id/etKTP"
+                            android:hint="1500099923888"
+                            android:inputType="number"
+                            android:imeOptions="actionNext"
+                            android:maxLength="16"
+                            android:backgroundTint="@color/colorAsiraText"
+                            android:textSize="@dimen/fontNormal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:text="Tambahkan Foto NPWP Anda (Optional)"
+                        android:layout_marginTop="10dp"
+                        android:textSize="@dimen/fontNormal"
+                        android:textColor="@color/colorAsiraText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <RelativeLayout
+                        android:background="?attr/selectableItemBackground"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/imgNPWP"
+                            android:scaleType="centerInside"
+                            android:layout_centerHorizontal="true"
+                            android:src="@drawable/ic_photo_camera"
+                            android:background="@drawable/bg_input_photo"
+                            android:layout_width="match_parent"
+                            android:layout_height="125dp" />
+
+                        <ImageView
+                            android:id="@+id/editNPWP"
+                            android:src="@drawable/ic_change_photo"
+                            android:layout_toEndOf="@+id/imgNPWP"
+                            android:visibility="gone"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginStart="-25dp"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp" />
+
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:orientation="vertical"
+                        android:layout_marginTop="10dp"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:text="Input Nomor NPWP"
+                            android:textSize="@dimen/fontNormal"
+                            android:textColor="@color/colorAsiraText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <EditText
+                            android:id="@+id/etNPWP"
+                            android:hint="180009937700"
+                            android:inputType="number"
+                            android:textSize="@dimen/fontNormal"
+                            android:backgroundTint="@color/colorAsiraText"
+                            android:imeOptions="actionNext"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_16sdp"
+                app:cardElevation="3dp"
+                app:cardCornerRadius="5dp">
+
+                <LinearLayout
+                    android:padding="@dimen/_18sdp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    tools:ignore="Autofill" />
+                    android:orientation="vertical">
 
-            </LinearLayout>
+                    <TextView
+                        android:text="Email"
+                        android:textSize="@dimen/fontNormal"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:textColor="@color/colorAsiraText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                    <EditText
+                        android:id="@+id/regist_email"
+                        android:hint="johndoe@asira.com"
+                        android:inputType="textEmailAddress"
+                        android:backgroundTint="@color/colorAsiraText"
+                        android:textSize="@dimen/fontNormal"
+                        android:imeOptions="actionNext"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        tools:ignore="Autofill" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Password"
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/fontLarge" />
-            <EditText
-                android:id="@+id/regist_pass"
-                android:hint="Password"
-                android:inputType="textPassword"
-                android:textSize="@dimen/fontNormal"
-                android:imeOptions="actionNext"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:ignore="Autofill" />
+                    <TextView
+                        android:text="Nomor Ponsel"
+                        android:textSize="@dimen/fontNormal"
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:textColor="@color/colorAsiraText"
+                        android:layout_height="wrap_content" />
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
-            <TextView
-                android:text="Ketik Ulang Password"
-                android:textSize="@dimen/fontLarge"
-                android:textColor="@android:color/black"
+                        <TextView
+                            android:text="+62"
+                            android:textSize="@dimen/fontNormal"
+                            android:layout_marginEnd="5dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <EditText
+                            android:id="@+id/regist_phone"
+                            android:hint="contoh: 82123456789"
+                            android:backgroundTint="@color/colorAsiraText"
+                            android:inputType="phone"
+                            android:textSize="@dimen/fontNormal"
+                            android:imeOptions="actionNext"
+                            android:maxLength="18"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            tools:ignore="Autofill" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Password"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:textColor="@color/colorAsiraText"
+                        android:textSize="@dimen/fontNormal" />
+                    <EditText
+                        android:id="@+id/regist_pass"
+                        android:hint="Password"
+                        android:backgroundTint="@color/colorAsiraText"
+                        android:inputType="textPassword"
+                        android:textColor="@color/colorAsiraText"
+                        android:textSize="@dimen/fontNormal"
+                        android:imeOptions="actionNext"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        tools:ignore="Autofill" />
+
+                    <TextView
+                        android:text="Ketik Ulang Password"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:textColor="@color/colorAsiraText"
+                        android:textSize="@dimen/fontNormal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                    <EditText
+                        android:id="@+id/regist_pass_retype"
+                        android:hint="Password"
+                        android:backgroundTint="@color/colorAsiraText"
+                        android:inputType="textPassword"
+                        android:textSize="@dimen/fontNormal"
+                        android:imeOptions="actionDone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        tools:ignore="Autofill" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnNext"
+                android:text="Selanjutnya"
+                android:layout_marginTop="@dimen/_18sdp"
+                android:backgroundTint="@color/colorAsiraAccent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
-            <EditText
-                android:id="@+id/regist_pass_retype"
-                android:hint="Password"
-                android:inputType="textPassword"
-                android:textSize="@dimen/fontNormal"
-                android:imeOptions="actionDone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:ignore="Autofill" />
 
         </LinearLayout>
+
         
     </ScrollView>
-    
-    <Button
-        android:id="@+id/btnNext"
-        android:text="Selanjutnya"
-        android:textColor="@android:color/white"
-        android:background="@color/colorAccent"
-        android:layout_alignParentBottom="true"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
 
 </RelativeLayout>

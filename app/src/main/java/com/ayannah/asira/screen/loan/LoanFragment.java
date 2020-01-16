@@ -27,6 +27,7 @@ import com.ayannah.asira.screen.summary.SummaryTransactionActivity;
 import com.ayannah.asira.base.BaseFragment;
 import com.ayannah.asira.util.CommonUtils;
 import com.ayannah.asira.util.NumberSeparatorTextWatcher;
+import com.google.android.gms.common.internal.service.Common;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -326,7 +327,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
             installment.setProgress(0);
 
             //get value from edittext to set plafond
-            int nominal = Integer.parseInt(plafondCustom.getText().toString().replaceAll(",", ""));
+            int nominal = Integer.parseInt(CommonUtils.removeDelimeter(plafondCustom.getText().toString()));
             int nominalRound = roundingValue(nominal);
 
             //calculate asn value
@@ -337,7 +338,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
             if(nominalRound < mServiceProducts.get(position).getMinLoan()){
 
                 // jumlah pinjaman lebih kecil dari batas minimum
-                Toast.makeText(parentActivity(), "Jumlah pinjmana lebih kecil dari batas minimum", Toast.LENGTH_SHORT).show();
+                Toast.makeText(parentActivity(), "Jumlah pinjaman lebih kecil dari batas minimum", Toast.LENGTH_SHORT).show();
                 loanAmount = 0;
                 interest = 0;
                 totalBunga = 0;
@@ -353,7 +354,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
             }else if(nominalRound > mServiceProducts.get(position).getMaxLoan()){
 
                 // Jumlah pinhaman lebih besar dari batas maksimum
-                Toast.makeText(parentActivity(), "Jumlah pinjmana lebih besar dari batas maximum", Toast.LENGTH_SHORT).show();
+                Toast.makeText(parentActivity(), "Jumlah pinjaman lebih besar dari batas maximum", Toast.LENGTH_SHORT).show();
                 loanAmount = 0;
                 interest = 0;
                 totalBunga = 0;
@@ -372,7 +373,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
                 Toast.makeText(parentActivity(), "Diterima", Toast.LENGTH_SHORT).show();
 
                 //set rincian harga
-                String value = plafondCustom.getText().toString().replaceAll(",", "");
+                String value = CommonUtils.removeDelimeter(plafondCustom.getText().toString());
                 loanAmount = Integer.parseInt(value);
 
                 //base on seekbar installment
@@ -572,7 +573,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
 
         //user should input plafond
         if(loanAmount == 0 || loanAmount < minPlafond || loanAmount > maxPlafond){
-            Toast.makeText(parentActivity(), "Mohon masukkan jumlah pinjaman dengan benar", Toast.LENGTH_SHORT).show();
+            Toast.makeText(parentActivity(), "Mohon masukan jumlah pinjaman dengan benar", Toast.LENGTH_SHORT).show();
             return;
 
         }

@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/colorAsiraPrimaryDark"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/form"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="@dimen/_80sdp"
+        android:padding="@dimen/_20sdp"
+        android:orientation="vertical"
+        android:background="@drawable/bg_bottom_sheet"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/ubah"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/ic_mode_edit_white"
+            app:iconTint="@color/colorAsiraWhite"
+            android:layoutDirection="rtl"
+            android:layout_marginEnd="@dimen/_20sdp"
+            android:backgroundTint="@color/colorAsiraDarkBlue"
+            android:text="Ubah"
+            android:layout_gravity="end" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/selesai"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/ic_done_white"
+            app:iconTint="@color/colorAsiraWhite"
+            android:layoutDirection="rtl"
+            android:layout_marginEnd="@dimen/_20sdp"
+            android:backgroundTint="@color/colorAsiraDarkBlue"
+            android:text="Selesai"
+            android:visibility="gone"
+            android:layout_gravity="end"  />
+
+        <TextView
+            android:id="@+id/name"
+            tools:text="Ferdinand Lim"
+            android:padding="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:textSize="@dimen/fontLarge"
+            android:fontFamily="@font/manrope_bold"
+            android:textColor="@color/colorAsiraText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:id="@+id/etEmail"
+            android:textSize="@dimen/fontNormal"
+            android:hint="Your email"
+            android:enabled="false"
+            android:padding="@dimen/_5sdp"
+            android:background="@android:color/transparent"
+            android:inputType="textEmailAddress"
+            android:imeOptions="actionDone"
+            android:textColor="@color/colorAsiraText"
+            android:fontFamily="@font/manrope_bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:layout_marginTop="@dimen/_5sdp"
+            android:background="@color/colorAsiraText"
+            android:layout_width="match_parent"
+            android:layout_height="1.5dp"/>
+
+        <TextView
+            android:textColor="@color/colorAsiraText"
+            android:textSize="@dimen/fontNormal"
+            android:text="Nama Pengguna"
+            android:padding="@dimen/_3sdp"
+            android:layout_marginTop="@dimen/dp20"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:id="@+id/etName"
+            android:textSize="@dimen/fontNormal"
+            tools:text="Adrian Lorenzo"
+            android:padding="@dimen/_3sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:enabled="false"
+            android:background="@android:color/transparent"
+            android:imeOptions="actionNext"
+            android:textColor="@color/colorAsiraText"
+            android:fontFamily="@font/manrope_bold"
+            android:inputType="textPersonName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:textColor="@color/colorAsiraText"
+            android:textSize="@dimen/fontNormal"
+            android:text="Nama Panggilan"
+            android:padding="@dimen/_3sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:id="@+id/etNickname"
+            android:textSize="@dimen/fontNormal"
+            android:text="Adrian Lorenzo"
+            android:textColor="@color/colorAsiraText"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:padding="@dimen/_3sdp"
+            android:enabled="false"
+            android:background="@android:color/transparent"
+            android:fontFamily="@font/manrope_bold"
+            android:imeOptions="actionNext"
+            android:inputType="textPersonName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:textColor="@color/colorAsiraText"
+            android:textSize="@dimen/fontNormal"
+            android:text="Nomor HP"
+            android:layout_marginTop="@dimen/dp20"
+            android:layout_width="match_parent"
+            android:padding="@dimen/_3sdp"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:id="@+id/phoneNumber"
+            android:text="-"
+            android:padding="@dimen/_3sdp"
+            android:textColor="@color/colorAsiraText"
+            android:fontFamily="@font/manrope_bold"
+            android:textSize="@dimen/fontNormal"
+            android:background="@android:color/transparent"
+            android:enabled="false"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+        <TextView
+            android:textColor="@color/colorAsiraText"
+            android:textSize="@dimen/fontNormal"
+            android:text="Kewarganegaraan"
+            android:padding="@dimen/_3sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/etKewarganegaraan"
+            android:textSize="@dimen/fontNormal"
+            android:text="Indonesia"
+            android:textColor="@color/colorAsiraText"
+            android:fontFamily="@font/manrope_bold"
+            android:enabled="false"
+            android:padding="@dimen/_3sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:background="@android:color/transparent"
+            android:inputType="textPersonName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imgUser"
+        android:layout_width="120dp"
+        app:layout_constraintBottom_toTopOf="@+id/form"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/form"
+        android:layout_marginStart="@dimen/_30sdp"
+        android:layout_height="120dp"
+        android:background="@drawable/rounded_img_layout"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

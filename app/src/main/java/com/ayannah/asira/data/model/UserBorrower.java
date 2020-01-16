@@ -166,10 +166,10 @@ public class UserBorrower implements Parcelable, Serializable {
 	private int dependants;
 
 	@SerializedName("idcard_image")
-	private IDCardImage idCardImage;
+	private String idCardImage;
 
 	@SerializedName("taxid_image")
-	private TaxIDImage taxIDImage;
+	private String taxIDImage;
 
 	@SerializedName("agnet_id")
 	private AgentId agentId;
@@ -179,6 +179,9 @@ public class UserBorrower implements Parcelable, Serializable {
 
 	@SerializedName("nth_loans")
 	private int nthLoans;
+
+	@SerializedName("image")
+	private String image;
 
 	protected UserBorrower(Parcel in) {
 		birthday = in.readString();
@@ -233,6 +236,7 @@ public class UserBorrower implements Parcelable, Serializable {
 		employerNumber = in.readString();
 		relatedAddress = in.readString();
 		dependants = in.readInt();
+		image = in.readString();
 	}
 
 	public UserBorrower() {}
@@ -457,11 +461,11 @@ public class UserBorrower implements Parcelable, Serializable {
 		return dependants;
 	}
 
-	public IDCardImage getIdCardImage() {
+	public String getIdCardImage() {
 		return idCardImage;
 	}
 
-	public TaxIDImage getTaxIDImage() {
+	public String getTaxIDImage() {
 		return taxIDImage;
 	}
 
@@ -475,6 +479,10 @@ public class UserBorrower implements Parcelable, Serializable {
 
 	public int getNthLoans() {
 		return nthLoans;
+	}
+
+	public String getImage() {
+		return image;
 	}
 
 	@Override
@@ -536,5 +544,8 @@ public class UserBorrower implements Parcelable, Serializable {
 		dest.writeString(employerNumber);
 		dest.writeString(relatedAddress);
 		dest.writeInt(dependants);
+		dest.writeString(taxIDImage);
+		dest.writeString(idCardImage);
+		dest.writeString(image);
 	}
 }

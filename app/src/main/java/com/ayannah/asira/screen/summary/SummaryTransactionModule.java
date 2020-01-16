@@ -13,6 +13,7 @@ import dagger.android.ContributesAndroidInjector;
 import static com.ayannah.asira.screen.summary.SummaryTransactionActivity.ADMIN;
 import static com.ayannah.asira.screen.summary.SummaryTransactionActivity.ALASAN;
 import static com.ayannah.asira.screen.summary.SummaryTransactionActivity.ANGSURAN_BULAN;
+import static com.ayannah.asira.screen.summary.SummaryTransactionActivity.BANKACCOUNTNUMBER;
 import static com.ayannah.asira.screen.summary.SummaryTransactionActivity.BORROWERID;
 import static com.ayannah.asira.screen.summary.SummaryTransactionActivity.INTEREST;
 import static com.ayannah.asira.screen.summary.SummaryTransactionActivity.LAYANAN;
@@ -124,5 +125,12 @@ public abstract class SummaryTransactionModule {
     @Named("borrowerID")
     static int borrowerID(SummaryTransactionActivity activity){
         return activity.getIntent().getIntExtra(BORROWERID, 0);
+    }
+
+    @Provides
+    @ActivityScoped
+    @Named("bankAccountNumber")
+    static String bankAccountNumber(SummaryTransactionActivity activity){
+        return activity.getIntent().getStringExtra(BANKACCOUNTNUMBER);
     }
 }

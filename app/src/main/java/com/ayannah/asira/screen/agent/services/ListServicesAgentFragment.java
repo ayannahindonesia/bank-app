@@ -2,6 +2,7 @@ package com.ayannah.asira.screen.agent.services;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -13,6 +14,7 @@ import com.ayannah.asira.R;
 import com.ayannah.asira.adapter.BeritaPromoAdapter;
 import com.ayannah.asira.adapter.MenuServiceAdapter;
 import com.ayannah.asira.base.BaseFragment;
+import com.ayannah.asira.custom.GridSpacingItemDecoration;
 import com.ayannah.asira.data.model.BankService;
 import com.ayannah.asira.data.model.BeritaPromo;
 import com.ayannah.asira.data.model.UserBorrower;
@@ -27,6 +29,8 @@ import javax.inject.Inject;
 import butterknife.BindView;
 
 public class ListServicesAgentFragment extends BaseFragment implements ListServicesAgentContract.View {
+
+    private static final String TAG = ListServicesAgentFragment.class.getSimpleName();
 
     @Inject
     ListServicesAgentContract.Presenter mPresenter;
@@ -58,6 +62,7 @@ public class ListServicesAgentFragment extends BaseFragment implements ListServi
     protected void initView(Bundle state) {
 
         recycler_servicesmenu.setLayoutManager(new GridLayoutManager(parentActivity(), 3));
+        recycler_servicesmenu.addItemDecoration(new GridSpacingItemDecoration(3, 50));
         recycler_servicesmenu.setHasFixedSize(true);
         recycler_servicesmenu.setAdapter(mAdapterMenu);
 
@@ -113,6 +118,9 @@ public class ListServicesAgentFragment extends BaseFragment implements ListServi
             intent.putExtra("id", menuProduct.getId());
             intent.putExtra("name", menuProduct.getName());
             intent.putExtra(EarningActivity.ID_SERVICE, String.valueOf(menuProduct.getId()));
+//            intent.putExtra(EarningActivity.IDBANK, String.valueOf(menuProduct.getId()));
+            intent.putExtra(EarningActivity.IDBANK, bank_id);
+            Log.e(TAG, String.valueOf(menuProduct.getId()));
             startActivity(intent);
 
         });

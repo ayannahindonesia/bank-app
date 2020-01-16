@@ -1,9 +1,11 @@
 package com.ayannah.asira.screen.register.termcondition;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 
 import com.ayannah.asira.screen.register.choosebank.ChooseBankActivity;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -15,6 +17,7 @@ import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 
 import com.ayannah.asira.R;
 
@@ -25,6 +28,7 @@ import java.io.InputStreamReader;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
@@ -39,6 +43,14 @@ public class TermConditionActivity extends AppCompatActivity {
     @BindView(R.id.webview)
     WebView webView;
 
+    @BindView(R.id.btn_confirm)
+    MaterialButton btn_confirm;
+
+    @BindView(R.id.btn_confirm_overlay)
+    MaterialButton btn_confirm_overlay;
+
+
+
     private Unbinder mUnbinder;
 
     @Override
@@ -50,9 +62,8 @@ public class TermConditionActivity extends AppCompatActivity {
 
         ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
-        actionBar.setDisplayShowTitleEnabled(true);
+        actionBar.setDisplayShowTitleEnabled(false);
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setTitle("Kebijakan Privasi Asira");
 
         try {
             InputStream inputStream = getResources().openRawResource(R.raw.terms_condition);
@@ -69,6 +80,24 @@ public class TermConditionActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                if(isChecked){
+
+                    btn_confirm.setVisibility(View.VISIBLE);
+                    btn_confirm_overlay.setVisibility(View.GONE);
+
+                }else {
+
+                    btn_confirm.setVisibility(View.GONE);
+                    btn_confirm_overlay.setVisibility(View.VISIBLE);
+
+                }
+            }
+        });
 
     }
 

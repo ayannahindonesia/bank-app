@@ -1,96 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:background="@color/graybackground"
+    android:padding="@dimen/_16sdp"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <LinearLayout
         android:orientation="vertical"
-        android:padding="@dimen/dp16"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:text="@string/earning_primary"
-            android:textColor="@android:color/black"
-            android:textAlignment="center"
-            android:padding="8dp"
-            android:textStyle="bold"
-            android:textSize="@dimen/fontLarge"
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="3dp">
 
-        <RelativeLayout
-            android:layout_gravity="center_horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/rp"
-                android:textSize="@dimen/fontSuperLarge"
-                android:layout_marginEnd="3dp"
-                android:layout_centerVertical="true"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:paddingTop="@dimen/_10sdp"
+                android:paddingBottom="@dimen/_10sdp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/darkgreen"
-                android:layout_gravity="end"
-                android:textStyle="bold"
-                android:text="@string/earning_rp"/>
+                android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/etpenghasilam"
-                android:inputType="number"
-                android:layout_toEndOf="@+id/rp"
-                android:hint="@string/earning_example_amount"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                android:textStyle="bold"
-                android:textColor="@color/darkgreen"
-                android:textSize="@dimen/fontSuperLarge"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                <TextView
+                    android:text="@string/earning_primary"
+                    android:textColor="@color/colorAsiraText"
+                    android:textAlignment="center"
+                    android:padding="4dp"
+                    android:fontFamily="@font/manrope_bold"
+                    android:textSize="@dimen/fontNormal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
-        </RelativeLayout>
+                <RelativeLayout
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
 
+                    <TextView
+                        android:id="@+id/rp"
+                        android:textSize="@dimen/fontNormal"
+                        android:layout_marginEnd="3dp"
+                        android:fontFamily="@font/manrope_bold"
+                        android:layout_centerVertical="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorAsiraText"
+                        android:layout_gravity="end"
+                        android:text="@string/earning_rp"/>
 
-        <TextView
-            android:text="@string/earning_secondary"
-            android:textSize="@dimen/fontNormal"
-            android:textColor="@android:color/black"
-            android:layout_marginTop="40dp"
+                    <EditText
+                        android:id="@+id/etpenghasilam"
+                        android:inputType="number"
+                        android:layout_toEndOf="@+id/rp"
+                        android:hint="@string/earning_example_amount"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:backgroundTint="@color/colorAsiraText"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorAsiraAccent"
+                        android:textSize="@dimen/fontSuperLarge"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-        <EditText
-            android:id="@+id/etPendapatanLain"
-            android:inputType="number"
-            android:hint="@string/earning_zero"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            app:cardElevation="3dp"
+            app:cardCornerRadius="5dp"
+            android:layout_marginTop="@dimen/_10sdp">
+
+            <LinearLayout
+                android:padding="@dimen/_16sdp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:text="@string/earning_secondary"
+                    android:textSize="@dimen/fontNormal"
+                    android:textColor="@color/colorAsiraText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <EditText
+                    android:id="@+id/etPendapatanLain"
+                    android:inputType="number"
+                    android:hint="@string/earning_zero"
+                    android:backgroundTint="@color/colorAsiraText"
+                    android:textColor="@color/colorAsiraText"
+                    android:textStyle="bold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
 
-        <TextView
-            android:text="@string/earning_other"
-            android:textSize="@dimen/fontNormal"
-            android:textColor="@android:color/black"
-            android:layout_marginTop="40dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-        <EditText
-            android:id="@+id/etSumberPendapatanLain"
-            android:inputType="text"
-            android:hint="@string/earning_example_other"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+                <TextView
+                    android:text="@string/earning_other"
+                    android:textSize="@dimen/fontNormal"
+                    android:textColor="@color/colorAsiraText"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <EditText
+                    android:id="@+id/etSumberPendapatanLain"
+                    android:inputType="text"
+                    android:hint="@string/earning_example_other"
+                    android:backgroundTint="@color/colorAsiraText"
+                    android:textColor="@color/colorAsiraText"
+                    android:textStyle="bold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
 
     </LinearLayout>
 
     <Button
         android:id="@+id/buttonNext"
         android:layout_alignParentBottom="true"
-        android:background="@color/colorAccent"
-        android:textColor="@android:color/white"
+        android:backgroundTint="@color/colorAsiraAccent"
         android:text="@string/earning_next"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_16sdp"/>
 
 </RelativeLayout>

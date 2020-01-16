@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:padding="@dimen/_30sdp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/graybackground">
+
+    <TextView
+        android:fontFamily="@font/manrope_bold"
+        android:textColor="@color/colorAsiraText"
+        android:textSize="@dimen/fontBigWumbo"
+        android:text="MENU PILIHAN"
+        android:layout_width="@dimen/_175sdp"
+        android:layout_height="wrap_content"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rvBeranda"/>
+
+</LinearLayout>

@@ -5,6 +5,10 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.ayannah.asira.BuildConfig;
+import com.ayannah.asira.data.model.Bank;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -66,6 +70,9 @@ public class PreferenceDataSource implements PreferenceRepository {
     private static final String PREF_USER_RELATED_BANKACCOUNTNUMBER = "RELATED_BANKACCOUNTNUMBER";
     private static final String PREF_DEPEDANTS = "DEPENDANTS";
 
+    private static final String PREF_USER_IMG_IDCARD = "IDCARD_IMG";
+    private static final String PREF_USER_IMG_TAXCARD = "TAXCARD_IMG";
+
     private static final String PREF_USER_RELATED_ADDRESS = "RELATED_ADDRESS";
     private static final String PREF_USER_ID_CARD_ID = "ID_CARD_ID";
     private static final String PREF_USER_TAX_CARD_ID = "TAX_CARD_ID";
@@ -87,10 +94,21 @@ public class PreferenceDataSource implements PreferenceRepository {
     //agent atributes
     private static final String PREF_AGENT_ID = "AGENT_ID";
     private static final String PREF_AGENT_NAME = "AGENT_NAME";
+    private static final String PREF_AGENT_PROFILE_IMG = "AGENT_PROFILE_IMG";
     private static final String PREF_AGENT_USERNAME = "AGENT_USERNAME";
     private static final String PREF_AGENT_EMAIL = "AGENT_EMAIL";
     private static final String PREF_AGENT_PHONE = "AGENT_PHONE";
     private static final String PREF_AGENT_PROVIDER = "AGENT_PROVIDER";
+    private static final String PREF_AGENT_CATEGORY = "AGENT_CATEGORY";
+    private static final String PREF_AGENT_STATUS = "AGENT_STATUS";
+    private static final String PREF_AGENT_BANKS = "AGENT_BANKS";
+    private static final String PREF_AGENT_BANKS_NAME = "AGENT_BANKS_NAME";
+
+    //for agent purposes
+    private static final String PREF_AGENT_PRIMARY_INCOME_BORROWER = "PREF_AGENT_PRIMARY_INCOME_BORROWER";
+    private static final String PREF_AGENT_SECONDARY_INCOME_BORROWER = "PREF_AGENT_SECONDARY_INCOME_BORROWER";
+    private static final String PREF_AGENT_OTHER_INCOME_BORROWER = "PREF_AGENT_OTHER_INCOME_BORROWER";
+
 
     @Inject
     public PreferenceDataSource(Application application){
@@ -674,23 +692,23 @@ public class PreferenceDataSource implements PreferenceRepository {
     }
 
     @Override
-    public void setIDCardImageID(int idCardImageID) {
-        mPreferences.edit().putInt(PREF_USER_ID_CARD_ID, idCardImageID).apply();
+    public void setIDCardImageID(String idCardImageID) {
+        mPreferences.edit().putString(PREF_USER_ID_CARD_ID, idCardImageID).apply();
     }
 
     @Override
-    public int getIDCardImageID() {
-        return mPreferences.getInt(PREF_USER_ID_CARD_ID, 0);
+    public String getIDCardImageID() {
+        return mPreferences.getString(PREF_USER_ID_CARD_ID, "");
     }
 
     @Override
-    public void setTaxIDImageID(int taxIDImageID) {
-        mPreferences.edit().putInt(PREF_USER_TAX_CARD_ID, taxIDImageID).apply();
+    public void setTaxIDImageID(String taxIDImageID) {
+        mPreferences.edit().putString(PREF_USER_TAX_CARD_ID, taxIDImageID).apply();
     }
 
     @Override
-    public int getTaxIDImageID() {
-        return mPreferences.getInt(PREF_USER_TAX_CARD_ID, 0);
+    public String getTaxIDImageID() {
+        return mPreferences.getString(PREF_USER_TAX_CARD_ID, "");
     }
 
     @Override
@@ -783,6 +801,16 @@ public class PreferenceDataSource implements PreferenceRepository {
     }
 
     @Override
+    public void setAgentProfileImage(String imgUrl) {
+        mPreferences.edit().putString(PREF_AGENT_PROFILE_IMG, imgUrl).apply();
+    }
+
+    @Override
+    public String getAgentProfileImage() {
+        return mPreferences.getString(PREF_AGENT_PROFILE_IMG, "");
+    }
+
+    @Override
     public void setAgentEmail(String emailAgent) {
         mPreferences.edit().putString(PREF_AGENT_EMAIL, emailAgent).apply();
     }
@@ -820,6 +848,99 @@ public class PreferenceDataSource implements PreferenceRepository {
     @Override
     public String getBankAccountBorrower() {
         return mPreferences.getString(PREF_BANK_ACCOUNT_BORROWER, "");
+    }
+
+    @Override
+    public void setAgentCategory(String agentCategory) {
+        mPreferences.edit().putString(PREF_AGENT_CATEGORY, agentCategory).apply();
+    }
+
+    @Override
+    public String getAgentCategory() {
+        return mPreferences.getString(PREF_AGENT_CATEGORY, "");
+    }
+
+    @Override
+    public void setAgentStatus(String agentStatus) {
+        mPreferences.edit().putString(PREF_AGENT_STATUS, agentStatus).apply();
+    }
+
+    @Override
+    public String getAgentStatus() {
+        return mPreferences.getString(PREF_AGENT_STATUS, "");
+    }
+
+    @Override
+    public void setAgentBanks(String agentBanks) {
+        mPreferences.edit().putString(PREF_AGENT_BANKS, agentBanks).apply();
+    }
+
+    @Override
+    public String getAgentBanks() {
+        return mPreferences.getString(PREF_AGENT_BANKS, "");
+    }
+
+    @Override
+    public void setAgentBanksName(String agentBanksName) {
+        mPreferences.edit().putString(PREF_AGENT_BANKS_NAME, agentBanksName).apply();
+    }
+
+    @Override
+    public String getAgentBanksName() {
+        return mPreferences.getString(PREF_AGENT_BANKS_NAME, "");
+    }
+
+    @Override
+    public void setPrimaryIncomeBorrower(int income) {
+        mPreferences.edit().putInt(PREF_AGENT_PRIMARY_INCOME_BORROWER, income).apply();
+    }
+
+    @Override
+    public int getPrimaryIncomeBorrower() {
+        return mPreferences.getInt(PREF_AGENT_PRIMARY_INCOME_BORROWER, 0);
+    }
+
+    @Override
+    public void setSecondaryIncomeBorrower(int income) {
+
+        mPreferences.edit().putInt(PREF_AGENT_SECONDARY_INCOME_BORROWER, income).apply();
+
+    }
+
+    @Override
+    public int getSecondaryIncomeBorrower() {
+        return mPreferences.getInt(PREF_AGENT_SECONDARY_INCOME_BORROWER, 0);
+    }
+
+    @Override
+    public void setOtherIncomeBorrower(String otherIncome) {
+
+        mPreferences.edit().putString(PREF_AGENT_OTHER_INCOME_BORROWER, otherIncome).apply();
+    }
+
+    @Override
+    public String getOtherIncomeBorrower() {
+        return mPreferences.getString(PREF_AGENT_OTHER_INCOME_BORROWER, "");
+    }
+    @Override
+    public void setIdCardImg(String image) {
+        mPreferences.edit().putString(PREF_USER_IMG_IDCARD, image).apply();
+    }
+
+    @Override
+    public String getIdCardImg() {
+        return mPreferences.getString(PREF_USER_IMG_IDCARD, "");
+    }
+
+    @Override
+    public void setTaxCardImg(String image) {
+
+        mPreferences.edit().putString(PREF_USER_IMG_TAXCARD, image).apply();
+    }
+
+    @Override
+    public String getTaxCardImg() {
+        return mPreferences.getString(PREF_USER_IMG_TAXCARD, "");
     }
 
 }

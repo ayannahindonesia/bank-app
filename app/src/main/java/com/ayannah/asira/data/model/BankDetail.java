@@ -22,6 +22,9 @@ public class BankDetail implements Serializable
     @SerializedName("name")
     private String name;
 
+    @SerializedName("image")
+    private String image;
+
     @SerializedName("type")
     private String type;
 
@@ -90,6 +93,14 @@ public class BankDetail implements Serializable
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public String getType() {

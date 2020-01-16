@@ -15,7 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 
 import com.ayannah.asira.R;
-import com.ayannah.asira.screen.historyloan.HistoryLoanActivity;
+import com.ayannah.asira.screen.borrower.borrower_landing_page.BorrowerLandingPage;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -31,6 +31,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss'Z'", Locale.getDefault());
     private SimpleDateFormat sdf_normal = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault());
 
+    public static String TOKEN_FCM;
+
     private NotificationManager notificationManager;
     private int NOTIF_LOAN = 1;
     private String CHANNEL_ID = "ASIRA_CHANNEL";
@@ -41,6 +43,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         super.onNewToken(token);
 
         Log.e(TAG, "onNewToken: "+token);
+        TOKEN_FCM = token;
     }
 
     @Override
@@ -121,7 +124,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         }
 
-        Intent intent = new Intent(this, HistoryLoanActivity.class);
+        Intent intent = new Intent(this, BorrowerLandingPage.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,
                 PendingIntent.FLAG_UPDATE_CURRENT);

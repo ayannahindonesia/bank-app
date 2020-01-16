@@ -3,14 +3,17 @@ package com.ayannah.asira.screen.summary;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ayannah.asira.R;
 import com.ayannah.asira.base.BaseFragment;
+import com.ayannah.asira.dialog.BottomDialogHandlingError;
 import com.ayannah.asira.dialog.BottomSheetDialogGlobal;
-import com.ayannah.asira.screen.borrower.otpphone.VerificationOTPActivity;
+import com.ayannah.asira.screen.otpphone.VerificationOTPActivity;
 import com.ayannah.asira.util.CommonUtils;
 import com.google.gson.JsonObject;
 import com.mobsandgeeks.saripaar.ValidationError;
@@ -66,6 +69,9 @@ public class SummaryTransactionFragment extends BaseFragment implements SummaryT
     @BindView(R.id.selectedProduct)
     TextView tvSelectedProduct;
 
+    @BindView(R.id.buttonSubmit)
+    Button buttonSubmit;
+
     //value purposes
     @Inject
     @Named("pinjaman")
@@ -114,6 +120,10 @@ public class SummaryTransactionFragment extends BaseFragment implements SummaryT
     @Inject
     @Named("borrowerID")
     int borrowerID;
+
+    @Inject
+    @Named("bankAccountNumber")
+    String bankAccountNumber;
 
     private Validator validator;
 
@@ -167,13 +177,34 @@ public class SummaryTransactionFragment extends BaseFragment implements SummaryT
         validator = new Validator(this);
         validator.setValidationListener(this);
 
+        checkDisclaimer.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                if(isChecked){
+
+                    buttonSubmit.setBackgroundResource(R.drawable.button_register);
+
+                }else {
+
+                    buttonSubmit.setBackgroundResource(R.drawable.button_register_disabled);
+
+                }
+
+            }
+        });
+
     }
 
     @OnClick(R.id.buttonSubmit)
     void onClickSubmit(){
 
         //validate before submit
-        validator.validate();
+        if(checkDisclaimer.isChecked()) {
+            validator.validate();
+        }else {
+            Toast.makeText(parentActivity(), "Mohon setujui Syarat dan Ketentuan", Toast.LENGTH_SHORT).show();
+        }
 
     }
 
@@ -188,7 +219,33 @@ public class SummaryTransactionFragment extends BaseFragment implements SummaryT
     public void successLoanApplication(String id_loan) {
 
         if (borrowerID != 0) {
-            mPresenter.requestOTPForLoanAgent(id_loan);
+            if (bankAccountNumber.equals("") || bankAccountNumber == null) {
+                BottomSheetDialogGlobal dialogs = new BottomSheetDialogGlobal().show(parentActivity().getSupportFragmentManager(), BottomSheetDialogGlobal.NO_ACCOUNT_NUMBER_AGENT,
+                        "Nomor Rekening Nasabah Belum Tersedia",
+                        "Nasabah Anda belum bisa mengajukan pinjaman karena belum memiliki nomor rekening pada bank ini.",
+                        R.drawable.no_account_number);
+
+                dialogs.setOnClickBottomSheetInstruction(new BottomSheetDialogGlobal.BottomSheetInstructionListener() {
+                    @Override
+                    public void onClickButtonDismiss() {
+
+                    }
+
+                    @Override
+                    public void onClickButtonYes() {
+
+                    }
+
+                    @Override
+                    public void closeApps() {
+
+                        dialogs.dismiss();
+
+                    }
+                });
+            } else {
+                mPresenter.requestOTPForLoanAgent(id_loan);
+            }
         } else {
             mPresenter.requestOTPForLoan(id_loan);
         }
@@ -290,6 +347,20 @@ public class SummaryTransactionFragment extends BaseFragment implements SummaryT
                 Toast.makeText(parentActivity(), message, Toast.LENGTH_SHORT).show();
             }
         }
+
+    }
+
+    @Override
+    public void errorSendLoan(String message, int code) {
+
+        BottomDialogHandlingError error = new BottomDialogHandlingError(message, code);
+        error.showNow(parentActivity().getSupportFragmentManager(), "error message");
+        error.setOnClickLister(new BottomDialogHandlingError.BottomDialogHandlingErrorListener() {
+            @Override
+            public void onClickOk() {
+                error.dismiss();
+            }
+        });
 
     }
 }

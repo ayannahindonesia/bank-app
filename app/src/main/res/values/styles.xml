@@ -1,24 +1,42 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <!--Theme.AppCompat.Light.DarkActionBar-->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+<!--        Theme.AppCompat.Light.NoActionBar-->
 
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/colorAsiraPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimary</item>
+        <item name="colorAccent">@color/colorAsiraAccent</item>
+        <item name="android:statusBarColor">@color/colorAsiraPrimary</item>
+        <item name="android:windowLightStatusBar" tools:ignore="NewApi">true</item>
+        <item name="android:fontFamily">@font/manrope_medium</item>
+        <item name="homeAsUpIndicator">@drawable/ic_custom_back_btn</item>
+        <item name="bottomSheetDialogTheme">@style/CustomBottomSheetFragmentTheme</item>
+        <item name="materialButtonStyle">@style/CustomButtonStyle</item>
+    </style>
+
+    <style name="CustomButtonStyle" parent="Widget.MaterialComponents.Button.UnelevatedButton">
+        <item name="android:textAllCaps">false</item>
+        <item name="android:height">42dp</item>
+        <item name="cornerRadius">@dimen/_16sdp</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="android:fontFamily">@font/manrope_regular</item>
     </style>
 
     <!--<style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />-->
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Light" >
+        <item name="android:fontFamily">@font/manrope_regular</item>
+    </style>
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" >
+        <item name="android:fontFamily">@font/manrope_regular</item>
+    </style>
 
     <style name="progress_horizontal">
         <item name="android:indeterminateOnly">false</item>
@@ -29,6 +47,30 @@
         <item name="android:minHeight">20dip</item>
         <item name="android:maxHeight">20dip</item>
         <item name="android:mirrorForRtl">true</item>
+        <item name="android:fontFamily">@font/manrope_regular</item>
+    </style>
+
+    <style name="CustomTitleActionBar" parent="android:TextAppearance">
+        <item name="android:fontFamily">@font/manrope_bold</item>
+        <item name="android:textColor">@color/colorAsiraText</item>
+    </style>
+    
+    <style name="CustomBottomSheetFragmentTheme" parent="Theme.Design.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/AppModalStyle</item>
+    </style>
+
+    <style name="AppModalStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/bg_bottom_sheet</item>
+    </style>
+
+    <style name="BottomNavigationTextDefault" parent="@style/TextAppearance.AppCompat.Caption">
+        <item name="android:textSize">@dimen/fontNormal</item>
+    </style>
+
+    <style name="TextTabLayout" parent="TextAppearance.Design.Tab">
+        <item name="textAllCaps">false</item>
+        <item name="android:fontFamily">@font/manrope_bold</item>
+        <item name="android:textSize">14sp</item>
     </style>
 
 </resources>

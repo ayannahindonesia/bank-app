@@ -35,7 +35,6 @@ public class ChooseBankAgentPresenter implements ChooseBankAgentContract.Present
     @Override
     public void getAllBanks() {
         if(mView == null){
-            Toast.makeText(application, "something wrong in setUserIdentity()", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -43,7 +42,9 @@ public class ChooseBankAgentPresenter implements ChooseBankAgentContract.Present
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> {
+
                     mView.successGetAllBanks(response);
+
                 }, error -> {
                     ANError anError = (ANError) error;
                     if(anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){

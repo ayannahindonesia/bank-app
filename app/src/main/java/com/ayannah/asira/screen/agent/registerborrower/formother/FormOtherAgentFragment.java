@@ -16,8 +16,7 @@ import com.ayannah.asira.R;
 import com.ayannah.asira.base.BaseFragment;
 import com.ayannah.asira.data.local.PreferenceRepository;
 import com.ayannah.asira.data.remote.RemoteRepository;
-import com.ayannah.asira.screen.agent.lpagent.LPAgentActivity;
-import com.ayannah.asira.screen.borrower.otpphone.VerificationOTPActivity;
+import com.ayannah.asira.screen.otpphone.VerificationOTPActivity;
 import com.google.gson.JsonObject;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
@@ -40,6 +39,7 @@ public class FormOtherAgentFragment extends BaseFragment implements FormOtherAge
 
     public static final String BANK_NAME = "BANK_NAME";
     public static final String BANK_ID = "BANK_ID";
+    public static final String BANK_LOGO = "BANK_LOGO";
 
     public static final String ACC_NUMBER = "ACC_NUMBER";
 
@@ -52,6 +52,7 @@ public class FormOtherAgentFragment extends BaseFragment implements FormOtherAge
     public static final String NPWP_NO = "NPWP_NO";
     public static final String PHOTO_KTP = "PHOTO_KTP";
     public static final String PHOTO_NPWP = "PHOTO_NPWP";
+    public static final String PHOTO_PP = "PHOTO_PP";
 
     public static final String REGIST_NAME = "REGIST_NAME";
     public static final String GENDER = "GENDER";
@@ -98,7 +99,7 @@ public class FormOtherAgentFragment extends BaseFragment implements FormOtherAge
     @BindView(R.id.spHubungan)
     Spinner spHubungan;
 
-    @NotEmpty(message = "Masukan No Handphone Kerabat Anda", trim = true)
+    @NotEmpty(message = "Masukan No Handphone Kerabat Nasabah Baru", trim = true)
     @BindView(R.id.etRelatedHP)
     @Length(min = 10, message = "Minimal 10 digit, Maximal 14 digit", max = 14)
     EditText etRelatedHP;
@@ -106,11 +107,11 @@ public class FormOtherAgentFragment extends BaseFragment implements FormOtherAge
     @BindView(R.id.etRelatedPhone)
     EditText etRelatedPhone;
 
-    @NotEmpty(message = "Masukan Nama Kerabat Anda", trim = true)
+    @NotEmpty(message = "Masukan Nama Kerabat Nasabah Baru", trim = true)
     @BindView(R.id.etRelatedName)
     EditText etRelatedName;
 
-    @NotEmpty(message = "Masukan Alamat Kerabat Anda", trim = true)
+    @NotEmpty(message = "Masukan Alamat Kerabat Nasabah Baru", trim = true)
     @BindView(R.id.etRelatedAddress)
     EditText etRelatedAddress;
 
@@ -168,42 +169,17 @@ public class FormOtherAgentFragment extends BaseFragment implements FormOtherAge
     }
 
     @Override
-    public  void registerComplete() {
+    public  void registerComplete(String id_borrower, String phone_agent) {
 
-//        Bundle bundle = Objects.requireNonNull(parentActivity()).getIntent().getExtras();
-//        assert bundle != null;
-//        mPresenter.getUserToken(bundle.getString(PHONE), bundle.getString(PASS), "regist");
-        Toast.makeText(parentActivity(), "Nasabah berhasil dimasukan", Toast.LENGTH_LONG).show();
-        Intent intent = new Intent(parentActivity(), LPAgentActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        dialog.dismiss();
+
+        Intent intent = new Intent(parentActivity(), VerificationOTPActivity.class);
+        intent.putExtra(VerificationOTPActivity.PURPOSES, "REGISTER_BORROWER");
+        intent.putExtra("id_borrower", id_borrower);
         startActivity(intent);
-        parentActivity().finish();
 
     }
 
-//    @Override
-//    public void successGetOTP() {
-//        dialog.dismiss();
-//
-//        Bundle bundle = Objects.requireNonNull(parentActivity()).getIntent().getExtras();
-//        assert bundle != null;
-//
-//        Intent verification = new Intent(parentActivity(), VerificationOTPActivity.class);
-//        verification.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-//        verification.putExtra("purpose", "regist");
-//        verification.putExtra(PHONE, bundle.getString(PHONE));
-//        verification.putExtra(PASS, bundle.getString(PASS));
-//        startActivity(verification);
-//        parentActivity().finish();
-//    }
-
-//    @Override
-//    public void successGetUserToken() {
-//        Bundle bundle = Objects.requireNonNull(parentActivity()).getIntent().getExtras();
-//        assert bundle != null;
-//
-//        mPresenter.postBorrowerOTPRequest(bundle.getString(PHONE));
-//    }
 
     @Override
     public void onValidationSucceeded() {
@@ -269,6 +245,7 @@ public class FormOtherAgentFragment extends BaseFragment implements FormOtherAge
         userProfleRequestAgent.addProperty("related_address", etRelatedAddress.getText().toString());
         userProfleRequestAgent.addProperty("idcard_image", bundle.getString(PHOTO_KTP));
         userProfleRequestAgent.addProperty("taxid_image", bundle.getString(PHOTO_NPWP));
+        userProfleRequestAgent.addProperty("image", bundle.getString(PHOTO_PP));
 
         //new
         userProfleRequestAgent.addProperty("bank", Integer.parseInt(bundle.getString(BANK_ID)));

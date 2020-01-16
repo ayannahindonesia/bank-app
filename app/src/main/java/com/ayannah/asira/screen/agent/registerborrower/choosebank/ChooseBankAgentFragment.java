@@ -22,6 +22,8 @@ import com.ayannah.asira.screen.agent.viewBorrower.ViewBorrowerActivity;
 import com.ayannah.asira.screen.register.addaccountbank.AddAccountBankFragment;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -31,7 +33,6 @@ import butterknife.BindView;
 public class ChooseBankAgentFragment extends BaseFragment implements ChooseBankAgentContract.View {
 
     ChooseBankAdapter mAdapter;
-    List<BankDetail> listBanks;
 
     private AddAccountBankFragment fragmentadd = new AddAccountBankFragment();
     private AlertDialog dialog;
@@ -79,17 +80,19 @@ public class ChooseBankAgentFragment extends BaseFragment implements ChooseBankA
     @Override
     public void successGetAllBanks(BankList bankList) {
 //        dialog.dismiss();
-        listBanks = new ArrayList<>();
-        for (int i=0; i<bankList.getTotalData(); i++) {
-            BankDetail bankDetail = new BankDetail();
-            bankDetail.setName(bankList.getData().get(i).getName());
-            bankDetail.setId(bankList.getData().get(i).getId());
-
-            listBanks.add(bankDetail);
-        }
 
         mAdapter = new ChooseBankAdapter(getActivity().getApplication());
-        mAdapter.setItemBank(listBanks);
+
+        ArrayList<BankDetail> sortedBD = new ArrayList<>(bankList.getData());
+        Collections.sort(sortedBD, new Comparator<BankDetail>() {
+            @Override
+            public int compare(BankDetail o1, BankDetail o2) {
+                return o1.getName().compareTo(o2.getName());
+            }
+        });
+
+        mAdapter.setItemBank(sortedBD);
+
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(mAdapter);
@@ -102,6 +105,8 @@ public class ChooseBankAgentFragment extends BaseFragment implements ChooseBankA
                     Bundle bundle = new Bundle();
                     bundle.putString(FormOtherAgentFragment.BANK_ID, String.valueOf(bank.getId()));
                     bundle.putString(FormOtherAgentFragment.BANK_NAME, bank.getName());
+                    bundle.putString(FormOtherAgentFragment.BANK_LOGO, bank.getImage());
+
                     addbank = new Intent(parentActivity(), AddAccountBankAgentActivity.class);
                     addbank.putExtras(bundle);
                 }else if(parentActivity().getIntent().getStringExtra("isFrom").equals("listLoanRequest")){

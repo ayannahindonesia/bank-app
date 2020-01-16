@@ -4,7 +4,7 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:padding="@dimen/margin10dp"
-    android:background="?attr/selectableItemBackground"
+    android:background="@color/colorAsiraWhite"
     android:weightSum="2"
     android:layout_height="wrap_content">
 
@@ -15,32 +15,40 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/idLoan"
+            android:textColor="@color/colorAsiraText"
+            android:textSize="@dimen/fontNormal"
+            tools:text="123"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
             android:id="@+id/nameBorrower"
-            android:padding="3dp"
-            android:textColor="@android:color/black"
+            android:textColor="@color/colorAsiraText"
             android:textSize="@dimen/fontNormal"
             tools:text="Dinand"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
         <TextView
-            android:id="@+id/loanTotalBorrower"
-            android:textColor="@android:color/black"
+            android:id="@+id/productBorrower"
+            android:textColor="@color/colorAsiraText"
             android:textSize="@dimen/fontNormal"
-            tools:text="Rp12.000.000"
-            android:padding="3dp"
+            tools:text="Produk Mantap"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
         <TextView
-            android:id="@+id/tenorLoanBorrower"
-            android:textColor="@android:color/black"
+            android:id="@+id/statusLoanBorrower"
+            android:textColor="@android:color/white"
             android:textSize="@dimen/fontNormal"
-            tools:text="12 Bulan"
+            tools:text="Dalam Proses"
+            android:layout_marginTop="6dp"
+            android:background="@drawable/badge_tidak_lengkap"
+            android:textAlignment="center"
             android:padding="3dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
-
 
 
     </LinearLayout>
@@ -52,27 +60,24 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/productBorrower"
-            android:textColor="@android:color/black"
-            android:textSize="@dimen/fontNormal"
-            tools:text="Produk Mantap"
+            android:id="@+id/loanTotalBorrower"
+            android:textColor="@color/colorAsiraText"
+            android:textSize="@dimen/fontSuperLarge"
+            tools:text="Rp12.000.000"
+            android:fontFamily="@font/manrope_bold"
             android:textAlignment="textEnd"
-            android:textStyle="bold"
-            android:padding="3dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
         <TextView
-            android:id="@+id/statusLoanBorrower"
-            android:textColor="@android:color/white"
+            android:id="@+id/tenorLoanBorrower"
+            android:textColor="@color/colorAsiraText"
             android:textSize="@dimen/fontNormal"
-            tools:text="Dalam Proses"
-            android:layout_marginTop="6dp"
-            android:background="@drawable/badge_tidak_lengkap"
+            android:fontFamily="@font/manrope_bold"
+            tools:text="12 Bulan"
             android:textAlignment="textEnd"
-            android:padding="8dp"
-            android:layout_gravity="end"
-            android:layout_width="wrap_content"
+            android:padding="3dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
 

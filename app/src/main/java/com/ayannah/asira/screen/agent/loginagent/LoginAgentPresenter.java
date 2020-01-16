@@ -9,6 +9,7 @@ import com.androidnetworking.common.ANConstants;
 import com.androidnetworking.error.ANError;
 import com.ayannah.asira.data.local.PreferenceRepository;
 import com.ayannah.asira.data.remote.RemoteRepository;
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import org.json.JSONObject;
@@ -59,8 +60,10 @@ public class LoginAgentPresenter implements LoginAgentContract.Presenter {
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(response -> {
+
             preferenceRepository.setPublicToken("Bearer "+response.getToken());
             getClientToken(username, password);
+
         }, error -> {
             ANError anError = (ANError) error;
             if (anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)) {
@@ -120,10 +123,15 @@ public class LoginAgentPresenter implements LoginAgentContract.Presenter {
 
                     preferenceRepository.setAgentId(String.valueOf(response.getId()));
                     preferenceRepository.setAgentName(response.getName());
+                    preferenceRepository.setAgentProfileImage(response.getImageProfile());
                     preferenceRepository.setAgentUserName(response.getUsername());
                     preferenceRepository.setAgentEmail(response.getEmail());
                     preferenceRepository.setAgentPhone(response.getPhone());
                     preferenceRepository.setAgentProvider(String.valueOf(response.getAgentProvider().getInt64()));
+                    preferenceRepository.setAgentCategory(response.getCategory());
+                    preferenceRepository.setAgentBanks(response.getBanks().toString().replace("[", "").replace("]", ""));
+                    preferenceRepository.setAgentBanksName(response.getBanksName().toString().replace("[", "").replace("]",""));
+                    preferenceRepository.setAgentStatus(response.getStatus());
                     preferenceRepository.setAgentLogged(true);
 
                     mView.loginComplete();

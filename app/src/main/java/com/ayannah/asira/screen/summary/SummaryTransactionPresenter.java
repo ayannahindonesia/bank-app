@@ -9,6 +9,7 @@ import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.ayannah.asira.BuildConfig;
+import com.ayannah.asira.R;
 import com.ayannah.asira.data.local.PreferenceRepository;
 import com.ayannah.asira.data.remote.RemoteRepository;
 import com.ayannah.asira.util.CommonUtils;
@@ -96,12 +97,29 @@ public class SummaryTransactionPresenter implements SummaryTransactionContract.P
                     @Override
                     public void onError(ANError anError) {
 
-                        if(anError.getErrorBody() != null){
+                        if(mView != null) {
 
-                            Log.d("verify Loan: ", "gagal");
-                            Log.d("verify Loan: ", "errpr:"+anError.getErrorCode());
-                            Log.d("verify Loan: ", "body: "+anError.getErrorBody());
+                            if (anError.getErrorBody() != null) {
 
+                                Log.d("verify Loan: ", "gagal");
+                                Log.d("verify Loan: ", "errpr:" + anError.getErrorCode());
+                                Log.d("verify Loan: ", "body: " + anError.getErrorBody());
+
+                                try {
+                                    JSONObject obj = new JSONObject(anError.getErrorBody());
+                                    String message = obj.optString("message");
+
+                                    mView.errorSendLoan(message, anError.getErrorCode());
+
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
+
+                            } else {
+
+                                mView.errorSendLoan("Mohon coba beberapa saat lagi. Sedang dalam perbaikan", anError.getErrorCode());
+                            }
 
                         }
 

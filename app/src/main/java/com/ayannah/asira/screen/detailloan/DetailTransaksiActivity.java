@@ -6,7 +6,6 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -17,7 +16,7 @@ import com.ayannah.asira.R;
 import com.ayannah.asira.data.model.FeesItem;
 import com.ayannah.asira.data.model.Loans.DataItem;
 import com.ayannah.asira.dialog.BottomSheetDialogGlobal;
-import com.ayannah.asira.screen.borrower.otpphone.VerificationOTPActivity;
+import com.ayannah.asira.screen.otpphone.VerificationOTPActivity;
 import com.ayannah.asira.util.CommonUtils;
 
 import java.text.ParseException;
@@ -177,9 +176,10 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
 
         noPeminjaman.setText(String.valueOf(dataItem.getId()));
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss.SSS'Z'", Locale.getDefault());
-        SimpleDateFormat sdfDibursement = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss'Z'", Locale.getDefault());
-        SimpleDateFormat sdfUsed = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
+        Locale locale = new Locale("in", "ID");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss.SSS'Z'",locale);
+        SimpleDateFormat sdfDibursement = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss'Z'", locale);
+        SimpleDateFormat sdfUsed = new SimpleDateFormat("dd MMMM yyyy", locale);
         Date getDate = new Date();
         Date getDateDisbursement = new Date();
         try {
@@ -368,6 +368,7 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
                         result = result + Integer.parseInt(param.getAmount());
 
                     }
+
                 }
 
             }

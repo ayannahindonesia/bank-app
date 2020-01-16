@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -16,6 +17,7 @@ import com.ayannah.asira.data.model.UserBorrower;
 import com.ayannah.asira.dialog.BottomChangingIncome;
 import com.ayannah.asira.screen.agent.loan.LoanAgentActivity;
 import com.ayannah.asira.screen.loan.LoanActivity;
+import com.ayannah.asira.util.CommonUtils;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
@@ -34,6 +36,8 @@ import butterknife.OnClick;
 public class EarningFragment extends BaseFragment implements EarningContract.View,
         BottomChangingIncome.BottomSheetChangingIncomeListener,
         Validator.ValidationListener {
+
+    private static String TAG = EarningFragment.class.getSimpleName();
 
     @Inject
     EarningContract.Presenter mPresenter;
@@ -56,7 +60,8 @@ public class EarningFragment extends BaseFragment implements EarningContract.Vie
     private BottomChangingIncome popUpChangingIncome;
     private Validator validator;
     private AlertDialog dialog;
-    UserBorrower userBorrower;
+    private UserBorrower userBorrower;
+    private String idbank;
 
     @Inject
     public EarningFragment(){}
@@ -76,12 +81,17 @@ public class EarningFragment extends BaseFragment implements EarningContract.Vie
         builder.setView(R.layout.progress_bar);
         dialog = builder.create();
 
+        idbank = getActivity().getIntent().getStringExtra(EarningActivity.IDBANK);
+
         if (getActivity().getIntent().getStringExtra("isFrom").toLowerCase().equals("agent")) {
-//            Toast.makeText(parentActivity(), "dari Agent", Toast.LENGTH_SHORT).show();
-            userBorrower = (UserBorrower) getActivity().getIntent().getSerializableExtra("user");
-            loadPenghasilan(String.valueOf(userBorrower.getMonthlyIncome()),
-                    String.valueOf(userBorrower.getOtherIncome()),
-                    userBorrower.getOtherIncomesource());
+
+             userBorrower = (UserBorrower) getActivity().getIntent().getSerializableExtra("user");
+
+             mPresenter.retrieveBorrowerIncomeDetail();
+//            loadPenghasilan(String.valueOf(userBorrower.getMonthlyIncome()),
+//                    String.valueOf(userBorrower.getOtherIncome()),
+//                    userBorrower.getOtherIncomesource());
+
         } else {
             mPresenter.getPenghasilan();
         }
@@ -116,9 +126,7 @@ public class EarningFragment extends BaseFragment implements EarningContract.Vie
                     originalPenghaislan = s.toString();
 
                     long longval;
-                    if(originalPenghaislan.contains(",")){
-                        originalPenghaislan = originalPenghaislan.replaceAll(",", "");
-                    }
+                    originalPenghaislan = CommonUtils.removeDelimeter(originalPenghaislan);
                     longval = Long.parseLong(originalPenghaislan);
 
                     DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance(Locale.getDefault());
@@ -159,9 +167,7 @@ public class EarningFragment extends BaseFragment implements EarningContract.Vie
                     originalStringPendapatanLain = s.toString();
 
                     long longval;
-                    if(originalStringPendapatanLain.contains(",")){
-                        originalStringPendapatanLain = originalStringPendapatanLain.replaceAll(",", "");
-                    }
+                    originalStringPendapatanLain = CommonUtils.removeDelimeter(originalStringPendapatanLain);
                     longval = Long.parseLong(originalStringPendapatanLain);
 
                     DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance(Locale.getDefault());
@@ -199,6 +205,7 @@ public class EarningFragment extends BaseFragment implements EarningContract.Vie
 
         dialog.dismiss();
         Toast.makeText(parentActivity(), message, Toast.LENGTH_SHORT).show();
+        Log.e(TAG, message);
 
     }
 
@@ -234,13 +241,20 @@ public class EarningFragment extends BaseFragment implements EarningContract.Vie
             intent.putExtra("isFrom", "agent");
             intent.putExtra("user", (Serializable) userBorrower);
             intent.putExtra(LoanAgentActivity.IDSERVICE, idService);
-            intent.putExtra(LoanAgentActivity.IDBANK, "1");
+            intent.putExtra(LoanAgentActivity.IDBANK, idbank);
         } else {
             intent= new Intent(parentActivity(), LoanActivity.class);
         }
         intent.putExtra(LoanActivity.IDSERVICE, idService);
 
         startActivity(intent);
+    }
+
+    @Override
+    public void getBorrowerIncomeDetail(int primaryIncome, int secondaryIncome, String otherIncome) {
+
+        loadPenghasilan(String.valueOf(primaryIncome), String.valueOf(secondaryIncome), otherIncome);
+
     }
 
     @Override
@@ -260,7 +274,7 @@ public class EarningFragment extends BaseFragment implements EarningContract.Vie
             pinjaman.putExtra("user", (Serializable) userBorrower);
             pinjaman.putExtra("isFrom", "agent");
             pinjaman.putExtra(LoanAgentActivity.IDSERVICE, idService);
-            pinjaman.putExtra(LoanAgentActivity.IDBANK, "1");
+            pinjaman.putExtra(LoanAgentActivity.IDBANK, idbank);
         } else {
             pinjaman = new Intent(parentActivity(), LoanActivity.class);
 //        pinjaman.putExtra("idService", bundle.getInt("id"));
@@ -283,14 +297,18 @@ public class EarningFragment extends BaseFragment implements EarningContract.Vie
 
         int primary = Integer.parseInt(originalPenghaislan);
         int secondaru = 0;
-        if(originalStringPendapatanLain != null ){
+        if(originalStringPendapatanLain != null && !originalStringPendapatanLain.equals("") ){
             secondaru = Integer.parseInt(originalStringPendapatanLain);
         }
 
         String others = etSumberPendapatanLain.getText().toString().trim();
 
         dialog.show();
-        mPresenter.updateUserIncome(primary, secondaru, others);
+        if (getActivity().getIntent().getStringExtra("isFrom").toLowerCase().equals("agent")) {
+            mPresenter.updateUserIncomeFromAgent(primary, secondaru, others, String.valueOf(userBorrower.getId()));
+        } else {
+            mPresenter.updateUserIncome(primary, secondaru, others);
+        }
     }
 
     @Override

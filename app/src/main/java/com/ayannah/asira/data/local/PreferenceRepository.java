@@ -208,13 +208,13 @@ public interface PreferenceRepository {
 
     String getTaxIDImage();
 
-    void setIDCardImageID(int idCardImageID);
+    void setIDCardImageID(String idCardImageID);
 
-    int getIDCardImageID();
+    String getIDCardImageID();
 
-    void setTaxIDImageID(int taxIDImageID);
+    void setTaxIDImageID(String taxIDImageID);
 
-    int getTaxIDImageID();
+    String getTaxIDImageID();
 
     void setBankID(int bankID);
 
@@ -252,6 +252,10 @@ public interface PreferenceRepository {
 
     String getAgentUserName();
 
+    void setAgentProfileImage(String imgUrl);
+
+    String getAgentProfileImage();
+
     void setAgentEmail(String emailAgent);
 
     String getAgentEmail();
@@ -267,4 +271,40 @@ public interface PreferenceRepository {
     void setBankAccountBorrower(String accountNumber);
 
     String getBankAccountBorrower();
+
+    void setAgentCategory(String agentCategory);
+
+    String getAgentCategory();
+
+    void setAgentStatus(String agentStatus);
+
+    String getAgentStatus();
+
+    void setAgentBanks(String agentBanks);
+
+    String getAgentBanks();
+
+    void setAgentBanksName(String agentBanksName);
+
+    String getAgentBanksName();
+
+    void setPrimaryIncomeBorrower(int income);
+
+    int getPrimaryIncomeBorrower();
+
+    void setSecondaryIncomeBorrower(int income);
+
+    int getSecondaryIncomeBorrower();
+
+    void setOtherIncomeBorrower(String otherIncome);
+
+    String getOtherIncomeBorrower();
+
+    void setIdCardImg(String image);
+
+    String getIdCardImg();
+
+    void setTaxCardImg(String image);
+
+    String getTaxCardImg();
 }

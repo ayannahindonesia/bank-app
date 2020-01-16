@@ -5,6 +5,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
+        android:layout_marginStart="@dimen/_16sdp"
+        android:layout_marginEnd="@dimen/_16sdp"
         android:layout_height="wrap_content"
         android:id="@+id/recyclerViewPencairan"/>
 

@@ -58,14 +58,14 @@ public class BeritaPromoAdapter extends RecyclerView.Adapter<BeritaPromoAdapter.
 
     class BeritaPromoVH extends RecyclerView.ViewHolder{
 
-        @BindView(R.id.titleItem)
-        TextView title;
-
-        @BindView(R.id.descItem)
-        TextView desc;
-
-        @BindView(R.id.seeMore)
-        TextView seeMore;
+//        @BindView(R.id.titleItem)
+//        TextView title;
+//
+//        @BindView(R.id.descItem)
+//        TextView desc;
+//
+//        @BindView(R.id.seeMore)
+//        TextView seeMore;
 
         @BindView(R.id.imgBanner)
         ImageView imgBanner;
@@ -80,11 +80,11 @@ public class BeritaPromoAdapter extends RecyclerView.Adapter<BeritaPromoAdapter.
 
             imgBanner.setImageResource(param.getImg());
 
-            title.setText(param.getTitle());
-
-            desc.setText(param.getDescription());
-
-            seeMore.setOnClickListener(view -> Toast.makeText(mContext, "See More...", Toast.LENGTH_SHORT).show());
+//            title.setText(param.getTitle());
+//
+//            desc.setText(param.getDescription());
+//
+//            seeMore.setOnClickListener(view -> Toast.makeText(mContext, "See More...", Toast.LENGTH_SHORT).show());
         }
 
     }

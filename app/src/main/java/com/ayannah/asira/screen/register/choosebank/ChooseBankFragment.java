@@ -19,6 +19,8 @@ import com.ayannah.asira.screen.register.addaccountbank.AddAccountBankFragment;
 import com.ayannah.asira.screen.register.formothers.FormOtherFragment;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -28,7 +30,6 @@ import butterknife.BindView;
 public class ChooseBankFragment extends BaseFragment implements ChooseBankContract.View {
 
     ChooseBankAdapter mAdapter;
-    List<BankDetail> listBanks;
 
     @Inject
     ChooseBankContract.Presenter mPresenter;
@@ -39,7 +40,6 @@ public class ChooseBankFragment extends BaseFragment implements ChooseBankContra
     @BindView(R.id.rvBank)
     RecyclerView recyclerView;
 
-    private AddAccountBankFragment fragmentadd = new AddAccountBankFragment();
     private AlertDialog dialog;
 
     @Inject
@@ -81,34 +81,30 @@ public class ChooseBankFragment extends BaseFragment implements ChooseBankContra
     @Override
     public void successGetAllBanks(BankList bankList) {
         dialog.dismiss();
-        listBanks = new ArrayList<>();
-        for (int i=0; i<bankList.getTotalData(); i++) {
-            BankDetail bankDetail = new BankDetail();
-            bankDetail.setName(bankList.getData().get(i).getName());
-            bankDetail.setId(bankList.getData().get(i).getId());
-
-            listBanks.add(bankDetail);
-        }
 
         mAdapter = new ChooseBankAdapter(getActivity().getApplication());
-        mAdapter.setItemBank(listBanks);
+
+        ArrayList<BankDetail> sortedBD = new ArrayList<>(bankList.getData());
+        Collections.sort(sortedBD, (o1, o2) -> o1.getName().compareTo(o2.getName()));
+
+        mAdapter.setItemBank(sortedBD);
+
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(mAdapter);
-        mAdapter.setOnClickBankListener(new ChooseBankAdapter.ChooseBankListener() {
-            @Override
-            public void onClickItemBank(BankDetail bank) {
 
-                Bundle bundle = new Bundle();
-                bundle.putString(FormOtherFragment.BANK_NAME, bank.getName());
-                bundle.putInt(FormOtherFragment.BANK_ID, bank.getId());
+        mAdapter.setOnClickBankListener(bank -> {
 
-                Intent adddbank = new Intent(parentActivity(), AddAccountBankActivity.class);
-                adddbank.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                adddbank.putExtras(bundle);
-                startActivity(adddbank);
+            Bundle bundle = new Bundle();
+            bundle.putString(FormOtherFragment.BANK_NAME, bank.getName());
+            bundle.putInt(FormOtherFragment.BANK_ID, bank.getId());
+            bundle.putString(FormOtherFragment.BANK_LOGO, bank.getImage());
 
-            }
+            Intent adddbank = new Intent(parentActivity(), AddAccountBankActivity.class);
+            adddbank.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            adddbank.putExtras(bundle);
+            startActivity(adddbank);
+
         });
     }
 }

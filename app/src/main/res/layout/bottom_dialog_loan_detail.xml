@@ -10,18 +10,35 @@
         android:orientation="vertical"
         android:padding="14dp">
 
-        <ImageButton
-            android:id="@+id/close"
-            android:src="@drawable/ic_close_black"
-            android:background="?attr/selectableItemBackground"
-            android:layout_gravity="end"
-            android:padding="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:ignore="ContentDescription" />
+        <LinearLayout
+            android:weightSum="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_weight="0.1"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                android:textSize="@dimen/fontLarge"
+                android:text="Detil Pinjaman"/>
+
+            <ImageButton
+                android:id="@+id/close"
+                android:layout_weight="0.9"
+                android:src="@drawable/ic_close_black"
+                android:background="?attr/selectableItemBackground"
+                android:padding="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:ignore="ContentDescription" />
+
+        </LinearLayout>
 
         <TextView
-            android:text="Id pinjaman"
+            android:text="Id Pinjaman"
             android:layout_marginTop="10dp"
             android:textSize="@dimen/fontNormal"
             android:layout_width="match_parent"
@@ -38,216 +55,7 @@
             android:textSize="@dimen/fontLarge"/>
 
         <TextView
-            android:text="Nama nasabah"
-            android:textSize="@dimen/fontNormal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@android:color/black"/>
-
-        <TextView
-            android:id="@+id/nama"
-            android:textColor="@color/colorBlueDark"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:text="xyz"
-            android:layout_marginBottom="10dp"
-            android:textSize="@dimen/fontLarge"/>
-
-        <TextView
-            android:text="Status Pinjaman"
-            android:textSize="@dimen/fontNormal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@android:color/black"/>
-
-        <TextView
-            android:id="@+id/status"
-            android:textColor="@color/colorBlueDark"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:text="xyz"
-            android:layout_marginBottom="10dp"
-            android:textSize="@dimen/fontLarge"/>
-
-        <TextView
-            android:text="Jenis layanan"
-            android:textSize="@dimen/fontNormal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@android:color/black"/>
-
-        <TextView
-            android:id="@+id/jenis"
-            android:textColor="@color/colorBlueDark"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:text="xyz"
-            android:layout_marginBottom="10dp"
-            android:textSize="@dimen/fontLarge"/>
-
-        <TextView
-            android:text="Nama produk"
-            android:textSize="@dimen/fontNormal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@android:color/black"/>
-
-        <TextView
-            android:id="@+id/produk"
-            android:textColor="@color/colorBlueDark"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:text="xyz"
-            android:layout_marginBottom="10dp"
-            android:textSize="@dimen/fontLarge"/>
-
-        <TextView
-            android:text="Pinjaman pokok"
-            android:textSize="@dimen/fontNormal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@android:color/black"/>
-
-        <TextView
-            android:id="@+id/pinjamanPokok"
-            android:textColor="@color/colorBlueDark"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:text="xyz"
-            android:layout_marginBottom="10dp"
-            android:textSize="@dimen/fontLarge"/>
-
-        <TextView
-            android:text="Tenor (bulan)"
-            android:textSize="@dimen/fontNormal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@android:color/black"/>
-
-        <TextView
-            android:id="@+id/tenor"
-            android:textColor="@color/colorBlueDark"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:text="xyz"
-            android:layout_marginBottom="10dp"
-            android:textSize="@dimen/fontLarge"/>
-
-        <TextView
-            android:text="Total Pinjaman"
-            android:textSize="@dimen/fontNormal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@android:color/black"/>
-
-        <TextView
-            android:id="@+id/total"
-            android:textColor="@color/colorBlueDark"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:text="xyz"
-            android:layout_marginBottom="10dp"
-            android:textSize="@dimen/fontLarge"/>
-
-        <TextView
-            android:text="Angsuran perbulan"
-            android:textSize="@dimen/fontNormal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@android:color/black"/>
-
-        <TextView
-            android:id="@+id/angsuran"
-            android:textColor="@color/colorBlueDark"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:text="xyz"
-            android:layout_marginBottom="10dp"
-            android:textSize="@dimen/fontLarge"/>
-
-        <TextView
-            android:id="@+id/imbalHasil"
-            android:text="Imbal hasil"
-            android:textSize="@dimen/fontNormal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@android:color/black"/>
-
-        <TextView
-            android:id="@+id/imbal"
-            android:textColor="@color/colorBlueDark"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:text="xyz"
-            android:layout_marginBottom="10dp"
-            android:textSize="@dimen/fontLarge"/>
-
-        <TextView
-            android:text="Admin fee"
-            android:textSize="@dimen/fontNormal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@android:color/black"/>
-
-        <TextView
-            android:id="@+id/admin"
-            android:textColor="@color/colorBlueDark"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:text="xyz"
-            android:layout_marginBottom="10dp"
-            android:textSize="@dimen/fontLarge"/>
-
-        <TextView
-            android:text="Convenience fee"
-            android:textSize="@dimen/fontNormal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@android:color/black"/>
-
-        <TextView
-            android:id="@+id/convenience"
-            android:textColor="@color/colorBlueDark"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:text="xyz"
-            android:layout_marginBottom="10dp"
-            android:textSize="@dimen/fontLarge"/>
-
-        <TextView
-            android:text="Tujuan pinjaman"
-            android:textSize="@dimen/fontNormal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@android:color/black"/>
-
-        <TextView
-            android:id="@+id/tujuan"
-            android:textColor="@color/colorBlueDark"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:text="xyz"
-            android:layout_marginBottom="10dp"
-            android:textSize="@dimen/fontLarge"/>
-
-        <TextView
-            android:text="Detail tujuan"
-            android:textSize="@dimen/fontNormal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@android:color/black"/>
-
-        <TextView
-            android:id="@+id/detail"
-            android:textColor="@color/colorBlueDark"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:text="xyz"
-            android:layout_marginBottom="10dp"
-            android:textSize="@dimen/fontLarge"/>
-
-        <TextView
-            android:text="Tanggal pengajuan"
+            android:text="Tanggal Pengajuan"
             android:textSize="@dimen/fontNormal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -295,7 +103,7 @@
             android:visibility="gone">
 
             <TextView
-                android:text="Tanggal Approval"
+                android:text="Tanggal Pencairan"
                 android:textSize="@dimen/fontNormal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -311,6 +119,217 @@
                 android:textSize="@dimen/fontLarge"/>
 
         </LinearLayout>
+
+        <TextView
+            android:text="Nama Nasabah"
+            android:textSize="@dimen/fontNormal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"/>
+
+        <TextView
+            android:id="@+id/nama"
+            android:textColor="@color/colorBlueDark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="xyz"
+            android:layout_marginBottom="10dp"
+            android:textSize="@dimen/fontLarge"/>
+
+        <TextView
+            android:text="Status Pinjaman"
+            android:textSize="@dimen/fontNormal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"/>
+
+        <TextView
+            android:id="@+id/status"
+            android:textColor="@color/colorBlueDark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="xyz"
+            android:layout_marginBottom="10dp"
+            android:textSize="@dimen/fontLarge"/>
+
+        <TextView
+            android:text="Jenis Layanan"
+            android:textSize="@dimen/fontNormal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"/>
+
+        <TextView
+            android:id="@+id/jenis"
+            android:textColor="@color/colorBlueDark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="xyz"
+            android:layout_marginBottom="10dp"
+            android:textSize="@dimen/fontLarge"/>
+
+        <TextView
+            android:text="Nama Produk"
+            android:textSize="@dimen/fontNormal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"/>
+
+        <TextView
+            android:id="@+id/produk"
+            android:textColor="@color/colorBlueDark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="xyz"
+            android:layout_marginBottom="10dp"
+            android:textSize="@dimen/fontLarge"/>
+
+        <TextView
+            android:text="Pinjaman Pokok"
+            android:textSize="@dimen/fontNormal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"/>
+
+        <TextView
+            android:id="@+id/pinjamanPokok"
+            android:textColor="@color/colorBlueDark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="xyz"
+            android:layout_marginBottom="10dp"
+            android:textSize="@dimen/fontLarge"/>
+
+        <TextView
+            android:text="Tenor (Bulan)"
+            android:textSize="@dimen/fontNormal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"/>
+
+        <TextView
+            android:id="@+id/tenor"
+            android:textColor="@color/colorBlueDark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="xyz"
+            android:layout_marginBottom="10dp"
+            android:textSize="@dimen/fontLarge"/>
+
+        <TextView
+            android:text="Total Pinjaman"
+            android:textSize="@dimen/fontNormal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"/>
+
+        <TextView
+            android:id="@+id/total"
+            android:textColor="@color/colorBlueDark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="xyz"
+            android:layout_marginBottom="10dp"
+            android:textSize="@dimen/fontLarge"/>
+
+        <TextView
+            android:text="Angsuran Perbulan"
+            android:textSize="@dimen/fontNormal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"/>
+
+        <TextView
+            android:id="@+id/angsuran"
+            android:textColor="@color/colorBlueDark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="xyz"
+            android:layout_marginBottom="10dp"
+            android:textSize="@dimen/fontLarge"/>
+
+        <TextView
+            android:id="@+id/imbalHasil"
+            android:text="Imbal Hasil"
+            android:textSize="@dimen/fontNormal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"/>
+
+        <TextView
+            android:id="@+id/imbal"
+            android:textColor="@color/colorBlueDark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="xyz"
+            android:layout_marginBottom="10dp"
+            android:textSize="@dimen/fontLarge"/>
+
+        <TextView
+            android:id="@+id/tvAdminFee"
+            android:text="Admin Fee"
+            android:textSize="@dimen/fontNormal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"/>
+
+        <TextView
+            android:id="@+id/admin"
+            android:textColor="@color/colorBlueDark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="xyz"
+            android:layout_marginBottom="10dp"
+            android:textSize="@dimen/fontLarge"/>
+
+        <TextView
+            android:id="@+id/tvConvenience"
+            android:text="Convenience Fee"
+            android:textSize="@dimen/fontNormal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"/>
+
+        <TextView
+            android:id="@+id/convenience"
+            android:textColor="@color/colorBlueDark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="xyz"
+            android:layout_marginBottom="10dp"
+            android:textSize="@dimen/fontLarge"/>
+
+        <TextView
+            android:text="Tujuan Pinjaman"
+            android:textSize="@dimen/fontNormal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"/>
+
+        <TextView
+            android:id="@+id/tujuan"
+            android:textColor="@color/colorBlueDark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="xyz"
+            android:layout_marginBottom="10dp"
+            android:textSize="@dimen/fontLarge"/>
+
+        <TextView
+            android:text="Detail Tujuan"
+            android:textSize="@dimen/fontNormal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"/>
+
+        <TextView
+            android:id="@+id/detail"
+            android:textColor="@color/colorBlueDark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="xyz"
+            android:layout_marginBottom="10dp"
+            android:textSize="@dimen/fontLarge"/>
 
         <LinearLayout
             android:id="@+id/lltRejactReason"

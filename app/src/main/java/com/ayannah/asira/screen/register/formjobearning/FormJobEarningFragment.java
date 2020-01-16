@@ -15,6 +15,7 @@ import com.ayannah.asira.R;
 import com.ayannah.asira.base.BaseFragment;
 import com.ayannah.asira.screen.register.formothers.FormOtherActivity;
 import com.ayannah.asira.screen.register.formothers.FormOtherFragment;
+import com.ayannah.asira.util.CommonUtils;
 import com.ayannah.asira.util.NumberSeparatorTextWatcher;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
@@ -111,7 +112,7 @@ public class FormJobEarningFragment extends BaseFragment implements Validator.Va
 
                 if (!input.isEmpty()) {
 
-                    input = input.replace(",", "");
+                    input = CommonUtils.removeDelimeter(input);
 
                     DecimalFormat format = new DecimalFormat("#,###,###");
                     String newPrice = format.format(Double.parseDouble(input));

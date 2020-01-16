@@ -6,6 +6,7 @@ import com.androidnetworking.common.ANConstants;
 import com.androidnetworking.error.ANError;
 import com.ayannah.asira.data.local.PreferenceRepository;
 import com.ayannah.asira.data.model.NasabahAgent;
+import com.ayannah.asira.data.model.UserBorrower;
 import com.ayannah.asira.data.remote.RemoteRepository;
 import com.ayannah.asira.util.CommonUtils;
 
@@ -105,5 +106,14 @@ public class ViewBorrowerPresenter implements ViewBorrowerContract.Presenter {
                     mView.showErrorMessage(CommonUtils.errorResponseWithStatusCode(error));
 
                 }));
+    }
+
+    @Override
+    public void setDataSelectedBorrower(UserBorrower user) {
+
+        prefRepo.setPrimaryIncomeBorrower(user.getMonthlyIncome());
+        prefRepo.setSecondaryIncomeBorrower(user.getOtherIncome());
+        prefRepo.setOtherIncomeBorrower(user.getOtherIncomesource());
+
     }
 }

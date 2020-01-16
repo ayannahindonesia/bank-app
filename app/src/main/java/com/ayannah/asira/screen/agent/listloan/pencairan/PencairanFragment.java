@@ -1,6 +1,7 @@
 package com.ayannah.asira.screen.agent.listloan.pencairan;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -59,6 +60,7 @@ public class PencairanFragment extends BaseFragment implements PencairanContract
     protected void initView(Bundle state) {
 
         bankid = parentActivity().getIntent().getIntExtra(ListLoanActivtiy.BANKID, 0);
+        Log.e("PencairanFragment.class", "idbank "+bankid);
 
         recyclerViewPencairan.setLayoutManager(new LinearLayoutManager(parentActivity()));
         recyclerViewPencairan.setHasFixedSize(true);
