@@ -131,6 +131,10 @@ public abstract class SummaryTransactionModule {
     @ActivityScoped
     @Named("bankAccountNumber")
     static String bankAccountNumber(SummaryTransactionActivity activity){
-        return activity.getIntent().getStringExtra(BANKACCOUNTNUMBER);
+        if (activity.getIntent().getStringExtra(BANKACCOUNTNUMBER) == null) {
+            return "";
+        } else {
+            return activity.getIntent().getStringExtra(BANKACCOUNTNUMBER);
+        }
     }
 }
