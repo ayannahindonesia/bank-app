@@ -392,7 +392,7 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
 //                            public void onResponse(JSONObject response) {
 //                                try {
 //                                    currentTime[0] = sdfCurrent.parse(response.getString("time"));
-                if (currentTime[0].before(finalDueDate) || data.getStatus().toLowerCase().equals("processing")) {
+                if (currentTime[0].before(finalDueDate) || data.getStatus().toLowerCase().equals("processing") || !data.getDisburseStatus().equals("confirmed")) {
                     statusLoan = "processing";
                     isLoanReqAvail = true;
                 }

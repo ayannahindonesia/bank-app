@@ -111,6 +111,10 @@ public class SummaryTransactionFragment extends BaseFragment implements SummaryT
     @Named("pencairan")
     double pencairan;
 
+    @Inject
+    @Named("borrowerID")
+    int borrowerID;
+
     private Validator validator;
 
     @Inject
@@ -183,7 +187,11 @@ public class SummaryTransactionFragment extends BaseFragment implements SummaryT
     @Override
     public void successLoanApplication(String id_loan) {
 
-        mPresenter.requestOTPForLoan(id_loan);
+        if (borrowerID != 0) {
+            mPresenter.requestOTPForLoanAgent(id_loan);
+        } else {
+            mPresenter.requestOTPForLoan(id_loan);
+        }
 
     }
 
@@ -191,7 +199,11 @@ public class SummaryTransactionFragment extends BaseFragment implements SummaryT
     public void successGetOtp(String loanOTP, String id_loan) {
 
         Intent intent = new Intent(parentActivity(), VerificationOTPActivity.class);
-        intent.putExtra("purpose", "post_pinjaman");
+        if (borrowerID != 0) {
+            intent.putExtra("purpose", "post_pinjaman_agent");
+        } else {
+            intent.putExtra("purpose", "post_pinjaman");
+        }
 //        intent.putExtra("otp_loan", loanOTP);
         intent.putExtra("id_loan", id_loan);
         startActivity(intent);
@@ -234,6 +246,9 @@ public class SummaryTransactionFragment extends BaseFragment implements SummaryT
 
         int x = (int) pinjaman;
 
+        if (borrowerID != 0) {
+            json.addProperty("borrower", borrowerID);
+        }
         json.addProperty("loan_amount", x);
         json.addProperty("installment", tenor);
         json.addProperty("loan_intention", alasan);
@@ -247,7 +262,11 @@ public class SummaryTransactionFragment extends BaseFragment implements SummaryT
         json.addProperty("product", productid);
         json.addProperty("service", layanan);
 
-        mPresenter.loanApplication(json);
+        if (borrowerID != 0) {
+            mPresenter.postLoanAgent(json);
+        } else {
+            mPresenter.loanApplication(json);
+        }
 
     }
 

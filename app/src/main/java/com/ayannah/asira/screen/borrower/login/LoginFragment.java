@@ -107,7 +107,6 @@ public class LoginFragment extends BaseFragment implements
 
         Toast.makeText(parentActivity(), message, Toast.LENGTH_SHORT).show();
 
-        etPhone.setText("");
         etPassword.setText("");
 
         dialog.dismiss();

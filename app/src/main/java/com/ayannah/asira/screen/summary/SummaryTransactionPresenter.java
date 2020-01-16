@@ -142,4 +142,54 @@ public class SummaryTransactionPresenter implements SummaryTransactionContract.P
         .subscribe());
 
     }
+
+    @Override
+    public void postLoanAgent(JsonObject json) {
+        if (mView == null) {
+            return;
+        }
+
+        AndroidNetworking.post(BuildConfig.API_URL + "agent/loan")
+                .addHeaders("Authorization", preferenceRepository.getUserToken())
+                .addApplicationJsonBody(json)
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getAsJSONObject(new JSONObjectRequestListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+
+                            if(mView != null){
+
+                                mView.successLoanApplication(String.valueOf(response.getInt("id")));
+
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onError(ANError anError) {
+                    }
+                });
+    }
+
+    @Override
+    public void requestOTPForLoanAgent(String id_loan) {
+        if(mView == null){
+            return;
+        }
+
+        mComposite.add(Completable.fromAction(() -> {
+
+            remoteRepository.getOTPForLoanAgent(id_loan);
+
+            mView.successGetOtp("888999", id_loan);
+        })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe());
+    }
 }

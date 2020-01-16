@@ -42,10 +42,14 @@ public class ViewBorrowerFragment extends BaseFragment implements ViewBorrowerCo
     @BindView(R.id.tvEmptyNasabah)
     TextView tvEmptyNasabah;
 
+    @BindView(R.id.title)
+    TextView title;
+
     @Inject
     CommonListAdapter adapter;
 
     private String bank_Id;
+    private String bankName;
 
     @BindView(R.id.lyResult) LinearLayout lyResult;
     @BindView(R.id.lyError) LinearLayout lyError;
@@ -69,7 +73,8 @@ public class ViewBorrowerFragment extends BaseFragment implements ViewBorrowerCo
 
         mPresenter.getLenderToken();
 
-        bank_Id = getActivity().getIntent().getStringExtra(ViewBorrowerActivity.BANK_ID);
+        bank_Id = parentActivity().getIntent().getStringExtra(ViewBorrowerActivity.BANK_ID);
+        bankName = parentActivity().getIntent().getStringExtra(ViewBorrowerActivity.BANK_NAME);
 
         pbLoading.setVisibility(View.VISIBLE);
         mPresenter.getDataBorrower(bank_Id);
@@ -115,6 +120,8 @@ public class ViewBorrowerFragment extends BaseFragment implements ViewBorrowerCo
         pbLoading.setVisibility(View.GONE);
 
         if(totalData > 0){
+
+            title.setText(String.format("Daftar nasabah Bank %s",bankName));
 
             lyResult.setVisibility(View.VISIBLE);
             lyError.setVisibility(View.GONE);

@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ayannah.asira.R;
 import com.ayannah.asira.custom.CommonListListener;
+import com.ayannah.asira.data.model.DummyLoanBorrower;
 import com.ayannah.asira.data.model.Loans.DataItem;
 import com.ayannah.asira.data.model.Notif;
 import com.ayannah.asira.data.model.UserBorrower;
@@ -28,6 +29,7 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public static final int VIEW_LOAN_HISTORY = 0;
     public static final int VIEW_NOTIFPAGE = 1;
     public static final int VIEW_BORROWER_ON_AGENT = 2;
+    public static final int VIEW_LIST_BORROWERS_LOAN_AGENT = 3;
 
     //for loan history purposes
     private final static String STATUS_PROCESSING = "processing";
@@ -39,10 +41,12 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private List<Notif.Data> notifMessages;
     private List<DataItem> loans;
     private List<UserBorrower> nasabah;
+    private List<DataItem> loanBorrowersAgent;
 
     private CommonListListener.LoanAdapterListener loanListener;
     private CommonListListener.NotifAdapterListener notifListener;
     private CommonListListener.ViewBorrowerListener viewBorrowerListener;
+    private CommonListListener.ListLoanAgent listLoanAgentListener;
 
     public CommonListAdapter(int viewType){
         this.mViewType = viewType;
@@ -50,6 +54,7 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         notifMessages = new ArrayList<>();
         loans = new ArrayList<>();
         nasabah = new ArrayList<>();
+        loanBorrowersAgent = new ArrayList<>();
     }
 
     public void setDataNotificationMessages(List<Notif.Data> results){
@@ -80,6 +85,15 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     }
 
+    public void setListLoanBorrowersAgent(List<DataItem> results){
+
+        loanBorrowersAgent.clear();
+
+        loanBorrowersAgent.addAll(results);
+
+        notifyDataSetChanged();
+    }
+
     //loan listener
     public void setOnClickListenerLoanAdapter(CommonListListener.LoanAdapterListener listenerLoanAdapter){
         this.loanListener = listenerLoanAdapter;
@@ -93,6 +107,11 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     //view borrower listener
     public void setOnClickListenerViewBorrower(CommonListListener.ViewBorrowerListener listenerViewBorrower){
         this.viewBorrowerListener = listenerViewBorrower;
+    }
+
+    //view loan borrower on agent side
+    public void setOnClickListenerLoanBorrowerOnAgent(CommonListListener.ListLoanAgent listLoanAgentListener){
+        this.listLoanAgentListener = listLoanAgentListener;
     }
 
     @NonNull
@@ -118,6 +137,11 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             case VIEW_BORROWER_ON_AGENT:
 
                 holder = new ViewBorrowerVH(inflater.inflate(R.layout.item_nasabah, parent, false));
+                break;
+
+            case VIEW_LIST_BORROWERS_LOAN_AGENT:
+
+                holder = new ViewListLoanBorrowerOnAgent(inflater.inflate(R.layout.item_loan_borrower_on_agent, parent, false));
                 break;
 
             default:
@@ -151,6 +175,12 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 ((ViewBorrowerVH) holder).bind(nasabah.get(position));
 
                 break;
+
+            case VIEW_LIST_BORROWERS_LOAN_AGENT:
+
+                ((ViewListLoanBorrowerOnAgent) holder).bind(loanBorrowersAgent.get(position));
+
+                break;
         }
 
     }
@@ -175,6 +205,11 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             case VIEW_BORROWER_ON_AGENT:
 
                 selected = VIEW_BORROWER_ON_AGENT;
+                break;
+
+            case VIEW_LIST_BORROWERS_LOAN_AGENT:
+
+                selected = VIEW_LIST_BORROWERS_LOAN_AGENT;
                 break;
         }
 
@@ -201,6 +236,11 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             case VIEW_BORROWER_ON_AGENT:
 
                 totals = nasabah.size();
+                break;
+
+            case VIEW_LIST_BORROWERS_LOAN_AGENT:
+
+                totals = loanBorrowersAgent.size();
                 break;
 
         }
@@ -375,6 +415,54 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         }
 
+    }
+
+    /*
+    For PengajuanFragment.class, PencairanFragment.class, DitolakFragment.class
+     */
+    class ViewListLoanBorrowerOnAgent extends RecyclerView.ViewHolder{
+
+        @BindView(R.id.nameBorrower) TextView name;
+        @BindView(R.id.loanTotalBorrower) TextView loanTotalBorrower;
+        @BindView(R.id.tenorLoanBorrower) TextView tenorLoanBorrower;
+        @BindView(R.id.productBorrower) TextView productBorrower;
+        @BindView(R.id.statusLoanBorrower) TextView statusLoanBorrower;
+
+        ViewListLoanBorrowerOnAgent(View itemView){
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+        }
+
+        private void bind(DataItem param){
+
+            name.setText(param.getBorrowerInfo().getEmployerName());
+            loanTotalBorrower.setText(CommonUtils.setRupiahCurrency(param.getLoanAmount()));
+            tenorLoanBorrower.setText(String.format("%s Bulan", param.getInstallment()));
+            productBorrower.setText(param.getProductName());
+
+            if(param.getStatus().equals("processing")){
+
+                statusLoanBorrower.setBackgroundResource(R.drawable.badge_tidak_lengkap);
+                statusLoanBorrower.setText("Dalam proses");
+
+            }else if(param.getStatus().equals("approved")){
+                if (param.getDisburseStatus().equals("confirmed")) {
+                    statusLoanBorrower.setBackgroundResource(R.drawable.badge_dicairkan);
+                    statusLoanBorrower.setText("Sudah Dicairkan");
+                } else {
+                    statusLoanBorrower.setBackgroundResource(R.drawable.badge_diterima);
+                    statusLoanBorrower.setText("Diterima");
+                }
+
+            }else {
+
+                statusLoanBorrower.setText("Ditolak");
+                statusLoanBorrower.setBackgroundResource(R.drawable.badge_ditolak);
+            }
+
+            itemView.setOnClickListener(v -> listLoanAgentListener.onClickItem(param));
+
+        }
     }
 
 }

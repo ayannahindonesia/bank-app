@@ -25,11 +25,13 @@ import com.ayannah.asira.data.model.ProductsAgent;
 import com.ayannah.asira.data.model.ReasonLoan;
 import com.ayannah.asira.data.model.ServiceProducts;
 import com.ayannah.asira.data.model.ServiceProductsAgent;
+import com.ayannah.asira.data.model.UserBorrower;
 import com.ayannah.asira.screen.summary.SummaryTransactionActivity;
 import com.ayannah.asira.base.BaseFragment;
 import com.ayannah.asira.util.CommonUtils;
 import com.ayannah.asira.util.NumberSeparatorTextWatcher;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -130,6 +132,7 @@ public class LoanAgentFragment extends BaseFragment implements LoanAgentContract
     private List<String> productName;
     private ArrayList<ProductsAgent> mServiceProducts = new ArrayList<>();
     private NumberSeparatorTextWatcher plafonNumberSeparator;
+    UserBorrower userBorrower;
 
     @Inject
     public LoanAgentFragment(){}
@@ -143,6 +146,10 @@ public class LoanAgentFragment extends BaseFragment implements LoanAgentContract
     public void onResume() {
         super.onResume();
         mPresenter.takeView(this);
+
+        if (getActivity().getIntent().getStringExtra("isFrom").toLowerCase().equals("agent")) {
+            userBorrower = (UserBorrower) getActivity().getIntent().getSerializableExtra("user");
+        }
 
         AlertDialog.Builder builder = new AlertDialog.Builder(parentActivity());
         builder.setCancelable(false);
@@ -535,7 +542,15 @@ public class LoanAgentFragment extends BaseFragment implements LoanAgentContract
 
                 } else {
 
-                    result = result + Integer.parseInt(param.getAmount());
+                    if (param.getAmount().toLowerCase().contains(".")) {
+
+                        result = result + (int) Double.parseDouble(param.getAmount());
+
+                    } else {
+
+                        result = result + Integer.parseInt(param.getAmount());
+
+                    }
                 }
 
             }
@@ -573,6 +588,9 @@ public class LoanAgentFragment extends BaseFragment implements LoanAgentContract
 
         Intent intent = new Intent(parentActivity(), SummaryTransactionActivity.class);
 
+        if (getActivity().getIntent().getStringExtra("isFrom").toLowerCase().equals("agent")) {
+            intent.putExtra(SummaryTransactionActivity.BORROWERID, userBorrower.getId());
+        }
         intent.putExtra(SummaryTransactionActivity.PINJAMAN, loanAmount);
         intent.putExtra(SummaryTransactionActivity.TENOR, installmentTenor);
         intent.putExtra(SummaryTransactionActivity.ANGSURAN_BULAN, angsurnaPerbulan);

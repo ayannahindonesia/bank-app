@@ -137,6 +137,7 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_transaksi);
+
         mUnbinder = ButterKnife.bind(this);
         setSupportActionBar(toolbar);
 
@@ -314,12 +315,6 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
     protected void onDestroy() {
         super.onDestroy();
         mUnbinder.unbind();
@@ -364,7 +359,15 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
 
                 } else {
 
-                    result = result + Integer.parseInt(param.getAmount());
+                    if (param.getAmount().toLowerCase().contains(".")) {
+
+                        result = result + (int) Double.parseDouble(param.getAmount());
+
+                    } else {
+
+                        result = result + Integer.parseInt(param.getAmount());
+
+                    }
                 }
 
             }

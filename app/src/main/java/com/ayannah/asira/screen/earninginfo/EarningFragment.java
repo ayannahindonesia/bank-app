@@ -20,6 +20,7 @@ import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 
+import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.List;
@@ -55,6 +56,7 @@ public class EarningFragment extends BaseFragment implements EarningContract.Vie
     private BottomChangingIncome popUpChangingIncome;
     private Validator validator;
     private AlertDialog dialog;
+    UserBorrower userBorrower;
 
     @Inject
     public EarningFragment(){}
@@ -76,7 +78,7 @@ public class EarningFragment extends BaseFragment implements EarningContract.Vie
 
         if (getActivity().getIntent().getStringExtra("isFrom").toLowerCase().equals("agent")) {
 //            Toast.makeText(parentActivity(), "dari Agent", Toast.LENGTH_SHORT).show();
-            UserBorrower userBorrower = (UserBorrower) getActivity().getIntent().getSerializableExtra("user");
+            userBorrower = (UserBorrower) getActivity().getIntent().getSerializableExtra("user");
             loadPenghasilan(String.valueOf(userBorrower.getMonthlyIncome()),
                     String.valueOf(userBorrower.getOtherIncome()),
                     userBorrower.getOtherIncomesource());
@@ -225,8 +227,17 @@ public class EarningFragment extends BaseFragment implements EarningContract.Vie
         assert bundle != null;
 
         dialog.dismiss();
-        Intent intent = new Intent(parentActivity(), LoanActivity.class);
+        Intent intent;
 //        intent.putExtra("idService", bundle.getInt("id"));
+        if (getActivity().getIntent().getStringExtra("isFrom").toLowerCase().equals("agent")) {
+            intent = new Intent(parentActivity(), LoanAgentActivity.class);
+            intent.putExtra("isFrom", "agent");
+            intent.putExtra("user", (Serializable) userBorrower);
+            intent.putExtra(LoanAgentActivity.IDSERVICE, idService);
+            intent.putExtra(LoanAgentActivity.IDBANK, "1");
+        } else {
+            intent= new Intent(parentActivity(), LoanActivity.class);
+        }
         intent.putExtra(LoanActivity.IDSERVICE, idService);
 
         startActivity(intent);
@@ -246,6 +257,8 @@ public class EarningFragment extends BaseFragment implements EarningContract.Vie
         Intent pinjaman;
         if (getActivity().getIntent().getStringExtra("isFrom").toLowerCase().equals("agent")) {
             pinjaman = new Intent(parentActivity(), LoanAgentActivity.class);
+            pinjaman.putExtra("user", (Serializable) userBorrower);
+            pinjaman.putExtra("isFrom", "agent");
             pinjaman.putExtra(LoanAgentActivity.IDSERVICE, idService);
             pinjaman.putExtra(LoanAgentActivity.IDBANK, "1");
         } else {

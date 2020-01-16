@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import com.ayannah.asira.R;
+import com.ayannah.asira.screen.agent.lpagent.LPAgentActivity;
 import com.ayannah.asira.screen.borrower.homemenu.MainMenuActivity;
 import com.ayannah.asira.screen.borrower.login.LoginActivity;
 
@@ -60,11 +61,16 @@ public class SuccessActivity extends DaggerAppCompatActivity {
     @OnClick(R.id.btnSelesai)
     void onClickButton(){
 
-        if(cond == 1){
+        if(cond == 1) {
 
             Intent main = new Intent(this, LoginActivity.class);
             main.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(main);
+            finish();
+        } else if (cond == 2) {
+            Intent intent = new Intent(this, LPAgentActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
             finish();
 
         }else {

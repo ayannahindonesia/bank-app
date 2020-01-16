@@ -102,4 +102,8 @@ public interface RemoteRepository {
     Single<BankService> getServicesAgent(String bank_id);
 
     Single<ServiceProductsAgent> getAllProductsAgent(String idService);
+
+    void getOTPForLoanAgent(String id_loan);
+
+    Single<Loans> getAgentLoan(String idBank);
 }

@@ -477,8 +477,6 @@ public class RemoteDataSource implements RemoteRepository {
                 .getObjectSingle(BankService.class);
     }
 
-
-
     @Override
     public Single<ServiceProductsAgent> getAllProductsAgent(String idService) {
         return Rx2AndroidNetworking.get(BuildConfig.API_URL + "agent/bank_products")
@@ -487,5 +485,36 @@ public class RemoteDataSource implements RemoteRepository {
                 .setPriority(Priority.MEDIUM)
                 .build()
                 .getObjectSingle(ServiceProductsAgent.class);
+    }
+
+    @Override
+    public void getOTPForLoanAgent(String idLoan) {
+
+        AndroidNetworking.get(BuildConfig.API_URL + "agent/loan/{loan_id}/otp")
+                .addHeaders("Authorization", preferenceRepository.getUserToken())
+                .addPathParameter("loan_id", idLoan)
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getAsJSONObject(new JSONObjectRequestListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                    }
+
+                    @Override
+                    public void onError(ANError anError) {
+
+                    }
+                });
+    }
+
+    @Override
+    public Single<Loans> getAgentLoan(String idBank) {
+        return Rx2AndroidNetworking.get(BuildConfig.API_URL + "agent/loan")
+                .addHeaders("Authorization", preferenceRepository.getUserToken())
+                .addQueryParameter("bank", idBank)
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getObjectSingle(Loans.class);
     }
 }

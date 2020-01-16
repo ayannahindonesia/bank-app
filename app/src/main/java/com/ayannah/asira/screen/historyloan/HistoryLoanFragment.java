@@ -140,6 +140,10 @@ public class HistoryLoanFragment extends BaseFragment implements
     @OnClick(R.id.sortBuStatus)
     void onClickSort(){
 
+        if(bottomSortHistoryLoan != null && bottomSortHistoryLoan.isAdded()){
+            return;
+        }
+
         bottomSortHistoryLoan.showNow(parentActivity().getSupportFragmentManager(), "fragment");
         bottomSortHistoryLoan.setOnClickListener(this);
 

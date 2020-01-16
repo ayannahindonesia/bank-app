@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:padding="@dimen/margin10dp"
+    android:background="?attr/selectableItemBackground"
+    android:weightSum="2"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/nameBorrower"
+            android:padding="3dp"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/fontNormal"
+            tools:text="Dinand"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/loanTotalBorrower"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/fontNormal"
+            tools:text="Rp12.000.000"
+            android:padding="3dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/tenorLoanBorrower"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/fontNormal"
+            tools:text="12 Bulan"
+            android:padding="3dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/productBorrower"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/fontNormal"
+            tools:text="Produk Mantap"
+            android:textAlignment="textEnd"
+            android:textStyle="bold"
+            android:padding="3dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/statusLoanBorrower"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/fontNormal"
+            tools:text="Dalam Proses"
+            android:layout_marginTop="6dp"
+            android:background="@drawable/badge_tidak_lengkap"
+            android:textAlignment="textEnd"
+            android:padding="8dp"
+            android:layout_gravity="end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+    </LinearLayout>
+
+</LinearLayout>

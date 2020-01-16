@@ -4,12 +4,25 @@ package com.ayannah.asira.util;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.util.Base64;
 import android.widget.ImageView;
 
+import androidx.core.graphics.drawable.RoundedBitmapDrawable;
+import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
+
 import com.ayannah.asira.R;
+import com.ayannah.asira.util.glide.GlideApp;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.BitmapImageViewTarget;
 
 public class ImageUtils {
+
+    private ImageUtils(){
+
+    }
 
     public static void setImageBitmapWithEmptyImage(ImageView imageView, String imageBase64){
 
@@ -31,6 +44,29 @@ public class ImageUtils {
             imageView.setImageResource(R.drawable.ic_broken_image);
             imageView.setPadding(30,30,30,30);
         }
+
+    }
+
+    public static void displayImageFromUrlWithErrorDrawable(Context context, ImageView imageView, String imageUrl, RequestListener<Drawable> listener, int drawable) {
+        RequestOptions options = new RequestOptions()
+                .dontAnimate()
+                .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC);
+
+        GlideApp.with(context)
+                .asBitmap()
+                .apply(options)
+                .load(imageUrl)
+                .centerCrop()
+                .placeholder(drawable)
+                .into(new BitmapImageViewTarget(imageView) {
+                    @Override
+                    protected void setResource(Bitmap resource) {
+                        RoundedBitmapDrawable circularBitmapDrawable =
+                                RoundedBitmapDrawableFactory.create(context.getResources(), resource);
+                        circularBitmapDrawable.setCornerRadius(20);
+                        imageView.setImageDrawable(circularBitmapDrawable);
+                    }
+                });
 
     }
 
