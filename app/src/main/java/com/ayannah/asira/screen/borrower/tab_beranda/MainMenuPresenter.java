@@ -253,4 +253,30 @@ public class MainMenuPresenter implements MainMenuContract.Presenter {
             mView.successGetCurrentTime(null);
         }));
     }
+
+    @Override
+    public void getProfile() {
+        mComposite.add(remotRepo.getUserLogin()
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(res -> {
+            prefRepo.setLoanStatus(res.getLoanStatus());
+            mView.setLoanStatus(res.getLoanStatus());
+        }, error -> {
+            ANError anError = (ANError) error;
+            if(anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
+                mView.showErrorMessage("Tidak ada koneksi", anError.getErrorCode());
+            }else {
+
+                if(anError.getErrorBody() != null){
+
+                    JSONObject jsonObject = new JSONObject(anError.getErrorBody());
+                    mView.showErrorMessage(jsonObject.optString("message"), anError.getErrorCode());
+                }else {
+
+                    mView.showErrorMessage( "Mohon coba beberapa saat lagi. Sedang dalam perbaikan",anError.getErrorCode());
+                }
+            }
+        }));
+    }
 }

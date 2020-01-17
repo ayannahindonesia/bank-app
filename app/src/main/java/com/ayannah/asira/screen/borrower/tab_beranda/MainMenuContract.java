@@ -27,6 +27,8 @@ public interface MainMenuContract {
         void successGetCurrentTime(String time);
 
         void showTopUpTagihanMenu(List<String> results);
+
+        void setLoanStatus(String loanStatus);
     }
 
     interface Presenter extends BasePresenter<View>{
@@ -44,5 +46,7 @@ public interface MainMenuContract {
         void getTokenAdminLender();
 
         void getCurrentTime();
+
+        void getProfile();
     }
 }

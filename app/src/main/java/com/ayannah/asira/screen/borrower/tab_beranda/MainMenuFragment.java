@@ -116,7 +116,8 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
         dialog = builder.create();
 
         dialog.show();
-        mPresenter.getCurrentTime();
+//        mPresenter.getCurrentTime();
+        mPresenter.getProfile();
 
         mPresenter.loadPromoAndNews();
 
@@ -224,7 +225,7 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
 
         mAdapterMenu.setOnClickListener(menuProduct -> {
 
-            if (statusLoan.equals("processing")) {
+            if (statusLoan.toLowerCase().equals("active")) {
 
                 bottomSheetDialogGlobal = new BottomSheetDialogGlobal().show(parentActivity().getSupportFragmentManager(),
                         BottomSheetDialogGlobal.FORBIDDEN_LOAN_PNS,
@@ -365,5 +366,11 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
         });
     }
 
+    @Override
+    public void setLoanStatus(String loanStatus) {
+        statusLoan = "";
+        statusLoan = loanStatus;
+        mPresenter.getMainMenu();
+    }
 
 }
