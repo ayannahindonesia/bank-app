@@ -129,9 +129,12 @@ public class MainMenuPresenter implements MainMenuContract.Presenter {
         List<String> data = new ArrayList<>();
         data.add("Pulsa");
         data.add("Listrik");
-        data.add("Air");
-        data.add("Token");
-        data.add("Voucher");
+        data.add("PDAM");
+        data.add("Travel");
+        data.add("Pulsa");
+        data.add("Listrik");
+        data.add("PDAM");
+        data.add("Travel");
 
         mView.showTopUpTagihanMenu(data);
 
