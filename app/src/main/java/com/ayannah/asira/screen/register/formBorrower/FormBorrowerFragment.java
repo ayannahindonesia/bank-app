@@ -96,7 +96,6 @@ public class FormBorrowerFragment extends BaseFragment implements FormBorrowerCo
     EditText etRw;
 
     @BindView(R.id.regist_phoneBorrower)
-    @NotEmpty(trim = true)
     EditText etTelpRumah;
 
     @NotEmpty(message = "Masukan Lama Menempati Rumah", trim = true)
@@ -525,7 +524,7 @@ public class FormBorrowerFragment extends BaseFragment implements FormBorrowerCo
             bundle.putString(FormOtherFragment.DISTRICT, spKelurahan.getSelectedItem().toString());
             bundle.putString(FormOtherFragment.REGIST_RT, etRt.getText().toString());
             bundle.putString(FormOtherFragment.REGIST_RW, etRw.getText().toString());
-            bundle.putString(FormOtherFragment.REGIST_PHONE, etTelpRumah.getText().toString());
+            bundle.putString(FormOtherFragment.REGIST_PHONE, etTelpRumah.getText().toString().trim());
             bundle.putString(FormOtherFragment.HOME_STAY_YEAR, etLamaMenempatiRumah.getText().toString());
             bundle.putString(FormOtherFragment.HOME_STATUS, spStatusHome.getSelectedItem().toString());
             bundle.putString(FormOtherFragment.NICKNAME, regist_nickname.getText().toString());
