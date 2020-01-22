@@ -2,13 +2,19 @@ package com.ayannah.asira.screen.register.formothers;
 
 import android.app.Application;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.ANConstants;
+import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.JSONObjectRequestListener;
+import com.ayannah.asira.BuildConfig;
 import com.ayannah.asira.data.local.PreferenceRepository;
 import com.ayannah.asira.data.remote.RemoteRepository;
 import com.google.gson.JsonObject;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import javax.inject.Inject;
@@ -65,6 +71,9 @@ public class FormOtherPresenter implements FormOtherContract.Presenter{
 //                    mView.showErrorMessage(jsonObject.optString("message"));
                     mView.showErrorMessage(message);
 
+                }else {
+
+                    mView.showErrorMessage(String.format("Bad gateway (%s)", anError.getErrorCode()));
                 }
             }
 
@@ -105,12 +114,50 @@ public class FormOtherPresenter implements FormOtherContract.Presenter{
 //
 //        }));
 
-        mComposite.add(Completable.fromAction(() -> {
-            remotRepo.postOTPRequestBorrower(json);
-            mView.successGetOTP();
-        }).subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe());
+//        mComposite.add(Completable.fromAction(() -> {
+//            remotRepo.postOTPRequestBorrower(json);
+//            mView.successGetOTP();
+//        }).subscribeOn(Schedulers.io())
+//        .observeOn(AndroidSchedulers.mainThread())
+//        .subscribe());
+
+        AndroidNetworking.post(BuildConfig.API_URL + "unverified_borrower/otp_request")
+                .addHeaders("Authorization", preferenceRepository.getUserToken())
+                .addApplicationJsonBody(json)
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getAsJSONObject(new JSONObjectRequestListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        mView.successGetOTP();
+
+                    }
+
+                    @Override
+                    public void onError(ANError anError) {
+                        if(anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
+//                            mView.showErrorMessage("Connection Error");
+                            Toast.makeText(application, "Connection Error", Toast.LENGTH_LONG).show();
+                        }else {
+
+                            if(anError.getErrorBody() != null){
+
+                                JSONObject jsonObject = null;
+                                try {
+                                    jsonObject = new JSONObject(anError.getErrorBody());
+                                    Toast.makeText(application, jsonObject.optString("message"), Toast.LENGTH_LONG).show();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+//                                mView.showErrorMessage(jsonObject.optString("message"));
+                            }else {
+
+                                Toast.makeText(application, "Error "+anError.getErrorCode(), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }
+                });
     }
 
     @Override
@@ -137,6 +184,9 @@ public class FormOtherPresenter implements FormOtherContract.Presenter{
 
                             JSONObject jsonObject = new JSONObject(anError.getErrorBody());
                             mView.showErrorMessage(jsonObject.optString("message")  + " getClientToken()");
+                        }else {
+
+                            mView.showErrorMessage(String.format("Bad gateway (%s)", anError.getErrorCode()));
                         }
                     }
                 }));

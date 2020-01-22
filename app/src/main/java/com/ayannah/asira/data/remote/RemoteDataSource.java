@@ -194,6 +194,9 @@ public class RemoteDataSource implements RemoteRepository {
                                     e.printStackTrace();
                                 }
 //                                mView.showErrorMessage(jsonObject.optString("message"));
+                            }else {
+
+                                Toast.makeText(application, "Error "+anError.getErrorCode(), Toast.LENGTH_SHORT).show();
                             }
                         }
                     }

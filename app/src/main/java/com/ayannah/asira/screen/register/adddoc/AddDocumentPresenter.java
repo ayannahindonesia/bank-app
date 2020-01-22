@@ -61,16 +61,17 @@ public class AddDocumentPresenter implements AddDocumentContract.Presenter {
             ANError anError = (ANError)error;
             if (anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)) {
                 mView.showErrorMessage("Tidak Ada Koneksi");
-            } else if (anError.getErrorBody() != null){
-
-                try {
-                    JSONObject json = new JSONObject(anError.getErrorBody());
-                    mView.showErrorMessage(json.optString("message"));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
             } else {
-                mView.showErrorMessage("Something wrong happend!");
+
+                if(anError.getErrorBody() != null){
+
+                    JSONObject jsonObject = new JSONObject(anError.getErrorBody());
+                    mView.showErrorMessage(jsonObject.optString("message"));
+                }else {
+
+                    mView.showErrorMessage(String.format("Bad gateway (%s)", anError.getErrorCode()));
+                }
+
             }
 
         }));
@@ -102,6 +103,9 @@ public class AddDocumentPresenter implements AddDocumentContract.Presenter {
 
                             JSONObject jsonObject = new JSONObject(anError.getErrorBody());
                             mView.showErrorMessage(jsonObject.optString("message"));
+                        }else {
+
+                            mView.showErrorMessage(String.format("Bad gateway (%s)", anError.getErrorCode()));
                         }
                     }
 
