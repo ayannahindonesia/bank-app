@@ -118,7 +118,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/manrope_medium"
-                        android:text="Tambahkan Foto KTP NASABAH"
+                        android:text="Tambahkan Foto KTP Nasabah"
                         android:textColor="@color/textColorAsira"
                         android:textSize="@dimen/fontNormal" />
 

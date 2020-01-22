@@ -307,4 +307,8 @@ public interface PreferenceRepository {
     void setTaxCardImg(String image);
 
     String getTaxCardImg();
+
+    void setLoanStatus(String loanStatus);
+
+    String getLoanStatus();
 }

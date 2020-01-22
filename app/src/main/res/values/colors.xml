@@ -16,6 +16,7 @@
     <color name="colorAsiraButtonBlue">#4E9FDE</color>
     <color name="colorAsiraDarkBlue">#0F3E82</color>
     <color name="colorAsiraTopUp">#86EBEE</color>
+    <color name="colorAsiraService">#6BBAC7</color>
 
     <color name="colorAccent">#F7964A</color>
     <color name="colorAccentDark">#CA712A</color>

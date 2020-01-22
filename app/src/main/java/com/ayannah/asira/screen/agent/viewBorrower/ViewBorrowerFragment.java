@@ -18,6 +18,7 @@ import com.ayannah.asira.adapter.CommonListAdapter;
 import com.ayannah.asira.base.BaseFragment;
 import com.ayannah.asira.custom.CommonListListener;
 import com.ayannah.asira.data.model.UserBorrower;
+import com.ayannah.asira.dialog.BottomDialogHandlingError;
 import com.ayannah.asira.dialog.BottomSheetBorrowerAgent;
 import com.ayannah.asira.screen.agent.services.ListServicesAgentActivity;
 import com.ayannah.asira.screen.otpphone.VerificationOTPActivity;
@@ -134,13 +135,19 @@ public class ViewBorrowerFragment extends BaseFragment implements ViewBorrowerCo
                 @Override
                 public void onClickButton(UserBorrower user) {
                     if(user.isOtpVerified()){
+                        if (user.getLoanStatus().toLowerCase().equals("active")) {
+//                            Toast.makeText(parentActivity(), "Nasabah Masih Memiliki Pinjaman Aktif", Toast.LENGTH_LONG).show();
+                            BottomDialogHandlingError error = new BottomDialogHandlingError("Nasabah Masih Memiliki Pinjaman Aktif", 0);
+                            error.showNow(parentActivity().getSupportFragmentManager(), "error message");
+                            error.setOnClickLister(error::dismiss);
+                        } else {
+                            mPresenter.setDataSelectedBorrower(user);
 
-                        mPresenter.setDataSelectedBorrower(user);
-
-                        Intent intent = new Intent(parentActivity(), ListServicesAgentActivity.class);
-                        intent.putExtra("user", (Serializable) user);
-                        intent.putExtra(ListServicesAgentActivity.BANK_ID, bank_Id);
-                        startActivity(intent);
+                            Intent intent = new Intent(parentActivity(), ListServicesAgentActivity.class);
+                            intent.putExtra("user", (Serializable) user);
+                            intent.putExtra(ListServicesAgentActivity.BANK_ID, bank_Id);
+                            startActivity(intent);
+                        }
 
                     }else {
 

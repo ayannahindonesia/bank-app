@@ -116,7 +116,8 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
         dialog = builder.create();
 
         dialog.show();
-        mPresenter.getCurrentTime();
+//        mPresenter.getCurrentTime();
+        mPresenter.getProfile();
 
         mPresenter.loadPromoAndNews();
 
@@ -130,8 +131,8 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
 
         bottomSheetDialogGlobal = new BottomSheetDialogGlobal();
 
-        recycler_menuproducts.setLayoutManager(new GridLayoutManager(parentActivity(), 3));
-        recycler_menuproducts.addItemDecoration(new GridSpacingItemDecoration(3, 50));
+        recycler_menuproducts.setLayoutManager(new GridLayoutManager(parentActivity(), 4));
+        recycler_menuproducts.addItemDecoration(new GridSpacingItemDecoration(4, 20));
         recycler_menuproducts.setHasFixedSize(true);
         recycler_menuproducts.setAdapter(mAdapterMenu);
 
@@ -139,7 +140,8 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
         recyclerViewBeritaPromo.setHasFixedSize(true);
         recyclerViewBeritaPromo.setAdapter(mAdapterNewsPromo);
 
-        recyclerViewTopupTagihan.setLayoutManager(new LinearLayoutManager(parentActivity(), RecyclerView.HORIZONTAL, false));
+        recyclerViewTopupTagihan.setLayoutManager(new GridLayoutManager(parentActivity(), 4));
+        recyclerViewTopupTagihan.addItemDecoration(new GridSpacingItemDecoration(4, 20));
         recyclerViewTopupTagihan.setHasFixedSize(true);
         recyclerViewTopupTagihan.setAdapter(mAdapterTopUpTagihan);
 
@@ -223,7 +225,7 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
 
         mAdapterMenu.setOnClickListener(menuProduct -> {
 
-            if (statusLoan.equals("processing")) {
+            if (statusLoan.toLowerCase().equals("active")) {
 
                 bottomSheetDialogGlobal = new BottomSheetDialogGlobal().show(parentActivity().getSupportFragmentManager(),
                         BottomSheetDialogGlobal.FORBIDDEN_LOAN_PNS,
@@ -364,5 +366,11 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
         });
     }
 
+    @Override
+    public void setLoanStatus(String loanStatus) {
+        statusLoan = "";
+        statusLoan = loanStatus;
+        mPresenter.getMainMenu();
+    }
 
 }

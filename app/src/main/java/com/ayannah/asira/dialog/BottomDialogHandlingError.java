@@ -49,7 +49,11 @@ public class BottomDialogHandlingError extends BottomSheetDialogFragment {
         View view = inflater.inflate(R.layout.dialog_error_handling, container, false);
         mUnbinder = ButterKnife.bind(this, view);
 
-        tvCode.setText(String.valueOf(code));
+        if (code == 0) {
+            tvCode.setVisibility(View.GONE);
+        } else {
+            tvCode.setText(String.valueOf(code));
+        }
 
         tvMessage.setText(message);
 

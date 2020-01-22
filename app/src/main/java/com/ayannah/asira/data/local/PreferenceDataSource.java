@@ -90,6 +90,7 @@ public class PreferenceDataSource implements PreferenceRepository {
 
     private static final String PREF_USER_NICKNAME = "PREF_USER_NICKNAME";
     private static final String PREF_USER_NATIONALILTY = "PREF_USER_NATIONALILTY";
+    private static final String PREF_USER_LOAN_STATUS = "PREF_USER_LOAN_STATUS";
 
     //agent atributes
     private static final String PREF_AGENT_ID = "AGENT_ID";
@@ -941,6 +942,17 @@ public class PreferenceDataSource implements PreferenceRepository {
     @Override
     public String getTaxCardImg() {
         return mPreferences.getString(PREF_USER_IMG_TAXCARD, "");
+    }
+
+    @Override
+    public void setLoanStatus(String loanStatus) {
+
+        mPreferences.edit().putString(PREF_USER_LOAN_STATUS, loanStatus).apply();
+    }
+
+    @Override
+    public String getLoanStatus() {
+        return mPreferences.getString(PREF_USER_LOAN_STATUS, "");
     }
 
 }
