@@ -574,4 +574,48 @@ public class RemoteDataSource implements RemoteRepository {
                 .build()
                 .getObjectSingle(CheckAccount.class);
     }
+
+    @Override
+    public void postOTPRequestBorrowerAgent(String id_borrower) {
+
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("phone", preferenceRepository.getAgentPhone());
+
+        AndroidNetworking.post(BuildConfig.API_URL + "agent/otp_request/{id}")
+                .addHeaders("Authorization", preferenceRepository.getUserToken())
+                .addPathParameter("id", String.valueOf(id_borrower))
+                .addApplicationJsonBody(jsonObject)
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getAsJSONObject(new JSONObjectRequestListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                    }
+
+                    @Override
+                    public void onError(ANError anError) {
+                        if(anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
+//                            mView.showErrorMessage("Connection Error");
+                            Toast.makeText(application, "Connection Error", Toast.LENGTH_LONG).show();
+                        }else {
+
+                            if(anError.getErrorBody() != null){
+
+                                JSONObject jsonObject = null;
+                                try {
+                                    jsonObject = new JSONObject(anError.getErrorBody());
+                                    Toast.makeText(application, jsonObject.optString("message"), Toast.LENGTH_LONG).show();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+//                                mView.showErrorMessage(jsonObject.optString("message"));
+                            }else {
+
+                                Toast.makeText(application, "Error "+anError.getErrorCode(), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }
+                });
+    }
 }

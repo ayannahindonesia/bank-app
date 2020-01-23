@@ -15,6 +15,7 @@ public interface ViewBorrowerContract {
 
         void getAllData(int totalData, List<UserBorrower> results);
 
+        void goToOTPInput(String agentPhone, String id);
     }
 
     interface Presenter extends BasePresenter<View>{
@@ -26,5 +27,7 @@ public interface ViewBorrowerContract {
         void getTokenAdminLender();
 
         void setDataSelectedBorrower(UserBorrower user);
+
+        void postOTPRequestBorrowerAgent(String id);
     }
 }

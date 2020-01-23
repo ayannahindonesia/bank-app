@@ -22,6 +22,7 @@ import com.ayannah.asira.dialog.BottomDialogHandlingError;
 import com.ayannah.asira.dialog.BottomSheetBorrowerAgent;
 import com.ayannah.asira.screen.agent.services.ListServicesAgentActivity;
 import com.ayannah.asira.screen.otpphone.VerificationOTPActivity;
+import com.google.gson.JsonObject;
 
 import java.io.Serializable;
 import java.util.List;
@@ -150,11 +151,8 @@ public class ViewBorrowerFragment extends BaseFragment implements ViewBorrowerCo
                         }
 
                     }else {
+                        mPresenter.postOTPRequestBorrowerAgent(String.valueOf(user.getId()));
 
-                        Intent otp = new Intent(parentActivity(), VerificationOTPActivity.class);
-                        otp.putExtra(VerificationOTPActivity.PURPOSES, "REGISTER_BORROWER");
-                        otp.putExtra("id_borrower", String.valueOf(user.getId()));
-                        startActivity(otp);
                     }
                 }
 
@@ -176,6 +174,14 @@ public class ViewBorrowerFragment extends BaseFragment implements ViewBorrowerCo
 
         }
 
+    }
+
+    @Override
+    public void goToOTPInput(String agentPhone, String id) {
+        Intent otp = new Intent(parentActivity(), VerificationOTPActivity.class);
+        otp.putExtra(VerificationOTPActivity.PURPOSES, "REGISTER_BORROWER");
+        otp.putExtra("id_borrower", id);
+        startActivity(otp);
     }
 
 }

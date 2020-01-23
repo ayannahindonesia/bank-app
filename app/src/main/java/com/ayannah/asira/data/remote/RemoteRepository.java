@@ -121,4 +121,6 @@ public interface RemoteRepository {
     Single<CurrentTime> getCurrentTime();
 
     Single<CheckAccount> checkEmailUser(String email);
+
+    void postOTPRequestBorrowerAgent(String id_borrower);
 }
