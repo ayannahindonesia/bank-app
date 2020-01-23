@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import com.ayannah.asira.R;
+import com.ayannah.asira.screen.agent.lpagent.LPAgentActivity;
 import com.ayannah.asira.screen.borrower.borrower_landing_page.BorrowerLandingPage;
 import com.ayannah.asira.screen.borrower.login.LoginActivity;
 import com.ayannah.asira.util.ActivityUtils;
@@ -89,6 +90,7 @@ public class VerificationOTPActivity extends DaggerAppCompatActivity {
             case "REGISTER_BORROWER":
 
                 alertCancel("Tunda verifikasi pendaftaran peminjam?");
+                break;
 
             default:
                 super.onBackPressed();
@@ -108,11 +110,17 @@ public class VerificationOTPActivity extends DaggerAppCompatActivity {
                     Intent intent = new Intent(getBaseContext(), LoginActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                     startActivity(intent);
+                    finish();
                 } else if (getIntent().getStringExtra(PURPOSES).equals("post_pinjaman")) {
                     Toast.makeText(VerificationOTPActivity.this, "Silahkan masuk ke halaman 'Pinjaman Saya'\nuntuk aktivasi pengajuan Anada", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getBaseContext(), BorrowerLandingPage.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                     startActivity(intent);
+                } else if(getIntent().getStringExtra(PURPOSES).equals("REGISTER_BORROWER")) {
+                    Intent intent = new Intent(getBaseContext(), LPAgentActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                    finish();
                 } else {
                     finish();
                 }
