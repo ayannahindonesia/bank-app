@@ -124,7 +124,8 @@ public class ViewBorrowerFragment extends BaseFragment implements ViewBorrowerCo
 
         if(totalData > 0){
 
-            title.setText(String.format("Daftar nasabah %s", bankName.replaceAll("bank", "").replace("Bank", "")));
+//            title.setText(String.format("Daftar nasabah %s", bankName.replaceAll("bank", "").replace("Bank", "")));
+            title.setText(String.format("Daftar nasabah %s", bankName));
 
             lyResult.setVisibility(View.VISIBLE);
             lyError.setVisibility(View.GONE);
@@ -141,7 +142,9 @@ public class ViewBorrowerFragment extends BaseFragment implements ViewBorrowerCo
                             BottomDialogHandlingError error = new BottomDialogHandlingError("Nasabah Masih Memiliki Pinjaman Aktif", 0);
                             error.showNow(parentActivity().getSupportFragmentManager(), "error message");
                             error.setOnClickLister(error::dismiss);
+
                         } else {
+
                             mPresenter.setDataSelectedBorrower(user);
 
                             Intent intent = new Intent(parentActivity(), ListServicesAgentActivity.class);
