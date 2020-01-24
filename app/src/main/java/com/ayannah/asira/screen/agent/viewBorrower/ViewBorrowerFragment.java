@@ -136,21 +136,40 @@ public class ViewBorrowerFragment extends BaseFragment implements ViewBorrowerCo
             adapter.setOnClickListenerViewBorrower(new CommonListListener.ViewBorrowerListener() {
                 @Override
                 public void onClickButton(UserBorrower user) {
+
                     if(user.isOtpVerified()){
-                        if (user.getLoanStatus().toLowerCase().equals("active")) {
-//                            Toast.makeText(parentActivity(), "Nasabah Masih Memiliki Pinjaman Aktif", Toast.LENGTH_LONG).show();
-                            BottomDialogHandlingError error = new BottomDialogHandlingError("Nasabah Masih Memiliki Pinjaman Aktif", 0);
+
+                        //before
+//                        if (user.getLoanStatus().toLowerCase().equals("active")) {
+//
+//                            BottomDialogHandlingError error = new BottomDialogHandlingError("Nasabah Masih Memiliki Pinjaman Aktif", 0);
+//                            error.showNow(parentActivity().getSupportFragmentManager(), "error message");
+//                            error.setOnClickLister(error::dismiss);
+//
+//                        } else {
+//
+//                            mPresenter.setDataSelectedBorrower(user);
+//
+//                            Intent intent = new Intent(parentActivity(), ListServicesAgentActivity.class);
+//                            intent.putExtra("user", (Serializable) user);
+//                            intent.putExtra(ListServicesAgentActivity.BANK_ID, bank_Id);
+//                            startActivity(intent);
+//                        }
+
+                        //revision jan 24, 2020
+                        if(user.getBankAccountnumber().isEmpty() || user.getBankAccountnumber() == null){
+
+                            BottomDialogHandlingError error = new BottomDialogHandlingError("Nasabah belum bisa mengajukan pinjaman", 0);
                             error.showNow(parentActivity().getSupportFragmentManager(), "error message");
                             error.setOnClickLister(error::dismiss);
 
-                        } else {
-
-                            mPresenter.setDataSelectedBorrower(user);
+                        }else {
 
                             Intent intent = new Intent(parentActivity(), ListServicesAgentActivity.class);
                             intent.putExtra("user", (Serializable) user);
                             intent.putExtra(ListServicesAgentActivity.BANK_ID, bank_Id);
                             startActivity(intent);
+
                         }
 
                     }else {
