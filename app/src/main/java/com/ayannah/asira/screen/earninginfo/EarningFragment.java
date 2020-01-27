@@ -14,6 +14,7 @@ import androidx.appcompat.app.AlertDialog;
 import com.ayannah.asira.R;
 import com.ayannah.asira.base.BaseFragment;
 import com.ayannah.asira.data.model.UserBorrower;
+import com.ayannah.asira.data.model.UserProfile;
 import com.ayannah.asira.dialog.BottomChangingIncome;
 import com.ayannah.asira.screen.agent.loan.LoanAgentActivity;
 import com.ayannah.asira.screen.loan.LoanActivity;
@@ -61,7 +62,9 @@ public class EarningFragment extends BaseFragment implements EarningContract.Vie
     private Validator validator;
     private AlertDialog dialog;
     private UserBorrower userBorrower;
+    static UserProfile userProfile;
     private String idbank;
+    public static Boolean isUpdate = false;
 
     @Inject
     public EarningFragment(){}
@@ -84,13 +87,21 @@ public class EarningFragment extends BaseFragment implements EarningContract.Vie
         idbank = getActivity().getIntent().getStringExtra(EarningActivity.IDBANK);
 
         if (getActivity().getIntent().getStringExtra("isFrom").toLowerCase().equals("agent")) {
-            
-             userBorrower = (UserBorrower) getActivity().getIntent().getSerializableExtra("user");
+
+            if (isUpdate) {
+                loadPenghasilan(String.valueOf(userProfile.getMonthlyIncome()),
+                        String.valueOf(userProfile.getOtherIncome()),
+                        userProfile.getOtherIncomesource());
+
+            } else {
+                userBorrower = (UserBorrower) getActivity().getIntent().getSerializableExtra("user");
 
 //             mPresenter.retrieveBorrowerIncomeDetail();
-            loadPenghasilan(String.valueOf(userBorrower.getMonthlyIncome()),
-                    String.valueOf(userBorrower.getOtherIncome()),
-                    userBorrower.getOtherIncomesource());
+                loadPenghasilan(String.valueOf(userBorrower.getMonthlyIncome()),
+                        String.valueOf(userBorrower.getOtherIncome()),
+                        userBorrower.getOtherIncomesource());
+
+            }
 
         } else {
             mPresenter.getPenghasilan();
@@ -229,7 +240,7 @@ public class EarningFragment extends BaseFragment implements EarningContract.Vie
     }
 
     @Override
-    public void completeUpdateIncome() {
+    public void completeUpdateIncome(UserProfile userProfiles) {
         Bundle bundle = parentActivity().getIntent().getExtras();
         assert bundle != null;
 
@@ -237,6 +248,8 @@ public class EarningFragment extends BaseFragment implements EarningContract.Vie
         Intent intent;
 //        intent.putExtra("idService", bundle.getInt("id"));
         if (getActivity().getIntent().getStringExtra("isFrom").toLowerCase().equals("agent")) {
+            userProfile = userProfiles;
+            isUpdate = true;
             intent = new Intent(parentActivity(), LoanAgentActivity.class);
             intent.putExtra("isFrom", "agent");
             intent.putExtra("user", (Serializable) userBorrower);
@@ -275,6 +288,7 @@ public class EarningFragment extends BaseFragment implements EarningContract.Vie
             pinjaman.putExtra("isFrom", "agent");
             pinjaman.putExtra(LoanAgentActivity.IDSERVICE, idService);
             pinjaman.putExtra(LoanAgentActivity.IDBANK, idbank);
+            isUpdate = false;
         } else {
             pinjaman = new Intent(parentActivity(), LoanActivity.class);
 //        pinjaman.putExtra("idService", bundle.getInt("id"));
