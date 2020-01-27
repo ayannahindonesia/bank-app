@@ -159,16 +159,22 @@ public class ViewBorrowerFragment extends BaseFragment implements ViewBorrowerCo
                         //revision jan 24, 2020
                         if(user.getBankAccountnumber().isEmpty() || user.getBankAccountnumber() == null){
 
-                            BottomDialogHandlingError error = new BottomDialogHandlingError("Nasabah belum bisa mengajukan pinjaman", 0);
+                            BottomDialogHandlingError error = new BottomDialogHandlingError("Nasabah belum memiliki nomor rekening", 0);
                             error.showNow(parentActivity().getSupportFragmentManager(), "error message");
                             error.setOnClickLister(error::dismiss);
 
-                        }else {
+                        }else if(user.getLoanStatus().toLowerCase().equals("inactive")) {
 
                             Intent intent = new Intent(parentActivity(), ListServicesAgentActivity.class);
                             intent.putExtra("user", (Serializable) user);
                             intent.putExtra(ListServicesAgentActivity.BANK_ID, bank_Id);
                             startActivity(intent);
+
+                        }else {
+
+                            BottomDialogHandlingError error = new BottomDialogHandlingError("Nasabah Masih Memiliki Pinjaman Aktif", 0);
+                            error.showNow(parentActivity().getSupportFragmentManager(), "error message");
+                            error.setOnClickLister(error::dismiss);
 
                         }
 
