@@ -66,7 +66,7 @@ public class AgentProfileFragment extends BaseFragment implements AgentProfileCo
     @BindView(R.id.txtAgentUserName)
     TextView txtAgentUserName;
 
-//    @NotEmpty(message = "Alamat email tidak boleh kosong", trim = true)
+    @NotEmpty(message = "Alamat email tidak boleh kosong ATAU", trim = true)
     @Email(message = "Format Email Salah")
     @BindView(R.id.etAgentEmail)
     EditText etAgentEmail;
@@ -388,7 +388,13 @@ public class AgentProfileFragment extends BaseFragment implements AgentProfileCo
 
     @OnClick(R.id.btnSaveAgentProfile)
     void saveProfile() {
-        validator.validate();
+
+        if (etAgentEmail.getText().toString().equals("")) {
+            Toast.makeText(parentActivity(), "Alamat email tidak boleh kosong", Toast.LENGTH_LONG).show();
+        } else {
+            validator.validate();
+        }
+
     }
 
     @OnClick(R.id.btnSignout)

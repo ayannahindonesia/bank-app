@@ -85,12 +85,13 @@ public class EarningFragment extends BaseFragment implements EarningContract.Vie
 
         if (getActivity().getIntent().getStringExtra("isFrom").toLowerCase().equals("agent")) {
 
+            getActivity().getIntent().removeExtra("isFrom");
              userBorrower = (UserBorrower) getActivity().getIntent().getSerializableExtra("user");
 
-             mPresenter.retrieveBorrowerIncomeDetail();
-//            loadPenghasilan(String.valueOf(userBorrower.getMonthlyIncome()),
-//                    String.valueOf(userBorrower.getOtherIncome()),
-//                    userBorrower.getOtherIncomesource());
+//             mPresenter.retrieveBorrowerIncomeDetail();
+            loadPenghasilan(String.valueOf(userBorrower.getMonthlyIncome()),
+                    String.valueOf(userBorrower.getOtherIncome()),
+                    userBorrower.getOtherIncomesource());
 
         } else {
             mPresenter.getPenghasilan();
