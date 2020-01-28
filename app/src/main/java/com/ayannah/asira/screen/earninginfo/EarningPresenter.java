@@ -84,7 +84,7 @@ public class EarningPresenter implements EarningContract.Presenter {
                     preferenceRepository.setUserOtherIncome(String.valueOf(res.getOtherIncome()));
                     preferenceRepository.setuserOtherSourceIncome(res.getOtherIncomesource());
 
-                    mView.completeUpdateIncome();
+                    mView.completeUpdateIncome(res);
 
 
                 }, error -> {
@@ -124,7 +124,7 @@ public class EarningPresenter implements EarningContract.Presenter {
                     preferenceRepository.setSecondaryIncomeBorrower(secondary);
                     preferenceRepository.setOtherIncomeBorrower(others);
 
-                    mView.completeUpdateIncome();
+                    mView.completeUpdateIncome(res);
 
 
                 }, error -> {

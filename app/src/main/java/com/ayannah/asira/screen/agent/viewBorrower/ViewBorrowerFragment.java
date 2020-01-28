@@ -21,6 +21,7 @@ import com.ayannah.asira.data.model.UserBorrower;
 import com.ayannah.asira.dialog.BottomDialogHandlingError;
 import com.ayannah.asira.dialog.BottomSheetBorrowerAgent;
 import com.ayannah.asira.screen.agent.services.ListServicesAgentActivity;
+import com.ayannah.asira.screen.earninginfo.EarningFragment;
 import com.ayannah.asira.screen.otpphone.VerificationOTPActivity;
 import com.google.gson.JsonObject;
 
@@ -82,6 +83,7 @@ public class ViewBorrowerFragment extends BaseFragment implements ViewBorrowerCo
         pbLoading.setVisibility(View.VISIBLE);
         mPresenter.getDataBorrower(bank_Id);
 
+        EarningFragment.isUpdate = false;
     }
 
     @Override
