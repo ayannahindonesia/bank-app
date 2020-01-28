@@ -18,6 +18,8 @@ public interface LoginContract {
 
         void accountNotOTP();
 
+        void errorFCM(String message);
+
         void successGetOTP();
     }
 

@@ -200,6 +200,20 @@ public class LoginFragment extends BaseFragment implements
     }
 
     @Override
+    public void errorFCM(String message) {
+
+        Toast.makeText(parentActivity(), message, Toast.LENGTH_SHORT).show();
+
+        Intent login = new Intent(parentActivity(), BorrowerLandingPage.class);
+        login.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(login);
+
+        dialog.dismiss();
+
+        parentActivity().finish();
+    }
+
+    @Override
     public void successGetOTP() {
         dialog.dismiss();
 
