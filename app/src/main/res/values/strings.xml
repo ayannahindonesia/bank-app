@@ -91,4 +91,9 @@
     <string name="error_msg_http">Terjadi kesalahan. Mohon coba beberapa saat lagi</string>
     <string name="error_msg">Mohon coba beberapa saat lagi. Sedang dalam perbaikan</string>
 
+    <string name="borrower_cred_id">androkey</string>
+    <string name="borrower_cred_sandi">androsecret</string>
+    <string name="lender_cred_id">reactkey</string>
+    <string name="lender_cred_sandi">reactsecret</string>
+
 </resources>
