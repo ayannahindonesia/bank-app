@@ -4,6 +4,7 @@ import android.app.Application;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.androidnetworking.common.ANConstants;
@@ -12,7 +13,12 @@ import com.ayannah.asira.data.local.PreferenceRepository;
 import com.ayannah.asira.data.remote.RemoteRepository;
 import com.ayannah.asira.util.CommonUtils;
 import com.ayannah.asira.util.MyFirebaseMessagingService;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 import com.google.gson.JsonObject;
 
 import org.json.JSONObject;
@@ -237,18 +243,42 @@ public class LoginPresenter implements LoginContract.Presenter {
             return;
         }
 
-        mComposite.add(remotRepo.sendUserFCMToken(MyFirebaseMessagingService.TOKEN_FCM)
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(res -> {
+        FirebaseInstanceId.getInstance().getInstanceId().addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+            @Override
+            public void onComplete(@NonNull Task<InstanceIdResult> task) {
 
-            mView.loginComplete();
+                if(!task.isSuccessful()){
 
-        }, error ->{
+                    mView.errorFCM("retrieving token firebase not success. Plase contact developer");
+                    return;
+                }
 
-            mView.showErrorMessage(CommonUtils.commonErrorFormat(error));
+                String token = task.getResult().getToken();
 
-        }));
+                mComposite.add(remotRepo.sendUserFCMToken(token)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(res -> {
+
+                            mView.loginComplete();
+
+                        }, error ->{
+
+                            mView.showErrorMessage(CommonUtils.commonErrorFormat(error));
+
+                        }));
+
+            }
+        })
+        .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+
+                        mView.errorFCM(e.getMessage());
+
+                    }
+                });
+
     }
 
     @Override

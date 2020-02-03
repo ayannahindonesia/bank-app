@@ -10,6 +10,7 @@ import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.ayannah.asira.BuildConfig;
+import com.ayannah.asira.R;
 import com.ayannah.asira.data.local.PreferenceRepository;
 import com.ayannah.asira.data.model.AgentProfile;
 import com.ayannah.asira.data.model.AgentProviderDetail;
@@ -43,7 +44,6 @@ import org.json.JSONObject;
 import javax.inject.Inject;
 
 import io.reactivex.Single;
-import io.reactivex.disposables.Disposable;
 import okhttp3.Credentials;
 import okhttp3.Response;
 
@@ -102,7 +102,7 @@ public class RemoteDataSource implements RemoteRepository {
     @Override
     public Single<Token> getTokenLender() {
 
-        String credential = Credentials.basic("reactkey", "reactsecret");
+        String credential = Credentials.basic(application.getString(R.string.lender_cred_id), application.getString(R.string.lender_cred_sandi));
         return Rx2AndroidNetworking.get(BuildConfig.API_URL_LENDER + "clientauth")
                 .addHeaders("Authorization", credential)
                 .setPriority(Priority.MEDIUM)
@@ -113,7 +113,7 @@ public class RemoteDataSource implements RemoteRepository {
     @Override
     public Single<Token> getToken() {
 
-        String credential = Credentials.basic("androkey", "androsecret");
+        String credential = Credentials.basic(application.getString(R.string.borrower_cred_id), application.getString(R.string.borrower_cred_sandi));
         return Rx2AndroidNetworking.get(BuildConfig.API_URL + "clientauth")
                 .addHeaders("Authorization", credential)
                 .setPriority(Priority.MEDIUM)

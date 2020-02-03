@@ -78,7 +78,7 @@
     <string name="otp_regist_alert">Keluar dari halaman OTP?</string>
     <string name="resubmit_regist_alert">Batalkan verifikasi akun Anda?</string>
 
-    <string name="processing">Menunggu Konfirmasi</string>
+    <string name="processing">Dalam Proses</string>
     <string name="accept">Diterima</string>
     <string name="reject">Ditolak</string>
     <string name="pending">Tertunda</string>
@@ -90,5 +90,10 @@
     <string name="no_connection">Jaringan internet tidak tersedia</string>
     <string name="error_msg_http">Terjadi kesalahan. Mohon coba beberapa saat lagi</string>
     <string name="error_msg">Mohon coba beberapa saat lagi. Sedang dalam perbaikan</string>
+
+    <string name="borrower_cred_id">androkey</string>
+    <string name="borrower_cred_sandi">androsecret</string>
+    <string name="lender_cred_id">reactkey</string>
+    <string name="lender_cred_sandi">reactsecret</string>
 
 </resources>

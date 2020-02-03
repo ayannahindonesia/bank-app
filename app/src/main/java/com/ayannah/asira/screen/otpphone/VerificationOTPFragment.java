@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 
@@ -273,5 +274,11 @@ public class VerificationOTPFragment extends BaseFragment implements Verificatio
         startActivity(intent);
         parentActivity().finish();
 
+    }
+
+    @Override
+    public void errorFCM(String errorMessage) {
+        Toast.makeText(parentActivity(), errorMessage, Toast.LENGTH_SHORT).show();
+        loginComplete();
     }
 }

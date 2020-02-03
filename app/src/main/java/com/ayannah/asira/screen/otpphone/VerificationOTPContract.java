@@ -19,6 +19,8 @@ public interface VerificationOTPContract {
         void loginComplete();
 
         void successCreateBorrower();
+
+        void errorFCM(String errorMessage);
     }
 
     interface Presenter extends BasePresenter<View> {

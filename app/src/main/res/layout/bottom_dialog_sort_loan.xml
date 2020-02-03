@@ -27,7 +27,7 @@
         android:id="@+id/processing"
         android:textColor="@color/colorAccent"
         android:textSize="@dimen/fontLarge"
-        android:text="Menunggu konfirmasi"
+        android:text="Dalam proses"
         android:paddingTop="6dp"
         android:paddingBottom="6dp"
         android:layout_marginBottom="3dp"

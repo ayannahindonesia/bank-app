@@ -2,6 +2,7 @@ package com.ayannah.asira.screen.earninginfo;
 
 import com.ayannah.asira.base.BasePresenter;
 import com.ayannah.asira.base.BaseView;
+import com.ayannah.asira.data.model.UserProfile;
 
 public interface EarningContract {
 
@@ -11,7 +12,7 @@ public interface EarningContract {
 
         void loadPenghasilan(String pendapatan, String pendapatanLain, String sumberLain);
 
-        void completeUpdateIncome();
+        void completeUpdateIncome(UserProfile userProfile);
 
         void getBorrowerIncomeDetail(int primaryIncome, int secondaryIncome, String otherIncome);
 

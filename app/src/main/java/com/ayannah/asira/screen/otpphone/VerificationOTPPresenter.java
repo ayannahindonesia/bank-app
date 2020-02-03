@@ -3,6 +3,8 @@ package com.ayannah.asira.screen.otpphone;
 import android.app.Application;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.ANConstants;
 import com.androidnetworking.common.Priority;
@@ -12,7 +14,11 @@ import com.ayannah.asira.BuildConfig;
 import com.ayannah.asira.data.local.PreferenceRepository;
 import com.ayannah.asira.data.remote.RemoteRepository;
 import com.ayannah.asira.util.CommonUtils;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 import com.google.gson.JsonObject;
 import com.rx2androidnetworking.Rx2AndroidNetworking;
 
@@ -407,23 +413,40 @@ public class VerificationOTPPresenter implements VerificationOTPContract.Present
             return;
         }
 
-        String token = FirebaseInstanceId.getInstance().getToken();
+        FirebaseInstanceId.getInstance().getInstanceId().addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+            @Override
+            public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                if (!task.isSuccessful()) {
+                    mView.errorFCM("retreving token firebase not success. Please contact developer ;) ");
+                    return;
+                }
 
-        mComposite.add(remotRepo.sendUserFCMToken(token)
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(response -> {
+                mComposite.add(remotRepo.sendUserFCMToken(task.getResult().getToken())
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(response -> {
 
-            mView.loginComplete();
+                            mView.loginComplete();
 
-        }, error -> {
+                        }, error -> {
 
-            ANError anError = (ANError) error;
+                            ANError anError = (ANError) error;
 
-            mView.showErrorMessage(CommonUtils.commonErrorFormat(error), anError.getErrorCode());
+                            mView.showErrorMessage(CommonUtils.commonErrorFormat(error), anError.getErrorCode());
 
 
-        }));
+                        }));
+
+            }
+        })
+        .addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                mView.errorFCM(e.getMessage());
+            }
+        });
+
+
 
     }
 }
