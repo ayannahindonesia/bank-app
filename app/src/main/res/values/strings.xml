@@ -96,4 +96,6 @@
     <string name="lender_cred_id">reactkey</string>
     <string name="lender_cred_sandi">reactsecret</string>
 
+    <string name="pp_link">Dengan menekan tombol daftar, maka Anda menyetujui seluruh kebijakan Asira</string>
+
 </resources>

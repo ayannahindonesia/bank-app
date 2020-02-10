@@ -38,6 +38,8 @@ import com.ayannah.asira.screen.borrower.borrower_landing_page.BorrowerLandingMo
 import com.ayannah.asira.screen.borrower.borrower_landing_page.BorrowerLandingPage;
 import com.ayannah.asira.screen.borrower.profile_menu.editinfopribadi.EditInfoPribadiActivity;
 import com.ayannah.asira.screen.borrower.profile_menu.editinfopribadi.EditInfoPribadiModule;
+import com.ayannah.asira.screen.borrower.register_mandatory.RegisterMandatoryActivity;
+import com.ayannah.asira.screen.borrower.register_mandatory.RegisterMandatoryModule;
 import com.ayannah.asira.screen.borrower.tab_profile.ProfileModule;
 import com.ayannah.asira.screen.borrower.tab_rewards.RewardsModule;
 import com.ayannah.asira.screen.chooselogin.ChooseLoginActivity;
@@ -252,4 +254,8 @@ abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = AgentProfileBankListModule.class)
     abstract AgentProfileBankListActivity agentProfileBankListActivity();
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = RegisterMandatoryModule.class)
+    abstract RegisterMandatoryActivity registerMandatoryActivity();
 }

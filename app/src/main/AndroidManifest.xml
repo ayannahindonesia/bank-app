@@ -109,10 +109,11 @@
         <activity android:name=".screen.agent.registerborrower.formother.FormOtherAgentActivity" />
         <activity android:name=".screen.agent.services.ListServicesAgentActivity" />
         <activity android:name=".screen.agent.loan.LoanAgentActivity" />
-        <activity android:name=".screen.agent.navigationmenu.agentprofile.AgentProfileActivity" />
         <activity android:name=".screen.agent.navigationmenu.agentprofile.ListBanks.AgentProfileBankListActivity" />
         <activity android:name=".screen.borrower.borrower_landing_page.BorrowerLandingPage"
             android:screenOrientation="portrait"/>
+        <activity android:name=".screen.borrower.register_mandatory.RegisterMandatoryActivity"
+            android:windowSoftInputMode="adjustPan"/>
 
         <service
             android:name=".util.MyFirebaseMessagingService"

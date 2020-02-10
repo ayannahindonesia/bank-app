@@ -29,6 +29,7 @@
     <color name="darkgreen">#158A46</color>
     <color name="transdarkgreen">#22158A46</color>
 
-    <color name="textColorAsira">#2076B8</color>
+    <color name="textColorAsira">#2D85E9</color>
+    <color name="textColorAsiraGrey">#535353</color>
 
 </resources>
