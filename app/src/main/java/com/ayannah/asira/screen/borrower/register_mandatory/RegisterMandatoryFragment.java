@@ -1,5 +1,6 @@
 package com.ayannah.asira.screen.borrower.register_mandatory;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -10,6 +11,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.ayannah.asira.R;
 import com.ayannah.asira.base.BaseFragment;
+import com.ayannah.asira.screen.otpphone.VerificationOTPActivity;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.ConfirmPassword;
@@ -110,11 +112,14 @@ public class RegisterMandatoryFragment extends BaseFragment implements RegisterM
 
     @OnClick(R.id.btnTxtRegister)
     void registNewBorrower() {
-        if (etEmail.getText().toString().equals("")) {
-            Toast.makeText(parentActivity(), "Email tidak boleh kosong", Toast.LENGTH_LONG).show();
-        } else {
-            validator.validate();
-        }
+        Intent intent = new Intent(parentActivity(), VerificationOTPActivity.class);
+        intent.putExtra(VerificationOTPActivity.PURPOSES, "");
+        startActivity(intent);
+//        if (etEmail.getText().toString().equals("")) {
+//            Toast.makeText(parentActivity(), "Email tidak boleh kosong", Toast.LENGTH_LONG).show();
+//        } else {
+//            validator.validate();
+//        }
     }
 
     @Override

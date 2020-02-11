@@ -1,11 +1,14 @@
 package com.ayannah.asira.screen.otpphone;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Vibrator;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,31 +23,39 @@ import com.ayannah.asira.screen.borrower.borrower_landing_page.BorrowerLandingPa
 import com.ayannah.asira.screen.register.formothers.FormOtherFragment;
 import com.ayannah.asira.screen.success.SuccessActivity;
 import com.google.gson.JsonObject;
+import com.mukesh.OnOtpCompletionListener;
+import com.mukesh.OtpView;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import butterknife.OnTextChanged;
 
 public class VerificationOTPFragment extends BaseFragment implements VerificationOTPContract.View {
 
     private static final String TAG = VerificationOTPActivity.class.getSimpleName();
 
-    @BindView(R.id.etPin)
-    PinEntryEditText etPin;
+    private CountDownTimer countDownTimer;
 
-    @BindView(R.id.loadingProgress)
-    LinearLayout pgLoading;
+    @BindView(R.id.otpView)
+    OtpView otpView;
 
-    @BindView(R.id.errorIndicator)
-    LinearLayout lyErrorIndicator;
+//    @BindView(R.id.etPin)
+//    PinEntryEditText etPin;
 
-    @BindView(R.id.errorCode)
-    TextView errorCode;
-
-    @BindView(R.id.errorMessage)
-    TextView errorMessage;
+//    @BindView(R.id.loadingProgress)
+//    LinearLayout pgLoading;
+//
+//    @BindView(R.id.errorIndicator)
+//    LinearLayout lyErrorIndicator;
+//
+//    @BindView(R.id.errorCode)
+//    TextView errorCode;
+//
+//    @BindView(R.id.errorMessage)
+//    TextView errorMessage;
 
     @Inject
     @Named("purpose")
@@ -53,6 +64,12 @@ public class VerificationOTPFragment extends BaseFragment implements Verificatio
     @Inject
     @Named("idloan")
     int idLoan;
+
+    @BindView(R.id.txtResend)
+    TextView txtResend;
+
+    @BindView(R.id.txtWrongOTP)
+    TextView txtWrongOTP;
 
     private Vibrator vibrator;
     private long[] patternVibrate ={500, 0, 500};
@@ -82,11 +99,27 @@ public class VerificationOTPFragment extends BaseFragment implements Verificatio
 
     @Override
     protected int getLayoutView() {
-        return R.layout.content_verification_otp;
+        return R.layout.content_otp_verify;
+    }
+
+    @OnTextChanged(value = R.id.otpView, callback = OnTextChanged.Callback.TEXT_CHANGED)
+    void textChanged(CharSequence s, int start, int before, int count) {
+        if (count<6) {
+            txtWrongOTP.setVisibility(View.GONE);
+        }
     }
 
     @Override
     protected void initView(Bundle state) {
+
+        startCountDown();
+
+        otpView.setOtpCompletionListener(new OnOtpCompletionListener() {
+            @Override public void onOtpCompleted(String otp) {
+                hideKeyboard(parentActivity());
+                txtWrongOTP.setVisibility(View.VISIBLE);
+            }
+        });
 
         AlertDialog.Builder builder = new AlertDialog.Builder(parentActivity());
         builder.setCancelable(false);
@@ -102,43 +135,68 @@ public class VerificationOTPFragment extends BaseFragment implements Verificatio
             mPresenter.getPublicToken(bundle.getString(FormOtherFragment.PHONE), bundle.getString(FormOtherFragment.PASS), "init");
         }
 
-
     }
 
-    @OnTextChanged(value = R.id.etPin, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
-    void afterTextChanged(CharSequence charSequence) {
-        if (charSequence.length() == 6) {
+    @OnClick(R.id.txtResend)
+    void resendOTP() {
+        countDownTimer.cancel();
+        startCountDown();
+    }
 
-            dialog.show();
-
-            if(purpose.equals(REGISTER)){
-
-                registerNewAccount(charSequence);
-
-            }else if(purpose.equals(PINJAMAN) || purpose.equals(POST_PINJAMAN)){
-
-                loanRequest(charSequence);
-
-            }else if(purpose.equals(RESUBMIT_LOAN)){
-
-                resubmitLoanRequest(idLoan);
-            } else if (purpose.equals(RESUBMIT_REGIST)) {
-
-                resubmitRegister(charSequence);
-            } else if (purpose.equals(POST_PINJAMAN_AGENT)) {
-
-                loanRequestAgent(charSequence);
-            } else if(purpose.equals(REGISTER_BORROWER)){
-
-                registerBorrowerFromAgentSide(charSequence);
-
-            }else {
-
-                dialog.dismiss();
+    private void startCountDown() {
+        txtResend.setClickable(false);
+        countDownTimer = new CountDownTimer(30000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                if (millisUntilFinished < 10000) {
+                    txtResend.setText("00:0" + millisUntilFinished / 1000);
+                } else {
+                    txtResend.setText("00:" + millisUntilFinished / 1000);
+                }
             }
 
-        }
+            @Override
+            public void onFinish() {
+                txtResend.setClickable(true);
+                txtResend.setText("Yuk Kirim Lagi Lah");
+            }
+        }.start();
     }
+
+//    @OnTextChanged(value = R.id.etPin, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
+//    void afterTextChanged(CharSequence charSequence) {
+//        if (charSequence.length() == 6) {
+//
+//            dialog.show();
+//
+//            if(purpose.equals(REGISTER)){
+//
+//                registerNewAccount(charSequence);
+//
+//            }else if(purpose.equals(PINJAMAN) || purpose.equals(POST_PINJAMAN)){
+//
+//                loanRequest(charSequence);
+//
+//            }else if(purpose.equals(RESUBMIT_LOAN)){
+//
+//                resubmitLoanRequest(idLoan);
+//            } else if (purpose.equals(RESUBMIT_REGIST)) {
+//
+//                resubmitRegister(charSequence);
+//            } else if (purpose.equals(POST_PINJAMAN_AGENT)) {
+//
+//                loanRequestAgent(charSequence);
+//            } else if(purpose.equals(REGISTER_BORROWER)){
+//
+//                registerBorrowerFromAgentSide(charSequence);
+//
+//            }else {
+//
+//                dialog.dismiss();
+//            }
+//
+//        }
+//    }
 
     private void registerBorrowerFromAgentSide(CharSequence otpcode) {
 
@@ -174,7 +232,7 @@ public class VerificationOTPFragment extends BaseFragment implements Verificatio
 
     private void resubmitLoanRequest(int idLoan) {
 
-        mPresenter.resubmitLoanOTP(idLoan, etPin.getText().toString().trim());
+//        mPresenter.resubmitLoanOTP(idLoan, etPin.getText().toString().trim());
 
     }
 
@@ -242,12 +300,12 @@ public class VerificationOTPFragment extends BaseFragment implements Verificatio
     public void showErrorMessage(String message, int codeError) {
         dialog.dismiss();
 
-        lyErrorIndicator.setVisibility(View.VISIBLE);
+//        lyErrorIndicator.setVisibility(View.VISIBLE);
 
         vibrator.vibrate(patternVibrate, -1);
 
-        errorCode.setText(String.format("Kode: %s", codeError));
-        errorMessage.setText(message);
+//        errorCode.setText(String.format("Kode: %s", codeError));
+//        errorMessage.setText(message);
 
 
     }
@@ -280,5 +338,16 @@ public class VerificationOTPFragment extends BaseFragment implements Verificatio
     public void errorFCM(String errorMessage) {
         Toast.makeText(parentActivity(), errorMessage, Toast.LENGTH_SHORT).show();
         loginComplete();
+    }
+
+    public static void hideKeyboard(Activity activity) {
+        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        //Find the currently focused view, so we can grab the correct window token from it.
+        View view = activity.getCurrentFocus();
+        //If no view currently has focus, create a new one, just so we can grab a window token from it
+        if (view == null) {
+            view = new View(activity);
+        }
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 }

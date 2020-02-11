@@ -15,6 +15,7 @@
         <item name="homeAsUpIndicator">@drawable/ic_custom_back_btn</item>
         <item name="bottomSheetDialogTheme">@style/CustomBottomSheetFragmentTheme</item>
         <item name="materialButtonStyle">@style/CustomButtonStyle</item>
+        <item name="otpViewStyle">@style/OtpWidget.OtpView</item>
     </style>
 
     <style name="CustomButtonStyle" parent="Widget.MaterialComponents.Button.UnelevatedButton">

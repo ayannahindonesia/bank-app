@@ -19,6 +19,6 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/content_verification_otp" />
+    <include layout="@layout/content_otp_verify" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

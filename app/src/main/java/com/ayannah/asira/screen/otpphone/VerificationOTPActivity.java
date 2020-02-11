@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ayannah.asira.R;
@@ -40,9 +42,11 @@ public class VerificationOTPActivity extends DaggerAppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.common_activity);
+        setContentView(R.layout.common_activity_before_login);
         mUnbinder = ButterKnife.bind(this);
         setSupportActionBar(toolbar);
+
+        setupToolbar();
 
         ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
@@ -56,8 +60,20 @@ public class VerificationOTPActivity extends DaggerAppCompatActivity {
             verificationOTPFragment = mFragment;
             ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), verificationOTPFragment, R.id.fragment_container);
         }
+    }
 
+    private void setupToolbar() {
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
+        // Hide the title
+        getSupportActionBar().setTitle(null);
+        // Set onClickListener to customView
+        TextView tvSkip = (TextView) findViewById(R.id.toolbar_skip);
+        tvSkip.setCompoundDrawables(getResources().getDrawable(R.drawable.agen_btn), null, null, null);
+        tvSkip.setText("Kembali");
 
+        TextView tvHelp = (TextView) findViewById(R.id.toolbar_help);
+        tvHelp.setVisibility(View.GONE);
     }
 
     @Override
