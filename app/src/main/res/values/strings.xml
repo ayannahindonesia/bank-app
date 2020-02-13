@@ -99,4 +99,6 @@
     <string name="pp_link">Dengan menekan tombol daftar, maka Anda menyetujui seluruh kebijakan Asira</string>
     <string name="disclaimer_select_bank">Silahkan pilih bank dan lengkapi data diri untuk mulai mengajukan pinjaman!</string>
 
+    <string name="agent_term_condition_login">Dengan menekan tombol masuk, maka anda menyetujui seluruh kebijakan Asira</string>
+
 </resources>

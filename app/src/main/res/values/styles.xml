@@ -66,7 +66,7 @@
 
     <style name="BottomNavigationTextDefault" parent="@style/TextAppearance.AppCompat.Caption">
         <item name="android:textSize">@dimen/fontNormal</item>
-        <item name="android:textColor">@color/textColorAsiraGrey</item>
+        <item name="android:textColor">@android:color/white</item>
     </style>
 
     <style name="TextTabLayout" parent="TextAppearance.Design.Tab">

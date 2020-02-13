@@ -1,16 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="@drawable/bg_login"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/logoBank"
-        android:layout_width="match_parent"
-        android:layout_height="62dp"
-        android:layout_marginTop="14dp"
-        android:src="@drawable/ic_asira" />
+    <TextView
+        android:id="@+id/ttl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/_40sdp"
+        android:gravity="center"
+        android:text="asira"
+        android:textColor="#FFF"
+        android:textSize="@dimen/_32sdp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ttl"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:gravity="center"
+        android:text="Selamat datang kembali,\nsilahkan masukkan"
+        android:textColor="#FFF"
+        android:textSize="@dimen/_12sdp"
+        android:textStyle="bold" />
 
     <RelativeLayout
         android:id="@+id/lyLogin"
@@ -18,161 +35,180 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/bg_login_container">
+        android:layout_alignParentBottom="true">
 
-        <LinearLayout
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="@dimen/margin16dp"
-            android:paddingBottom="20dp">
-
-            <TextView
-                android:textAlignment="center"
-                android:textColor="@color/colorAsiraText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/manrope_bold"
-                android:textSize="@dimen/fontSuperLarge"
-                android:text="Agen"/>
-
-            <TextView
-                android:textColor="@color/colorAsiraText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/manrope_bold"
-                android:drawablePadding="10dp"
-                android:layout_marginTop="15dp"
-                android:textSize="@dimen/fontNormal"
-                android:drawableStart="@drawable/ic_phone_icon"
-                android:text="Nama Pengguna"/>
+            android:layout_height="wrap_content">
 
             <LinearLayout
-                android:id="@+id/lltPhone"
-                android:layout_marginTop="8dp"
-                android:padding="3dp"
-                android:orientation="horizontal"
-                android:background="@drawable/bg_textinput"
                 android:layout_width="match_parent"
-                android:layout_height="42dp">
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/_16sdp"
+                android:paddingBottom="20dp">
+
+                <!--            <TextView-->
+                <!--                android:textAlignment="center"-->
+                <!--                android:textColor="@color/colorAsiraText"-->
+                <!--                android:layout_width="match_parent"-->
+                <!--                android:layout_height="wrap_content"-->
+                <!--                android:fontFamily="@font/manrope_bold"-->
+                <!--                android:textSize="@dimen/fontSuperLarge"-->
+                <!--                android:text="Agen"/>-->
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="10dp"
+                    android:textColor="@color/textColorAsiraGrey"
+                    android:text="Nama Pengguna"/>
 
                 <EditText
                     android:id="@+id/etUserName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
                     android:imeOptions="actionNext"
                     android:inputType="text"
                     android:hint="Agen_john"
-                    android:layout_gravity="center_vertical"
-                    android:paddingStart="30dp"
-                    android:paddingEnd="25dp"
+                    android:layout_marginTop="@dimen/_8sdp"
                     android:maxLength="25"
-                    android:textColor="@android:color/black"
-                    android:textSize="@dimen/fontLarge" />
+                    style="@style/EditTextBeforeLogin"/>
 
-            </LinearLayout>
-
-            <TextView
-                android:textColor="@color/colorAsiraText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/manrope_bold"
-                android:drawablePadding="10dp"
-                android:layout_marginTop="20dp"
-                android:textSize="@dimen/fontNormal"
-                android:drawableStart="@drawable/ic_password_icon"
-                android:text="Kata Sandi"/>
-
-            <LinearLayout
-                android:id="@+id/lltPwd"
-                android:layout_marginTop="8dp"
-                android:padding="3dp"
-                android:weightSum="1"
-                android:orientation="horizontal"
-                android:background="@drawable/bg_textinput"
-                android:layout_width="match_parent"
-                android:layout_height="42dp">
-
-                <EditText
-                    android:id="@+id/etPassword"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.1"
-                    android:background="@android:color/transparent"
-                    android:layout_gravity="center_vertical"
-                    android:imeOptions="actionDone"
-                    android:inputType="textPassword"
-                    android:maxLength="25"
-                    android:hint="Masukkan kata sandi"
-                    android:paddingStart="30dp"
-                    android:paddingEnd="25dp"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:drawablePadding="10dp"
+                        android:layout_marginTop="20dp"
+                        android:text="Kata Sandi"
+                        android:textColor="@color/textColorAsiraGrey"/>
+
+                    <TextView
+                        android:id="@+id/resetPassword"
+                        android:layout_weight="0.5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_15sdp"
+                        android:background="?attr/selectableItemBackground"
+                        android:text="Lupa Sandi?"
+                        android:textAlignment="textEnd"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/lltPwd"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:passwordToggleEnabled="true"
+                        app:passwordToggleDrawable="@drawable/password_toggle"
+                        app:passwordToggleTint="@color/textColorAsira">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etPassword"
+                            style="@style/EditTextBeforeLogin"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:imeOptions="actionDone"
+                            android:inputType="textPassword" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <!--                <EditText-->
+                    <!--                    android:id="@+id/etPassword"-->
+                    <!--                    android:layout_width="match_parent"-->
+                    <!--                    android:layout_height="wrap_content"-->
+                    <!--                    android:layout_weight="0.1"-->
+                    <!--                    android:imeOptions="actionDone"-->
+                    <!--                    android:inputType="textPassword"-->
+                    <!--                    android:maxLength="25"-->
+                    <!--                    android:hint="Masukkan kata sandi"-->
+                    <!--                    android:textSize="@dimen/fontNormal"-->
+                    <!--                    style="@style/EditTextBeforeLogin"/>-->
+
+                    <!--                <ImageButton-->
+                    <!--                    android:id="@+id/openPass"-->
+                    <!--                    android:layout_weight="0.9"-->
+                    <!--                    android:padding="@dimen/_8sdp"-->
+                    <!--                    android:background="?attr/selectableItemBackground"-->
+                    <!--                    android:src="@drawable/ic_eye_icon"-->
+                    <!--                    android:layout_width="match_parent"-->
+                    <!--                    android:layout_height="wrap_content"/>-->
+
+                    <!--                <ImageButton-->
+                    <!--                    android:id="@+id/invisiblePass"-->
+                    <!--                    android:layout_weight="0.9"-->
+                    <!--                    android:visibility="gone"-->
+                    <!--                    android:padding="@dimen/_8sdp"-->
+                    <!--                    android:background="?attr/selectableItemBackground"-->
+                    <!--                    android:src="@drawable/ic_invisible"-->
+                    <!--                    android:layout_width="match_parent"-->
+                    <!--                    android:layout_height="wrap_content"/>-->
+
+                </LinearLayout>
+
+                <TextView
+                    android:text="@string/agent_term_condition_login"
+                    android:textSize="@dimen/fontSmall"
                     android:textColor="@android:color/black"
-                    android:textSize="@dimen/fontLarge" />
-
-                <ImageButton
-                    android:id="@+id/openPass"
-                    android:layout_weight="0.9"
-                    android:padding="@dimen/_8sdp"
-                    android:background="?attr/selectableItemBackground"
-                    android:src="@drawable/ic_eye_icon"
+                    android:layout_marginTop="@dimen/_14sdp"
+                    android:textAlignment="center"
+                    android:layout_marginStart="@dimen/_16sdp"
+                    android:layout_marginEnd="@dimen/_16sdp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 
-                <ImageButton
-                    android:id="@+id/invisiblePass"
-                    android:layout_weight="0.9"
-                    android:visibility="gone"
-                    android:padding="@dimen/_8sdp"
-                    android:background="?attr/selectableItemBackground"
-                    android:src="@drawable/ic_invisible"
+                <TextView
+                    android:id="@+id/btnLogin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_14sdp"
+                    android:background="#2D85E9"
+                    android:clickable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:gravity="center_horizontal"
+                    android:padding="@dimen/_10sdp"
+                    android:text="Masuk"
+                    android:textColor="#FFFFFF" />
+
+                <TextView
+                    android:textAlignment="center"
+                    android:textColor="@color/colorAsiraText"
+                    android:text="atau"
+                    android:visibility="invisible"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:textSize="@dimen/fontSmall"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnRegister"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="invisible"
+                    android:backgroundTint="@color/colorAsiraAccent"
+                    android:text="Daftar"
+                    android:layout_marginBottom="@dimen/_48sdp" />
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/resetPassword"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_15sdp"
-                android:background="?attr/selectableItemBackground"
-                android:text="Lupa Sandi?"
-                android:textAlignment="textEnd"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="@dimen/fontNormal"
-                android:textStyle="bold" />
+        </androidx.cardview.widget.CardView>
 
-            <Button
-                android:id="@+id/btnLogin"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:backgroundTint="@color/colorAsiraButtonBlue"
-                android:text="Masuk" />
 
-            <TextView
-                android:textAlignment="center"
-                android:textColor="@color/colorAsiraText"
-                android:text="atau"
-                android:visibility="invisible"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:layout_marginBottom="@dimen/_10sdp"
-                android:textSize="@dimen/fontSmall"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnRegister"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="invisible"
-                android:backgroundTint="@color/colorAsiraAccent"
-                android:text="Daftar"
-                android:layout_marginBottom="@dimen/_48sdp" />
-
-        </LinearLayout>
 
     </RelativeLayout>
 

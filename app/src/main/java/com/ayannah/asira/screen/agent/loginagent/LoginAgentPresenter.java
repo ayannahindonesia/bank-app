@@ -1,6 +1,7 @@
 package com.ayannah.asira.screen.agent.loginagent;
 
 import android.app.Application;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -21,6 +22,8 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class LoginAgentPresenter implements LoginAgentContract.Presenter {
+
+    private final static String TAG = LoginAgentPresenter.class.getSimpleName();
 
     private Application application;
     private PreferenceRepository preferenceRepository;

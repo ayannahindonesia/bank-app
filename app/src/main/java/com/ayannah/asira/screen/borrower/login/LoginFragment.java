@@ -19,6 +19,7 @@ import androidx.appcompat.app.AlertDialog;
 
 import com.ayannah.asira.R;
 import com.ayannah.asira.base.BaseFragment;
+import com.ayannah.asira.screen.agent.loginagent.LoginAgentActivity;
 import com.ayannah.asira.screen.borrower.borrower_landing_page.BorrowerLandingPage;
 import com.ayannah.asira.screen.otpphone.VerificationOTPActivity;
 import com.ayannah.asira.screen.register.formothers.FormOtherFragment;
@@ -168,6 +169,13 @@ public class LoginFragment extends BaseFragment implements
 //        startActivity(kebijakan);
 //
 //    }
+
+    @OnClick(R.id.btnTxtLoginAgent)
+    void onClickLoginAgent(){
+
+        Intent intent = new Intent(parentActivity(), LoginAgentActivity.class);
+        startActivity(intent);
+    }
 
     @Override
     public void showErrorMessage(String message) {

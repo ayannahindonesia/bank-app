@@ -21,15 +21,19 @@ import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 
+import java.net.HttpURLConnection;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.net.ssl.HttpsURLConnection;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 import dagger.Binds;
 
 public class LoginAgentFragment extends BaseFragment implements LoginAgentContract.View, Validator.ValidationListener {
+
+    private static final String TAG = LoginAgentFragment.class.getSimpleName();
 
     @Inject
     LoginAgentContract.Presenter mPresenter;
@@ -45,11 +49,11 @@ public class LoginAgentFragment extends BaseFragment implements LoginAgentContra
     @BindView(R.id.lyLogin)
     RelativeLayout lyLogin;
 
-    @BindView(R.id.openPass)
-    ImageButton openPass;
-
-    @BindView(R.id.invisiblePass)
-    ImageButton invisiblePass;
+//    @BindView(R.id.openPass)
+//    ImageButton openPass;
+//
+//    @BindView(R.id.invisiblePass)
+//    ImageButton invisiblePass;
 
     private Validator validator;
     private AlertDialog dialog;
@@ -114,37 +118,37 @@ public class LoginAgentFragment extends BaseFragment implements LoginAgentContra
         }
     }
 
-    @OnClick(R.id.openPass)
-    void visiblePass(){
-
-        if(!isPwdVisible){
-
-            openPass.setVisibility(View.GONE);
-            invisiblePass.setVisibility(View.VISIBLE);
-
-            etPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-            etPassword.setSelection(etPassword.getText().length());
-
-            isPwdVisible = true;
-        }
-
-    }
-
-    @OnClick(R.id.invisiblePass)
-    void invisiblePass(){
-
-        if(isPwdVisible){
-
-            openPass.setVisibility(View.VISIBLE);
-            invisiblePass.setVisibility(View.GONE);
-
-            etPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
-            etPassword.setSelection(etPassword.getText().length());
-
-            isPwdVisible = false;
-        }
-
-    }
+//    @OnClick(R.id.openPass)
+//    void visiblePass(){
+//
+//        if(!isPwdVisible){
+//
+//            openPass.setVisibility(View.GONE);
+//            invisiblePass.setVisibility(View.VISIBLE);
+//
+//            etPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+//            etPassword.setSelection(etPassword.getText().length());
+//
+//            isPwdVisible = true;
+//        }
+//
+//    }
+//
+//    @OnClick(R.id.invisiblePass)
+//    void invisiblePass(){
+//
+//        if(isPwdVisible){
+//
+//            openPass.setVisibility(View.VISIBLE);
+//            invisiblePass.setVisibility(View.GONE);
+//
+//            etPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+//            etPassword.setSelection(etPassword.getText().length());
+//
+//            isPwdVisible = false;
+//        }
+//
+//    }
 
     @Override
     public void showErrorMessage(String errorMessage) {

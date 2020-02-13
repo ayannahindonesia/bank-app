@@ -4,23 +4,21 @@
     <item
         android:id="@+id/beranda"
         android:title="Beranda"
-        android:icon="@drawable/bottom_menu_beranda"/>
+        android:icon="@drawable/agent_beranda"/>
 
     <item
         android:id="@+id/dataPinjaman"
         android:title="Pinjaman"
-        android:icon="@drawable/bottom_menu_pinjaman"/>
+        android:icon="@drawable/agent_pinjaman"/>
 
     <item
         android:id="@+id/dataPencairan"
-        android:title="Pencairan"
-        android:icon="@drawable/ic_penchairan"/>
+        android:title="Pesan"
+        android:icon="@drawable/agent_pesan"/>
 
     <item
         android:id="@+id/akun"
         android:title="Akun"
-        android:icon="@drawable/bottom_menu_akun"/>
-
-
+        android:icon="@drawable/agent_profile"/>
 
 </menu>

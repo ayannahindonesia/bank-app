@@ -117,8 +117,8 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:passwordToggleEnabled="true"
                         app:passwordToggleDrawable="@drawable/password_toggle"
+                        app:passwordToggleEnabled="true"
                         app:passwordToggleTint="@color/textColorAsira">
 
                         <com.google.android.material.textfield.TextInputEditText

@@ -58,6 +58,9 @@ public class AgentProfile implements Parcelable {
     @SerializedName("fcm_token")
     public String fcmToken;
 
+    @SerializedName("agent_provider_name")
+    public String agentProvideName;
+
     protected AgentProfile(Parcel in) {
         banks = new ArrayList<Integer>();
         banksName = new ArrayList<String>();
@@ -77,6 +80,7 @@ public class AgentProfile implements Parcelable {
         banksName = in.readArrayList(String.class.getClassLoader());
         status = in.readString();
         fcmToken = in.readString();
+        agentProvideName = in.readString();
     }
 
     public static final Creator<AgentProfile> CREATOR = new Creator<AgentProfile>() {
@@ -113,6 +117,7 @@ public class AgentProfile implements Parcelable {
         dest.writeList(banksName);
         dest.writeString(status);
         dest.writeString(fcmToken);
+        dest.writeString(agentProvideName);
     }
 
     public Integer getId() {
@@ -177,5 +182,9 @@ public class AgentProfile implements Parcelable {
 
     public String getImageProfile() {
         return imageProfile;
+    }
+
+    public String getAgentProvideName() {
+        return agentProvideName;
     }
 }
