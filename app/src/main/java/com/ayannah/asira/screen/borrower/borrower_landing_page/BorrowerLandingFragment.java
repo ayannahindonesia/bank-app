@@ -28,8 +28,7 @@ public class BorrowerLandingFragment extends BaseFragment implements BorrowerLan
     @Inject
     BorrowerLandingContract.Presenter mPresenter;
 
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
+    public static Toolbar toolbar;
 
     @BindView(R.id.bottomMenus)
     BottomNavigationView bottomNavigationView;
@@ -52,6 +51,7 @@ public class BorrowerLandingFragment extends BaseFragment implements BorrowerLan
     @Override
     protected void initView(Bundle state) {
 
+        toolbar = (Toolbar) parentActivity().findViewById(R.id.toolbar);
         parentActivity().setSupportActionBar(toolbar);
         ActionBar actionBar = parentActivity().getSupportActionBar();
         assert actionBar != null;

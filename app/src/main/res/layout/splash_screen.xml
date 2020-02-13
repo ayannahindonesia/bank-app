@@ -4,31 +4,32 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:src="@drawable/ic_asira" />
+        android:src="@drawable/splash_screen" />
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/asira"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="@dimen/_10sdp"
-        android:orientation="vertical">
+        android:text="asira"
+        android:textColor="@color/textColorAsira"
+        android:textSize="59sp"
+        android:layout_marginTop="@dimen/_110sdp"
+        android:layout_centerHorizontal="true"
+        android:textStyle="bold"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Powered by :"
-            android:textSize="@dimen/_10sdp" />
+    <TextView
+        android:layout_below="@+id/asira"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Oleh Ayannah"
+        android:textColor="@color/textColorAsira"
+        android:textSize="@dimen/_8sdp"
+        android:layout_centerHorizontal="true"
+        android:textStyle="bold"/>
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/logo_asn_png" />
-
-    </LinearLayout>
 
 </RelativeLayout>

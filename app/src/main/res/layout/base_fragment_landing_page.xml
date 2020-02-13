@@ -66,8 +66,6 @@
         app:elevation="4dp"
         app:labelVisibilityMode="labeled"
         app:menu="@menu/bottom_menu"
-        app:itemTextColor="@color/colorAsiraText"
-        app:itemIconTint="@color/colorAsiraText"
         app:itemBackground="@drawable/bottom_selected_menu"
         app:itemTextAppearanceActive="@style/BottomNavigationTextDefault"
         app:itemTextAppearanceInactive="@style/BottomNavigationTextDefault"/>

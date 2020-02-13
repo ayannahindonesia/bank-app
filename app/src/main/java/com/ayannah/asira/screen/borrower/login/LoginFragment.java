@@ -5,12 +5,14 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -27,6 +29,8 @@ import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 import javax.inject.Inject;
@@ -34,6 +38,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
+import butterknife.OnTouch;
 
 public class LoginFragment extends BaseFragment implements
         LoginContract.View, Validator.ValidationListener {
@@ -49,14 +54,14 @@ public class LoginFragment extends BaseFragment implements
     @BindView(R.id.etPassword)
     EditText etPassword;
 
-    @BindView(R.id.lyLogin)
-    RelativeLayout lyLogin;
+//    @BindView(R.id.lyLogin)
+//    RelativeLayout lyLogin;
 
-    @BindView(R.id.openPass)
-    ImageButton openPass;
+//    @BindView(R.id.showPass)
+//    TextView showPass;
 
-    @BindView(R.id.invisiblePass)
-    ImageButton invisiblePass;
+//    @BindView(R.id.invisiblePass)
+//    ImageButton invisiblePass;
 
     private Validator validator;
     private AlertDialog dialog;
@@ -68,7 +73,7 @@ public class LoginFragment extends BaseFragment implements
 
     @Override
     protected int getLayoutView() {
-        return R.layout.fragment_login;
+        return R.layout.fragment_login_new;
     }
 
     @Override
@@ -89,68 +94,80 @@ public class LoginFragment extends BaseFragment implements
     @Override
     protected void initView(Bundle state) {
 
-        Animation slideUp = AnimationUtils.loadAnimation(parentActivity(), R.anim.slide_up);
-        lyLogin.startAnimation(slideUp);
+//        Animation slideUp = AnimationUtils.loadAnimation(parentActivity(), R.anim.slide_up);
+//        lyLogin.startAnimation(slideUp);
 
         validator = new Validator(this);
         validator.setValidationListener(this);
 
     }
 
-    @OnClick(R.id.openPass)
-    void visiblePass(){
+//    @OnClick(R.id.showPass)
+//    void visiblePass(){
+//
+//        if(!isPwdVisible){
+//
+////            openPass.setVisibility(View.GONE);
+////            invisiblePass.setVisibility(View.VISIBLE);
+//
+//            etPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+//            etPassword.setSelection(etPassword.getText().length());
+//
+//            showPass.setText("Sembunyikan");
+//            showPass.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_viewdisable, 0, 0, 0);
+//
+//            isPwdVisible = true;
+//        } else {
+//
+//            etPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+//            etPassword.setSelection(etPassword.getText().length());
+//
+//            showPass.setText("Perlihatkan");
+//            showPass.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_viewenable, 0, 0, 0);
+//
+//            isPwdVisible = false;
+//        }
+//
+//    }
 
-        if(!isPwdVisible){
+//    @OnClick(R.id.invisiblePass)
+//    void invisiblePass(){
+//
+//        if(isPwdVisible){
+//
+////            openPass.setVisibility(View.VISIBLE);
+////            invisiblePass.setVisibility(View.GONE);
+//
+//            etPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+//            etPassword.setSelection(etPassword.getText().length());
+//
+//            isPwdVisible = false;
+//        }
+//
+//    }
 
-            openPass.setVisibility(View.GONE);
-            invisiblePass.setVisibility(View.VISIBLE);
-
-            etPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-            etPassword.setSelection(etPassword.getText().length());
-
-            isPwdVisible = true;
-        }
-
-    }
-
-    @OnClick(R.id.invisiblePass)
-    void invisiblePass(){
-
-        if(isPwdVisible){
-
-            openPass.setVisibility(View.VISIBLE);
-            invisiblePass.setVisibility(View.GONE);
-
-            etPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
-            etPassword.setSelection(etPassword.getText().length());
-
-            isPwdVisible = false;
-        }
-
-    }
-
-    @OnClick(R.id.btnLogin)
+    @OnClick(R.id.btnTxtLogin)
     void onClickLogin(){
 
         validator.validate();
 
     }
-
-    @OnClick(R.id.resetPassword)
-    void onClickResetPass(){
-
-        Intent pass = new Intent(parentActivity(), ResetPasswordActivity.class);
-        pass.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(pass);
-    }
-
-    @OnClick(R.id.btnRegister)
-    void onClickRegister(){
-
-        Intent kebijakan = new Intent(parentActivity(), TermConditionActivity.class);
-        startActivity(kebijakan);
-
-    }
+//
+//    @OnClick(R.id.resetPassword)
+//    void onClickResetPass(){
+//
+//        Intent pass = new Intent(parentActivity(), ResetPasswordActivity.class);
+//        pass.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//        startActivity(pass);
+//    }
+//
+//    @OnClick(R.id.btnRegister)
+//    void onClickRegister(){
+//
+//        Intent kebijakan = new Intent(parentActivity(), TermConditionActivity.class);
+//        startActivity(kebijakan);
+//
+//    }
 
     @Override
     public void showErrorMessage(String message) {
@@ -191,7 +208,7 @@ public class LoginFragment extends BaseFragment implements
 
         Toast.makeText(parentActivity(), "Akun belum terverifikasi", Toast.LENGTH_LONG).show();
 
-        String phone = String.format("62%s", etPhone.getText().toString().trim());
+        String phone = etPhone.getText().toString().trim();
 
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("phone", phone);
@@ -219,7 +236,7 @@ public class LoginFragment extends BaseFragment implements
 
         Intent submit = new Intent(parentActivity(), VerificationOTPActivity.class);
         submit.putExtra(VerificationOTPActivity.PURPOSES, "resubmit_regist");
-        submit.putExtra(FormOtherFragment.PHONE, String.format("62%s", etPhone.getText().toString().trim()));
+        submit.putExtra(FormOtherFragment.PHONE, etPhone.getText().toString().trim());
         submit.putExtra(FormOtherFragment.PASS, etPassword.getText().toString().trim());
         startActivity(submit);
     }
@@ -238,9 +255,9 @@ public class LoginFragment extends BaseFragment implements
 
             dialog.show();
             if (phone.substring(0,1).equals("0")) {
-                mPresenter.getPublicToken("62" + phone.substring(1), pass);
+                mPresenter.getPublicToken(phone.substring(1), pass);
             } else {
-                mPresenter.getPublicToken("62" + phone, pass);
+                mPresenter.getPublicToken(phone, pass);
             }
 
         }

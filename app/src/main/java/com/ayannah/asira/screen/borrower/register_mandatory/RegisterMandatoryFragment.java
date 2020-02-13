@@ -2,6 +2,8 @@ package com.ayannah.asira.screen.borrower.register_mandatory;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -11,6 +13,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.ayannah.asira.R;
 import com.ayannah.asira.base.BaseFragment;
+import com.ayannah.asira.screen.borrower.login.LoginActivity;
 import com.ayannah.asira.screen.otpphone.VerificationOTPActivity;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
@@ -32,6 +35,7 @@ import butterknife.OnTextChanged;
 public class RegisterMandatoryFragment extends BaseFragment implements RegisterMandatoryContract.View, Validator.ValidationListener {
 
     private Validator validator;
+    private boolean isPwdVisible = false;
 
     @Inject
     RegisterMandatoryContract.Presenter mPresenter;
@@ -52,6 +56,9 @@ public class RegisterMandatoryFragment extends BaseFragment implements RegisterM
     @Password(min = 1, message = "Masukan Password")
     @BindView(R.id.etPassword)
     EditText etPassword;
+
+    @BindView(R.id.showPass)
+    TextView showPass;
 
     @Inject
     public RegisterMandatoryFragment(){}
@@ -81,6 +88,40 @@ public class RegisterMandatoryFragment extends BaseFragment implements RegisterM
 //            etPhone.setText("62");
 //        }
 //    }
+
+    @OnClick(R.id.showPass)
+    void visiblePass(){
+
+        if(!isPwdVisible){
+
+//            openPass.setVisibility(View.GONE);
+//            invisiblePass.setVisibility(View.VISIBLE);
+
+            etPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+            etPassword.setSelection(etPassword.getText().length());
+
+            showPass.setText("Sembunyikan");
+            showPass.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_viewdisable, 0, 0, 0);
+
+            isPwdVisible = true;
+        } else {
+
+            etPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+            etPassword.setSelection(etPassword.getText().length());
+
+            showPass.setText("Perlihatkan");
+            showPass.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_viewenable, 0, 0, 0);
+
+            isPwdVisible = false;
+        }
+
+    }
+
+    @OnClick(R.id.btnTxtLoginAccount)
+    void clickLoginAccount() {
+        Intent intent = new Intent(parentActivity(), LoginActivity.class);
+        startActivity(intent);
+    }
 
     @OnTextChanged(value = R.id.etPhone, callback = OnTextChanged.Callback.TEXT_CHANGED)
     void textChanged(CharSequence s) {

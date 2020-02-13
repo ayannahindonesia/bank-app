@@ -21,7 +21,7 @@ public class LoginActivity extends DaggerAppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.common_activity_before_login);
         mUnbinder = ButterKnife.bind(this);
 
         LoginFragment loginFragment = (LoginFragment)getSupportFragmentManager()

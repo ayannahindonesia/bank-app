@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFF"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_150sdp"
+            android:background="@drawable/bg_top_blue" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/_10sdp">
+
+            <TextView
+                android:id="@+id/txtCustName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_10sdp"
+                android:gravity="center"
+                android:text="Hai"
+                android:textColor="#FFF"
+                android:textSize="@dimen/_12sdp" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvSelectBank"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtCustName"
+                app:cardBackgroundColor="@color/colorAsiraWhite"
+                app:cardCornerRadius="2sp"
+                app:cardElevation="@dimen/_3sdp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/txtBtnSelectBank"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_15sdp"
+                        android:background="@drawable/border_box"
+                        android:backgroundTintMode="add"
+                        android:gravity="center"
+                        android:padding="@dimen/_15sdp"
+                        android:text="Pilih Bank"
+                        android:textColor="@color/textColorAsira" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_30sdp"
+                        android:layout_marginRight="@dimen/_30sdp"
+                        android:layout_marginBottom="@dimen/_20sdp"
+                        android:gravity="center"
+                        android:text="@string/disclaimer_select_bank"
+                        android:textColor="#535353"
+                        android:textSize="@dimen/_12sdp" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_menuproducts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cvSelectBank"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:padding="@dimen/_10sdp"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/titleNews"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/recycler_menuproducts"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:paddingTop="@dimen/_20sdp"
+                android:text="Berita &amp; Promo"
+                android:textColor="@color/textColorAsiraGrey"
+                android:textSize="@dimen/_16sdp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtNewsInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/titleNews"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:text="Temukan informasi mengenai Asira dan Bank serta berbagai promosi menarik!"
+                android:textColor="#929292"
+                android:textSize="@dimen/_8sdp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvBeritaPromo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtNewsInfo"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp" />
+
+            <TextView
+                android:id="@+id/titleTopup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rvBeritaPromo"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:paddingTop="@dimen/_20sdp"
+                android:text="Top-Up &amp; Tagihan"
+                android:textColor="@color/textColorAsiraGrey"
+                android:textSize="@dimen/_16sdp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtTopUp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/titleTopup"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:text="Bayar top-up dan tagihan langsung disini"
+                android:textColor="#929292"
+                android:textSize="@dimen/_8sdp" />
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvTopup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtTopUp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:padding="@dimen/_14sdp" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</androidx.core.widget.NestedScrollView>

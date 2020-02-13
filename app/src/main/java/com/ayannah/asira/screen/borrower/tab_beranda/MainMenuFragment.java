@@ -3,6 +3,7 @@ package com.ayannah.asira.screen.borrower.tab_beranda;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -27,6 +28,7 @@ import com.ayannah.asira.data.model.BankService;
 import com.ayannah.asira.data.model.Loans.DataItem;
 import com.ayannah.asira.dialog.BottomDialogHandlingError;
 import com.ayannah.asira.dialog.BottomSheetDialogGlobal;
+import com.ayannah.asira.screen.borrower.borrower_landing_page.BorrowerLandingFragment;
 import com.ayannah.asira.screen.chooselogin.ChooseLoginActivity;
 import com.ayannah.asira.screen.earninginfo.EarningActivity;
 import com.ayannah.asira.R;
@@ -96,7 +98,7 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
 
     @Override
     protected int getLayoutView() {
-        return R.layout.fragment_main_menu;
+        return R.layout.fragment_beranda;
     }
 
     @Override
@@ -126,6 +128,8 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
 
     @Override
     protected void initView(Bundle state) {
+
+        BorrowerLandingFragment.toolbar.setVisibility(View.GONE);
 
         mWorkManager = WorkManager.getInstance();
 

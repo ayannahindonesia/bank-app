@@ -56,7 +56,8 @@
         <activity android:name=".screen.borrower.notifpage.NotifPageActivity" />
         <activity android:name=".screen.resetpassword.ResetPasswordActivity" />
         <activity android:name=".screen.success.SuccessActivity" />
-        <activity android:name=".screen.borrower.login.LoginActivity" />
+        <activity android:name=".screen.borrower.login.LoginActivity"
+            android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".screen.borrower.profile_menu.akunsaya.AkunSayaActivity" />
         <activity android:name=".screen.borrower.profile_menu.datapendukung.DataPendukungActivity" />
         <activity android:name=".screen.borrower.profile_menu.infokeuangan.InformasiKeuanganActivity" />

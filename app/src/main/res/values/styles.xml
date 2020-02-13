@@ -66,11 +66,11 @@
 
     <style name="BottomNavigationTextDefault" parent="@style/TextAppearance.AppCompat.Caption">
         <item name="android:textSize">@dimen/fontNormal</item>
+        <item name="android:textColor">@color/textColorAsiraGrey</item>
     </style>
 
     <style name="TextTabLayout" parent="TextAppearance.Design.Tab">
         <item name="textAllCaps">false</item>
-        <item name="android:fontFamily">@font/manrope_bold</item>
         <item name="android:textSize">14sp</item>
     </style>
 

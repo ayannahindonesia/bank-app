@@ -116,8 +116,11 @@ public class VerificationOTPFragment extends BaseFragment implements Verificatio
 
         otpView.setOtpCompletionListener(new OnOtpCompletionListener() {
             @Override public void onOtpCompleted(String otp) {
+                countDownTimer.cancel();
                 hideKeyboard(parentActivity());
-                txtWrongOTP.setVisibility(View.VISIBLE);
+//                txtWrongOTP.setVisibility(View.VISIBLE);
+                Intent intent = new Intent(parentActivity(), BorrowerLandingPage.class);
+                startActivity(intent);
             }
         });
 

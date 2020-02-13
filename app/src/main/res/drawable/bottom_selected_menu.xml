@@ -3,7 +3,7 @@
 
     <item android:state_selected="true">
 
-        <color android:color="@color/colorAsiraAccentDisabled"/>
+        <color android:color="@color/textColorAsira"/>
 
     </item>
 
