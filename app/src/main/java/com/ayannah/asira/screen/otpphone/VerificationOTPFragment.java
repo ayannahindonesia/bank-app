@@ -71,6 +71,11 @@ public class VerificationOTPFragment extends BaseFragment implements Verificatio
     @BindView(R.id.txtWrongOTP)
     TextView txtWrongOTP;
 
+    private String personalPhone = "";
+    private String personalName = "";
+    private String personalEmail = "";
+    private String personalPass = "";
+
     private Vibrator vibrator;
     private long[] patternVibrate ={500, 0, 500};
 
@@ -115,12 +120,43 @@ public class VerificationOTPFragment extends BaseFragment implements Verificatio
         startCountDown();
 
         otpView.setOtpCompletionListener(new OnOtpCompletionListener() {
-            @Override public void onOtpCompleted(String otp) {
+            @Override
+            public void onOtpCompleted(String otp) {
                 countDownTimer.cancel();
                 hideKeyboard(parentActivity());
-//                txtWrongOTP.setVisibility(View.VISIBLE);
-                Intent intent = new Intent(parentActivity(), BorrowerLandingPage.class);
-                startActivity(intent);
+
+                dialog.show();
+
+                if (purpose.equals(REGISTER)) {
+
+                    personalPhone = parentActivity().getIntent().getStringExtra("personal_phone");
+                    personalName = parentActivity().getIntent().getStringExtra("personal_name");
+                    personalEmail = parentActivity().getIntent().getStringExtra("personal_email");
+                    personalPass = parentActivity().getIntent().getStringExtra("personal_pass");
+
+                    registerNewAccount(otp);
+
+                } else if (purpose.equals(PINJAMAN) || purpose.equals(POST_PINJAMAN)) {
+
+                    loanRequest(otp);
+
+                } else if (purpose.equals(RESUBMIT_LOAN)) {
+
+                    resubmitLoanRequest(idLoan);
+                } else if (purpose.equals(RESUBMIT_REGIST)) {
+
+                    resubmitRegister(otp);
+                } else if (purpose.equals(POST_PINJAMAN_AGENT)) {
+
+                    loanRequestAgent(otp);
+                } else if (purpose.equals(REGISTER_BORROWER)) {
+
+                    registerBorrowerFromAgentSide(otp);
+
+                } else {
+
+                    dialog.dismiss();
+                }
             }
         });
 
@@ -142,8 +178,7 @@ public class VerificationOTPFragment extends BaseFragment implements Verificatio
 
     @OnClick(R.id.txtResend)
     void resendOTP() {
-        countDownTimer.cancel();
-        startCountDown();
+        mPresenter.resendOTP(personalPhone);
     }
 
     private void startCountDown() {
@@ -161,45 +196,10 @@ public class VerificationOTPFragment extends BaseFragment implements Verificatio
             @Override
             public void onFinish() {
                 txtResend.setClickable(true);
-                txtResend.setText("Yuk Kirim Lagi Lah");
+                txtResend.setText("kirim ulang OTP");
             }
         }.start();
     }
-
-//    @OnTextChanged(value = R.id.etPin, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
-//    void afterTextChanged(CharSequence charSequence) {
-//        if (charSequence.length() == 6) {
-//
-//            dialog.show();
-//
-//            if(purpose.equals(REGISTER)){
-//
-//                registerNewAccount(charSequence);
-//
-//            }else if(purpose.equals(PINJAMAN) || purpose.equals(POST_PINJAMAN)){
-//
-//                loanRequest(charSequence);
-//
-//            }else if(purpose.equals(RESUBMIT_LOAN)){
-//
-//                resubmitLoanRequest(idLoan);
-//            } else if (purpose.equals(RESUBMIT_REGIST)) {
-//
-//                resubmitRegister(charSequence);
-//            } else if (purpose.equals(POST_PINJAMAN_AGENT)) {
-//
-//                loanRequestAgent(charSequence);
-//            } else if(purpose.equals(REGISTER_BORROWER)){
-//
-//                registerBorrowerFromAgentSide(charSequence);
-//
-//            }else {
-//
-//                dialog.dismiss();
-//            }
-//
-//        }
-//    }
 
     private void registerBorrowerFromAgentSide(CharSequence otpcode) {
 
@@ -239,15 +239,24 @@ public class VerificationOTPFragment extends BaseFragment implements Verificatio
 
     }
 
-    private void registerNewAccount(CharSequence charSequence) {
-
-        String phoneNo = parentActivity().getIntent().getExtras().getString(FormOtherFragment.PHONE);
+    private void registerNewAccount(CharSequence otp) {
 
         JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("phone", phoneNo);
-        jsonObject.addProperty("otp_code", charSequence.toString());
+        jsonObject.addProperty("fullname", personalName);
+        jsonObject.addProperty("email", personalEmail);
+        jsonObject.addProperty("phone", personalPhone);
+        jsonObject.addProperty("password", personalPass);
+        jsonObject.addProperty("otp_code", otp.toString());
 
-        mPresenter.postOTPVerify(jsonObject);
+        mPresenter.postBorrowerRegister(jsonObject);
+
+//        String phoneNo = parentActivity().getIntent().getExtras().getString(FormOtherFragment.PHONE);
+//
+//        JsonObject jsonObject = new JsonObject();
+//        jsonObject.addProperty("phone", phoneNo);
+//        jsonObject.addProperty("otp_code", charSequence.toString());
+//
+//        mPresenter.postOTPVerify(jsonObject);
 
     }
 
@@ -341,6 +350,17 @@ public class VerificationOTPFragment extends BaseFragment implements Verificatio
     public void errorFCM(String errorMessage) {
         Toast.makeText(parentActivity(), errorMessage, Toast.LENGTH_SHORT).show();
         loginComplete();
+    }
+
+    @Override
+    public void successRequestOTP() {
+        countDownTimer.cancel();
+        startCountDown();
+    }
+
+    @Override
+    public void callAPIGetClientToken() {
+        mPresenter.getClientToken(personalPhone, personalPass, "otp");
     }
 
     public static void hideKeyboard(Activity activity) {

@@ -9,6 +9,7 @@ import android.widget.Toast;
 import com.ayannah.asira.R;
 import com.ayannah.asira.base.BaseFragment;
 import com.ayannah.asira.data.local.PreferenceRepository;
+import com.ayannah.asira.screen.borrower.login.LoginActivity;
 import com.ayannah.asira.screen.borrower.profile_menu.akunsaya.AkunSayaActivity;
 import com.ayannah.asira.screen.borrower.profile_menu.datapendukung.DataPendukungActivity;
 import com.ayannah.asira.screen.borrower.profile_menu.infokeuangan.InformasiKeuanganActivity;
@@ -122,7 +123,7 @@ public class ProfileFragment extends BaseFragment implements ProfileContract.Vie
     @Override
     public void logoutComplete() {
 
-        Intent logout = new Intent(parentActivity(), ChooseLoginActivity.class);
+        Intent logout = new Intent(parentActivity(), LoginActivity.class);
         logout.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(logout);
         parentActivity().finish();

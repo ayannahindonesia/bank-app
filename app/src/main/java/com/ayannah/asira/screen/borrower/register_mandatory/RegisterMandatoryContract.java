@@ -18,6 +18,8 @@ public interface RegisterMandatoryContract {
         void successGetToken();
 
         void failedCheckUnique(String message);
+
+        void loginComplete();
     }
 
     interface Presenter extends BasePresenter<View> {
@@ -28,5 +30,7 @@ public interface RegisterMandatoryContract {
         void requestOTP(String phone, int coba);
 
         void getToken();
+
+        boolean isUserLogged();
     }
 }

@@ -373,7 +373,49 @@ public class VerificationOTPPresenter implements VerificationOTPContract.Present
                 });
     }
 
-    private void getClientToken(String phone, String pass, String isFrom) {
+    @Override
+    public void resendOTP(String personalPhone) {
+
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("phone", personalPhone);
+        jsonObject.addProperty("secret", "KMndM2vURIGoe1jgzYOA6RTa8qzB5k");
+        jsonObject.addProperty("try", 2);
+
+        mComposite.add(Completable.fromAction(() -> {
+            remotRepo.postOTPRequestBorrower(jsonObject);
+            mView.successRequestOTP();
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe());
+    }
+
+    @Override
+    public void postBorrowerRegister(JsonObject jsonObject) {
+        mComposite.add(remotRepo.postRegisterMandatoryPersonal(jsonObject)
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(response -> {
+
+            mView.callAPIGetClientToken();
+
+        }, err -> {
+
+            ANError anError = (ANError) err;
+            if(anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
+                mView.showErrorMessage("Tidak ada koneksi", 0);
+            }else {
+                if(anError.getErrorBody() != null){
+
+                    JSONObject jsonObject2 = new JSONObject(anError.getErrorBody());
+                    mView.showErrorMessage(jsonObject2.optString("message"), anError.getErrorCode());
+                }
+            }
+
+        }));
+    }
+
+    @Override
+    public void getClientToken(String phone, String pass, String isFrom) {
         JsonObject json = new JsonObject();
         json.addProperty("key", phone);
         json.addProperty("password", pass);

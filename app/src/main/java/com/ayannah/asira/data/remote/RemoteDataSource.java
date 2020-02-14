@@ -629,4 +629,14 @@ public class RemoteDataSource implements RemoteRepository {
                 .build()
                 .getObjectSingle(CheckAccount.class);
     }
+
+    @Override
+    public Single<UserProfile> postRegisterMandatoryPersonal(JsonObject jsonObject) {
+        return Rx2AndroidNetworking.post(BuildConfig.API_URL + "client/register_borrower")
+                .addHeaders("Authorization", preferenceRepository.getPublicToken())
+                .addApplicationJsonBody(jsonObject)
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getObjectSingle(UserProfile.class);
+    }
 }

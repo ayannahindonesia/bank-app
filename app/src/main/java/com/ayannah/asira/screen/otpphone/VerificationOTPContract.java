@@ -21,6 +21,10 @@ public interface VerificationOTPContract {
         void successCreateBorrower();
 
         void errorFCM(String errorMessage);
+
+        void successRequestOTP();
+
+        void callAPIGetClientToken();
     }
 
     interface Presenter extends BasePresenter<View> {
@@ -38,5 +42,11 @@ public interface VerificationOTPContract {
         void postVerifyLoanByOTPAgent(String id_loan, JsonObject json);
 
         void postOTPforRegisterBorrower(String id_borrower, String otp_code);
+
+        void resendOTP(String personalPhone);
+
+        void postBorrowerRegister(JsonObject jsonObject);
+
+        void getClientToken(String phone, String pass, String isFrom);
     }
 }

@@ -125,4 +125,6 @@ public interface RemoteRepository {
     void postOTPRequestBorrowerAgent(String id_borrower);
 
     Single<CheckAccount> checkUnique(String phone, String email);
+
+    Single<UserProfile> postRegisterMandatoryPersonal(JsonObject jsonObject);
 }

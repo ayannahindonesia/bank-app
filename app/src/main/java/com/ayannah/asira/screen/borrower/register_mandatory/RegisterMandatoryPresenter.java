@@ -115,4 +115,9 @@ public class RegisterMandatoryPresenter implements RegisterMandatoryContract.Pre
             mView.failedGetToken(err.getMessage());
         }));
     }
+
+    @Override
+    public boolean isUserLogged() {
+        return preferenceRepository.isUserLogged();
+    }
 }

@@ -9,10 +9,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 
 import com.ayannah.asira.R;
 import com.ayannah.asira.base.BaseFragment;
+import com.ayannah.asira.screen.borrower.borrower_landing_page.BorrowerLandingPage;
 import com.ayannah.asira.screen.borrower.login.LoginActivity;
 import com.ayannah.asira.screen.otpphone.VerificationOTPActivity;
 import com.mobsandgeeks.saripaar.ValidationError;
@@ -61,6 +63,8 @@ public class RegisterMandatoryFragment extends BaseFragment implements RegisterM
     @BindView(R.id.showPass)
     TextView showPass;
 
+    private AlertDialog dialog;
+
     @Inject
     public RegisterMandatoryFragment(){}
 
@@ -68,6 +72,10 @@ public class RegisterMandatoryFragment extends BaseFragment implements RegisterM
     public void onResume() {
         super.onResume();
         mPresenter.takeView(this);
+
+        if(mPresenter.isUserLogged()){
+            loginComplete();
+        }
     }
 
     @Override
@@ -148,6 +156,11 @@ public class RegisterMandatoryFragment extends BaseFragment implements RegisterM
     @Override
     protected void initView(Bundle state) {
 
+        AlertDialog.Builder builder = new AlertDialog.Builder(parentActivity());
+        builder.setCancelable(false);
+        builder.setView(R.layout.progress_bar);
+        dialog = builder.create();
+
         validator = new Validator(this);
         validator.setValidationListener(this);
     }
@@ -166,6 +179,7 @@ public class RegisterMandatoryFragment extends BaseFragment implements RegisterM
 
     @Override
     public void onValidationSucceeded() {
+        dialog.show();
         mPresenter.getToken();
     }
 
@@ -216,8 +230,14 @@ public class RegisterMandatoryFragment extends BaseFragment implements RegisterM
 
     @Override
     public void successRequestOTP() {
+        dialog.dismiss();
+
         Intent intent = new Intent(parentActivity(), VerificationOTPActivity.class);
-        intent.putExtra(VerificationOTPActivity.PURPOSES, "");
+        intent.putExtra(VerificationOTPActivity.PURPOSES, "regist");
+        intent.putExtra("personal_phone", etPhone.getText().toString());
+        intent.putExtra("personal_name", etFullName.getText().toString());
+        intent.putExtra("personal_email", etEmail.getText().toString());
+        intent.putExtra("personal_pass", etPassword.getText().toString());
         startActivity(intent);
     }
 
@@ -234,5 +254,18 @@ public class RegisterMandatoryFragment extends BaseFragment implements RegisterM
     @Override
     public void successGetToken() {
         mPresenter.checkUnqiue(etPhone.getText().toString(), etEmail.getText().toString());
+    }
+
+    @Override
+    public void loginComplete() {
+
+        Intent login = new Intent(parentActivity(), BorrowerLandingPage.class);
+        login.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(login);
+
+        dialog.dismiss();
+
+        parentActivity().finish();
+
     }
 }
