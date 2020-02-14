@@ -220,6 +220,8 @@ public class LoginFragment extends BaseFragment implements
 
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("phone", phone);
+        jsonObject.addProperty("secret", "KMndM2vURIGoe1jgzYOA6RTa8qzB5k");
+        jsonObject.addProperty("try", 1);
 
         mPresenter.postRequestOTP(jsonObject);
     }

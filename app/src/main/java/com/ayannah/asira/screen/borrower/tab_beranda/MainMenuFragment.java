@@ -35,6 +35,7 @@ import com.ayannah.asira.R;
 import com.ayannah.asira.adapter.BeritaPromoAdapter;
 import com.ayannah.asira.base.BaseFragment;
 import com.ayannah.asira.data.model.BeritaPromo;
+import com.ayannah.asira.screen.register.choosebank.ChooseBankActivity;
 import com.ayannah.asira.workmanager.RxNotifLoanWorker;
 
 import org.json.JSONException;
@@ -54,6 +55,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class MainMenuFragment extends BaseFragment implements MainMenuContract.View{
 
@@ -375,6 +377,12 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
         statusLoan = "";
         statusLoan = loanStatus;
         mPresenter.getMainMenu();
+    }
+
+    @OnClick(R.id.txtBtnSelectBank)
+    void selectBank() {
+        Intent intent = new Intent(parentActivity(), ChooseBankActivity.class);
+        startActivity(intent);
     }
 
 }

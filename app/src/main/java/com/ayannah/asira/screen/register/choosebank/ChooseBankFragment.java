@@ -2,11 +2,13 @@ package com.ayannah.asira.screen.register.choosebank;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ayannah.asira.R;
@@ -26,6 +28,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class ChooseBankFragment extends BaseFragment implements ChooseBankContract.View {
 
@@ -34,13 +37,18 @@ public class ChooseBankFragment extends BaseFragment implements ChooseBankContra
     @Inject
     ChooseBankContract.Presenter mPresenter;
 
-    @BindView(R.id.title)
-    TextView title;
-
     @BindView(R.id.rvBank)
     RecyclerView recyclerView;
 
+    @BindView(R.id.bankDeskripsi)
+    TextView bankDeskripsi;
+
+
+    @BindView(R.id.recyclerViewBanks)
+    RecyclerView recyclerViewBanks;
+
     private AlertDialog dialog;
+    private boolean expand = false;
 
     @Inject
     public ChooseBankFragment(){
@@ -89,7 +97,7 @@ public class ChooseBankFragment extends BaseFragment implements ChooseBankContra
 
         mAdapter.setItemBank(sortedBD);
 
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
+        recyclerView.setLayoutManager(new LinearLayoutManager(parentActivity()));
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(mAdapter);
 
@@ -106,5 +114,18 @@ public class ChooseBankFragment extends BaseFragment implements ChooseBankContra
             startActivity(adddbank);
 
         });
+    }
+
+    @OnClick(R.id.bankDeskripsi)
+    void expandBankDeskripsi () {
+        if (expand) {
+            bankDeskripsi.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_info, 0, R.drawable.ic_down, 0);
+            expand = false;
+            recyclerViewBanks.setVisibility(View.GONE);
+        } else {
+            bankDeskripsi.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_info, 0, R.drawable.ic_up, 0);
+            expand = true;
+            recyclerViewBanks.setVisibility(View.VISIBLE);
+        }
     }
 }

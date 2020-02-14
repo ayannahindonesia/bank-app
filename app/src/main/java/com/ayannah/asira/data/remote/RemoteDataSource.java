@@ -166,8 +166,8 @@ public class RemoteDataSource implements RemoteRepository {
 
     @Override
     public void postOTPRequestBorrower(JsonObject json) {
-        AndroidNetworking.post(BuildConfig.API_URL + "unverified_borrower/otp_request")
-                .addHeaders("Authorization", preferenceRepository.getUserToken())
+        AndroidNetworking.post(BuildConfig.API_URL + "client/otp_request")
+                .addHeaders("Authorization", preferenceRepository.getPublicToken())
                 .addApplicationJsonBody(json)
                 .setPriority(Priority.MEDIUM)
                 .build()
@@ -617,5 +617,16 @@ public class RemoteDataSource implements RemoteRepository {
                         }
                     }
                 });
+    }
+
+    @Override
+    public Single<CheckAccount> checkUnique(String phone, String email) {
+        return Rx2AndroidNetworking.get(BuildConfig.API_URL + "client/check_unique")
+                .addHeaders("Authorization", preferenceRepository.getPublicToken())
+                .addQueryParameter("email", email)
+                .addQueryParameter("phone", phone)
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getObjectSingle(CheckAccount.class);
     }
 }

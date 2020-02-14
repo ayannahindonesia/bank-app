@@ -123,4 +123,6 @@ public interface RemoteRepository {
     Single<CheckAccount> checkEmailUser(String email);
 
     void postOTPRequestBorrowerAgent(String id_borrower);
+
+    Single<CheckAccount> checkUnique(String phone, String email);
 }

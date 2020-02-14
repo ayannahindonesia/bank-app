@@ -36,6 +36,7 @@ public class RegisterMandatoryFragment extends BaseFragment implements RegisterM
 
     private Validator validator;
     private boolean isPwdVisible = false;
+    private int coba = 1;
 
     @Inject
     RegisterMandatoryContract.Presenter mPresenter;
@@ -153,19 +154,19 @@ public class RegisterMandatoryFragment extends BaseFragment implements RegisterM
 
     @OnClick(R.id.btnTxtRegister)
     void registNewBorrower() {
-        Intent intent = new Intent(parentActivity(), VerificationOTPActivity.class);
-        intent.putExtra(VerificationOTPActivity.PURPOSES, "");
-        startActivity(intent);
-//        if (etEmail.getText().toString().equals("")) {
-//            Toast.makeText(parentActivity(), "Email tidak boleh kosong", Toast.LENGTH_LONG).show();
-//        } else {
-//            validator.validate();
-//        }
+//        Intent intent = new Intent(parentActivity(), VerificationOTPActivity.class);
+//        intent.putExtra(VerificationOTPActivity.PURPOSES, "");
+//        startActivity(intent);
+        if (etEmail.getText().toString().equals("")) {
+            Toast.makeText(parentActivity(), "Email tidak boleh kosong", Toast.LENGTH_LONG).show();
+        } else {
+            validator.validate();
+        }
     }
 
     @Override
     public void onValidationSucceeded() {
-        //hit API new register
+        mPresenter.getToken();
     }
 
     @Override
@@ -205,5 +206,33 @@ public class RegisterMandatoryFragment extends BaseFragment implements RegisterM
                 Toast.makeText(parentActivity(), message, Toast.LENGTH_LONG).show();
             }
         }
+    }
+
+    @Override
+    public void successCheckUnique() {
+        mPresenter.requestOTP(etPhone.getText().toString(), coba);
+        coba++;
+    }
+
+    @Override
+    public void successRequestOTP() {
+        Intent intent = new Intent(parentActivity(), VerificationOTPActivity.class);
+        intent.putExtra(VerificationOTPActivity.PURPOSES, "");
+        startActivity(intent);
+    }
+
+    @Override
+    public void failedGetToken(String errMessage) {
+        Toast.makeText(parentActivity(), errMessage, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void failedCheckUnique(String errMessage) {
+        Toast.makeText(parentActivity(), errMessage, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void successGetToken() {
+        mPresenter.checkUnqiue(etPhone.getText().toString(), etEmail.getText().toString());
     }
 }

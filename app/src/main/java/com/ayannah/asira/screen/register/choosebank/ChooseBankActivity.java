@@ -37,7 +37,7 @@ public class ChooseBankActivity extends DaggerAppCompatActivity {
         assert actionBar != null;
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowTitleEnabled(true);
-        actionBar.setTitle("Registrasi");
+        actionBar.setTitle("Kembali");
 
         ChooseBankFragment chooseBankFragment = (ChooseBankFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.fragment_container);
