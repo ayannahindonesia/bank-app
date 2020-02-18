@@ -121,7 +121,13 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
 
         dialog.show();
 //        mPresenter.getCurrentTime();
-        mPresenter.getProfile();
+
+        if (!mPresenter.getIsLogin()) {
+            mPresenter.getPublicToken();
+            dialog.dismiss();
+        } else {
+            mPresenter.getProfile();
+        }
 
         mPresenter.loadPromoAndNews();
 

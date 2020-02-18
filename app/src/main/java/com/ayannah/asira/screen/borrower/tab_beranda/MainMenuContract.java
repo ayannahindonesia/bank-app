@@ -48,5 +48,9 @@ public interface MainMenuContract {
         void getCurrentTime();
 
         void getProfile();
+
+        boolean getIsLogin();
+
+        void getPublicToken();
     }
 }

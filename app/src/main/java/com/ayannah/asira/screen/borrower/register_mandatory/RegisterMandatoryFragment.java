@@ -83,14 +83,6 @@ public class RegisterMandatoryFragment extends BaseFragment implements RegisterM
         return R.layout.fragment_reg_mandatory;
     }
 
-
-    @OnFocusChange(R.id.etPhone)
-    void etPhoneFocus() {
-        if (etPhone.getText().toString().equals("")) {
-            etPhone.setText("62");
-        }
-    }
-
 //    @OnTextChanged(value = R.id.etPhone, callback = OnTextChanged.Callback.BEFORE_TEXT_CHANGED)
 //    void beforeTextChanged(CharSequence s, int start, int count, int after) {
 //        if (count<3) {
@@ -167,10 +159,7 @@ public class RegisterMandatoryFragment extends BaseFragment implements RegisterM
 
     @OnClick(R.id.btnTxtRegister)
     void registNewBorrower() {
-//        Intent intent = new Intent(parentActivity(), VerificationOTPActivity.class);
-//        intent.putExtra(VerificationOTPActivity.PURPOSES, "");
-//        startActivity(intent);
-        if (etEmail.getText().toString().equals("")) {
+        if (etEmail.getText().toString().equals("regist")) {
             Toast.makeText(parentActivity(), "Email tidak boleh kosong", Toast.LENGTH_LONG).show();
         } else {
             validator.validate();

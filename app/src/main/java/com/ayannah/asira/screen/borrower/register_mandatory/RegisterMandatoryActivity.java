@@ -1,5 +1,6 @@
 package com.ayannah.asira.screen.borrower.register_mandatory;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -9,6 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 
 import com.ayannah.asira.R;
+import com.ayannah.asira.screen.borrower.borrower_landing_page.BorrowerLandingPage;
 import com.ayannah.asira.util.ActivityUtils;
 
 import javax.inject.Inject;
@@ -50,7 +52,9 @@ public class RegisterMandatoryActivity extends DaggerAppCompatActivity {
         tvSkip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getBaseContext(), "skip",Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getBaseContext(), BorrowerLandingPage.class);
+                startActivity(intent);
+                finish();
             }
         });
 

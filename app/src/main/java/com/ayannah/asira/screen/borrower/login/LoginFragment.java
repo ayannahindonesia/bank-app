@@ -153,22 +153,21 @@ public class LoginFragment extends BaseFragment implements
         validator.validate();
 
     }
-//
-//    @OnClick(R.id.resetPassword)
-//    void onClickResetPass(){
-//
-//        Intent pass = new Intent(parentActivity(), ResetPasswordActivity.class);
-//        pass.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//        startActivity(pass);
-//    }
-//
-//    @OnClick(R.id.btnRegister)
-//    void onClickRegister(){
-//
-//        Intent kebijakan = new Intent(parentActivity(), TermConditionActivity.class);
-//        startActivity(kebijakan);
-//
-//    }
+
+    @OnClick(R.id.resetPassword)
+    void onClickResetPass(){
+
+        Intent pass = new Intent(parentActivity(), ResetPasswordActivity.class);
+        pass.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(pass);
+    }
+
+    @OnClick(R.id.txtDaftar)
+    void onClickRegister(){
+
+        parentActivity().finish();
+
+    }
 
     @OnClick(R.id.btnTxtLoginAgent)
     void onClickLoginAgent(){
@@ -300,9 +299,9 @@ public class LoginFragment extends BaseFragment implements
 
     @OnTextChanged(value =R.id.etPhone, callback = OnTextChanged.Callback.TEXT_CHANGED)
     void et_onchanged_phone(Editable editable) {
-        if (editable.toString().equals("0")) {
-            etPhone.setText("");
-            Toast.makeText(getContext(), "Masukan tanpa diawali angka 0", Toast.LENGTH_LONG).show();
+        if (editable.toString().equals("") || editable.toString().equals("6")) {
+            etPhone.setText("62");
+            etPhone.setSelection(etPhone.getText().length());
         }
     }
 }

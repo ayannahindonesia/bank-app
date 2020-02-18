@@ -37,7 +37,7 @@ public class VerificationOTPFragment extends BaseFragment implements Verificatio
 
     private static final String TAG = VerificationOTPActivity.class.getSimpleName();
 
-    private CountDownTimer countDownTimer;
+    public static CountDownTimer countDownTimer;
 
     @BindView(R.id.otpView)
     OtpView otpView;

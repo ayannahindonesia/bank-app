@@ -279,4 +279,38 @@ public class MainMenuPresenter implements MainMenuContract.Presenter {
             }
         }));
     }
+
+    @Override
+    public boolean getIsLogin() {
+        return prefRepo.isUserLogged();
+    }
+
+    @Override
+    public void getPublicToken() {
+        if (mView == null) {
+            return;
+        }
+
+        mComposite.add(remotRepo.getToken()
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(res -> {
+            prefRepo.setPublicToken("Bearer " + res.getToken());
+        }, err -> {
+            ANError anError = (ANError) err;
+            if(anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
+                mView.showErrorMessage("Tidak ada koneksi", anError.getErrorCode());
+            }else {
+
+                if(anError.getErrorBody() != null){
+
+                    JSONObject jsonObject = new JSONObject(anError.getErrorBody());
+                    mView.showErrorMessage(jsonObject.optString("message"), anError.getErrorCode());
+                }else {
+
+                    mView.showErrorMessage( "Mohon coba beberapa saat lagi. Sedang dalam perbaikan",anError.getErrorCode());
+                }
+            }
+        }));
+    }
 }

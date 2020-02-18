@@ -14,5 +14,6 @@ public interface BorrowerLandingContract {
     interface Presenter extends BasePresenter<View> {
 
 
+        boolean getIsLogin();
     }
 }

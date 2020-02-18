@@ -53,6 +53,8 @@
                     android:background="@drawable/round_border"
                     android:drawableStart="@drawable/ic_info"
                     android:drawablePadding="8dp"
+                    android:paddingTop="@dimen/_1sdp"
+                    android:paddingBottom="@dimen/_1sdp"
                     android:paddingStart="@dimen/_5sdp"
                     android:paddingLeft="16dp"
                     android:paddingEnd="@dimen/_8sdp"

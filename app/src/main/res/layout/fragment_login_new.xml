@@ -84,7 +84,7 @@
                         android:id="@+id/etPhone"
                         style="@style/EditTextBeforeLogin"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="@dimen/_35sdp"
                         android:hint="62"
                         android:imeOptions="actionNext"
                         android:inputType="phone" />
@@ -102,7 +102,7 @@
                             android:textColor="@color/textColorAsiraGrey" />
 
                         <TextView
-                            android:id="@+id/forgetPass"
+                            android:id="@+id/resetPassword"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
@@ -125,7 +125,7 @@
                             android:id="@+id/etPassword"
                             style="@style/EditTextBeforeLogin"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="@dimen/_35sdp"
                             android:imeOptions="actionDone"
                             android:inputType="textPassword" />
 

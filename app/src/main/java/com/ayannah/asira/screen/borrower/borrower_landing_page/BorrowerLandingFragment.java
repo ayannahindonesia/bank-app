@@ -1,8 +1,10 @@
 package com.ayannah.asira.screen.borrower.borrower_landing_page;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.animation.AnimationUtils;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -10,6 +12,8 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.ayannah.asira.R;
 import com.ayannah.asira.base.BaseFragment;
+import com.ayannah.asira.screen.borrower.login.LoginActivity;
+import com.ayannah.asira.screen.borrower.register_mandatory.RegisterMandatoryActivity;
 import com.ayannah.asira.screen.borrower.tab_beranda.MainMenuFragment;
 import com.ayannah.asira.screen.borrower.tab_historyloan.HistoryLoanFragment;
 import com.ayannah.asira.screen.borrower.notifpage.NotifPageActivity;
@@ -68,25 +72,31 @@ public class BorrowerLandingFragment extends BaseFragment implements BorrowerLan
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-                switch (item.getItemId()){
+                if (mPresenter.getIsLogin()) {
+                    switch (item.getItemId()){
 
-                    case R.id.beranda:
-                        ActivityUtils.replaceFragmentToActivity(getFragmentManager(), beranda, R.id.tab_menus);
-                        return true;
+                        case R.id.beranda:
+                            ActivityUtils.replaceFragmentToActivity(getFragmentManager(), beranda, R.id.tab_menus);
+                            return true;
 
-                    case R.id.pinjaman:
-                        ActivityUtils.replaceFragmentToActivity(getFragmentManager(), pinjaman, R.id.tab_menus);
-                        return true;
+                        case R.id.pinjaman:
+                            ActivityUtils.replaceFragmentToActivity(getFragmentManager(), pinjaman, R.id.tab_menus);
+                            return true;
 
-                    case R.id.rewards:
-                        ActivityUtils.replaceFragmentToActivity(getFragmentManager(), rewards, R.id.tab_menus);
-                        return true;
+                        case R.id.rewards:
+                            ActivityUtils.replaceFragmentToActivity(getFragmentManager(), rewards, R.id.tab_menus);
+                            return true;
 
-                    case R.id.profile:
-                        ActivityUtils.replaceFragmentToActivity(getFragmentManager(), profile, R.id.tab_menus);
-                        return true;
+                        case R.id.profile:
+                            ActivityUtils.replaceFragmentToActivity(getFragmentManager(), profile, R.id.tab_menus);
+                            return true;
 
+                    }
+                } else {
+                    Intent intent = new Intent(parentActivity(), LoginActivity.class);
+                    startActivity(intent);
                 }
+
                 return false;
             }
         });

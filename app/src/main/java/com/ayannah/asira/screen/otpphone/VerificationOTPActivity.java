@@ -71,6 +71,12 @@ public class VerificationOTPActivity extends DaggerAppCompatActivity {
         TextView tvSkip = (TextView) findViewById(R.id.toolbar_skip);
         tvSkip.setCompoundDrawables(getResources().getDrawable(R.drawable.agen_btn), null, null, null);
         tvSkip.setText("Kembali");
+        tvSkip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         TextView tvHelp = (TextView) findViewById(R.id.toolbar_help);
         tvHelp.setVisibility(View.GONE);
@@ -78,6 +84,7 @@ public class VerificationOTPActivity extends DaggerAppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        VerificationOTPFragment.countDownTimer.cancel();
 
         //action when user trying click back button in otp activity
 
@@ -123,9 +130,9 @@ public class VerificationOTPActivity extends DaggerAppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
 
                 if (getIntent().getStringExtra(PURPOSES).equals("regist")) {
-                    Intent intent = new Intent(getBaseContext(), LoginActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                    startActivity(intent);
+//                    Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+//                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+//                    startActivity(intent);
                     finish();
                 } else if (getIntent().getStringExtra(PURPOSES).equals("post_pinjaman")) {
                     Toast.makeText(VerificationOTPActivity.this, "Silahkan masuk ke halaman 'Pinjaman Saya'\nuntuk aktivasi pengajuan Anada", Toast.LENGTH_SHORT).show();
@@ -159,6 +166,8 @@ public class VerificationOTPActivity extends DaggerAppCompatActivity {
 
     @Override
     public boolean onSupportNavigateUp() {
+        VerificationOTPFragment.countDownTimer.cancel();
+
         switch (getIntent().getStringExtra(PURPOSES)) {
             case "resubmit_loan":
 
