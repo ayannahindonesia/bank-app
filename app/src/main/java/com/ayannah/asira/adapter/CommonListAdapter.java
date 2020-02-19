@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ayannah.asira.R;
+import com.ayannah.asira.adapter.viewHolder_agent.AgentsClientVH;
 import com.ayannah.asira.custom.CommonListListener;
 import com.ayannah.asira.data.model.Bank;
 import com.ayannah.asira.data.model.BankDetail;
@@ -40,6 +41,8 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public static final int VIEW_LIST_TOPUP_TAGIHAN = 5;
     public static final int VIEW_AGENT_MENU = 6;
 
+    public static final int AGENT_VIEW_AGENTS_BORROWER = 7;
+
 
     //for loan history purposes
     private final static String STATUS_PROCESSING = "processing";
@@ -57,6 +60,7 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private ArrayList<Integer> banksSelectedIDServer;
     private List<String> menuTopupTagihan;
     private List<MenuAgent> menuAgents;
+    private List<UserBorrower> agentsBorrowerList;
 
     private CommonListListener.LoanAdapterListener loanListener;
     private CommonListListener.NotifAdapterListener notifListener;
@@ -65,6 +69,7 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private CommonListListener.BankListListener bankListListener;
     private CommonListListener.CommonStringItemClickListener commonStringItemClickListener;
     private CommonListListener.MenuAgentListener menuAgentListener;
+    private CommonListListener.AgentsClientListener agentsClientListener;
 
     public CommonListAdapter(int viewType){
         this.mViewType = viewType;
@@ -78,6 +83,8 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         banksSelectedIDServer = new ArrayList<>();
         menuTopupTagihan = new ArrayList<>();
         menuAgents = new ArrayList<>();
+        agentsBorrowerList = new ArrayList<>();
+
     }
 
     public void setDataNotificationMessages(List<Notif.Data> results){
@@ -182,6 +189,16 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         this.menuAgentListener = menuAgentListener;
     }
 
+    public void setAgentsBorrowerList(List<UserBorrower> results){
+        agentsBorrowerList.clear();
+        agentsBorrowerList.addAll(results);
+        notifyDataSetChanged();
+    }
+
+    public void setOnClickAgentsBorrowerListener(CommonListListener.AgentsClientListener listener){
+        this.agentsClientListener = listener;
+    }
+
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -225,6 +242,11 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             case VIEW_AGENT_MENU:
 
                 holder = new MenuAgentViewHolder(inflater.inflate(R.layout.item_menu_agent, parent, false));
+                break;
+
+            case AGENT_VIEW_AGENTS_BORROWER:
+
+                holder = new AgentsClientVH(inflater.inflate(R.layout.item_agent_client, parent, false), agentsClientListener);
                 break;
 
             default:
@@ -282,6 +304,11 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 ((MenuAgentViewHolder) holder).bind(menuAgents.get(position));
 
                 break;
+
+            case AGENT_VIEW_AGENTS_BORROWER:
+
+                ((AgentsClientVH) holder).bind(agentsBorrowerList.get(position));
+                break;
         }
 
     }
@@ -326,6 +353,11 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             case VIEW_AGENT_MENU:
 
                 selected = VIEW_AGENT_MENU;
+                break;
+
+            case AGENT_VIEW_AGENTS_BORROWER:
+
+                selected = AGENT_VIEW_AGENTS_BORROWER;
                 break;
         }
 
@@ -372,6 +404,11 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             case VIEW_AGENT_MENU:
 
                 totals = menuAgents.size();
+                break;
+
+            case AGENT_VIEW_AGENTS_BORROWER:
+
+                totals = agentsBorrowerList.size();
                 break;
 
         }
@@ -563,13 +600,13 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             listTxtBankName.setText(bankDetail.getName());
 
             for (int i=0; i<banksSelectedID.size(); i++) {
-                if (bankDetail.getId().toString().equals(banksSelectedID.get(i).toString())) {
+                if (String.valueOf(bankDetail.getId()).equals(banksSelectedID.get(i).toString())) {
                     listLltBank.setBackgroundResource(R.color.transdarkgreen);
                 }
             }
 
             for (int i=0; i<banksSelectedIDServer.size(); i++) {
-                if (bankDetail.getId().toString().equals(banksSelectedIDServer.get(i).toString())) {
+                if (String.valueOf(bankDetail.getId()).equals(banksSelectedIDServer.get(i).toString())) {
                     listLltBank.setEnabled(false);
                     listLltBank.setBackgroundResource(R.color.transdarkgreen);
                 }

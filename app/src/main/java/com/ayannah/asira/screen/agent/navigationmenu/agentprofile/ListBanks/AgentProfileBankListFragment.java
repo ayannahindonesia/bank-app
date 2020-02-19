@@ -113,12 +113,12 @@ public class AgentProfileBankListFragment extends BaseFragment implements AgentP
 
                 listBanks.add(bankDetail);
                 for (int j = 0; j < banksSelectedIDServer.size(); j++) {
-                    if (response.getData().get(i).getId().toString().equals(banksSelectedIDServer.get(j).toString())) {
+                    if (String.valueOf(response.getData().get(i).getId()).equals(banksSelectedIDServer.get(j).toString())) {
                         bankSelected.add(response.getData().get(i));
                     }
                 }
                 for (int k = 0; k < banksSelectedID.size(); k++) {
-                    if (response.getData().get(i).getId().toString().equals(banksSelectedID.get(k).toString())) {
+                    if (String.valueOf(response.getData().get(i).getId()).equals(banksSelectedID.get(k).toString())) {
                         bankSelected.add(response.getData().get(i));
                     }
                 }
@@ -151,7 +151,7 @@ public class AgentProfileBankListFragment extends BaseFragment implements AgentP
 
     private void removeArrayItems(ArrayList<BankDetail> currentBanks, Integer idToRemove) {
         for (int i = 0; i < currentBanks.size(); i++) {
-            if (currentBanks.get(i).getId().toString().equals(String.valueOf(idToRemove))) {
+            if (String.valueOf(currentBanks.get(i).getId()).equals(String.valueOf(idToRemove))) {
                 currentBanks.remove(i);
             }
         }

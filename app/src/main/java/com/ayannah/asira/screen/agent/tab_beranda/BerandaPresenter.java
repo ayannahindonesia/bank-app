@@ -1,23 +1,45 @@
 package com.ayannah.asira.screen.agent.tab_beranda;
 
+import android.app.Application;
+
 import androidx.annotation.Nullable;
 
+import com.androidnetworking.common.ANConstants;
+import com.androidnetworking.error.ANError;
 import com.ayannah.asira.R;
+import com.ayannah.asira.data.local.PreferenceRepository;
 import com.ayannah.asira.data.model.MenuAgent;
+import com.ayannah.asira.data.remote.RemoteRepository;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.Completable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
+
 public class BerandaPresenter implements BerandaContract.Presenter {
 
     @Nullable
     private BerandaContract.View mView;
 
-    @Inject
-    BerandaPresenter(){
+    private Application application;
+    private RemoteRepository remoteRepository;
+    private PreferenceRepository preferenceRepository;
+    private CompositeDisposable mDisposable;
 
+    @Inject
+    BerandaPresenter(Application application, RemoteRepository remoteRepository, PreferenceRepository preferenceRepository){
+        this.application = application;
+        this.remoteRepository = remoteRepository;
+        this.preferenceRepository = preferenceRepository;
+
+        mDisposable = new CompositeDisposable();
     }
 
     @Override
@@ -35,26 +57,68 @@ public class BerandaPresenter implements BerandaContract.Presenter {
     }
 
     @Override
-    public void fetchMenus() {
+    public void getUserAttributes() {
 
         if(mView == null){
             return;
         }
 
-        List<MenuAgent> menus = new ArrayList<>();
+        mView.showUserAttributes(preferenceRepository.getAgentName(), preferenceRepository.getAgentPhone());
 
-        MenuAgent first = new MenuAgent();
-        first.setId(1);
-        first.setName("Pendaftaran Nasabah Baru");
-        first.setImg(R.drawable.group_244);
-        menus.add(first);
+    }
 
-        MenuAgent second = new MenuAgent();
-        second.setId(2);
-        second.setName(("Nasabah Terdaftar"));
-        second.setImg(R.drawable.group_243);
-        menus.add(second);
+    @Override
+    public void fetchNasabah() {
 
-        mView.showMenus(menus);
+        if(mView == null){
+            return;
+        }
+
+        mDisposable.add(remoteRepository.getListBorrower_new(null)
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(response ->{
+
+            mView.showRecentAgent(response.getData());
+
+        }, error ->{
+
+            ANError anError = (ANError) error;
+            if (anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)) {
+                mView.showErrorMessage("Tidak Ada Koneksi", 0);
+            } else {
+
+                if(anError.getErrorBody() != null){
+                    JSONObject jsonObject = new JSONObject(anError.getErrorBody());
+                    mView.showErrorMessage(jsonObject.optString("message"), anError.getErrorCode());
+
+                }else {
+
+                    mView.showErrorMessage("Bad gateway", 0);
+
+                }
+
+            }
+
+        }));
+    }
+
+    @Override
+    public void postOTPRequestBorrowerAgent(String id) {
+
+        if(mView == null){
+            return;
+        }
+
+        mDisposable.add(Completable.fromAction(() -> {
+
+            remoteRepository.postOTPRequestBorrowerAgent(id);
+
+            mView.goToOTPInput(preferenceRepository.getAgentPhone(), id);
+
+        })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe());
     }
 }

@@ -40,8 +40,8 @@ public class ChooseBankAgentFragment extends BaseFragment implements ChooseBankA
     @Inject
     ChooseBankAgentContract.Presenter mPresenter;
 
-    @BindView(R.id.title)
-    TextView title;
+//    @BindView(R.id.title)
+//    TextView title;
 
     @BindView(R.id.rvBank)
     RecyclerView recyclerView;

@@ -30,7 +30,7 @@ public class ChooseBankAgentActivity extends DaggerAppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.agent_activity_choose_bank);
+        setContentView(R.layout.agent_activity_choose_bank_v2); //agent_activity_choose_bank
         mUnbinder = ButterKnife.bind(this);
 
         setSupportActionBar(toolbar);

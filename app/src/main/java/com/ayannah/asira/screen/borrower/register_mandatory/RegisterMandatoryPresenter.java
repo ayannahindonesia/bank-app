@@ -120,4 +120,9 @@ public class RegisterMandatoryPresenter implements RegisterMandatoryContract.Pre
     public boolean isUserLogged() {
         return preferenceRepository.isUserLogged();
     }
+
+    @Override
+    public boolean isAgentLogged() {
+        return preferenceRepository.isAgentLogged();
+    }
 }

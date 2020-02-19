@@ -68,7 +68,7 @@ public class LPAgentPresenter implements LPAgentContract.Presenter {
             successGetPublicTokenLender();
 
         }, err -> {
-            mView.showErrorMessage(CommonUtils.errorResponseWithStatusCode(err));
+            mView.showErrorMessage(CommonUtils.errorResponseMessage(err));
         }));
     }
 

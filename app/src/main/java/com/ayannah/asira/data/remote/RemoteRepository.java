@@ -102,6 +102,8 @@ public interface RemoteRepository {
 
     Single<NasabahAgent> getListBorrower(String idBank);
 
+    Single<NasabahAgent> getListBorrower_new(String idBank);
+
     Single<CheckBorrower> checkExistingBorrowerAgent(JsonObject paramCheckBorrower);
 
     Single<BankService> getServicesAgent(String bank_id);

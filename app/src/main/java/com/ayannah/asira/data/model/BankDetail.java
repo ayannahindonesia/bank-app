@@ -8,7 +8,7 @@ public class BankDetail implements Serializable
 {
 
     @SerializedName("id")
-    private Integer id;
+    private int id;
 
     @SerializedName("created_time")
     private String createdTime;
@@ -55,7 +55,7 @@ public class BankDetail implements Serializable
     @SerializedName("convfee_setup")
     private String convfeeSetup;
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 

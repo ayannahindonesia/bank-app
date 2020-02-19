@@ -27,7 +27,7 @@ public abstract class ViewBorrowerModule {
     @Provides
     @ActivityScoped
     static CommonListAdapter adapter(){
-        return new CommonListAdapter(CommonListAdapter.VIEW_BORROWER_ON_AGENT);
+        return new CommonListAdapter(CommonListAdapter.AGENT_VIEW_AGENTS_BORROWER);
     }
 
 //    @Provides

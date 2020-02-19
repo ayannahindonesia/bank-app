@@ -465,6 +465,29 @@ public class RemoteDataSource implements RemoteRepository {
     }
 
     @Override
+    public Single<NasabahAgent> getListBorrower_new(String idBank) {
+
+        if(idBank == null){
+
+            return Rx2AndroidNetworking.get(BuildConfig.API_URL + "agent/borrowers")
+                    .addHeaders("Authorization", preferenceRepository.getUserToken())
+                    .setPriority(Priority.MEDIUM)
+                    .build()
+                    .getObjectSingle(NasabahAgent.class);
+
+        }else {
+
+            return Rx2AndroidNetworking.get(BuildConfig.API_URL + "agent/borrowers")
+                    .addHeaders("Authorization", preferenceRepository.getUserToken())
+                    .addQueryParameter("bank_id", idBank)
+                    .setPriority(Priority.MEDIUM)
+                    .build()
+                    .getObjectSingle(NasabahAgent.class);
+        }
+
+    }
+
+    @Override
     public Single<CheckBorrower> checkExistingBorrowerAgent(JsonObject paramCheckBorrower) {
         return Rx2AndroidNetworking.post(BuildConfig.API_URL + "agent/checks_borrower")
                 .addHeaders("Authorization", preferenceRepository.getUserToken())

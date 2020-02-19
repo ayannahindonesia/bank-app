@@ -1,14 +1,22 @@
 package com.ayannah.asira.screen.agent.viewBorrower;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,8 +25,10 @@ import com.ayannah.asira.R;
 import com.ayannah.asira.adapter.CommonListAdapter;
 import com.ayannah.asira.base.BaseFragment;
 import com.ayannah.asira.custom.CommonListListener;
+import com.ayannah.asira.data.model.BankDetail;
 import com.ayannah.asira.data.model.UserBorrower;
 import com.ayannah.asira.dialog.BottomDialogHandlingError;
+import com.ayannah.asira.dialog.BottomErrorHandling;
 import com.ayannah.asira.dialog.BottomSheetBorrowerAgent;
 import com.ayannah.asira.screen.agent.services.ListServicesAgentActivity;
 import com.ayannah.asira.screen.earninginfo.EarningFragment;
@@ -26,6 +36,7 @@ import com.ayannah.asira.screen.otpphone.VerificationOTPActivity;
 import com.google.gson.JsonObject;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -34,31 +45,16 @@ import butterknife.BindView;
 
 public class ViewBorrowerFragment extends BaseFragment implements ViewBorrowerContract.View {
 
+    private static final String TAG = ViewBorrowerFragment.class.getSimpleName();
+
     @Inject
     ViewBorrowerContract.Presenter mPresenter;
 
-    @BindView(R.id.pbLoading)
-    ProgressBar pbLoading;
-
-    @BindView(R.id.recyclerView)
-    RecyclerView recyclerView;
-
-    @BindView(R.id.tvEmptyNasabah)
-    TextView tvEmptyNasabah;
-
-    @BindView(R.id.title)
-    TextView title;
+    @BindView(R.id.banks) Spinner spBanks;
+    @BindView(R.id.recyclerView) RecyclerView recyclerView;
 
     @Inject
     CommonListAdapter adapter;
-
-    private String bank_Id;
-    private String bankName;
-
-    @BindView(R.id.lyResult) LinearLayout lyResult;
-    @BindView(R.id.lyError) LinearLayout lyError;
-    @BindView(R.id.errorCode) TextView errorCode;
-    @BindView(R.id.message) TextView errorMessage;
 
     @Inject
     public ViewBorrowerFragment(){
@@ -75,15 +71,10 @@ public class ViewBorrowerFragment extends BaseFragment implements ViewBorrowerCo
         super.onResume();
         mPresenter.takeView(this);
 
-        mPresenter.getLenderToken();
+        mPresenter.retrieveBanks();
+        mPresenter.getDataBorrower(null);
 
-        bank_Id = parentActivity().getIntent().getStringExtra(ViewBorrowerActivity.BANK_ID);
-        bankName = parentActivity().getIntent().getStringExtra(ViewBorrowerActivity.BANK_NAME);
-
-        pbLoading.setVisibility(View.VISIBLE);
-        mPresenter.getDataBorrower(bank_Id);
-
-        EarningFragment.isUpdate = false;
+//        EarningFragment.isUpdate = false;
     }
 
     @Override
@@ -97,112 +88,162 @@ public class ViewBorrowerFragment extends BaseFragment implements ViewBorrowerCo
     }
 
     @Override
-    public void showErrorMessage(String code) {
+    public void showErrorMessage(String message, int code) {
 
-        pbLoading.setVisibility(View.GONE);
-
-        lyResult.setVisibility(View.GONE);
-
-        lyError.setVisibility(View.VISIBLE);
-
-        if(code.equals("0")){
-
-            errorCode.setText("0");
-            errorMessage.setText(getResources().getString(R.string.no_connection));
-
-        }else {
-
-            errorCode.setText(code);
-            errorMessage.setText(getResources().getString(R.string.error_msg_http));
-
-        }
+        BottomErrorHandling error= new BottomErrorHandling(message, code);
+        error.showNow(parentActivity().getSupportFragmentManager(), "error");
+        error.setOnClickListener(new BottomErrorHandling.BottomSheetErrorListener() {
+            @Override
+            public void onClickClose(int code) {
+                error.dismiss();
+            }
+        });
     }
 
     @Override
-    public void getAllData(int totalData, List<UserBorrower> results) {
+    public void getAllBank(List<BankDetail> results) {
 
-        //UI
-        pbLoading.setVisibility(View.GONE);
+        List<String> bankList = new ArrayList<>();
+        bankList.add("Pilih bank...");
 
-        if(totalData > 0){
+        for(BankDetail data: results){
+            Log.e(TAG, String.format("%s - %s", data.getId(), data.getName()));
+            bankList.add(data.getName());
+        }
 
-//            title.setText(String.format("Daftar nasabah %s", bankName.replaceAll("bank", "").replace("Bank", "")));
-            title.setText(String.format("Daftar nasabah %s", bankName));
+        ArrayAdapter<String> adapterBankList = new ArrayAdapter<String>(parentActivity(), android.R.layout.simple_dropdown_item_1line, bankList){
+            @Override
+            public boolean isEnabled(int position) {
+                return position != 0;
+            }
 
-            lyResult.setVisibility(View.VISIBLE);
-            lyError.setVisibility(View.GONE);
+            @Override
+            public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView textView = (TextView) view;
+                if(position == 0){
+                    textView.setTextColor(Color.GRAY);
+                }else {
+                    textView.setTextColor(Color.BLACK);
+                }
 
-            //result
-            adapter.setListNasabah(results);
+                return view;
+            }
+        };
+        spBanks.setAdapter(adapterBankList);
 
-            adapter.setOnClickListenerViewBorrower(new CommonListListener.ViewBorrowerListener() {
-                @Override
-                public void onClickButton(UserBorrower user) {
+        spBanks.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                    if(user.isOtpVerified()){
+                if(position != 0) {
+                    Log.e(TAG, "selected: "+position);
+                    Log.e(TAG, "bankId: "+results.get(position-1).getId());
+                    String idBank = String.valueOf(results.get(position-1).getId());
+                    mPresenter.getDataBorrower(idBank);
+                }
 
-                        //before
-//                        if (user.getLoanStatus().toLowerCase().equals("active")) {
-//
-//                            BottomDialogHandlingError error = new BottomDialogHandlingError("Nasabah Masih Memiliki Pinjaman Aktif", 0);
-//                            error.showNow(parentActivity().getSupportFragmentManager(), "error message");
-//                            error.setOnClickLister(error::dismiss);
-//
-//                        } else {
-//
-//                            mPresenter.setDataSelectedBorrower(user);
-//
-//                            Intent intent = new Intent(parentActivity(), ListServicesAgentActivity.class);
-//                            intent.putExtra("user", (Serializable) user);
-//                            intent.putExtra(ListServicesAgentActivity.BANK_ID, bank_Id);
-//                            startActivity(intent);
-//                        }
+            }
 
-                        //revision jan 24, 2020
-                        if(user.getBankAccountnumber().isEmpty() || user.getBankAccountnumber() == null){
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
 
-                            BottomDialogHandlingError error = new BottomDialogHandlingError("Nasabah belum memiliki nomor rekening", 0);
-                            error.showNow(parentActivity().getSupportFragmentManager(), "error message");
-                            error.setOnClickLister(error::dismiss);
+            }
+        });
 
-                        }else if(user.getLoanStatus().toLowerCase().equals("inactive")) {
+    }
 
-                            Intent intent = new Intent(parentActivity(), ListServicesAgentActivity.class);
-                            intent.putExtra("user", (Serializable) user);
-                            intent.putExtra(ListServicesAgentActivity.BANK_ID, bank_Id);
-                            startActivity(intent);
+    @Override
+    public void getAllData(List<UserBorrower> results) {
 
-                        }else {
+        adapter.setAgentsBorrowerList(results);
+        adapter.setOnClickAgentsBorrowerListener(new CommonListListener.AgentsClientListener() {
+            @Override
+            public void onClickClient(UserBorrower user) {
 
-                            BottomDialogHandlingError error = new BottomDialogHandlingError("Nasabah Masih Memiliki Pinjaman Aktif", 0);
-                            error.showNow(parentActivity().getSupportFragmentManager(), "error message");
-                            error.setOnClickLister(error::dismiss);
+                BottomSheetBorrowerAgent dialog = new BottomSheetBorrowerAgent();
+                dialog.setUserIdentity(user);
+                dialog.showNow(parentActivity().getSupportFragmentManager(), "BottomDialogShow");
+            }
 
-                        }
+            @Override
+            public void onClickAjukan(UserBorrower user) {
+
+                if(user.isOtpVerified()){
+
+                    //revision jan 24, 2020
+                    if(user.getBankAccountnumber().isEmpty() || user.getBankAccountnumber() == null){
+
+                        BottomDialogHandlingError error = new BottomDialogHandlingError("Nasabah belum memiliki nomor rekening", 0);
+                        error.showNow(parentActivity().getSupportFragmentManager(), "error message");
+                        error.setOnClickLister(error::dismiss);
+
+                    }else if(user.getLoanStatus().toLowerCase().equals("inactive")) {
+
+                        Intent intent = new Intent(parentActivity(), ListServicesAgentActivity.class);
+                        intent.putExtra("user", (Serializable) user);
+                        intent.putExtra(ListServicesAgentActivity.BANK_ID, String.valueOf(user.getBank().getInt64()));
+                        startActivity(intent);
 
                     }else {
-                        mPresenter.postOTPRequestBorrowerAgent(String.valueOf(user.getId()));
+
+                        BottomDialogHandlingError error = new BottomDialogHandlingError("Nasabah Masih Memiliki Pinjaman Aktif", 0);
+                        error.showNow(parentActivity().getSupportFragmentManager(), "error message");
+                        error.setOnClickLister(error::dismiss);
 
                     }
+
+                }else {
+
+                    mPresenter.postOTPRequestBorrowerAgent(String.valueOf(user.getId()));
+
                 }
 
-                @Override
-                public void onClick(UserBorrower user) {
-                    BottomSheetBorrowerAgent dialog = new BottomSheetBorrowerAgent();
-                    dialog.setUserIdentity(user);
-                    dialog.showNow(parentActivity().getSupportFragmentManager(), "BottomDialogShow");
-                }
-            });
 
-        }else {
+            }
+        });
 
-            lyError.setVisibility(View.GONE);
-
-            lyResult.setVisibility(View.GONE);
-
-            tvEmptyNasabah.setVisibility(View.VISIBLE);
-
-        }
+//        adapter.setOnClickListenerViewBorrower(new CommonListListener.ViewBorrowerListener() {
+//            @Override
+//            public void onClickButton(UserBorrower user) {
+//
+//                if(user.isOtpVerified()){
+//
+//                    //revision jan 24, 2020
+//                    if(user.getBankAccountnumber().isEmpty() || user.getBankAccountnumber() == null){
+//
+//                        BottomDialogHandlingError error = new BottomDialogHandlingError("Nasabah belum memiliki nomor rekening", 0);
+//                        error.showNow(parentActivity().getSupportFragmentManager(), "error message");
+//                        error.setOnClickLister(error::dismiss);
+//
+//                    }else if(user.getLoanStatus().toLowerCase().equals("inactive")) {
+//
+//                        Intent intent = new Intent(parentActivity(), ListServicesAgentActivity.class);
+//                        intent.putExtra("user", (Serializable) user);
+//                        intent.putExtra(ListServicesAgentActivity.BANK_ID, String.valueOf(user.getBank().getInt64()));
+//                        startActivity(intent);
+//
+//                    }else {
+//
+//                        BottomDialogHandlingError error = new BottomDialogHandlingError("Nasabah Masih Memiliki Pinjaman Aktif", 0);
+//                        error.showNow(parentActivity().getSupportFragmentManager(), "error message");
+//                        error.setOnClickLister(error::dismiss);
+//
+//                    }
+//
+//                }else {
+//                    mPresenter.postOTPRequestBorrowerAgent(String.valueOf(user.getId()));
+//
+//                }
+//            }
+//
+//            @Override
+//            public void onClick(UserBorrower user) {
+//                BottomSheetBorrowerAgent dialog = new BottomSheetBorrowerAgent();
+//                dialog.setUserIdentity(user);
+//                dialog.showNow(parentActivity().getSupportFragmentManager(), "BottomDialogShow");
+//            }
+//        });
 
     }
 

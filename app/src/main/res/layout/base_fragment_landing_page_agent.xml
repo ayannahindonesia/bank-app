@@ -5,53 +5,52 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+<!--    <com.google.android.material.appbar.AppBarLayout-->
+<!--        android:id="@+id/appbar"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:theme="@style/AppTheme.AppBarOverlay">-->
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:theme="@style/AppTheme.PopupOverlay"
-            android:layout_width="match_parent"
-            android:background="@color/colorAsiraWhite"
-            android:layout_height="?attr/actionBarSize">
+<!--        <androidx.appcompat.widget.Toolbar-->
+<!--            android:id="@+id/toolbar"-->
+<!--            android:theme="@style/AppTheme.PopupOverlay"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:background="@color/colorAsiraWhite"-->
+<!--            android:layout_height="?attr/actionBarSize">-->
 
-            <ImageView
-                android:id="@+id/logoAsira"
-                android:src="@drawable/ic_asira"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content" />
+<!--            <ImageView-->
+<!--                android:id="@+id/logoAsira"-->
+<!--                android:src="@drawable/ic_asira"-->
+<!--                android:layout_width="100dp"-->
+<!--                android:layout_height="wrap_content" />-->
 
-            <RelativeLayout
-                android:id="@+id/notification"
-                android:layout_width="50dp"
-                android:background="?attr/selectableItemBackground"
-                android:layout_height="match_parent"
-                android:layout_gravity="end"
-                android:gravity="center" >
+<!--            <RelativeLayout-->
+<!--                android:id="@+id/notification"-->
+<!--                android:layout_width="50dp"-->
+<!--                android:background="?attr/selectableItemBackground"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:layout_gravity="end"-->
+<!--                android:gravity="center" >-->
 
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_margin="@dimen/_8sdp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/ic_notification" />
+<!--                <ImageView-->
+<!--                    android:layout_width="20dp"-->
+<!--                    android:layout_height="20dp"-->
+<!--                    android:layout_margin="@dimen/_8sdp"-->
+<!--                    android:layout_centerHorizontal="true"-->
+<!--                    android:layout_centerVertical="true"-->
+<!--                    android:src="@drawable/ic_notification" />-->
 
-            </RelativeLayout>
+<!--            </RelativeLayout>-->
 
-        </androidx.appcompat.widget.Toolbar>
+<!--        </androidx.appcompat.widget.Toolbar>-->
 
-    </com.google.android.material.appbar.AppBarLayout>
+<!--    </com.google.android.material.appbar.AppBarLayout>-->
 
     <FrameLayout
         android:id="@+id/tab_menus"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/bottomMenus"
-        android:layout_below="@id/appbar"
         android:background="@color/graybackground"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
 
@@ -66,27 +65,7 @@
         app:elevation="4dp"
         app:labelVisibilityMode="labeled"
         app:menu="@menu/bottom_menu_agent"
-        app:itemTextColor="@drawable/bottom_selected_texticon"
-        app:itemIconTint="@color/textColorAsiraGrey"
         app:itemBackground="@drawable/bottom_selected_menu"/>
 
-<!--    Below for appearance show selected bottom menu with white text and icon-->
-<!--    <com.google.android.material.bottomnavigation.BottomNavigationView-->
-<!--        android:background="@color/colorAsiraWhite"-->
-<!--        android:layout_alignParentBottom="true"-->
-<!--        android:fitsSystemWindows="true"-->
-<!--        android:layout_gravity="bottom"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:id="@+id/bottomMenus"-->
-<!--        app:layout_anchorGravity="bottom"-->
-<!--        app:elevation="4dp"-->
-<!--        app:labelVisibilityMode="labeled"-->
-<!--        app:menu="@menu/bottom_menu"-->
-<!--        app:itemTextColor="@drawable/bottom_selected_text_icon_menu"-->
-<!--        app:itemIconTint="@drawable/bottom_selected_text_icon_menu"-->
-<!--        app:itemBackground="@drawable/bottom_selected_menu"-->
-<!--        app:itemTextAppearanceActive="@style/BottomNavigationTextDefault"-->
-<!--        app:itemTextAppearanceInactive="@style/BottomNavigationTextDefault"/>-->
 
 </RelativeLayout>
