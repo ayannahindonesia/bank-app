@@ -83,13 +83,6 @@ public class RegisterMandatoryFragment extends BaseFragment implements RegisterM
         return R.layout.fragment_reg_mandatory;
     }
 
-//    @OnTextChanged(value = R.id.etPhone, callback = OnTextChanged.Callback.BEFORE_TEXT_CHANGED)
-//    void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//        if (count<3) {
-//            etPhone.setText("62");
-//        }
-//    }
-
     @OnClick(R.id.showPass)
     void visiblePass(){
 
@@ -126,7 +119,7 @@ public class RegisterMandatoryFragment extends BaseFragment implements RegisterM
 
     @OnTextChanged(value = R.id.etPhone, callback = OnTextChanged.Callback.TEXT_CHANGED)
     void textChanged(CharSequence s) {
-        if (s.toString().equals("") || s.toString().equals("6")) {
+        if (s.length()<2) {
             etPhone.setText("62");
             etPhone.setSelection(etPhone.getText().length());
         }

@@ -282,6 +282,7 @@ public class LoginFragment extends BaseFragment implements
 
     @Override
     public void onValidationFailed(List<ValidationError> errors) {
+        dialog.dismiss();
 
         for (ValidationError error : errors) {
             View view = error.getView();
@@ -298,7 +299,7 @@ public class LoginFragment extends BaseFragment implements
     }
 
     @OnTextChanged(value =R.id.etPhone, callback = OnTextChanged.Callback.TEXT_CHANGED)
-    void et_onchanged_phone(Editable editable) {
+    void et_onchanged_phone(CharSequence editable) {
         if (editable.toString().equals("") || editable.toString().equals("6")) {
             etPhone.setText("62");
             etPhone.setSelection(etPhone.getText().length());

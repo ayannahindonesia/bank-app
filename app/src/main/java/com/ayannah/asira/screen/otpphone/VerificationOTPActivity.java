@@ -84,8 +84,6 @@ public class VerificationOTPActivity extends DaggerAppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        VerificationOTPFragment.countDownTimer.cancel();
-
         //action when user trying click back button in otp activity
 
         switch (getIntent().getStringExtra(PURPOSES)) {
@@ -133,6 +131,7 @@ public class VerificationOTPActivity extends DaggerAppCompatActivity {
 //                    Intent intent = new Intent(getBaseContext(), LoginActivity.class);
 //                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
 //                    startActivity(intent);
+                    VerificationOTPFragment.countDownTimer.cancel();
                     finish();
                 } else if (getIntent().getStringExtra(PURPOSES).equals("post_pinjaman")) {
                     Toast.makeText(VerificationOTPActivity.this, "Silahkan masuk ke halaman 'Pinjaman Saya'\nuntuk aktivasi pengajuan Anada", Toast.LENGTH_SHORT).show();

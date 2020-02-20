@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -29,6 +30,7 @@ import com.ayannah.asira.data.model.Loans.DataItem;
 import com.ayannah.asira.dialog.BottomDialogHandlingError;
 import com.ayannah.asira.dialog.BottomSheetDialogGlobal;
 import com.ayannah.asira.screen.borrower.borrower_landing_page.BorrowerLandingFragment;
+import com.ayannah.asira.screen.borrower.register_mandatory.RegisterMandatoryActivity;
 import com.ayannah.asira.screen.chooselogin.ChooseLoginActivity;
 import com.ayannah.asira.screen.earninginfo.EarningActivity;
 import com.ayannah.asira.R;
@@ -72,6 +74,9 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
 
     @BindView(R.id.rvTopup)
     RecyclerView recyclerViewTopupTagihan;
+
+    @BindView(R.id.txtCustName)
+    TextView txtCustName;
 
     @Inject
     BeritaPromoAdapter mAdapterNewsPromo;
@@ -379,7 +384,8 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
     }
 
     @Override
-    public void setLoanStatus(String loanStatus) {
+    public void setLoanStatus(String loanStatus, String userName) {
+        txtCustName.setText(String.format("Hai, %s", userName));
         statusLoan = "";
         statusLoan = loanStatus;
         mPresenter.getMainMenu();
@@ -387,8 +393,13 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
 
     @OnClick(R.id.txtBtnSelectBank)
     void selectBank() {
-        Intent intent = new Intent(parentActivity(), ChooseBankActivity.class);
-        startActivity(intent);
+        if (mPresenter.getIsLogin()) {
+            Intent intent = new Intent(parentActivity(), ChooseBankActivity.class);
+            startActivity(intent);
+        } else {
+            Intent intent = new Intent(parentActivity(), RegisterMandatoryActivity.class);
+            startActivity(intent);
+        }
     }
 
 }

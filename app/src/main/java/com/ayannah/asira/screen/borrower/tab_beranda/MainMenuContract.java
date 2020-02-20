@@ -28,7 +28,7 @@ public interface MainMenuContract {
 
         void showTopUpTagihanMenu(List<String> results);
 
-        void setLoanStatus(String loanStatus);
+        void setLoanStatus(String loanStatus, String userName);
     }
 
     interface Presenter extends BasePresenter<View>{

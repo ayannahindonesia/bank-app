@@ -117,6 +117,15 @@ public class VerificationOTPFragment extends BaseFragment implements Verificatio
     @Override
     protected void initView(Bundle state) {
 
+        if (purpose.equals(REGISTER)) {
+            personalPhone = parentActivity().getIntent().getStringExtra("personal_phone");
+            personalName = parentActivity().getIntent().getStringExtra("personal_name");
+            personalEmail = parentActivity().getIntent().getStringExtra("personal_email");
+            personalPass = parentActivity().getIntent().getStringExtra("personal_pass");
+        }
+
+        countDownTimer = null;
+
         startCountDown();
 
         otpView.setOtpCompletionListener(new OnOtpCompletionListener() {
@@ -128,11 +137,6 @@ public class VerificationOTPFragment extends BaseFragment implements Verificatio
                 dialog.show();
 
                 if (purpose.equals(REGISTER)) {
-
-                    personalPhone = parentActivity().getIntent().getStringExtra("personal_phone");
-                    personalName = parentActivity().getIntent().getStringExtra("personal_name");
-                    personalEmail = parentActivity().getIntent().getStringExtra("personal_email");
-                    personalPass = parentActivity().getIntent().getStringExtra("personal_pass");
 
                     registerNewAccount(otp);
 
@@ -183,22 +187,28 @@ public class VerificationOTPFragment extends BaseFragment implements Verificatio
 
     private void startCountDown() {
         txtResend.setClickable(false);
-        countDownTimer = new CountDownTimer(30000, 1000) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-                if (millisUntilFinished < 10000) {
-                    txtResend.setText("00:0" + millisUntilFinished / 1000);
-                } else {
-                    txtResend.setText("00:" + millisUntilFinished / 1000);
-                }
-            }
 
-            @Override
-            public void onFinish() {
-                txtResend.setClickable(true);
-                txtResend.setText("kirim ulang OTP");
-            }
-        }.start();
+        if (countDownTimer == null) {
+            countDownTimer = new CountDownTimer(30000, 1000) {
+                @Override
+                public void onTick(long millisUntilFinished) {
+                    if (millisUntilFinished < 10000) {
+                        txtResend.setText("00:0" + millisUntilFinished / 1000);
+                    } else {
+                        txtResend.setText("00:" + millisUntilFinished / 1000);
+                    }
+                }
+
+                @Override
+                public void onFinish() {
+                    txtResend.setClickable(true);
+                    txtResend.setText("kirim ulang OTP");
+                }
+            };
+        }
+
+        countDownTimer.start();
+
     }
 
     private void registerBorrowerFromAgentSide(CharSequence otpcode) {

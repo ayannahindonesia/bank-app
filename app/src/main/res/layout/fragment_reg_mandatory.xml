@@ -76,6 +76,7 @@
                         android:textColor="@color/textColorAsiraGrey" />
 
                     <EditText
+                        android:text="namamamu"
                         android:id="@+id/etFullName"
                         style="@style/EditTextBeforeLogin"
                         android:layout_width="match_parent"
@@ -92,6 +93,7 @@
                         android:textColor="@color/textColorAsiraGrey" />
 
                     <EditText
+                        android:text="62856456643"
                         android:id="@+id/etPhone"
                         style="@style/EditTextBeforeLogin"
                         android:layout_width="match_parent"
@@ -109,6 +111,7 @@
                         android:textColor="@color/textColorAsiraGrey" />
 
                     <EditText
+                        android:text="asiratesting@mailinator.com"
                         android:id="@+id/etEmail"
                         style="@style/EditTextBeforeLogin"
                         android:layout_width="match_parent"
@@ -143,6 +146,7 @@
                     </RelativeLayout>
 
                     <EditText
+                        android:text="testing123"
                         android:id="@+id/etPassword"
                         style="@style/EditTextBeforeLogin"
                         android:layout_width="match_parent"

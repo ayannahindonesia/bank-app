@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="@dimen/_10sdp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Berkas-berkas pribadi"
+            android:textColor="@color/textColorAsiraGrey"
+            android:textSize="@dimen/_16sdp"
+            android:textStyle="bold" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="3dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/_15sdp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_133sdp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/border_dotted">
+
+                    <ImageView
+                        android:id="@+id/imgKTP"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:scaleType="centerInside"
+                        android:text="Unggah KTP"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/txtKTP"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="Unggah KTP"
+                        android:textColor="@color/textColorAsira"
+                        android:textSize="@dimen/_12sdp"
+                        android:textStyle="bold" />
+
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="Nomor KTP"
+                    android:textColor="@color/textColorAsiraGrey"
+                    android:textSize="@dimen/_12sdp" />
+
+                <EditText
+                    android:id="@+id/txtKTPNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/textColorAsiraGrey"
+                    android:textSize="@dimen/_12sdp" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_133sdp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/border_dotted">
+
+                    <ImageView
+                        android:id="@+id/imgNPWP"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:scaleType="centerInside"
+                        android:text="Unggah NPWP"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/txtNPWP"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="Unggah NPWP"
+                        android:textColor="@color/textColorAsira"
+                        android:textSize="@dimen/_12sdp"
+                        android:textStyle="bold" />
+
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="Nomor NPWP"
+                    android:textColor="@color/textColorAsiraGrey"
+                    android:textSize="@dimen/_12sdp" />
+
+                <EditText
+                    android:id="@+id/txtNPWPNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/textColorAsiraGrey"
+                    android:textSize="@dimen/_12sdp" />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Data Diri"
+            android:textColor="@color/textColorAsiraGrey"
+            android:textSize="@dimen/_16sdp"
+            android:textStyle="bold" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="3dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/_15sdp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nama Lengkap (Sesuai KTP)"
+                    android:textColor="@color/textColorAsiraGrey"
+                    android:textSize="@dimen/_12sdp" />
+
+                <EditText
+                    android:id="@+id/txtName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/textColorAsiraGrey"
+                    android:textSize="@dimen/_12sdp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="Nomor Ponsel"
+                    android:textColor="@color/textColorAsiraGrey"
+                    android:textSize="@dimen/_12sdp" />
+
+                <EditText
+                    android:id="@+id/txtHP"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/textColorAsiraGrey"
+                    android:textSize="@dimen/_12sdp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="Alamat Domisili"
+                    android:textColor="@color/textColorAsiraGrey"
+                    android:textSize="@dimen/_12sdp" />
+
+                <EditText
+                    android:id="@+id/txtAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/textColorAsiraGrey"
+                    android:textSize="@dimen/_12sdp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="Provinsi"
+                    android:textColor="@color/textColorAsiraGrey"
+                    android:textSize="@dimen/fontLarge" />
+
+                <Spinner
+                    android:id="@+id/spProvince"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:background="@drawable/spinner_bg"
+                    android:inputType="textPersonName"
+                    android:textSize="@dimen/_12sdp"
+                    tools:ignore="Autofill" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="Kota"
+                    android:textColor="@color/textColorAsiraGrey"
+                    android:textSize="@dimen/fontLarge" />
+
+                <Spinner
+                    android:id="@+id/spCity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:background="@drawable/spinner_bg"
+                    android:inputType="textPersonName"
+                    android:textSize="@dimen/_12sdp"
+                    tools:ignore="Autofill" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="Kecamatan"
+                    android:textColor="@color/textColorAsiraGrey"
+                    android:textSize="@dimen/fontLarge" />
+
+                <Spinner
+                    android:id="@+id/spKecamatan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:background="@drawable/spinner_bg"
+                    android:inputType="textPersonName"
+                    android:textSize="@dimen/_12sdp"
+                    tools:ignore="Autofill" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="Kelurahan"
+                    android:textColor="@color/textColorAsiraGrey"
+                    android:textSize="@dimen/fontLarge" />
+
+                <Spinner
+                    android:id="@+id/spKelurahan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:background="@drawable/spinner_bg"
+                    android:inputType="textPersonName"
+                    android:textSize="@dimen/_12sdp"
+                    tools:ignore="Autofill" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="RT"
+                            android:textColor="@color/textColorAsiraGrey"
+                            android:textSize="@dimen/_12sdp" />
+
+                        <EditText
+                            android:id="@+id/txtRT"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/textColorAsiraGrey"
+                            android:textSize="@dimen/_12sdp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="RW"
+                            android:textColor="@color/textColorAsiraGrey"
+                            android:textSize="@dimen/_12sdp" />
+
+                        <EditText
+                            android:id="@+id/txtRW"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/textColorAsiraGrey"
+                            android:textSize="@dimen/_12sdp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="Nama Ibu Kandung"
+                    android:textColor="@color/textColorAsiraGrey"
+                    android:textSize="@dimen/_12sdp" />
+
+                <EditText
+                    android:id="@+id/txtMother"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/textColorAsiraGrey"
+                    android:textSize="@dimen/_12sdp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="Pekerjaan"
+                    android:textColor="@color/textColorAsiraGrey"
+                    android:textSize="@dimen/fontLarge" />
+
+                <Spinner
+                    android:id="@+id/spJob"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:background="@drawable/spinner_bg"
+                    android:inputType="textPersonName"
+                    android:textSize="@dimen/_12sdp"
+                    tools:ignore="Autofill" />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/txtNext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/textColorAsira"
+            android:gravity="center"
+            android:padding="@dimen/_5sdp"
+            android:layout_margin="@dimen/_10sdp"
+            android:text="Selanjutnya"
+            android:textColor="#FFF"
+            android:textSize="@dimen/_12sdp" />
+
+    </LinearLayout>
+
+</ScrollView>
