@@ -21,6 +21,7 @@ import com.ayannah.asira.screen.agent.selectbank.SelectBankActivity;
 import com.ayannah.asira.screen.agent.tab_agent_profile.AgentProfileFragment;
 import com.ayannah.asira.screen.agent.tab_beranda.BerandaFragment;
 import com.ayannah.asira.screen.agent.tab_data_pinjaman.DataPinjamanFragment;
+import com.ayannah.asira.screen.agent.tab_pesan.PesanFragment;
 import com.ayannah.asira.screen.agent.viewBorrower.ViewBorrowerActivity;
 import com.ayannah.asira.screen.borrower.login.LoginActivity;
 import com.ayannah.asira.screen.chooselogin.ChooseLoginActivity;
@@ -39,8 +40,8 @@ public class LPAgentFragment extends BaseFragment implements LPAgentContract.Vie
     @Inject
     LPAgentContract.Presenter mPresenter;
 
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
+//    @BindView(R.id.toolbar)
+//    Toolbar toolbar;
 
     @BindView(R.id.bottomMenus)
     BottomNavigationView bottomNavigationView;
@@ -77,13 +78,14 @@ public class LPAgentFragment extends BaseFragment implements LPAgentContract.Vie
     @Override
     protected void initView(Bundle state) {
 
-        parentActivity().setSupportActionBar(toolbar);
-        ActionBar actionBar = parentActivity().getSupportActionBar();
-        assert actionBar != null;
-        actionBar.setDisplayShowTitleEnabled(false);
+//        parentActivity().setSupportActionBar(toolbar);
+//        ActionBar actionBar = parentActivity().getSupportActionBar();
+//        assert actionBar != null;
+//        actionBar.setDisplayShowTitleEnabled(false);
 
         BerandaFragment beranda = new BerandaFragment();
         DataPinjamanFragment dataPinjaman = new DataPinjamanFragment();
+        PesanFragment pesan = new PesanFragment();
         AgentProfileFragment agentProfil = new AgentProfileFragment();
 
         ActivityUtils.replaceFragmentToActivity(getFragmentManager(), beranda, R.id.tab_menus);
@@ -99,12 +101,12 @@ public class LPAgentFragment extends BaseFragment implements LPAgentContract.Vie
                     ActivityUtils.replaceFragmentToActivity(getFragmentManager(), dataPinjaman, R.id.tab_menus);
                     return true;
 
-                case R.id.dataPencairan:
-                    Toast.makeText(parentActivity(), "Coming soon...", Toast.LENGTH_SHORT).show();
+                case R.id.pesan:
+                    ActivityUtils.replaceFragmentToActivity(getFragmentManager(), pesan, R.id.tab_menus);
                     return true;
 
                 case R.id.akun:
-                    AgentProfileFragment.bankSelectFromList = false;
+//                    AgentProfileFragment.bankSelectFromList = false;
                     ActivityUtils.replaceFragmentToActivity(getFragmentManager(), agentProfil, R.id.tab_menus);
                     return true;
 
@@ -116,12 +118,12 @@ public class LPAgentFragment extends BaseFragment implements LPAgentContract.Vie
 
     }
 
-    @OnClick(R.id.notification)
-    void onClickNotif(){
-
-        Toast.makeText(parentActivity(), "notif", Toast.LENGTH_SHORT).show();
-
-    }
+//    @OnClick(R.id.notification)
+//    void onClickNotif(){
+//
+//        Toast.makeText(parentActivity(), "notif", Toast.LENGTH_SHORT).show();
+//
+//    }
 
 
     @Override

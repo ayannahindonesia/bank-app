@@ -9,29 +9,47 @@
     app:cardElevation="3dp">
 
     <LinearLayout
+        android:weightSum="1"
+        android:padding="@dimen/_8sdp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/selectableItemBackground"
-        android:orientation="vertical"
-        android:padding="@dimen/_16sdp">
+        android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/headerTxtxtMessage"
-            android:textColor="@color/colorAsiraText"
-            android:fontFamily="@font/manrope_bold"
-            tools:text="Hello Asira!"
-            android:textSize="@dimen/fontNormal"
+        <ImageView
+            android:src="@drawable/ic_pesan_notification"
+            android:layout_weight="0.9"
+            android:layout_gravity="center_vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="30dp"/>
 
-        <TextView
-            android:id="@+id/txtMessage"
-            android:textColor="@color/colorAsiraText"
-            tools:text="test lah hesahd kjhf hsjkhf sdfsdf. skdjfd ksjdf . ksjdf ksdjfh klsf kjsdf slkfj dslkfj slkf."
-            android:textSize="@dimen/fontNormal"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:background="?attr/selectableItemBackground"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/headerTxtxtMessage"
+                android:fontFamily="@font/manrope_bold"
+                android:textColor="@android:color/black"
+                tools:text="Hello Asira!"
+                android:textSize="@dimen/fontNormal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/txtMessage"
+                android:textColor="@android:color/black"
+                tools:text="test lah hesahd kjhf hsjkhf sdfsdf. skdjfd ksjdf . ksjdf ksdjfh klsf kjsdf slkfj dslkfj slkf."
+                android:textSize="@dimen/fontSmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
 
     </LinearLayout>
+
+
 
 </androidx.cardview.widget.CardView>

@@ -2,6 +2,8 @@ package com.ayannah.asira.screen.agent.viewBorrower;
 
 import com.ayannah.asira.base.BasePresenter;
 import com.ayannah.asira.base.BaseView;
+import com.ayannah.asira.data.model.BankDetail;
+import com.ayannah.asira.data.model.BankList;
 import com.ayannah.asira.data.model.UserBorrower;
 import com.ayannah.asira.data.model.UserProfile;
 
@@ -11,9 +13,11 @@ public interface ViewBorrowerContract {
 
     interface View extends BaseView<Presenter>{
 
-        void showErrorMessage(String code);
+        void showErrorMessage(String message, int code);
 
-        void getAllData(int totalData, List<UserBorrower> results);
+        void getAllBank(List<BankDetail> results);
+
+        void getAllData(List<UserBorrower> results);
 
         void goToOTPInput(String agentPhone, String id);
     }
@@ -21,6 +25,8 @@ public interface ViewBorrowerContract {
     interface Presenter extends BasePresenter<View>{
 
         void getDataBorrower(String bankId);
+
+        void retrieveBanks();
 
         void getLenderToken();
 

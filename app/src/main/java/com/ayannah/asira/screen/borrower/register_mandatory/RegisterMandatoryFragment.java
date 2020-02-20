@@ -14,6 +14,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.ayannah.asira.R;
 import com.ayannah.asira.base.BaseFragment;
+import com.ayannah.asira.screen.agent.lpagent.LPAgentActivity;
 import com.ayannah.asira.screen.borrower.borrower_landing_page.BorrowerLandingPage;
 import com.ayannah.asira.screen.borrower.login.LoginActivity;
 import com.ayannah.asira.screen.otpphone.VerificationOTPActivity;
@@ -75,6 +76,10 @@ public class RegisterMandatoryFragment extends BaseFragment implements RegisterM
 
         if(mPresenter.isUserLogged()){
             loginComplete();
+        }
+
+        if(mPresenter.isAgentLogged()){
+            goToAgentLandingPage();
         }
     }
 
@@ -249,5 +254,16 @@ public class RegisterMandatoryFragment extends BaseFragment implements RegisterM
 
         parentActivity().finish();
 
+    }
+
+    @Override
+    public void goToAgentLandingPage() {
+
+        Intent intent = new Intent(parentActivity(), LPAgentActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+
+        dialog.dismiss();
+        parentActivity().finish();
     }
 }

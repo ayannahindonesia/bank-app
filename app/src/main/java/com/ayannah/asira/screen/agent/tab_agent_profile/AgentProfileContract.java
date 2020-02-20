@@ -5,6 +5,8 @@ import com.ayannah.asira.base.BaseView;
 import com.ayannah.asira.data.local.PreferenceRepository;
 import com.google.gson.JsonObject;
 
+import java.util.List;
+
 public interface AgentProfileContract {
     interface View extends BaseView<Presenter> {
 
@@ -12,24 +14,30 @@ public interface AgentProfileContract {
 
         void loadAgentProfile(PreferenceRepository preferenceRepository);
 
-        void successUpdateProfileAgent();
+        void loadMenus(List<String> akuns, List<String> tentangs);
 
-        void successUpdatePhotoAgent();
-
-        void setAgentProviderName(String name);
+//        void successUpdateProfileAgent();
+//
+//        void successUpdatePhotoAgent();
+//
+//        void setAgentProviderName(String name);
 
         void logoutComplete();
     }
 
     interface Presenter extends BasePresenter<View> {
 
-        void setAgentProfile();
+        void getAgentProfile();
 
-        void patchDataAgent(JsonObject jsonPatchAgentProfile, String email, boolean isEmailChange);
+        void getMenus();
 
-        void patchAgentPhotoProfile(String pict);
+//        void setAgentProfile();
 
-        void getProviderName(String agentProvider);
+//        void patchDataAgent(JsonObject jsonPatchAgentProfile, String email, boolean isEmailChange);
+//
+//        void patchAgentPhotoProfile(String pict);
+//
+//        void getProviderName(String agentProvider);
 
         void doLogout();
     }

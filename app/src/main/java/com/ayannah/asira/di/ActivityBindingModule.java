@@ -32,6 +32,7 @@ import com.ayannah.asira.screen.agent.services.ListServicesAgentModule;
 import com.ayannah.asira.screen.agent.tab_agent_profile.AgentProfileModule;
 import com.ayannah.asira.screen.agent.tab_beranda.BerandaModule;
 import com.ayannah.asira.screen.agent.tab_data_pinjaman.DataPinjamanModule;
+import com.ayannah.asira.screen.agent.tab_pesan.PesanModule;
 import com.ayannah.asira.screen.agent.viewBorrower.ViewBorrowerActivity;
 import com.ayannah.asira.screen.agent.viewBorrower.ViewBorrowerModule;
 import com.ayannah.asira.screen.borrower.borrower_landing_page.BorrowerLandingModule;
@@ -187,6 +188,7 @@ abstract class ActivityBindingModule {
             LPAgentModule.class,
             BerandaModule.class,
             DataPinjamanModule.class,
+            PesanModule.class,
             AgentProfileModule.class
     })
     abstract LPAgentActivity lpAgentActivity();

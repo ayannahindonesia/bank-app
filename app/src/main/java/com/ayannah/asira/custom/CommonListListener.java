@@ -48,4 +48,12 @@ public interface CommonListListener {
         void onClick(MenuAgent param);
     }
 
+    interface AgentsClientListener{
+
+        void onClickClient(UserBorrower param);
+
+        void onClickAjukan(UserBorrower param);
+
+    }
+
 }

@@ -58,21 +58,43 @@ public class ViewBorrowerPresenter implements ViewBorrowerContract.Presenter {
             return;
         }
 
-        mComposite.add(remoteRepository.getListBorrower(bankId)
+        mComposite.add(remoteRepository.getListBorrower_new(bankId)
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(res -> {
 
             //success
-            mView.getAllData(res.getTotalData(), res.getData());
+            mView.getAllData(res.getData());
 
         }, error ->{
 
             //error
-            mView.showErrorMessage(CommonUtils.errorResponseGetCode(error));
+            ANError anError = (ANError) error;
+            mView.showErrorMessage(CommonUtils.errorResponseMessage(error), anError.getErrorCode());
 
         }));
 
+    }
+
+    @Override
+    public void retrieveBanks() {
+        if(mView == null){
+            return;
+        }
+
+        mComposite.add(remoteRepository.getAllBanksAgent()
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(response ->{
+
+            mView.getAllBank(response.getData());
+
+        }, error ->{
+
+            ANError anError = (ANError) error;
+            mView.showErrorMessage(CommonUtils.errorResponseMessage(error), anError.getErrorCode());
+
+        }));
     }
 
     @Override
@@ -89,12 +111,18 @@ public class ViewBorrowerPresenter implements ViewBorrowerContract.Presenter {
 
             getTokenAdminLender();
         }, err -> {
-            mView.showErrorMessage(CommonUtils.errorResponseWithStatusCode(err));
+            ANError anError = (ANError)err;
+            mView.showErrorMessage(CommonUtils.errorResponseMessage(err), anError.getErrorCode());
         }));
     }
 
     @Override
     public void getTokenAdminLender() {
+
+        if(mView == null){
+            return;
+        }
+
         mComposite.add(remoteRepository.getTokenAdminLender()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -104,7 +132,8 @@ public class ViewBorrowerPresenter implements ViewBorrowerContract.Presenter {
 
                 }, error -> {
 
-                    mView.showErrorMessage(CommonUtils.errorResponseWithStatusCode(error));
+                    ANError anError = (ANError)error;
+                    mView.showErrorMessage(CommonUtils.errorResponseMessage(error), anError.getErrorCode());
 
                 }));
     }
@@ -120,6 +149,11 @@ public class ViewBorrowerPresenter implements ViewBorrowerContract.Presenter {
 
     @Override
     public void postOTPRequestBorrowerAgent(String id) {
+
+        if(mView == null){
+            return;
+        }
+
         mComposite.add(Completable.fromAction(() -> {
 
             remoteRepository.postOTPRequestBorrowerAgent(id);

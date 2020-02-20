@@ -20,6 +20,8 @@ public interface RegisterMandatoryContract {
         void failedCheckUnique(String message);
 
         void loginComplete();
+
+        void goToAgentLandingPage();
     }
 
     interface Presenter extends BasePresenter<View> {
@@ -32,5 +34,7 @@ public interface RegisterMandatoryContract {
         void getToken();
 
         boolean isUserLogged();
+
+        boolean isAgentLogged();
     }
 }

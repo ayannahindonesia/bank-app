@@ -39,9 +39,6 @@ public class CommonUtils {
                 (ipAddress & 0xff), (ipAddress >> 7 & 0xff), (ipAddress >> 16 & 0xff), (ipAddress >> 24 & 0xff));
     }
 
-    public static void showToast(String text, Context context){
-        Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
-    }
 
     public  static String formatDateBirth(String dateBirth){
 
@@ -103,7 +100,7 @@ public class CommonUtils {
 
     }
 
-    public static String errorResponseWithStatusCode(Throwable error){
+    public static String errorResponseMessage(Throwable error){
 
         String result = null;
 
@@ -113,13 +110,7 @@ public class CommonUtils {
 
             result = "Tidak ada koneksi internet";
 
-        }else if(anError.getErrorCode() == HttpsURLConnection.HTTP_BAD_GATEWAY ||
-                anError.getErrorCode() == HttpsURLConnection.HTTP_SERVER_ERROR){
-
-            result = String.format("Code: %s\nSedang dalam perbaikan, silakan coba beberapa saat lagi.", anError.getErrorCode());
-
-
-        }else {
+        }else{
 
             if(anError.getErrorBody() != null){
 
@@ -133,7 +124,11 @@ public class CommonUtils {
                     e.printStackTrace();
                 }
 
+            }else {
+
+                result = "Bad Gateway";
             }
+
 
         }
 
@@ -167,6 +162,12 @@ public class CommonUtils {
         }
 
         return s;
+    }
+
+    public static String formatPhoneNumberGlobal(String phone){
+
+        return "+62 " + phone.substring(1);
+
     }
 
 }

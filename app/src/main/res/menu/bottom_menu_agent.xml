@@ -12,7 +12,7 @@
         android:icon="@drawable/agent_pinjaman"/>
 
     <item
-        android:id="@+id/dataPencairan"
+        android:id="@+id/pesan"
         android:title="Pesan"
         android:icon="@drawable/agent_pesan"/>
 
