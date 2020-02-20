@@ -130,6 +130,14 @@ public class RegisterMandatoryFragment extends BaseFragment implements RegisterM
         }
     }
 
+    @OnFocusChange(value = R.id.etPhone)
+    void phoneFocus() {
+        if (etPhone.getText().toString().equals("")) {
+            etPhone.setText("62");
+            etPhone.setSelection(etPhone.getText().length());
+        }
+    }
+
 //    @OnTextChanged(value = R.id.etPhone, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
 //    void afterChanged(EditText s) {
 //        String s1 = s.getText().toString();

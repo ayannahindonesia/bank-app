@@ -38,6 +38,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import butterknife.OnFocusChange;
 import butterknife.OnTextChanged;
 import butterknife.OnTouch;
 
@@ -301,6 +302,14 @@ public class LoginFragment extends BaseFragment implements
     @OnTextChanged(value =R.id.etPhone, callback = OnTextChanged.Callback.TEXT_CHANGED)
     void et_onchanged_phone(CharSequence editable) {
         if (editable.toString().equals("") || editable.toString().equals("6")) {
+            etPhone.setText("62");
+            etPhone.setSelection(etPhone.getText().length());
+        }
+    }
+
+    @OnFocusChange(value = R.id.etPhone)
+    void phoneFocus() {
+        if (etPhone.getText().toString().equals("")) {
             etPhone.setText("62");
             etPhone.setSelection(etPhone.getText().length());
         }
