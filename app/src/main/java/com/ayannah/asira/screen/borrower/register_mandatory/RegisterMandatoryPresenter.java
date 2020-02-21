@@ -67,7 +67,7 @@ public class RegisterMandatoryPresenter implements RegisterMandatoryContract.Pre
 
             if(anError.getErrorBody() != null) {
                 JSONObject json = new JSONObject(anError.getErrorBody());
-                String message = String.format("%s (kode: %s)", json.optString("message"), anError.getErrorCode());
+                String message = json.optString("message");
                 mView.failedCheckUnique(message);
 
             }else {

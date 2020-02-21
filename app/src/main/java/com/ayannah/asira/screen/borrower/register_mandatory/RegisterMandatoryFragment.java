@@ -243,6 +243,7 @@ public class RegisterMandatoryFragment extends BaseFragment implements RegisterM
 
     @Override
     public void failedCheckUnique(String errMessage) {
+        dialog.dismiss();
         Toast.makeText(parentActivity(), errMessage, Toast.LENGTH_LONG).show();
     }
 
