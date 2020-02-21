@@ -3,6 +3,10 @@ package com.ayannah.asira.screen.agent.tab_data_pinjaman;
 import com.ayannah.asira.base.BasePresenter;
 import com.ayannah.asira.base.BaseView;
 import com.ayannah.asira.data.model.BankList;
+import com.ayannah.asira.data.model.Loans.DataItem;
+import com.ayannah.asira.data.model.Loans.Loans;
+
+import java.util.List;
 
 public interface DataPinjamanContract {
 
@@ -10,12 +14,12 @@ public interface DataPinjamanContract {
 
         void showErrorMessage(String message, int errorCode);
 
-        void showBanks(BankList bankList);
+        void showAllLoans(List<DataItem> results);
     }
 
     interface Presenter extends BasePresenter<View>{
 
-        void fetchBanks();
+        void retrieveLoans();
 
     }
 }

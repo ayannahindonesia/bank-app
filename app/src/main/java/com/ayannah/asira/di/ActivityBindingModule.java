@@ -32,6 +32,8 @@ import com.ayannah.asira.screen.agent.services.ListServicesAgentModule;
 import com.ayannah.asira.screen.agent.tab_agent_profile.AgentProfileModule;
 import com.ayannah.asira.screen.agent.tab_beranda.BerandaModule;
 import com.ayannah.asira.screen.agent.tab_data_pinjaman.DataPinjamanModule;
+import com.ayannah.asira.screen.agent.tab_data_pinjaman.filter.FilterPinjamanActivity;
+import com.ayannah.asira.screen.agent.tab_data_pinjaman.filter.FilterPinjamanModule;
 import com.ayannah.asira.screen.agent.tab_pesan.PesanModule;
 import com.ayannah.asira.screen.agent.viewBorrower.ViewBorrowerActivity;
 import com.ayannah.asira.screen.agent.viewBorrower.ViewBorrowerModule;
@@ -260,4 +262,9 @@ abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = RegisterMandatoryModule.class)
     abstract RegisterMandatoryActivity registerMandatoryActivity();
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = FilterPinjamanModule.class)
+    abstract FilterPinjamanActivity filterPinjamanActivity();
+
 }

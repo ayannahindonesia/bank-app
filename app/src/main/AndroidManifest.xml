@@ -114,6 +114,8 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".screen.borrower.register_mandatory.RegisterMandatoryActivity"
             android:windowSoftInputMode="adjustPan"/>
+        <activity android:name=".screen.agent.tab_data_pinjaman.filter.FilterPinjamanActivity"
+            android:screenOrientation="portrait"/>
 
         <service
             android:name=".util.MyFirebaseMessagingService"

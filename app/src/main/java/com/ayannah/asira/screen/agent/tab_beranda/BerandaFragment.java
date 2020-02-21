@@ -16,6 +16,7 @@ import com.ayannah.asira.custom.CommonListListener;
 import com.ayannah.asira.data.model.MenuAgent;
 import com.ayannah.asira.data.model.UserBorrower;
 import com.ayannah.asira.dialog.BottomDialogHandlingError;
+import com.ayannah.asira.dialog.BottomErrorHandling;
 import com.ayannah.asira.dialog.BottomSheetBorrowerAgent;
 import com.ayannah.asira.screen.agent.registerborrower.choosebank.ChooseBankAgentActivity;
 import com.ayannah.asira.screen.agent.services.ListServicesAgentActivity;
@@ -79,7 +80,9 @@ public class BerandaFragment extends BaseFragment implements BerandaContract.Vie
     @Override
     public void showErrorMessage(String message, int code) {
 
-        Toast.makeText(parentActivity(), String.format("%s - %s", message, code), Toast.LENGTH_SHORT).show();
+        BottomErrorHandling error = new BottomErrorHandling(message, code);
+        error.showNow(parentActivity().getSupportFragmentManager(), "error");
+        error.setOnClickListener(code1 -> error.dismiss());
     }
 
     @Override

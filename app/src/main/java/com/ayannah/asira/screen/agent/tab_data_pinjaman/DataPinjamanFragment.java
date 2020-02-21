@@ -11,31 +11,36 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ayannah.asira.R;
 import com.ayannah.asira.adapter.ChooseBankAdapter;
+import com.ayannah.asira.adapter.CommonListAdapter;
 import com.ayannah.asira.base.BaseFragment;
 import com.ayannah.asira.data.model.BankDetail;
 import com.ayannah.asira.data.model.BankList;
+import com.ayannah.asira.data.model.Loans.Loans;
+import com.ayannah.asira.dialog.BottomErrorHandling;
 import com.ayannah.asira.screen.agent.listloan.ListLoanActivtiy;
+import com.ayannah.asira.screen.agent.tab_data_pinjaman.filter.FilterPinjamanActivity;
 import com.google.android.material.snackbar.Snackbar;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class DataPinjamanFragment extends BaseFragment implements DataPinjamanContract.View, ChooseBankAdapter.ChooseBankListener {
 
     @Inject
     DataPinjamanContract.Presenter mPresenter;
 
-    @BindView(R.id.ly_datapinjaman)
-    LinearLayout ly_datapinjaman;
-
     @BindView(R.id.rvBanks)
     RecyclerView recyclerView;
 
     @Inject
-    ChooseBankAdapter adapter;
+    CommonListAdapter adapter;
 
     private Snackbar snackbar;
+    private int FILTER = 5;
 
     @Override
     protected int getLayoutView() {
@@ -47,13 +52,13 @@ public class DataPinjamanFragment extends BaseFragment implements DataPinjamanCo
         super.onResume();
         mPresenter.takeView(this);
 
-        mPresenter.fetchBanks();
+        mPresenter.retrieveLoans();
     }
 
     @Override
     protected void initView(Bundle state) {
 
-        recyclerView.setLayoutManager(new GridLayoutManager(parentActivity(), 3));
+        recyclerView.setLayoutManager(new LinearLayoutManager(parentActivity()));
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
 
@@ -62,20 +67,19 @@ public class DataPinjamanFragment extends BaseFragment implements DataPinjamanCo
     @Override
     public void showErrorMessage(String message, int errorCode) {
 
-        snackbar = Snackbar
-                .make(ly_datapinjaman, String.format("%s - Kode error %s", message, errorCode), Snackbar.LENGTH_SHORT)
-                .setAction("Tutup", v -> snackbar.dismiss());
-
-        snackbar.show();
+        BottomErrorHandling error = new BottomErrorHandling(message, errorCode);
+        error.showNow(parentActivity().getSupportFragmentManager(), "error");
+        error.setOnClickListener(new BottomErrorHandling.BottomSheetErrorListener() {
+            @Override
+            public void onClickClose(int code) {
+                error.dismiss();
+            }
+        });
 
     }
 
     @Override
-    public void showBanks(BankList bankList) {
-
-        adapter.setItemBank(bankList.getData());
-
-        adapter.setOnClickBankListener(this);
+    public void showAllLoans(List<Loans> results) {
 
     }
 
@@ -86,6 +90,14 @@ public class DataPinjamanFragment extends BaseFragment implements DataPinjamanCo
         intent.putExtra(ListLoanActivtiy.BANKID, bank.getId());
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
+
+    }
+
+    @OnClick(R.id.filter)
+    void onClickFilter(){
+
+        Intent intent = new Intent(parentActivity(), FilterPinjamanActivity.class);
+        startActivityForResult(intent, FILTER);
 
     }
 }

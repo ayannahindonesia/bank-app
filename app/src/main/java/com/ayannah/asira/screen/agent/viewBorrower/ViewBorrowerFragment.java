@@ -107,7 +107,6 @@ public class ViewBorrowerFragment extends BaseFragment implements ViewBorrowerCo
         bankList.add("Pilih bank...");
 
         for(BankDetail data: results){
-            Log.e(TAG, String.format("%s - %s", data.getId(), data.getName()));
             bankList.add(data.getName());
         }
 

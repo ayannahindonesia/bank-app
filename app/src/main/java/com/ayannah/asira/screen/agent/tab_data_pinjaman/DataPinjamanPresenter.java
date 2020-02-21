@@ -32,18 +32,18 @@ public class DataPinjamanPresenter implements DataPinjamanContract.Presenter {
     }
 
     @Override
-    public void fetchBanks() {
+    public void retrieveLoans() {
 
         if(mView == null){
             return;
         }
 
-        mDisposable.add(remoteRepository.getAllBanksAgent()
+        mDisposable.add(remoteRepository.getAgentLoan("0")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> {
 
-                    mView.showBanks(response);
+                    mView.showAllLoans(response.getData());
 
                 }, error -> {
                     ANError anError = (ANError) error;
