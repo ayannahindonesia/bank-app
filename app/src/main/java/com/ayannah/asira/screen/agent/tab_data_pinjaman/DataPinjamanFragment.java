@@ -15,6 +15,7 @@ import com.ayannah.asira.adapter.CommonListAdapter;
 import com.ayannah.asira.base.BaseFragment;
 import com.ayannah.asira.data.model.BankDetail;
 import com.ayannah.asira.data.model.BankList;
+import com.ayannah.asira.data.model.Loans.DataItem;
 import com.ayannah.asira.data.model.Loans.Loans;
 import com.ayannah.asira.dialog.BottomErrorHandling;
 import com.ayannah.asira.screen.agent.listloan.ListLoanActivtiy;
@@ -79,7 +80,7 @@ public class DataPinjamanFragment extends BaseFragment implements DataPinjamanCo
     }
 
     @Override
-    public void showAllLoans(List<Loans> results) {
+    public void showAllLoans(List<DataItem> results) {
 
     }
 
