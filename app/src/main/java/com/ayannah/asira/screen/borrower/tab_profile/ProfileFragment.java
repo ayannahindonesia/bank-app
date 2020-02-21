@@ -125,6 +125,7 @@ public class ProfileFragment extends BaseFragment implements ProfileContract.Vie
 
         Intent logout = new Intent(parentActivity(), LoginActivity.class);
         logout.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        logout.putExtra("hasTop", "false");
         startActivity(logout);
         parentActivity().finish();
 

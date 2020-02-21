@@ -94,6 +94,7 @@ public class BorrowerLandingFragment extends BaseFragment implements BorrowerLan
                     }
                 } else {
                     Intent intent = new Intent(parentActivity(), LoginActivity.class);
+                    intent.putExtra("hasTop", "false");
                     startActivity(intent);
                 }
 

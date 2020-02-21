@@ -25,6 +25,8 @@ public interface VerificationOTPContract {
         void successRequestOTP();
 
         void callAPIGetClientToken();
+
+        void showErrorMessageOTP(String message, int errorCode);
     }
 
     interface Presenter extends BasePresenter<View> {
