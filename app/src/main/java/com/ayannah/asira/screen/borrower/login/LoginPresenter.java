@@ -57,6 +57,10 @@ public class LoginPresenter implements LoginContract.Presenter {
     @Override
     public void getPublicToken(String phone, String pass) {
 
+        if(mView == null){
+            return;
+        }
+
         mComposite.add(remotRepo.getToken()
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
@@ -64,14 +68,10 @@ public class LoginPresenter implements LoginContract.Presenter {
 
             preferenceRepository.setPublicToken("Bearer "+response.getToken());
 
-            Log.d(TAG, "public_token: "+preferenceRepository.getPublicToken());
-
             getClientToken(phone, pass);
 
         }, error -> {
 
-//            assert mView != null;
-//            mView.showErrorMessage(error.getMessage());
             ANError anError = (ANError) error;
             if (anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)) {
                 mView.showErrorMessage("Tidak Ada Koneksi");
@@ -88,7 +88,6 @@ public class LoginPresenter implements LoginContract.Presenter {
     public void getClientToken(String phone, String pass) {
 
         if(mView == null){
-            Toast.makeText(application, "something wrong in getClientToken()", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -126,7 +125,7 @@ public class LoginPresenter implements LoginContract.Presenter {
                 if(anError.getErrorBody() != null){
 
                     JSONObject jsonObject = new JSONObject(anError.getErrorBody());
-                    mView.showErrorMessage(jsonObject.optString("message") + " on getClientToken()");
+                    mView.showErrorMessage(jsonObject.optString("message"));
                 }
             }
 
@@ -138,7 +137,6 @@ public class LoginPresenter implements LoginContract.Presenter {
     public void setUserIdentity() {
 
         if(mView == null){
-            Toast.makeText(application, "something wrong in setUserIdentity()", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -207,7 +205,6 @@ public class LoginPresenter implements LoginContract.Presenter {
 
             preferenceRepository.setBankAccountBorrower(response.getBankAccountnumber());
 
-//            mView.loginComplete();
             sendFCMTokenUser();
 
         }, error ->{
@@ -270,14 +267,7 @@ public class LoginPresenter implements LoginContract.Presenter {
 
             }
         })
-        .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-
-                        mView.errorFCM(e.getMessage());
-
-                    }
-                });
+        .addOnFailureListener(e -> mView.errorFCM(e.getMessage()));
 
     }
 
@@ -289,7 +279,6 @@ public class LoginPresenter implements LoginContract.Presenter {
     @Override
     public void postRequestOTP(JsonObject jsonObject) {
         if (mView == null) {
-            Toast.makeText(application, "something wrong in setUserIdentity()", Toast.LENGTH_SHORT).show();
             return;
         }
 
