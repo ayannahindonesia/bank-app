@@ -21,6 +21,7 @@ import com.ayannah.asira.R;
 import com.ayannah.asira.base.BaseFragment;
 import com.ayannah.asira.screen.agent.loginagent.LoginAgentActivity;
 import com.ayannah.asira.screen.borrower.borrower_landing_page.BorrowerLandingPage;
+import com.ayannah.asira.screen.borrower.register_mandatory.RegisterMandatoryActivity;
 import com.ayannah.asira.screen.otpphone.VerificationOTPActivity;
 import com.ayannah.asira.screen.register.formothers.FormOtherFragment;
 import com.ayannah.asira.screen.register.termcondition.TermConditionActivity;
@@ -166,7 +167,15 @@ public class LoginFragment extends BaseFragment implements
     @OnClick(R.id.txtDaftar)
     void onClickRegister(){
 
-        parentActivity().finish();
+        if (parentActivity().getIntent().hasExtra("hasTop")) {
+            Intent intent = new Intent(parentActivity(), RegisterMandatoryActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            parentActivity().finish();
+            parentActivity().getIntent().removeExtra("hasTop");
+        } else {
+            parentActivity().finish();
+        }
 
     }
 

@@ -131,7 +131,6 @@ public class VerificationOTPFragment extends BaseFragment implements Verificatio
         otpView.setOtpCompletionListener(new OnOtpCompletionListener() {
             @Override
             public void onOtpCompleted(String otp) {
-                countDownTimer.cancel();
                 hideKeyboard(parentActivity());
 
                 dialog.show();
@@ -334,6 +333,7 @@ public class VerificationOTPFragment extends BaseFragment implements Verificatio
 
     @Override
     public void loginComplete() {
+        countDownTimer.cancel();
         dialog.dismiss();
 
         Intent login = new Intent(parentActivity(), BorrowerLandingPage.class);
@@ -382,5 +382,12 @@ public class VerificationOTPFragment extends BaseFragment implements Verificatio
             view = new View(activity);
         }
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+    @Override
+    public void showErrorMessageOTP(String message, int codeError) {
+        dialog.dismiss();
+        txtWrongOTP.setVisibility(View.VISIBLE);
+        vibrator.vibrate(patternVibrate, -1);
     }
 }

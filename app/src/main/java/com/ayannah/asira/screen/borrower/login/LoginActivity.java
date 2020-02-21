@@ -9,6 +9,7 @@ import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
 
 import com.ayannah.asira.R;
+import com.ayannah.asira.screen.borrower.register_mandatory.RegisterMandatoryActivity;
 import com.ayannah.asira.util.ActivityUtils;
 
 import javax.inject.Inject;
@@ -52,7 +53,15 @@ public class LoginActivity extends DaggerAppCompatActivity {
         tvSkip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                if (getIntent().hasExtra("hasTop")) {
+                    Intent intent = new Intent(getBaseContext(), RegisterMandatoryActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                    finish();
+                    getIntent().removeExtra("hasTop");
+                } else {
+                    onBackPressed();
+                }
             }
         });
 
@@ -69,5 +78,19 @@ public class LoginActivity extends DaggerAppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         mUnbinder.unbind();
+    }
+
+    @Override
+    public void onBackPressed() {
+//        super.onBackPressed();
+        if (getIntent().hasExtra("hasTop")) {
+            Intent intent = new Intent(getBaseContext(), RegisterMandatoryActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            finish();
+            getIntent().removeExtra("hasTop");
+        } else {
+            super.onBackPressed();
+        }
     }
 }

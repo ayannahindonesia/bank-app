@@ -404,7 +404,11 @@ public class VerificationOTPPresenter implements VerificationOTPContract.Present
             if(anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
                 mView.showErrorMessage("Tidak ada koneksi", 0);
             }else {
-                if(anError.getErrorBody() != null){
+                if(anError.getErrorBody() != null && anError.getErrorCode() == 500){
+
+                    JSONObject jsonObject2 = new JSONObject(anError.getErrorBody());
+                    mView.showErrorMessageOTP(jsonObject2.optString("message"), anError.getErrorCode());
+                } else {
 
                     JSONObject jsonObject2 = new JSONObject(anError.getErrorBody());
                     mView.showErrorMessage(jsonObject2.optString("message"), anError.getErrorCode());
