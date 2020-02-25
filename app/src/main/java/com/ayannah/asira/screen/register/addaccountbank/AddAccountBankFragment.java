@@ -34,15 +34,13 @@ import butterknife.OnClick;
 public class AddAccountBankFragment extends BaseFragment implements AddAccountBankContract.View, Validator.ValidationListener {
 
     private AddDocumentFragment fragmentadd = new AddDocumentFragment();
-
     BottomSheetDialogGlobal dialog;
 
-//    @BindView(R.id.bankName)
-//    TextView bankName;
+    @BindView(R.id.bankName) TextView bankName;
     String bName = null;
 
-    @BindView(R.id.bankImage)
-    ImageView bankImage;
+//    @BindView(R.id.bankImage)
+//    ImageView bankImage;
 
     @NotEmpty(message = "Masukan nomor rekening")
     @BindView(R.id.regist_accNumber)
@@ -57,7 +55,7 @@ public class AddAccountBankFragment extends BaseFragment implements AddAccountBa
 
     @Override
     protected int getLayoutView() {
-        return R.layout.fragment_add_account_bank;
+        return R.layout.fragment_add_account_bank_new;
     }
 
     @Override
@@ -68,59 +66,10 @@ public class AddAccountBankFragment extends BaseFragment implements AddAccountBa
         Bundle bundle = parentActivity().getIntent().getExtras();
         assert bundle != null;
 
-        ImageUtils.displayImageFromUrlWithErrorDrawable(parentActivity(), bankImage, bundle.getString(FormOtherFragment.BANK_LOGO), null);
+//        ImageUtils.displayImageFromUrlWithErrorDrawable(parentActivity(), bankImage, bundle.getString(FormOtherFragment.BANK_LOGO), null);
 
         bName = bundle.getString(FormOtherFragment.BANK_NAME);
-//        bankName.setText(bName);
-
-        dialog = new BottomSheetDialogGlobal().showHaveBankAcc(getFragmentManager(), BottomSheetDialogGlobal.HAVE_ACC_BANK,
-                "Kepemilikan Rekening",
-                "Apakah kamu memiliki nomor rekening pada "+bName,
-                bundle.getString(FormOtherFragment.BANK_LOGO));
-
-        dialog.setOnClickBottomSheetInstruction(new BottomSheetDialogGlobal.BottomSheetInstructionListener() {
-            @Override
-            public void onClickButtonDismiss() {
-//                Bundle bundle1 = parentActivity().getIntent().getExtras();
-//                dialog.dismiss();
-//                Intent doc = new Intent(parentActivity(), AddDocumentActivity.class);
-//                doc.putExtras(bundle1);
-//                parentActivity().finish();
-//                startActivity(doc);
-
-                dialog.dismiss();
-
-                BottomSheetAggreement bsk = new BottomSheetAggreement();
-
-                bsk.setBankName(bName, bundle.getString(FormOtherFragment.BANK_LOGO));
-                bsk.showNow(parentActivity().getSupportFragmentManager(), "aggreeement");
-                //                    @Override
-//                    public void onClickClose() {
-//                        bsk.dismiss();
-//                    }
-                bsk.setOnCheckListener(() -> {
-
-                    Bundle bundle1 = parentActivity().getIntent().getExtras();
-                    bsk.dismiss();
-                    Intent doc = new Intent(parentActivity(), AddDocumentActivity.class);
-                    doc.putExtras(bundle1);
-                    parentActivity().finish();
-                    startActivity(doc);
-
-                });
-            }
-
-            @Override
-            public void onClickButtonYes() {
-
-                dialog.dismiss();
-            }
-
-            @Override
-            public void closeApps() {
-                //dont do anything in here
-            }
-        });
+        bankName.setText(bName);
 
     }
 
@@ -154,5 +103,36 @@ public class AddAccountBankFragment extends BaseFragment implements AddAccountBa
                 Toast.makeText(parentActivity(), message, Toast.LENGTH_LONG).show();
             }
         }
+    }
+
+    @OnClick(R.id.accountDisclaimer)
+    void showPopUp() {
+        Bundle bundle = parentActivity().getIntent().getExtras();
+        assert bundle != null;
+
+        dialog = new BottomSheetDialogGlobal().showHaveBankAcc(getFragmentManager(), BottomSheetDialogGlobal.HAVE_ACC_BANK,
+                "Persetujuan permbuatan rekening",
+                "Apakah anda bersedia jika data yang dimasukkan akan digunakan juga sebagai data pengajuan rekening baru di "+bName+"?");
+
+        dialog.setOnClickBottomSheetInstruction(new BottomSheetDialogGlobal.BottomSheetInstructionListener() {
+            @Override
+            public void onClickButtonDismiss() {
+
+                dialog.dismiss();
+            }
+
+            @Override
+            public void onClickButtonYes() {
+                Bundle bundle1 = parentActivity().getIntent().getExtras();
+                Intent doc = new Intent(parentActivity(), AddDocumentActivity.class);
+                doc.putExtras(bundle1);
+                startActivity(doc);
+            }
+
+            @Override
+            public void closeApps() {
+                //dont do anything in here
+            }
+        });
     }
 }

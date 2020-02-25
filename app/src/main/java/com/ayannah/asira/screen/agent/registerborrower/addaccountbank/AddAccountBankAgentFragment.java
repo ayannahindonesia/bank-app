@@ -67,8 +67,7 @@ public class AddAccountBankAgentFragment extends BaseFragment implements AddAcco
 
         dialog = new BottomSheetDialogGlobal().showHaveBankAcc(getFragmentManager(), BottomSheetDialogGlobal.HAVE_ACC_BANK,
                 "Kepemilikan Rekening",
-                "Apakah kamu memiliki nomor rekening pada "+bName,
-                bundle.getString(FormOtherAgentFragment.BANK_LOGO));
+                "Apakah kamu memiliki nomor rekening pada "+bName);
         dialog.setOnClickBottomSheetInstruction(new BottomSheetDialogGlobal.BottomSheetInstructionListener() {
             @Override
             public void onClickButtonDismiss() {

@@ -53,6 +53,7 @@ public class DataPinjamanFragment extends BaseFragment implements DataPinjamanCo
         super.onResume();
         mPresenter.takeView(this);
 
+
         mPresenter.retrieveLoans();
     }
 

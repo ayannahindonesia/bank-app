@@ -32,5 +32,6 @@
     <color name="textColorAsira">#2D85E9</color>
     <color name="textColorAsiraGrey">#535353</color>
     <color name="bgTakePicture">#D6ECFF</color>
+    <color name="textColorAsiraOrange">#F6C06A</color>
 
 </resources>

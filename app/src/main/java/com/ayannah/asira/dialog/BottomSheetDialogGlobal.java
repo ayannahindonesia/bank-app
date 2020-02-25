@@ -78,13 +78,12 @@ public class BottomSheetDialogGlobal extends BottomSheetDialogFragment {
 
     }
 
-    public BottomSheetDialogGlobal showHaveBankAcc(FragmentManager fragmentManager, String type, String title, String desc, String img){
+    public BottomSheetDialogGlobal showHaveBankAcc(FragmentManager fragmentManager, String type, String title, String desc){
 
         Bundle args = new Bundle();
         args.putString(TITLE, title);
         args.putString(TYPE, type);
         args.putString(DESCRRIPTION, desc);
-        args.putString(BANKIMG, img);
 
         BottomSheetDialogGlobal fragment = new BottomSheetDialogGlobal();
         fragment.setArguments(args);
@@ -121,9 +120,10 @@ public class BottomSheetDialogGlobal extends BottomSheetDialogFragment {
                     break;
                 case HAVE_ACC_BANK:
 
-                    ImageUtils.displayImageFromUrlWithErrorDrawable(view.getContext(), ivInsrtuction, getArguments().getString(BANKIMG), null);
                     tvTitle.setText(getArguments().getString(TITLE));
+                    tvTitle.setTextColor(getResources().getColor(R.color.customBlack));
                     desc.setText(getArguments().getString(DESCRRIPTION));
+                    desc.setTextColor(getResources().getColor(R.color.customBlack));
                     btnOk.setVisibility(View.GONE);
                     lyButton.setVisibility(View.VISIBLE);
 
