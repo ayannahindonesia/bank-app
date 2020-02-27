@@ -14,19 +14,35 @@ import android.text.Editable;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 
 import com.ayannah.asira.R;
 import com.ayannah.asira.base.BaseFragment;
+import com.ayannah.asira.data.local.PreferenceRepository;
+import com.ayannah.asira.data.model.Bank;
+import com.ayannah.asira.data.model.Kabupaten;
+import com.ayannah.asira.data.model.Kecamatan;
+import com.ayannah.asira.data.model.Kelurahan;
+import com.ayannah.asira.data.model.Provinsi;
+import com.ayannah.asira.data.model.ReasonLoan;
 import com.ayannah.asira.dialog.BottomSheetDialogGlobal;
+import com.ayannah.asira.screen.borrower.borrower_landing_page.BorrowerLandingPage;
 import com.ayannah.asira.screen.register.formBorrower.FormBorrowerActivity;
 import com.ayannah.asira.screen.register.formothers.FormOtherFragment;
 import com.ayannah.asira.util.CameraTakeBeforeM;
 import com.ayannah.asira.util.CameraTakeM;
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.ConfirmPassword;
@@ -35,11 +51,13 @@ import com.mobsandgeeks.saripaar.annotation.Length;
 import com.mobsandgeeks.saripaar.annotation.Min;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.mobsandgeeks.saripaar.annotation.Password;
+import com.mobsandgeeks.saripaar.annotation.Select;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -55,6 +73,7 @@ public class AddDocumentFragment extends BaseFragment implements AddDocumentCont
 
     private Bitmap mBitmapKTP;
     private Bitmap mBitmapNPWP;
+    private ArrayAdapter<String> mAdapterProvince;
 
     @BindView(R.id.imgKTP)
     ImageView imgKtp;
@@ -62,11 +81,11 @@ public class AddDocumentFragment extends BaseFragment implements AddDocumentCont
     @BindView(R.id.imgNPWP)
     ImageView imgNpwp;
 
-    @BindView(R.id.editKTP)
-    ImageView editKtp;
+    @BindView(R.id.txtTitleKTP)
+    TextView txtTitleKTP;
 
-    @BindView(R.id.editNPWP)
-    ImageView editNpwp;
+    @BindView(R.id.textTitleNPWP)
+    TextView textTitleNPWP;
 
     @Length(min = 16, message = "Masukan 16 Karakter Nomor KTP", trim = true)
     @BindView(R.id.etKTP)
@@ -75,24 +94,61 @@ public class AddDocumentFragment extends BaseFragment implements AddDocumentCont
     @BindView(R.id.etNPWP)
     EditText etNPWP;
 
-    @NotEmpty(message = "Masukan Alamat Email Anda", trim = true)
-    @Email(message = "Format Email Salah")
-    @BindView(R.id.regist_email)
-    EditText email;
+    @NotEmpty(message = "Alamat tidak boleh kosong", trim = true)
+    @BindView(R.id.etAddress)
+    EditText etAddress;
 
-    @NotEmpty(message = "Masukan Nomor Handphone Anda, min 10 digit", trim = true)
-    @Length(min = 10, message = "Minimal 10 digit, Maximal 14 digit", max = 14)
-    @BindView(R.id.regist_phone)
-    EditText phone;
+    @NotEmpty(message = "RT tidak boleh kosong", trim = true)
+    @BindView(R.id.etValRT)
+    EditText etValRT;
 
-    @Password(min = 1, message = "Masukan Password")
-    @BindView(R.id.regist_pass)
-    EditText pass;
+    @NotEmpty(message = "RW tidak boleh kosong", trim = true)
+    @BindView(R.id.etValRW)
+    EditText etValRW;
 
-    @NotEmpty(message = "Masukan Konfirmasi Password", trim = true)
-    @ConfirmPassword(message = "Password Tidak Cocok")
-    @BindView(R.id.regist_pass_retype)
-    EditText passRetype;
+    @NotEmpty(message = "Nama Ibu Kandung tidak boleh kosong", trim = true)
+    @BindView(R.id.etMotherName)
+    EditText etMotherName;
+
+    @Select(message = "Wajib pilih Provinsi")
+    @BindView(R.id.spProvince)
+    Spinner spProvince;
+
+    @BindView(R.id.txtCity)
+    TextView txtCity;
+
+    @Select(message = "Wajib pilih Kabupaten/Kota")
+    @BindView(R.id.spCity)
+    Spinner spCity;
+
+    @BindView(R.id.txtKecamatan)
+    TextView txtKecamatan;
+
+    @Select(message = "Wajib pilih Kecamatan")
+    @BindView(R.id.spKecamatan)
+    Spinner spKecamatan;
+
+    @BindView(R.id.txtKelurahan)
+    TextView txtKelurahan;
+
+    @Select(message = "Wajib pilih Kelurahan")
+    @BindView(R.id.spKelurahan)
+    Spinner spKelurahan;
+
+    @BindView(R.id.lyRayon)
+    LinearLayout lyRayon;
+
+    @Select(message = "Wajib pilih Pekerjaan")
+    @BindView(R.id.spJobs)
+    Spinner spJobs;
+
+    @BindView(R.id.etName)
+    EditText etName;
+
+    @BindView(R.id.etPhone)
+    EditText etPhone;
+
+    private String[] pekerjaan = {"Pilih Pekerjaan...", "Pemerintahan", "CPNS", "Pegawai Swasta", "Pegawai Pemerintah Nasional", "Pegawai Pemerintah Daerah"};
 
     private Validator validator;
 
@@ -116,8 +172,15 @@ public class AddDocumentFragment extends BaseFragment implements AddDocumentCont
 
         mPresenter.takeView(this);
 
-        dialog.show();
-        mPresenter.checkPublicToken();
+        ArrayAdapter<String> mAdapter = new ArrayAdapter<>(parentActivity(), R.layout.item_spinner, pekerjaan);
+        spJobs.setAdapter(mAdapter);
+
+        mPresenter.getCurrentProfile();
+
+        if (mAdapterProvince == null ) {
+            dialog.show();
+            mPresenter.getProvince();
+        }
 
         //check permission to access camera and gallery photo
         needPermission(new String[]{
@@ -170,45 +233,15 @@ public class AddDocumentFragment extends BaseFragment implements AddDocumentCont
 
     }
 
-    @OnClick(R.id.editKTP)
-    void onClickEdit(){
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            Intent intent = new Intent(parentActivity(), CameraTakeM.class);
-            intent.putExtra("state", "KTP");
-            startActivityForResult(intent, KTP);
-        } else {
-            Intent intent = new Intent(parentActivity(), CameraTakeBeforeM.class);
-            intent.putExtra("state", "KTP");
-            startActivityForResult(intent, KTP);
-        }
-
-    }
-
-    @OnClick(R.id.editNPWP)
-    void onClickEditNpwp(){
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            Intent intent = new Intent(parentActivity(), CameraTakeM.class);
-            intent.putExtra("state", "NPWP");
-            startActivityForResult(intent, NPWP);
-        } else {
-            Intent intent = new Intent(parentActivity(), CameraTakeBeforeM.class);
-            intent.putExtra("state", "NPWP");
-            startActivityForResult(intent, NPWP);
-        }
-
-    }
-
-    @OnClick(R.id.btnNext)
+    @OnClick(R.id.btnSave)
     void onClickNext(){
 
-
-        if (editNpwp.getVisibility() ==  View.VISIBLE && etNPWP.getText().toString().equals("")) {
+        if (textTitleNPWP.getVisibility() ==  View.GONE && etNPWP.getText().toString().equals("")) {
 
             etNPWP.setError("Masukan Nomor NPWP");
+            etNPWP.requestFocus();
 
-        } else if (editKtp.getVisibility() == View.GONE) {
+        } else if (txtTitleKTP.getVisibility() == View.VISIBLE) {
 
             Toast.makeText(parentActivity(), "Ambil Foto KTP Terlebih Dahulu", Toast.LENGTH_LONG).show();
 
@@ -263,7 +296,7 @@ public class AddDocumentFragment extends BaseFragment implements AddDocumentCont
 
                         imgKtp.setImageBitmap(newBItmap);
                         imgKtp.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                        editKtp.setVisibility(View.VISIBLE);
+                        txtTitleKTP.setVisibility(View.GONE);
 
                     } catch (Exception e) {
                         Log.d("Error", e.getMessage());
@@ -296,7 +329,7 @@ public class AddDocumentFragment extends BaseFragment implements AddDocumentCont
 
                         imgNpwp.setImageBitmap(newBitmap);
                         imgNpwp.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                        editNpwp.setVisibility(View.VISIBLE);
+                        textTitleNPWP.setVisibility(View.GONE);
 
                     } catch (Exception e) {
                         Log.d("Error", e.getMessage());
@@ -312,17 +345,44 @@ public class AddDocumentFragment extends BaseFragment implements AddDocumentCont
     @Override
     public void onValidationSucceeded() {
 
-        String pnumber;
-        if (phone.getText().toString().trim().substring(0,1).equals("0")) {
-            pnumber = "62" + phone.getText().toString().trim().substring(1);
-        } else if (phone.getText().toString().trim().substring(0,2).equals("62")) {
-            pnumber = phone.getText().toString().trim();
-        } else {
-            pnumber = "62"+phone.getText().toString().trim();
+        dialog.show();
+//        mPresenter.checkMandatoryItem(etKTP.getText().toString(), "", "", etNPWP.getText().toString());
+        Bundle bundle = parentActivity().getIntent().getExtras();
+
+        if(bundle == null){
+
+            bundle = new Bundle();
         }
 
-        dialog.show();
-        mPresenter.checkMandatoryItem(etKTP.getText().toString(), pnumber, email.getText().toString(), etNPWP.getText().toString());
+        Bank bank = new Bank();
+        bank.setInt64(Integer.parseInt(bundle.get("BANK_ID").toString()));
+        bank.setValid(true);
+
+        Gson gson = new Gson();
+        JsonElement jsonElement = gson.toJsonTree(bank);
+
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.add("bank", jsonElement);
+        if (bundle.get("ACC_NUMBER") != null) {
+            jsonObject.addProperty("bank_accountnumber", bundle.get("ACC_NUMBER").toString());
+        }
+        jsonObject.addProperty("idcard_image", pictKTP64);
+        jsonObject.addProperty("idcard_number", etKTP.getText().toString());
+        jsonObject.addProperty("taxid_image", pictNPWP64);
+        jsonObject.addProperty("taxid_number", etNPWP.getText().toString());
+        jsonObject.addProperty("address", etAddress.getText().toString());
+        jsonObject.addProperty("province", spProvince.getSelectedItem().toString());
+        jsonObject.addProperty("city", spCity.getSelectedItem().toString());
+        jsonObject.addProperty("subdistrict", spKelurahan.getSelectedItem().toString()); //kelurahan
+        jsonObject.addProperty("urban_village", spKecamatan.getSelectedItem().toString()); //kecamatan
+        jsonObject.addProperty("neighbour_association", etValRT.getText().toString()); //rt
+        jsonObject.addProperty("hamlets", etValRW.getText().toString()); //rw
+        jsonObject.addProperty("mother_name", etMotherName.getText().toString());
+        jsonObject.addProperty("occupation", spJobs.getSelectedItem().toString()); //pekerjaan
+        jsonObject.addProperty("field_of_work", spJobs.getSelectedItem().toString()); //jenis pekerjaan
+        jsonObject.addProperty("department", spJobs.getSelectedItem().toString()); //same with jenis pekerjaan (occupation)
+
+        mPresenter.patchUserProfile(jsonObject);
     }
 
     @Override
@@ -339,21 +399,6 @@ public class AddDocumentFragment extends BaseFragment implements AddDocumentCont
                     case R.id.etKTP:
                         etKTP.requestFocus();
                         etKTP.setSelection(0);
-
-                        break;
-                    case R.id.regist_email:
-                        email.requestFocus();
-                        email.setSelection(0);
-
-                        break;
-                    case R.id.regist_phone:
-                        phone.requestFocus();
-                        phone.setSelection(0);
-
-                        break;
-                    case R.id.regist_pass:
-                        pass.requestFocus();
-                        pass.setSelection(0);
 
                         break;
 
@@ -467,10 +512,7 @@ public class AddDocumentFragment extends BaseFragment implements AddDocumentCont
         bundle.putString(FormOtherFragment.PHOTO_NPWP, pictNPWP64);
         bundle.putString(FormOtherFragment.KTP_NO, etKTP.getText().toString());
         bundle.putString(FormOtherFragment.NPWP_NO, etNPWP.getText().toString());
-        bundle.putString(FormOtherFragment.EMAIL, email.getText().toString());
         bundle.putString(FormOtherFragment.PHONE, pnumber);
-        bundle.putString(FormOtherFragment.PASS, pass.getText().toString());
-        bundle.putString(FormOtherFragment.CONF_PASS, passRetype.getText().toString());
 
         Intent form = new Intent(parentActivity(), FormBorrowerActivity.class);
         form.putExtras(bundle);
@@ -481,6 +523,157 @@ public class AddDocumentFragment extends BaseFragment implements AddDocumentCont
     @Override
     public void dialogDismiss() {
         dialog.dismiss();
+    }
+
+    @Override
+    public void showProvices(List<Provinsi.Data> provinces) {
+        List<String> names = new ArrayList<>();
+        List<String> idProvinces = new ArrayList<>();
+
+        names.add("Pilih Provinsi...");
+        idProvinces.add("0");
+        for(Provinsi.Data data: provinces){
+            names.add(data.getNama());
+            idProvinces.add(data.getId());
+        }
+
+        mAdapterProvince =  new ArrayAdapter<>(parentActivity(), R.layout.item_spinner, names);
+        spProvince.setAdapter(mAdapterProvince);
+
+        spProvince.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                if(position != 0){
+                    Toast.makeText(parentActivity(), names.get(position), Toast.LENGTH_SHORT).show();
+                    mPresenter.getCity(idProvinces.get(position));
+                } else {
+                    txtCity.setVisibility(View.GONE);
+                    spCity.setVisibility(View.GONE);
+                    txtKecamatan.setVisibility(View.GONE);
+                    spKecamatan.setVisibility(View.GONE);
+                    txtKelurahan.setVisibility(View.GONE);
+                    spKelurahan.setVisibility(View.GONE);
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        dialog.dismiss();
+    }
+
+    @Override
+    public void showCity(List<Kabupaten.KabupatenItem> daftarKabupaten) {
+        txtCity.setVisibility(View.VISIBLE);
+        spCity.setVisibility(View.VISIBLE);
+
+        List<String> names = new ArrayList<>();
+        List<String> idKab = new ArrayList<>();
+
+        names.add("Pilih Kebupaten/Kota...");
+        idKab.add("0");
+        for(Kabupaten.KabupatenItem data: daftarKabupaten){
+            names.add(data.getNama());
+            idKab.add(data.getId());
+        }
+
+        ArrayAdapter<String> mAdapter = new ArrayAdapter<>(parentActivity(), R.layout.item_spinner, names);
+        spCity.setAdapter(mAdapter);
+        spCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                if(position != 0){
+                    mPresenter.getKecamatan(idKab.get(position));
+                } else {
+                    txtKecamatan.setVisibility(View.GONE);
+                    spKecamatan.setVisibility(View.GONE);
+                    txtKelurahan.setVisibility(View.GONE);
+                    spKelurahan.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+
+    @Override
+    public void showKecamatan(List<Kecamatan.KecatamanItem> daftarKecamatan) {
+        txtKecamatan.setVisibility(View.VISIBLE);
+        spKecamatan.setVisibility(View.VISIBLE);
+
+        List<String> names = new ArrayList<>();
+        List<String> ids = new ArrayList<>();
+
+        names.add("Pilih Kecamatan...");
+        ids.add("0");
+        for(Kecamatan.KecatamanItem data: daftarKecamatan){
+            names.add(data.getNama());
+            ids.add(data.getId());
+        }
+
+        ArrayAdapter<String> mAdapter = new ArrayAdapter<>(parentActivity(), R.layout.item_spinner, names);
+        spKecamatan.setAdapter(mAdapter);
+        spKecamatan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                if(position != 0){
+                    mPresenter.getKelurahan(ids.get(position));
+                } else {
+                    txtKelurahan.setVisibility(View.GONE);
+                    spKelurahan.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+
+    @Override
+    public void showKelurahan(List<Kelurahan.KelurahanItem> daftarDesa) {
+        txtKelurahan.setVisibility(View.VISIBLE);
+        spKelurahan.setVisibility(View.VISIBLE);
+        lyRayon.setVisibility(View.VISIBLE);
+
+        List<String> names = new ArrayList<>();
+        List<String> ids = new ArrayList<>();
+
+        names.add("Pilih Kelurahan...");
+        ids.add("0");
+        for(Kelurahan.KelurahanItem data: daftarDesa){
+            names.add(data.getNama());
+            ids.add(data.getId());
+        }
+
+        ArrayAdapter<String> mAdapter = new ArrayAdapter<>(parentActivity(), R.layout.item_spinner, names);
+        spKelurahan.setAdapter(mAdapter);
+    }
+
+    @Override
+    public void showCurrentProfile(PreferenceRepository preferenceRepository) {
+        etName.setText(preferenceRepository.getUserName());
+        etPhone.setText(preferenceRepository.getUserPhone());
+    }
+
+    @Override
+    public void successUpdateProfile() {
+        dialog.dismiss();
+
+        Intent intent = new Intent(parentActivity(), BorrowerLandingPage.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 
     public static Bitmap setImage(String filePath, Bitmap bitmap){
@@ -509,11 +702,4 @@ public class AddDocumentFragment extends BaseFragment implements AddDocumentCont
         return 0;
     }
 
-    @OnTextChanged(value = R.id.regist_phone, callback = OnTextChanged.Callback.TEXT_CHANGED)
-    void et_onTextChange_registPhone(Editable editable) {
-        if (editable.toString().equals("0")) {
-            Toast.makeText(getContext(), "Masukan tanpa diawali angka 0", Toast.LENGTH_LONG).show();
-            phone.setText("");
-        }
-    }
 }

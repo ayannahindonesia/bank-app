@@ -18,6 +18,10 @@ public class Bank implements Parcelable {
 		valid = in.readByte() != 0;
 	}
 
+	public Bank() {
+
+	}
+
 	public static final Creator<Bank> CREATOR = new Creator<Bank>() {
 		@Override
 		public Bank createFromParcel(Parcel in) {
@@ -36,6 +40,14 @@ public class Bank implements Parcelable {
 
 	public boolean isValid(){
 		return valid;
+	}
+
+	public void setInt64(int int64) {
+		this.int64 = int64;
+	}
+
+	public void setValid(boolean valid) {
+		this.valid = valid;
 	}
 
 	@Override

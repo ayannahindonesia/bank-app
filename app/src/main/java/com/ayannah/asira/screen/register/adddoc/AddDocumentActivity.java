@@ -37,7 +37,7 @@ public class AddDocumentActivity extends DaggerAppCompatActivity {
         assert actionBar != null;
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowTitleEnabled(true);
-        actionBar.setTitle("Register");
+        actionBar.setTitle("Kembali");
 
         AddDocumentFragment addDocumentFragment = (AddDocumentFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.fragment_container);
