@@ -4,10 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.cardview.widget.CardView;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -85,6 +88,18 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
     @Named("topuptagihan")
     CommonListAdapter mAdapterTopUpTagihan;
 
+    @BindView(R.id.cvServices)
+    CardView cvServices;
+
+    @BindView(R.id.cvSelectBank)
+    CardView cvSelectBank;
+
+    @BindView(R.id.titleNews)
+    TextView titleNews;
+
+    @BindView(R.id.txtBankName)
+    TextView txtBankName;
+
     @Inject
     MenuServiceAdapter mAdapterMenu;
 
@@ -127,11 +142,11 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
         dialog.show();
 //        mPresenter.getCurrentTime();
 
-        if (!mPresenter.getIsLogin()) {
+        if (mPresenter.getIsLogin()) {
+            mPresenter.getProfile();
+        } else {
             mPresenter.getPublicToken();
             dialog.dismiss();
-        } else {
-            mPresenter.getProfile();
         }
 
         mPresenter.loadPromoAndNews();
@@ -227,7 +242,25 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
     }
 
     @Override
-    public void loadAllServiceMenu(List<BankService.Data> results) {
+    public void loadAllServiceMenu(List<BankService.Data> results, int bankID) {
+
+        RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) titleNews.getLayoutParams();
+
+        if (bankID > 0) {
+            cvSelectBank.setVisibility(View.GONE);
+            cvServices.setVisibility(View.VISIBLE);
+
+            lp.addRule(RelativeLayout.BELOW, R.id.cvServices);
+            titleNews.setLayoutParams(lp);
+
+            mPresenter.getBankName(bankID);
+        } else {
+            cvSelectBank.setVisibility(View.VISIBLE);
+            cvServices.setVisibility(View.GONE);
+
+            lp.addRule(RelativeLayout.BELOW, R.id.cvSelectBank);
+            titleNews.setLayoutParams(lp);
+        }
 
         List<BankService.Data> menus = new ArrayList<>();
 
@@ -391,6 +424,11 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
         mPresenter.getMainMenu();
     }
 
+    @Override
+    public void setBankName(String bankName) {
+        txtBankName.setText(bankName);
+    }
+
     @OnClick(R.id.txtBtnSelectBank)
     void selectBank() {
         if (mPresenter.getIsLogin()) {
@@ -402,4 +440,8 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
         }
     }
 
+    @OnClick(R.id.lltBerkas)
+    void goToBerkas() {
+        Toast.makeText(parentActivity(), "go to berkas", Toast.LENGTH_SHORT).show();
+    }
 }

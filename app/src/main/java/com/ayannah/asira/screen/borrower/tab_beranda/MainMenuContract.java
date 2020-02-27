@@ -14,7 +14,7 @@ public interface MainMenuContract {
 
         void showErrorMessage(String message, int code);
 
-        void loadAllServiceMenu(List<BankService.Data> results);
+        void loadAllServiceMenu(List<BankService.Data> results, int bankID);
 
         void showPromoAndNews(List<BeritaPromo> results);
 
@@ -29,6 +29,8 @@ public interface MainMenuContract {
         void showTopUpTagihanMenu(List<String> results);
 
         void setLoanStatus(String loanStatus, String userName);
+
+        void setBankName(String bankName);
     }
 
     interface Presenter extends BasePresenter<View>{
@@ -52,5 +54,7 @@ public interface MainMenuContract {
         boolean getIsLogin();
 
         void getPublicToken();
+
+        void getBankName(int bankID);
     }
 }

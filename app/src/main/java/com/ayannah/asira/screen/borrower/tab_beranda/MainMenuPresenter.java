@@ -72,7 +72,7 @@ public class MainMenuPresenter implements MainMenuContract.Presenter {
             bankServiceInterface.setTotalData(response.getTotalData());
             bankServiceInterface.setBankService(response.getData());
 
-            mView.loadAllServiceMenu(response.getData());
+            mView.loadAllServiceMenu(response.getData(), prefRepo.getBankID());
 
 
         }, error -> {
@@ -129,11 +129,6 @@ public class MainMenuPresenter implements MainMenuContract.Presenter {
         List<String> data = new ArrayList<>();
         data.add("Pulsa");
         data.add("Listrik");
-        data.add("PDAM");
-        data.add("Travel");
-        data.add("Pulsa");
-        data.add("Listrik");
-        data.add("PDAM");
         data.add("Travel");
 
         mView.showTopUpTagihanMenu(data);
@@ -311,6 +306,39 @@ public class MainMenuPresenter implements MainMenuContract.Presenter {
                     mView.showErrorMessage( "Mohon coba beberapa saat lagi. Sedang dalam perbaikan",anError.getErrorCode());
                 }
             }
+        }));
+    }
+
+    @Override
+    public void getBankName(int bankID) {
+        if (mView == null) {
+            return;
+        }
+
+        mComposite.add(remotRepo.getBanksDetail(String.valueOf(bankID))
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(res -> {
+
+            mView.setBankName(res.getName());
+
+        }, err -> {
+
+            ANError anError = (ANError) err;
+            if(anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
+                mView.showErrorMessage("Tidak ada koneksi", anError.getErrorCode());
+            }else {
+
+                if(anError.getErrorBody() != null){
+
+                    JSONObject jsonObject = new JSONObject(anError.getErrorBody());
+                    mView.showErrorMessage(jsonObject.optString("message"), anError.getErrorCode());
+                }else {
+
+                    mView.showErrorMessage( "Mohon coba beberapa saat lagi. Sedang dalam perbaikan",anError.getErrorCode());
+                }
+            }
+
         }));
     }
 }
