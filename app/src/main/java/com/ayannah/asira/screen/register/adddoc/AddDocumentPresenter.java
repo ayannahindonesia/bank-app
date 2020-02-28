@@ -226,7 +226,7 @@ public class AddDocumentPresenter implements AddDocumentContract.Presenter {
         .subscribe(res -> {
 
             preferenceRepository.setUserAddress(res.getAddress());
-            preferenceRepository.setBankID(res.getId());
+            preferenceRepository.setBankID(res.getBank().getInt64());
             preferenceRepository.setBankAccountBorrower(res.getBankAccountnumber());
             preferenceRepository.setUserCity(res.getCity());
             preferenceRepository.setDepartment(res.getDepartment());
