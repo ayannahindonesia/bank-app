@@ -46,7 +46,7 @@
                         android:layout_weight="1"
                         tools:text="Product A"
                         android:textSize="@dimen/fontNormal"
-                        android:fontFamily="@font/manrope_bold"
+                        android:textStyle="bold"
                         android:textColor="@color/colorAsiraText"
                         android:textAlignment="textEnd"/>
 
@@ -69,7 +69,7 @@
                     <TextView
                         android:id="@+id/pinjaman"
                         android:textSize="@dimen/fontNormal"
-                        android:fontFamily="@font/manrope_bold"
+                        android:textStyle="bold"
                         android:textColor="@color/colorAsiraAccent"
                         android:text="@string/default_currency_amount"
                         android:layout_weight="1"
@@ -96,7 +96,7 @@
                     <TextView
                         android:id="@+id/tenor"
                         android:textSize="@dimen/fontNormal"
-                        android:fontFamily="@font/manrope_bold"
+                        android:textStyle="bold"
                         android:textColor="@color/colorAsiraAccent"
                         android:layout_weight="1"
                         android:textAlignment="textEnd"
@@ -142,7 +142,7 @@
                         android:layout_weight="1"
                         android:textAlignment="textEnd"
                         android:textColor="@color/colorAsiraText"
-                        android:fontFamily="@font/manrope_bold"
+                        android:textStyle="bold"
                         android:textSize="@dimen/fontNormal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
@@ -170,7 +170,7 @@
                         android:layout_weight="1"
                         android:textAlignment="textEnd"
                         android:textColor="@color/colorAsiraText"
-                        android:fontFamily="@font/manrope_bold"
+                        android:textStyle="bold"
                         android:textSize="@dimen/fontNormal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
@@ -197,7 +197,7 @@
                         android:layout_weight="1"
                         android:textAlignment="textEnd"
                         android:textColor="@color/colorAsiraAccent"
-                        android:fontFamily="@font/manrope_bold"
+                        android:textStyle="bold"
                         android:textSize="@dimen/fontNormal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
@@ -225,7 +225,7 @@
                         android:layout_weight="1"
                         android:textAlignment="textEnd"
                         android:textColor="@color/colorAsiraAccent"
-                        android:fontFamily="@font/manrope_bold"
+                        android:textStyle="bold"
                         android:textSize="@dimen/fontNormal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
@@ -317,7 +317,7 @@
                 <TextView
                     android:id="@+id/alasan"
                     android:textColor="@color/colorAsiraText"
-                    android:fontFamily="@font/manrope_bold"
+                    android:textStyle="bold"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:textSize="@dimen/fontNormal"
                     android:layout_width="match_parent"
@@ -336,7 +336,7 @@
                     android:id="@+id/tujuanPinjam"
                     android:textColor="@color/colorAsiraText"
                     android:layout_marginTop="@dimen/_5sdp"
-                    android:fontFamily="@font/manrope_bold"
+                    android:textStyle="bold"
                     android:textSize="@dimen/fontNormal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
@@ -364,7 +364,7 @@
                     android:layout_weight="1"
                     android:textColor="@color/colorAsiraText"
                     android:textSize="@dimen/fontNormal"
-                    android:fontFamily="@font/manrope_bold"
+                    android:textStyle="bold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
@@ -400,7 +400,7 @@
                 <CheckBox
                     android:id="@+id/checkDisclaimer"
                     android:text="Ya, saya setuju"
-                    android:fontFamily="@font/manrope_bold"
+                    android:textStyle="bold"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:textSize="@dimen/fontNormal"
                     android:layout_width="match_parent"

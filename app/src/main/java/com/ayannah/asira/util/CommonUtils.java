@@ -170,4 +170,9 @@ public class CommonUtils {
 
     }
 
+    public static String formatPhoneString(String userPhone) {
+
+        return userPhone.substring(0,2) + " " + userPhone.substring(2,5) + " " + userPhone.substring(5,9)  + " " + userPhone.substring(9);
+    }
+
 }

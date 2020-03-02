@@ -13,7 +13,7 @@
 
     <TextView
         android:id="@+id/title"
-        android:fontFamily="@font/manrope_bold"
+        android:textStyle="bold"
         android:textSize="@dimen/fontSuperLarge"
         android:layout_marginTop="@dimen/_12sdp"
         android:textColor="@color/colorAsiraText"

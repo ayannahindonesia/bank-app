@@ -30,7 +30,7 @@
                     android:textColor="@color/colorAsiraText"
                     android:textAlignment="center"
                     android:padding="4dp"
-                    android:fontFamily="@font/manrope_bold"
+                    android:textStyle="bold"
                     android:textSize="@dimen/fontNormal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
@@ -44,7 +44,7 @@
                         android:id="@+id/rp"
                         android:textSize="@dimen/fontNormal"
                         android:layout_marginEnd="3dp"
-                        android:fontFamily="@font/manrope_bold"
+                        android:textStyle="bold"
                         android:layout_centerVertical="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

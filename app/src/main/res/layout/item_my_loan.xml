@@ -27,7 +27,7 @@
                 android:textColor="@color/colorAsiraText"
                 tools:text="Rp 3.000.000"
                 android:textSize="@dimen/fontSuperLarge"
-                android:fontFamily="@font/manrope_bold"
+                android:textStyle="bold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -39,7 +39,7 @@
                 android:paddingBottom="2dp"
                 android:layout_marginTop="5dp"
                 tools:text="Tertunda"
-                android:fontFamily="@font/manrope_bold"
+                android:textStyle="bold"
                 android:textColor="@android:color/white"
                 android:background="@drawable/badge_tertunda"
                 android:textAlignment="textEnd"

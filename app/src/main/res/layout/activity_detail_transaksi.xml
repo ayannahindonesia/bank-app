@@ -66,7 +66,7 @@
                             android:textAlignment="textEnd"
                             android:textSize="@dimen/fontNormal"
                             android:textColor="@color/colorAsiraText"
-                            android:fontFamily="@font/manrope_bold"
+                            android:textStyle="bold"
                             android:layout_weight="1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
@@ -94,7 +94,7 @@
                             android:textAlignment="textEnd"
                             android:textSize="@dimen/fontNormal"
                             android:textColor="@color/colorAsiraText"
-                            android:fontFamily="@font/manrope_bold"
+                            android:textStyle="bold"
                             android:layout_weight="1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
@@ -105,7 +105,7 @@
                         android:id="@+id/status"
                         android:textSize="@dimen/fontNormal"
                         android:textColor="@android:color/white"
-                        android:fontFamily="@font/manrope_bold"
+                        android:textStyle="bold"
                         android:background="@drawable/badge_tertunda"
                         android:padding="@dimen/_5sdp"
                         android:layout_gravity="center_horizontal"
@@ -152,7 +152,7 @@
                             android:textAlignment="textEnd"
                             android:textSize="@dimen/fontNormal"
                             android:textColor="@color/colorAsiraText"
-                            android:fontFamily="@font/manrope_bold"
+                            android:textStyle="bold"
                             android:layout_weight="1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
@@ -180,7 +180,7 @@
                             android:textAlignment="textEnd"
                             android:textSize="@dimen/fontNormal"
                             android:textColor="@color/colorAsiraText"
-                            android:fontFamily="@font/manrope_bold"
+                            android:textStyle="bold"
                             android:layout_weight="1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
@@ -208,7 +208,7 @@
                             android:textAlignment="textEnd"
                             android:textSize="@dimen/fontNormal"
                             android:textColor="@color/colorAsiraText"
-                            android:fontFamily="@font/manrope_bold"
+                            android:textStyle="bold"
                             android:layout_weight="1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
@@ -236,7 +236,7 @@
                             android:textAlignment="textEnd"
                             android:textSize="@dimen/fontNormal"
                             android:textColor="@color/colorAsiraText"
-                            android:fontFamily="@font/manrope_bold"
+                            android:textStyle="bold"
                             android:layout_weight="1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
@@ -264,7 +264,7 @@
                             android:textAlignment="textEnd"
                             android:textSize="@dimen/fontNormal"
                             android:textColor="@color/colorAsiraText"
-                            android:fontFamily="@font/manrope_bold"
+                            android:textStyle="bold"
                             android:layout_weight="1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
@@ -292,7 +292,7 @@
                             android:textAlignment="textEnd"
                             android:textSize="@dimen/fontNormal"
                             android:textColor="@color/colorAsiraText"
-                            android:fontFamily="@font/manrope_bold"
+                            android:textStyle="bold"
                             android:layout_weight="1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
@@ -343,7 +343,7 @@
                                 tools:text="Proses"
                                 android:textSize="@dimen/fontNormal"
                                 android:textColor="@color/colorAsiraText"
-                                android:fontFamily="@font/manrope_bold"
+                                android:textStyle="bold"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content" />
 
@@ -368,7 +368,7 @@
                                 tools:text="21 Maret 2019"
                                 android:textSize="@dimen/fontNormal"
                                 android:textColor="@color/colorAsiraText"
-                                android:fontFamily="@font/manrope_bold"
+                                android:textStyle="bold"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content" />
 
@@ -395,7 +395,7 @@
                             android:text=""
                             android:textSize="@dimen/fontNormal"
                             android:textColor="@color/colorAsiraText"
-                            android:fontFamily="@font/manrope_bold"
+                            android:textStyle="bold"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
 
@@ -419,7 +419,7 @@
                             tools:text="Pay-off credit card bill"
                             android:textSize="@dimen/fontNormal"
                             android:textColor="@color/colorAsiraText"
-                            android:fontFamily="@font/manrope_bold"
+                            android:textStyle="bold"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
 
@@ -443,7 +443,7 @@
                             tools:text="Pay-off credit card bill"
                             android:textSize="@dimen/fontNormal"
                             android:textColor="@color/colorAsiraText"
-                            android:fontFamily="@font/manrope_bold"
+                            android:textStyle="bold"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
 
@@ -469,7 +469,7 @@
                             android:textAlignment="textEnd"
                             android:textSize="@dimen/fontNormal"
                             android:textColor="@color/colorAsiraText"
-                            android:fontFamily="@font/manrope_bold"
+                            android:textStyle="bold"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
 

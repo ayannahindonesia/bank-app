@@ -40,6 +40,7 @@ import com.ayannah.asira.screen.register.formBorrower.FormBorrowerActivity;
 import com.ayannah.asira.screen.register.formothers.FormOtherFragment;
 import com.ayannah.asira.util.CameraTakeBeforeM;
 import com.ayannah.asira.util.CameraTakeM;
+import com.ayannah.asira.util.CommonUtils;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -664,7 +665,7 @@ public class AddDocumentFragment extends BaseFragment implements AddDocumentCont
     @Override
     public void showCurrentProfile(PreferenceRepository preferenceRepository) {
         etName.setText(preferenceRepository.getUserName());
-        etPhone.setText(preferenceRepository.getUserPhone());
+        etPhone.setText(CommonUtils.formatPhoneString(preferenceRepository.getUserPhone()));
     }
 
     @Override

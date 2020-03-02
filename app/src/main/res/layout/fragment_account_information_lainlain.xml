@@ -60,7 +60,7 @@
             android:text="Data Tambahan Lain-lain"
             android:textAlignment="center"
             android:textColor="@color/colorAsiraText"
-            android:fontFamily="@font/manrope_bold"
+            android:textStyle="bold"
             android:textSize="@dimen/fontNormal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

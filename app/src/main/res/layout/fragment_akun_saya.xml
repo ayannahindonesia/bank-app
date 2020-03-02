@@ -51,7 +51,7 @@
             android:padding="@dimen/_5sdp"
             android:layout_marginTop="@dimen/_10sdp"
             android:textSize="@dimen/fontLarge"
-            android:fontFamily="@font/manrope_bold"
+            android:textStyle="bold"
             android:textColor="@color/colorAsiraText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
@@ -66,7 +66,7 @@
             android:inputType="textEmailAddress"
             android:imeOptions="actionDone"
             android:textColor="@color/colorAsiraText"
-            android:fontFamily="@font/manrope_bold"
+            android:textStyle="bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -95,7 +95,7 @@
             android:background="@android:color/transparent"
             android:imeOptions="actionNext"
             android:textColor="@color/colorAsiraText"
-            android:fontFamily="@font/manrope_bold"
+            android:textStyle="bold"
             android:inputType="textPersonName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -118,7 +118,7 @@
             android:padding="@dimen/_3sdp"
             android:enabled="false"
             android:background="@android:color/transparent"
-            android:fontFamily="@font/manrope_bold"
+            android:textStyle="bold"
             android:imeOptions="actionNext"
             android:inputType="textPersonName"
             android:layout_width="match_parent"
@@ -138,7 +138,7 @@
             android:text="-"
             android:padding="@dimen/_3sdp"
             android:textColor="@color/colorAsiraText"
-            android:fontFamily="@font/manrope_bold"
+            android:textStyle="bold"
             android:textSize="@dimen/fontNormal"
             android:background="@android:color/transparent"
             android:enabled="false"
@@ -159,7 +159,7 @@
             android:textSize="@dimen/fontNormal"
             android:text="Indonesia"
             android:textColor="@color/colorAsiraText"
-            android:fontFamily="@font/manrope_bold"
+            android:textStyle="bold"
             android:enabled="false"
             android:padding="@dimen/_3sdp"
             android:layout_marginTop="@dimen/_5sdp"

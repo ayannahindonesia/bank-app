@@ -17,7 +17,7 @@
         android:id="@+id/listTxtBankName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/manrope_extrabold"
+        android:textStyle="bold"
         android:layout_marginLeft="@dimen/_10sdp"
         android:text="Bank Banks"
         android:textColor="@color/textColorAsira" />

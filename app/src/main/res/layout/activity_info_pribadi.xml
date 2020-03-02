@@ -56,7 +56,7 @@
                     <TextView
                         android:id="@+id/etName"
                         android:textColor="@color/colorAsiraText"
-                        android:fontFamily="@font/manrope_bold"
+                        android:textStyle="bold"
                         android:background="@android:color/transparent"
                         android:textSize="@dimen/fontLarge"
                         tools:text="John Doe"
@@ -75,7 +75,7 @@
                         tools:text="Pria"
                         android:textSize="@dimen/fontLarge"
                         android:textColor="@color/colorAsiraText"
-                        android:fontFamily="@font/manrope_bold"
+                        android:textStyle="bold"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
@@ -90,7 +90,7 @@
                         android:id="@+id/etKTP"
                         android:textSize="@dimen/fontLarge"
                         android:textColor="@color/colorAsiraText"
-                        android:fontFamily="@font/manrope_bold"
+                        android:textStyle="bold"
                         tools:text="123456790"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
@@ -106,7 +106,7 @@
                         android:id="@+id/etDateBirth"
                         android:textSize="@dimen/fontLarge"
                         android:textColor="@color/colorAsiraText"
-                        android:fontFamily="@font/manrope_bold"
+                        android:textStyle="bold"
                         tools:text="123456790"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
@@ -122,7 +122,7 @@
                         android:id="@+id/etBirthPlace"
                         android:textSize="@dimen/fontLarge"
                         android:textColor="@color/colorAsiraText"
-                        android:fontFamily="@font/manrope_bold"
+                        android:textStyle="bold"
                         tools:text="Jakarta"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
@@ -138,7 +138,7 @@
                         android:id="@+id/etCollageLevel"
                         android:textSize="@dimen/fontLarge"
                         android:textColor="@color/colorAsiraText"
-                        android:fontFamily="@font/manrope_bold"
+                        android:textStyle="bold"
                         tools:text="S1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
@@ -154,7 +154,7 @@
                         android:id="@+id/tvTanggungan"
                         android:textSize="@dimen/fontLarge"
                         android:textColor="@color/colorAsiraText"
-                        android:fontFamily="@font/manrope_bold"
+                        android:textStyle="bold"
                         tools:text="0"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
@@ -170,7 +170,7 @@
                         android:id="@+id/tvMomsName"
                         android:textSize="@dimen/fontLarge"
                         android:textColor="@color/colorAsiraText"
-                        android:fontFamily="@font/manrope_bold"
+                        android:textStyle="bold"
                         tools:text="Lorenzo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
@@ -186,7 +186,7 @@
                         android:id="@+id/tvPerkawinan"
                         android:textSize="@dimen/fontLarge"
                         android:textColor="@color/colorAsiraText"
-                        android:fontFamily="@font/manrope_bold"
+                        android:textStyle="bold"
                         tools:text="Belum menikah"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
@@ -209,7 +209,7 @@
                             android:id="@+id/tvSpouseName"
                             android:textSize="@dimen/fontLarge"
                             android:textColor="@color/colorAsiraText"
-                            android:fontFamily="@font/manrope_bold"
+                            android:textStyle="bold"
                             tools:text="-"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
@@ -225,7 +225,7 @@
                             android:id="@+id/tvSpouseBirthdate"
                             android:textSize="@dimen/fontLarge"
                             android:textColor="@color/colorAsiraText"
-                            android:fontFamily="@font/manrope_bold"
+                            android:textStyle="bold"
                             tools:text="-"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
@@ -241,7 +241,7 @@
                             android:id="@+id/tvSpouseEdu"
                             android:textSize="@dimen/fontLarge"
                             android:textColor="@color/colorAsiraText"
-                            android:fontFamily="@font/manrope_bold"
+                            android:textStyle="bold"
                             tools:text="-"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
@@ -277,7 +277,7 @@
                         android:id="@+id/tvAlamat"
                         android:textSize="@dimen/fontLarge"
                         android:textColor="@color/colorAsiraText"
-                        android:fontFamily="@font/manrope_bold"
+                        android:textStyle="bold"
                         tools:text="Jalan hararapan jaya raya no.51"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
@@ -293,7 +293,7 @@
                         android:id="@+id/tvProvinsi"
                         android:textSize="@dimen/fontLarge"
                         android:textColor="@color/colorAsiraText"
-                        android:fontFamily="@font/manrope_bold"
+                        android:textStyle="bold"
                         tools:text="Provinsi"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
@@ -309,7 +309,7 @@
                         android:id="@+id/tvKota"
                         android:textSize="@dimen/fontLarge"
                         android:textColor="@color/colorAsiraText"
-                        android:fontFamily="@font/manrope_bold"
+                        android:textStyle="bold"
                         tools:text="Kota"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
@@ -325,7 +325,7 @@
                         android:id="@+id/tvKecamatan"
                         android:textSize="@dimen/fontLarge"
                         android:textColor="@color/colorAsiraText"
-                        android:fontFamily="@font/manrope_bold"
+                        android:textStyle="bold"
                         tools:text="Kecamatan"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
@@ -341,7 +341,7 @@
                         android:id="@+id/tvKelurahan"
                         android:textSize="@dimen/fontLarge"
                         android:textColor="@color/colorAsiraText"
-                        android:fontFamily="@font/manrope_bold"
+                        android:textStyle="bold"
                         tools:text="Kelurahan"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
@@ -359,7 +359,7 @@
                         android:id="@+id/tvRt"
                         android:textSize="@dimen/fontLarge"
                         android:textColor="@color/colorAsiraText"
-                        android:fontFamily="@font/manrope_bold"
+                        android:textStyle="bold"
                         tools:text="001"
                         android:layout_weight="1"
                         android:layout_width="match_parent"
@@ -378,7 +378,7 @@
                         android:id="@+id/tvRw"
                         android:textSize="@dimen/fontLarge"
                         android:textColor="@color/colorAsiraText"
-                        android:fontFamily="@font/manrope_bold"
+                        android:textStyle="bold"
                         tools:text="001"
                         android:layout_weight="1"
                         android:layout_width="match_parent"
@@ -395,7 +395,7 @@
                         android:id="@+id/tvHomeNumber"
                         android:textSize="@dimen/fontLarge"
                         android:textColor="@color/colorAsiraText"
-                        android:fontFamily="@font/manrope_bold"
+                        android:textStyle="bold"
                         tools:text="021 8899822"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
@@ -411,7 +411,7 @@
                         android:id="@+id/tvLamaMenempati"
                         android:textSize="@dimen/fontLarge"
                         android:textColor="@color/colorAsiraText"
-                        android:fontFamily="@font/manrope_bold"
+                        android:textStyle="bold"
                         tools:text="1 Tahun"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
@@ -427,7 +427,7 @@
                         android:id="@+id/tvHomeStatus"
                         android:textSize="@dimen/fontLarge"
                         android:textColor="@color/colorAsiraText"
-                        android:fontFamily="@font/manrope_bold"
+                        android:textStyle="bold"
                         tools:text="pribadi"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />

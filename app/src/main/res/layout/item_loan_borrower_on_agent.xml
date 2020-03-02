@@ -64,7 +64,7 @@
             android:textColor="@color/colorAsiraText"
             android:textSize="@dimen/fontSuperLarge"
             tools:text="Rp12.000.000"
-            android:fontFamily="@font/manrope_bold"
+            android:textStyle="bold"
             android:textAlignment="textEnd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
@@ -73,7 +73,7 @@
             android:id="@+id/tenorLoanBorrower"
             android:textColor="@color/colorAsiraText"
             android:textSize="@dimen/fontNormal"
-            android:fontFamily="@font/manrope_bold"
+            android:textStyle="bold"
             tools:text="12 Bulan"
             android:textAlignment="textEnd"
             android:padding="3dp"

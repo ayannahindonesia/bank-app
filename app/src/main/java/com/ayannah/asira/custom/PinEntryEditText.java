@@ -92,7 +92,7 @@ public class PinEntryEditText extends AppCompatEditText {
         setBackgroundResource(0);
 
         //set font
-        Typeface typeface = ResourcesCompat.getFont(context, R.font.manrope_bold);
+        Typeface typeface = ResourcesCompat.getFont(context, R.font.roboto_bold);
         setTypeface(typeface);
         setTextSize(30);
 

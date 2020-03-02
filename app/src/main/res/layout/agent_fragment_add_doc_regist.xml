@@ -76,7 +76,6 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/manrope_medium"
                         android:text="Tambahkan Foto Nasabah"
                         android:textColor="@color/textColorAsira"
                         android:textSize="@dimen/fontNormal" />
@@ -117,7 +116,6 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/manrope_medium"
                         android:text="Tambahkan Foto KTP Nasabah"
                         android:textColor="@color/textColorAsira"
                         android:textSize="@dimen/fontNormal" />
@@ -158,7 +156,6 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/manrope_medium"
                             android:text="Input Nomor KTP"
                             android:textColor="@color/textColorAsira"
                             android:textSize="@dimen/fontNormal" />
@@ -168,7 +165,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:backgroundTint="@color/colorAsiraText"
-                            android:fontFamily="@font/manrope_extrabold"
+                            android:textStyle="bold"
                             android:hint="1500099923888"
                             android:imeOptions="actionNext"
                             android:inputType="number"
@@ -181,7 +178,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:fontFamily="@font/manrope_medium"
                         android:text="Tambahkan Foto NPWP (Optional)"
                         android:textColor="@color/colorAsiraText"
                         android:textSize="@dimen/fontNormal" />
@@ -222,7 +218,6 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/manrope_medium"
                             android:text="Input Nomor NPWP"
                             android:textColor="@color/textColorAsira"
                             android:textSize="@dimen/fontNormal" />
@@ -232,7 +227,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:backgroundTint="@color/colorAsiraText"
-                            android:fontFamily="@font/manrope_extrabold"
+                            android:textStyle="bold"
                             android:hint="180009937700"
                             android:imeOptions="actionNext"
                             android:inputType="number"
@@ -269,7 +264,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:backgroundTint="@color/colorAsiraText"
-                        android:fontFamily="@font/manrope_extrabold"
+                        android:textStyle="bold"
                         android:hint="adrian@lorenzo.com"
                         android:imeOptions="actionNext"
                         android:inputType="textEmailAddress"
@@ -294,7 +289,7 @@
                             android:layout_marginEnd="5dp"
                             android:backgroundTint="@color/colorAsiraText"
                             android:enabled="false"
-                            android:fontFamily="@font/manrope_extrabold"
+                            android:textStyle="bold"
                             android:text="+62"
                             android:textSize="@dimen/fontNormal" />
 
@@ -303,7 +298,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:backgroundTint="@color/colorAsiraText"
-                            android:fontFamily="@font/manrope_extrabold"
+                            android:textStyle="bold"
                             android:hint="contoh: 82123456789"
                             android:imeOptions="actionNext"
                             android:inputType="phone"
@@ -326,7 +321,7 @@
                 android:layout_marginRight="@dimen/_18sdp"
                 android:layout_marginBottom="@dimen/_25sdp"
                 android:background="@drawable/button_register"
-                android:fontFamily="@font/manrope_bold"
+                android:textStyle="bold"
                 android:text="Selanjutnya"
                 android:textAllCaps="false"
                 android:textColor="@android:color/white" />

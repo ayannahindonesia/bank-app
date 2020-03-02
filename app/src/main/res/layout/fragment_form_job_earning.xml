@@ -60,7 +60,7 @@
             android:text="Informasi Pekerjaan"
             android:textAlignment="center"
             android:textColor="@color/colorAsiraText"
-            android:fontFamily="@font/manrope_bold"
+            android:textStyle="bold"
             android:textSize="@dimen/fontNormal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -159,7 +159,7 @@
                         android:layout_marginStart="6dp"
                         android:layout_gravity="center_vertical"
                         android:text="Tahun"
-                        android:fontFamily="@font/manrope_bold"
+                        android:textStyle="bold"
                         android:textColor="@color/colorAsiraText"
                         android:textSize="@dimen/fontLarge" />
 
@@ -199,7 +199,7 @@
                     android:imeOptions="actionNext"
                     android:textSize="@dimen/fontNormal"
                     android:backgroundTint="@color/colorAsiraText"
-                    android:fontFamily="@font/manrope_extrabold"
+                    android:textStyle="bold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     tools:ignore="Autofill" />
@@ -252,7 +252,7 @@
             android:textSize="@dimen/fontNormal"
             android:textColor="@color/colorAsiraText"
             android:layout_marginTop="@dimen/_16sdp"
-            android:fontFamily="@font/manrope_bold"
+            android:textStyle="bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 

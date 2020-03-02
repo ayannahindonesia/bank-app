@@ -38,7 +38,7 @@
                     android:id="@+id/titleVerification"
                     android:text="Masukan 6 digit kode yang dikirim via sms ke nomor ponsel anda"
                     android:textColor="@color/colorAsiraText"
-                    android:fontFamily="@font/manrope_bold"
+                    android:textStyle="bold"
                     android:textSize="@dimen/fontNormal"
                     android:textAlignment="center"
                     android:layout_width="match_parent"

@@ -32,7 +32,7 @@
                     android:textAlignment="center"
                     android:textColor="@color/colorAsiraText"
                     android:textSize="@dimen/fontNormal"
-                    android:fontFamily="@font/manrope_bold" />
+                    android:textStyle="bold" />
 
                 <Spinner
                     android:id="@+id/spProducts"
@@ -105,7 +105,7 @@
                         android:text="Rp"
                         android:layout_centerVertical="true"
                         android:textSize="@dimen/fontNormal"
-                        android:fontFamily="@font/manrope_bold"
+                        android:textStyle="bold"
                         android:textColor="@color/colorAsiraText"/>
 
                     <com.ayannah.asira.custom.PlafondEditText
@@ -231,7 +231,7 @@
                             android:text="Tenor Cicilan"
                             android:textColor="@color/colorAsiraText"
                             android:textSize="@dimen/fontNormal"
-                            android:fontFamily="@font/manrope_bold" />
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/tenorCicilan"
@@ -240,7 +240,7 @@
                             android:layout_weight="1"
                             android:textAlignment="textEnd"
                             android:text="0"
-                            android:fontFamily="@font/manrope_bold"
+                            android:textStyle="bold"
                             android:textColor="@color/colorAsiraText"
                             android:textSize="@dimen/fontNormal" />
 
@@ -273,7 +273,7 @@
                         android:text="Rp -"
                         android:textAlignment="textEnd"
                         android:textColor="@color/colorAsiraText"
-                        android:fontFamily="@font/manrope_bold"
+                        android:textStyle="bold"
                         android:textSize="@dimen/fontNormal" />
 
                 </LinearLayout>
@@ -302,7 +302,7 @@
                         android:text="Rp -"
                         android:textAlignment="textEnd"
                         android:textColor="@color/colorAsiraText"
-                        android:fontFamily="@font/manrope_bold"
+                        android:textStyle="bold"
                         android:textSize="@dimen/fontNormal" />
 
                 </LinearLayout>
@@ -332,7 +332,7 @@
                         android:textAlignment="textEnd"
                         android:textColor="@color/colorAsiraAccent"
                         android:textSize="@dimen/fontNormal"
-                        android:fontFamily="@font/manrope_bold" />
+                        android:textStyle="bold" />
 
                 </LinearLayout>
 
@@ -361,7 +361,7 @@
                         android:textAlignment="textEnd"
                         android:textColor="@color/colorAsiraAccent"
                         android:textSize="@dimen/fontNormal"
-                        android:fontFamily="@font/manrope_bold" />
+                        android:textStyle="bold" />
 
                 </LinearLayout>
 
@@ -448,7 +448,7 @@
                     android:textColor="@color/colorAsiraText"
                     android:textAlignment="center"
                     android:textSize="@dimen/fontNormal"
-                    android:fontFamily="@font/manrope_bold" />
+                    android:textStyle="bold" />
 
                 <Spinner
                     android:id="@+id/spAlasanPinjam"
@@ -503,7 +503,7 @@
                         android:id="@+id/etAlasan"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/manrope_bold"
+                        android:textStyle="bold"
                         android:hint="Isi alasan peminjaman disini"
                         android:layout_marginTop="10dp"
                         android:backgroundTint="@color/colorAsiraText"
@@ -518,7 +518,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:hint="Tuliskan detail tujuan"
-                    android:fontFamily="@font/manrope_bold"
+                    android:textStyle="bold"
                     android:backgroundTint="@color/colorAsiraText"
                     android:textColor="@color/colorAsiraText"
                     android:inputType="text"

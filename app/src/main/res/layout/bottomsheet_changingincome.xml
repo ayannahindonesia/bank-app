@@ -42,7 +42,7 @@
                 android:id="@+id/currentSalary"
                 android:text="Rp25000000"
                 android:textSize="@dimen/fontNormal"
-                android:fontFamily="@font/manrope_bold"
+                android:textStyle="bold"
                 android:textColor="@color/colorAsiraAccent"
                 android:textAlignment="textEnd"
                 android:layout_weight="1"
@@ -69,7 +69,7 @@
             <TextView
                 android:id="@+id/anotherIncome"
                 android:text="Rp5000000"
-                android:fontFamily="@font/manrope_bold"
+                android:textStyle="bold"
                 android:textColor="@color/colorAsiraAccent"
                 android:textAlignment="textEnd"
                 android:textSize="@dimen/fontNormal"
@@ -97,7 +97,7 @@
             <TextView
                 android:id="@+id/otherSourceIncome"
                 android:textSize="@dimen/fontNormal"
-                android:fontFamily="@font/manrope_bold"
+                android:textStyle="bold"
                 android:textColor="@color/colorAsiraAccent"
                 android:textAlignment="textEnd"
                 android:text="-"

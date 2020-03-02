@@ -29,7 +29,7 @@
         android:textSize="@dimen/fontSuperLarge"
         android:textColor="@color/colorAsiraText"
         tools:text="500"
-        android:fontFamily="@font/manrope_bold"
+        android:textStyle="bold"
         android:textAlignment="center"/>
 
     <TextView

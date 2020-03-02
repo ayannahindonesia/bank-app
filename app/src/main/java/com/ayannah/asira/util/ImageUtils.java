@@ -56,7 +56,6 @@ public class ImageUtils {
 
         RequestOptions options = new RequestOptions()
                 .dontAnimate()
-                .error(R.drawable.default_profile_picture)
                 .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC);
 
         GlideApp.with(context)

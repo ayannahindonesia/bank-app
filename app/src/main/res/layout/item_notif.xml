@@ -31,7 +31,7 @@
 
             <TextView
                 android:id="@+id/headerTxtxtMessage"
-                android:fontFamily="@font/manrope_bold"
+                android:textStyle="bold"
                 android:textColor="@android:color/black"
                 tools:text="Hello Asira!"
                 android:textSize="@dimen/fontNormal"

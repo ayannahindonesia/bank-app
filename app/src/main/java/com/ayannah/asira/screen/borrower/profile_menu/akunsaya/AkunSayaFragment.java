@@ -16,6 +16,7 @@ import androidx.appcompat.app.AlertDialog;
 import com.ayannah.asira.R;
 import com.ayannah.asira.base.BaseFragment;
 import com.ayannah.asira.data.local.PreferenceRepository;
+import com.ayannah.asira.util.CommonUtils;
 import com.ayannah.asira.util.ImageUtils;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
@@ -121,7 +122,7 @@ public class AkunSayaFragment extends BaseFragment implements AkunSayaContract.V
         ImageUtils.displayImageFromUrlWithErrorDrawable(parentActivity(), imgUser, "", null);
         tvName.setText(preferenceRepository.getUserName().toUpperCase());
 
-        phoneNumber.setText(formatPhoneString(preferenceRepository.getUserPhone()));
+        phoneNumber.setText(CommonUtils.formatPhoneString(preferenceRepository.getUserPhone()));
         etName.setText(preferenceRepository.getUserName());
         etEmail.setText(preferenceRepository.getUserEmail());
 
@@ -130,11 +131,6 @@ public class AkunSayaFragment extends BaseFragment implements AkunSayaContract.V
 
 //        etPassword.setText(preferenceRepository);
 //        etPasswordRetype.setText(preferenceRepository.);
-    }
-
-    private String formatPhoneString(String userPhone) {
-
-        return userPhone.substring(0,2) + " " + userPhone.substring(2,5) + " " + userPhone.substring(5,9)  + " " + userPhone.substring(9);
     }
 
     @Override

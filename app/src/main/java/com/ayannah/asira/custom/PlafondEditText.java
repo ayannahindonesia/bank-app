@@ -31,7 +31,7 @@ public class PlafondEditText extends AppCompatEditText {
         super(context, attrs, defStyleAttr);
 
         //set font
-        Typeface typeface = ResourcesCompat.getFont(context, R.font.manrope_bold);
+        Typeface typeface = ResourcesCompat.getFont(context, R.font.roboto_bold);
         setTypeface(typeface);
         setTextColor(getResources().getColor(R.color.colorAsiraAccent));
     }

@@ -17,7 +17,7 @@
     <TextView
         android:id="@+id/nameProduct"
         android:textColor="@color/colorAsiraText"
-        android:fontFamily="@font/manrope_bold"
+        android:textStyle="bold"
         android:textSize="@dimen/fontSmall"
         android:layout_marginTop="10dp"
         tools:text="Pinjaman PNS"

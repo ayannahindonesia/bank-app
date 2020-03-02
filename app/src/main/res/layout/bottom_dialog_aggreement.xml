@@ -57,7 +57,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/colorAsiraText"
-        android:fontFamily="@font/manrope_bold"
+        android:textStyle="bold"
         android:textSize="@dimen/fontNormal"
         android:text="Persetujuan Pembuatan Rekening"/>
 
