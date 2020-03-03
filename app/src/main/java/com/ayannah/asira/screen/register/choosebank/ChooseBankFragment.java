@@ -13,9 +13,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ayannah.asira.R;
 import com.ayannah.asira.adapter.ChooseBankAdapter;
+import com.ayannah.asira.adapter.CommonListAdapter;
+import com.ayannah.asira.adapter.ServiceDescriptionAdapter;
 import com.ayannah.asira.base.BaseFragment;
 import com.ayannah.asira.data.model.BankDetail;
 import com.ayannah.asira.data.model.BankList;
+import com.ayannah.asira.data.model.BankService;
 import com.ayannah.asira.screen.register.addaccountbank.AddAccountBankActivity;
 import com.ayannah.asira.screen.register.addaccountbank.AddAccountBankFragment;
 import com.ayannah.asira.screen.register.formothers.FormOtherFragment;
@@ -33,6 +36,7 @@ import butterknife.OnClick;
 public class ChooseBankFragment extends BaseFragment implements ChooseBankContract.View {
 
     ChooseBankAdapter mAdapter;
+    ServiceDescriptionAdapter serviceDescriptionAdapter;
 
     @Inject
     ChooseBankContract.Presenter mPresenter;
@@ -42,7 +46,6 @@ public class ChooseBankFragment extends BaseFragment implements ChooseBankContra
 
     @BindView(R.id.bankDeskripsi)
     TextView bankDeskripsi;
-
 
     @BindView(R.id.recyclerViewBanks)
     RecyclerView recyclerViewBanks;
@@ -72,6 +75,8 @@ public class ChooseBankFragment extends BaseFragment implements ChooseBankContra
 
         dialog.show();
         mPresenter.getPublicToken();
+
+        mPresenter.getAllServices();
     }
 
     @Override
@@ -114,6 +119,18 @@ public class ChooseBankFragment extends BaseFragment implements ChooseBankContra
             startActivity(adddbank);
 
         });
+    }
+
+    @Override
+    public void showDescription(List<BankService.Data> data) {
+
+        serviceDescriptionAdapter = new ServiceDescriptionAdapter(getActivity().getApplication());
+        serviceDescriptionAdapter.setServiceDesc(data);
+
+        recyclerViewBanks.setLayoutManager(new LinearLayoutManager(parentActivity()));
+        recyclerViewBanks.setHasFixedSize(true);
+        recyclerViewBanks.setAdapter(serviceDescriptionAdapter);
+
     }
 
     @OnClick(R.id.bankDeskripsi)

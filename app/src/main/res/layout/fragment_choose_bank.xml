@@ -13,7 +13,6 @@
         android:layout_height="wrap_content"
         android:animateLayoutChanges="true"
         android:background="@drawable/border_blue"
-        android:elevation="@dimen/_5sdp"
         android:orientation="vertical"
         android:padding="@dimen/_10sdp">
 
@@ -45,7 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/bankDeskripsi"
             android:layout_margin="@dimen/_5sdp"
-            android:layout_marginTop="6dp"
+            android:paddingTop="@dimen/_10sdp"
             android:visibility="gone" />
 
     </RelativeLayout>
@@ -55,6 +54,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/rltDeskripsi"
-        android:layout_marginTop="@dimen/_20sdp" />
+        android:layout_marginTop="@dimen/_10sdp" />
 
 </RelativeLayout>

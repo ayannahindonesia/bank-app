@@ -146,10 +146,13 @@ public class AddDocumentFragment extends BaseFragment implements AddDocumentCont
     @BindView(R.id.etName)
     EditText etName;
 
+    @BindView(R.id.etWork)
+    EditText etWork;
+
     @BindView(R.id.etPhone)
     EditText etPhone;
 
-    private String[] pekerjaan = {"Pilih Pekerjaan...", "Pemerintahan", "CPNS", "Pegawai Swasta", "Pegawai Pemerintah Nasional", "Pegawai Pemerintah Daerah"};
+    private String[] pekerjaan = {"Pilih...", "Pegawai Swasta", "PNS", "Wiraswasta", "Pensiunan", "Mahasiswa", "Lainnya"};
 
     private Validator validator;
 
@@ -379,9 +382,8 @@ public class AddDocumentFragment extends BaseFragment implements AddDocumentCont
         jsonObject.addProperty("neighbour_association", etValRT.getText().toString()); //rt
         jsonObject.addProperty("hamlets", etValRW.getText().toString()); //rw
         jsonObject.addProperty("mother_name", etMotherName.getText().toString());
-        jsonObject.addProperty("occupation", spJobs.getSelectedItem().toString()); //pekerjaan
+        jsonObject.addProperty("occupation", etWork.getText().toString()); //pekerjaan
         jsonObject.addProperty("field_of_work", spJobs.getSelectedItem().toString()); //jenis pekerjaan
-        jsonObject.addProperty("department", spJobs.getSelectedItem().toString()); //same with jenis pekerjaan (occupation)
 
         mPresenter.patchUserProfile(jsonObject);
     }

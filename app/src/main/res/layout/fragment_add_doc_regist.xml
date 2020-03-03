@@ -369,6 +369,22 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:text="Jenis Pekerjaan"
+                        android:textColor="@color/customBlack"
+                        android:textSize="@dimen/fontNormal" />
+
+                    <EditText
+                        android:id="@+id/etWork"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/customBlack"
+                        android:imeOptions="actionNext"
+                        android:textSize="@dimen/fontNormal" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_5sdp"
                         android:text="Pekerjaan"
                         android:textColor="@color/customBlack"

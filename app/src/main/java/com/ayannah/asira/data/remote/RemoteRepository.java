@@ -129,4 +129,6 @@ public interface RemoteRepository {
     Single<CheckAccount> checkUnique(String phone, String email);
 
     Single<UserProfile> postRegisterMandatoryPersonal(JsonObject jsonObject);
+
+    Single<BankService> getAllServices();
 }

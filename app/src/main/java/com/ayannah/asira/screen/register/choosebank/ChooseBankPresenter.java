@@ -86,6 +86,32 @@ public class ChooseBankPresenter implements ChooseBankContract.Presenter {
     }
 
     @Override
+    public void getAllServices() {
+        if (mView == null) {
+            return;
+        }
+
+        composite.add(remotRepo.getAllServices()
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(res -> {
+
+            mView.showDescription(res.getData());
+
+        }, err -> {
+
+            ANError anError = (ANError) err;
+            if (anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)) {
+                mView.showErrorMessage("Tidak Ada Koneksi");
+            } else if (anError.getErrorBody() != null) {
+                JSONObject jsonObject = new JSONObject(anError.getErrorBody());
+                mView.showErrorMessage(jsonObject.optString("message ") + anError.getErrorBody());
+            }
+
+        }));
+    }
+
+    @Override
     public void takeView(ChooseBankContract.View view) {
 
         mView = view;

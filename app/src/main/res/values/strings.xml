@@ -37,11 +37,11 @@
     <string name="menu_logout">Keluar</string>
 
     <!--page sumber earning-->
-    <string name="earning_primary">Pendapatan Gaji per Bulan</string>
+    <string name="earning_primary">Pendapatan/Gaji perbulan</string>
     <string name="earning_rp">Rp</string>
     <string name="earning_example_amount">1.250.000</string>
-    <string name="earning_secondary">Penghasilan Lain-lain (Jika Ada)</string>
-    <string name="earning_other">Sumber Pendapatan Lain-lain</string>
+    <string name="earning_secondary">Pendapatan Lain</string>
+    <string name="earning_other">Sumber Pendapatan Lain</string>
     <string name="earning_example_other">wirausaha</string>
     <string name="earning_next">Selanjutnya</string>
     <string name="earning_zero">0</string>

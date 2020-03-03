@@ -77,7 +77,7 @@ public class FormJobEarningFragment extends BaseFragment implements Validator.Va
     private Validator validator;
 
     //spinner
-    private String[] pekerjaan = {"Pilih...", "Pemerintahan", "CPNS", "Pegawai Swasta", "Pegawai Pemerintah Nasional", "Pegawai Pemerintah Daerah"};
+    private String[] pekerjaan = {"Pilih...", "Pegawai Swasta", "PNS", "Wiraswasta", "Pensiunan", "Mahasiswa", "Lainnya"};
     private ArrayAdapter<String> mAdapterPekerjaan;
 
     @Inject

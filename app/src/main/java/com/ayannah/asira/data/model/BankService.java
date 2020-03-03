@@ -36,6 +36,9 @@ public class BankService extends BankBaseResponse {
         @SerializedName("status")
         private String status;
 
+        @SerializedName("description")
+        private String description;
+
         public int getId() {
             return id;
         }
@@ -64,6 +67,10 @@ public class BankService extends BankBaseResponse {
             return status;
         }
 
+        public String getDescription() {
+            return description;
+        }
+
         public void setId(int id) {
             this.id = id;
         }
@@ -79,5 +86,11 @@ public class BankService extends BankBaseResponse {
         public void setStatus(String status) {
             this.status = status;
         }
+
+        public void setDescription(String description) {
+            this.description = description;
+        }
+
+
     }
 }

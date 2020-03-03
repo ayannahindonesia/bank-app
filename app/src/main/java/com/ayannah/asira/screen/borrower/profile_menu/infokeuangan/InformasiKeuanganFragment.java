@@ -77,7 +77,7 @@ public class InformasiKeuanganFragment extends BaseFragment implements Informasi
     @BindView(R.id.etSumberPendapatanLain)
     EditText etSumberPendapatanLain;
 
-    private String[] jobRepo = {"Pemerintahan", "CPNS", "Pegawai Swasta", "Kepala Daerah", "Pegawai Pemerintah Nasional", "Pegawai Pemerintah Daerah"};
+    private String[] jobRepo = {"Pilih...", "Pegawai Swasta", "PNS", "Wiraswasta", "Pensiunan", "Mahasiswa", "Lainnya"};
     private Validator validator;
     private AlertDialog dialogAlert;
 

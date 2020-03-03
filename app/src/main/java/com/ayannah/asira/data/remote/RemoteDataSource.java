@@ -662,4 +662,13 @@ public class RemoteDataSource implements RemoteRepository {
                 .build()
                 .getObjectSingle(UserProfile.class);
     }
+
+    @Override
+    public Single<BankService> getAllServices() {
+        return Rx2AndroidNetworking.get(BuildConfig.API_URL + "client/bank_services")
+                .addHeaders("Authorization", preferenceRepository.getPublicToken())
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getObjectSingle(BankService.class);
+    }
 }

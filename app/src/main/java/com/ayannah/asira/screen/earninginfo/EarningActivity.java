@@ -38,7 +38,7 @@ public class EarningActivity extends DaggerAppCompatActivity {
         assert actionBar != null;
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setTitle("Info Penghasilan");
+        actionBar.setTitle("Kembali");
 
         EarningFragment earningFragment = (EarningFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.fragment_container);

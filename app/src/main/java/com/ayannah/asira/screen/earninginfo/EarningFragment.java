@@ -35,7 +35,6 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 public class EarningFragment extends BaseFragment implements EarningContract.View,
-        BottomChangingIncome.BottomSheetChangingIncomeListener,
         Validator.ValidationListener {
 
     private static String TAG = EarningFragment.class.getSimpleName();
@@ -58,13 +57,14 @@ public class EarningFragment extends BaseFragment implements EarningContract.Vie
     @Inject
     String idService;
 
-    private BottomChangingIncome popUpChangingIncome;
+//    private BottomChangingIncome popUpChangingIncome;
     private Validator validator;
     private AlertDialog dialog;
     private UserBorrower userBorrower;
     static UserProfile userProfile;
     private String idbank;
     public static Boolean isUpdate = false;
+    private String localPenghasilan, localPendapatanLain, localSumberPendapatanLain;
 
     @Inject
     public EarningFragment(){}
@@ -113,8 +113,6 @@ public class EarningFragment extends BaseFragment implements EarningContract.Vie
 
         validator = new Validator(this);
         validator.setValidationListener(this);
-
-        setUpPopUp();
 
         etPenghasilan.addTextChangedListener(new TextWatcher() {
             @Override
@@ -200,14 +198,18 @@ public class EarningFragment extends BaseFragment implements EarningContract.Vie
 
     }
 
-    private void setUpPopUp() {
-
-    }
-
     @OnClick(R.id.buttonNext)
     void onClickProcess(){
 
-        validator.validate();
+        if (etPenghasilan.getText().toString().equals("0")) {
+            etPenghasilan.setError("Pendapatan tidak boleh kosong");
+            etPenghasilan.requestFocus();
+        } else if (!etPendapatanLain.getText().toString().equals("0") && etSumberPendapatanLain.getText().toString().equals("")) {
+            etSumberPendapatanLain.setError("Masukan sumber pendapatan lain");
+            etSumberPendapatanLain.requestFocus();
+        } else {
+            validator.validate();
+        }
 
     }
 
@@ -223,19 +225,20 @@ public class EarningFragment extends BaseFragment implements EarningContract.Vie
     @Override
     public void loadPenghasilan(String pendapatan, String pendapatanLain, String sumberLain) {
 
-        popUpChangingIncome = new BottomChangingIncome();
-
-        popUpChangingIncome.setListenerBottomChangingIncome(this);
-
-        popUpChangingIncome.setIncomeUser(Integer.parseInt(pendapatan), Integer.parseInt(pendapatanLain), sumberLain);
-
-        popUpChangingIncome.showNow(getChildFragmentManager(), "pop up");
+//        popUpChangingIncome = new BottomChangingIncome();
+//
+//        popUpChangingIncome.setListenerBottomChangingIncome(this);
+//
+//        popUpChangingIncome.setIncomeUser(Integer.parseInt(pendapatan), Integer.parseInt(pendapatanLain), sumberLain);
+//
+//        popUpChangingIncome.showNow(getChildFragmentManager(), "pop up");
 
         etPenghasilan.setText(pendapatan);
-
+        localPenghasilan = pendapatan;
         etPendapatanLain.setText(pendapatanLain);
-
+        localPendapatanLain = pendapatanLain;
         etSumberPendapatanLain.setText(sumberLain);
+        localSumberPendapatanLain = sumberLain;
 
     }
 
@@ -276,52 +279,72 @@ public class EarningFragment extends BaseFragment implements EarningContract.Vie
         mPresenter.dropView();
     }
 
-    @Override
-    public void onClickNo() {
-        Bundle bundle = parentActivity().getIntent().getExtras();
-        assert bundle != null;
-
-        Intent pinjaman;
-        if (getActivity().getIntent().getStringExtra("isFrom").toLowerCase().equals("agent")) {
-            pinjaman = new Intent(parentActivity(), LoanAgentActivity.class);
-            pinjaman.putExtra("user", (Serializable) userBorrower);
-            pinjaman.putExtra("isFrom", "agent");
-            pinjaman.putExtra(LoanAgentActivity.IDSERVICE, idService);
-            pinjaman.putExtra(LoanAgentActivity.IDBANK, idbank);
-            isUpdate = false;
-        } else {
-            pinjaman = new Intent(parentActivity(), LoanActivity.class);
-//        pinjaman.putExtra("idService", bundle.getInt("id"));
-            pinjaman.putExtra(LoanActivity.IDSERVICE, idService);
-        }
-
-        popUpChangingIncome.dismiss();
-        startActivity(pinjaman);
-
-    }
-
-    @Override
-    public void onClickYes() {
-        popUpChangingIncome.dismiss();
-
-    }
+//    @Override
+//    public void onClickNo() {
+//        Bundle bundle = parentActivity().getIntent().getExtras();
+//        assert bundle != null;
+//
+//        Intent pinjaman;
+//        if (getActivity().getIntent().getStringExtra("isFrom").toLowerCase().equals("agent")) {
+//            pinjaman = new Intent(parentActivity(), LoanAgentActivity.class);
+//            pinjaman.putExtra("user", (Serializable) userBorrower);
+//            pinjaman.putExtra("isFrom", "agent");
+//            pinjaman.putExtra(LoanAgentActivity.IDSERVICE, idService);
+//            pinjaman.putExtra(LoanAgentActivity.IDBANK, idbank);
+//            isUpdate = false;
+//        } else {
+//            pinjaman = new Intent(parentActivity(), LoanActivity.class);
+////        pinjaman.putExtra("idService", bundle.getInt("id"));
+//            pinjaman.putExtra(LoanActivity.IDSERVICE, idService);
+//        }
+//
+//        popUpChangingIncome.dismiss();
+//        startActivity(pinjaman);
+//
+//    }
+//
+//    @Override
+//    public void onClickYes() {
+//        popUpChangingIncome.dismiss();
+//
+//    }
 
     @Override
     public void onValidationSucceeded() {
 
-        int primary = Integer.parseInt(originalPenghaislan);
-        int secondaru = 0;
-        if(originalStringPendapatanLain != null && !originalStringPendapatanLain.equals("") ){
-            secondaru = Integer.parseInt(originalStringPendapatanLain);
-        }
+        if (!localPenghasilan.equals(etPenghasilan.getText().toString().replace(",","")) || !localPendapatanLain.equals(etPendapatanLain.getText().toString().replace(",","")) || !localSumberPendapatanLain.equals(etSumberPendapatanLain.getText().toString().replace(",",""))) {
+            int primary = Integer.parseInt(originalPenghaislan);
+            int secondaru = 0;
+            if(originalStringPendapatanLain != null && !originalStringPendapatanLain.equals("") ){
+                secondaru = Integer.parseInt(originalStringPendapatanLain);
+            }
 
-        String others = etSumberPendapatanLain.getText().toString().trim();
+            String others = etSumberPendapatanLain.getText().toString().trim();
 
-        dialog.show();
-        if (getActivity().getIntent().getStringExtra("isFrom").toLowerCase().equals("agent")) {
-            mPresenter.updateUserIncomeFromAgent(primary, secondaru, others, String.valueOf(userBorrower.getId()));
+            dialog.show();
+            if (getActivity().getIntent().getStringExtra("isFrom").toLowerCase().equals("agent")) {
+                mPresenter.updateUserIncomeFromAgent(primary, secondaru, others, String.valueOf(userBorrower.getId()));
+            } else {
+                mPresenter.updateUserIncome(primary, secondaru, others);
+            }
         } else {
-            mPresenter.updateUserIncome(primary, secondaru, others);
+            Bundle bundle = parentActivity().getIntent().getExtras();
+            assert bundle != null;
+
+            Intent pinjaman;
+            if (getActivity().getIntent().getStringExtra("isFrom").toLowerCase().equals("agent")) {
+                pinjaman = new Intent(parentActivity(), LoanAgentActivity.class);
+                pinjaman.putExtra("user", (Serializable) userBorrower);
+                pinjaman.putExtra("isFrom", "agent");
+                pinjaman.putExtra(LoanAgentActivity.IDSERVICE, idService);
+                pinjaman.putExtra(LoanAgentActivity.IDBANK, idbank);
+                isUpdate = false;
+            } else {
+                pinjaman = new Intent(parentActivity(), LoanActivity.class);
+//                pinjaman.putExtra("idService", bundle.getInt("id"));
+                pinjaman.putExtra(LoanActivity.IDSERVICE, idService);
+            }
+            startActivity(pinjaman);
         }
     }
 
