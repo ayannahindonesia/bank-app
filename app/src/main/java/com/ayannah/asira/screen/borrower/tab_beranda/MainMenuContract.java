@@ -28,7 +28,7 @@ public interface MainMenuContract {
 
         void showTopUpTagihanMenu(List<String> results);
 
-        void setLoanStatus(String loanStatus, String userName);
+        void setLoanStatus(String loanStatus, String nickname);
 
         void setBankName(String bankName);
     }

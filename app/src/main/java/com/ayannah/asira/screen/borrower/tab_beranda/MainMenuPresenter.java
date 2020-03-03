@@ -256,7 +256,7 @@ public class MainMenuPresenter implements MainMenuContract.Presenter {
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(res -> {
             prefRepo.setLoanStatus(res.getLoanStatus());
-            mView.setLoanStatus(res.getLoanStatus(), prefRepo.getUserName());
+            mView.setLoanStatus(res.getLoanStatus(), prefRepo.getUserNickname());
         }, error -> {
             ANError anError = (ANError) error;
             if(anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){

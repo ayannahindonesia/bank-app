@@ -251,7 +251,7 @@ public class VerificationOTPFragment extends BaseFragment implements Verificatio
     private void registerNewAccount(CharSequence otp) {
 
         JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("fullname", personalName);
+        jsonObject.addProperty("nickname", personalName);
         jsonObject.addProperty("email", personalEmail);
         jsonObject.addProperty("phone", personalPhone);
         jsonObject.addProperty("password", personalPass);

@@ -143,6 +143,7 @@ public class AddDocumentFragment extends BaseFragment implements AddDocumentCont
     @BindView(R.id.spJobs)
     Spinner spJobs;
 
+    @NotEmpty(message = "Mohon isi nama lengkap", trim = true)
     @BindView(R.id.etName)
     EditText etName;
 
@@ -370,6 +371,7 @@ public class AddDocumentFragment extends BaseFragment implements AddDocumentCont
         if (bundle.get("ACC_NUMBER") != null) {
             jsonObject.addProperty("bank_accountnumber", bundle.get("ACC_NUMBER").toString());
         }
+        jsonObject.addProperty("fullname", etName.getText().toString());
         jsonObject.addProperty("idcard_image", pictKTP64);
         jsonObject.addProperty("idcard_number", etKTP.getText().toString());
         jsonObject.addProperty("taxid_image", pictNPWP64);
@@ -511,6 +513,7 @@ public class AddDocumentFragment extends BaseFragment implements AddDocumentCont
             bundle = new Bundle();
         }
 
+        bundle.putString(FormOtherFragment.REGIST_NAME, etName.getText().toString());
         bundle.putString(FormOtherFragment.PHOTO_KTP, pictKTP64);
         bundle.putString(FormOtherFragment.PHOTO_NPWP, pictNPWP64);
         bundle.putString(FormOtherFragment.KTP_NO, etKTP.getText().toString());

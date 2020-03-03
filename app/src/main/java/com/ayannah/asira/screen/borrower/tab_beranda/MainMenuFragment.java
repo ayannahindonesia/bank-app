@@ -417,8 +417,8 @@ public class MainMenuFragment extends BaseFragment implements MainMenuContract.V
     }
 
     @Override
-    public void setLoanStatus(String loanStatus, String userName) {
-        txtCustName.setText(String.format("Hai, %s", userName));
+    public void setLoanStatus(String loanStatus, String nickname) {
+        txtCustName.setText(String.format("Hai, %s", nickname));
         statusLoan = "";
         statusLoan = loanStatus;
         mPresenter.getMainMenu();
