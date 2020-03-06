@@ -55,6 +55,9 @@ public class BankDetail implements Serializable
     @SerializedName("convfee_setup")
     private String convfeeSetup;
 
+    @SerializedName("service_name")
+    private List<String> service_name = null;
+
     public int getId() {
         return id;
     }
@@ -173,5 +176,13 @@ public class BankDetail implements Serializable
 
     public String getConvfeeSetup() {
         return convfeeSetup;
+    }
+
+    public List<String> getService_name() {
+        return service_name;
+    }
+
+    public void setService_name(List<String> service_name) {
+        this.service_name = service_name;
     }
 }

@@ -1,59 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/graybackground"
-    android:orientation="vertical"
     android:padding="@dimen/_10sdp">
 
-    <RelativeLayout
-        android:id="@+id/rltDeskripsi"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:animateLayoutChanges="true"
-        android:background="@drawable/border_blue"
-        android:orientation="vertical"
-        android:padding="@dimen/_10sdp">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/bankDeskripsi"
+        <RelativeLayout
+            android:id="@+id/rltDeskripsi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableStart="@drawable/ic_info"
-            android:drawableEnd="@drawable/ic_down"
-            android:drawablePadding="@dimen/_10sdp"
-            android:gravity="center_vertical"
-            android:text="Deskripsi macam-macam produk pinjaman"
-            android:textColor="@android:color/black"
-            android:textSize="@dimen/_10sdp"
-            android:textStyle="bold" />
+            android:animateLayoutChanges="true"
+            android:background="@drawable/border_blue"
+            android:padding="@dimen/_10sdp">
 
-        <!--        <ImageButton-->
-        <!--            android:id="@+id/collapseBtn"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_alignParentEnd="true"-->
-        <!--            android:background="?attr/selectableItemBackground"-->
-        <!--            android:src="@drawable/ic_arrow_drop_down"-->
-        <!--            tools:ignore="ContentDescription" />-->
+            <TextView
+                android:id="@+id/bankDeskripsi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_info"
+                android:drawableEnd="@drawable/ic_down"
+                android:drawablePadding="@dimen/_10sdp"
+                android:gravity="center_vertical"
+                android:text="Deskripsi macam-macam produk pinjaman"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/_10sdp"
+                android:textStyle="bold" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewBanks"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/bankDeskripsi"
+                android:layout_margin="@dimen/_5sdp"
+                android:paddingTop="@dimen/_10sdp"
+                android:visibility="gone" />
+
+        </RelativeLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewBanks"
+            android:id="@+id/rvBank"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/bankDeskripsi"
-            android:layout_margin="@dimen/_5sdp"
-            android:paddingTop="@dimen/_10sdp"
-            android:visibility="gone" />
+            android:layout_below="@+id/rltDeskripsi"
+            android:layout_marginTop="@dimen/_10sdp" />
 
-    </RelativeLayout>
+    </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvBank"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/rltDeskripsi"
-        android:layout_marginTop="@dimen/_10sdp" />
-
-</RelativeLayout>
+</androidx.core.widget.NestedScrollView>

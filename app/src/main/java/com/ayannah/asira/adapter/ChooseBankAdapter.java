@@ -76,6 +76,9 @@ public class ChooseBankAdapter extends RecyclerView.Adapter<ChooseBankAdapter.Ch
         @BindView(R.id.tvNameBank)
         TextView nameBank;
 
+        @BindView(R.id.tvServices)
+        TextView tvServices;
+
         ChooseBankVH(View itemView){
             super(itemView);
             ButterKnife.bind(this, itemView);
@@ -84,9 +87,20 @@ public class ChooseBankAdapter extends RecyclerView.Adapter<ChooseBankAdapter.Ch
 
         private void binf(BankDetail bank){
 
+            StringBuilder services = new StringBuilder();
+            for (int i=0; i<bank.getService_name().size(); i++) {
+                if (i+1 == bank.getService_name().size()) {
+                    services.append("dan ").append(bank.getService_name().get(i));
+                } else {
+                    services.append(bank.getService_name().get(i)).append(", ");
+                }
+            }
+
             ImageUtils.displayImageFromUrlWithErrorDrawable(itemView.getContext(), icBank, bank.getImage(), null);
 
             nameBank.setText(bank.getName());
+
+            tvServices.setText(services);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
