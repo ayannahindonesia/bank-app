@@ -88,11 +88,15 @@ public class ChooseBankAdapter extends RecyclerView.Adapter<ChooseBankAdapter.Ch
         private void binf(BankDetail bank){
 
             StringBuilder services = new StringBuilder();
-            for (int i=0; i<bank.getService_name().size(); i++) {
-                if (i+1 == bank.getService_name().size()) {
-                    services.append("dan ").append(bank.getService_name().get(i));
-                } else {
-                    services.append(bank.getService_name().get(i)).append(", ");
+            if (bank.getService_name().size() == 1) {
+                services.append(bank.getService_name().get(0));
+            } else {
+                for (int i = 0; i < bank.getService_name().size(); i++) {
+                    if (i + 1 == bank.getService_name().size()) {
+                        services.append("dan ").append(bank.getService_name().get(i));
+                    } else {
+                        services.append(bank.getService_name().get(i)).append(", ");
+                    }
                 }
             }
 
