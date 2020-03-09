@@ -7,6 +7,7 @@ import android.widget.ListView;
 import com.ayannah.asira.data.model.BankDetail;
 import com.ayannah.asira.data.model.Loans.DataItem;
 import com.ayannah.asira.data.model.MenuAgent;
+import com.ayannah.asira.data.model.Question;
 import com.ayannah.asira.data.model.UserBorrower;
 
 public interface CommonListListener {
@@ -53,6 +54,12 @@ public interface CommonListListener {
         void onClickClient(UserBorrower param);
 
         void onClickAjukan(UserBorrower param);
+
+    }
+
+    interface QuestionListener{
+
+        void onClickQuestion(Question.Data param);
 
     }
 

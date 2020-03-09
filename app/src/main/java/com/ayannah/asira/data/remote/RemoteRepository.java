@@ -17,6 +17,7 @@ import com.ayannah.asira.data.model.Loans.Loans;
 import com.ayannah.asira.data.model.NasabahAgent;
 import com.ayannah.asira.data.model.Notif;
 import com.ayannah.asira.data.model.Provinsi;
+import com.ayannah.asira.data.model.Question;
 import com.ayannah.asira.data.model.ReasonLoan;
 import com.ayannah.asira.data.model.ServiceProducts;
 import com.ayannah.asira.data.model.ServiceProductsAgent;
@@ -131,4 +132,6 @@ public interface RemoteRepository {
     Single<UserProfile> postRegisterMandatoryPersonal(JsonObject jsonObject);
 
     Single<BankService> getAllServices();
+
+    Single<Question> faq();
 }

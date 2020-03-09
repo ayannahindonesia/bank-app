@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.ayannah.asira.R;
 import com.ayannah.asira.adapter.viewHolder_agent.AgentLoanVH;
 import com.ayannah.asira.adapter.viewHolder_agent.AgentsClientVH;
+import com.ayannah.asira.adapter.viewHolder_agent.QuestionVH;
 import com.ayannah.asira.custom.CommonListListener;
 import com.ayannah.asira.data.model.Bank;
 import com.ayannah.asira.data.model.BankDetail;
@@ -21,6 +22,7 @@ import com.ayannah.asira.data.model.BankList;
 import com.ayannah.asira.data.model.Loans.DataItem;
 import com.ayannah.asira.data.model.MenuAgent;
 import com.ayannah.asira.data.model.Notif;
+import com.ayannah.asira.data.model.Question;
 import com.ayannah.asira.data.model.UserBorrower;
 import com.ayannah.asira.util.CommonUtils;
 import com.ayannah.asira.util.ImageUtils;
@@ -43,6 +45,7 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public static final int VIEW_AGENT_MENU = 6;
     public static final int AGENT_VIEW_AGENTS_BORROWER = 7;
     public static final int AGENT_LIST_LOAN = 8;
+    public static final int FAQ = 9;
 
 
     //for loan history purposes
@@ -63,6 +66,7 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private List<MenuAgent> menuAgents;
     private List<UserBorrower> agentsBorrowerList;
     private List<DataItem> loanInAgents;
+    private List<Question.Data> questions;
 
     private CommonListListener.LoanAdapterListener loanListener;
     private CommonListListener.NotifAdapterListener notifListener;
@@ -72,6 +76,7 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private CommonListListener.CommonStringItemClickListener commonStringItemClickListener;
     private CommonListListener.MenuAgentListener menuAgentListener;
     private CommonListListener.AgentsClientListener agentsClientListener;
+    private CommonListListener.QuestionListener questionListener;
 
     public CommonListAdapter(int viewType){
         this.mViewType = viewType;
@@ -87,6 +92,7 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         menuAgents = new ArrayList<>();
         agentsBorrowerList = new ArrayList<>();
         loanInAgents = new ArrayList<>();
+        questions = new ArrayList<>();
 
     }
 
@@ -212,6 +218,15 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         this.loanListener = listener;
     }
 
+    public void setListQuestion(List<Question.Data> results){
+        questions.clear();
+        questions.addAll(results);
+        notifyDataSetChanged();
+    }
+    public void setOnClickListenerQuestions(CommonListListener.QuestionListener listenerQuestions){
+        this.questionListener = listenerQuestions;
+    }
+
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -265,6 +280,11 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             case AGENT_LIST_LOAN:
 
                 holder = new AgentLoanVH(inflater.inflate(R.layout.item_list_loan_agent, parent, false), loanListener);
+                break;
+
+            case FAQ:
+
+                holder = new QuestionVH(inflater.inflate(R.layout.item_default_text, parent, false), questionListener);
                 break;
 
             default:
@@ -331,6 +351,11 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             case AGENT_LIST_LOAN:
 
                 ((AgentLoanVH) holder).bind(loanInAgents.get(position));
+                break;
+
+            case FAQ:
+
+                ((QuestionVH) holder).bind(questions.get(position));
                 break;
         }
 
@@ -442,6 +467,11 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             case AGENT_LIST_LOAN:
 
                 totals = loanInAgents.size();
+                break;
+
+            case FAQ:
+
+                totals = questions.size();
                 break;
         }
 

@@ -37,6 +37,9 @@ import com.ayannah.asira.screen.agent.tab_data_pinjaman.filter.FilterPinjamanMod
 import com.ayannah.asira.screen.agent.tab_pesan.PesanModule;
 import com.ayannah.asira.screen.agent.viewBorrower.ViewBorrowerActivity;
 import com.ayannah.asira.screen.agent.viewBorrower.ViewBorrowerModule;
+import com.ayannah.asira.screen.bantuan.BantuanActivity;
+import com.ayannah.asira.screen.bantuan.BantuanModule;
+import com.ayannah.asira.screen.bantuan.isi_bantuan.IsiBantuanModule;
 import com.ayannah.asira.screen.borrower.borrower_landing_page.BorrowerLandingModule;
 import com.ayannah.asira.screen.borrower.borrower_landing_page.BorrowerLandingPage;
 import com.ayannah.asira.screen.borrower.profile_menu.editinfopribadi.EditInfoPribadiActivity;
@@ -266,5 +269,9 @@ abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = FilterPinjamanModule.class)
     abstract FilterPinjamanActivity filterPinjamanActivity();
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = {BantuanModule.class, IsiBantuanModule.class})
+    abstract BantuanActivity bantuanActivity();
 
 }

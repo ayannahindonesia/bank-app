@@ -29,6 +29,7 @@ import com.ayannah.asira.data.model.Loans.Loans;
 import com.ayannah.asira.data.model.NasabahAgent;
 import com.ayannah.asira.data.model.Notif;
 import com.ayannah.asira.data.model.Provinsi;
+import com.ayannah.asira.data.model.Question;
 import com.ayannah.asira.data.model.ReasonLoan;
 import com.ayannah.asira.data.model.ServiceProducts;
 import com.ayannah.asira.data.model.ServiceProductsAgent;
@@ -672,5 +673,15 @@ public class RemoteDataSource implements RemoteRepository {
                 .setPriority(Priority.MEDIUM)
                 .build()
                 .getObjectSingle(BankService.class);
+    }
+
+
+    @Override
+    public Single<Question> faq() {
+        return Rx2AndroidNetworking.get(BuildConfig.API_URL + "client/faq")
+                .addHeaders("Authorization", preferenceRepository.getPublicToken())
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getObjectSingle(Question.class);
     }
 }

@@ -28,6 +28,7 @@ import com.ayannah.asira.data.local.PreferenceRepository;
 import com.ayannah.asira.data.model.BankDetail;
 import com.ayannah.asira.screen.agent.lpagent.LPAgentActivity;
 import com.ayannah.asira.screen.agent.navigationmenu.agentprofile.ListBanks.AgentProfileBankListActivity;
+import com.ayannah.asira.screen.bantuan.BantuanActivity;
 import com.ayannah.asira.screen.borrower.register_mandatory.RegisterMandatoryActivity;
 import com.ayannah.asira.screen.chooselogin.ChooseLoginActivity;
 import com.ayannah.asira.util.CommonUtils;
@@ -180,6 +181,15 @@ public class AgentProfileFragment extends BaseFragment implements AgentProfileCo
             @Override
             public void onClickItem(String item) {
                 Toast.makeText(parentActivity(), item, Toast.LENGTH_SHORT).show();
+
+                switch (item){
+
+                    case "Pusat Bantuan":
+                        Intent intent = new Intent(parentActivity(), BantuanActivity.class);
+                        startActivity(intent);
+
+                        break;
+                }
             }
         });
 
