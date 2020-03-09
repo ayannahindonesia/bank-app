@@ -28,6 +28,7 @@ import com.ayannah.asira.data.local.PreferenceRepository;
 import com.ayannah.asira.data.model.BankDetail;
 import com.ayannah.asira.screen.agent.lpagent.LPAgentActivity;
 import com.ayannah.asira.screen.agent.navigationmenu.agentprofile.ListBanks.AgentProfileBankListActivity;
+import com.ayannah.asira.screen.borrower.register_mandatory.RegisterMandatoryActivity;
 import com.ayannah.asira.screen.chooselogin.ChooseLoginActivity;
 import com.ayannah.asira.util.CommonUtils;
 import com.ayannah.asira.util.ImageUtils;
@@ -224,7 +225,7 @@ public class AgentProfileFragment extends BaseFragment implements AgentProfileCo
 
     @Override
     public void logoutComplete() {
-        Intent logout = new Intent(parentActivity(), ChooseLoginActivity.class);
+        Intent logout = new Intent(parentActivity(), RegisterMandatoryActivity.class);
         logout.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(logout);
         parentActivity().finish();

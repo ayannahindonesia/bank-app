@@ -4,8 +4,10 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -26,6 +28,7 @@ import java.util.List;
 import java.util.Locale;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,12 +38,17 @@ import dagger.android.support.DaggerAppCompatActivity;
 
 public class DetailTransaksiActivity extends DaggerAppCompatActivity implements DetailTransaksiContract.View {
 
+    private static final String TAG = DetailTransaksiActivity.class.getSimpleName();
+
     public static final String ID_LOAN = "idloan";
     public static final String LOAN_DETAIL = "loanDetail";
 
     private final static String STATUS_PROCESSING = "processing";
     private final static String STATUS_APPROVED = "approved";
     private final static String STATUS_REJECTED = "rejected";
+
+    public static final String FROMAGENT = "FROMAGENT";
+    public static final String FROMBORROWER = "FROMBORROWER";
 
     @Inject
     DetailTransaksiContract.Presenter mPresenter;
@@ -51,11 +59,17 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
     @BindView(R.id.verfiedLoan)
     Button btn_verfiedLoan;
 
-    @Inject
+    @Inject @Named("idLoan")
     String id_loan;
+
+    @Inject @Named("purpose")
+    String purpose;
 
     @Inject
     DataItem loanDetails;
+
+    @BindView(R.id.loanAmount)
+    TextView tvLoanAmount;
 
     @BindView(R.id.noPeminjaman)
     TextView noPeminjaman;
@@ -64,7 +78,7 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
     TextView dateCreated;
 
     @BindView(R.id.status)
-    TextView status;
+    TextView tvStatus;
 
     @BindView(R.id.tujuan)
     TextView tujuan;
@@ -98,9 +112,6 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
 
     @BindView(R.id.lltDisbursement)
     LinearLayout lltDisbursement;
-
-    @BindView(R.id.disbursementStatus)
-    TextView disbursementStatus;
 
     @BindView(R.id.lltDisbursementDate)
     LinearLayout lltDisbursementDate;
@@ -146,6 +157,25 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setTitle("Detil Pinjaman");
 
+        if(purpose.equals(FROMAGENT) || purpose.equals(FROMBORROWER)){
+
+            Toast.makeText(this, "Detil transaksi "+ id_loan, Toast.LENGTH_SHORT).show();
+        }else {
+
+            AlertDialog.Builder alert = new AlertDialog.Builder(this);
+            alert.setTitle("Something Wrong");
+            alert.setMessage("Pastikan kamu dari halaman borrower atau agent dengan set purposenya");
+            alert.setPositiveButton("OKE", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                    finish();
+                }
+            });
+            alert.show();
+
+        }
+
         loadAllInformation(loanDetails);
     }
 
@@ -171,6 +201,8 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
 //                }
 //            }
 
+        tvLoanAmount.setText(CommonUtils.setRupiahCurrency(dataItem.getLoanAmount()));
+
         produk.setText(dataItem.getProductName());
         idLoan = dataItem.getId();
 
@@ -188,35 +220,60 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
         } catch (ParseException e) {
             e.printStackTrace();
         }
+
         dateCreated.setText(sdfUsed.format(getDate));
+
+        Log.e(TAG, "value id: " + dataItem.getId());
+        Log.e(TAG, "value created_at: " + dataItem.getCreatedTime());
+        Log.e(TAG, "value updated_at: " + dataItem.getUpdatedTime());
+        Log.e(TAG, "value deleted_at: " + dataItem.getDeletedTime());
+        Log.e(TAG, "value status: " + dataItem.getStatus());
+        Log.e(TAG, "value loan_amount: " + dataItem.getLoanAmount());
+        Log.e(TAG, "value installment: " + dataItem.getInstallment());
+        Log.e(TAG, "value interest: " + dataItem.getInterest());
+        Log.e(TAG, "value total_loan: " + dataItem.getTotalLoan());
+        Log.e(TAG, "value due_date: " + dataItem.getDueDate());
+        Log.e(TAG, "value disburse_amount: " + dataItem.getDisburseAmount());
+        Log.e(TAG, "value layaway_plan: " + dataItem.getProduct());
+        Log.e(TAG, "value product: " + dataItem.getLoanIntention());
+        Log.e(TAG, "value loan_intention: " + dataItem.getIntentionDetails());
+        Log.e(TAG, "value intention_details: " + dataItem.isOtpVerified());
+        Log.e(TAG, "value otp_verified: " + dataItem.getDisburseDate());
+        Log.e(TAG, "value disburse_date: " + dataItem.getDisburseDateChanged());
+        Log.e(TAG, "value disburse_date_changed: " + dataItem.getDisburseStatus());
+        Log.e(TAG, "value disburse_status: " + dataItem.getRejectReason());
+        Log.e(TAG, "value product_name: " + dataItem.getProductName());
+        Log.e(TAG, "value service_name: " + dataItem.getServiceName());
 
         switch (dataItem.getStatus().toLowerCase()) {
             case STATUS_APPROVED:
-                status.setBackgroundResource(R.drawable.badge_diterima);
-                status.setText(getResources().getString(R.string.accept));
+                tvStatus.setBackgroundResource(R.drawable.bg_status_approve);
+                tvStatus.setText(getResources().getString(R.string.accept));
                 lltDisbursement.setVisibility(View.VISIBLE);
                 dateDisbursement.setText(sdfUsed.format(getDateDisbursement));
                 if (dataItem.getDisburseStatus().toLowerCase().equals("processing")) {
                     lltDisbursementDate.setVisibility(View.GONE);
-                    disbursementStatus.setText(R.string.processing);
+//                    disbursementStatus.setText(R.string.processing);
                 } else if (dataItem.getDisburseStatus().toLowerCase().equals("confirmed")) {
                     lltDisbursementDate.setVisibility(View.VISIBLE);
-                    disbursementStatus.setText(R.string.confirm);
+//                    disbursementStatus.setText(R.string.confirm);
                 } else {
                     lltDisbursementDate.setVisibility(View.GONE);
-                    disbursementStatus.setText("");
+//                    disbursementStatus.setText("");
                 }
                 lltRejectReason.setVisibility(View.GONE);
                 break;
+
             case STATUS_PROCESSING:
-                status.setBackgroundResource(R.drawable.badge_tidak_lengkap);
-                status.setText(getResources().getString(R.string.processing));
+                tvStatus.setBackgroundResource(R.drawable.bg_status_normal);
+                tvStatus.setText(getResources().getString(R.string.processing));
                 lltDisbursement.setVisibility(View.GONE);
                 lltRejectReason.setVisibility(View.GONE);
                 break;
+
             case STATUS_REJECTED:
-                status.setBackgroundResource(R.drawable.badge_ditolak);
-                status.setText(getResources().getString(R.string.reject));
+                tvStatus.setBackgroundResource(R.drawable.bg_status_reject);
+                tvStatus.setText(getResources().getString(R.string.reject));
                 lltDisbursement.setVisibility(View.GONE);
                 lltRejectReason.setVisibility(View.VISIBLE);
                 rejectReason.setText(dataItem.getRejectReason());

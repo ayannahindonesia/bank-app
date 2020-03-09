@@ -30,6 +30,16 @@ public class CommonUtils {
         return "Rp"+result;
     }
 
+    public static String setRupiahFromFloat(float value){
+
+        Locale locale = new Locale("in", "ID");
+        NumberFormat numberFormat = NumberFormat.getNumberInstance(locale);
+
+        String res = numberFormat.format(value);
+
+        return "Rp"+res;
+    }
+
     public static String getipAddress(Application application){
         WifiManager wifiManager = (WifiManager) application.getSystemService(Context.WIFI_SERVICE);
         WifiInfo wifiInfo = wifiManager.getConnectionInfo();

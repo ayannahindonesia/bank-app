@@ -189,9 +189,9 @@ public class AddDocumentFragment extends BaseFragment implements AddDocumentCont
 
         //check permission to access camera and gallery photo
         needPermission(new String[]{
-                Manifest.permission.CAMERA,
-                Manifest.permission.READ_EXTERNAL_STORAGE,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE
+                Manifest.permission.CAMERA
+//                Manifest.permission.READ_EXTERNAL_STORAGE,
+//                Manifest.permission.WRITE_EXTERNAL_STORAGE
         });
 
     }

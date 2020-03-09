@@ -2,11 +2,9 @@ package com.ayannah.asira.screen.borrower.tab_historyloan;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -23,6 +21,7 @@ import com.ayannah.asira.screen.detailloan.DetailTransaksiActivity;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -39,16 +38,13 @@ public class HistoryLoanFragment extends BaseFragment implements
     @BindView(R.id.recyclerViewPinjaman)
     RecyclerView recyclerView;
 
-    @BindView(R.id.progressLoading)
-    LinearLayout progressLoading;
-
     @BindView(R.id.tryagain)
     LinearLayout tryagain;
 
     @BindView(R.id.no_data)
     TextView nodata;
 
-    @Inject
+    @Inject @Named("pinjaman")
     CommonListAdapter mAdapterLoans;
 
     private BottomSortHistoryLoan bottomSortHistoryLoan;
@@ -69,8 +65,6 @@ public class HistoryLoanFragment extends BaseFragment implements
         mPresenter.takeView(this);
 
         mPresenter.getProducts();
-
-//        mPresenter.loadHistoryTransaction("");
     }
 
     @Override
@@ -92,7 +86,6 @@ public class HistoryLoanFragment extends BaseFragment implements
         error.showNow(parentActivity().getSupportFragmentManager(), "error message");
         error.setOnClickLister(error::dismiss);
 
-        progressLoading.setVisibility(View.GONE);
         recyclerView.setVisibility(View.GONE);
         nodata.setVisibility(View.GONE);
 
@@ -110,16 +103,14 @@ public class HistoryLoanFragment extends BaseFragment implements
     @Override
     public void showAllTransaction(List<DataItem> results) {
 
-        progressLoading.setVisibility(View.GONE);
-
         if(results.size() > 0){
 
             recyclerView.setVisibility(View.VISIBLE);
             nodata.setVisibility(View.GONE);
 
-            mAdapterLoans.setDateLoans(results);
+            mAdapterLoans.setListAgentLoan(results);
 
-            mAdapterLoans.setOnClickListenerLoanAdapter(loans -> {
+            mAdapterLoans.setOnClickListenerLoanInAgent(loans -> {
 
                 Intent intent = new Intent(parentActivity(), DetailTransaksiActivity.class);
                 intent.putExtra(DetailTransaksiActivity.ID_LOAN, String.valueOf(loans.getId()));

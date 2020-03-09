@@ -91,12 +91,17 @@ public class BottomSheetLoanDetail extends BottomSheetDialogFragment {
             }
             lltTanggalApproval.setVisibility(View.VISIBLE);
             lltTanggalPencairan.setVisibility(View.VISIBLE);
+
         }else if(item.getStatus().equals("processing")){
+
             status.setText("Dalam Proses");
+
         }else {
+
             status.setText("Ditolak");
             lltTanggalApproval.setVisibility(View.VISIBLE);
             lltRejactReason.setVisibility(View.VISIBLE);
+
         }
 
 
@@ -108,7 +113,7 @@ public class BottomSheetLoanDetail extends BottomSheetDialogFragment {
 
         tenor.setText(String.valueOf(item.getInstallment()));
 
-        total.setText(CommonUtils.setRupiahCurrency(item.getTotalLoan()));
+        total.setText(CommonUtils.setRupiahFromFloat(item.getTotalLoan()));
 
         angsuran.setText(CommonUtils.setRupiahCurrency((int) Math.floor(item.getLayawayPlan())));
 

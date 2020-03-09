@@ -52,30 +52,30 @@ public class PencairanPresenter implements PencairanContract.Presenter {
             return;
         }
 
-        mComposite.add(remoteRepository.getAgentLoan(String.valueOf(idBank))
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(res -> {
-
-                    Log.e(TAG, "total: "+res.getTotalData());
-
-                    if(res.getTotalData() > 0) {
-
-                        List<DataItem> processing = new ArrayList<>();
-
-                        for(DataItem item: res.getData()){
-
-                            if(item.getStatus().contains("approved") || item.getStatus().contains("disbursed")){
-                                processing.add(item);
-                            }
-                        }
-
-                        mView.showOnPencairan(processing);
-
-                    }
-                }, error ->{
-
-                    mView.showErrorMessage(CommonUtils.errorResponseGetCode(error));
-                }));
+//        mComposite.add(remoteRepository.getAgentLoan(String.valueOf(idBank))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(res -> {
+//
+//                    Log.e(TAG, "total: "+res.getTotalData());
+//
+//                    if(res.getTotalData() > 0) {
+//
+//                        List<DataItem> processing = new ArrayList<>();
+//
+//                        for(DataItem item: res.getData()){
+//
+//                            if(item.getStatus().contains("approved") || item.getStatus().contains("disbursed")){
+//                                processing.add(item);
+//                            }
+//                        }
+//
+//                        mView.showOnPencairan(processing);
+//
+//                    }
+//                }, error ->{
+//
+//                    mView.showErrorMessage(CommonUtils.errorResponseGetCode(error));
+//                }));
     }
 }

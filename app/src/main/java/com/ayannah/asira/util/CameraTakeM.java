@@ -206,24 +206,42 @@ public class CameraTakeM extends AppCompatActivity {
                     ImageReader.OnImageAvailableListener readerListener = new ImageReader.OnImageAvailableListener() {
                         @Override
                         public void onImageAvailable(ImageReader reader) {
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                                Image image = null;
-                                try {
-                                    image = reader.acquireLatestImage();
-                                    ByteBuffer buffer = image.getPlanes()[0].getBuffer();
-                                    byte[] bytes = new byte[buffer.capacity()];
-                                    buffer.get(bytes);
-                                    save(bytes);
-                                } catch (FileNotFoundException e) {
-                                    e.printStackTrace();
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                } finally {
-                                    if (image != null) {
-                                        image.close();
-                                    }
+
+                            Image image = null;
+                            try {
+                                image = reader.acquireLatestImage();
+                                ByteBuffer buffer = image.getPlanes()[0].getBuffer();
+                                byte[] bytes = new byte[buffer.capacity()];
+                                buffer.get(bytes);
+                                save(bytes);
+                            } catch (FileNotFoundException e) {
+                                e.printStackTrace();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            } finally {
+                                if (image != null) {
+                                    image.close();
                                 }
                             }
+
+//                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//                                Image image = null;
+//                                try {
+//                                    image = reader.acquireLatestImage();
+//                                    ByteBuffer buffer = image.getPlanes()[0].getBuffer();
+//                                    byte[] bytes = new byte[buffer.capacity()];
+//                                    buffer.get(bytes);
+//                                    save(bytes);
+//                                } catch (FileNotFoundException e) {
+//                                    e.printStackTrace();
+//                                } catch (IOException e) {
+//                                    e.printStackTrace();
+//                                } finally {
+//                                    if (image != null) {
+//                                        image.close();
+//                                    }
+//                                }
+//                            }
                         }
 
                         private void save(byte[] bytes) throws IOException {
@@ -244,6 +262,7 @@ public class CameraTakeM extends AppCompatActivity {
                         public void onCaptureCompleted(CameraCaptureSession session, CaptureRequest request, TotalCaptureResult result) {
                             super.onCaptureCompleted(session, request, result);
                             Toast.makeText(CameraTakeM.this, "Saved:" + file, Toast.LENGTH_SHORT).show();
+                            Log.e(TAG, "picSaved");
                             Intent intent = new Intent();
                             setResult(RESULT_OK,intent);
                             finish();

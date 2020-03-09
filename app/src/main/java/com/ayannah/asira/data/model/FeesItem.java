@@ -10,11 +10,15 @@ public class FeesItem implements Parcelable {
 	@SerializedName("amount")
 	private String amount;
 
+	@SerializedName("fee_method")
+	private String feeMethod;
+
 	@SerializedName("description")
 	private String description;
 
 	protected FeesItem(Parcel in) {
 		amount = in.readString();
+		feeMethod = in.readString();
 		description = in.readString();
 	}
 
@@ -29,6 +33,14 @@ public class FeesItem implements Parcelable {
 			return new FeesItem[size];
 		}
 	};
+
+	public String getFeeMethod() {
+		return feeMethod;
+	}
+
+	public void setFeeMethod(String feeMethod) {
+		this.feeMethod = feeMethod;
+	}
 
 	public void setAmount(String amount){
 		this.amount = amount;
@@ -54,6 +66,7 @@ public class FeesItem implements Parcelable {
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
 		dest.writeString(amount);
+		dest.writeString(feeMethod);
 		dest.writeString(description);
 	}
 }

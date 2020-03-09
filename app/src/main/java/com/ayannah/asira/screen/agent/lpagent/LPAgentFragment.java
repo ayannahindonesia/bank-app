@@ -56,7 +56,7 @@ public class LPAgentFragment extends BaseFragment implements LPAgentContract.Vie
 
 //        mPresenter.getCurrentAgentIdentity();
 //
-        mPresenter.getTokenLender();
+//        mPresenter.getTokenLender();
 
         isFrom = parentActivity().getIntent().getStringExtra("isFrom");
 

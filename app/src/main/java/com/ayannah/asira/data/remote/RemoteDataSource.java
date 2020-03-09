@@ -539,10 +539,12 @@ public class RemoteDataSource implements RemoteRepository {
     }
 
     @Override
-    public Single<Loans> getAgentLoan(String idBank) {
+    public Single<Loans> getAgentLoan(String idBank, String status, String name) {
         return Rx2AndroidNetworking.get(BuildConfig.API_URL + "agent/loan")
                 .addHeaders("Authorization", preferenceRepository.getUserToken())
                 .addQueryParameter("bank", idBank)
+                .addQueryParameter("status", status)
+                .addQueryParameter("name", name)
                 .setPriority(Priority.MEDIUM)
                 .build()
                 .getObjectSingle(Loans.class);

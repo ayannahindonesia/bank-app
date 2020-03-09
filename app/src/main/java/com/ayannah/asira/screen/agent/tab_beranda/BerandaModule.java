@@ -4,6 +4,8 @@ import com.ayannah.asira.adapter.CommonListAdapter;
 import com.ayannah.asira.di.ActivityScoped;
 import com.ayannah.asira.di.FragmentScoped;
 
+import javax.inject.Named;
+
 import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
@@ -22,6 +24,7 @@ public abstract class BerandaModule {
 
     @ActivityScoped
     @Provides
+    @Named("borrowersAgent")
     static CommonListAdapter adapter(){
         return new CommonListAdapter(CommonListAdapter.AGENT_VIEW_AGENTS_BORROWER);
     }

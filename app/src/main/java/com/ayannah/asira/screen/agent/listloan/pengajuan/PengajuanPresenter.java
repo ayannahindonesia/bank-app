@@ -53,31 +53,31 @@ public class PengajuanPresenter implements PengajuanContract.Presenter {
             return;
         }
 
-        mComposite.add(remoteRepository.getAgentLoan(String.valueOf(idbank))
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(res -> {
-
-            Log.e(TAG, "total: "+res.getTotalData());
-
-            if(res.getTotalData() > 0) {
-
-                List<DataItem> processing = new ArrayList<>();
-
-                for(DataItem item: res.getData()){
-
-                    if(item.getStatus().contains("processing")){
-                        processing.add(item);
-                    }
-                }
-
-                mView.showOnProcessLoan(processing);
-
-            }
-        }, error ->{
-
-            mView.showErrorMessage(CommonUtils.errorResponseGetCode(error));
-        }));
+//        mComposite.add(remoteRepository.getAgentLoan(String.valueOf(idbank))
+//        .subscribeOn(Schedulers.io())
+//        .observeOn(AndroidSchedulers.mainThread())
+//        .subscribe(res -> {
+//
+//            Log.e(TAG, "total: "+res.getTotalData());
+//
+//            if(res.getTotalData() > 0) {
+//
+//                List<DataItem> processing = new ArrayList<>();
+//
+//                for(DataItem item: res.getData()){
+//
+//                    if(item.getStatus().contains("processing")){
+//                        processing.add(item);
+//                    }
+//                }
+//
+//                mView.showOnProcessLoan(processing);
+//
+//            }
+//        }, error ->{
+//
+//            mView.showErrorMessage(CommonUtils.errorResponseGetCode(error));
+//        }));
 
 
 

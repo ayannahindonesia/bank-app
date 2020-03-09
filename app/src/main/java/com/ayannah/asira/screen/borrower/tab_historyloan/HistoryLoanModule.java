@@ -5,6 +5,8 @@ import com.ayannah.asira.adapter.CommonListAdapter;
 import com.ayannah.asira.di.ActivityScoped;
 import com.ayannah.asira.di.FragmentScoped;
 
+import javax.inject.Named;
+
 import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
@@ -23,7 +25,8 @@ public abstract class HistoryLoanModule {
 
     @Provides
     @ActivityScoped
+    @Named("pinjaman")
     static CommonListAdapter adapter(){
-        return new CommonListAdapter(CommonListAdapter.VIEW_LOAN_HISTORY);
+        return new CommonListAdapter(CommonListAdapter.AGENT_LIST_LOAN);
     }
 }

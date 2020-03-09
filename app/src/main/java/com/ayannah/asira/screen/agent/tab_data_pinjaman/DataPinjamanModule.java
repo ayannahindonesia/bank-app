@@ -3,8 +3,11 @@ package com.ayannah.asira.screen.agent.tab_data_pinjaman;
 import android.app.Application;
 
 import com.ayannah.asira.adapter.ChooseBankAdapter;
+import com.ayannah.asira.adapter.CommonListAdapter;
 import com.ayannah.asira.di.ActivityScoped;
 import com.ayannah.asira.di.FragmentScoped;
+
+import javax.inject.Named;
 
 import dagger.Binds;
 import dagger.Module;
@@ -22,10 +25,11 @@ public abstract class DataPinjamanModule {
     @Binds
     abstract DataPinjamanContract.Presenter requestPresenter(DataPinjamanPresenter presenter);
 
-    @ActivityScoped
     @Provides
-    static ChooseBankAdapter adapter(Application application){
-        return new ChooseBankAdapter(application);
+    @ActivityScoped
+    @Named("loan")
+    static CommonListAdapter adapter(){
+        return new CommonListAdapter(CommonListAdapter.AGENT_LIST_LOAN);
     }
 
 }

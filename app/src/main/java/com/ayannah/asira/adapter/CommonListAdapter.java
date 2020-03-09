@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ayannah.asira.R;
+import com.ayannah.asira.adapter.viewHolder_agent.AgentLoanVH;
 import com.ayannah.asira.adapter.viewHolder_agent.AgentsClientVH;
 import com.ayannah.asira.custom.CommonListListener;
 import com.ayannah.asira.data.model.Bank;
@@ -40,8 +41,8 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public static final int VIEW_BANK_LIST = 4;
     public static final int VIEW_LIST_TOPUP_TAGIHAN = 5;
     public static final int VIEW_AGENT_MENU = 6;
-
     public static final int AGENT_VIEW_AGENTS_BORROWER = 7;
+    public static final int AGENT_LIST_LOAN = 8;
 
 
     //for loan history purposes
@@ -61,6 +62,7 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private List<String> menuTopupTagihan;
     private List<MenuAgent> menuAgents;
     private List<UserBorrower> agentsBorrowerList;
+    private List<DataItem> loanInAgents;
 
     private CommonListListener.LoanAdapterListener loanListener;
     private CommonListListener.NotifAdapterListener notifListener;
@@ -84,6 +86,7 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         menuTopupTagihan = new ArrayList<>();
         menuAgents = new ArrayList<>();
         agentsBorrowerList = new ArrayList<>();
+        loanInAgents = new ArrayList<>();
 
     }
 
@@ -199,6 +202,16 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         this.agentsClientListener = listener;
     }
 
+    public void setListAgentLoan(List<DataItem> results){
+        loanInAgents.clear();;
+        loanInAgents.addAll(results);
+        notifyDataSetChanged();
+    }
+
+    public void setOnClickListenerLoanInAgent(CommonListListener.LoanAdapterListener listener){
+        this.loanListener = listener;
+    }
+
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -247,6 +260,11 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             case AGENT_VIEW_AGENTS_BORROWER:
 
                 holder = new AgentsClientVH(inflater.inflate(R.layout.item_agent_client, parent, false), agentsClientListener);
+                break;
+
+            case AGENT_LIST_LOAN:
+
+                holder = new AgentLoanVH(inflater.inflate(R.layout.item_list_loan_agent, parent, false), loanListener);
                 break;
 
             default:
@@ -309,6 +327,11 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
                 ((AgentsClientVH) holder).bind(agentsBorrowerList.get(position));
                 break;
+
+            case AGENT_LIST_LOAN:
+
+                ((AgentLoanVH) holder).bind(loanInAgents.get(position));
+                break;
         }
 
     }
@@ -358,6 +381,11 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             case AGENT_VIEW_AGENTS_BORROWER:
 
                 selected = AGENT_VIEW_AGENTS_BORROWER;
+                break;
+
+            case AGENT_LIST_LOAN:
+
+                selected = AGENT_LIST_LOAN;
                 break;
         }
 
@@ -411,6 +439,10 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 totals = agentsBorrowerList.size();
                 break;
 
+            case AGENT_LIST_LOAN:
+
+                totals = loanInAgents.size();
+                break;
         }
 
         return totals;

@@ -19,7 +19,7 @@ public interface DataPinjamanContract {
 
     interface Presenter extends BasePresenter<View>{
 
-        void retrieveLoans();
+        void retrieveLoans(String bank, String status, String name);
 
     }
 }

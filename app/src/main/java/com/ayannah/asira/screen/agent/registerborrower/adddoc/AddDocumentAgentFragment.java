@@ -115,15 +115,16 @@ public class AddDocumentAgentFragment extends BaseFragment implements AddDocumen
 
         //check permission to access camera and gallery photo
         needPermission(new String[]{
-                Manifest.permission.CAMERA,
                 Manifest.permission.READ_EXTERNAL_STORAGE,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.CAMERA
         });
 
     }
 
     @Override
     protected void initView(Bundle state) {
+
         AlertDialog.Builder builder = new AlertDialog.Builder(parentActivity());
         builder.setCancelable(false);
         builder.setView(R.layout.progress_bar);
@@ -162,14 +163,19 @@ public class AddDocumentAgentFragment extends BaseFragment implements AddDocumen
     @OnClick(R.id.imgKTP)
     void onClickKtp(){
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            Intent intent = new Intent(parentActivity(), CameraTakeM.class);
-            intent.putExtra("state", "KTP");
-            startActivityForResult(intent, KTP);
-        } else {
-            Intent intent = new Intent(parentActivity(), CameraTakeBeforeM.class);
-            intent.putExtra("state", "KTP");
-            startActivityForResult(intent, KTP);
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//            Intent intent = new Intent(parentActivity(), CameraTakeM.class);
+//            intent.putExtra("state", "KTP");
+//            startActivityForResult(intent, KTP);
+//        } else {
+//            Intent intent = new Intent(parentActivity(), CameraTakeBeforeM.class);
+//            intent.putExtra("state", "KTP");
+//            startActivityForResult(intent, KTP);
+//        }
+
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(parentActivity().getPackageManager()) != null) {
+            startActivityForResult(takePictureIntent, KTP);
         }
 
     }
@@ -177,14 +183,19 @@ public class AddDocumentAgentFragment extends BaseFragment implements AddDocumen
     @OnClick(R.id.imgNPWP)
     void onClickNpwp(){
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            Intent intent = new Intent(parentActivity(), CameraTakeM.class);
-            intent.putExtra("state", "NPWP");
-            startActivityForResult(intent, NPWP);
-        } else {
-            Intent intent = new Intent(parentActivity(), CameraTakeBeforeM.class);
-            intent.putExtra("state", "NPWP");
-            startActivityForResult(intent, NPWP);
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//            Intent intent = new Intent(parentActivity(), CameraTakeM.class);
+//            intent.putExtra("state", "NPWP");
+//            startActivityForResult(intent, NPWP);
+//        } else {
+//            Intent intent = new Intent(parentActivity(), CameraTakeBeforeM.class);
+//            intent.putExtra("state", "NPWP");
+//            startActivityForResult(intent, NPWP);
+//        }
+
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(parentActivity().getPackageManager()) != null) {
+            startActivityForResult(takePictureIntent, NPWP);
         }
 
     }
@@ -192,14 +203,18 @@ public class AddDocumentAgentFragment extends BaseFragment implements AddDocumen
     @OnClick(R.id.editKTP)
     void onClickEdit(){
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            Intent intent = new Intent(parentActivity(), CameraTakeM.class);
-            intent.putExtra("state", "KTP");
-            startActivityForResult(intent, KTP);
-        } else {
-            Intent intent = new Intent(parentActivity(), CameraTakeBeforeM.class);
-            intent.putExtra("state", "KTP");
-            startActivityForResult(intent, KTP);
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//            Intent intent = new Intent(parentActivity(), CameraTakeM.class);
+//            intent.putExtra("state", "KTP");
+//            startActivityForResult(intent, KTP);
+//        } else {
+//            Intent intent = new Intent(parentActivity(), CameraTakeBeforeM.class);
+//            intent.putExtra("state", "KTP");
+//            startActivityForResult(intent, KTP);
+//        }
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(parentActivity().getPackageManager()) != null) {
+            startActivityForResult(takePictureIntent, KTP);
         }
 
     }
@@ -207,14 +222,19 @@ public class AddDocumentAgentFragment extends BaseFragment implements AddDocumen
     @OnClick(R.id.editNPWP)
     void onClickEditNpwp(){
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            Intent intent = new Intent(parentActivity(), CameraTakeM.class);
-            intent.putExtra("state", "NPWP");
-            startActivityForResult(intent, NPWP);
-        } else {
-            Intent intent = new Intent(parentActivity(), CameraTakeBeforeM.class);
-            intent.putExtra("state", "NPWP");
-            startActivityForResult(intent, NPWP);
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//            Intent intent = new Intent(parentActivity(), CameraTakeM.class);
+//            intent.putExtra("state", "NPWP");
+//            startActivityForResult(intent, NPWP);
+//        } else {
+//            Intent intent = new Intent(parentActivity(), CameraTakeBeforeM.class);
+//            intent.putExtra("state", "NPWP");
+//            startActivityForResult(intent, NPWP);
+//        }
+
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(parentActivity().getPackageManager()) != null) {
+            startActivityForResult(takePictureIntent, NPWP);
         }
 
     }
@@ -247,79 +267,118 @@ public class AddDocumentAgentFragment extends BaseFragment implements AddDocumen
             switch (requestCode){
 
                 case KTP:
+
                     try {
-                        FileOutputStream file = new FileOutputStream(Environment.getExternalStorageDirectory() + File.separator + "DecodepicKTP.jpg");
 
-                        mBitmapKTP = decodedFile(Environment.getExternalStorageDirectory() + File.separator + "picTemp.jpg");
+                        Bundle extras = data.getExtras();
+                        Bitmap imageBitmap = (Bitmap) extras.get("data");
 
-                        ByteArrayOutputStream out = new ByteArrayOutputStream();
-                        mBitmapKTP.compress(Bitmap.CompressFormat.JPEG, 70, out);
+                        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                        imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+                        byte[] byteArray = byteArrayOutputStream .toByteArray();
 
-                        out.writeTo(file);
+                        pictKTP64 = Base64.encodeToString(byteArray, Base64.NO_WRAP);
 
-                        byte[] bytes = out.toByteArray();
-
-                        pictKTP64 = Base64.encodeToString(bytes, Base64.NO_WRAP); // result for base64
-
-//----------------------------------------------------------------------------------------------------
-//                        Matrix matrix = new Matrix();
-//                        matrix.setRotate(90, 0, 0);
-//                        matrix.postTranslate(mBitmapKTP.getHeight(), 0);
-//                        Bitmap newBItmap1 = Bitmap.createBitmap(mBitmapKTP, 0,0,mBitmapKTP.getWidth(), mBitmapKTP.getHeight());
-//
-//                        Canvas tmpCanvas = new Canvas(newBItmap1);
-//                        tmpCanvas.drawBitmap(mBitmapKTP, matrix, null);
-//                        tmpCanvas.setBitmap(null);
-//----------------------------------------------------------------------------------------------------
-
-                        int imgWidth = mBitmapKTP.getWidth();
-                        int imgHeight = mBitmapKTP.getHeight();
-
-                        int coorX = (imgWidth * 5) / 100;
-                        int coorY = (imgHeight * 33) /100;
-
-                        Bitmap newBItmap = Bitmap.createBitmap(mBitmapKTP, coorX,coorY,mBitmapKTP.getWidth()-coorX, coorY);
-
-                        imgKtp.setImageBitmap(newBItmap);
+                        imgKtp.setImageBitmap(imageBitmap);
                         imgKtp.setScaleType(ImageView.ScaleType.CENTER_CROP);
                         editKtp.setVisibility(View.VISIBLE);
 
                     } catch (Exception e) {
                         Log.d("Error", e.getMessage());
                     }
+
+//                    try {
+//                        FileOutputStream file = new FileOutputStream(Environment.getExternalStorageDirectory() + File.separator + "DecodepicKTP.jpg");
+//
+//                        mBitmapKTP = decodedFile(Environment.getExternalStorageDirectory() + File.separator + "picTemp.jpg");
+//
+//                        ByteArrayOutputStream out = new ByteArrayOutputStream();
+//                        mBitmapKTP.compress(Bitmap.CompressFormat.JPEG, 75, out);
+//
+//                        out.writeTo(file);
+//
+//                        byte[] bytes = out.toByteArray();
+//
+//                        pictKTP64 = Base64.encodeToString(bytes, Base64.NO_WRAP); // result for base64
+//
+////----------------------------------------------------------------------------------------------------
+////                        Matrix matrix = new Matrix();
+////                        matrix.setRotate(90, 0, 0);
+////                        matrix.postTranslate(mBitmapKTP.getHeight(), 0);
+////                        Bitmap newBItmap1 = Bitmap.createBitmap(mBitmapKTP, 0,0,mBitmapKTP.getWidth(), mBitmapKTP.getHeight());
+////
+////                        Canvas tmpCanvas = new Canvas(newBItmap1);
+////                        tmpCanvas.drawBitmap(mBitmapKTP, matrix, null);
+////                        tmpCanvas.setBitmap(null);
+////----------------------------------------------------------------------------------------------------
+//
+//                        int imgWidth = mBitmapKTP.getWidth();
+//                        int imgHeight = mBitmapKTP.getHeight();
+//
+//                        int coorX = (imgWidth * 5) / 100;
+//                        int coorY = (imgHeight * 33) /100;
+//
+//                        Bitmap newBItmap = Bitmap.createBitmap(mBitmapKTP, coorX,coorY,mBitmapKTP.getWidth()-coorX, coorY);
+//
+//                        imgKtp.setImageBitmap(newBItmap);
+//                        imgKtp.setScaleType(ImageView.ScaleType.CENTER_CROP);
+//                        editKtp.setVisibility(View.VISIBLE);
+//
+//                    } catch (Exception e) {
+//                        Log.d("Error", e.getMessage());
+//                    }
                     break;
 
                 case NPWP:
 
                     try {
 
-                        FileOutputStream file = new FileOutputStream(Environment.getExternalStorageDirectory() + File.separator + "DecodepicNPWP.jpg");
+                        Bundle extras = data.getExtras();
+                        Bitmap imageBitmap = (Bitmap) extras.get("data");
 
-                        mBitmapNPWP = decodedFile(Environment.getExternalStorageDirectory() + File.separator + "picTemp.jpg");
+                        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                        imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+                        byte[] byteArray = byteArrayOutputStream .toByteArray();
 
-                        ByteArrayOutputStream out = new ByteArrayOutputStream();
-                        mBitmapNPWP.compress(Bitmap.CompressFormat.JPEG, 70, out);
+                        pictNPWP64 = Base64.encodeToString(byteArray, Base64.NO_WRAP);
 
-                        out.writeTo(file);
-
-                        byte[] bytes = out.toByteArray();
-                        pictNPWP64 = Base64.encodeToString(bytes, Base64.NO_WRAP); // result for base64
-
-                        int imgWidth = mBitmapKTP.getWidth();
-                        int imgHeight = mBitmapKTP.getHeight();
-
-                        int coorX = (imgWidth * 5) / 100;
-                        int coorY = (imgHeight * 33) /100;
-
-                        Bitmap newBitmap = Bitmap.createBitmap(mBitmapNPWP, coorX,coorY,mBitmapNPWP.getWidth()-coorX, coorY);
-
-                        imgNpwp.setImageBitmap(newBitmap);
+                        imgNpwp.setImageBitmap(imageBitmap);
                         imgNpwp.setScaleType(ImageView.ScaleType.CENTER_CROP);
                         editNpwp.setVisibility(View.VISIBLE);
 
                     } catch (Exception e) {
                         Log.d("Error", e.getMessage());
                     }
+
+//                    try {
+//
+//                        FileOutputStream file = new FileOutputStream(Environment.getExternalStorageDirectory() + File.separator + "DecodepicNPWP.jpg");
+//
+//                        mBitmapNPWP = decodedFile(Environment.getExternalStorageDirectory() + File.separator + "picTemp.jpg");
+//
+//                        ByteArrayOutputStream out = new ByteArrayOutputStream();
+//                        mBitmapNPWP.compress(Bitmap.CompressFormat.JPEG, 70, out);
+//
+//                        out.writeTo(file);
+//
+//                        byte[] bytes = out.toByteArray();
+//                        pictNPWP64 = Base64.encodeToString(bytes, Base64.NO_WRAP); // result for base64
+//
+//                        int imgWidth = mBitmapKTP.getWidth();
+//                        int imgHeight = mBitmapKTP.getHeight();
+//
+//                        int coorX = (imgWidth * 5) / 100;
+//                        int coorY = (imgHeight * 33) /100;
+//
+//                        Bitmap newBitmap = Bitmap.createBitmap(mBitmapNPWP, coorX,coorY,mBitmapNPWP.getWidth()-coorX, coorY);
+//
+//                        imgNpwp.setImageBitmap(newBitmap);
+//                        imgNpwp.setScaleType(ImageView.ScaleType.CENTER_CROP);
+//                        editNpwp.setVisibility(View.VISIBLE);
+//
+//                    } catch (Exception e) {
+//                        Log.d("Error", e.getMessage());
+//                    }
 
                     break;
 
@@ -594,21 +653,28 @@ public class AddDocumentAgentFragment extends BaseFragment implements AddDocumen
     @OnClick(R.id.rltImageProfile)
     void cameraTake() {
 
-        if (ContextCompat.checkSelfPermission(parentActivity(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED ||
-                ContextCompat.checkSelfPermission(parentActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ||
-                ContextCompat.checkSelfPermission(parentActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            // Permission is not granted
-            needPermission(new String[]{
-                    Manifest.permission.CAMERA,
-                    Manifest.permission.READ_EXTERNAL_STORAGE,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE
-            });
-        } else {
-            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            if (takePictureIntent.resolveActivity(parentActivity().getPackageManager()) != null) {
-                startActivityForResult(takePictureIntent, PP);
-            }
-
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(parentActivity().getPackageManager()) != null) {
+            startActivityForResult(takePictureIntent, PP);
         }
+//        if (ContextCompat.checkSelfPermission(parentActivity(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED ||
+//                ContextCompat.checkSelfPermission(parentActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ||
+//                ContextCompat.checkSelfPermission(parentActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+//            // Permission is not granted
+////            needPermission(new String[]{
+////                    Manifest.permission.CAMERA,
+////                    Manifest.permission.READ_EXTERNAL_STORAGE,
+////                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+////            });
+//            needPermission(new String[]{
+//                    Manifest.permission.CAMERA
+//            });
+//        } else {
+//            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//            if (takePictureIntent.resolveActivity(parentActivity().getPackageManager()) != null) {
+//                startActivityForResult(takePictureIntent, PP);
+//            }
+//
+//        }
     }
 }

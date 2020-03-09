@@ -12,6 +12,9 @@ import com.google.gson.annotations.SerializedName;
 
 public class DataItem implements Parcelable {
 
+	@SerializedName("id")
+	private int id;
+
 	@SerializedName("owner")
 	private Owner owner;
 
@@ -20,6 +23,9 @@ public class DataItem implements Parcelable {
 
 	@SerializedName("updated_at")
 	private String updatedTime;
+
+	@SerializedName("deleted_at")
+	private String deletedTime;
 
 	@SerializedName("fees")
 	private List<FeesItem> fees;
@@ -49,16 +55,10 @@ public class DataItem implements Parcelable {
 	private int installment;
 
 	@SerializedName("layaway_plan")
-	private double layawayPlan;
+	private float layawayPlan;
 
 	@SerializedName("total_loan")
-	private int totalLoan;
-
-	@SerializedName("id")
-	private int id;
-
-	@SerializedName("deleted_at")
-	private String deletedTime;
+	private float totalLoan;
 
 	@SerializedName("status")
 	private String status;
@@ -71,6 +71,9 @@ public class DataItem implements Parcelable {
 
 	@SerializedName("disburse_date")
 	private String disburseDate;
+
+	@SerializedName("disburse_date_changed")
+	private String disburseDateChanged;
 
 	@SerializedName("disburse_status")
 	private String disburseStatus;
@@ -100,10 +103,11 @@ public class DataItem implements Parcelable {
 		interest = in.readDouble();
 		borrowerInfo = in.readParcelable(UserProfile.class.getClassLoader());
 		installment = in.readInt();
-		layawayPlan = in.readDouble();
-		totalLoan = in.readInt();
+		layawayPlan = in.readFloat();
+		totalLoan = in.readFloat();
 		id = in.readInt();
 		deletedTime = in.readString();
+		disburseDateChanged = in.readString();
 		status = in.readString();
 		product = in.readString();
 		service = in.readString();
@@ -175,11 +179,15 @@ public class DataItem implements Parcelable {
 		return installment;
 	}
 
-	public double getLayawayPlan(){
+	public String getDisburseDateChanged() {
+		return disburseDateChanged;
+	}
+
+	public float getLayawayPlan(){
 		return layawayPlan;
 	}
 
-	public int getTotalLoan(){
+	public float getTotalLoan(){
 		return totalLoan;
 	}
 
@@ -246,14 +254,15 @@ public class DataItem implements Parcelable {
 		dest.writeDouble(interest);
 		dest.writeParcelable(borrowerInfo, flags);
 		dest.writeInt(installment);
-		dest.writeDouble(layawayPlan);
-		dest.writeInt(totalLoan);
+		dest.writeFloat(layawayPlan);
+		dest.writeFloat(totalLoan);
 		dest.writeInt(id);
 		dest.writeString(deletedTime);
 		dest.writeString(status);
 		dest.writeString(product);
 		dest.writeString(service);
 		dest.writeString(disburseDate);
+		dest.writeString(disburseDateChanged);
 		dest.writeString(disburseStatus);
 		dest.writeInt(disburseAmount);
 		dest.writeString(rejectReason);

@@ -112,7 +112,7 @@ public interface RemoteRepository {
 
     void getOTPForLoanAgent(String id_loan);
 
-    Single<Loans> getAgentLoan(String idBank);
+    Single<Loans> getAgentLoan(String idBank, String status, String name);
 
     Single<AgentProfile> patchAgentProfile(JsonObject jsonPatchAgentProfile);
 

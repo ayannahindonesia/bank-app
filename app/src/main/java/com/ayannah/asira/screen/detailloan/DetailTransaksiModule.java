@@ -5,6 +5,8 @@ import com.ayannah.asira.di.ActivityScoped;
 
 import java.util.Objects;
 
+import javax.inject.Named;
+
 import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
@@ -21,6 +23,7 @@ public abstract class DetailTransaksiModule {
 
     @Provides
     @ActivityScoped
+    @Named("idLoan")
     static String idLoan(DetailTransaksiActivity activity){
         return activity.getIntent().getStringExtra(ID_LOAN);
     }
@@ -28,6 +31,14 @@ public abstract class DetailTransaksiModule {
     @Provides
     @ActivityScoped
     static DataItem loanDetails(DetailTransaksiActivity activity) {
-        return (DataItem) Objects.requireNonNull(activity.getIntent().getExtras()).get(LOAN_DETAIL);
+//        return (DataItem) Objects.requireNonNull(activity.getIntent().getExtras()).get(LOAN_DETAIL);
+        return activity.getIntent().getParcelableExtra(LOAN_DETAIL);
+    }
+
+    @Provides
+    @ActivityScoped
+    @Named("purpose")
+    static String purpose(DetailTransaksiActivity activity){
+        return activity.getIntent().getStringExtra("purpose");
     }
 }

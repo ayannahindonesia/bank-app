@@ -51,30 +51,30 @@ public class DitolakPresenter implements DitolakContract.Presenter {
             return;
         }
 
-        mComposite.add(remoteRepository.getAgentLoan(String.valueOf(bankId))
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(res -> {
-
-                    Log.e(TAG, "total: "+res.getTotalData());
-
-                    if(res.getTotalData() > 0) {
-
-                        List<DataItem> processing = new ArrayList<>();
-
-                        for(DataItem item: res.getData()){
-
-                            if(item.getStatus().contains("rejected")){
-                                processing.add(item);
-                            }
-                        }
-
-                        mView.showOnDitolakLoan(processing);
-
-                    }
-                }, error ->{
-
-                    mView.showErrorMessage(CommonUtils.errorResponseGetCode(error));
-                }));
+//        mComposite.add(remoteRepository.getAgentLoan(String.valueOf(bankId))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(res -> {
+//
+//                    Log.e(TAG, "total: "+res.getTotalData());
+//
+//                    if(res.getTotalData() > 0) {
+//
+//                        List<DataItem> processing = new ArrayList<>();
+//
+//                        for(DataItem item: res.getData()){
+//
+//                            if(item.getStatus().contains("rejected")){
+//                                processing.add(item);
+//                            }
+//                        }
+//
+//                        mView.showOnDitolakLoan(processing);
+//
+//                    }
+//                }, error ->{
+//
+//                    mView.showErrorMessage(CommonUtils.errorResponseGetCode(error));
+//                }));
     }
 }

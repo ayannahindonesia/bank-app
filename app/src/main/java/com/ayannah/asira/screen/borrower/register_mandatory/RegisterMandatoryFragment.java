@@ -1,5 +1,6 @@
 package com.ayannah.asira.screen.borrower.register_mandatory;
 
+import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
@@ -73,6 +74,11 @@ public class RegisterMandatoryFragment extends BaseFragment implements RegisterM
     public void onResume() {
         super.onResume();
         mPresenter.takeView(this);
+
+        //check permission to access camera and gallery photo
+        needPermission(new String[]{
+                Manifest.permission.CAMERA
+        });
 
         if(mPresenter.isUserLogged()){
             loginComplete();

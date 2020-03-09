@@ -29,6 +29,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -44,7 +45,7 @@ public class BerandaFragment extends BaseFragment implements BerandaContract.Vie
     @BindView(R.id.rvBeranda) RecyclerView recyclerView;
     @BindView(R.id.allClient) TextView allClient;
 
-    @Inject
+    @Inject @Named("borrowersAgent")
     CommonListAdapter adapter;
 
     @Inject
@@ -185,6 +186,7 @@ public class BerandaFragment extends BaseFragment implements BerandaContract.Vie
     void onClickAddMember(){
 
         Intent intent =new Intent(parentActivity(), ChooseBankAgentActivity.class);
+        intent.putExtra("isFrom", "regBorrower");
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
 
