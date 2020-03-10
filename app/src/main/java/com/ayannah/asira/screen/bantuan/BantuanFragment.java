@@ -1,7 +1,10 @@
 package com.ayannah.asira.screen.bantuan;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.SearchView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -30,6 +33,7 @@ public class BantuanFragment extends BaseFragment implements BantuanContract.Vie
     @Inject
     CommonListAdapter adapter;
 
+    @BindView(R.id.nodata) TextView tvNodata;
     @BindView(R.id.searchView) SearchView searchView;
     @BindView(R.id.recyclerFaq) RecyclerView recyclerView;
 
@@ -48,6 +52,31 @@ public class BantuanFragment extends BaseFragment implements BantuanContract.Vie
         recyclerView.addItemDecoration(new DividerItemDecoration(parentActivity(), DividerItemDecoration.VERTICAL));
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+
+                mPresenter.retrieveFaq(query);
+
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+
+        searchView.setOnCloseListener(() -> {
+
+            recyclerView.setVisibility(View.VISIBLE);
+            tvNodata.setVisibility(View.GONE);
+
+            mPresenter.retrieveFaq("");
+
+            return false;
+        });
 
     }
 
@@ -68,21 +97,32 @@ public class BantuanFragment extends BaseFragment implements BantuanContract.Vie
     @Override
     public void showAllResult(List<Question.Data> results) {
 
-        adapter.setListQuestion(results);
+        if(results.size() > 0) {
 
-        adapter.setOnClickListenerQuestions(new CommonListListener.QuestionListener() {
-            @Override
-            public void onClickQuestion(Question.Data param) {
+            recyclerView.setVisibility(View.VISIBLE);
+            tvNodata.setVisibility(View.GONE);
 
-                Bundle bundle = new Bundle();
-                bundle.putString("desc", param.getDescription());
+            adapter.setListQuestion(results);
 
-                IsiBantuanFragment isiBantuanFragment = new IsiBantuanFragment();
-                isiBantuanFragment.setArguments(bundle);
+            adapter.setOnClickListenerQuestions(new CommonListListener.QuestionListener() {
+                @Override
+                public void onClickQuestion(Question.Data param) {
 
-                ActivityUtils.moveFragment(parentActivity().getSupportFragmentManager(), isiBantuanFragment, R.id.fragment_container);
-            }
-        });
+                    Bundle bundle = new Bundle();
+                    bundle.putString("desc", param.getDescription());
+
+                    IsiBantuanFragment isiBantuanFragment = new IsiBantuanFragment();
+                    isiBantuanFragment.setArguments(bundle);
+
+                    ActivityUtils.moveFragment(parentActivity().getSupportFragmentManager(), isiBantuanFragment, R.id.fragment_container);
+                }
+            });
+
+        }else {
+
+            recyclerView.setVisibility(View.GONE);
+            tvNodata.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -90,7 +130,7 @@ public class BantuanFragment extends BaseFragment implements BantuanContract.Vie
         super.onResume();
         mPresenter.takeView(this);
 
-        mPresenter.retrieveFaq();
+        mPresenter.retrieveFaq("");
 
     }
 

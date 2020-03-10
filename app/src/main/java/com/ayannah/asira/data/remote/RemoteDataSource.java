@@ -677,9 +677,10 @@ public class RemoteDataSource implements RemoteRepository {
 
 
     @Override
-    public Single<Question> faq() {
+    public Single<Question> faq(String query) {
         return Rx2AndroidNetworking.get(BuildConfig.API_URL + "client/faq")
                 .addHeaders("Authorization", preferenceRepository.getPublicToken())
+                .addQueryParameter("search_all", query)
                 .setPriority(Priority.MEDIUM)
                 .build()
                 .getObjectSingle(Question.class);

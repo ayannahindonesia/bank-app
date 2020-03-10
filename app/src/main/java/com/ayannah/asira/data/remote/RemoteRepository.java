@@ -133,5 +133,5 @@ public interface RemoteRepository {
 
     Single<BankService> getAllServices();
 
-    Single<Question> faq();
+    Single<Question> faq(String query);
 }

@@ -47,4 +47,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
+    <TextView
+        android:id="@+id/nodata"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/fontNormal"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:textAlignment="center"
+        android:visibility="gone"
+        android:text="Pertanyaan belum ada"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
 </LinearLayout>

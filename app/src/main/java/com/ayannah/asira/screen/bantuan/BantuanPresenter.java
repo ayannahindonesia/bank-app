@@ -49,14 +49,14 @@ public class BantuanPresenter implements BantuanContract.Presenter{
     }
 
     @Override
-    public void retrieveFaq() {
+    public void retrieveFaq(String query) {
 
         if(mView == null){
             return;
         }
 
         mDisposable.add(
-                remoteRepository.faq()
+                remoteRepository.faq(query)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(response ->{

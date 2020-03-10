@@ -18,7 +18,7 @@ public interface BantuanContract {
 
     interface Presenter extends BasePresenter<View>{
 
-        void retrieveFaq();
+        void retrieveFaq(String query);
 
     }
 
