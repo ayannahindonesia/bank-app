@@ -114,9 +114,13 @@ public class AddDocumentAgentFragment extends BaseFragment implements AddDocumen
         mPresenter.checkPublicToken();
 
         //check permission to access camera and gallery photo
+//        needPermission(new String[]{
+//                Manifest.permission.READ_EXTERNAL_STORAGE,
+//                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+//                Manifest.permission.CAMERA
+//        });
+
         needPermission(new String[]{
-                Manifest.permission.READ_EXTERNAL_STORAGE,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE,
                 Manifest.permission.CAMERA
         });
 
