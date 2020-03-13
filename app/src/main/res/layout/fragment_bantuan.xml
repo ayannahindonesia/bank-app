@@ -32,7 +32,6 @@
                 android:layout_marginTop="@dimen/_5sdp"
                 android:background="@drawable/bg_search"
                 android:queryHint="Tulis disini..."
-                android:iconifiedByDefault="false"
                 android:imeOptions="actionSearch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>

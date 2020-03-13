@@ -10,6 +10,8 @@ import androidx.annotation.Nullable;
 import com.androidnetworking.common.ANConstants;
 import com.androidnetworking.error.ANError;
 import com.ayannah.asira.data.local.PreferenceRepository;
+import com.ayannah.asira.data.model.Token;
+import com.ayannah.asira.data.model.UserProfile;
 import com.ayannah.asira.data.remote.RemoteRepository;
 import com.ayannah.asira.util.CommonUtils;
 import com.ayannah.asira.util.MyFirebaseMessagingService;
@@ -27,8 +29,10 @@ import javax.inject.Inject;
 import javax.net.ssl.HttpsURLConnection;
 
 import io.reactivex.Completable;
+import io.reactivex.ObservableSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.functions.BiFunction;
 import io.reactivex.schedulers.Schedulers;
 
 public class LoginPresenter implements LoginContract.Presenter {

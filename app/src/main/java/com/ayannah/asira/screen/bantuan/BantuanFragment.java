@@ -68,14 +68,16 @@ public class BantuanFragment extends BaseFragment implements BantuanContract.Vie
             }
         });
 
-        searchView.setOnCloseListener(() -> {
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                recyclerView.setVisibility(View.VISIBLE);
+                tvNodata.setVisibility(View.GONE);
 
-            recyclerView.setVisibility(View.VISIBLE);
-            tvNodata.setVisibility(View.GONE);
+                mPresenter.retrieveFaq("");
 
-            mPresenter.retrieveFaq("");
-
-            return false;
+                return false;
+            }
         });
 
     }

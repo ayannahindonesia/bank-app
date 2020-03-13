@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 
 import com.ayannah.asira.R;
+import com.ayannah.asira.screen.bantuan.BantuanActivity;
 import com.ayannah.asira.screen.borrower.borrower_landing_page.BorrowerLandingPage;
 import com.ayannah.asira.util.ActivityUtils;
 
@@ -62,7 +63,8 @@ public class RegisterMandatoryActivity extends DaggerAppCompatActivity {
         tvHelp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getBaseContext(), "help",Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getApplicationContext(), BantuanActivity.class);
+                startActivity(intent);
             }
         });
     }
