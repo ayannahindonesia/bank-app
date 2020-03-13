@@ -6,6 +6,7 @@ import androidx.annotation.Nullable;
 
 import com.androidnetworking.common.ANConstants;
 import com.androidnetworking.error.ANError;
+import com.ayannah.asira.data.local.PreferenceRepository;
 import com.ayannah.asira.data.remote.RemoteRepository;
 
 import org.json.JSONObject;
@@ -24,11 +25,13 @@ public class BantuanPresenter implements BantuanContract.Presenter{
     private Application applicationa;
     private RemoteRepository remoteRepository;
     private CompositeDisposable mDisposable;
+    private PreferenceRepository preferenceRepository;
 
     @Inject
-    BantuanPresenter(Application applicationa, RemoteRepository remoteRepository){
+    BantuanPresenter(Application applicationa, RemoteRepository remoteRepository, PreferenceRepository preferenceRepository){
         this.applicationa = applicationa;
         this.remoteRepository = remoteRepository;
+        this.preferenceRepository = preferenceRepository;
 
         mDisposable = new CompositeDisposable();
     }
@@ -55,31 +58,60 @@ public class BantuanPresenter implements BantuanContract.Presenter{
             return;
         }
 
-        mDisposable.add(
-                remoteRepository.faq(query)
+        //get client auth
+        if(preferenceRepository.getPublicToken() == null || preferenceRepository.getPublicToken().isEmpty()){
+
+            mDisposable.add(remoteRepository.getToken()
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(response ->{
+                    .subscribe(res -> {
 
-                        mView.showAllResult(response.getData());
+                        preferenceRepository.setPublicToken("Bearer " + res.getToken());
+                        faq(query);
 
-                    }, error ->{
+                    }, err -> {
+                        ANError anError = (ANError) err;
+                        mView.showErrorMessage(err.getMessage(),anError.getErrorCode());
+                    }));
 
-                        ANError anError = (ANError) error;
-                        if(anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
-                            mView.showErrorMessage("Tidak ada koneksi", anError.getErrorCode());
-                        }else {
+        }else {
 
-                            if(anError.getErrorBody() != null){
+            faq(query);
 
-                                JSONObject jsonObject = new JSONObject(anError.getErrorBody());
-                                mView.showErrorMessage(jsonObject.optString("message"), anError.getErrorCode());
+        }
+    }
+
+    private void faq(String query){
+
+        if(mView == null){
+            return;
+        }
+
+        mDisposable.add(
+                remoteRepository.faq(query)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(response ->{
+
+                            mView.showAllResult(response.getData());
+
+                        }, error ->{
+
+                            ANError anError = (ANError) error;
+                            if(anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
+                                mView.showErrorMessage("Tidak ada koneksi", anError.getErrorCode());
                             }else {
 
-                                mView.showErrorMessage( "Mohon coba beberapa saat lagi. Sedang dalam perbaikan",anError.getErrorCode());
-                            }
-                        }
+                                if(anError.getErrorBody() != null){
 
-                    }));
+                                    JSONObject jsonObject = new JSONObject(anError.getErrorBody());
+                                    mView.showErrorMessage(jsonObject.optString("message"), anError.getErrorCode());
+                                }else {
+
+                                    mView.showErrorMessage( "Mohon coba beberapa saat lagi. Sedang dalam perbaikan",anError.getErrorCode());
+                                }
+                            }
+
+                        }));
     }
 }
