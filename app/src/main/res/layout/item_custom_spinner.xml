@@ -6,7 +6,7 @@
     android:paddingBottom="@dimen/dp12"
     android:textSize="@dimen/fontNormal"
     android:paddingStart="10dp"
-    android:textColor="@color/colorAsiraText"
+    android:textColor="@color/textColorAsiraGrey"
     android:textStyle="bold"
     android:layout_width="match_parent"
     tools:text="Pendidikan"

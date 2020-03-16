@@ -82,22 +82,4 @@ public class LoanPresenter implements LoanContract.Presenter {
         }, error -> mView.showErrorMessage(CommonUtils.commonErrorFormat(error))));
 
     }
-
-    @Override
-    public void getRulesFormula() {
-
-        if(mView == null){
-            return;
-        }
-
-        String idBank = String.valueOf(preferenceRepository.getBankID());
-        mComposite.add(remoteRepository.getBanksDetail(idBank)
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(res -> {
-
-            mView.setupFormulaFee(res.getAdminFeeSetup(), res.getConvfeeSetup());
-
-        }, error -> mView.showErrorMessage(CommonUtils.commonErrorFormat(error))));
-    }
 }

@@ -41,8 +41,14 @@ public class Products {
 	@SerializedName("id")
 	private int id;
 
+	@SerializedName("interest_type")
+	private String interest_type;
+
 	@SerializedName("status")
 	private String status;
+
+	@SerializedName("form")
+	private List<FormDynamic> formDynamic;
 
 	public List<FeesItem> getFees() {
 		return fees;
@@ -146,5 +152,21 @@ public class Products {
 
 	public String getStatus(){
 		return status;
+	}
+
+	public String getInterest_type() {
+		return interest_type;
+	}
+
+	public void setInterest_type(String interest_type) {
+		this.interest_type = interest_type;
+	}
+
+	public List<FormDynamic> getFormDynamic() {
+		return formDynamic;
+	}
+
+	public void setFormDynamic(List<FormDynamic> formDynamic) {
+		this.formDynamic = formDynamic;
 	}
 }

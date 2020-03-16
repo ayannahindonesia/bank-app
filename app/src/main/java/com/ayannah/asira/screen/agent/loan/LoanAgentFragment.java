@@ -62,8 +62,8 @@ public class LoanAgentFragment extends BaseFragment implements LoanAgentContract
     @BindView(R.id.tenorCicilan)
     TextView tvInstallment;
 
-    @BindView(R.id.amountBunga)
-    TextView tvBunga;
+//    @BindView(R.id.amountBunga)
+//    TextView tvBunga;
 
     @BindView(R.id.angsuranPerbulan)
     TextView tvAngsuran;
@@ -201,7 +201,7 @@ public class LoanAgentFragment extends BaseFragment implements LoanAgentContract
 
                     tvInstallment.setText(String.format("%s bulan", installmentTenor));
                     biayaAdmin.setText(CommonUtils.setRupiahCurrency((int) Math.floor(administration)));
-                    tvBunga.setText(CommonUtils.setRupiahCurrency((int) Math.floor(totalBunga)));
+//                    tvBunga.setText(CommonUtils.setRupiahCurrency((int) Math.floor(totalBunga)));
                     tvAngsuran.setText(CommonUtils.setRupiahCurrency((int) Math.floor(angsurnaPerbulan)));
                     jumlahPencairan.setText(CommonUtils.setRupiahCurrency((int) Math.floor(countPencairan)));
 
@@ -268,7 +268,7 @@ public class LoanAgentFragment extends BaseFragment implements LoanAgentContract
                     loanAmount = 0;
                     plafondCustom.setText("");
                     biayaAdmin.setText("-");
-                    tvBunga.setText("-");
+//                    tvBunga.setText("-");
 
                     //set default jumlah angsuran
                     angsurnaPerbulan = 0;
@@ -363,7 +363,7 @@ public class LoanAgentFragment extends BaseFragment implements LoanAgentContract
                 countPencairan = 0;
 
                 biayaAdmin.setText("-");
-                tvBunga.setText("-");
+//                tvBunga.setText("-");
                 tvAngsuran.setText("-");
                 jumlahPencairan.setText("-");
 
@@ -379,7 +379,7 @@ public class LoanAgentFragment extends BaseFragment implements LoanAgentContract
                 countPencairan = 0;
 
                 biayaAdmin.setText("-");
-                tvBunga.setText("-");
+//                tvBunga.setText("-");
                 tvAngsuran.setText("-");
                 jumlahPencairan.setText("-");
 
@@ -411,7 +411,7 @@ public class LoanAgentFragment extends BaseFragment implements LoanAgentContract
 
                 tvInstallment.setText(String.format("%s bulan", installmentTenor));
                 biayaAdmin.setText(CommonUtils.setRupiahCurrency((int) Math.floor(administration)));
-                tvBunga.setText(CommonUtils.setRupiahCurrency((int) Math.floor(totalBunga)));
+//                tvBunga.setText(CommonUtils.setRupiahCurrency((int) Math.floor(totalBunga)));
                 tvAngsuran.setText(CommonUtils.setRupiahCurrency((int) Math.floor(angsurnaPerbulan)));
                 jumlahPencairan.setText(CommonUtils.setRupiahCurrency((int) Math.floor(countPencairan)));
             }

@@ -58,6 +58,8 @@ public class ProfilePresenter implements ProfileContract.Presenter {
 
                 }, error ->{
 
+                    preferenceRepository.clearAll();
+                    mView.logoutComplete();
                     ANError anError = (ANError) error;
                     mView.showErrorMessage("Terjadi kesalahan saat logout", anError.getErrorCode());
 

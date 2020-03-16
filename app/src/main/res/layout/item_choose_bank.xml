@@ -22,7 +22,6 @@
             android:layout_height="@dimen/_40sdp"
             android:layout_gravity="center"
             android:layout_weight="0.2"
-            android:padding="@dimen/_14sdp"
             android:src="@drawable/ic_info" />
 
         <View
