@@ -1,10 +1,8 @@
 package com.ayannah.asira.screen.borrower.borrower_landing_page;
 
-import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.animation.AnimationUtils;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -13,12 +11,11 @@ import androidx.appcompat.widget.Toolbar;
 import com.ayannah.asira.R;
 import com.ayannah.asira.base.BaseFragment;
 import com.ayannah.asira.screen.borrower.login.LoginActivity;
-import com.ayannah.asira.screen.borrower.register_mandatory.RegisterMandatoryActivity;
 import com.ayannah.asira.screen.borrower.tab_beranda.MainMenuFragment;
 import com.ayannah.asira.screen.borrower.tab_historyloan.HistoryLoanFragment;
 import com.ayannah.asira.screen.borrower.notifpage.NotifPageActivity;
 import com.ayannah.asira.screen.borrower.tab_profile.ProfileFragment;
-import com.ayannah.asira.screen.borrower.tab_rewards.RewardsFragment;
+import com.ayannah.asira.screen.borrower.tab_message.MessageFragment;
 import com.ayannah.asira.util.ActivityUtils;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -63,7 +60,7 @@ public class BorrowerLandingFragment extends BaseFragment implements BorrowerLan
 
         MainMenuFragment beranda = new MainMenuFragment();
         HistoryLoanFragment pinjaman = new HistoryLoanFragment();
-        RewardsFragment rewards = new RewardsFragment();
+        MessageFragment rewards = new MessageFragment();
         ProfileFragment profile = new ProfileFragment();
 
         ActivityUtils.replaceFragmentToActivity(getFragmentManager(), beranda, R.id.tab_menus);

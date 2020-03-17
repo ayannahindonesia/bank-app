@@ -1,7 +1,6 @@
 package com.ayannah.asira.screen.borrower.tab_profile;
 
 import android.Manifest;
-import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -13,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 
 import com.ayannah.asira.R;
@@ -96,8 +96,30 @@ public class ProfileFragment extends BaseFragment implements ProfileContract.Vie
 
     @OnClick(R.id.btnLogout)
     void onClickLogout() {
+        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which) {
+                    case DialogInterface.BUTTON_POSITIVE:
 
-        mPresenter.doLogout();
+                        mPresenter.doLogout();
+
+                        break;
+
+                    case DialogInterface.BUTTON_NEGATIVE:
+
+                        dialog.cancel();
+
+                        break;
+                }
+            }
+        };
+
+        androidx.appcompat.app.AlertDialog.Builder builder = new AlertDialog.Builder(parentActivity());
+        builder.setMessage("Apakah Anda Yakin Keluar?")
+                .setPositiveButton("Ya", dialogClickListener)
+                .setNegativeButton("Tidak", dialogClickListener)
+                .show();
     }
 
     @OnClick(R.id.photoUser)

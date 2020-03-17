@@ -46,8 +46,8 @@ import com.ayannah.asira.screen.borrower.profile_menu.editinfopribadi.EditInfoPr
 import com.ayannah.asira.screen.borrower.profile_menu.editinfopribadi.EditInfoPribadiModule;
 import com.ayannah.asira.screen.borrower.register_mandatory.RegisterMandatoryActivity;
 import com.ayannah.asira.screen.borrower.register_mandatory.RegisterMandatoryModule;
+import com.ayannah.asira.screen.borrower.tab_message.MessageModule;
 import com.ayannah.asira.screen.borrower.tab_profile.ProfileModule;
-import com.ayannah.asira.screen.borrower.tab_rewards.RewardsModule;
 import com.ayannah.asira.screen.chooselogin.ChooseLoginActivity;
 import com.ayannah.asira.screen.chooselogin.ChooseLoginModule;
 import com.ayannah.asira.screen.createnewpassword.CreateNewPassActivity;
@@ -120,7 +120,7 @@ abstract class ActivityBindingModule {
             BorrowerLandingModule.class,
             MainMenuModule.class,
             HistoryLoanModule.class,
-            RewardsModule.class,
+            MessageModule.class,
             ProfileModule.class})
     abstract BorrowerLandingPage borrowerLandingPage();
 
