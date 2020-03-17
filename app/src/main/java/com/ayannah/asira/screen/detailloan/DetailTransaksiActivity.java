@@ -249,6 +249,7 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
             case STATUS_APPROVED:
                 tvStatus.setBackgroundResource(R.drawable.bg_status_approve);
                 tvStatus.setText(getResources().getString(R.string.accept));
+                tvStatus.setTextColor(getResources().getColor(R.color.textColorAsira));
                 lltDisbursement.setVisibility(View.VISIBLE);
                 dateDisbursement.setText(sdfUsed.format(getDateDisbursement));
                 if (dataItem.getDisburseStatus().toLowerCase().equals("processing")) {
@@ -267,12 +268,14 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
             case STATUS_PROCESSING:
                 tvStatus.setBackgroundResource(R.drawable.bg_status_normal);
                 tvStatus.setText(getResources().getString(R.string.processing));
+                tvStatus.setTextColor(getResources().getColor(R.color.textColorAsiraGrey));
                 lltDisbursement.setVisibility(View.GONE);
                 lltRejectReason.setVisibility(View.GONE);
                 break;
 
             case STATUS_REJECTED:
                 tvStatus.setBackgroundResource(R.drawable.bg_status_reject);
+                tvStatus.setTextColor(getResources().getColor(R.color.textColorAsiraRed));
                 tvStatus.setText(getResources().getString(R.string.reject));
                 lltDisbursement.setVisibility(View.GONE);
                 lltRejectReason.setVisibility(View.VISIBLE);
@@ -284,7 +287,7 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
 
         detailTujuan.setText(dataItem.getIntentionDetails());
 
-        jumlahPinjaman.setText(CommonUtils.setRupiahCurrency(dataItem.getLoanAmount()));
+        jumlahPinjaman.setText(CommonUtils.setRupiahCurrency(dataItem.getDisburseAmount()));
 
         tenor.setText(String.format("%s Bulan", dataItem.getInstallment()));
 

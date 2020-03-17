@@ -27,6 +27,6 @@ public abstract class HistoryLoanModule {
     @ActivityScoped
     @Named("pinjaman")
     static CommonListAdapter adapter(){
-        return new CommonListAdapter(CommonListAdapter.AGENT_LIST_LOAN);
+        return new CommonListAdapter(CommonListAdapter.VIEW_LOAN_HISTORY);
     }
 }

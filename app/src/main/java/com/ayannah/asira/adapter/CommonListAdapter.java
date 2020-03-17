@@ -209,7 +209,7 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     public void setListAgentLoan(List<DataItem> results){
-        loanInAgents.clear();;
+        loanInAgents.clear();
         loanInAgents.addAll(results);
         notifyDataSetChanged();
     }
@@ -507,20 +507,23 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
             typeLoan.setText(param.getProductName());
 
-            numLoan.setText(String.format("%1$s - %2$s", param.getServiceName(), param.getId()));
+            numLoan.setText(String.valueOf(param.getId()));
 
             switch (param.getStatus().toLowerCase()){
                 case STATUS_APPROVED:
                     status.setText(itemView.getResources().getString(R.string.accept));
-                    status.setBackgroundResource(R.drawable.badge_diterima);
+                    status.setBackgroundResource(R.drawable.round_border);
+                    status.setTextColor(itemView.getResources().getColor(R.color.textColorAsira));
                     break;
                 case STATUS_PROCESSING:
                     status.setText(itemView.getResources().getString(R.string.processing));
-                    status.setBackgroundResource(R.drawable.badge_tidak_lengkap);
+                    status.setBackgroundResource(R.drawable.round_border_black);
+                    status.setTextColor(itemView.getResources().getColor(R.color.textColorAsiraGrey));
                     break;
                 case STATUS_REJECTED:
                     status.setText(itemView.getResources().getString(R.string.reject));
-                    status.setBackgroundResource(R.drawable.badge_ditolak);
+                    status.setBackgroundResource(R.drawable.round_border_red);
+                    status.setTextColor(itemView.getResources().getColor(R.color.textColorAsiraRed));
                     break;
             }
 

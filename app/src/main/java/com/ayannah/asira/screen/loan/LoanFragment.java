@@ -759,7 +759,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
 
         }
 
-        if (!CheckMandatoryDynamic(allEds , allSPs, allIVs)) {
+        if (cvForm.getVisibility() == View.VISIBLE && !CheckMandatoryDynamic(allEds , allSPs, allIVs)) {
             Toast.makeText(parentActivity(), "Form mandatory dynamic ada yg belum diisi", Toast.LENGTH_SHORT).show();
             return;
         }

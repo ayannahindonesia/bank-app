@@ -108,13 +108,14 @@ public class HistoryLoanFragment extends BaseFragment implements
             recyclerView.setVisibility(View.VISIBLE);
             nodata.setVisibility(View.GONE);
 
-            mAdapterLoans.setListAgentLoan(results);
+            mAdapterLoans.setDateLoans(results);
 
             mAdapterLoans.setOnClickListenerLoanInAgent(loans -> {
 
                 Intent intent = new Intent(parentActivity(), DetailTransaksiActivity.class);
                 intent.putExtra(DetailTransaksiActivity.ID_LOAN, String.valueOf(loans.getId()));
                 intent.putExtra(DetailTransaksiActivity.LOAN_DETAIL, loans);
+                intent.putExtra("purpose", DetailTransaksiActivity.FROMBORROWER);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
 
@@ -129,17 +130,17 @@ public class HistoryLoanFragment extends BaseFragment implements
 
     }
 
-    @OnClick(R.id.sortBuStatus)
-    void onClickSort(){
-
-        if(bottomSortHistoryLoan != null && bottomSortHistoryLoan.isAdded()){
-            return;
-        }
-
-        bottomSortHistoryLoan.showNow(parentActivity().getSupportFragmentManager(), "fragment");
-        bottomSortHistoryLoan.setOnClickListener(this);
-
-    }
+//    @OnClick(R.id.sortBuStatus)
+//    void onClickSort(){
+//
+//        if(bottomSortHistoryLoan != null && bottomSortHistoryLoan.isAdded()){
+//            return;
+//        }
+//
+//        bottomSortHistoryLoan.showNow(parentActivity().getSupportFragmentManager(), "fragment");
+//        bottomSortHistoryLoan.setOnClickListener(this);
+//
+//    }
 
     @Override
     public void onDestroyView() {

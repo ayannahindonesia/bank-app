@@ -61,7 +61,6 @@ public class MessageFragment extends BaseFragment implements MessageContract.Vie
 
     @Override
     public void showDataNotif(List<Notif.Data> data) {
-        adapter = new CommonListAdapter(CommonListAdapter.VIEW_NOTIFPAGE);
         adapter.setDataNotificationMessages(data);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(parentActivity()));

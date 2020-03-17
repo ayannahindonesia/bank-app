@@ -107,11 +107,11 @@ public class DataItem implements Parcelable {
 		totalLoan = in.readFloat();
 		id = in.readInt();
 		deletedTime = in.readString();
-		disburseDateChanged = in.readString();
 		status = in.readString();
 		product = in.readString();
 		service = in.readString();
 		disburseDate = in.readString();
+		disburseDateChanged = in.readString();
 		disburseStatus = in.readString();
 		disburseAmount = in.readInt();
 		rejectReason = in.readString();

@@ -54,6 +54,12 @@ public class ProductsAgent {
 	@SerializedName("status")
 	private String status;
 
+	@SerializedName("interest_type")
+	private String interest_type;
+
+	@SerializedName("form")
+	private List<FormDynamic> formDynamic;
+
 	public Integer getId() {
 		return id;
 	}
@@ -182,4 +188,19 @@ public class ProductsAgent {
 		this.status = status;
 	}
 
+	public String getInterest_type() {
+		return interest_type;
+	}
+
+	public void setInterest_type(String interest_type) {
+		this.interest_type = interest_type;
+	}
+
+	public List<FormDynamic> getFormDynamic() {
+		return formDynamic;
+	}
+
+	public void setFormDynamic(List<FormDynamic> formDynamic) {
+		this.formDynamic = formDynamic;
+	}
 }

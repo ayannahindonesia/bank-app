@@ -131,6 +131,7 @@ public class VerificationOTPFragment extends BaseFragment implements Verificatio
         otpView.setOtpCompletionListener(new OnOtpCompletionListener() {
             @Override
             public void onOtpCompleted(String otp) {
+                countDownTimer.cancel();
                 hideKeyboard(parentActivity());
 
                 dialog.show();
