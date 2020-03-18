@@ -112,6 +112,8 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".screen.bantuan.BantuanActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".screen.detailangsuran.DetailAngsuranActivity"
+            android:screenOrientation="portrait"/>
 
         <service
             android:name=".util.MyFirebaseMessagingService"

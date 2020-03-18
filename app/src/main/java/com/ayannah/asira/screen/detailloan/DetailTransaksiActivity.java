@@ -18,6 +18,7 @@ import com.ayannah.asira.R;
 import com.ayannah.asira.data.model.FeesItem;
 import com.ayannah.asira.data.model.Loans.DataItem;
 import com.ayannah.asira.dialog.BottomSheetDialogGlobal;
+import com.ayannah.asira.screen.detailangsuran.DetailAngsuranActivity;
 import com.ayannah.asira.screen.otpphone.VerificationOTPActivity;
 import com.ayannah.asira.util.CommonUtils;
 
@@ -160,6 +161,7 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
         if(purpose.equals(FROMAGENT) || purpose.equals(FROMBORROWER)){
 
             Toast.makeText(this, "Detil transaksi "+ id_loan, Toast.LENGTH_SHORT).show();
+
         }else {
 
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
@@ -222,28 +224,6 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
         }
 
         dateCreated.setText(sdfUsed.format(getDate));
-
-        Log.e(TAG, "value id: " + dataItem.getId());
-        Log.e(TAG, "value created_at: " + dataItem.getCreatedTime());
-        Log.e(TAG, "value updated_at: " + dataItem.getUpdatedTime());
-        Log.e(TAG, "value deleted_at: " + dataItem.getDeletedTime());
-        Log.e(TAG, "value status: " + dataItem.getStatus());
-        Log.e(TAG, "value loan_amount: " + dataItem.getLoanAmount());
-        Log.e(TAG, "value installment: " + dataItem.getInstallment());
-        Log.e(TAG, "value interest: " + dataItem.getInterest());
-        Log.e(TAG, "value total_loan: " + dataItem.getTotalLoan());
-        Log.e(TAG, "value due_date: " + dataItem.getDueDate());
-        Log.e(TAG, "value disburse_amount: " + dataItem.getDisburseAmount());
-        Log.e(TAG, "value layaway_plan: " + dataItem.getProduct());
-        Log.e(TAG, "value product: " + dataItem.getLoanIntention());
-        Log.e(TAG, "value loan_intention: " + dataItem.getIntentionDetails());
-        Log.e(TAG, "value intention_details: " + dataItem.isOtpVerified());
-        Log.e(TAG, "value otp_verified: " + dataItem.getDisburseDate());
-        Log.e(TAG, "value disburse_date: " + dataItem.getDisburseDateChanged());
-        Log.e(TAG, "value disburse_date_changed: " + dataItem.getDisburseStatus());
-        Log.e(TAG, "value disburse_status: " + dataItem.getRejectReason());
-        Log.e(TAG, "value product_name: " + dataItem.getProductName());
-        Log.e(TAG, "value service_name: " + dataItem.getServiceName());
 
         switch (dataItem.getStatus().toLowerCase()) {
             case STATUS_APPROVED:
@@ -365,6 +345,14 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
         finish();
 
 //        mPresenter.checkLoanOnProcess();
+
+    }
+
+    @OnClick(R.id.detailAngsuran)
+    void onClickDetailAngsuran(){
+
+        Intent intent = new Intent(this, DetailAngsuranActivity.class);
+        startActivity(intent);
 
     }
 

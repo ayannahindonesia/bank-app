@@ -52,6 +52,9 @@ import com.ayannah.asira.screen.chooselogin.ChooseLoginActivity;
 import com.ayannah.asira.screen.chooselogin.ChooseLoginModule;
 import com.ayannah.asira.screen.createnewpassword.CreateNewPassActivity;
 import com.ayannah.asira.screen.createnewpassword.CreateNewPassModule;
+import com.ayannah.asira.screen.detailangsuran.DetailAngsuranActivity;
+import com.ayannah.asira.screen.detailangsuran.DetailAngsuranModule;
+import com.ayannah.asira.screen.detailangsuran.detail_pembayaran.DetailPembayaranModule;
 import com.ayannah.asira.screen.detailloan.DetailTransaksiActivity;
 import com.ayannah.asira.screen.detailloan.DetailTransaksiModule;
 import com.ayannah.asira.screen.earninginfo.EarningActivity;
@@ -274,4 +277,7 @@ abstract class ActivityBindingModule {
     @ContributesAndroidInjector(modules = {BantuanModule.class, IsiBantuanModule.class})
     abstract BantuanActivity bantuanActivity();
 
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = {DetailAngsuranModule.class, DetailPembayaranModule.class})
+    abstract DetailAngsuranActivity detailAngsuranActivity();
 }
