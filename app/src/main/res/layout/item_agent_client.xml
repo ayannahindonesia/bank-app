@@ -28,29 +28,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+            <TextView
+                android:id="@+id/name"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                tools:text="Syauqi Moses"
+                android:textSize="@dimen/fontNormal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
-                <TextView
-                    android:id="@+id/name"
-                    android:textStyle="bold"
-                    android:textColor="@android:color/black"
-                    tools:text="Syauqi Moses"
-                    android:textSize="@dimen/fontNormal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-                <TextView
-                    android:id="@+id/status"
-                    tools:text="Aktif"
-                    android:layout_marginStart="@dimen/_6sdp"
-                    android:textSize="@dimen/fontSmaller"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-            </LinearLayout>
+            <TextView
+                android:id="@+id/status"
+                tools:text="Aktif"
+                android:textSize="@dimen/fontSmaller"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
             <TextView
                 android:id="@+id/id"

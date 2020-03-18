@@ -2,6 +2,7 @@ package com.ayannah.asira.screen.bantuan.isi_bantuan;
 
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Log;
 import android.webkit.WebView;
 import android.widget.TextView;
 
@@ -37,7 +38,15 @@ public class IsiBantuanFragment extends BaseFragment {
 
         html = bundle.getString("desc");
 
-        text.setText(HtmlCompat.fromHtml(html, HtmlCompat.FROM_HTML_MODE_LEGACY));
+        if(!html.contains("<html>")){
+
+            text.setText(html);
+
+        }else {
+
+            String clear = html.replace("\\n", "");
+            text.setText(HtmlCompat.fromHtml(clear, HtmlCompat.FROM_HTML_MODE_COMPACT));
+        }
 
     }
 }

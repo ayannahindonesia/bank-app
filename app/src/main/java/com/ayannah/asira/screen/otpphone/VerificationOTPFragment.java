@@ -391,4 +391,10 @@ public class VerificationOTPFragment extends BaseFragment implements Verificatio
         txtWrongOTP.setVisibility(View.VISIBLE);
         vibrator.vibrate(patternVibrate, -1);
     }
+
+    @Override
+    public void onDestroyView() {
+        countDownTimer.cancel();
+        super.onDestroyView();
+    }
 }

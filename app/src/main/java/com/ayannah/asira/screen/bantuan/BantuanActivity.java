@@ -49,7 +49,15 @@ public class BantuanActivity extends DaggerAppCompatActivity {
 
     @Override
     public boolean onSupportNavigateUp() {
-        finish();
+
+        if(getSupportFragmentManager().getBackStackEntryCount() > 0){
+
+            getSupportFragmentManager().popBackStack();
+
+        }else {
+
+            finish();
+        }
         return super.onSupportNavigateUp();
     }
 
