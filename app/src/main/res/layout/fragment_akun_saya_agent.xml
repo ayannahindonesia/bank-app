@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,114 +9,121 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:background="@color/colorAsiraWhite"
-        android:layout_height="?attr/actionBarSize"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <TextView
-            android:text="Profil"
-            android:textColor="@android:color/black"
-            android:textStyle="bold"
-            android:textSize="@dimen/fontLarge"
-            android:layout_gravity="center_vertical"
-            android:textAlignment="center"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorAsiraWhite"
+            android:orientation="horizontal">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/white"
-        android:orientation="vertical"
-        android:padding="@dimen/_6sdp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="Profil"
+                android:textAlignment="center"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/fontLarge"
+                android:textStyle="bold" />
+        </LinearLayout>
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/imgProfile"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
-            android:layout_gravity="center_horizontal"
-            android:src="@drawable/default_profile_picture"
-            android:background="@drawable/rounded_img_layout" />
-
-        <TextView
-            android:id="@+id/txtAgentName"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="Agen Aldi Julian"
-            android:textStyle="bold"
-            android:textAlignment="center"
-            android:textColor="@android:color/black"
-            android:textSize="@dimen/fontLarge" />
+            android:background="@android:color/white"
+            android:orientation="vertical"
+            android:padding="@dimen/_6sdp">
 
-        <TextView
-            android:id="@+id/tvAgentHp"
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imgProfile"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/rounded_img_layout"
+                android:src="@drawable/default_profile_picture" />
+
+            <TextView
+                android:id="@+id/txtAgentName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/fontLarge"
+                android:textStyle="bold"
+                tools:text="Agen Aldi Julian" />
+
+            <TextView
+                android:id="@+id/tvAgentHp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textSize="@dimen/fontSmall"
+                tools:text="+62 81212 6700 18" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="+62 81212 6700 18"
-            android:textAlignment="center"
-            android:textSize="@dimen/fontSmall" />
+            android:layout_marginTop="@dimen/_6sdp"
+            android:background="@android:color/white"
+            android:orientation="vertical"
+            android:padding="@dimen/_16sdp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="Akun"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/fontLarge"
+                android:textStyle="bold" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewAkun"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:background="@android:color/white"
+            android:orientation="vertical"
+            android:padding="@dimen/_16sdp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tentang"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/fontLarge"
+                android:textStyle="bold" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewTentang"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp" />
+
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSignout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_16sdp"
+            android:layout_marginEnd="@dimen/_16sdp"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:text="Keluar"
+            app:cornerRadius="40dp" />
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_marginTop="@dimen/_6sdp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="@dimen/_16sdp"
-        android:background="@android:color/white">
-
-        <TextView
-            android:text="Akun"
-            android:textColor="@android:color/black"
-            android:textStyle="bold"
-            android:textSize="@dimen/fontLarge"
-            android:layout_gravity="center_vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewAkun"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_marginTop="@dimen/_6sdp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="@dimen/_16sdp"
-        android:background="@android:color/white">
-
-        <TextView
-            android:text="Tentang"
-            android:textColor="@android:color/black"
-            android:textStyle="bold"
-            android:textSize="@dimen/fontLarge"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewTentang"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-    </LinearLayout>
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnSignout"
-        android:layout_marginTop="@dimen/_16sdp"
-        android:layout_marginStart="@dimen/_16sdp"
-        android:layout_marginEnd="@dimen/_16sdp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/colorPrimaryDark"
-        android:text="Keluar"
-        app:cornerRadius="40dp"/>
-
-</LinearLayout>
+</androidx.core.widget.NestedScrollView>
