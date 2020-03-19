@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/txtCustName"
                 android:visibility="visible"
-                app:cardBackgroundColor="@color/colorAsiraWhite"
+                app:cardBackgroundColor="#FFF"
                 app:cardCornerRadius="2sp"
                 app:cardElevation="@dimen/_3sdp">
 
@@ -129,7 +129,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/txtCustName"
                 android:visibility="gone"
-                app:cardBackgroundColor="@color/colorAsiraWhite"
+                app:cardBackgroundColor="#FFF"
                 app:cardCornerRadius="2sp"
                 app:cardElevation="@dimen/_3sdp">
 
