@@ -21,6 +21,7 @@ import com.ayannah.asira.data.model.BankList;
 import com.ayannah.asira.data.model.BankService;
 import com.ayannah.asira.screen.register.addaccountbank.AddAccountBankActivity;
 import com.ayannah.asira.screen.register.addaccountbank.AddAccountBankFragment;
+import com.ayannah.asira.screen.register.adddoc.AddDocumentActivity;
 import com.ayannah.asira.screen.register.formothers.FormOtherFragment;
 
 import java.util.ArrayList;
@@ -113,7 +114,7 @@ public class ChooseBankFragment extends BaseFragment implements ChooseBankContra
             bundle.putInt(FormOtherFragment.BANK_ID, bank.getId());
             bundle.putString(FormOtherFragment.BANK_LOGO, bank.getImage());
 
-            Intent adddbank = new Intent(parentActivity(), AddAccountBankActivity.class);
+            Intent adddbank = new Intent(parentActivity(), AddDocumentActivity.class);
             adddbank.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             adddbank.putExtras(bundle);
             startActivity(adddbank);

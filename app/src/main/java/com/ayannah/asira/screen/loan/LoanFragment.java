@@ -2,6 +2,7 @@ package com.ayannah.asira.screen.loan;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -10,6 +11,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -39,6 +41,7 @@ import com.ayannah.asira.base.BaseFragment;
 import com.ayannah.asira.util.CommonUtils;
 import com.ayannah.asira.util.Interest;
 import com.ayannah.asira.util.NumberSeparatorTextWatcher;
+import com.google.android.gms.common.util.ArrayUtils;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -153,6 +156,8 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
     private List<EditText> allEds = new ArrayList<EditText>();
     private List<Spinner> allSPs = new ArrayList<Spinner>();
     private List<ImageView> allIVs = new ArrayList<ImageView>();
+    private List<CheckBox> allCBs = new ArrayList<CheckBox>();
+    private List<TextView> allTVCBs = new ArrayList<TextView>();
     private List<FormDynamic> arrForm = new ArrayList<FormDynamic>();
     private int imgID = 0;
 
@@ -756,8 +761,8 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
 
         }
 
-        if (cvForm.getVisibility() == View.VISIBLE && !CheckMandatoryDynamic(allEds , allSPs, allIVs)) {
-            Toast.makeText(parentActivity(), "Form mandatory dynamic ada yg belum diisi", Toast.LENGTH_SHORT).show();
+        if (cvForm.getVisibility() == View.VISIBLE && !CheckMandatoryDynamic(allEds , allSPs, allIVs, allTVCBs)) {
+            Toast.makeText(parentActivity(), "Data Tambahan ada yg belum diisi", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -797,21 +802,28 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
 
     }
 
-    private boolean CheckMandatoryDynamic(List<EditText> allEds, List<Spinner> allSPs, List<ImageView> allIVs) {
+    private boolean CheckMandatoryDynamic(List<EditText> allEds, List<Spinner> allSPs, List<ImageView> allIVs, List<TextView> allTVCBs) {
         for (EditText et : allEds) {
             if (et.getTag().equals("required") && et.getText().toString().equals("")) {
+                et.setError("wajib");
                 return false;
             }
         }
 
-//        for (Spinner sp : allSPs) {
-//            if (sp.getTag().equals("required")) {
-//                return false;
-//            }
-//        }
+        for (Spinner sp : allSPs) {
+            if (sp.getTag().equals("required") && sp.getSelectedItemPosition() == 1) {
+                return false;
+            }
+        }
 
         for (ImageView iv : allIVs) {
             if (iv.getTag().equals("required") && iv.getDrawable() == null) {
+                return false;
+            }
+        }
+
+        for (TextView tvcb : allTVCBs) {
+            if (tvcb.getTag().toString().contains("required") && Integer.parseInt(tvcb.getTag().toString().substring(0,1)) == 0){
                 return false;
             }
         }
@@ -846,14 +858,15 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
         tv.setTextColor(getResources().getColor(R.color.textColorAsiraGrey));
         llForm.addView(tv);
         LinearLayout.LayoutParams paramTV = (LinearLayout.LayoutParams) tv.getLayoutParams();
-        paramTV.setMargins(0, 15, 0, 5);
+        paramTV.setMargins(0, 20, 0, 5);
         tv.setLayoutParams(paramTV);
 
 //       just devider ==============================================================================
 
         EditText et = new EditText(parentActivity());
+        et.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.focus_tint_list)));
         et.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT));
-        et.setTextSize(getResources().getDimension(R.dimen._6sdp));
+        et.setTextSize(getResources().getDimension(R.dimen._4sdp));
         et.setTag(form.getStatus());
         et.setId(index);
         et.setHint(String.format("Masukan %s", tv.getText()));
@@ -861,6 +874,10 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
         LinearLayout.LayoutParams paramET = (LinearLayout.LayoutParams) et.getLayoutParams();
         paramET.setMargins(0, 5, 0, 5);
         et.setLayoutParams(paramET);
+
+        if (et.getTag().toString().contains("required")) {
+            tv.append(getResources().getString(R.string.wajib_isi));
+        }
 
         allEds.add(et);
     }
@@ -871,14 +888,15 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
         tv.setTextColor(getResources().getColor(R.color.textColorAsiraGrey));
         llForm.addView(tv);
         LinearLayout.LayoutParams paramTV = (LinearLayout.LayoutParams) tv.getLayoutParams();
-        paramTV.setMargins(0, 15, 0, 5);
+        paramTV.setMargins(0, 20, 0, 5);
         tv.setLayoutParams(paramTV);
 
 //       just devider ==============================================================================
 
 //        List<String> value = new ArrayList<String>(Arrays.asList(form.getValue().split(",|\\:")));
-        List<String> value = new ArrayList<>(Arrays.asList(form.getValue()));
-
+        List<String> value = new ArrayList<>();
+        value.add("Pilih...");
+        value.addAll(Arrays.asList(form.getValue()));
         ArrayAdapter<String> adapter;
         adapter = new ArrayAdapter<>(parentActivity(), R.layout.item_custom_spinner, value);
 
@@ -892,17 +910,27 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
         paramSP.setMargins(0, 5, 0, 5);
         sp.setLayoutParams(paramSP);
 
+        if (sp.getTag().toString().contains("required")) {
+            tv.append(getResources().getString(R.string.wajib_isi));
+        }
+
         allSPs.add(sp);
     }
 
     private void createCheckBox(@NonNull FormDynamic form, int index) {
+        int[] numChecked = new int[1];
+
         TextView tv = new TextView(parentActivity());
-        tv.setText(form.getLabel());
         tv.setTextColor(getResources().getColor(R.color.textColorAsiraGrey));
+        tv.setTag(String.format("%s %s", String.valueOf(numChecked[0]), form.getStatus()));
+        tv.setText(form.getLabel());
+        tv.append(getResources().getString(R.string.wajib_isi));
         llForm.addView(tv);
         LinearLayout.LayoutParams paramTV = (LinearLayout.LayoutParams) tv.getLayoutParams();
-        paramTV.setMargins(0, 15, 0, 5);
+        paramTV.setMargins(0, 20, 0, 5);
         tv.setLayoutParams(paramTV);
+
+        allTVCBs.add(tv);
 
 //       just devider ==============================================================================
 
@@ -918,15 +946,28 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
             row.setId(i);
             row.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT));
             CheckBox checkBox = new CheckBox(parentActivity());
-//            checkBox.setOnCheckedChangeListener(parentActivity());
+            checkBox.setButtonTintList(ColorStateList.valueOf(getResources().getColor(R.color.textColorAsira)));
             checkBox.setId(index);
             checkBox.setText(value.get(i));
+            checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (isChecked) {
+                        numChecked[0]++;
+                    } else {
+                        numChecked[0]--;
+                    }
+                    tv.setTag(String.format("%s %s", String.valueOf(numChecked[0]), form.getStatus()));
+
+                }
+            });
+
             row.addView(checkBox);
             LinearLayout.LayoutParams paramSP = (LinearLayout.LayoutParams) checkBox.getLayoutParams();
             paramSP.setMargins(0, 5, 0, 5);
             checkBox.setLayoutParams(paramSP);
 
-            llForm.addView(row);
+            allCBs.add(checkBox);
         }
     }
 
@@ -937,7 +978,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
         tv.setTextColor(getResources().getColor(R.color.textColorAsiraGrey));
         llForm.addView(tv);
         LinearLayout.LayoutParams paramTV = (LinearLayout.LayoutParams) tv.getLayoutParams();
-        paramTV.setMargins(0, 15, 0, 5);
+        paramTV.setMargins(0, 20, 0, 5);
         tv.setLayoutParams(paramTV);
 
 //       just devider ==============================================================================
@@ -960,6 +1001,10 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
                 startActivityForResult(intent, 1);
             }
         });
+
+        if (iv.getTag().toString().contains("required")) {
+            tv.append(getResources().getString(R.string.wajib_isi));
+        }
 
         allIVs.add(iv);
     }

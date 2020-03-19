@@ -2,6 +2,7 @@ package com.ayannah.asira.screen.register.adddoc;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -404,6 +405,34 @@ public class AddDocumentFragment extends BaseFragment implements AddDocumentCont
     @Override
     public void onValidationSucceeded() {
 
+        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which) {
+                    case DialogInterface.BUTTON_POSITIVE:
+
+                        doRegist();
+
+                        break;
+
+                    case DialogInterface.BUTTON_NEGATIVE:
+
+                        dialog.cancel();
+
+                        break;
+                }
+            }
+        };
+
+        androidx.appcompat.app.AlertDialog.Builder builder = new AlertDialog.Builder(parentActivity());
+        builder.setMessage("Mitra yang Anda pilih akan melakukan validasi terhadap data Anda dan akan melakukan pembuatan akun rekening untuk Anda jika diperlukan. Apakah Anda bersedia?")
+                .setPositiveButton("Ya", dialogClickListener)
+                .setNegativeButton("Tidak", dialogClickListener)
+                .show();
+
+    }
+
+    private void doRegist() {
         dialog.show();
 //        mPresenter.checkMandatoryItem(etKTP.getText().toString(), "", "", etNPWP.getText().toString());
         Bundle bundle = parentActivity().getIntent().getExtras();
