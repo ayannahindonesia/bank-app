@@ -3,13 +3,9 @@ package com.ayannah.asira.screen.loan;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Paint;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -28,7 +24,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
 import com.ayannah.asira.R;
 import com.ayannah.asira.custom.PlafondEditText;
@@ -44,7 +39,6 @@ import com.ayannah.asira.base.BaseFragment;
 import com.ayannah.asira.util.CommonUtils;
 import com.ayannah.asira.util.Interest;
 import com.ayannah.asira.util.NumberSeparatorTextWatcher;
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -57,8 +51,6 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-
-import static com.ayannah.asira.R2.id.design_bottom_sheet;
 
 public class LoanFragment extends BaseFragment implements LoanContract.View {
 
@@ -137,6 +129,8 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
     private int totalBunga = 0;
     private String interestType = "";
     private String feeType = "";
+    private int feeDeducted = 0;
+    private int feeCharged = 0;
 
     //define min and max loan var globally based on selected product loan
     private int minPlafond = 0;
@@ -194,7 +188,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
         //memberikan number currenxt saat input angka plafon pinjaman
         plafonNumberSeparator = new NumberSeparatorTextWatcher(plafondCustom);
         plafondCustom.setOnFocusChangeListener((v, hasFocus) -> {
-            if(hasFocus){
+            if (hasFocus) {
                 plafondCustom.addTextChangedListener(plafonNumberSeparator);
             }
         });
@@ -203,8 +197,12 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
         installment.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                installmentTenor = minTenor + (seekBar.getProgress() * 6);
+
+                installmentTenor = minTenor + (seekBar.getProgress());
                 tvInstallment.setText(String.format("%s bulan", installmentTenor));
+
+                CreateCalculationData();
+
             }
 
             @Override
@@ -215,41 +213,37 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
 
-                arInstallments.clear();
-
-                if (!plafondCustom.getText().toString().trim().isEmpty()) {
-//                    //calculate bunga
-//                    totalBunga = calculateInterest(loanAmount, installmentTenor, interest, "flat");
-//                    //calculate angsuran perbulan
-//                    angsurnaPerbulan = finalAngsuranPerBulan(convSetup);
-
-//                    createTableAngsuran(interest, loanAmount, installmentTenor, administration, "flat", POTONG_PLAFON);
-//                    createTableAngsuran(6.0, 12000000, 24, administration, "fixed", POTONG_PLAFON);
-//                    createTableAngsuran(6.0, 12000000, 24, administration, "efektif_menurun", POTONG_PLAFON);
-                    createTableAngsuran(interest, loanAmount, installmentTenor, administration, interestType, feeType);
-
-                    biayaAdmin.setText(CommonUtils.setRupiahCurrency((int) Math.floor(administration)));
-                    if (arInstallments.get(0).getAngsuranPerBulan() == null) {
-                        tvAngsuran.setText("Lihat Tabel");
-                        tvAngsuran.setTextColor(getResources().getColor(R.color.textColorAsira));
-                        arInstallments.remove(0);
-                        tvAngsuran.setClickable(true);
-                    } else {
-                        tvAngsuran.setText(CommonUtils.setRupiahCurrency((int) Math.floor(Double.parseDouble(arInstallments.get(0).getAngsuranPerBulan()))));
-                        tvAngsuran.setTextColor(getResources().getColor(R.color.textColorAsiraGrey));
-                        tvAngsuran.setClickable(false);
-                    }
-
-                    jumlahPencairan.setText(CommonUtils.setRupiahCurrency((int) Math.floor(countPencairan)));
-
-                } else {
-
-                    installment.setProgress(0);
-                }
-
             }
         });
 
+    }
+
+    private void CreateCalculationData() {
+        arInstallments.clear();
+
+        if (!plafondCustom.getText().toString().trim().isEmpty()) {
+
+            createTableAngsuran(interest, loanAmount, installmentTenor, administration, interestType, feeType);
+
+            biayaAdmin.setText(CommonUtils.setRupiahCurrency((int) Math.floor(administration)));
+            if (arInstallments.get(0).getAngsuranPerBulan() == null) {
+                tvAngsuran.setText("Lihat Tabel");
+                tvAngsuran.setTextColor(getResources().getColor(R.color.textColorAsira));
+                arInstallments.remove(0);
+                tvAngsuran.setClickable(true);
+            } else {
+                tvAngsuran.setText(CommonUtils.setRupiahCurrency((int) Math.floor(Double.parseDouble(arInstallments.get(0).getAngsuranPerBulan()))));
+                tvAngsuran.setTextColor(getResources().getColor(R.color.textColorAsiraGrey));
+                tvAngsuran.setClickable(false);
+            }
+
+//                    jumlahPencairan.setText(CommonUtils.setRupiahCurrency((int) Math.floor(countPencairan)));
+            jumlahPencairan.setText(CommonUtils.setRupiahCurrency((int) (loanAmount - feeDeducted)));
+
+        } else {
+
+            installment.setProgress(0);
+        }
     }
 
     @OnClick(R.id.angsuranPerbulan)
@@ -266,12 +260,13 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
             case "flat": {
                 int interestLoc = calculateInterest(loanAmount, installmentTenor, interest, type);
                 double cicilanPokokPinjaman = loanAmount / installmentTenor;
-                double ansuranPerBulan = calculateAngsuranPerBulan(interestLoc, cicilanPokokPinjaman, administration, installmentTenor, feeType);
+                double ansuranPerBulan = calculateAngsuranPerBulan(interestLoc, cicilanPokokPinjaman, administration, installmentTenor, feeDeducted, feeCharged, type);
 
                 Installments installmentsFlat = new Installments();
                 installmentsFlat.setBunga(formatStringDouble(interestLoc * installmentTenor));
                 installmentsFlat.setCicilanPokokPinjaman(formatStringDouble(cicilanPokokPinjaman));
                 installmentsFlat.setAngsuranPerBulan(formatStringDouble(ansuranPerBulan));
+                angsurnaPerbulan = ansuranPerBulan;
 
                 arInstallments.add(installmentsFlat);
 
@@ -279,11 +274,12 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
             }
             case "fixed": {
                 double[] returnPPMT = Interest.PPMT(interest / 100 / 12, 1, installmentTenor, loanAmount * (-1), 1);
-                double ansuranPerBulan = calculateAngsuranPerBulan(returnPPMT[1], returnPPMT[0], administration, installmentTenor, feeType);
+                double ansuranPerBulan = calculateAngsuranPerBulan(returnPPMT[1], returnPPMT[0], administration, installmentTenor, feeDeducted, feeCharged, type);
 
                 Installments installmentsFixed = new Installments();
                 installmentsFixed.setCicilanPokokPinjaman(formatStringDouble(returnPPMT[0]));
                 installmentsFixed.setAngsuranPerBulan(String.valueOf(ansuranPerBulan));
+                angsurnaPerbulan = ansuranPerBulan;
 
                 arInstallments.add(installmentsFixed);
 
@@ -307,7 +303,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
                     installments.setCicilanPokokPinjaman(formatStringDouble(cicilanPokokPinjaman));
                     installments.setBunga(formatStringDouble(Double.parseDouble(installments.getPokokPinjaman()) * interest / 100 / 12));
                     interestLoc = loanAmountLoc * interest / 100 / 12;
-                    installments.setAngsuranPerBulan(formatStringDouble(calculateAngsuranPerBulan(interestLoc, cicilanPokokPinjaman, administration, installmentTenor, feeType)));
+                    installments.setAngsuranPerBulan(formatStringDouble(calculateAngsuranPerBulan(interestLoc, cicilanPokokPinjaman, administration, installmentTenor, feeDeducted, feeCharged, type)));
                     installments.setSaldoPokokPinjaman(formatStringDouble(loanAmount - cicilanPokokPinjaman * (i + 1)));
                     loanAmountLoc = Integer.parseInt(installments.getSaldoPokokPinjaman());
 
@@ -317,16 +313,16 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
                 break;
             }
             case "onetimepay": {
-                    //calculate bunga
-                    totalBunga = calculateInterest(loanAmount, installmentTenor, interest, "onetimepay");
-                    //calculate angsuran perbulan
-                    angsurnaPerbulan = finalAngsuranPerBulan(convSetup);
+                //calculate bunga
+                totalBunga = calculateInterest(loanAmount, installmentTenor, interest, "onetimepay");
+                //calculate angsuran perbulan
+                angsurnaPerbulan = AngsuranPerBulanOneTimePay(interest, loanAmount, installmentTenor);
 
-                    Installments installments = new Installments();
-                    installments.setIndex(0);
-                    installments.setAngsuranPerBulan(String.valueOf(angsurnaPerbulan));
+                Installments installments = new Installments();
+                installments.setIndex(0);
+                installments.setAngsuranPerBulan(String.valueOf(angsurnaPerbulan));
 
-                    arInstallments.add(installments);
+                arInstallments.add(installments);
 
                 break;
             }
@@ -338,13 +334,8 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
         return new DecimalFormat("#.#").format(value);
     }
 
-    private double calculateAngsuranPerBulan(double interestLoc, double cicilanPokokPinjaman, int administration, int installmentTenor, String feeType) {
-
-        if (feeType.equals(POTONG_PLAFON)) {
-            return interestLoc + cicilanPokokPinjaman;
-        } else {
-            return interestLoc + cicilanPokokPinjaman + (administration/installmentTenor);
-        }
+    private double calculateAngsuranPerBulan(double interestLoc, double cicilanPokokPinjaman, int administration, int installmentTenor, int feeDeductedLoc, int feeChargedLoc, String type) {
+        return interestLoc + cicilanPokokPinjaman + ((double) feeChargedLoc/installmentTenor);
     }
 
     private int calculateInterest(int loanAmount, int installmentTenor, double interest, String type) {
@@ -417,11 +408,11 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
                     //set min and max tenor based on selected product
                     minTenor = mServiceProducts.get(position).getMinTimespan();
                     maxTenor = mServiceProducts.get(position).getMaxTimespan();
-                    int maxTenorSeekbar = ((maxTenor-minTenor)/6);
+                    int maxTenorSeekbar = maxTenor-minTenor;
                     installment.setMax(maxTenorSeekbar);
 
                     interestType = mServiceProducts.get(position).getInterest_type();
-                    feeType = mServiceProducts.get(position).getFees().get(0).getFeeMethod();
+//                    feeType = mServiceProducts.get(position).getFees().get(0).getFeeMethod();
 
                     installmentTenor = minTenor;
 //                    tvInstallment.setText(String.format("%s bulan", installmentTenor));
@@ -574,19 +565,15 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
                 totalBunga = (int) (loanAmount * interest) / 100;
 
                 //calculate angsuran perbulan
-                angsurnaPerbulan = finalAngsuranPerBulan(convSetup);
+//                angsurnaPerbulan = AngsuranPerBulanOneTimePay(convSetup);
 
                 if (convSetup.equals(POTONG_PLAFON)) {
                     countPencairan = loanAmount - administration;
                 } else {
                     countPencairan = loanAmount;
                 }
-//
-//                tvInstallment.setText(String.format("%s bulan", installmentTenor));
-//                biayaAdmin.setText(CommonUtils.setRupiahCurrency((int) Math.floor(administration)));
-//                tvBunga.setText(CommonUtils.setRupiahCurrency((int) Math.floor(totalBunga)));
-//                tvAngsuran.setText(CommonUtils.setRupiahCurrency((int) Math.floor(angsurnaPerbulan)));
-//                jumlahPencairan.setText(CommonUtils.setRupiahCurrency((int) Math.floor(countPencairan)));
+
+                CreateCalculationData();
             }
 
         }else {
@@ -702,28 +689,38 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
 
     private int calculateAdministration_v2(int plafon, List<FeesItem> fees){
 
+        feeDeducted = 0;
+        feeCharged = 0;
         int result = 0;
-        double tempCount;
+        double tmptResult;
 
         if(fees.size() > 0) {
             for (FeesItem param : fees) {
+                tmptResult = 0;
 
                 if (param.getAmount().contains("%")) {
 
-                    tempCount = Double.parseDouble(param.getAmount().replace("%", ""));
-                    result = result + ((int) (plafon * tempCount) / 100);
+                    double tempCount = Double.parseDouble(param.getAmount().replace("%", ""));
+                    tmptResult = (plafon * tempCount) / 100;
+                    result = result + (int) tmptResult;
 
                 } else {
 
                     if (param.getAmount().toLowerCase().contains(".")) {
-
-                        result = result + (int) Double.parseDouble(param.getAmount());
+                        tmptResult = Double.parseDouble(param.getAmount());
+                        result = result + (int) tmptResult;
 
                     } else {
-
-                        result = result + Integer.parseInt(param.getAmount());
+                        tmptResult = Double.parseDouble(param.getAmount());
+                        result = result + (int) tmptResult;
 
                     }
+                }
+
+                if (param.getFeeMethod().toLowerCase().equals(POTONG_PLAFON)) {
+                    feeDeducted = (int) (feeDeducted + tmptResult);
+                } else {
+                    feeCharged = (int) (feeCharged + tmptResult);
                 }
 
             }
@@ -814,7 +811,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
 //        }
 
         for (ImageView iv : allIVs) {
-            if (iv.getTag().equals("required") && iv.getDrawable() != null) {
+            if (iv.getTag().equals("required") && iv.getDrawable() == null) {
                 return false;
             }
         }
@@ -837,16 +834,9 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
 
 
 
-    private double finalAngsuranPerBulan(String jenisPotong) {
-
-        if (jenisPotong.equals(POTONG_PLAFON)) {
-
-            return (loanAmount + totalBunga) / installmentTenor;
-
-        } else {
-
-            return (loanAmount + totalBunga + administration) / installmentTenor;
-        }
+    private double AngsuranPerBulanOneTimePay(double interest, int loanAmount, int installmentTenor) {
+        double interestLoc = loanAmount*interest/100;
+        return (loanAmount + interestLoc + feeCharged)/installmentTenor;
 
     }
 

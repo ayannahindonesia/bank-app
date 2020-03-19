@@ -245,6 +245,7 @@ public class RegisterMandatoryFragment extends BaseFragment implements RegisterM
     @Override
     public void failedGetToken(String errMessage) {
         Toast.makeText(parentActivity(), errMessage, Toast.LENGTH_LONG).show();
+        dialog.dismiss();
     }
 
     @Override
