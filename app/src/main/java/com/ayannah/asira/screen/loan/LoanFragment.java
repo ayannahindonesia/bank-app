@@ -500,7 +500,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
                     createTakePicture(arrForm.get(i), i + 1);
                     break;
                 default:
-                    Toast.makeText(parentActivity(), String.format("%s not defined", arrForm.get(i).getValue()), Toast.LENGTH_LONG).show();
+                    Toast.makeText(parentActivity(), String.format("%s not defined", arrForm.get(i).getType()), Toast.LENGTH_LONG).show();
                     break;
             }
         }
@@ -893,10 +893,9 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
 
 //       just devider ==============================================================================
 
-//        List<String> value = new ArrayList<String>(Arrays.asList(form.getValue().split(",|\\:")));
         List<String> value = new ArrayList<>();
         value.add("Pilih...");
-        value.addAll(Arrays.asList(form.getValue()));
+        value.addAll(Arrays.asList(form.getValue().split(",|\\:")));
         ArrayAdapter<String> adapter;
         adapter = new ArrayAdapter<>(parentActivity(), R.layout.item_custom_spinner, value);
 
@@ -935,8 +934,8 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
 //       just devider ==============================================================================
 
         int arrCount=0;
-//        List<String> value = new ArrayList<String>(Arrays.asList(form.getValue().split(",|\\:")));
-        List<String> value = new ArrayList<>(Arrays.asList(form.getValue()));
+        List<String> value = new ArrayList<String>(Arrays.asList(form.getValue().split(",|\\:")));
+//        List<String> value = new ArrayList<>(Arrays.asList(form.getValue()));
 
         arrCount = value.size();
 
@@ -963,6 +962,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
             });
 
             row.addView(checkBox);
+            llForm.addView(row);
             LinearLayout.LayoutParams paramSP = (LinearLayout.LayoutParams) checkBox.getLayoutParams();
             paramSP.setMargins(0, 5, 0, 5);
             checkBox.setLayoutParams(paramSP);

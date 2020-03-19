@@ -10,8 +10,8 @@ public class FormDynamic {
     @SerializedName("label")
     String label;
 
-    @SerializedName("values")
-    String[] value;
+    @SerializedName("value")
+    String value;
 
     @SerializedName("status")
     String status;
@@ -32,20 +32,11 @@ public class FormDynamic {
         this.label = label;
     }
 
-//    public String getValue() {
-//        return value;
-//    }
-//
-//    public void setValue(String value) {
-//        this.value = value;
-//    }
-
-
-    public String[] getValue() {
+    public String getValue() {
         return value;
     }
 
-    public void setValue(String[] value) {
+    public void setValue(String value) {
         this.value = value;
     }
 
