@@ -99,6 +99,9 @@ public class LoginPresenter implements LoginContract.Presenter {
         json.addProperty("key", phone);
         json.addProperty("password", pass);
 
+        Log.e(TAG, phone);
+        Log.e(TAG, pass);
+
         Log.d(TAG, preferenceRepository.getPublicToken());
 
         mComposite.add(remotRepo.getTokenClient(json)
@@ -122,6 +125,9 @@ public class LoginPresenter implements LoginContract.Presenter {
         }, error -> {
 
             ANError anError = (ANError) error;
+
+            Log.e(TAG, anError.getErrorBody());
+
             if(anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
                 mView.showErrorMessage("Connection Error");
             }else {

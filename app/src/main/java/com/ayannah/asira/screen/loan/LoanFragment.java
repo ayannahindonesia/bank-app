@@ -876,9 +876,11 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
 
 //       just devider ==============================================================================
 
-        List<String> value = new ArrayList<String>(Arrays.asList(form.getValue().split(",|\\:")));
+//        List<String> value = new ArrayList<String>(Arrays.asList(form.getValue().split(",|\\:")));
+        List<String> value = new ArrayList<>(Arrays.asList(form.getValue()));
+
         ArrayAdapter<String> adapter;
-        adapter = new ArrayAdapter<String>(parentActivity(), R.layout.item_custom_spinner, value);
+        adapter = new ArrayAdapter<>(parentActivity(), R.layout.item_custom_spinner, value);
 
         Spinner sp = new Spinner(parentActivity());
         sp.setBackgroundResource(R.drawable.spinner_bg2);
@@ -905,7 +907,8 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
 //       just devider ==============================================================================
 
         int arrCount=0;
-        List<String> value = new ArrayList<String>(Arrays.asList(form.getValue().split(",|\\:")));
+//        List<String> value = new ArrayList<String>(Arrays.asList(form.getValue().split(",|\\:")));
+        List<String> value = new ArrayList<>(Arrays.asList(form.getValue()));
 
         arrCount = value.size();
 
