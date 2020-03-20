@@ -1,6 +1,9 @@
 package com.ayannah.asira.data.model;
 
-public class Installments {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Installments implements Parcelable {
     int index;
     String pokokPinjaman;
     String cicilanPokokPinjaman;
@@ -19,6 +22,27 @@ public class Installments {
         this.angsuranPerBulan = angsuranPerBulan;
         this.saldoPokokPinjaman = saldoPokokPinjaman;
     }
+
+    protected Installments(Parcel in) {
+        index = in.readInt();
+        pokokPinjaman = in.readString();
+        cicilanPokokPinjaman = in.readString();
+        bunga = in.readString();
+        angsuranPerBulan = in.readString();
+        saldoPokokPinjaman = in.readString();
+    }
+
+    public static final Creator<Installments> CREATOR = new Creator<Installments>() {
+        @Override
+        public Installments createFromParcel(Parcel in) {
+            return new Installments(in);
+        }
+
+        @Override
+        public Installments[] newArray(int size) {
+            return new Installments[size];
+        }
+    };
 
     public int getIndex() {
         return index;
@@ -66,5 +90,20 @@ public class Installments {
 
     public void setSaldoPokokPinjaman(String saldoPokokPinjaman) {
         this.saldoPokokPinjaman = saldoPokokPinjaman;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(index);
+        dest.writeString(pokokPinjaman);
+        dest.writeString(cicilanPokokPinjaman);
+        dest.writeString(bunga);
+        dest.writeString(angsuranPerBulan);
+        dest.writeString(saldoPokokPinjaman);
     }
 }

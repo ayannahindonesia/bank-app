@@ -1,7 +1,11 @@
 package com.ayannah.asira.screen.summary;
 
+import com.ayannah.asira.data.model.Installments;
 import com.ayannah.asira.di.ActivityScoped;
 import com.ayannah.asira.di.FragmentScoped;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Named;
 
@@ -15,6 +19,7 @@ import static com.ayannah.asira.screen.summary.SummaryTransactionActivity.ALASAN
 import static com.ayannah.asira.screen.summary.SummaryTransactionActivity.ANGSURAN_BULAN;
 import static com.ayannah.asira.screen.summary.SummaryTransactionActivity.BANKACCOUNTNUMBER;
 import static com.ayannah.asira.screen.summary.SummaryTransactionActivity.BORROWERID;
+import static com.ayannah.asira.screen.summary.SummaryTransactionActivity.INSTALLMENT;
 import static com.ayannah.asira.screen.summary.SummaryTransactionActivity.INTEREST;
 import static com.ayannah.asira.screen.summary.SummaryTransactionActivity.LAYANAN;
 import static com.ayannah.asira.screen.summary.SummaryTransactionActivity.PENCAIRAN;
@@ -92,12 +97,12 @@ public abstract class SummaryTransactionModule {
         return summaryTransactionActivity.getIntent().getIntExtra(ADMIN, 0);
     }
 
-    @Provides
-    @ActivityScoped
-    @Named("interest")
-    static int interest(SummaryTransactionActivity summaryTransactionActivity) {
-        return summaryTransactionActivity.getIntent().getIntExtra(INTEREST, 0);
-    }
+//    @Provides
+//    @ActivityScoped
+//    @Named("interest")
+//    static int interest(SummaryTransactionActivity summaryTransactionActivity) {
+//        return summaryTransactionActivity.getIntent().getIntExtra(INTEREST, 0);
+//    }
 
     @Provides
     @ActivityScoped
@@ -136,5 +141,12 @@ public abstract class SummaryTransactionModule {
         } else {
             return activity.getIntent().getStringExtra(BANKACCOUNTNUMBER);
         }
+    }
+
+    @Provides
+    @ActivityScoped
+    @Named("installment")
+    static ArrayList<Installments> installments(SummaryTransactionActivity activity) {
+        return activity.getIntent().getParcelableArrayListExtra(INSTALLMENT);
     }
 }

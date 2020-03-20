@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -47,7 +47,7 @@
                         tools:text="Product A"
                         android:textSize="@dimen/fontNormal"
                         android:textStyle="bold"
-                        android:textColor="@color/colorAsiraText"
+                        android:textColor="@color/textColorAsiraGrey"
                         android:textAlignment="textEnd"/>
 
                 </LinearLayout>
@@ -70,7 +70,7 @@
                         android:id="@+id/pinjaman"
                         android:textSize="@dimen/fontNormal"
                         android:textStyle="bold"
-                        android:textColor="@color/colorAsiraAccent"
+                        android:textColor="@color/textColorAsira"
                         android:text="@string/default_currency_amount"
                         android:layout_weight="1"
                         android:textAlignment="textEnd"
@@ -97,7 +97,7 @@
                         android:id="@+id/tenor"
                         android:textSize="@dimen/fontNormal"
                         android:textStyle="bold"
-                        android:textColor="@color/colorAsiraAccent"
+                        android:textColor="@color/textColorAsira"
                         android:layout_weight="1"
                         android:textAlignment="textEnd"
                         android:layout_width="match_parent"
@@ -123,31 +123,31 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <LinearLayout
-                    android:weightSum="2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+<!--                <LinearLayout-->
+<!--                    android:weightSum="2"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content">-->
 
-                    <TextView
-                        android:text="Bunga"
-                        android:layout_weight="1"
-                        android:textColor="@color/colorAsiraText"
-                        android:textSize="@dimen/fontNormal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+<!--                    <TextView-->
+<!--                        android:text="Bunga"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:textColor="@color/colorAsiraText"-->
+<!--                        android:textSize="@dimen/fontNormal"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content" />-->
 
-                    <TextView
-                        android:id="@+id/bunga"
-                        android:text="@string/default_currency_amount"
-                        android:layout_weight="1"
-                        android:textAlignment="textEnd"
-                        android:textColor="@color/colorAsiraText"
-                        android:textStyle="bold"
-                        android:textSize="@dimen/fontNormal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+<!--                    <TextView-->
+<!--                        android:id="@+id/bunga"-->
+<!--                        android:text="@string/default_currency_amount"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:textAlignment="textEnd"-->
+<!--                        android:textColor="@color/colorAsiraText"-->
+<!--                        android:textStyle="bold"-->
+<!--                        android:textSize="@dimen/fontNormal"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content" />-->
 
-                </LinearLayout>
+<!--                </LinearLayout>-->
 
 
                 <LinearLayout
@@ -169,7 +169,7 @@
                         android:text="@string/default_currency_amount"
                         android:layout_weight="1"
                         android:textAlignment="textEnd"
-                        android:textColor="@color/colorAsiraText"
+                        android:textColor="@color/textColorAsiraGrey"
                         android:textStyle="bold"
                         android:textSize="@dimen/fontNormal"
                         android:layout_width="match_parent"
@@ -196,7 +196,7 @@
                         android:text="@string/default_currency_amount"
                         android:layout_weight="1"
                         android:textAlignment="textEnd"
-                        android:textColor="@color/colorAsiraAccent"
+                        android:textColor="@color/textColorAsira"
                         android:textStyle="bold"
                         android:textSize="@dimen/fontNormal"
                         android:layout_width="match_parent"
@@ -224,7 +224,7 @@
                         android:text="@string/default_currency_amount"
                         android:layout_weight="1"
                         android:textAlignment="textEnd"
-                        android:textColor="@color/colorAsiraAccent"
+                        android:textColor="@color/textColorAsira"
                         android:textStyle="bold"
                         android:textSize="@dimen/fontNormal"
                         android:layout_width="match_parent"
@@ -368,7 +368,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
-                <ScrollView
+                <androidx.core.widget.NestedScrollView
                     android:layout_marginTop="@dimen/_10sdp"
                     android:background="@drawable/border_disclaimer"
                     android:layout_width="match_parent"
@@ -395,7 +395,7 @@
 
                     </LinearLayout>
 
-                </ScrollView>
+                </androidx.core.widget.NestedScrollView>
 
                 <CheckBox
                     android:id="@+id/checkDisclaimer"
@@ -403,6 +403,7 @@
                     android:textStyle="bold"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:textSize="@dimen/fontNormal"
+                    android:theme="@style/AsiraCheckBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
@@ -412,13 +413,15 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/buttonSubmit"
-            android:backgroundTint="@color/colorAsiraAccent"
-            android:text="Kirim"
-            android:layout_marginTop="@dimen/_20sdp"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:backgroundTint="@color/textColorAsira"
+            android:text="Kirim"
+            android:textColor="#FFF" />
 
 
     </LinearLayout>
 
-</ScrollView>
+</androidx.core.widget.NestedScrollView>

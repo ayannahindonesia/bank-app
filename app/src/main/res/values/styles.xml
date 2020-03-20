@@ -94,4 +94,11 @@
         <item name="android:singleLine">true</item>
     </style>
 
+    <style name="AsiraCheckBox" parent="@style/Widget.AppCompat.CompoundButton.CheckBox">
+        <item name="android:colorControlNormal">#535353</item>
+        <item name="android:colorControlActivated">#2D85E9</item>
+        <item name="android:colorControlHighlight">#737373</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat</item>
+    </style>
+
 </resources>

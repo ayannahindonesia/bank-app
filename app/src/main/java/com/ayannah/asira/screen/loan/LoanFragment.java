@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -232,7 +233,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
 
             biayaAdmin.setText(CommonUtils.setRupiahCurrency((int) Math.floor(administration)));
             if (arInstallments.get(0).getAngsuranPerBulan() == null) {
-                tvAngsuran.setText("Lihat Tabel");
+                tvAngsuran.setText(Html.fromHtml("<u>Lihat Tabel</u>"));
                 tvAngsuran.setTextColor(getResources().getColor(R.color.textColorAsira));
                 arInstallments.remove(0);
                 tvAngsuran.setClickable(true);
@@ -476,9 +477,12 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
     }
 
     private void createDynamicForm(List<FormDynamic> formDynamic) {
+
         allEds.clear();
         allSPs.clear();
         allIVs.clear();
+        allCBs.clear();
+        allTVCBs.clear();
         llForm.removeAllViews();
 
         arrForm = new ArrayList<>(formDynamic);
@@ -701,7 +705,6 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
 
         if(fees.size() > 0) {
             for (FeesItem param : fees) {
-                tmptResult = 0;
 
                 if (param.getAmount().contains("%")) {
 
@@ -774,7 +777,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
         intent.putExtra(SummaryTransactionActivity.PRODUK, spProducts.getSelectedItem().toString());
         intent.putExtra(SummaryTransactionActivity.PRODUCTID, productID);
         intent.putExtra(SummaryTransactionActivity.ADMIN, administration);
-        intent.putExtra(SummaryTransactionActivity.INTEREST, totalBunga);
+//        intent.putExtra(SummaryTransactionActivity.INTEREST, totalBunga);
         intent.putExtra(SummaryTransactionActivity.PENCAIRAN, countPencairan);
 
         if(spAlasanPinjam.getSelectedItem().toString().equals("Lain-lain")){
@@ -798,6 +801,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
 
         intent.putExtra(SummaryTransactionActivity.TUJUAN, etTujuan.getText().toString());
         intent.putExtra(SummaryTransactionActivity.LAYANAN, bundle.getInt("idService"));
+        intent.putExtra(SummaryTransactionActivity.INSTALLMENT, arInstallments);
         startActivity(intent);
 
     }

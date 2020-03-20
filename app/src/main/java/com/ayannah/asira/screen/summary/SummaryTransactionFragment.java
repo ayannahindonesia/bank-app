@@ -2,6 +2,7 @@ package com.ayannah.asira.screen.summary;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -11,8 +12,10 @@ import android.widget.Toast;
 
 import com.ayannah.asira.R;
 import com.ayannah.asira.base.BaseFragment;
+import com.ayannah.asira.data.model.Installments;
 import com.ayannah.asira.dialog.BottomDialogHandlingError;
 import com.ayannah.asira.dialog.BottomSheetDialogGlobal;
+import com.ayannah.asira.dialog.DialogTableInstallment;
 import com.ayannah.asira.screen.otpphone.VerificationOTPActivity;
 import com.ayannah.asira.util.CommonUtils;
 import com.google.gson.JsonObject;
@@ -21,6 +24,7 @@ import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.Checked;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
@@ -44,8 +48,8 @@ public class SummaryTransactionFragment extends BaseFragment implements SummaryT
     @BindView(R.id.tenor)
     TextView tvTenor;
 
-    @BindView(R.id.bunga)
-    TextView tvBunga;
+//    @BindView(R.id.bunga)
+//    TextView tvBunga;
 
     @BindView(R.id.biayaAdmin)
     TextView tvBiayaAdmin;
@@ -97,9 +101,9 @@ public class SummaryTransactionFragment extends BaseFragment implements SummaryT
     @Named("produk")
     String produk;
 
-    @Inject
-    @Named("interest")
-    int interest;
+//    @Inject
+//    @Named("interest")
+//    int interest;
 
     @Inject
     @Named("admin")
@@ -124,6 +128,10 @@ public class SummaryTransactionFragment extends BaseFragment implements SummaryT
     @Inject
     @Named("bankAccountNumber")
     String bankAccountNumber;
+
+    @Inject
+    @Named("installment")
+    ArrayList<Installments> installments;
 
     private Validator validator;
 
@@ -151,7 +159,7 @@ public class SummaryTransactionFragment extends BaseFragment implements SummaryT
         tvTenor.setText(String.format("%s bulan", tenor));
 
 //        double calculateBunga = ((int) pinjaman * interest) / 100;
-        tvBunga.setText(CommonUtils.setRupiahCurrency(interest));
+//        tvBunga.setText(CommonUtils.setRupiahCurrency(interest));
 
         int calBiayaAdmin = admin;
         tvBiayaAdmin.setText(CommonUtils.setRupiahCurrency(calBiayaAdmin));
@@ -159,7 +167,13 @@ public class SummaryTransactionFragment extends BaseFragment implements SummaryT
         jumlahPencairan.setText(CommonUtils.setRupiahCurrency((int)pencairan));
 
 //        double calAngsuran = (pinjaman + interest + calBiayaAdmin)/tenor;
-        tvAngsuran.setText(CommonUtils.setRupiahCurrency((int) Math.floor(angsuranBulan)));
+        if (angsuranBulan == 0) {
+            tvAngsuran.setText(Html.fromHtml("<u>Lihat Tabel</u>"));
+            tvAngsuran.setClickable(true);
+        } else {
+            tvAngsuran.setText(CommonUtils.setRupiahCurrency((int) Math.floor(angsuranBulan)));
+            tvAngsuran.setClickable(false);
+        }
 
         tvAlasan.setText(alasan);
 
@@ -194,6 +208,13 @@ public class SummaryTransactionFragment extends BaseFragment implements SummaryT
             }
         });
 
+    }
+
+    @OnClick(R.id.angsuranBulanan)
+    void onClickInstallment() {
+        DialogTableInstallment dialog = new DialogTableInstallment();
+        dialog.setInstallments(installments);
+        dialog.showNow(this.getFragmentManager(), "installmentTable");
     }
 
     @OnClick(R.id.buttonSubmit)
