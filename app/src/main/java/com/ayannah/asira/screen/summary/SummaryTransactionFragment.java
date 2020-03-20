@@ -3,6 +3,7 @@ package com.ayannah.asira.screen.summary;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -12,12 +13,15 @@ import android.widget.Toast;
 
 import com.ayannah.asira.R;
 import com.ayannah.asira.base.BaseFragment;
+import com.ayannah.asira.data.model.FormDynamic;
 import com.ayannah.asira.data.model.Installments;
 import com.ayannah.asira.dialog.BottomDialogHandlingError;
 import com.ayannah.asira.dialog.BottomSheetDialogGlobal;
 import com.ayannah.asira.dialog.DialogTableInstallment;
 import com.ayannah.asira.screen.otpphone.VerificationOTPActivity;
 import com.ayannah.asira.util.CommonUtils;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
@@ -133,6 +137,10 @@ public class SummaryTransactionFragment extends BaseFragment implements SummaryT
     @Named("installment")
     ArrayList<Installments> installments;
 
+    @Inject
+    @Named("form_info")
+    ArrayList<FormDynamic> formDynamics;
+
     private Validator validator;
 
     @Inject
@@ -191,22 +199,22 @@ public class SummaryTransactionFragment extends BaseFragment implements SummaryT
         validator = new Validator(this);
         validator.setValidationListener(this);
 
-        checkDisclaimer.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
-                if(isChecked){
-
-                    buttonSubmit.setBackgroundResource(R.drawable.button_register);
-
-                }else {
-
-                    buttonSubmit.setBackgroundResource(R.drawable.button_register_disabled);
-
-                }
-
-            }
-        });
+//        checkDisclaimer.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//
+//                if(isChecked){
+//
+//                    buttonSubmit.setBackgroundResource(R.drawable.button_register);
+//
+//                }else {
+//
+//                    buttonSubmit.setBackgroundResource(R.drawable.button_register_disabled);
+//
+//                }
+//
+//            }
+//        });
 
     }
 
@@ -249,12 +257,12 @@ public class SummaryTransactionFragment extends BaseFragment implements SummaryT
                 dialogs.setOnClickBottomSheetInstruction(new BottomSheetDialogGlobal.BottomSheetInstructionListener() {
                     @Override
                     public void onClickButtonDismiss() {
-
+                        dialogs.dismiss();
                     }
 
                     @Override
                     public void onClickButtonYes() {
-
+                        dialogs.dismiss();
                     }
 
                     @Override
@@ -339,6 +347,7 @@ public class SummaryTransactionFragment extends BaseFragment implements SummaryT
 
         json.addProperty("product", productid);
         json.addProperty("service", layanan);
+        json.addProperty("form_info", new Gson().toJson(formDynamics));
 
         if (borrowerID != 0) {
             mPresenter.postLoanAgent(json);

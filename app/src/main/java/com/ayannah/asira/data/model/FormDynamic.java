@@ -1,8 +1,11 @@
 package com.ayannah.asira.data.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
-public class FormDynamic {
+public class FormDynamic implements Parcelable {
 
     @SerializedName("type")
     String type;
@@ -15,6 +18,28 @@ public class FormDynamic {
 
     @SerializedName("status")
     String status;
+
+    String answers;
+
+    protected FormDynamic(Parcel in) {
+        type = in.readString();
+        label = in.readString();
+        value = in.readString();
+        status = in.readString();
+        answers = in.readString();
+    }
+
+    public static final Creator<FormDynamic> CREATOR = new Creator<FormDynamic>() {
+        @Override
+        public FormDynamic createFromParcel(Parcel in) {
+            return new FormDynamic(in);
+        }
+
+        @Override
+        public FormDynamic[] newArray(int size) {
+            return new FormDynamic[size];
+        }
+    };
 
     public String getType() {
         return type;
@@ -46,5 +71,27 @@ public class FormDynamic {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getAnswers() {
+        return answers;
+    }
+
+    public void setAnswers(String answers) {
+        this.answers = answers;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(type);
+        dest.writeString(label);
+        dest.writeString(value);
+        dest.writeString(status);
+        dest.writeString(answers);
     }
 }

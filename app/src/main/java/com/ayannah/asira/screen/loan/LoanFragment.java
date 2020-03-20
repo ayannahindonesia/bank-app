@@ -4,8 +4,12 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.text.Html;
+import android.util.Base64;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -44,12 +48,14 @@ import com.ayannah.asira.util.Interest;
 import com.ayannah.asira.util.NumberSeparatorTextWatcher;
 import com.google.android.gms.common.util.ArrayUtils;
 
+import java.io.ByteArrayOutputStream;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.StringJoiner;
 
 import javax.inject.Inject;
 
@@ -160,6 +166,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
     private List<CheckBox> allCBs = new ArrayList<CheckBox>();
     private List<TextView> allTVCBs = new ArrayList<TextView>();
     private List<FormDynamic> arrForm = new ArrayList<FormDynamic>();
+    private ArrayList<FormDynamic> arrFormForSend = new ArrayList<FormDynamic>();
     private int imgID = 0;
 
     @Inject
@@ -483,6 +490,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
         allIVs.clear();
         allCBs.clear();
         allTVCBs.clear();
+        arrFormForSend.clear();
         llForm.removeAllViews();
 
         arrForm = new ArrayList<>(formDynamic);
@@ -507,6 +515,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
                     Toast.makeText(parentActivity(), String.format("%s not defined", arrForm.get(i).getType()), Toast.LENGTH_LONG).show();
                     break;
             }
+            arrFormForSend.add(arrForm.get(i));
         }
     }
 
@@ -802,6 +811,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
         intent.putExtra(SummaryTransactionActivity.TUJUAN, etTujuan.getText().toString());
         intent.putExtra(SummaryTransactionActivity.LAYANAN, bundle.getInt("idService"));
         intent.putExtra(SummaryTransactionActivity.INSTALLMENT, arInstallments);
+        intent.putExtra(SummaryTransactionActivity.FORMINFO, arrFormForSend);
         startActivity(intent);
 
     }
@@ -811,24 +821,71 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
             if (et.getTag().equals("required") && et.getText().toString().equals("")) {
                 et.setError("wajib");
                 return false;
+            } else {
+                for (int i=0; i<arrFormForSend.size(); i++) {
+                    if (arrFormForSend.indexOf(arrFormForSend.get(i))+1 == et.getId() ) {
+                        arrFormForSend.get(i).setAnswers(et.getText().toString());
+                    }
+                }
             }
         }
 
         for (Spinner sp : allSPs) {
-            if (sp.getTag().equals("required") && sp.getSelectedItemPosition() == 1) {
+            if (sp.getTag().equals("required") && sp.getSelectedItemPosition() == 0) {
                 return false;
+            } else {
+                for (int i=0; i<arrFormForSend.size(); i++) {
+                    if (arrFormForSend.indexOf(arrFormForSend.get(i))+1 == sp.getId() && sp.getSelectedItemPosition() != 0) {
+                        arrFormForSend.get(i).setAnswers(sp.getSelectedItem().toString());
+                    }
+                }
             }
+
         }
 
         for (ImageView iv : allIVs) {
             if (iv.getTag().equals("required") && iv.getDrawable() == null) {
                 return false;
+            } else {
+                for (int i=0; i<arrFormForSend.size(); i++) {
+                    if (arrFormForSend.indexOf(arrFormForSend.get(i))+1 == iv.getId() && iv.getDrawable() != null) {
+                        Bitmap bitmap = ((BitmapDrawable)iv.getDrawable()).getBitmap();
+
+                        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+                        byte[] byteArray = byteArrayOutputStream .toByteArray();
+
+                        String pict64 = Base64.encodeToString(byteArray, Base64.NO_WRAP);
+
+                        arrFormForSend.get(i).setAnswers(pict64);
+                    }
+                }
             }
         }
 
         for (TextView tvcb : allTVCBs) {
-            if (tvcb.getTag().toString().contains("required") && Integer.parseInt(tvcb.getTag().toString().substring(0,1)) == 0){
+            if (tvcb.getTag().toString().contains("required") && Integer.parseInt(tvcb.getTag().toString().substring(0,1)) == 0) {
                 return false;
+            } else {
+                for (int i=0; i<arrFormForSend.size(); i++) {
+                    if (arrFormForSend.indexOf(arrFormForSend.get(i))+1 == tvcb.getId() && Integer.parseInt(tvcb.getTag().toString().substring(0,1)) != 0) {
+                        List<String> selected = new ArrayList<>();
+                        for (int j=0; j<allCBs.size(); j++) {
+                            if (allCBs.get(j).isChecked()) {
+                                selected.add(allCBs.get(j).getText().toString());
+                            }
+                        }
+
+                        StringBuilder sb = new StringBuilder();
+                        for (String s : selected) {
+                            sb.append(s).append(",");
+                        }
+
+                        if (sb.length() != 0) {
+                            arrFormForSend.get(i).setAnswers(sb.deleteCharAt(sb.length()-1).toString());
+                        }
+                    }
+                }
             }
         }
         return true;
@@ -928,6 +985,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
         tv.setTag(String.format("%s %s", String.valueOf(numChecked[0]), form.getStatus()));
         tv.setText(form.getLabel());
         tv.append(getResources().getString(R.string.wajib_isi));
+        tv.setId(index);
         llForm.addView(tv);
         LinearLayout.LayoutParams paramTV = (LinearLayout.LayoutParams) tv.getLayoutParams();
         paramTV.setMargins(0, 20, 0, 5);

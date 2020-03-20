@@ -1,5 +1,6 @@
 package com.ayannah.asira.screen.summary;
 
+import com.ayannah.asira.data.model.FormDynamic;
 import com.ayannah.asira.data.model.Installments;
 import com.ayannah.asira.di.ActivityScoped;
 import com.ayannah.asira.di.FragmentScoped;
@@ -19,6 +20,7 @@ import static com.ayannah.asira.screen.summary.SummaryTransactionActivity.ALASAN
 import static com.ayannah.asira.screen.summary.SummaryTransactionActivity.ANGSURAN_BULAN;
 import static com.ayannah.asira.screen.summary.SummaryTransactionActivity.BANKACCOUNTNUMBER;
 import static com.ayannah.asira.screen.summary.SummaryTransactionActivity.BORROWERID;
+import static com.ayannah.asira.screen.summary.SummaryTransactionActivity.FORMINFO;
 import static com.ayannah.asira.screen.summary.SummaryTransactionActivity.INSTALLMENT;
 import static com.ayannah.asira.screen.summary.SummaryTransactionActivity.INTEREST;
 import static com.ayannah.asira.screen.summary.SummaryTransactionActivity.LAYANAN;
@@ -148,5 +150,12 @@ public abstract class SummaryTransactionModule {
     @Named("installment")
     static ArrayList<Installments> installments(SummaryTransactionActivity activity) {
         return activity.getIntent().getParcelableArrayListExtra(INSTALLMENT);
+    }
+
+    @Provides
+    @ActivityScoped
+    @Named("form_info")
+    static ArrayList<FormDynamic> formDynamics(SummaryTransactionActivity activity) {
+        return activity.getIntent().getParcelableArrayListExtra(FORMINFO);
     }
 }
