@@ -225,6 +225,7 @@ public class AddDocumentPresenter implements AddDocumentContract.Presenter {
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(res -> {
 
+            preferenceRepository.setUserName(res.getFullname());
             preferenceRepository.setUserAddress(res.getAddress());
             preferenceRepository.setBankID(res.getBank().getInt64());
             preferenceRepository.setBankAccountBorrower(res.getBankAccountnumber());
