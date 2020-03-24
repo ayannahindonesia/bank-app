@@ -115,14 +115,14 @@ public class BottomSheetLoanDetail extends BottomSheetDialogFragment {
 
         total.setText(CommonUtils.setRupiahFromFloat(item.getTotalLoan()));
 
-        angsuran.setText(CommonUtils.setRupiahCurrency((int) Math.floor(item.getLayawayPlan())));
+        angsuran.setText(CommonUtils.setRupiahCurrency((int) Math.ceil(item.getLayawayPlan())));
 
         imbalHasil.setText("Imbal Hasil ("+ (int)item.getInterest() +"%)");
 
         double xyz = (item.getInterest() * (double)item.getLoanAmount())/100;
         double loanAmount = Double.parseDouble(String.valueOf(item.getLoanAmount()));
         float loanAmountx = Float.parseFloat(String.valueOf(item.getLoanAmount()));
-        imbal.setText(CommonUtils.setRupiahCurrency((int) Math.floor(xyz)));
+        imbal.setText(CommonUtils.setRupiahCurrency((int) Math.ceil(xyz)));
 
         if(item.getFees().size() > 0) {
             for (FeesItem data : item.getFees()) {
@@ -136,7 +136,7 @@ public class BottomSheetLoanDetail extends BottomSheetDialogFragment {
                     float percentageAdminx = (xx / loanAmountx) * 100;
 
                     tvAdminFee.setText("Admin Fee ("+checkDecimal(percentageAdminx) +"%)");
-                    admin.setText(CommonUtils.setRupiahCurrency((int) Math.floor(xx)));
+                    admin.setText(CommonUtils.setRupiahCurrency((int) Math.ceil(xx)));
 
                 }else {
 
@@ -147,7 +147,7 @@ public class BottomSheetLoanDetail extends BottomSheetDialogFragment {
                     float percentageConveniencex = (yy/loanAmountx) * 100;
 
                     tvConvenience.setText("Convenience Fee ("+checkDecimal(percentageConveniencex) + "%)");
-                    convenience.setText(CommonUtils.setRupiahCurrency((int) Math.floor(yy)));
+                    convenience.setText(CommonUtils.setRupiahCurrency((int) Math.ceil(yy)));
 
                 }
 

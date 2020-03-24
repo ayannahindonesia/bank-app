@@ -179,7 +179,7 @@ public class SummaryTransactionFragment extends BaseFragment implements SummaryT
             tvAngsuran.setText(Html.fromHtml("<u>Lihat Tabel</u>"));
             tvAngsuran.setClickable(true);
         } else {
-            tvAngsuran.setText(CommonUtils.setRupiahCurrency((int) Math.floor(angsuranBulan)));
+            tvAngsuran.setText(CommonUtils.setRupiahCurrency((int) Math.ceil(angsuranBulan)));
             tvAngsuran.setClickable(false);
         }
 

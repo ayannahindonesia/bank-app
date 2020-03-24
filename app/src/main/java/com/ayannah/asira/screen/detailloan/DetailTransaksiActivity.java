@@ -276,7 +276,7 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
 
         fees.setText(CommonUtils.setRupiahCurrency(calculateAdministration_v2(dataItem.getLoanAmount(), dataItem.getFees())));
 
-        angsuran.setText(CommonUtils.setRupiahCurrency((int) Math.floor(dataItem.getLayawayPlan())));
+        angsuran.setText(CommonUtils.setRupiahCurrency((int) Math.ceil(dataItem.getLayawayPlan())));
 
         totalBiaya.setText(CommonUtils.setRupiahCurrency(calculateTotalBiaya));
 
