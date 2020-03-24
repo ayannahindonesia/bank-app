@@ -33,6 +33,7 @@ import com.ayannah.asira.screen.agent.registerborrower.formborrower.FormBorrower
 import com.ayannah.asira.screen.agent.registerborrower.formother.FormOtherAgentFragment;
 import com.ayannah.asira.util.CameraTakeBeforeM;
 import com.ayannah.asira.util.CameraTakeM;
+import com.google.gson.JsonObject;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.Length;
@@ -42,6 +43,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -598,6 +600,8 @@ public class AddDocumentAgentFragment extends BaseFragment implements AddDocumen
 
             bundle = new Bundle();
         }
+
+        Log.e("pnumber", pnumber);
 
 //        String pnumber = "62"+phone.getText().toString().trim();
 

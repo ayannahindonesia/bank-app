@@ -1,9 +1,9 @@
 package com.ayannah.asira.adapter;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -14,11 +14,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.ayannah.asira.R;
 import com.ayannah.asira.adapter.viewHolder_agent.AgentLoanVH;
 import com.ayannah.asira.adapter.viewHolder_agent.AgentsClientVH;
+import com.ayannah.asira.adapter.viewHolder_agent.DetilAngsuranVH;
 import com.ayannah.asira.adapter.viewHolder_agent.QuestionVH;
 import com.ayannah.asira.custom.CommonListListener;
-import com.ayannah.asira.data.model.Bank;
+import com.ayannah.asira.data.model.Angsuran;
 import com.ayannah.asira.data.model.BankDetail;
-import com.ayannah.asira.data.model.BankList;
 import com.ayannah.asira.data.model.Loans.DataItem;
 import com.ayannah.asira.data.model.MenuAgent;
 import com.ayannah.asira.data.model.Notif;
@@ -28,6 +28,7 @@ import com.ayannah.asira.util.CommonUtils;
 import com.ayannah.asira.util.ImageUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
@@ -46,7 +47,12 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public static final int AGENT_VIEW_AGENTS_BORROWER = 7;
     public static final int AGENT_LIST_LOAN = 8;
     public static final int FAQ = 9;
+    public static final int HOME_AGENT_PAGE = 10;
+    public static final int VIEW_ALL_BORROWERS_AGENT = 11;
+    public static final int VIEW_PAGING = 12;
+    public static final int VIEW_DETIL_ANGSURAN = 13;
 
+    private int selectedPage = 0;
 
     //for loan history purposes
     private final static String STATUS_PROCESSING = "processing";
@@ -67,6 +73,8 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private List<UserBorrower> agentsBorrowerList;
     private List<DataItem> loanInAgents;
     private List<Question.Data> questions;
+    private List<Angsuran> angsurans;
+    private List<String> detilAngsurans;
 
     private CommonListListener.LoanAdapterListener loanListener;
     private CommonListListener.NotifAdapterListener notifListener;
@@ -77,6 +85,7 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private CommonListListener.MenuAgentListener menuAgentListener;
     private CommonListListener.AgentsClientListener agentsClientListener;
     private CommonListListener.QuestionListener questionListener;
+    private CommonListListener.AngsuranListener angsuranListener;
 
     public CommonListAdapter(int viewType){
         this.mViewType = viewType;
@@ -93,6 +102,8 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         agentsBorrowerList = new ArrayList<>();
         loanInAgents = new ArrayList<>();
         questions = new ArrayList<>();
+        angsurans = new ArrayList<>();
+        detilAngsurans = new ArrayList<>();
 
     }
 
@@ -198,9 +209,38 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         this.menuAgentListener = menuAgentListener;
     }
 
-    public void setAgentsBorrowerList(List<UserBorrower> results){
+    public void setAgentsBorrowerList(List<UserBorrower> results, int purpose){
         agentsBorrowerList.clear();
-        agentsBorrowerList.addAll(results);
+
+        if(purpose == HOME_AGENT_PAGE){
+
+            if(results.size() > 5){
+
+                //reverse add item to get latest borrower (DESC)
+                for(int i=0; i < 5; i++){
+
+                    int index = results.size();
+                    agentsBorrowerList.add(results.get( index - 1 - i ));
+
+                }
+
+            }else {
+
+                //reverse add item to get latest borrower (DESC)
+                for(int i=0; i < results.size(); i++){
+
+                    int index = results.size();
+                    agentsBorrowerList.add(results.get( index - 1 - i ));
+
+                }
+            }
+
+        }else {
+
+            agentsBorrowerList.addAll(results);
+
+        }
+
         notifyDataSetChanged();
     }
 
@@ -225,6 +265,22 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
     public void setOnClickListenerQuestions(CommonListListener.QuestionListener listenerQuestions){
         this.questionListener = listenerQuestions;
+    }
+
+    public void setListAngsuran(List<Angsuran> results){
+        angsurans.clear();
+        angsurans.addAll(results);
+        notifyDataSetChanged();
+    }
+
+    public void setOnClickListenerAngsuran(CommonListListener.AngsuranListener angsuranListener){
+        this.angsuranListener = angsuranListener;
+    }
+
+    public void setListDetilAngsuran(String[] results){
+        detilAngsurans.clear();
+        detilAngsurans.addAll(Arrays.asList(results));
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -285,6 +341,16 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             case FAQ:
 
                 holder = new QuestionVH(inflater.inflate(R.layout.item_default_text, parent, false), questionListener);
+                break;
+
+            case VIEW_PAGING:
+
+                holder = new AngsuranViewHolder(inflater.inflate(R.layout.item_paging, parent, false));
+                break;
+
+            case VIEW_DETIL_ANGSURAN:
+
+                holder = new DetilAngsuranVH(inflater.inflate(R.layout.item_paging_detil_angsuran, parent, false));
                 break;
 
             default:
@@ -357,6 +423,16 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
                 ((QuestionVH) holder).bind(questions.get(position));
                 break;
+
+            case VIEW_PAGING:
+
+                ((AngsuranViewHolder) holder).bind(angsurans.get(position));
+                break;
+
+            case VIEW_DETIL_ANGSURAN:
+
+                ((DetilAngsuranVH) holder).bind(detilAngsurans.get(position));
+                break;
         }
 
     }
@@ -411,6 +487,16 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             case AGENT_LIST_LOAN:
 
                 selected = AGENT_LIST_LOAN;
+                break;
+
+            case VIEW_PAGING:
+
+                selected = VIEW_PAGING;
+                break;
+
+            case VIEW_DETIL_ANGSURAN:
+
+                selected = VIEW_DETIL_ANGSURAN;
                 break;
         }
 
@@ -472,6 +558,16 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             case FAQ:
 
                 totals = questions.size();
+                break;
+
+            case VIEW_PAGING:
+
+                totals = angsurans.size();
+                break;
+
+            case VIEW_DETIL_ANGSURAN:
+
+                totals = detilAngsurans.size();
                 break;
         }
 
@@ -725,6 +821,51 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             imgMenu.setImageResource(param.getImg());
 
             itemView.setOnClickListener(v -> menuAgentListener.onClick(param));
+
+        }
+    }
+
+    /*
+        Angsuran
+     */
+    class AngsuranViewHolder extends RecyclerView.ViewHolder{
+
+        @BindView(R.id.lyNumber)
+        LinearLayout lyNumber;
+
+        @BindView(R.id.number)
+        TextView tvNumber;
+
+        AngsuranViewHolder(View itemView){
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+        }
+
+        private void bind(Angsuran data){
+
+            if(getAdapterPosition() == selectedPage) {
+
+                lyNumber.setBackgroundColor(itemView.getResources().getColor(R.color.colorPrimaryDark));
+                tvNumber.setTextColor(Color.WHITE);
+                tvNumber.setText(data.getPage());
+
+            }else {
+
+                lyNumber.setBackgroundColor(Color.WHITE);
+                tvNumber.setTextColor(itemView.getResources().getColor(R.color.colorPrimaryDark));
+                tvNumber.setText(data.getPage());
+
+            }
+
+            itemView.setOnClickListener(v ->{
+
+                selectedPage = getAdapterPosition();
+
+                angsuranListener.onClickAngsuran(data);
+
+                notifyDataSetChanged();
+
+            });
 
         }
     }

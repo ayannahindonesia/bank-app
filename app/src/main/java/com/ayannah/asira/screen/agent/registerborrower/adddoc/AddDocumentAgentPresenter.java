@@ -1,15 +1,20 @@
 package com.ayannah.asira.screen.agent.registerborrower.adddoc;
 
 import android.app.Application;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
 import com.androidnetworking.common.ANConstants;
+import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.JSONObjectRequestListener;
+import com.ayannah.asira.BuildConfig;
 import com.ayannah.asira.data.local.PreferenceRepository;
 import com.ayannah.asira.data.remote.RemoteRepository;
 import com.google.gson.JsonObject;
+import com.rx2androidnetworking.Rx2AndroidNetworking;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -150,6 +155,7 @@ public class AddDocumentAgentPresenter implements AddDocumentAgentContract.Prese
                 }));
 
     }
+
 
     @Override
     public void takeView(AddDocumentAgentContract.View view) {

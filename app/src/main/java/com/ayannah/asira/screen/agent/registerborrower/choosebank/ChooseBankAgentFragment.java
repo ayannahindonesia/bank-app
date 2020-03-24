@@ -16,6 +16,7 @@ import com.ayannah.asira.data.model.BankDetail;
 import com.ayannah.asira.data.model.BankList;
 import com.ayannah.asira.screen.agent.listloan.ListLoanActivtiy;
 import com.ayannah.asira.screen.agent.registerborrower.addaccountbank.AddAccountBankAgentActivity;
+import com.ayannah.asira.screen.agent.registerborrower.adddoc.AddDocumentAgentActivity;
 import com.ayannah.asira.screen.agent.registerborrower.formother.FormOtherAgentFragment;
 import com.ayannah.asira.screen.agent.services.ListServicesAgentActivity;
 import com.ayannah.asira.screen.agent.viewBorrower.ViewBorrowerActivity;
@@ -107,7 +108,9 @@ public class ChooseBankAgentFragment extends BaseFragment implements ChooseBankA
                     bundle.putString(FormOtherAgentFragment.BANK_NAME, bank.getName());
                     bundle.putString(FormOtherAgentFragment.BANK_LOGO, bank.getImage());
 
-                    addbank = new Intent(parentActivity(), AddAccountBankAgentActivity.class);
+//                    addbank = new Intent(parentActivity(), AddAccountBankAgentActivity.class);
+                    addbank = new Intent(parentActivity(), AddDocumentAgentActivity.class);
+
                     addbank.putExtras(bundle);
                 }else if(parentActivity().getIntent().getStringExtra("isFrom").equals("listLoanRequest")){
 

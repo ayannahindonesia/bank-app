@@ -155,7 +155,7 @@ public class ViewBorrowerFragment extends BaseFragment implements ViewBorrowerCo
     @Override
     public void getAllData(List<UserBorrower> results) {
 
-        adapter.setAgentsBorrowerList(results);
+        adapter.setAgentsBorrowerList(results, CommonListAdapter.VIEW_ALL_BORROWERS_AGENT);
         adapter.setOnClickAgentsBorrowerListener(new CommonListListener.AgentsClientListener() {
             @Override
             public void onClickClient(UserBorrower user) {

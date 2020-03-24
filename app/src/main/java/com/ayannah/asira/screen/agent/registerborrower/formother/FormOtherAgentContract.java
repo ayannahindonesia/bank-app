@@ -11,6 +11,8 @@ public interface FormOtherAgentContract {
         void showErrorMessage(String message);
 
         void registerComplete(String id_borrower, String phone_agent);
+
+        void otpIssuedREgisterComplete(String message, String id_borrower); //for condition error code 422
     }
 
     interface Presenter extends BasePresenter<View> {

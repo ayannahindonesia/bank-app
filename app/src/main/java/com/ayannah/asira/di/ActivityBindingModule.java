@@ -280,4 +280,5 @@ abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = {DetailAngsuranModule.class, DetailPembayaranModule.class})
     abstract DetailAngsuranActivity detailAngsuranActivity();
+
 }

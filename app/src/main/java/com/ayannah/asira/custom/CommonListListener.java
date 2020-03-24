@@ -4,6 +4,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
+import com.ayannah.asira.data.model.Angsuran;
 import com.ayannah.asira.data.model.BankDetail;
 import com.ayannah.asira.data.model.Loans.DataItem;
 import com.ayannah.asira.data.model.MenuAgent;
@@ -60,6 +61,12 @@ public interface CommonListListener {
     interface QuestionListener{
 
         void onClickQuestion(Question.Data param);
+
+    }
+
+    interface AngsuranListener{
+
+        void onClickAngsuran(Angsuran data);
 
     }
 

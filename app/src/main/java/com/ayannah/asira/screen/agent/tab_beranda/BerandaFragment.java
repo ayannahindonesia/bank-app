@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,7 +12,6 @@ import com.ayannah.asira.R;
 import com.ayannah.asira.adapter.CommonListAdapter;
 import com.ayannah.asira.base.BaseFragment;
 import com.ayannah.asira.custom.CommonListListener;
-import com.ayannah.asira.data.model.MenuAgent;
 import com.ayannah.asira.data.model.UserBorrower;
 import com.ayannah.asira.dialog.BottomDialogHandlingError;
 import com.ayannah.asira.dialog.BottomErrorHandling;
@@ -22,7 +20,6 @@ import com.ayannah.asira.screen.agent.registerborrower.choosebank.ChooseBankAgen
 import com.ayannah.asira.screen.agent.services.ListServicesAgentActivity;
 import com.ayannah.asira.screen.agent.viewBorrower.ViewBorrowerActivity;
 import com.ayannah.asira.screen.otpphone.VerificationOTPActivity;
-import com.ayannah.asira.screen.register.choosebank.ChooseBankActivity;
 import com.ayannah.asira.util.CommonUtils;
 
 import java.io.Serializable;
@@ -103,7 +100,7 @@ public class BerandaFragment extends BaseFragment implements BerandaContract.Vie
             tvEmptyData.setVisibility(View.GONE);
             recyclerView.setVisibility(View.VISIBLE);
 
-            adapter.setAgentsBorrowerList(userBorrowers);
+            adapter.setAgentsBorrowerList(userBorrowers, CommonListAdapter.HOME_AGENT_PAGE);
             adapter.setOnClickAgentsBorrowerListener(new CommonListListener.AgentsClientListener() {
                 @Override
                 public void onClickClient(UserBorrower user) {

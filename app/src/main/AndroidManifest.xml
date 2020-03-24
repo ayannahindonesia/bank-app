@@ -103,7 +103,8 @@
         <activity android:name=".screen.agent.registerborrower.formother.FormOtherAgentActivity" />
         <activity android:name=".screen.agent.services.ListServicesAgentActivity" />
         <activity android:name=".screen.agent.loan.LoanAgentActivity" />
-        <activity android:name=".screen.agent.navigationmenu.agentprofile.ListBanks.AgentProfileBankListActivity" />
+        <activity android:name=".screen.agent.navigationmenu.agentprofile.ListBanks.AgentProfileBankListActivity"
+            android:screenOrientation="portrait"/>
         <activity android:name=".screen.borrower.borrower_landing_page.BorrowerLandingPage"
             android:screenOrientation="portrait"/>
         <activity android:name=".screen.borrower.register_mandatory.RegisterMandatoryActivity"
@@ -113,7 +114,14 @@
         <activity android:name=".screen.bantuan.BantuanActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".screen.detailangsuran.DetailAngsuranActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait">
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+<!--                <action android:name="android.intent.action.VIEW" />-->
+
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+        </activity>
 
         <service
             android:name=".util.MyFirebaseMessagingService"

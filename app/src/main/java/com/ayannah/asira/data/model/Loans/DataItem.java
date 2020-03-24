@@ -3,10 +3,10 @@ package com.ayannah.asira.data.model.Loans;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.io.Serializable;
 import java.util.List;
 
 import com.ayannah.asira.data.model.FeesItem;
+import com.ayannah.asira.data.model.Installment;
 import com.ayannah.asira.data.model.UserProfile;
 import com.google.gson.annotations.SerializedName;
 
@@ -89,6 +89,18 @@ public class DataItem implements Parcelable {
 
 	@SerializedName("service_name")
 	private String serviceName;
+
+	@SerializedName("approval_date")
+	private String approvalDate;
+
+	@SerializedName("payment_status")
+	private String paymentStatus;
+
+	@SerializedName("payment_note")
+	private String paymentNote;
+
+	@SerializedName("installment_details")
+	private List<Installment> installment_details;
 
 	protected DataItem(Parcel in) {
 		owner = in.readParcelable(Owner.class.getClassLoader());
@@ -233,6 +245,22 @@ public class DataItem implements Parcelable {
 
 	public String getServiceName() {
 		return serviceName;
+	}
+
+	public String getApprovalDate() {
+		return approvalDate;
+	}
+
+	public String getPaymentStatus() {
+		return paymentStatus;
+	}
+
+	public String getPaymentNote() {
+		return paymentNote;
+	}
+
+	public List<Installment> getInstallmentDetails() {
+		return installment_details;
 	}
 
 	@Override

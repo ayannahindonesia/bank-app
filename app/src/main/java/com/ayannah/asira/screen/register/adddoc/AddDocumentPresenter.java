@@ -44,7 +44,6 @@ public class AddDocumentPresenter implements AddDocumentContract.Presenter {
     public void checkMandatoryItem(String ktp, String phoneNumber, String email, String npwp) {
 
         if (mView == null) {
-            Toast.makeText(application, "something wrong on check mandatory", Toast.LENGTH_SHORT).show();
             return;
         }
 

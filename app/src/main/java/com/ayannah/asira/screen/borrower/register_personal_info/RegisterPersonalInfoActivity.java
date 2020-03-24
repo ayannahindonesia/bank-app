@@ -18,13 +18,10 @@ public class RegisterPersonalInfoActivity extends DaggerAppCompatActivity {
     @Inject
     RegisterPersonalInfoFragment mFragment;
 
-    private Unbinder mUnbinder;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.common_activity);
-        mUnbinder = ButterKnife.bind(this);
 
         RegisterPersonalInfoFragment registerPersonalInfoFragment = (RegisterPersonalInfoFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.fragment_container);

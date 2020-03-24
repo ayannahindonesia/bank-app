@@ -21,13 +21,13 @@
             android:layout_marginBottom="@dimen/_10sdp"
             android:orientation="horizontal"
             android:padding="@dimen/_7sdp"
-            android:weightSum="5">
+            android:weightSum="4">
 
-            <ImageView
-                android:src="@drawable/indicator_page"
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="15dp"/>
+<!--            <ImageView-->
+<!--                android:src="@drawable/indicator_page"-->
+<!--                android:layout_weight="1"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="15dp"/>-->
 
             <ImageView
                 android:src="@drawable/indicator_page"
@@ -233,7 +233,7 @@
                 <EditText
                     android:id="@+id/etJobTitle"
                     android:inputType="text"
-                    android:imeOptions="actionNext"
+                    android:imeOptions="actionDone"
                     android:backgroundTint="@color/colorAsiraText"
                     android:textSize="@dimen/fontNormal"
                     android:hint="CEO"

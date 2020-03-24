@@ -60,15 +60,16 @@ public class FormOtherAgentPresenter implements FormOtherAgentContract.Presenter
                         mView.showErrorMessage("Connection Error");
                     }else {
 
-                        if(anError.getErrorBody() != null){
+                        mView.showErrorMessage(anError.getErrorBody());
 
-                            JSONObject jsonObject = new JSONObject(anError.getErrorBody());
-
-                            String message = String.format("%s \n\n %s", jsonObject.optString("message"), jsonObject.optString("details"));
-//                    mView.showErrorMessage(jsonObject.optString("message"));
-                            mView.showErrorMessage(message);
-
-                        }
+//                        if(anError.getErrorBody() != null){
+//
+//                            JSONObject jsonObject = new JSONObject(anError.getErrorBody());
+//
+//                            String message = String.format("%s \n\n %s", jsonObject.optString("message"), jsonObject.optString("details"));
+//                            mView.showErrorMessage(message);
+//
+//                        }
                     }
 
                 }));
@@ -81,6 +82,8 @@ public class FormOtherAgentPresenter implements FormOtherAgentContract.Presenter
 
         JsonObject json = new JsonObject();
         json.addProperty("phone", preferenceRepository.getAgentPhone());
+        Log.e(TAG, "agent num: "+ preferenceRepository.getAgentPhone());
+        Log.e(TAG, "id_new_borrower: "+ id_borrower);
 
         Rx2AndroidNetworking.post(BuildConfig.API_URL + "agent/otp_request/{id}")
                 .addHeaders("Authorization", preferenceRepository.getUserToken())
@@ -101,15 +104,24 @@ public class FormOtherAgentPresenter implements FormOtherAgentContract.Presenter
                     public void onError(ANError anError) {
 
                         if(anError.getErrorBody() != null){
-                            try {
 
-                                JSONObject obj = new JSONObject(anError.getErrorBody());
-                                mView.showErrorMessage(obj.optString("message"));
+                            /*
+                             * 24 Maret 2020
+                             * Untuk kondisi jika ada issue dari third party OTP (error code 422),
+                             * salah satunya saldo habis/expired balance/dll
+                             */
+                            if(anError.getErrorCode() == 422){
 
-                            } catch (JSONException e) {
-                                e.printStackTrace();
+                                mView.otpIssuedREgisterComplete(
+                                        "OTP butuh perhatian",
+                                        String.valueOf(id_borrower)
+                                );
+
+                            }else {
+
+                                mView.showErrorMessage(anError.getErrorBody());
+
                             }
-
                         }else {
 
                             mView.showErrorMessage("Error: "+anError.getErrorCode());

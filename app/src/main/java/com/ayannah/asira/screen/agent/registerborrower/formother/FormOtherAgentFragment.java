@@ -149,6 +149,7 @@ public class FormOtherAgentFragment extends BaseFragment implements FormOtherAge
 
     @OnClick(R.id.buttonNext)
     void onClickNext(){
+
         validator.validate();
     }
 
@@ -178,6 +179,19 @@ public class FormOtherAgentFragment extends BaseFragment implements FormOtherAge
         intent.putExtra("id_borrower", id_borrower);
         startActivity(intent);
 
+    }
+
+    @Override
+    public void otpIssuedREgisterComplete(String message, String id_borrower) {
+
+        Toast.makeText(parentActivity(), message, Toast.LENGTH_SHORT).show();
+
+        dialog.dismiss();
+
+        Intent intent = new Intent(parentActivity(), VerificationOTPActivity.class);
+        intent.putExtra(VerificationOTPActivity.PURPOSES, "REGISTER_BORROWER");
+        intent.putExtra("id_borrower", id_borrower);
+        startActivity(intent);
     }
 
 

@@ -46,7 +46,7 @@ public class FormJobEarningAgentFragment extends BaseFragment implements Validat
     @BindView(R.id.etSumberPendapatanLain)
     EditText etSumberPendaptanLain;
 
-    @NotEmpty(message = "Masukan Nomor Induk Pegawai Nasabah Baru", trim = true)
+//    @NotEmpty(message = "Masukan Nomor Induk Pegawai Nasabah Baru", trim = true)
     @BindView(R.id.etEmployeeID)
     EditText etEmployeeID;
 
@@ -66,7 +66,7 @@ public class FormJobEarningAgentFragment extends BaseFragment implements Validat
     @BindView(R.id.etCompanyPhone)
     EditText etCompanyPhone;
 
-    @NotEmpty(message = "Masukan Nama Atasan Nasabah Baru", trim = true)
+//    @NotEmpty(message = "Masukan Nama Atasan Nasabah Baru", trim = true)
     @BindView(R.id.etSpvName)
     EditText etSpvName;
 

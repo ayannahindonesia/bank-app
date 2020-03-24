@@ -2,6 +2,7 @@ package com.ayannah.asira.screen.agent.registerborrower.adddoc;
 
 import com.ayannah.asira.base.BasePresenter;
 import com.ayannah.asira.base.BaseView;
+import com.google.gson.JsonObject;
 
 public interface AddDocumentAgentContract {
 
