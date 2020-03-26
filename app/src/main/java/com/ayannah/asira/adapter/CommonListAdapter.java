@@ -19,6 +19,7 @@ import com.ayannah.asira.adapter.viewHolder_agent.QuestionVH;
 import com.ayannah.asira.custom.CommonListListener;
 import com.ayannah.asira.data.model.Angsuran;
 import com.ayannah.asira.data.model.BankDetail;
+import com.ayannah.asira.data.model.InstallmentDetails;
 import com.ayannah.asira.data.model.Loans.DataItem;
 import com.ayannah.asira.data.model.MenuAgent;
 import com.ayannah.asira.data.model.Notif;
@@ -74,7 +75,7 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private List<DataItem> loanInAgents;
     private List<Question.Data> questions;
     private List<Angsuran> angsurans;
-    private List<String> detilAngsurans;
+    private ArrayList<InstallmentDetails> detilAngsurans;
 
     private CommonListListener.LoanAdapterListener loanListener;
     private CommonListListener.NotifAdapterListener notifListener;
@@ -86,6 +87,7 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private CommonListListener.AgentsClientListener agentsClientListener;
     private CommonListListener.QuestionListener questionListener;
     private CommonListListener.AngsuranListener angsuranListener;
+    private CommonListListener.DetailAngsuranListener detailAngsuranListener;
 
     public CommonListAdapter(int viewType){
         this.mViewType = viewType;
@@ -273,14 +275,23 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         notifyDataSetChanged();
     }
 
+    public void clearAngsuran(){
+        angsurans.clear();
+        detilAngsurans.clear();
+    }
+
     public void setOnClickListenerAngsuran(CommonListListener.AngsuranListener angsuranListener){
         this.angsuranListener = angsuranListener;
     }
 
-    public void setListDetilAngsuran(String[] results){
+    public void setListDetilAngsuran(ArrayList<InstallmentDetails> results){
         detilAngsurans.clear();
-        detilAngsurans.addAll(Arrays.asList(results));
+        detilAngsurans.addAll(results);
         notifyDataSetChanged();
+    }
+
+    public void setOnClickListenerDetailAngsuran(CommonListListener.DetailAngsuranListener detailAngsuranListener){
+        this.detailAngsuranListener = detailAngsuranListener;
     }
 
     @NonNull
@@ -350,7 +361,7 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
             case VIEW_DETIL_ANGSURAN:
 
-                holder = new DetilAngsuranVH(inflater.inflate(R.layout.item_paging_detil_angsuran, parent, false));
+                holder = new DetilAngsuranVH(inflater.inflate(R.layout.item_paging_detil_angsuran, parent, false), detailAngsuranListener);
                 break;
 
             default:
@@ -848,6 +859,8 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 lyNumber.setBackgroundColor(itemView.getResources().getColor(R.color.colorPrimaryDark));
                 tvNumber.setTextColor(Color.WHITE);
                 tvNumber.setText(data.getPage());
+
+                angsuranListener.onClickAngsuran(data);
 
             }else {
 

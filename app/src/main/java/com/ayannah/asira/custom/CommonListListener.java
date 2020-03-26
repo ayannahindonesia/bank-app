@@ -6,6 +6,7 @@ import android.widget.ListView;
 
 import com.ayannah.asira.data.model.Angsuran;
 import com.ayannah.asira.data.model.BankDetail;
+import com.ayannah.asira.data.model.InstallmentDetails;
 import com.ayannah.asira.data.model.Loans.DataItem;
 import com.ayannah.asira.data.model.MenuAgent;
 import com.ayannah.asira.data.model.Question;
@@ -67,6 +68,12 @@ public interface CommonListListener {
     interface AngsuranListener{
 
         void onClickAngsuran(Angsuran data);
+
+    }
+
+    interface DetailAngsuranListener{
+
+        void onClickDetailAngsuran(InstallmentDetails installment);
 
     }
 

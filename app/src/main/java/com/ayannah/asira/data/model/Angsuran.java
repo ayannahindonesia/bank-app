@@ -1,9 +1,11 @@
 package com.ayannah.asira.data.model;
 
+import java.util.ArrayList;
+
 public class Angsuran {
 
     private String page;
-    private String[] data;
+    private ArrayList<InstallmentDetails> data;
 
     public String getPage() {
         return page;
@@ -13,11 +15,12 @@ public class Angsuran {
         this.page = page;
     }
 
-    public String[] getData() {
+    public ArrayList<InstallmentDetails> getData() {
         return data;
     }
 
-    public void setData(String[] data) {
+
+    public void setData(ArrayList<InstallmentDetails> data) {
         this.data = data;
     }
 }

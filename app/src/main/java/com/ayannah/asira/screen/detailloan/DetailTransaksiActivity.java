@@ -16,14 +16,17 @@ import android.widget.Toast;
 
 import com.ayannah.asira.R;
 import com.ayannah.asira.data.model.FeesItem;
+import com.ayannah.asira.data.model.InstallmentDetails;
 import com.ayannah.asira.data.model.Loans.DataItem;
 import com.ayannah.asira.dialog.BottomSheetDialogGlobal;
 import com.ayannah.asira.screen.detailangsuran.DetailAngsuranActivity;
 import com.ayannah.asira.screen.otpphone.VerificationOTPActivity;
 import com.ayannah.asira.util.CommonUtils;
+import com.google.android.material.button.MaterialButton;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -123,24 +126,21 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
     @BindView(R.id.lltRejectReason)
     LinearLayout lltRejectReason;
 
+    @BindView(R.id.detailAngsuran)
+    MaterialButton btnDetailAngsuran;
+
     private Unbinder mUnbinder;
     
     int calculateTotalBiaya = 0;
     int idLoan = 0;
-    private AlertDialog dialog;
+
+    private ArrayList<InstallmentDetails> installmentDetails = new ArrayList<>();
 
     @Override
     protected void onResume() {
         super.onResume();
-        mPresenter.takeView(this);
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setCancelable(false);
-        builder.setView(R.layout.progress_bar);
-        dialog = builder.create();
-
-//        dialog.show();
-
+//        mPresenter.takeView(this);
+//
 //        mPresenter.getInformationLoan(id_loan);
     }
 
@@ -148,6 +148,8 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_transaksi);
+
+        mPresenter.takeView(this);
 
         mUnbinder = ButterKnife.bind(this);
         setSupportActionBar(toolbar);
@@ -158,37 +160,23 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setTitle("Detil Pinjaman");
 
-        if(purpose.equals(FROMAGENT) || purpose.equals(FROMBORROWER)){
+        if(purpose.equals(FROMBORROWER)){
 
-            Toast.makeText(this, "Detil transaksi "+ id_loan, Toast.LENGTH_SHORT).show();
+            mPresenter.getInformationLoan(id_loan);
+            btnDetailAngsuran.setVisibility(View.VISIBLE);
 
         }else {
 
-            AlertDialog.Builder alert = new AlertDialog.Builder(this);
-            alert.setTitle("Something Wrong");
-            alert.setMessage("Pastikan kamu dari halaman borrower atau agent dengan set purposenya");
-            alert.setPositiveButton("OKE", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                    finish();
-                }
-            });
-            alert.show();
+            btnDetailAngsuran.setVisibility(View.GONE);
+            loadAllInformation(loanDetails);
 
         }
 
-        loadAllInformation(loanDetails);
     }
 
     @Override
     public void showErrorMessage(String message) {
-        dismissDialog();
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-    }
-
-    private void dismissDialog() {
-        dialog.dismiss();
     }
 
     @Override
@@ -202,6 +190,12 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
 //                    produk.setText(jsonObject2.get("name").toString());
 //                }
 //            }
+
+        if(purpose.equals(FROMBORROWER)){
+
+            installmentDetails.addAll(dataItem.getInstallmentDetails());
+
+        }
 
         tvLoanAmount.setText(CommonUtils.setRupiahCurrency(dataItem.getLoanAmount()));
 
@@ -285,8 +279,6 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
             btn_verfiedLoan.setVisibility(View.VISIBLE);
         }
 
-//        dismissDialog();
-
     }
 
     @Override
@@ -352,6 +344,7 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
     void onClickDetailAngsuran(){
 
         Intent intent = new Intent(this, DetailAngsuranActivity.class);
+        intent.putParcelableArrayListExtra("installments", installmentDetails);
         startActivity(intent);
 
     }

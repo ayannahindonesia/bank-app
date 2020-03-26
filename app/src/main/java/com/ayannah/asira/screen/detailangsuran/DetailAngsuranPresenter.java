@@ -1,6 +1,9 @@
 package com.ayannah.asira.screen.detailangsuran;
 
+import android.util.Log;
+
 import com.ayannah.asira.data.model.Angsuran;
+import com.ayannah.asira.data.model.InstallmentDetails;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +11,8 @@ import java.util.List;
 import javax.inject.Inject;
 
 public class DetailAngsuranPresenter implements DetailAngsuranContract.Presenter {
+
+    private final static String TAG = DetailAngsuranPresenter.class.getSimpleName();
 
     private DetailAngsuranContract.View mView;
 
@@ -17,36 +22,45 @@ public class DetailAngsuranPresenter implements DetailAngsuranContract.Presenter
     }
 
     @Override
-    public void dataProcessing() {
+    public void dataProcessing(ArrayList<InstallmentDetails> results) {
 
-        List<Angsuran> results = new ArrayList<>();
+        ArrayList<Angsuran> angsurans = new ArrayList<>();
 
-        Angsuran one = new Angsuran();
-        one.setPage("1");
-        String[] dataOne = {"11","12","13","14","15","16","17","18"};
-        one.setData(dataOne);
+        double totalRows = results.size();
 
-        Angsuran two = new Angsuran();
-        two.setPage("2");
-        String[] dataTwo = {"21","22","23","24","25","26","27","28"};
-        two.setData(dataTwo);
+        double amountPage = totalRows/12; //per halaman hanya akan menampilkan 12 record
 
-        Angsuran tre = new Angsuran();
-        tre.setPage("3");
-        String[] dataTre = {"31","32","33","34","35","36","37","38"};
-        tre.setData(dataTre);
+        //jika hasil dari amount page adalah desimal, maka amount page + 1
+        if(amountPage % totalRows != 0){
+            amountPage++;
+        }
+        int page = (int)amountPage;
 
-        Angsuran frt = new Angsuran();
-        frt.setPage("4");
-        String[] dataFrt = {"41","42","43","44","45","46","47","48"};
-        frt.setData(dataFrt);
+        int rows = results.size();
+        int latestIndex = 0;
+        for(int i=1; i < page; i++){
 
-        results.add(one);
-        results.add(two);
-        results.add(tre);
-        results.add(frt);
+            Angsuran data = new Angsuran();
+            data.setPage(String.valueOf(i));
 
-        mView.showAllPaging(results);
+            ArrayList<InstallmentDetails> records = new ArrayList<>();
+            for(int j = latestIndex; j < rows; j++){
+
+                //a page only assing until 12 records data
+                records.add(results.get(j));
+                latestIndex = j+1;
+                if(records.size() == 12){
+                    break;
+                }
+            }
+            data.setData(records);
+
+            //assign object angsuran into array list
+            angsurans.add(data);
+        }
+
+        mView.showAllPaging(angsurans);
+
     }
 
     @Override
@@ -58,4 +72,6 @@ public class DetailAngsuranPresenter implements DetailAngsuranContract.Presenter
     public void dropView() {
         mView = null;
     }
+
+
 }

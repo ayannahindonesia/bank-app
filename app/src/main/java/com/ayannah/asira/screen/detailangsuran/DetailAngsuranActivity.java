@@ -37,7 +37,7 @@ public class DetailAngsuranActivity extends DaggerAppCompatActivity {
         assert actionBar != null;
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setTitle("Detail Pinjaman");
+        actionBar.setTitle("Detail Angsuran");
 
         DetailAngsuranFragment detailAngsuranFragment = (DetailAngsuranFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.fragment_container);

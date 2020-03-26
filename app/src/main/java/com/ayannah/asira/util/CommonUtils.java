@@ -53,7 +53,7 @@ public class CommonUtils {
     public  static String formatDateBirth(String dateBirth){
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-        SimpleDateFormat sdfBirth = new SimpleDateFormat("dd MMM yyyy");
+        SimpleDateFormat sdfBirth = new SimpleDateFormat("dd MMMM yyyy");
 
         Date sDate = new Date();
         try {

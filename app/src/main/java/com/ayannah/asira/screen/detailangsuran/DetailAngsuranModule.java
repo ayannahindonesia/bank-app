@@ -1,7 +1,7 @@
 package com.ayannah.asira.screen.detailangsuran;
 
 import com.ayannah.asira.adapter.CommonListAdapter;
-import com.ayannah.asira.data.model.Installment;
+import com.ayannah.asira.data.model.InstallmentDetails;
 import com.ayannah.asira.di.ActivityScoped;
 import com.ayannah.asira.di.FragmentScoped;
 
@@ -41,7 +41,7 @@ public abstract class DetailAngsuranModule {
 
     @Provides
     @ActivityScoped
-    static ArrayList<Installment> installments(DetailAngsuranActivity activity){
+    static ArrayList<InstallmentDetails> installments(DetailAngsuranActivity activity){
         return activity.getIntent().getParcelableArrayListExtra("installments");
     }
 }

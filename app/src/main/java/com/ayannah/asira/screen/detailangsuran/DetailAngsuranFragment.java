@@ -2,7 +2,6 @@ package com.ayannah.asira.screen.detailangsuran;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,10 +11,12 @@ import com.ayannah.asira.adapter.CommonListAdapter;
 import com.ayannah.asira.base.BaseFragment;
 import com.ayannah.asira.custom.CommonListListener;
 import com.ayannah.asira.data.model.Angsuran;
-import com.ayannah.asira.data.model.Installment;
+import com.ayannah.asira.data.model.InstallmentDetails;
+import com.ayannah.asira.screen.bantuan.isi_bantuan.IsiBantuanFragment;
+import com.ayannah.asira.screen.detailangsuran.detail_pembayaran.DetailPembayaranFragment;
+import com.ayannah.asira.util.ActivityUtils;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -40,8 +41,7 @@ public class DetailAngsuranFragment extends BaseFragment implements DetailAngsur
     CommonListAdapter adapterAngsuran;
 
     @Inject
-    ArrayList<Installment> installments;
-
+    ArrayList<InstallmentDetails> installmentDetails;
 
     @Inject
     public DetailAngsuranFragment(){}
@@ -55,24 +55,11 @@ public class DetailAngsuranFragment extends BaseFragment implements DetailAngsur
     public void onResume() {
         super.onResume();
         mPresenter.takeView(this);
-        mPresenter.dataProcessing();
+        mPresenter.dataProcessing(installmentDetails);
     }
 
     @Override
     protected void initView(Bundle state) {
-
-        for (Installment x: installments) {
-            Log.e(TAG, "id: "+x.getId());
-            Log.e(TAG, "created_at: "+x.getCreatedAt());
-            Log.e(TAG, "updated_at: "+x.getUpdatedAt());
-            Log.e(TAG, "period: "+x.getPeriod());
-            Log.e(TAG, "loan_payment: "+x.getLoanPayment());
-            Log.e(TAG, "interest_payment: "+x.getInteresetPayment());
-            Log.e(TAG, "paid_date: "+x.getPaidDate());
-            Log.e(TAG, "paid_status: "+x.isPaidStatus());
-            Log.e(TAG, "due_date: "+x.getDueDate());
-
-        }
 
         rvPaging.setLayoutManager(new LinearLayoutManager(parentActivity(), RecyclerView.HORIZONTAL, false));
         rvPaging.setHasFixedSize(true);
@@ -87,18 +74,36 @@ public class DetailAngsuranFragment extends BaseFragment implements DetailAngsur
     @Override
     public void showAllPaging(List<Angsuran> results) {
 
+        Log.e(TAG, "event in here");
+
         adapter.setListAngsuran(results);
 
-        adapterAngsuran.setListDetilAngsuran(results.get(0).getData());
+//        adapterAngsuran.setListDetilAngsuran(results.get(0).getData());
 
-        adapter.setOnClickListenerAngsuran(new CommonListListener.AngsuranListener() {
-            @Override
-            public void onClickAngsuran(Angsuran data) {
+        adapter.setOnClickListenerAngsuran(data -> {
 
+            adapterAngsuran.setListDetilAngsuran(data.getData());
+            rvInstallment.smoothScrollToPosition(0);
 
-                adapterAngsuran.setListDetilAngsuran(data.getData());
-
-            }
         });
+
+        adapterAngsuran.setOnClickListenerDetailAngsuran(installment -> {
+
+            Bundle bundle = new Bundle();
+            bundle.putParcelable("details", installment);
+
+            DetailPembayaranFragment detailPembayaranFragment = new DetailPembayaranFragment();
+            detailPembayaranFragment.setArguments(bundle);
+
+            ActivityUtils.moveFragment(parentActivity().getSupportFragmentManager(), detailPembayaranFragment, R.id.fragment_container);
+
+        });
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mPresenter.dropView();
+        adapter.clearAngsuran();
     }
 }

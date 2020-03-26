@@ -5,7 +5,7 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Installment implements Parcelable {
+public class InstallmentDetails implements Parcelable {
 
     @SerializedName("id")
     private int id;
@@ -105,7 +105,7 @@ public class Installment implements Parcelable {
         return note;
     }
 
-    private Installment(Parcel in){
+    private InstallmentDetails(Parcel in){
         id = in.readInt();
         createdAt = in.readString();
         updatedAt = in.readString();
@@ -146,15 +146,15 @@ public class Installment implements Parcelable {
     }
 
 
-    public static final Creator<Installment> CREATOR = new Creator<Installment>() {
+    public static final Creator<InstallmentDetails> CREATOR = new Creator<InstallmentDetails>() {
         @Override
-        public Installment createFromParcel(Parcel in) {
-            return new Installment(in);
+        public InstallmentDetails createFromParcel(Parcel in) {
+            return new InstallmentDetails(in);
         }
 
         @Override
-        public Installment[] newArray(int size) {
-            return new Installment[size];
+        public InstallmentDetails[] newArray(int size) {
+            return new InstallmentDetails[size];
         }
     };
 }
