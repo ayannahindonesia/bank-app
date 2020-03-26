@@ -61,6 +61,7 @@ public class LoanPresenter implements LoanContract.Presenter {
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(response -> {
             mView.successGetProducts(response);
+            mView.setBankAccountNumber(preferenceRepository.getBankAccountBorrower());
         }, error -> mView.showErrorMessage(CommonUtils.commonErrorFormat(error))));
 
     }

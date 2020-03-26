@@ -17,7 +17,6 @@ public interface SummaryTransactionContract {
         void successGetOtp(String loanOTP, String id_loan);
 
         void cannotMakingLoan();
-
     }
 
     interface Presenter extends BasePresenter<View>{
@@ -29,5 +28,7 @@ public interface SummaryTransactionContract {
         void postLoanAgent(JsonObject json);
 
         void requestOTPForLoanAgent(String id_loan);
+
+        void requestOTPPersonal(boolean isPersonal, int percobaan);
     }
 }

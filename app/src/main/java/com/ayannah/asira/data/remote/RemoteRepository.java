@@ -63,7 +63,7 @@ public interface RemoteRepository {
 
     void getOTPForLoan(String idLoan);
 
-    void verifiedLoanByOTP(String idLoan, JsonObject json);
+    Single<Response> verifyLoanByOTP(String idLoan, JsonObject jsonObject);
 
     Single<DataItem> getLoanDetails(String idLoan);
 

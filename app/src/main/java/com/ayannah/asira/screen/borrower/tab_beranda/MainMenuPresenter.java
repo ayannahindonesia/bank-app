@@ -256,6 +256,7 @@ public class MainMenuPresenter implements MainMenuContract.Presenter {
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(res -> {
             prefRepo.setLoanStatus(res.getLoanStatus());
+            prefRepo.setBankAccountBorrower(res.getBankAccountnumber());
             mView.setLoanStatus(res.getLoanStatus(), prefRepo.getUserNickname());
         }, error -> {
             ANError anError = (ANError) error;

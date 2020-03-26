@@ -453,6 +453,31 @@ public class VerificationOTPPresenter implements VerificationOTPContract.Present
                 }));
     }
 
+    @Override
+    public void verifyLoanByOTP(String id_loan, JsonObject json) {
+        if (mView == null) {
+            return;
+        }
+
+        mComposite.add(remotRepo.verifyLoanByOTP(id_loan, json)
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(res -> {
+            mView.successVerifyLoan();
+        }, err -> {
+            ANError anError = (ANError) err;
+            if(anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
+                mView.showErrorMessage("Tidak ada koneksi", 0);
+            }else {
+                if(anError.getErrorBody() != null){
+
+                    JSONObject jsonObject = new JSONObject(anError.getErrorBody());
+                    mView.showErrorMessage(jsonObject.optString("message"), anError.getErrorCode());
+                }
+            }
+        }));
+    }
+
     private void sendTokenDeviceToDB(){
 
         if(mView == null){

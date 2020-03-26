@@ -16,6 +16,8 @@ public interface LoanContract {
         void successGetProducts(ServiceProducts serviceProducts);
 
         void showReason(List<ReasonLoan.Data> data);
+
+        void setBankAccountNumber(String bankAccountBorrower);
     }
 
     interface Presenter extends BasePresenter<View>{

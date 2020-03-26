@@ -210,4 +210,24 @@ public class SummaryTransactionPresenter implements SummaryTransactionContract.P
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe());
     }
+
+    @Override
+    public void requestOTPPersonal(boolean isPersonal, int percobaan) {
+
+        JsonObject jsonObject = new JsonObject();
+        if (isPersonal) {
+            jsonObject.addProperty("phone", preferenceRepository.getUserPhone());
+        } else {
+            jsonObject.addProperty("phone", preferenceRepository.getAgentPhone());
+        }
+        jsonObject.addProperty("secret", "KMndM2vURIGoe1jgzYOA6RTa8qzB5k");
+        jsonObject.addProperty("try", percobaan);
+
+        mComposite.add(Completable.fromAction(() -> {
+            remoteRepository.postOTPRequestBorrower(jsonObject);
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe());
+
+    }
 }

@@ -50,5 +50,7 @@ public interface VerificationOTPContract {
         void postBorrowerRegister(JsonObject jsonObject);
 
         void getClientToken(String phone, String pass, String isFrom);
+
+        void verifyLoanByOTP(String id_loan, JsonObject json);
     }
 }

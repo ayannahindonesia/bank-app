@@ -247,25 +247,16 @@ public class RemoteDataSource implements RemoteRepository {
     }
 
     @Override
-    public void verifiedLoanByOTP(String idLoan, JsonObject json) {
+    public Single<Response> verifyLoanByOTP(String idLoan, JsonObject jsonObject) {
 
-        AndroidNetworking.post(BuildConfig.API_URL + "borrower/loan/{idloan}/verify")
+        return Rx2AndroidNetworking.post(BuildConfig.API_URL + "borrower/loan/{idloan}/verify")
                 .addHeaders("Authorization", preferenceRepository.getUserToken())
                 .addPathParameter("idloan", idLoan)
-                .addApplicationJsonBody(json)
+                .addApplicationJsonBody(jsonObject)
                 .setPriority(Priority.MEDIUM)
                 .build()
-                .getAsJSONObject(new JSONObjectRequestListener() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        Log.d("verify Loan: ", "Sukses");
-                    }
+                .getObjectSingle(Response.class);
 
-                    @Override
-                    public void onError(ANError anError) {
-                        Log.d("verify Loan: ", "gagal");
-                    }
-                });
     }
 
     @Override

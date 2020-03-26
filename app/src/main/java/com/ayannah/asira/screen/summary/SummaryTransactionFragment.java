@@ -247,7 +247,38 @@ public class SummaryTransactionFragment extends BaseFragment implements SummaryT
     @Override
     public void successLoanApplication(String id_loan) {
 
-        if (borrowerID != 0) {
+//        if (borrowerID != 0) {
+//            if (bankAccountNumber.equals("") || bankAccountNumber == null) {
+//                BottomSheetDialogGlobal dialogs = new BottomSheetDialogGlobal().show(parentActivity().getSupportFragmentManager(), BottomSheetDialogGlobal.NO_ACCOUNT_NUMBER_AGENT,
+//                        "Nomor Rekening Nasabah Belum Tersedia",
+//                        "Nasabah Anda belum bisa mengajukan pinjaman karena belum memiliki nomor rekening pada bank ini.",
+//                        R.drawable.no_account_number);
+//
+//                dialogs.setOnClickBottomSheetInstruction(new BottomSheetDialogGlobal.BottomSheetInstructionListener() {
+//                    @Override
+//                    public void onClickButtonDismiss() {
+//                        dialogs.dismiss();
+//                    }
+//
+//                    @Override
+//                    public void onClickButtonYes() {
+//                        dialogs.dismiss();
+//                    }
+//
+//                    @Override
+//                    public void closeApps() {
+//
+//                        dialogs.dismiss();
+//
+//                    }
+//                });
+//            } else {
+//                mPresenter.requestOTPForLoanAgent(id_loan);
+//            }
+//        } else {
+//            mPresenter.requestOTPForLoan(id_loan);
+//        }
+
             if (bankAccountNumber.equals("") || bankAccountNumber == null) {
                 BottomSheetDialogGlobal dialogs = new BottomSheetDialogGlobal().show(parentActivity().getSupportFragmentManager(), BottomSheetDialogGlobal.NO_ACCOUNT_NUMBER_AGENT,
                         "Nomor Rekening Nasabah Belum Tersedia",
@@ -273,11 +304,20 @@ public class SummaryTransactionFragment extends BaseFragment implements SummaryT
                     }
                 });
             } else {
-                mPresenter.requestOTPForLoanAgent(id_loan);
+
+                mPresenter.requestOTPPersonal(true, 1);
+
+                Intent intent = new Intent(parentActivity(), VerificationOTPActivity.class);
+                if (borrowerID != 0) {
+                    intent.putExtra("purpose", "post_pinjaman_agent");
+                } else {
+                    intent.putExtra("purpose", "post_pinjaman");
+                }
+
+                intent.putExtra("id_loan", id_loan);
+                startActivity(intent);
+                parentActivity().finish();
             }
-        } else {
-            mPresenter.requestOTPForLoan(id_loan);
-        }
 
     }
 
@@ -323,7 +363,6 @@ public class SummaryTransactionFragment extends BaseFragment implements SummaryT
             }
         });
     }
-
 
     @Override
     public void onValidationSucceeded() {

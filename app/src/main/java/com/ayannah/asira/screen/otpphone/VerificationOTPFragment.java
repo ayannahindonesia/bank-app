@@ -278,7 +278,8 @@ public class VerificationOTPFragment extends BaseFragment implements Verificatio
         JsonObject json = new JsonObject();
         json.addProperty("otp_code", otp_loan);
 
-        mPresenter.postVerifyLoanByOTP(id_loan, json);
+//        mPresenter.postVerifyLoanByOTP(id_loan, json);
+        mPresenter.verifyLoanByOTP(id_loan, json);
 
     }
 
