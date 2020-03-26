@@ -442,15 +442,15 @@ public class AddDocumentFragment extends BaseFragment implements AddDocumentCont
             bundle = new Bundle();
         }
 
-        Bank bank = new Bank();
-        bank.setInt64(Integer.parseInt(bundle.get("BANK_ID").toString()));
-        bank.setValid(true);
-
-        Gson gson = new Gson();
-        JsonElement jsonElement = gson.toJsonTree(bank);
+//        Bank bank = new Bank();
+//        bank.setInt64(Integer.parseInt(bundle.get("BANK_ID").toString()));
+//        bank.setValid(true);
+//
+//        Gson gson = new Gson();
+//        JsonElement jsonElement = gson.toJsonTree(bank);
 
         JsonObject jsonObject = new JsonObject();
-        jsonObject.add("bank", jsonElement);
+        jsonObject.addProperty("bank", Integer.parseInt(bundle.get("BANK_ID").toString()));
         if (bundle.get("ACC_NUMBER") != null) {
             jsonObject.addProperty("bank_accountnumber", bundle.get("ACC_NUMBER").toString());
         }

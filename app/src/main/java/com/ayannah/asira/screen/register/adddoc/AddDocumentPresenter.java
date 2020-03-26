@@ -253,9 +253,12 @@ public class AddDocumentPresenter implements AddDocumentContract.Presenter {
                 if (anError.getErrorBody() != null) {
 
                     JSONObject jsonObject2 = new JSONObject(anError.getErrorBody());
-                    mView.showErrorMessage(jsonObject2.optString("message"));
+                    mView.showErrorMessage(anError.getErrorBody());
                     Log.e("patchUserProfile", anError.getErrorBody());
 
+                }else {
+
+                    mView.showErrorMessage(anError.getErrorBody());
                 }
             }
 
