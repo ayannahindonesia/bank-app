@@ -89,7 +89,7 @@
 
                             <TextView
                                 android:id="@+id/produk"
-                                android:text="Kredit Guna Bakti"
+                                tools:text="Kredit Guna Bakti"
                                 android:textAlignment="textEnd"
                                 android:textSize="@dimen/fontSmall"
                                 android:textColor="@color/customBlack"
