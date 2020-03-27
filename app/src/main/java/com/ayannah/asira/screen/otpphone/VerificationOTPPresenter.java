@@ -265,6 +265,8 @@ public class VerificationOTPPresenter implements VerificationOTPContract.Present
                     //add new field for nickname and nationality
                     preferenceRepository.setUserNationality(response.getNationality());
                     preferenceRepository.setUserNickname(response.getNickname());
+                    preferenceRepository.setBankAccountBorrower(response.getBankAccountnumber());
+                    preferenceRepository.setPrefImageProfileBorrower(response.getImageProfile());
 
 
                     Log.e(TAG, "time to send token fcm device");

@@ -168,7 +168,6 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
     private List<FormDynamic> arrForm = new ArrayList<FormDynamic>();
     private ArrayList<FormDynamic> arrFormForSend = new ArrayList<FormDynamic>();
     private int imgID = 0;
-    private String bankAccountNumber = "";
 
     @Inject
     public LoanFragment(){}
@@ -813,7 +812,6 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
         intent.putExtra(SummaryTransactionActivity.LAYANAN, bundle.getInt("idService"));
         intent.putExtra(SummaryTransactionActivity.INSTALLMENT, arInstallments);
         intent.putExtra(SummaryTransactionActivity.FORMINFO, arrFormForSend);
-        intent.putExtra(SummaryTransactionActivity.BANKACCOUNTNUMBER, bankAccountNumber);
         startActivity(intent);
 
     }
@@ -1086,10 +1084,5 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
             }
             imgID = 0;
         }
-    }
-
-    @Override
-    public void setBankAccountNumber(String bankAccountBorrower) {
-        bankAccountNumber = bankAccountBorrower;
     }
 }

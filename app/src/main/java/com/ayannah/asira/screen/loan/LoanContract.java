@@ -17,7 +17,6 @@ public interface LoanContract {
 
         void showReason(List<ReasonLoan.Data> data);
 
-        void setBankAccountNumber(String bankAccountBorrower);
     }
 
     interface Presenter extends BasePresenter<View>{
