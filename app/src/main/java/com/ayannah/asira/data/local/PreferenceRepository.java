@@ -311,4 +311,8 @@ public interface PreferenceRepository {
     void setLoanStatus(String loanStatus);
 
     String getLoanStatus();
+
+    void setPrefImageProfileBorrower(String imgProfile);
+
+    String getPrefImageProfileBorrower();
 }
