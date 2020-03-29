@@ -184,6 +184,9 @@ public class UserProfile implements Parcelable {
 	@SerializedName("loan_status")
 	private String loanStatus;
 
+	@SerializedName("image_profile")
+	private String imageProfile;
+
 	protected UserProfile(Parcel in) {
 		birthday = in.readString();
 		relatedPhonenumber = in.readString();
@@ -239,10 +242,10 @@ public class UserProfile implements Parcelable {
 		dependants = in.readInt();
 		idCardImage = in.readString();
 		taxIDImage = in.readString();
-
 		status = in.readString();
 		nthLoans = in.readInt();
 		loanStatus = in.readString();
+		imageProfile = in.readString();
 	}
 
 	public static final Creator<UserProfile> CREATOR = new Creator<UserProfile>() {
@@ -485,6 +488,10 @@ public class UserProfile implements Parcelable {
 		return loanStatus;
 	}
 
+	public String getImageProfile() {
+		return imageProfile;
+	}
+
 	@Override
 	public int describeContents() {
 		return 0;
@@ -549,5 +556,6 @@ public class UserProfile implements Parcelable {
 		dest.writeString(status);
 		dest.writeInt(nthLoans);
 		dest.writeString(loanStatus);
+		dest.writeString(imageProfile);
 	}
 }
