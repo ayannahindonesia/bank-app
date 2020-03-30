@@ -279,45 +279,23 @@ public class SummaryTransactionFragment extends BaseFragment implements SummaryT
 //            mPresenter.requestOTPForLoan(id_loan);
 //        }
 
-            if (bankAccountNumber.equals("") || bankAccountNumber == null) {
-                BottomSheetDialogGlobal dialogs = new BottomSheetDialogGlobal().show(parentActivity().getSupportFragmentManager(), BottomSheetDialogGlobal.NO_ACCOUNT_NUMBER_AGENT,
-                        "Nomor Rekening Nasabah Belum Tersedia",
-                        "Nasabah Anda belum bisa mengajukan pinjaman karena belum memiliki nomor rekening pada bank ini.",
-                        R.drawable.no_account_number);
+        if (borrowerID != 0) {
+            mPresenter.requestOTPPersonal(false, 1);
+        } else {
+            mPresenter.requestOTPPersonal(true, 1);
+        }
 
-                dialogs.setOnClickBottomSheetInstruction(new BottomSheetDialogGlobal.BottomSheetInstructionListener() {
-                    @Override
-                    public void onClickButtonDismiss() {
-                        dialogs.dismiss();
-                    }
+        Intent intent = new Intent(parentActivity(), VerificationOTPActivity.class);
+        if (borrowerID != 0) {
+            intent.putExtra("purpose", "post_pinjaman_agent");
+        } else {
+            intent.putExtra("purpose", "post_pinjaman");
+        }
 
-                    @Override
-                    public void onClickButtonYes() {
-                        dialogs.dismiss();
-                    }
-
-                    @Override
-                    public void closeApps() {
-
-                        dialogs.dismiss();
-
-                    }
-                });
-            } else {
-
-                mPresenter.requestOTPPersonal(true, 1);
-
-                Intent intent = new Intent(parentActivity(), VerificationOTPActivity.class);
-                if (borrowerID != 0) {
-                    intent.putExtra("purpose", "post_pinjaman_agent");
-                } else {
-                    intent.putExtra("purpose", "post_pinjaman");
-                }
-
-                intent.putExtra("id_loan", id_loan);
-                startActivity(intent);
-                parentActivity().finish();
-            }
+        intent.putExtra("id_loan", id_loan);
+        startActivity(intent);
+        parentActivity().finish();
+//            }
 
     }
 
