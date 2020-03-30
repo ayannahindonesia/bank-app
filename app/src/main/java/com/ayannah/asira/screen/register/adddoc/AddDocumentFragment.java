@@ -314,6 +314,7 @@ public class AddDocumentFragment extends BaseFragment implements AddDocumentCont
                     } catch (Exception e) {
                         Log.d("Error KTP", e.getMessage());
                     }
+                    break;
 
                 case KTP:
 

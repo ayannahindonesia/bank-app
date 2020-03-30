@@ -817,6 +817,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
     }
 
     private boolean CheckMandatoryDynamic(List<EditText> allEds, List<Spinner> allSPs, List<ImageView> allIVs, List<TextView> allTVCBs) {
+        //check edittext
         for (EditText et : allEds) {
             if (et.getTag().equals("required") && et.getText().toString().equals("")) {
                 et.setError("wajib");
@@ -830,6 +831,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
             }
         }
 
+        //check spinner
         for (Spinner sp : allSPs) {
             if (sp.getTag().equals("required") && sp.getSelectedItemPosition() == 0) {
                 return false;
@@ -843,6 +845,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
 
         }
 
+        //check imageview
         for (ImageView iv : allIVs) {
             if (iv.getTag().equals("required") && iv.getDrawable() == null) {
                 return false;
@@ -863,6 +866,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
             }
         }
 
+        //check checkbox
         for (TextView tvcb : allTVCBs) {
             if (tvcb.getTag().toString().contains("required") && Integer.parseInt(tvcb.getTag().toString().substring(0,1)) == 0) {
                 return false;
@@ -871,7 +875,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
                     if (arrFormForSend.indexOf(arrFormForSend.get(i))+1 == tvcb.getId() && Integer.parseInt(tvcb.getTag().toString().substring(0,1)) != 0) {
                         List<String> selected = new ArrayList<>();
                         for (int j=0; j<allCBs.size(); j++) {
-                            if (allCBs.get(j).isChecked()) {
+                            if (allCBs.get(j).isChecked() && allCBs.get(j).getId() == arrFormForSend.indexOf(arrFormForSend.get(i))+1) {
                                 selected.add(allCBs.get(j).getText().toString());
                             }
                         }
@@ -1004,7 +1008,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
         for (int i = 0; i < arrCount; i++)
         {
             TableRow row =new TableRow(parentActivity());
-            row.setId(i);
+            row.setId(index);
             row.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT));
             CheckBox checkBox = new CheckBox(parentActivity());
             checkBox.setButtonTintList(ColorStateList.valueOf(getResources().getColor(R.color.textColorAsira)));
