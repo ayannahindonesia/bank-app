@@ -157,14 +157,21 @@ public class AddDocumentFragment extends BaseFragment implements AddDocumentCont
     @BindView(R.id.etPhone)
     EditText etPhone;
 
+    @BindView(R.id.imgSelfie)
+    ImageView imgSelfie;
+
+    @BindView(R.id.txtTitleSelfie)
+    TextView txtTitleSelfie;
+
     private String[] pekerjaan = {"Pilih...", "Pegawai Swasta", "PNS", "Wiraswasta", "Pensiunan", "Mahasiswa", "Lainnya"};
 
     private Validator validator;
 
     private static final int KTP = 9;
     private static final int NPWP = 10;
+    private static final int SELFIE = 11;
 
-    private String pictKTP64, pictNPWP64;
+    private String pictKTP64, pictNPWP64, pictSELFIE64;
     private AlertDialog dialog;
 
     @Inject
@@ -210,6 +217,14 @@ public class AddDocumentFragment extends BaseFragment implements AddDocumentCont
         validator = new Validator(this);
         validator.setValidationListener(this);
 
+    }
+
+    @OnClick(R.id.imgSelfie)
+    void onClickSelfie() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(parentActivity().getPackageManager()) != null) {
+            startActivityForResult(takePictureIntent, SELFIE);
+        }
     }
 
     @OnClick(R.id.imgKTP)
@@ -278,6 +293,27 @@ public class AddDocumentFragment extends BaseFragment implements AddDocumentCont
         if(resultCode == Activity.RESULT_OK){
 
             switch (requestCode){
+
+                case SELFIE:
+
+                    try {
+
+                        Bundle extras = data.getExtras();
+                        Bitmap imageBitmap = (Bitmap) extras.get("data");
+
+                        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                        imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+                        byte[] byteArray = byteArrayOutputStream .toByteArray();
+
+                        pictSELFIE64 = Base64.encodeToString(byteArray, Base64.NO_WRAP);
+
+                        imgSelfie.setImageBitmap(imageBitmap);
+                        imgSelfie.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                        txtTitleSelfie.setVisibility(View.GONE);
+
+                    } catch (Exception e) {
+                        Log.d("Error KTP", e.getMessage());
+                    }
 
                 case KTP:
 
@@ -469,6 +505,7 @@ public class AddDocumentFragment extends BaseFragment implements AddDocumentCont
         jsonObject.addProperty("mother_name", etMotherName.getText().toString());
         jsonObject.addProperty("occupation", etWork.getText().toString()); //pekerjaan
         jsonObject.addProperty("field_of_work", spJobs.getSelectedItem().toString()); //jenis pekerjaan
+        jsonObject.addProperty("image_profile", pictSELFIE64);
 
         mPresenter.patchUserProfile(jsonObject);
     }
@@ -602,6 +639,7 @@ public class AddDocumentFragment extends BaseFragment implements AddDocumentCont
         bundle.putString(FormOtherFragment.KTP_NO, etKTP.getText().toString());
         bundle.putString(FormOtherFragment.NPWP_NO, etNPWP.getText().toString());
         bundle.putString(FormOtherFragment.PHONE, pnumber);
+        bundle.putString(FormOtherFragment.PHOTO_SELFIE, pictSELFIE64);
 
         Intent form = new Intent(parentActivity(), FormBorrowerActivity.class);
         form.putExtras(bundle);

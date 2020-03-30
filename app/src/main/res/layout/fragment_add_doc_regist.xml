@@ -46,6 +46,42 @@
                         android:background="?attr/selectableItemBackground">
 
                         <ImageView
+                            android:id="@+id/imgSelfie"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:minHeight="125dp"
+                            android:layout_centerHorizontal="true"
+                            android:background="@drawable/border_box"
+                            android:scaleType="centerInside" />
+
+                        <TextView
+                            android:id="@+id/txtTitleSelfie"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:gravity="center"
+                            android:text="Unggah Swafoto"
+                            android:textColor="@color/textColorAsira"
+                            android:textStyle="bold" />
+
+                    </RelativeLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Swafoto"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_marginBottom="@dimen/_15sdp"
+                        android:textColor="@color/customBlack"
+                        android:textSize="@dimen/fontNormal" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="?attr/selectableItemBackground">
+
+                        <ImageView
                             android:id="@+id/imgKTP"
                             android:layout_width="match_parent"
                             android:layout_height="125dp"

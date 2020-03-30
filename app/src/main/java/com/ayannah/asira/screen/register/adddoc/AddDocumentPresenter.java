@@ -241,6 +241,7 @@ public class AddDocumentPresenter implements AddDocumentContract.Presenter {
             preferenceRepository.setUrbanVillage(res.getUrbanVillage());
             preferenceRepository.setTaxCardImg(res.getTaxIDImage());
             preferenceRepository.setTaxCard(res.getTaxidNumber());
+            preferenceRepository.setPrefImageProfileBorrower(res.getImageProfile());
 
             mView.successUpdateProfile();
 

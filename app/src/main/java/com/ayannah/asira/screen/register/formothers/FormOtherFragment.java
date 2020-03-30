@@ -52,6 +52,7 @@ public class FormOtherFragment extends BaseFragment implements FormOtherContract
     public static final String NPWP_NO = "NPWP_NO";
     public static final String PHOTO_KTP = "PHOTO_KTP";
     public static final String PHOTO_NPWP = "PHOTO_NPWP";
+    public static final String PHOTO_SELFIE = "PHOTO_SELFIE";
 
     public static final String REGIST_NAME = "REGIST_NAME";
     public static final String GENDER = "GENDER";
@@ -264,6 +265,7 @@ public class FormOtherFragment extends BaseFragment implements FormOtherContract
         userProfleRequest.addProperty("related_address", etRelatedAddress.getText().toString());
         userProfleRequest.addProperty("idcard_image", bundle.getString(PHOTO_KTP));
         userProfleRequest.addProperty("taxid_image", bundle.getString(PHOTO_NPWP));
+        userProfleRequest.addProperty("image_profile", bundle.getString(PHOTO_SELFIE));
 
         //new
         userProfleRequest.addProperty("bank", bundle.getInt(BANK_ID));
