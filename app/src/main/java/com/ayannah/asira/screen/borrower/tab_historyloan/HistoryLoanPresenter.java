@@ -6,13 +6,16 @@ import androidx.annotation.Nullable;
 
 import com.androidnetworking.common.ANConstants;
 import com.androidnetworking.error.ANError;
+import com.ayannah.asira.data.local.PreferenceRepository;
 import com.ayannah.asira.data.local.ServiceProductInterface;
 import com.ayannah.asira.data.remote.RemoteRepository;
+import com.google.gson.JsonObject;
 
 import org.json.JSONObject;
 
 import javax.inject.Inject;
 
+import io.reactivex.Completable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
@@ -26,12 +29,14 @@ public class HistoryLoanPresenter implements HistoryLoanContract.Presenter {
     private RemoteRepository remoteRepository;
     private CompositeDisposable mComposite;
     private ServiceProductInterface serviceProductInterface;
+    private PreferenceRepository preferenceRepository;
 
     @Inject
-    HistoryLoanPresenter(Application application, RemoteRepository remoteRepository, ServiceProductInterface serviceProductInterface){
+    HistoryLoanPresenter(Application application, RemoteRepository remoteRepository, ServiceProductInterface serviceProductInterface, PreferenceRepository preferenceRepository){
         this.remoteRepository = remoteRepository;
         this.application = application;
         this.serviceProductInterface = serviceProductInterface;
+        this.preferenceRepository = preferenceRepository;
 
         mComposite = new CompositeDisposable();
     }
@@ -101,6 +106,20 @@ public class HistoryLoanPresenter implements HistoryLoanContract.Presenter {
                     }
 
                 }));
+    }
+
+    @Override
+    public void requestOTPPersonal(boolean isPersonal, int coba) {
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("phone", preferenceRepository.getUserPhone());
+        jsonObject.addProperty("secret", "KMndM2vURIGoe1jgzYOA6RTa8qzB5k");
+        jsonObject.addProperty("try", coba);
+
+        mComposite.add(Completable.fromAction(() -> {
+            remoteRepository.postOTPRequestBorrower(jsonObject);
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe());
     }
 
     @Override

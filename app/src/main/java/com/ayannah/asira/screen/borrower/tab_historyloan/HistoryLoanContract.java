@@ -21,5 +21,7 @@ public interface HistoryLoanContract {
         void loadHistoryTransaction(String sortWithStatus);
 
         void getProducts();
+
+        void requestOTPPersonal(boolean isPersonal, int coba);
     }
 }

@@ -146,7 +146,7 @@ public class VerificationOTPFragment extends BaseFragment implements Verificatio
 
                 } else if (purpose.equals(RESUBMIT_LOAN)) {
 
-                    resubmitLoanRequest(idLoan);
+                    resubmitLoanRequest(otp, idLoan);
                 } else if (purpose.equals(RESUBMIT_REGIST)) {
 
                     resubmitRegister(otp);
@@ -243,9 +243,11 @@ public class VerificationOTPFragment extends BaseFragment implements Verificatio
         mPresenter.postOTPVerify(jsonObject);
     }
 
-    private void resubmitLoanRequest(int idLoan) {
+    private void resubmitLoanRequest(String otp, int idLoan) {
+        JsonObject json = new JsonObject();
+        json.addProperty("otp_code", otp);
 
-//        mPresenter.resubmitLoanOTP(idLoan, etPin.getText().toString().trim());
+        mPresenter.verifyLoanByOTP(String.valueOf(idLoan), json);
 
     }
 

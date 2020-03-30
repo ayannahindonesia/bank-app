@@ -17,6 +17,7 @@ import com.ayannah.asira.data.model.Loans.DataItem;
 import com.ayannah.asira.dialog.BottomDialogHandlingError;
 import com.ayannah.asira.dialog.BottomSortHistoryLoan;
 import com.ayannah.asira.screen.detailloan.DetailTransaksiActivity;
+import com.ayannah.asira.screen.otpphone.VerificationOTPActivity;
 
 import java.util.List;
 
@@ -112,12 +113,25 @@ public class HistoryLoanFragment extends BaseFragment implements
 
             mAdapterLoans.setOnClickListenerLoanInAgent(loans -> {
 
-                Intent intent = new Intent(parentActivity(), DetailTransaksiActivity.class);
-                intent.putExtra(DetailTransaksiActivity.ID_LOAN, String.valueOf(loans.getId()));
-                intent.putExtra(DetailTransaksiActivity.LOAN_DETAIL, loans);
-                intent.putExtra("purpose", DetailTransaksiActivity.FROMBORROWER);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
+                if (loans.isOtpVerified()) {
+
+                    Intent intent = new Intent(parentActivity(), DetailTransaksiActivity.class);
+                    intent.putExtra(DetailTransaksiActivity.ID_LOAN, String.valueOf(loans.getId()));
+                    intent.putExtra(DetailTransaksiActivity.LOAN_DETAIL, loans);
+                    intent.putExtra("purpose", DetailTransaksiActivity.FROMBORROWER);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+
+                } else {
+
+                    mPresenter.requestOTPPersonal(true, 1);
+
+                    Intent intent = new Intent(parentActivity(), VerificationOTPActivity.class);
+                    intent.putExtra("purpose", "resubmit_regist");
+                    intent.putExtra("id_loan", loans.getId());
+                    startActivity(intent);
+                    parentActivity().finish();
+                }
 
             });
 
