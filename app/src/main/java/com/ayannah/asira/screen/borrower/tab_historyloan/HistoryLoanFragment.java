@@ -127,7 +127,7 @@ public class HistoryLoanFragment extends BaseFragment implements
                     mPresenter.requestOTPPersonal(true, 1);
 
                     Intent intent = new Intent(parentActivity(), VerificationOTPActivity.class);
-                    intent.putExtra("purpose", "resubmit_regist");
+                    intent.putExtra("purpose", "resubmit_loan");
                     intent.putExtra("id_loan", loans.getId());
                     startActivity(intent);
                     parentActivity().finish();
