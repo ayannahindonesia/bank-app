@@ -1,38 +1,58 @@
 package com.ayannah.asira.screen.agent.loan;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.text.Html;
+import android.util.Base64;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.Spinner;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.cardview.widget.CardView;
 
 import com.ayannah.asira.R;
 import com.ayannah.asira.custom.PlafondEditText;
 import com.ayannah.asira.data.model.FeesItem;
+import com.ayannah.asira.data.model.FormDynamic;
+import com.ayannah.asira.data.model.Installments;
 import com.ayannah.asira.data.model.Products;
 import com.ayannah.asira.data.model.ProductsAgent;
 import com.ayannah.asira.data.model.ReasonLoan;
 import com.ayannah.asira.data.model.ServiceProducts;
 import com.ayannah.asira.data.model.ServiceProductsAgent;
 import com.ayannah.asira.data.model.UserBorrower;
+import com.ayannah.asira.dialog.DialogTableInstallment;
 import com.ayannah.asira.screen.summary.SummaryTransactionActivity;
 import com.ayannah.asira.base.BaseFragment;
 import com.ayannah.asira.util.CommonUtils;
+import com.ayannah.asira.util.Interest;
 import com.ayannah.asira.util.NumberSeparatorTextWatcher;
 
+import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -104,6 +124,12 @@ public class LoanAgentFragment extends BaseFragment implements LoanAgentContract
     @BindView(R.id.txtReasonTitle)
     TextView txtReasonTitle;
 
+    @BindView(R.id.llForm)
+    LinearLayout llForm;
+
+    @BindView(R.id.cvForm)
+    CardView cvForm;
+
     @Inject
     String idService;
 
@@ -120,6 +146,10 @@ public class LoanAgentFragment extends BaseFragment implements LoanAgentContract
     private int productID = 0;
     private double countPencairan = 0.0;
     private int totalBunga = 0;
+    private String interestType = "";
+    private String feeType = "";
+    private int feeDeducted = 0;
+    private int feeCharged = 0;
 
     //define min and max loan var globally based on selected product loan
     private int minPlafond = 0;
@@ -130,14 +160,23 @@ public class LoanAgentFragment extends BaseFragment implements LoanAgentContract
     private int maxTenor = 0;
 
     //define adminfee and convfee setup
-    private static final String POTONG_PLAFON = "potong_plafon";
-    private static final String BEBAN_PLAFON = "beban_plafon";
+    private static final String POTONG_PLAFON = "deduct_loan";
+    private static final String BEBAN_PLAFON = "charge_loan";
     private String adminSetup;
-    private String convSetup;
+    private String convSetup = POTONG_PLAFON;
 
     private List<String> productName;
     private ArrayList<ProductsAgent> mServiceProducts = new ArrayList<>();
     private NumberSeparatorTextWatcher plafonNumberSeparator;
+    private ArrayList<Installments> arInstallments = new ArrayList<>();
+    private List<EditText> allEds = new ArrayList<EditText>();
+    private List<Spinner> allSPs = new ArrayList<Spinner>();
+    private List<ImageView> allIVs = new ArrayList<ImageView>();
+    private List<CheckBox> allCBs = new ArrayList<CheckBox>();
+    private List<TextView> allTVCBs = new ArrayList<TextView>();
+    private List<FormDynamic> arrForm = new ArrayList<FormDynamic>();
+    private ArrayList<FormDynamic> arrFormForSend = new ArrayList<FormDynamic>();
+    private int imgID = 0;
     UserBorrower userBorrower;
 
     @Inject
@@ -151,7 +190,11 @@ public class LoanAgentFragment extends BaseFragment implements LoanAgentContract
     @Override
     public void onResume() {
         super.onResume();
-        mPresenter.takeView(this);
+
+    }
+
+    @Override
+    protected void initView(Bundle state) {mPresenter.takeView(this);
 
         txtOtherReasonTitle.setText("Mohon Masukan Alasan Nasabah Baru Meminjam");
         txtReasonTitle.setText("Apa alasan nasabah baru mengajukan peminjaman?");
@@ -170,13 +213,6 @@ public class LoanAgentFragment extends BaseFragment implements LoanAgentContract
 
         mPresenter.getLoanIntention();
 
-        mPresenter.getRulesFormula(getActivity().getIntent().getStringExtra(LoanAgentActivity.IDBANK));
-
-    }
-
-    @Override
-    protected void initView(Bundle state) {
-
         //memberikan number currenxt saat input angka plafon pinjaman
         plafonNumberSeparator = new NumberSeparatorTextWatcher(plafondCustom);
         plafondCustom.setOnFocusChangeListener((v, hasFocus) -> {
@@ -189,27 +225,10 @@ public class LoanAgentFragment extends BaseFragment implements LoanAgentContract
         installment.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                installmentTenor = minTenor + seekBar.getProgress();
+                tvInstallment.setText(String.format("%s bulan", installmentTenor));
 
-                if (!plafondCustom.getText().toString().trim().isEmpty()) {
-                    installmentTenor = minTenor + (progress * 6);
-
-                    //calculate bunga
-                    totalBunga = (int) (loanAmount * interest) / 100;
-
-                    //calculate angsuran perbulan
-                    angsurnaPerbulan = calculateAngsuranPerBulan(convSetup);
-
-                    tvInstallment.setText(String.format("%s bulan", installmentTenor));
-                    biayaAdmin.setText(CommonUtils.setRupiahCurrency((int) Math.floor(administration)));
-//                    tvBunga.setText(CommonUtils.setRupiahCurrency((int) Math.floor(totalBunga)));
-                    tvAngsuran.setText(CommonUtils.setRupiahCurrency((int) Math.floor(angsurnaPerbulan)));
-                    jumlahPencairan.setText(CommonUtils.setRupiahCurrency((int) Math.floor(countPencairan)));
-
-                } else {
-
-                    installment.setProgress(0);
-                }
-
+                CreateCalculationData();
             }
 
             @Override
@@ -223,6 +242,137 @@ public class LoanAgentFragment extends BaseFragment implements LoanAgentContract
             }
         });
 
+    }
+
+    private void CreateCalculationData() {
+        arInstallments.clear();
+
+        if (!plafondCustom.getText().toString().trim().isEmpty()) {
+
+            createTableAngsuran(interest, loanAmount, installmentTenor, administration, interestType, feeType);
+
+            biayaAdmin.setText(CommonUtils.setRupiahCurrency((int) Math.round(administration)));
+            if (arInstallments.get(0).getAngsuranPerBulan() == null) {
+                tvAngsuran.setText(Html.fromHtml("<u>Lihat Tabel</u>"));
+                tvAngsuran.setTextColor(getResources().getColor(R.color.textColorAsira));
+                arInstallments.remove(0);
+                tvAngsuran.setClickable(true);
+            } else {
+                tvAngsuran.setText(CommonUtils.setRupiahCurrency((int) Math.round(Double.parseDouble(arInstallments.get(0).getAngsuranPerBulan()))));
+                tvAngsuran.setTextColor(getResources().getColor(R.color.textColorAsiraGrey));
+                tvAngsuran.setClickable(false);
+            }
+
+//            jumlahPencairan.setText(CommonUtils.setRupiahCurrency((int) Math.round(countPencairan)));
+            jumlahPencairan.setText(CommonUtils.setRupiahCurrency((int) (loanAmount - feeDeducted)));
+
+        } else {
+
+            installment.setProgress(0);
+        }
+    }
+
+    @OnClick(R.id.angsuranPerbulan)
+    void clickTable() {
+        DialogTableInstallment dialog = new DialogTableInstallment();
+        dialog.setInstallments(arInstallments);
+        dialog.showNow(parentActivity().getSupportFragmentManager(), "installmentTable");
+
+    }
+
+    private void createTableAngsuran(double interest, int loanAmount, int installmentTenor, int administration, String type, String feeType) {
+
+        switch (type) {
+            case "flat": {
+                int interestLoc = calculateInterest(loanAmount, installmentTenor, interest, type);
+                double cicilanPokokPinjaman = loanAmount / installmentTenor;
+                double ansuranPerBulan = calculateAngsuranPerBulan(interestLoc, cicilanPokokPinjaman, administration, installmentTenor, feeDeducted, feeCharged, type);
+
+                Installments installmentsFlat = new Installments();
+                installmentsFlat.setBunga(formatStringDouble(interestLoc * installmentTenor));
+                installmentsFlat.setCicilanPokokPinjaman(formatStringDouble(cicilanPokokPinjaman));
+                installmentsFlat.setAngsuranPerBulan(formatStringDouble(ansuranPerBulan));
+                angsurnaPerbulan = ansuranPerBulan;
+
+                arInstallments.add(installmentsFlat);
+
+                break;
+            }
+            case "fixed": {
+                double[] returnPPMT = Interest.PPMT(interest / 100 / 12, 1, installmentTenor, loanAmount * (-1), 1);
+                double ansuranPerBulan = calculateAngsuranPerBulan(returnPPMT[1], returnPPMT[0], administration, installmentTenor, feeDeducted, feeCharged, type);
+
+                Installments installmentsFixed = new Installments();
+                installmentsFixed.setCicilanPokokPinjaman(formatStringDouble(returnPPMT[0]));
+                installmentsFixed.setAngsuranPerBulan(String.valueOf(ansuranPerBulan));
+                angsurnaPerbulan = ansuranPerBulan;
+
+                arInstallments.add(installmentsFixed);
+
+                break;
+            }
+            case "efektif_menurun": {
+                double cicilanPokokPinjaman = loanAmount / installmentTenor;
+
+                Installments installmentsFixed = new Installments();
+                installmentsFixed.setAngsuranPerBulan(null);
+
+                arInstallments.add(installmentsFixed);
+
+                int loanAmountLoc = loanAmount;
+                for (int i = 0; i < installmentTenor; i++) {
+                    double interestLoc = 0;
+
+                    Installments installments = new Installments();
+                    installments.setIndex(i + 1);
+                    installments.setPokokPinjaman(formatStringDouble(loanAmount - cicilanPokokPinjaman * i));
+                    installments.setCicilanPokokPinjaman(formatStringDouble(cicilanPokokPinjaman));
+                    installments.setBunga(formatStringDouble(Double.parseDouble(installments.getPokokPinjaman()) * interest / 100 / 12));
+                    interestLoc = loanAmountLoc * interest / 100 / 12;
+                    installments.setAngsuranPerBulan(formatStringDouble(calculateAngsuranPerBulan(interestLoc, cicilanPokokPinjaman, administration, installmentTenor, feeDeducted, feeCharged, type)));
+                    installments.setSaldoPokokPinjaman(formatStringDouble(loanAmount - cicilanPokokPinjaman * (i + 1)));
+                    loanAmountLoc = Integer.parseInt(installments.getSaldoPokokPinjaman());
+
+                    arInstallments.add(installments);
+                }
+
+                break;
+            }
+            case "onetimepay": {
+                //calculate bunga
+                totalBunga = calculateInterest(loanAmount, installmentTenor, interest, "onetimepay");
+                //calculate angsuran perbulan
+                angsurnaPerbulan = AngsuranPerBulanOneTimePay(interest, loanAmount, installmentTenor);
+
+                Installments installments = new Installments();
+                installments.setIndex(0);
+                installments.setAngsuranPerBulan(String.valueOf(angsurnaPerbulan));
+
+                arInstallments.add(installments);
+
+                break;
+            }
+        }
+
+    }
+
+    private String formatStringDouble(double value) {
+        return new DecimalFormat("#.#").format(value);
+    }
+
+    private double calculateAngsuranPerBulan(double interestLoc, double cicilanPokokPinjaman, int administration, int installmentTenor, int feeDeductedLoc, int feeChargedLoc, String type) {
+        return interestLoc + cicilanPokokPinjaman + ((double) feeChargedLoc/installmentTenor);
+    }
+
+    private int calculateInterest(int loanAmount, int installmentTenor, double interest, String type) {
+
+        if (type.equals("flat")) {
+            return (int) (loanAmount*interest/100/12);
+        } else if (type.equals("onetimepay")) {
+            return (int) (loanAmount*interest/100);
+        } else {
+            return 0;
+        }
     }
 
     @Override
@@ -268,7 +418,6 @@ public class LoanAgentFragment extends BaseFragment implements LoanAgentContract
                     loanAmount = 0;
                     plafondCustom.setText("");
                     biayaAdmin.setText("-");
-//                    tvBunga.setText("-");
 
                     //set default jumlah angsuran
                     angsurnaPerbulan = 0;
@@ -285,11 +434,14 @@ public class LoanAgentFragment extends BaseFragment implements LoanAgentContract
                     //set min and max tenor based on selected product
                     minTenor = mServiceProducts.get(position).getMinTimespan();
                     maxTenor = mServiceProducts.get(position).getMaxTimespan();
-                    int maxTenorSeekbar = ((maxTenor-minTenor)/6);
+                    int maxTenorSeekbar = maxTenor-minTenor;
                     installment.setMax(maxTenorSeekbar);
 
+                    interestType = mServiceProducts.get(position).getInterest_type();
+//                    feeType = mServiceProducts.get(position).getFees().get(0).getFeeMethod();
+
                     installmentTenor = minTenor;
-                    tvInstallment.setText(String.format("%s bulan", installmentTenor));
+//                    tvInstallment.setText(String.format("%s bulan", installmentTenor));
 
                     //set plafond sesuai dengan product yang dipilih
                     plafonMinMax.setText(String.format("Min %s - Max %s", CommonUtils.setRupiahCurrency(mServiceProducts.get(position).getMinLoan()),
@@ -316,6 +468,13 @@ public class LoanAgentFragment extends BaseFragment implements LoanAgentContract
                         return false;
                     });
 
+                    if (mServiceProducts.get(position).getFormDynamic() != null) {
+                        createDynamicForm(mServiceProducts.get(position).getFormDynamic());
+                        cvForm.setVisibility(View.VISIBLE);
+                    } else {
+                        cvForm.setVisibility(View.GONE);
+                    }
+
                 }
 
                 @Override
@@ -335,6 +494,42 @@ public class LoanAgentFragment extends BaseFragment implements LoanAgentContract
         }
 
         dialog.dismiss();
+    }
+
+    private void createDynamicForm(List<FormDynamic> formDynamic) {
+
+        allEds.clear();
+        allSPs.clear();
+        allIVs.clear();
+        allCBs.clear();
+        allTVCBs.clear();
+        arrFormForSend.clear();
+        llForm.removeAllViews();
+
+        arrForm = new ArrayList<>(formDynamic);
+
+        for (int i=0; i< arrForm.size(); i++) {
+            String type = arrForm.get(i).getType();
+
+            switch (type) {
+                case "textfield":
+                    createEditText(arrForm.get(i), i + 1);
+                    break;
+                case "dropdown":
+                    createDropDown(arrForm.get(i), i + 1);
+                    break;
+                case "checkbox":
+                    createCheckBox(arrForm.get(i), i + 1);
+                    break;
+                case "image":
+                    createTakePicture(arrForm.get(i), i + 1);
+                    break;
+                default:
+                    Toast.makeText(parentActivity(), String.format("%s not defined", arrForm.get(i).getType()), Toast.LENGTH_LONG).show();
+                    break;
+            }
+            arrFormForSend.add(arrForm.get(i));
+        }
     }
 
     private void CalculateData(int position, List<ProductsAgent> serviceProducts) {
@@ -366,6 +561,7 @@ public class LoanAgentFragment extends BaseFragment implements LoanAgentContract
 //                tvBunga.setText("-");
                 tvAngsuran.setText("-");
                 jumlahPencairan.setText("-");
+                plafondCustom.setText("");
 
 
             }else if(nominalRound > mServiceProducts.get(position).getMaxLoan()){
@@ -382,6 +578,7 @@ public class LoanAgentFragment extends BaseFragment implements LoanAgentContract
 //                tvBunga.setText("-");
                 tvAngsuran.setText("-");
                 jumlahPencairan.setText("-");
+                plafondCustom.setText("");
 
 
             }else {
@@ -401,7 +598,7 @@ public class LoanAgentFragment extends BaseFragment implements LoanAgentContract
                 totalBunga = (int) (loanAmount * interest) / 100;
 
                 //calculate angsuran perbulan
-                angsurnaPerbulan = calculateAngsuranPerBulan(convSetup);
+//                angsurnaPerbulan = AngsuranPerBulanOneTimePay(convSetup);
 
                 if (convSetup.equals(POTONG_PLAFON)) {
                     countPencairan = loanAmount - administration;
@@ -409,11 +606,8 @@ public class LoanAgentFragment extends BaseFragment implements LoanAgentContract
                     countPencairan = loanAmount;
                 }
 
-                tvInstallment.setText(String.format("%s bulan", installmentTenor));
-                biayaAdmin.setText(CommonUtils.setRupiahCurrency((int) Math.floor(administration)));
-//                tvBunga.setText(CommonUtils.setRupiahCurrency((int) Math.floor(totalBunga)));
-                tvAngsuran.setText(CommonUtils.setRupiahCurrency((int) Math.floor(angsurnaPerbulan)));
-                jumlahPencairan.setText(CommonUtils.setRupiahCurrency((int) Math.floor(countPencairan)));
+                CreateCalculationData();
+
             }
 
         }else {
@@ -503,65 +697,40 @@ public class LoanAgentFragment extends BaseFragment implements LoanAgentContract
         return modelList;
     }
 
-    @Override
-    public void setupFormulaFee(String adminsetup, String convsetup) {
-
-        adminSetup = adminsetup;
-
-        convSetup = convsetup;
-
-    }
-
-    //hitung biaya adminsitrasi
-    //tes bkin formulasi administrasi
-    private int calculateAdministration(int plafon, String adminFee, String asnFee){
-        int calAdminFee;
-        int calAsnFee;
-
-        if (adminFee.contains("%")) {
-            double adminFeeX = Double.parseDouble(adminFee.replace("%", ""));
-            calAdminFee = (int) (plafon * adminFeeX / 100);
-        } else {
-            calAdminFee = Integer.parseInt(adminFee);
-        }
-
-        if (asnFee.contains("%")) {
-            double asnFeeX = Double.parseDouble(asnFee.replace("%", ""));
-            calAsnFee = (int) (plafon * asnFeeX / 100);
-        } else {
-            calAsnFee = Integer.parseInt(asnFee);
-        }
-
-        return calAdminFee + calAsnFee;
-
-    }
-
     private int calculateAdministration_v2(int plafon, List<FeesItem> fees){
 
+        feeDeducted = 0;
+        feeCharged = 0;
         int result = 0;
-        double tempCount;
+        double tmptResult;
 
         if(fees.size() > 0) {
             for (FeesItem param : fees) {
 
                 if (param.getAmount().contains("%")) {
 
-                    tempCount = Double.parseDouble(param.getAmount().replace("%", ""));
-                    result = result + ((int) (plafon * tempCount) / 100);
+                    double tempCount = Double.parseDouble(param.getAmount().replace("%", ""));
+                    tmptResult = (plafon * tempCount) / 100;
+                    result = result + (int) tmptResult;
 
                 } else {
 
                     if (param.getAmount().toLowerCase().contains(".")) {
-
-                        result = result + (int) Double.parseDouble(param.getAmount());
+                        tmptResult = Double.parseDouble(param.getAmount());
+                        result = result + (int) tmptResult;
 
                     } else {
-
-                        result = result + Integer.parseInt(param.getAmount());
+                        tmptResult = Double.parseDouble(param.getAmount());
+                        result = result + (int) tmptResult;
 
                     }
                 }
 
+                if (param.getFeeMethod().toLowerCase().equals(POTONG_PLAFON)) {
+                    feeDeducted = (int) (feeDeducted + tmptResult);
+                } else {
+                    feeCharged = (int) (feeCharged + tmptResult);
+                }
             }
         }
 
@@ -595,6 +764,11 @@ public class LoanAgentFragment extends BaseFragment implements LoanAgentContract
 
         }
 
+        if (cvForm.getVisibility() == View.VISIBLE && !CheckMandatoryDynamic(allEds , allSPs, allIVs, allTVCBs)) {
+            Toast.makeText(parentActivity(), "Data Tambahan ada yg belum diisi", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         Intent intent = new Intent(parentActivity(), SummaryTransactionActivity.class);
 
         if (getActivity().getIntent().getStringExtra("isFrom").toLowerCase().equals("agent")) {
@@ -607,7 +781,7 @@ public class LoanAgentFragment extends BaseFragment implements LoanAgentContract
         intent.putExtra(SummaryTransactionActivity.PRODUK, spProducts.getSelectedItem().toString());
         intent.putExtra(SummaryTransactionActivity.PRODUCTID, productID);
         intent.putExtra(SummaryTransactionActivity.ADMIN, administration);
-        intent.putExtra(SummaryTransactionActivity.INTEREST, totalBunga);
+//        intent.putExtra(SummaryTransactionActivity.INTEREST, totalBunga);
         intent.putExtra(SummaryTransactionActivity.PENCAIRAN, countPencairan);
 
         if(spAlasanPinjam.getSelectedItem().toString().equals("Lain-lain")){
@@ -630,8 +804,84 @@ public class LoanAgentFragment extends BaseFragment implements LoanAgentContract
 
         intent.putExtra(SummaryTransactionActivity.TUJUAN, etTujuan.getText().toString());
         intent.putExtra(SummaryTransactionActivity.LAYANAN, bundle.getInt("idService"));
+        intent.putExtra(SummaryTransactionActivity.INSTALLMENT, arInstallments);
+        intent.putExtra(SummaryTransactionActivity.FORMINFO, arrFormForSend);
         startActivity(intent);
 
+    }
+
+    private boolean CheckMandatoryDynamic(List<EditText> allEds, List<Spinner> allSPs, List<ImageView> allIVs, List<TextView> allTVCBs) {
+        for (EditText et : allEds) {
+            if (et.getTag().equals("required") && et.getText().toString().equals("")) {
+                et.setError("wajib");
+                return false;
+            } else {
+                for (int i=0; i<arrFormForSend.size(); i++) {
+                    if (arrFormForSend.indexOf(arrFormForSend.get(i))+1 == et.getId() ) {
+                        arrFormForSend.get(i).setAnswers(et.getText().toString());
+                    }
+                }
+            }
+        }
+
+        for (Spinner sp : allSPs) {
+            if (sp.getTag().equals("required") && sp.getSelectedItemPosition() == 0) {
+                return false;
+            } else {
+                for (int i=0; i<arrFormForSend.size(); i++) {
+                    if (arrFormForSend.indexOf(arrFormForSend.get(i))+1 == sp.getId() && sp.getSelectedItemPosition() != 0) {
+                        arrFormForSend.get(i).setAnswers(sp.getSelectedItem().toString());
+                    }
+                }
+            }
+        }
+
+        for (ImageView iv : allIVs) {
+            if (iv.getTag().equals("required") && iv.getDrawable() == null) {
+                return false;
+            } else {
+                for (int i=0; i<arrFormForSend.size(); i++) {
+                    if (arrFormForSend.indexOf(arrFormForSend.get(i))+1 == iv.getId() && iv.getDrawable() != null) {
+                        Bitmap bitmap = ((BitmapDrawable)iv.getDrawable()).getBitmap();
+
+                        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+                        byte[] byteArray = byteArrayOutputStream .toByteArray();
+
+                        String pict64 = Base64.encodeToString(byteArray, Base64.NO_WRAP);
+
+                        arrFormForSend.get(i).setAnswers(pict64);
+                    }
+                }
+            }
+        }
+
+        for (TextView tvcb : allTVCBs) {
+            if (tvcb.getTag().toString().contains("required") && Integer.parseInt(tvcb.getTag().toString().substring(0,1)) == 0){
+                return false;
+            } else {
+                for (int i=0; i<arrFormForSend.size(); i++) {
+                    if (arrFormForSend.indexOf(arrFormForSend.get(i))+1 == tvcb.getId() && Integer.parseInt(tvcb.getTag().toString().substring(0,1)) != 0) {
+                        List<String> selected = new ArrayList<>();
+                        for (int j=0; j<allCBs.size(); j++) {
+                            if (allCBs.get(j).isChecked() && allCBs.get(j).getId() == arrFormForSend.indexOf(arrFormForSend.get(i))+1) {
+                                selected.add(allCBs.get(j).getText().toString());
+                            }
+                        }
+
+                        StringBuilder sb = new StringBuilder();
+                        for (String s : selected) {
+                            sb.append(s).append(",");
+                        }
+
+                        if (sb.length() != 0) {
+                            arrFormForSend.get(i).setAnswers(sb.deleteCharAt(sb.length()-1).toString());
+                        }
+                    }
+                }
+            }
+        }
+        return true;
     }
 
     @OnClick(R.id.refresh)
@@ -650,16 +900,183 @@ public class LoanAgentFragment extends BaseFragment implements LoanAgentContract
 
 
 
-    private double calculateAngsuranPerBulan(String jenisPotong) {
+    private double AngsuranPerBulanOneTimePay(double interest, int loanAmount, int installmentTenor) {
 
-        if (jenisPotong.equals(POTONG_PLAFON)) {
+        double interestLoc = loanAmount*interest/100;
+        return (loanAmount + interestLoc + feeCharged)/installmentTenor;
 
-            return (loanAmount + totalBunga) / installmentTenor;
+    }
 
-        } else {
+    private void createEditText(@NonNull FormDynamic form, int index) {
+        TextView tv = new TextView(parentActivity());
+        tv.setText(form.getLabel());
+        tv.setTextColor(getResources().getColor(R.color.textColorAsiraGrey));
+        llForm.addView(tv);
+        LinearLayout.LayoutParams paramTV = (LinearLayout.LayoutParams) tv.getLayoutParams();
+        paramTV.setMargins(0, 20, 0, 5);
+        tv.setLayoutParams(paramTV);
 
-            return (loanAmount + totalBunga + administration) / installmentTenor;
+//       just devider ==============================================================================
+
+        EditText et = new EditText(parentActivity());
+        et.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.focus_tint_list)));
+        et.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT));
+        et.setTextSize(getResources().getDimension(R.dimen._4sdp));
+        et.setTag(form.getStatus());
+        et.setId(index);
+        et.setHint(String.format("Masukan %s", tv.getText()));
+        llForm.addView(et);
+        LinearLayout.LayoutParams paramET = (LinearLayout.LayoutParams) et.getLayoutParams();
+        paramET.setMargins(0, 5, 0, 5);
+        et.setLayoutParams(paramET);
+
+        if (et.getTag().toString().contains("required")) {
+            tv.append(getResources().getString(R.string.wajib_isi));
         }
 
+        allEds.add(et);
+    }
+
+    private void createDropDown(@NonNull FormDynamic form, int index) {
+        TextView tv = new TextView(parentActivity());
+        tv.setText(form.getLabel());
+        tv.setTextColor(getResources().getColor(R.color.textColorAsiraGrey));
+        llForm.addView(tv);
+        LinearLayout.LayoutParams paramTV = (LinearLayout.LayoutParams) tv.getLayoutParams();
+        paramTV.setMargins(0, 20, 0, 5);
+        tv.setLayoutParams(paramTV);
+
+//       just devider ==============================================================================
+
+        List<String> value = new ArrayList<>();
+        value.add("Pilih...");
+        value.addAll(Arrays.asList(form.getValue().split(",|\\:")));
+        ArrayAdapter<String> adapter;
+        adapter = new ArrayAdapter<>(parentActivity(), R.layout.item_custom_spinner, value);
+
+        Spinner sp = new Spinner(parentActivity());
+        sp.setBackgroundResource(R.drawable.spinner_bg2);
+        sp.setId(index);
+        sp.setTag(form.getStatus());
+        sp.setAdapter(adapter);
+        llForm.addView(sp);
+        LinearLayout.LayoutParams paramSP = (LinearLayout.LayoutParams) sp.getLayoutParams();
+        paramSP.setMargins(0, 5, 0, 5);
+        sp.setLayoutParams(paramSP);
+
+        if (sp.getTag().toString().contains("required")) {
+            tv.append(getResources().getString(R.string.wajib_isi));
+        }
+
+        allSPs.add(sp);
+    }
+
+    private void createCheckBox(@NonNull FormDynamic form, int index) {
+        int[] numChecked = new int[1];
+
+        TextView tv = new TextView(parentActivity());
+        tv.setTextColor(getResources().getColor(R.color.textColorAsiraGrey));
+        tv.setTag(String.format("%s %s", String.valueOf(numChecked[0]), form.getStatus()));
+        tv.setText(form.getLabel());
+        tv.append(getResources().getString(R.string.wajib_isi));
+        tv.setId(index);
+        llForm.addView(tv);
+        LinearLayout.LayoutParams paramTV = (LinearLayout.LayoutParams) tv.getLayoutParams();
+        paramTV.setMargins(0, 20, 0, 5);
+        tv.setLayoutParams(paramTV);
+
+        allTVCBs.add(tv);
+
+//       just devider ==============================================================================
+
+        int arrCount=0;
+        List<String> value = new ArrayList<String>(Arrays.asList(form.getValue().split(",|\\:")));
+//        List<String> value = new ArrayList<>(Arrays.asList(form.getValue()));
+
+        arrCount = value.size();
+
+        for (int i = 0; i < arrCount; i++)
+        {
+            TableRow row =new TableRow(parentActivity());
+            row.setId(index);
+            row.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT));
+            CheckBox checkBox = new CheckBox(parentActivity());
+            checkBox.setButtonTintList(ColorStateList.valueOf(getResources().getColor(R.color.textColorAsira)));
+            checkBox.setId(index);
+            checkBox.setText(value.get(i));
+            checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (isChecked) {
+                        numChecked[0]++;
+                    } else {
+                        numChecked[0]--;
+                    }
+                    tv.setTag(String.format("%s %s", String.valueOf(numChecked[0]), form.getStatus()));
+
+                }
+            });
+
+            row.addView(checkBox);
+            llForm.addView(row);
+            LinearLayout.LayoutParams paramSP = (LinearLayout.LayoutParams) checkBox.getLayoutParams();
+            paramSP.setMargins(0, 5, 0, 5);
+            checkBox.setLayoutParams(paramSP);
+
+            allCBs.add(checkBox);
+        }
+    }
+
+    private void createTakePicture(@NonNull FormDynamic form, int index) {
+
+        TextView tv = new TextView(parentActivity());
+        tv.setText(form.getLabel());
+        tv.setTextColor(getResources().getColor(R.color.textColorAsiraGrey));
+        llForm.addView(tv);
+        LinearLayout.LayoutParams paramTV = (LinearLayout.LayoutParams) tv.getLayoutParams();
+        paramTV.setMargins(0, 20, 0, 5);
+        tv.setLayoutParams(paramTV);
+
+//       just devider ==============================================================================
+
+        ImageView iv = new ImageView(parentActivity());
+        iv.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, 400));
+        iv.setBackground(getResources().getDrawable(R.drawable.border_box));
+        iv.setTag(form.getStatus());
+        iv.setId(index);
+        llForm.addView(iv);
+        LinearLayout.LayoutParams paramSP = (LinearLayout.LayoutParams) iv.getLayoutParams();
+        paramSP.setMargins(0, 5, 0, 5);
+        iv.setLayoutParams(paramSP);
+
+        iv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                imgID = index;
+                Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+                startActivityForResult(intent, 1);
+            }
+        });
+
+        if (iv.getTag().toString().contains("required")) {
+            tv.append(getResources().getString(R.string.wajib_isi));
+        }
+
+        allIVs.add(iv);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK && requestCode == 1) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            for (int i=0; i<allIVs.size(); i++) {
+                if (allIVs.get(i).getId() == imgID) {
+                    allIVs.get(i).setImageBitmap(imageBitmap);
+                }
+            }
+            imgID = 0;
+        }
     }
 }

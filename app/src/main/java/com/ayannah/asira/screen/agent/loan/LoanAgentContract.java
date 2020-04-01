@@ -18,7 +18,6 @@ public interface LoanAgentContract {
 
         void showReason(List<ReasonLoan.Data> data);
 
-        void setupFormulaFee(String adminFeeSetup, String convfeeSetup);
     }
 
     interface Presenter extends BasePresenter<View> {
@@ -28,6 +27,5 @@ public interface LoanAgentContract {
 
         void getLoanIntention();
 
-        void getRulesFormula(String bankId);
     }
 }

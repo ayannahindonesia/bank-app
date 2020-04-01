@@ -247,44 +247,21 @@ public class SummaryTransactionFragment extends BaseFragment implements SummaryT
     @Override
     public void successLoanApplication(String id_loan) {
 
-//        if (borrowerID != 0) {
-//            if (bankAccountNumber.equals("") || bankAccountNumber == null) {
-//                BottomSheetDialogGlobal dialogs = new BottomSheetDialogGlobal().show(parentActivity().getSupportFragmentManager(), BottomSheetDialogGlobal.NO_ACCOUNT_NUMBER_AGENT,
-//                        "Nomor Rekening Nasabah Belum Tersedia",
-//                        "Nasabah Anda belum bisa mengajukan pinjaman karena belum memiliki nomor rekening pada bank ini.",
-//                        R.drawable.no_account_number);
-//
-//                dialogs.setOnClickBottomSheetInstruction(new BottomSheetDialogGlobal.BottomSheetInstructionListener() {
-//                    @Override
-//                    public void onClickButtonDismiss() {
-//                        dialogs.dismiss();
-//                    }
-//
-//                    @Override
-//                    public void onClickButtonYes() {
-//                        dialogs.dismiss();
-//                    }
-//
-//                    @Override
-//                    public void closeApps() {
-//
-//                        dialogs.dismiss();
-//
-//                    }
-//                });
-//            } else {
-//                mPresenter.requestOTPForLoanAgent(id_loan);
-//            }
-//        } else {
-//            mPresenter.requestOTPForLoan(id_loan);
-//        }
-
         if (borrowerID != 0) {
-            mPresenter.requestOTPPersonal(false, 1);
+            if (bankAccountNumber.equals("")) {
+                cannotMakingLoan();
+            } else {
+                mPresenter.requestOTPPersonal(false, 1);
+                gotoSummaryPage(id_loan);
+            }
         } else {
             mPresenter.requestOTPPersonal(true, 1);
+            gotoSummaryPage(id_loan);
         }
 
+    }
+
+    private void gotoSummaryPage(String id_loan) {
         Intent intent = new Intent(parentActivity(), VerificationOTPActivity.class);
         if (borrowerID != 0) {
             intent.putExtra("purpose", "post_pinjaman_agent");
@@ -295,8 +272,6 @@ public class SummaryTransactionFragment extends BaseFragment implements SummaryT
         intent.putExtra("id_loan", id_loan);
         startActivity(intent);
         parentActivity().finish();
-//            }
-
     }
 
     @Override

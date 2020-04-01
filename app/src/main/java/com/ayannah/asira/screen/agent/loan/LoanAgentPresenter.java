@@ -77,20 +77,4 @@ public class LoanAgentPresenter implements LoanAgentContract.Presenter {
                 }, error -> mView.showErrorMessage(CommonUtils.commonErrorFormat(error))));
 
     }
-
-    @Override
-    public void getRulesFormula(String bankId) {
-        if(mView == null){
-            return;
-        }
-
-        mComposite.add(remoteRepository.getBanksDetail(bankId)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(res -> {
-
-                    mView.setupFormulaFee(res.getAdminFeeSetup(), res.getConvfeeSetup());
-
-                }, error -> mView.showErrorMessage(CommonUtils.commonErrorFormat(error))));
-    }
 }
