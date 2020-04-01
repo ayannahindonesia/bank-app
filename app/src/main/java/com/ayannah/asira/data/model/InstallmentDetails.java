@@ -23,10 +23,10 @@ public class InstallmentDetails implements Parcelable {
     private int period;
 
     @SerializedName("loan_payment")
-    private int loanPayment;
+    private double loanPayment;
 
     @SerializedName("interest_payment")
-    private int interesetPayment;
+    private double interesetPayment;
 
     @SerializedName("paid_date")
     private String paidDate;
@@ -35,19 +35,48 @@ public class InstallmentDetails implements Parcelable {
     private boolean paidStatus;
 
     @SerializedName("paid_amount")
-    private int paidAmount;
+    private double paidAmount;
 
     @SerializedName("underpayment")
-    private int underpayment;
+    private double underpayment;
 
     @SerializedName("penalty")
-    private int penalty;
+    private double penalty;
 
     @SerializedName("due_date")
     private String dueDate;
 
     @SerializedName("note")
     private String note;
+
+    protected InstallmentDetails(Parcel in) {
+        id = in.readInt();
+        createdAt = in.readString();
+        updatedAt = in.readString();
+        deletedAt = in.readString();
+        period = in.readInt();
+        loanPayment = in.readDouble();
+        interesetPayment = in.readDouble();
+        paidDate = in.readString();
+        paidStatus = in.readByte() != 0;
+        paidAmount = in.readDouble();
+        underpayment = in.readDouble();
+        penalty = in.readDouble();
+        dueDate = in.readString();
+        note = in.readString();
+    }
+
+    public static final Creator<InstallmentDetails> CREATOR = new Creator<InstallmentDetails>() {
+        @Override
+        public InstallmentDetails createFromParcel(Parcel in) {
+            return new InstallmentDetails(in);
+        }
+
+        @Override
+        public InstallmentDetails[] newArray(int size) {
+            return new InstallmentDetails[size];
+        }
+    };
 
     public int getId() {
         return id;
@@ -69,11 +98,11 @@ public class InstallmentDetails implements Parcelable {
         return period;
     }
 
-    public int getLoanPayment() {
+    public double getLoanPayment() {
         return loanPayment;
     }
 
-    public int getInteresetPayment() {
+    public double getInteresetPayment() {
         return interesetPayment;
     }
 
@@ -85,15 +114,15 @@ public class InstallmentDetails implements Parcelable {
         return paidStatus;
     }
 
-    public int getPaidAmount() {
+    public double getPaidAmount() {
         return paidAmount;
     }
 
-    public int getUnderpayment() {
+    public double getUnderpayment() {
         return underpayment;
     }
 
-    public int getPenalty() {
+    public double getPenalty() {
         return penalty;
     }
 
@@ -103,23 +132,6 @@ public class InstallmentDetails implements Parcelable {
 
     public String getNote() {
         return note;
-    }
-
-    private InstallmentDetails(Parcel in){
-        id = in.readInt();
-        createdAt = in.readString();
-        updatedAt = in.readString();
-        deletedAt = in.readString();
-        period = in.readInt();
-        loanPayment = in.readInt();
-        interesetPayment = in.readInt();
-        paidDate = in.readString();
-        paidStatus = in.readByte() != 0;
-        paidAmount = in.readInt();
-        underpayment = in.readInt();
-        penalty = in.readInt();
-        dueDate = in.readString();
-        note = in.readString();
     }
 
     @Override
@@ -134,27 +146,14 @@ public class InstallmentDetails implements Parcelable {
         dest.writeString(updatedAt);
         dest.writeString(deletedAt);
         dest.writeInt(period);
-        dest.writeInt(loanPayment);
-        dest.writeInt(interesetPayment);
+        dest.writeDouble(loanPayment);
+        dest.writeDouble(interesetPayment);
         dest.writeString(paidDate);
         dest.writeByte((byte) (paidStatus ? 1 : 0));
-        dest.writeInt(paidAmount);
-        dest.writeInt(underpayment);
-        dest.writeInt(penalty);
+        dest.writeDouble(paidAmount);
+        dest.writeDouble(underpayment);
+        dest.writeDouble(penalty);
         dest.writeString(dueDate);
         dest.writeString(note);
     }
-
-
-    public static final Creator<InstallmentDetails> CREATOR = new Creator<InstallmentDetails>() {
-        @Override
-        public InstallmentDetails createFromParcel(Parcel in) {
-            return new InstallmentDetails(in);
-        }
-
-        @Override
-        public InstallmentDetails[] newArray(int size) {
-            return new InstallmentDetails[size];
-        }
-    };
 }

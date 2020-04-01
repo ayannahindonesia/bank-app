@@ -48,7 +48,7 @@ public class DetailPembayaranFragment extends BaseFragment {
 
     private void setUpValue(InstallmentDetails param) {
 
-        tvAmount.setText(CommonUtils.setRupiahCurrency(param.getLoanPayment()));
+        tvAmount.setText(CommonUtils.setRupiahCurrency((int) param.getLoanPayment()));
 
         if(param.isPaidStatus()){
             tvStatus.setBackgroundResource(R.drawable.bg_status_approve);
@@ -64,11 +64,11 @@ public class DetailPembayaranFragment extends BaseFragment {
 
         tvDueDate.setText(CommonUtils.formatDateBirth(param.getDueDate()));
 
-        tvCicilan.setText(CommonUtils.setRupiahCurrency(param.getLoanPayment()));
+        tvCicilan.setText(CommonUtils.setRupiahCurrency((int) param.getLoanPayment()));
 
-        tvPenalty.setText(CommonUtils.setRupiahCurrency(param.getPenalty()));
+        tvPenalty.setText(CommonUtils.setRupiahCurrency((int) param.getPenalty()));
 
-        tvAmountPay.setText(CommonUtils.setRupiahCurrency(param.getPaidAmount()));
+        tvAmountPay.setText(CommonUtils.setRupiahCurrency((int) param.getPaidAmount()));
 
         if(param.getPaidDate() != null) {
             tvDatetimePay.setText(CommonUtils.formatDateBirth(param.getPaidDate()));

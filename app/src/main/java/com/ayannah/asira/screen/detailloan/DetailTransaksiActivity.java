@@ -130,7 +130,8 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
     MaterialButton btnDetailAngsuran;
 
     private Unbinder mUnbinder;
-    
+    private AlertDialog dialog;
+
     int calculateTotalBiaya = 0;
     int idLoan = 0;
 
@@ -160,7 +161,13 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setTitle("Detil Pinjaman");
 
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(false);
+        builder.setView(R.layout.progress_bar);
+        dialog = builder.create();
+
         if(purpose.equals(FROMBORROWER)){
+            dialog.show();
 
             mPresenter.getInformationLoan(id_loan);
             btnDetailAngsuran.setVisibility(View.VISIBLE);
@@ -176,11 +183,13 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
 
     @Override
     public void showErrorMessage(String message) {
+        dialog.dismiss();
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void loadAllInformation(DataItem dataItem) {
+        dialog.dismiss();
         //            ServiceProductLocal serviceProductLocal = new ServiceProductLocal(getBaseContext());
 //            JSONArray jsonArray1 = new JSONArray(serviceProductLocal.getServiceProducts());
 //            for (int j = 0; j < jsonArray1.length(); j++) {
@@ -283,6 +292,7 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
 
     @Override
     public void showResultLoanOnProcess(boolean isExist) {
+        dialog.dismiss();
 
         /*
         Jika ada loan yang statusnya masih processing, maka tidak bisa mengajukan ulang loan yang telah dipilih.

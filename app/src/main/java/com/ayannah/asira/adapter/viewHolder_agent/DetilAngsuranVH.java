@@ -38,7 +38,7 @@ public class DetilAngsuranVH extends RecyclerView.ViewHolder {
 
     public void bind(InstallmentDetails param){
 
-        tvTotal.setText(CommonUtils.setRupiahCurrency(param.getLoanPayment()));
+        tvTotal.setText(CommonUtils.setRupiahCurrency((int) param.getLoanPayment()));
 
         if(param.isPaidStatus()){
             tvStatus.setBackgroundResource(R.drawable.bg_status_approve);
