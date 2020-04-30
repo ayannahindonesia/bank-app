@@ -131,7 +131,6 @@ public class VerificationOTPFragment extends BaseFragment implements Verificatio
         otpView.setOtpCompletionListener(new OnOtpCompletionListener() {
             @Override
             public void onOtpCompleted(String otp) {
-                countDownTimer.cancel();
                 hideKeyboard(parentActivity());
 
                 dialog.show();
@@ -299,7 +298,7 @@ public class VerificationOTPFragment extends BaseFragment implements Verificatio
 
     @Override
     public void successVerifyLoan() {
-
+        countDownTimer.cancel();
         dialog.dismiss();
 
         Intent intent = new Intent(parentActivity(), SuccessActivity.class);
@@ -350,7 +349,7 @@ public class VerificationOTPFragment extends BaseFragment implements Verificatio
 
     @Override
     public void successCreateBorrower() {
-
+        countDownTimer.cancel();
         dialog.dismiss();
 
         Intent intent = new Intent(parentActivity(), LPAgentActivity.class);

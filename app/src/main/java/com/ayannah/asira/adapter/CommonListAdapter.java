@@ -610,7 +610,7 @@ public class CommonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         private void bind(DataItem param){
 
-            amount.setText(CommonUtils.setRupiahCurrency(param.getLoanAmount()));
+            amount.setText(CommonUtils.setRupiahCurrency(Math.round(param.getLoanAmount())));
 
             typeLoan.setText(param.getProductName());
 
