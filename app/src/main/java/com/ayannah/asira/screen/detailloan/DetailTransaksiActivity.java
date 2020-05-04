@@ -190,7 +190,7 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
     @Override
     public void loadAllInformation(DataItem dataItem) {
         dialog.dismiss();
-        //            ServiceProductLocal serviceProductLocal = new ServiceProductLocal(getBaseContext());
+//            ServiceProductLocal serviceProductLocal = new ServiceProductLocal(getBaseContext());
 //            JSONArray jsonArray1 = new JSONArray(serviceProductLocal.getServiceProducts());
 //            for (int j = 0; j < jsonArray1.length(); j++) {
 //                JSONObject jsonObject2 = new JSONObject(String.valueOf(jsonArray1.get(j)));
@@ -200,11 +200,12 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
 //                }
 //            }
 
-        if(purpose.equals(FROMBORROWER)){
-
-            installmentDetails.addAll(dataItem.getInstallmentDetails());
-
-        }
+//        if(purpose.equals(FROMBORROWER)){
+//
+        installmentDetails.clear();
+        installmentDetails.addAll(dataItem.getInstallmentDetails());
+//
+//        }
 
         tvLoanAmount.setText(CommonUtils.setRupiahCurrency(dataItem.getLoanAmount()));
 
