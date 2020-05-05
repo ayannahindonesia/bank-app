@@ -31,17 +31,17 @@ public class DetailAngsuranPresenter implements DetailAngsuranContract.Presenter
         double amountPage = totalRows/12; //per halaman hanya akan menampilkan 12 record
 
         //jika hasil dari amount page adalah desimal, maka amount page + 1
-        if(amountPage % totalRows != 0){
+        if(totalRows % 12 != 0){
             amountPage++;
         }
         int page = (int)amountPage;
 
         int rows = results.size();
         int latestIndex = 0;
-        for(int i=1; i < page; i++){
+        for(int i=0; i < page; i++){
 
             Angsuran data = new Angsuran();
-            data.setPage(String.valueOf(i));
+            data.setPage(String.valueOf(i+1));
 
             ArrayList<InstallmentDetails> records = new ArrayList<>();
             for(int j = latestIndex; j < rows; j++){
