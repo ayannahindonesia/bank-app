@@ -251,14 +251,14 @@ public class LoanAgentFragment extends BaseFragment implements LoanAgentContract
 
             createTableAngsuran(interest, loanAmount, installmentTenor, administration, interestType, feeType);
 
-            biayaAdmin.setText(CommonUtils.setRupiahCurrency((int) Math.round(administration)));
+            biayaAdmin.setText(CommonUtils.setRupiahCurrency((int) Math.ceil(administration)));
             if (arInstallments.get(0).getAngsuranPerBulan() == null) {
                 tvAngsuran.setText(Html.fromHtml("<u>Lihat Tabel</u>"));
                 tvAngsuran.setTextColor(getResources().getColor(R.color.textColorAsira));
                 arInstallments.remove(0);
                 tvAngsuran.setClickable(true);
             } else {
-                tvAngsuran.setText(CommonUtils.setRupiahCurrency((int) Math.round(Double.parseDouble(arInstallments.get(0).getAngsuranPerBulan()))));
+                tvAngsuran.setText(CommonUtils.setRupiahCurrency((int) Math.ceil(Double.parseDouble(arInstallments.get(0).getAngsuranPerBulan()))));
                 tvAngsuran.setTextColor(getResources().getColor(R.color.textColorAsiraGrey));
                 tvAngsuran.setClickable(false);
             }

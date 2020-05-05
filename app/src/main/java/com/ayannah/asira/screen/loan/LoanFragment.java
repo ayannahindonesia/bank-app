@@ -238,14 +238,14 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
 
             createTableAngsuran(interest, loanAmount, installmentTenor, administration, interestType, feeType);
 
-            biayaAdmin.setText(CommonUtils.setRupiahCurrency((int) Math.round(administration)));
+            biayaAdmin.setText(CommonUtils.setRupiahCurrency((int) administration));
             if (arInstallments.get(0).getAngsuranPerBulan() == null) {
                 tvAngsuran.setText(Html.fromHtml("<u>Lihat Tabel</u>"));
                 tvAngsuran.setTextColor(getResources().getColor(R.color.textColorAsira));
                 arInstallments.remove(0);
                 tvAngsuran.setClickable(true);
             } else {
-                tvAngsuran.setText(CommonUtils.setRupiahCurrency((int) Math.round(Double.parseDouble(arInstallments.get(0).getAngsuranPerBulan()))));
+                tvAngsuran.setText(CommonUtils.setRupiahCurrency((int) Double.parseDouble(arInstallments.get(0).getAngsuranPerBulan())));
                 tvAngsuran.setTextColor(getResources().getColor(R.color.textColorAsiraGrey));
                 tvAngsuran.setClickable(false);
             }
@@ -272,7 +272,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
         switch (type) {
             case "flat": {
                 int interestLoc = calculateInterest(loanAmount, installmentTenor, interest, type);
-                double cicilanPokokPinjaman = loanAmount / installmentTenor;
+                double cicilanPokokPinjaman = Math.ceil(loanAmount / installmentTenor);
                 double ansuranPerBulan = calculateAngsuranPerBulan(interestLoc, cicilanPokokPinjaman, administration, installmentTenor, feeDeducted, feeCharged, type);
 
                 Installments installmentsFlat = new Installments();
@@ -299,7 +299,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
                 break;
             }
             case "efektif_menurun": {
-                double cicilanPokokPinjaman = loanAmount / installmentTenor;
+                double cicilanPokokPinjaman = Math.ceil(loanAmount / installmentTenor);
 
                 Installments installmentsFixed = new Installments();
                 installmentsFixed.setAngsuranPerBulan(null);
@@ -348,15 +348,15 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
     }
 
     private double calculateAngsuranPerBulan(double interestLoc, double cicilanPokokPinjaman, int administration, int installmentTenor, int feeDeductedLoc, int feeChargedLoc, String type) {
-        return interestLoc + cicilanPokokPinjaman + ((double) feeChargedLoc/installmentTenor);
+        return interestLoc + cicilanPokokPinjaman + Math.ceil(feeChargedLoc/installmentTenor);
     }
 
     private int calculateInterest(int loanAmount, int installmentTenor, double interest, String type) {
 
         if (type.equals("flat")) {
-            return (int) (loanAmount*interest/100/12);
+            return (int) (Math.ceil(loanAmount*interest/100/12));
         } else if (type.equals("onetimepay")) {
-            return (int) (loanAmount*interest/100);
+            return (int) (Math.ceil(loanAmount*interest/100/12));
         } else {
             return 0;
         }
@@ -913,7 +913,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
 
     private double AngsuranPerBulanOneTimePay(double interest, int loanAmount, int installmentTenor) {
         double interestLoc = loanAmount*interest/100;
-        return (loanAmount + interestLoc + feeCharged)/installmentTenor;
+        return Math.ceil((loanAmount + interestLoc + feeCharged)/installmentTenor);
 
     }
 

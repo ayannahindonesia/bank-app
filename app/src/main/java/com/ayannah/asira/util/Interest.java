@@ -13,14 +13,14 @@ public class Interest {
 
         double pvif = Math.pow(1+rate, nper);
 
-        return rate / (pvif - 1) * -(pv*pvif + fv);
+        return Math.ceil(rate / (pvif - 1) * -(pv*pvif + fv));
     }
 
     //IPMT
     public static double IPMT(double pv, double pmt, double rate, double per) {
 
         double tmp = Math.pow(1+rate, per);
-        return 0 - (pv*tmp*rate + pmt*(tmp-1));
+        return Math.ceil(0 - (pv*tmp*rate + pmt*(tmp-1)));
 
     }
 
