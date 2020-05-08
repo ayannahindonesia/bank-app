@@ -91,9 +91,6 @@ dependencies {
     //easy permission
     implementation "pub.devrel:easypermissions:$easyPermission"
 
-    //easy image
-    implementation "com.github.jkwiecien:EasyImage:$easyImage"
-
     //single datepicker
     implementation "com.github.florent37:singledateandtimepicker:$datepicker"
 
