@@ -4,9 +4,13 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Parcelable;
+import android.provider.MediaStore;
 import android.text.Html;
 import android.util.Base64;
 import android.util.Log;
@@ -31,6 +35,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.FileProvider;
 
 import com.ayannah.asira.R;
 import com.ayannah.asira.custom.PlafondEditText;
@@ -40,20 +45,28 @@ import com.ayannah.asira.data.model.Installments;
 import com.ayannah.asira.data.model.Products;
 import com.ayannah.asira.data.model.ReasonLoan;
 import com.ayannah.asira.data.model.ServiceProducts;
+import com.ayannah.asira.data.model.TmpImage;
 import com.ayannah.asira.dialog.DialogTableInstallment;
 import com.ayannah.asira.screen.summary.SummaryTransactionActivity;
 import com.ayannah.asira.base.BaseFragment;
 import com.ayannah.asira.util.CommonUtils;
 import com.ayannah.asira.util.Interest;
 import com.ayannah.asira.util.NumberSeparatorTextWatcher;
+import com.bumptech.glide.Glide;
 import com.google.android.gms.common.util.ArrayUtils;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 import java.util.StringJoiner;
 
@@ -168,6 +181,10 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
     private List<FormDynamic> arrForm = new ArrayList<FormDynamic>();
     private ArrayList<FormDynamic> arrFormForSend = new ArrayList<FormDynamic>();
     private int imgID = 0;
+    private String currentPhotoPath;
+    private Uri photoURI;
+    private File photoFile;
+    private ArrayList<TmpImage> tmpImages;
 
     @Inject
     public LoanFragment(){}
@@ -187,6 +204,8 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
     @Override
     protected void initView(Bundle state) {
         mPresenter.takeView(this);
+
+        tmpImages = new ArrayList<>();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(parentActivity());
         builder.setCancelable(false);
@@ -852,15 +871,21 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
             } else {
                 for (int i=0; i<arrFormForSend.size(); i++) {
                     if (arrFormForSend.indexOf(arrFormForSend.get(i))+1 == iv.getId() && iv.getDrawable() != null) {
-                        Bitmap bitmap = ((BitmapDrawable)iv.getDrawable()).getBitmap();
+//                        Bitmap bitmap = ((BitmapDrawable)iv.getDrawable()).getBitmap();
+//
+//                        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+//                        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+//                        byte[] byteArray = byteArrayOutputStream .toByteArray();
+//
+//                        String pict64 = Base64.encodeToString(byteArray, Base64.NO_WRAP);
 
-                        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-                        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
-                        byte[] byteArray = byteArrayOutputStream .toByteArray();
-
-                        String pict64 = Base64.encodeToString(byteArray, Base64.NO_WRAP);
-
-                        arrFormForSend.get(i).setAnswers(pict64);
+                        for (int j=0; j<tmpImages.size(); j++) {
+                            if (tmpImages.get(j).getImgId() == imgID) {
+                                arrFormForSend.get(i).setAnswers(tmpImages.get(j).getValBase64());
+                                break;
+                            }
+                        }
+                        break;
                     }
                 }
             }
@@ -1063,8 +1088,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
             @Override
             public void onClick(View v) {
                 imgID = index;
-                Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-                startActivityForResult(intent, 1);
+                openCamera(1, iv.getId());
             }
         });
 
@@ -1079,14 +1103,86 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK && requestCode == 1) {
-            Bundle extras = data.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
+//            Bundle extras = data.getExtras();
+//            Bitmap imageBitmap = (Bitmap) extras.get("data");
             for (int i=0; i<allIVs.size(); i++) {
                 if (allIVs.get(i).getId() == imgID) {
-                    allIVs.get(i).setImageBitmap(imageBitmap);
+                    BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+                    Bitmap bitmap = BitmapFactory.decodeFile(currentPhotoPath,bmOptions);
+
+                    allIVs.get(i).setImageBitmap(bitmap);
+                    TmpImage ti = new TmpImage();
+                    ti.setImgId(imgID);
+                    ti.setValBase64(encodeImage(currentPhotoPath));
+                    for (int j=0; j<tmpImages.size(); j++) {
+                        if (tmpImages.get(j).getImgId() == imgID) {
+                            tmpImages.remove(tmpImages.get(j));
+                            break;
+                        }
+                    }
+                    tmpImages.add(ti);
+                    break;
                 }
             }
             imgID = 0;
         }
+    }
+
+    private void openCamera(int type, int id) {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(parentActivity().getPackageManager()) != null) {
+            File photoFile = null;
+            try {
+                photoFile = createImageFile(id);
+            } catch (IOException ex) {
+                // Error occurred while creating the File
+                Log.d("createImage", ex.getMessage());
+            }
+
+            if (photoFile != null) {
+                photoURI = FileProvider.getUriForFile(parentActivity(),
+                        "com.ayannah.asira.fileprovider",
+                        photoFile);
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                startActivityForResult(takePictureIntent, type);
+            }
+        }
+    }
+
+
+
+    private File createImageFile(int id) throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + id + "_";
+        File storageDir = parentActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        photoFile = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+
+        // Save a file: path for use with ACTION_VIEW intents
+        currentPhotoPath = photoFile.getAbsolutePath();
+        return photoFile;
+    }
+
+    private String encodeImage(String path)
+    {
+        File imagefile = new File(path);
+        FileInputStream fis = null;
+        try{
+            fis = new FileInputStream(imagefile);
+        }catch(FileNotFoundException e){
+            e.printStackTrace();
+        }
+        Bitmap bm = BitmapFactory.decodeStream(fis);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bm.compress(Bitmap.CompressFormat.JPEG,60,baos);
+        byte[] b = baos.toByteArray();
+        String encImage = Base64.encodeToString(b, Base64.NO_WRAP);
+        //Base64.de
+        return encImage;
+
     }
 }
