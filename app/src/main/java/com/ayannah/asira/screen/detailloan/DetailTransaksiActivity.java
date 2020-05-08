@@ -7,6 +7,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -280,7 +281,15 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
 
         fees.setText(CommonUtils.setRupiahCurrency(calculateAdministration_v2(dataItem.getLoanAmount(), dataItem.getFees())));
 
-        angsuran.setText(CommonUtils.setRupiahCurrency((int) Math.ceil(dataItem.getLayawayPlan())));
+        if (dataItem.getLayawayPlan() == 0) {
+            angsuran.setText(Html.fromHtml("<u>Lihat Tabel</u>"));
+            angsuran.setTextColor(getResources().getColor(R.color.textColorAsira));
+            angsuran.setEnabled(true);
+        } else {
+            angsuran.setText(CommonUtils.setRupiahCurrency((int) Math.ceil(dataItem.getLayawayPlan())));
+            angsuran.setTextColor(getResources().getColor(R.color.customBlack));
+            angsuran.setEnabled(false);
+        }
 
         totalBiaya.setText(CommonUtils.setRupiahCurrency(calculateTotalBiaya));
 
@@ -351,7 +360,7 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
 
     }
 
-    @OnClick(R.id.detailAngsuran)
+    @OnClick({R.id.detailAngsuran, R.id.angsuran})
     void onClickDetailAngsuran(){
 
         Intent intent = new Intent(this, DetailAngsuranActivity.class);
