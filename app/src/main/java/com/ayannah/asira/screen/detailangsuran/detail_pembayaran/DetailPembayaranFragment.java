@@ -48,7 +48,7 @@ public class DetailPembayaranFragment extends BaseFragment {
 
     private void setUpValue(InstallmentDetails param) {
 
-        tvAmount.setText(CommonUtils.setRupiahCurrency((int) Math.ceil(param.getLoanPayment())));
+        tvAmount.setText(CommonUtils.setRupiahCurrency((int) Math.ceil(param.getLoanPayment() + param.getInteresetPayment() + param.getPenalty())));
 
         if(param.isPaidStatus()){
             tvStatus.setBackgroundResource(R.drawable.bg_status_approve);
