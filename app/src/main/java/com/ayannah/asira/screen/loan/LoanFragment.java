@@ -291,7 +291,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
         switch (type) {
             case "flat": {
                 int interestLoc = calculateInterest(loanAmount, installmentTenor, interest, type);
-                double cicilanPokokPinjaman = Math.ceil(loanAmount / installmentTenor);
+                double cicilanPokokPinjaman = loanAmount / installmentTenor;
                 double ansuranPerBulan = calculateAngsuranPerBulan(interestLoc, cicilanPokokPinjaman, administration, installmentTenor, feeDeducted, feeCharged, type);
 
                 Installments installmentsFlat = new Installments();
@@ -318,7 +318,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
                 break;
             }
             case "efektif_menurun": {
-                double cicilanPokokPinjaman = Math.ceil(loanAmount / installmentTenor);
+                double cicilanPokokPinjaman = loanAmount / installmentTenor;
 
                 Installments installmentsFixed = new Installments();
                 installmentsFixed.setAngsuranPerBulan(null);
@@ -367,15 +367,15 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
     }
 
     private double calculateAngsuranPerBulan(double interestLoc, double cicilanPokokPinjaman, int administration, int installmentTenor, int feeDeductedLoc, int feeChargedLoc, String type) {
-        return interestLoc + cicilanPokokPinjaman + Math.ceil(feeChargedLoc/installmentTenor);
+        return interestLoc + cicilanPokokPinjaman + feeChargedLoc/installmentTenor;
     }
 
     private int calculateInterest(int loanAmount, int installmentTenor, double interest, String type) {
 
         if (type.equals("flat")) {
-            return (int) (Math.ceil(loanAmount*interest/100/12));
+            return (int) (loanAmount*interest/100/12);
         } else if (type.equals("onetimepay")) {
-            return (int) (Math.ceil(loanAmount*interest/100/12));
+            return (int) (loanAmount*interest/100/12);
         } else {
             return 0;
         }
@@ -938,7 +938,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
 
     private double AngsuranPerBulanOneTimePay(double interest, int loanAmount, int installmentTenor) {
         double interestLoc = loanAmount*interest/100;
-        return Math.ceil((loanAmount + interestLoc + feeCharged)/installmentTenor);
+        return (loanAmount + interestLoc + feeCharged)/installmentTenor;
 
     }
 
