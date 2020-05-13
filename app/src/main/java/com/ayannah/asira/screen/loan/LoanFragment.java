@@ -880,7 +880,7 @@ public class LoanFragment extends BaseFragment implements LoanContract.View {
 //                        String pict64 = Base64.encodeToString(byteArray, Base64.NO_WRAP);
 
                         for (int j=0; j<tmpImages.size(); j++) {
-                            if (tmpImages.get(j).getImgId() == imgID) {
+                            if (tmpImages.get(j).getImgId() == iv.getId()) {
                                 arrFormForSend.get(i).setAnswers(tmpImages.get(j).getValBase64());
                                 break;
                             }

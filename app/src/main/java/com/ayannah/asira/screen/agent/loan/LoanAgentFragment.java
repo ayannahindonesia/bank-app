@@ -862,7 +862,7 @@ public class LoanAgentFragment extends BaseFragment implements LoanAgentContract
                 for (int i=0; i<arrFormForSend.size(); i++) {
                     if (arrFormForSend.indexOf(arrFormForSend.get(i))+1 == iv.getId()) {
                         for (int j=0; j<tmpImages.size(); j++) {
-                            if (tmpImages.get(j).getImgId() == imgID) {
+                            if (tmpImages.get(j).getImgId() == iv.getId()) {
                                 arrFormForSend.get(i).setAnswers(tmpImages.get(j).getValBase64());
                                 break;
                             }
