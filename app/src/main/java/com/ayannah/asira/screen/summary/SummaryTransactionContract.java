@@ -30,5 +30,7 @@ public interface SummaryTransactionContract {
         void requestOTPForLoanAgent(String id_loan);
 
         void requestOTPPersonal(boolean isPersonal, int percobaan);
+
+        String getFormInfoLocal();
     }
 }

@@ -151,11 +151,4 @@ public abstract class SummaryTransactionModule {
     static ArrayList<Installments> installments(SummaryTransactionActivity activity) {
         return activity.getIntent().getParcelableArrayListExtra(INSTALLMENT);
     }
-
-    @Provides
-    @ActivityScoped
-    @Named("form_info")
-    static ArrayList<FormDynamic> formDynamics(SummaryTransactionActivity activity) {
-        return activity.getIntent().getParcelableArrayListExtra(FORMINFO);
-    }
 }

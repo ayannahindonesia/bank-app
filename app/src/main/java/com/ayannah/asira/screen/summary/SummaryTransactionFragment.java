@@ -137,11 +137,8 @@ public class SummaryTransactionFragment extends BaseFragment implements SummaryT
     @Named("installment")
     ArrayList<Installments> installments;
 
-    @Inject
-    @Named("form_info")
-    ArrayList<FormDynamic> formDynamics;
-
     private Validator validator;
+    private String forminfoString = "";
 
     @Inject
     public SummaryTransactionFragment(){}
@@ -155,6 +152,7 @@ public class SummaryTransactionFragment extends BaseFragment implements SummaryT
     public void onResume() {
         super.onResume();
         mPresenter.takeView(this);
+        forminfoString = mPresenter.getFormInfoLocal();
     }
 
     @Override
@@ -339,7 +337,7 @@ public class SummaryTransactionFragment extends BaseFragment implements SummaryT
 
         json.addProperty("product", productid);
         json.addProperty("service", layanan);
-        json.addProperty("form_info", new Gson().toJson(formDynamics));
+        json.addProperty("form_info", forminfoString);
 
         if (borrowerID != 0) {
             mPresenter.postLoanAgent(json);

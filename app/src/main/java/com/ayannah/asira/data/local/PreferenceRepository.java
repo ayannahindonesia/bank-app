@@ -315,4 +315,8 @@ public interface PreferenceRepository {
     void setPrefImageProfileBorrower(String imgProfile);
 
     String getPrefImageProfileBorrower();
+
+    void setFormInfoLocal(String formInfoLocal);
+
+    String getFormInfoLocal();
 }

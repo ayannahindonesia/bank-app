@@ -111,6 +111,7 @@ public class PreferenceDataSource implements PreferenceRepository {
     private static final String PREF_AGENT_SECONDARY_INCOME_BORROWER = "PREF_AGENT_SECONDARY_INCOME_BORROWER";
     private static final String PREF_AGENT_OTHER_INCOME_BORROWER = "PREF_AGENT_OTHER_INCOME_BORROWER";
 
+    private static final String PREF_FORM_INFO = "FORM_INFO_LOCAL";
 
     @Inject
     public PreferenceDataSource(Application application){
@@ -965,6 +966,16 @@ public class PreferenceDataSource implements PreferenceRepository {
     @Override
     public String getPrefImageProfileBorrower() {
         return mPreferences.getString(PREF_IMAGE_PROFILE_BORROWER, "");
+    }
+
+    @Override
+    public void setFormInfoLocal(String formInfoLocal) {
+        mPreferences.edit().putString(PREF_FORM_INFO, formInfoLocal).apply();
+    }
+
+    @Override
+    public String getFormInfoLocal() {
+        return mPreferences.getString(PREF_FORM_INFO, "");
     }
 
 }

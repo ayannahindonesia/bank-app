@@ -65,7 +65,9 @@ public class SummaryTransactionPresenter implements SummaryTransactionContract.P
                         createLoan(json);
                     }
 
-                }, error -> mView.showErrorMessages(CommonUtils.commonErrorFormat(error))));
+                }, error -> {
+                    mView.showErrorMessages(CommonUtils.commonErrorFormat(error));
+                }));
 
 
     }
@@ -229,5 +231,10 @@ public class SummaryTransactionPresenter implements SummaryTransactionContract.P
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe());
 
+    }
+
+    @Override
+    public String getFormInfoLocal() {
+        return preferenceRepository.getFormInfoLocal();
     }
 }
