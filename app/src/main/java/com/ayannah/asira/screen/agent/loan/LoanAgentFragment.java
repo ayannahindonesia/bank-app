@@ -824,7 +824,8 @@ public class LoanAgentFragment extends BaseFragment implements LoanAgentContract
         intent.putExtra(SummaryTransactionActivity.TUJUAN, etTujuan.getText().toString());
         intent.putExtra(SummaryTransactionActivity.LAYANAN, bundle.getInt("idService"));
         intent.putExtra(SummaryTransactionActivity.INSTALLMENT, arInstallments);
-        intent.putExtra(SummaryTransactionActivity.FORMINFO, arrFormForSend);
+        mPresenter.setFormInfoToLocal(arrFormForSend);
+//        intent.putExtra(SummaryTransactionActivity.FORMINFO, arrFormForSend);
         startActivity(intent);
 
     }
@@ -1158,7 +1159,7 @@ public class LoanAgentFragment extends BaseFragment implements LoanAgentContract
         }
         Bitmap bm = BitmapFactory.decodeStream(fis);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bm.compress(Bitmap.CompressFormat.JPEG,60,baos);
+        bm.compress(Bitmap.CompressFormat.JPEG,40,baos);
         byte[] b = baos.toByteArray();
         String encImage = Base64.encodeToString(b, Base64.NO_WRAP);
         //Base64.de

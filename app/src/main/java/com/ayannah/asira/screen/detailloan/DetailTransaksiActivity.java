@@ -176,7 +176,7 @@ public class DetailTransaksiActivity extends DaggerAppCompatActivity implements 
         }else {
 
             btnDetailAngsuran.setVisibility(View.VISIBLE);
-            loadAllInformation(loanDetails);
+            mPresenter.getInformationLoanAgent(id_loan);
 
         }
 

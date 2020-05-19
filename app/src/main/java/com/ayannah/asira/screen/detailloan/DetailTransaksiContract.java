@@ -22,5 +22,6 @@ public interface DetailTransaksiContract {
 
         void checkLoanOnProcess();
 
+        void getInformationLoanAgent(String id_loan);
     }
 }

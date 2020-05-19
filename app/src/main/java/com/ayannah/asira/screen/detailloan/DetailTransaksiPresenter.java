@@ -105,6 +105,35 @@ public class DetailTransaksiPresenter implements DetailTransaksiContract.Present
     }
 
     @Override
+    public void getInformationLoanAgent(String id_loan) {
+        if (mView == null){
+            return;
+        }
+
+        mComposite.add(remotRepo.getLoanDetailsAgent(id_loan)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(res -> {
+
+                    mView.loadAllInformation(res);
+
+                }, error -> {
+
+                    ANError anError = (ANError) error;
+                    if(anError.getErrorDetail().equals(ANConstants.CONNECTION_ERROR)){
+                        mView.showErrorMessage("Connection Error");
+                    }else {
+
+                        if(anError.getErrorBody() != null){
+
+                            JSONObject jsonObject = new JSONObject(anError.getErrorBody());
+                            mView.showErrorMessage(jsonObject.optString("message"));
+                        }
+                    }
+                }));
+    }
+
+    @Override
     public void takeView(DetailTransaksiContract.View view) {
 
         mView = view;

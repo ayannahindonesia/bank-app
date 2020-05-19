@@ -134,4 +134,6 @@ public interface RemoteRepository {
     Single<BankService> getAllServices();
 
     Single<Question> faq(String query);
+
+    Single<DataItem> getLoanDetailsAgent(String idLoan);
 }

@@ -5,8 +5,12 @@ import android.app.Application;
 import androidx.annotation.Nullable;
 
 import com.ayannah.asira.data.local.PreferenceRepository;
+import com.ayannah.asira.data.model.FormDynamic;
 import com.ayannah.asira.data.remote.RemoteRepository;
 import com.ayannah.asira.util.CommonUtils;
+import com.google.gson.Gson;
+
+import java.util.ArrayList;
 
 import javax.inject.Inject;
 
@@ -76,5 +80,10 @@ public class LoanAgentPresenter implements LoanAgentContract.Presenter {
 
                 }, error -> mView.showErrorMessage(CommonUtils.commonErrorFormat(error))));
 
+    }
+
+    @Override
+    public void setFormInfoToLocal(ArrayList<FormDynamic> arrFormForSend) {
+        preferenceRepository.setFormInfoLocal(new Gson().toJson(arrFormForSend));
     }
 }
