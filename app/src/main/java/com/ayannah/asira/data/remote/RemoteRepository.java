@@ -136,4 +136,6 @@ public interface RemoteRepository {
     Single<Question> faq(String query);
 
     Single<DataItem> getLoanDetailsAgent(String idLoan);
+
+    Single<CheckAccount> requestDelete(JsonObject request);
 }

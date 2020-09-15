@@ -28,6 +28,7 @@ public class PreferenceDataSource implements PreferenceRepository {
     private static final String PREF_IS_AGENT_LOGGED = "AGENT_IS_LOGIN";
 
     //user attributes
+    private static final String PREF_IS_DELETE_REQUESTED = "IS_DELETE_REQUESTED";
     private static final String PREF_ID_USER = "ID_USER";
     private static final String PREF_USER_NAME = "USER_NAME";
     private static final String PREF_USER_GEMDER = "GENDER";
@@ -976,6 +977,16 @@ public class PreferenceDataSource implements PreferenceRepository {
     @Override
     public String getFormInfoLocal() {
         return mPreferences.getString(PREF_FORM_INFO, "");
+    }
+
+    @Override
+    public void setDeleteRequested(boolean isDeleteRequested) {
+        mPreferences.edit().putBoolean(PREF_IS_DELETE_REQUESTED, isDeleteRequested).apply();
+    }
+
+    @Override
+    public boolean isDeleteRequested() {
+        return mPreferences.getBoolean(PREF_IS_DELETE_REQUESTED, false);
     }
 
 }

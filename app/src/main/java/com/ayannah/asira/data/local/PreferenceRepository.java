@@ -319,4 +319,8 @@ public interface PreferenceRepository {
     void setFormInfoLocal(String formInfoLocal);
 
     String getFormInfoLocal();
+
+    void setDeleteRequested(boolean isDeleteRequested);
+
+    boolean isDeleteRequested();
 }

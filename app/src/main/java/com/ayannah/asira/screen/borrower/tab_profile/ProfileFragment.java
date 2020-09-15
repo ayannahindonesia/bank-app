@@ -8,7 +8,6 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,14 +17,10 @@ import androidx.core.content.ContextCompat;
 import com.ayannah.asira.R;
 import com.ayannah.asira.base.BaseFragment;
 import com.ayannah.asira.data.local.PreferenceRepository;
+import com.ayannah.asira.dialog.BottomInputPassword;
 import com.ayannah.asira.screen.borrower.login.LoginActivity;
-import com.ayannah.asira.screen.borrower.profile_menu.akunsaya.AkunSayaActivity;
-import com.ayannah.asira.screen.borrower.profile_menu.datapendukung.DataPendukungActivity;
-import com.ayannah.asira.screen.borrower.profile_menu.infokeuangan.InformasiKeuanganActivity;
-import com.ayannah.asira.screen.borrower.profile_menu.infopribadi.InfoPribadiActivity;
-import com.ayannah.asira.screen.chooselogin.ChooseLoginActivity;
 import com.ayannah.asira.util.CommonUtils;
-import com.ayannah.asira.util.ImageUtils;
+import com.google.gson.JsonObject;
 
 import java.io.ByteArrayOutputStream;
 
@@ -77,9 +72,9 @@ public class ProfileFragment extends BaseFragment implements ProfileContract.Vie
     }
 
     @Override
-    public void showErrorMessage(String message, int errorCode) {
+    public void showErrorMessage(String message) {
 
-        Toast.makeText(parentActivity(), String.format("%s (%s)", message, errorCode), Toast.LENGTH_SHORT).show();
+        Toast.makeText(parentActivity(), message, Toast.LENGTH_SHORT).show();
 
     }
 
@@ -171,6 +166,12 @@ public class ProfileFragment extends BaseFragment implements ProfileContract.Vie
     }
 
     @Override
+    public void successSentRequest(String message) {
+        Toast.makeText(parentActivity(), message, Toast.LENGTH_LONG).show();
+        mPresenter.doLogout();
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         mPresenter.dropView();
@@ -199,6 +200,30 @@ public class ProfileFragment extends BaseFragment implements ProfileContract.Vie
     @OnClick(R.id.contactUS)
     void contactUSClicked() {
         Toast.makeText(parentActivity(), "contactUS", Toast.LENGTH_SHORT).show();
+    }
+
+    @OnClick(R.id.btnDeleteAcc)
+    void requestDeleteClick() {
+        BottomInputPassword bottomInputPassword = new BottomInputPassword();
+        bottomInputPassword.showNow(parentActivity().getSupportFragmentManager(), "BottomDialogShow");
+        bottomInputPassword.setOnClickButtonListener(new BottomInputPassword.DialogInputPassListener() {
+            @Override
+            public void onClickYes(String pass) {
+                if (!pass.equals("")) {
+                    JsonObject request = new JsonObject();
+                    request.addProperty("password", pass);
+
+                    mPresenter.requestDeleteAccount(request);
+                } else {
+                    Toast.makeText(parentActivity(), "Masukan password Anda terlebih dahulu", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onClickNo() {
+                bottomInputPassword.dismiss();
+            }
+        });
     }
 
 }

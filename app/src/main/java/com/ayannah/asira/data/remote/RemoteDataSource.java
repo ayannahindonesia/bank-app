@@ -686,4 +686,14 @@ public class RemoteDataSource implements RemoteRepository {
                 .build()
                 .getObjectSingle(DataItem.class);
     }
+
+    @Override
+    public Single<CheckAccount> requestDelete(JsonObject request) {
+        return Rx2AndroidNetworking.post(BuildConfig.API_URL + "borrower/profile/delete_account")
+                .addHeaders("Authorization", preferenceRepository.getUserToken())
+                .addApplicationJsonBody(request)
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getObjectSingle(CheckAccount.class);
+    }
 }

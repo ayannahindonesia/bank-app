@@ -6,6 +6,7 @@ import com.androidnetworking.error.ANError;
 import com.ayannah.asira.data.local.PreferenceRepository;
 import com.ayannah.asira.data.remote.RemoteRepository;
 import com.ayannah.asira.util.CommonUtils;
+import com.google.gson.JsonObject;
 
 import javax.inject.Inject;
 
@@ -61,9 +62,27 @@ public class ProfilePresenter implements ProfileContract.Presenter {
                     preferenceRepository.clearAll();
                     mView.logoutComplete();
                     ANError anError = (ANError) error;
-                    mView.showErrorMessage("Terjadi kesalahan saat logout", anError.getErrorCode());
+                    mView.showErrorMessage("Terjadi kesalahan saat logout");
 
                 }));
+    }
+
+    @Override
+    public void requestDeleteAccount(JsonObject request) {
+        if(mView == null){
+            return;
+        }
+
+        mDisposable.add(remoteRepository.requestDelete(request)
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(res -> {
+            mView.successSentRequest(res.getMessage());
+//            preferenceRepository.setDeleteRequested(true);
+        }, err -> {
+            ANError anError = (ANError) err;
+            mView.showErrorMessage(err.getMessage());
+        }));
     }
 
     @Override
