@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -206,7 +207,14 @@ public class ProfileFragment extends BaseFragment implements ProfileContract.Vie
 
     @OnClick(R.id.contactUS)
     void contactUSClicked() {
-        Toast.makeText(parentActivity(), "contactUS", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(parentActivity(), "contactUS", Toast.LENGTH_SHORT).show();
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(parentActivity());
+        final View customLayout = getLayoutInflater().inflate(R.layout.dialog_contactus, null);
+        builder1.setView(customLayout);
+//        builder1.setCancelable(true);
+
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
     }
 
     @OnClick(R.id.btnDeleteAcc)
