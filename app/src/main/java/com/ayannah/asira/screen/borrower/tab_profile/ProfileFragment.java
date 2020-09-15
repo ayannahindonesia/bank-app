@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
@@ -18,6 +19,7 @@ import com.ayannah.asira.R;
 import com.ayannah.asira.base.BaseFragment;
 import com.ayannah.asira.data.local.PreferenceRepository;
 import com.ayannah.asira.dialog.BottomInputPassword;
+import com.ayannah.asira.screen.bantuan.BantuanActivity;
 import com.ayannah.asira.screen.borrower.login.LoginActivity;
 import com.ayannah.asira.util.CommonUtils;
 import com.google.gson.JsonObject;
@@ -189,12 +191,17 @@ public class ProfileFragment extends BaseFragment implements ProfileContract.Vie
 
     @OnClick(R.id.help)
     void helpClicked() {
-        Toast.makeText(parentActivity(), "help", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(parentActivity(), "help", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(parentActivity(), BantuanActivity.class);
+        startActivity(intent);
     }
 
     @OnClick(R.id.tnc)
     void tncClicked() {
-        Toast.makeText(parentActivity(), "tnc", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(parentActivity(), "tnc", Toast.LENGTH_SHORT).show();
+        Uri uri = Uri.parse("https://ayannah.co.id/#termConditions");
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        startActivity(intent);
     }
 
     @OnClick(R.id.contactUS)

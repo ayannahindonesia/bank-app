@@ -18,6 +18,7 @@ import com.ayannah.asira.base.BaseFragment;
 import com.ayannah.asira.screen.agent.lpagent.LPAgentActivity;
 import com.ayannah.asira.screen.borrower.borrower_landing_page.BorrowerLandingPage;
 import com.ayannah.asira.screen.borrower.login.LoginActivity;
+import com.ayannah.asira.screen.borrower.termscondition.TermsAndConditionActivity;
 import com.ayannah.asira.screen.otpphone.VerificationOTPActivity;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
@@ -35,6 +36,8 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.OnFocusChange;
 import butterknife.OnTextChanged;
+
+import static android.app.Activity.RESULT_OK;
 
 public class RegisterMandatoryFragment extends BaseFragment implements RegisterMandatoryContract.View, Validator.ValidationListener {
 
@@ -180,8 +183,20 @@ public class RegisterMandatoryFragment extends BaseFragment implements RegisterM
 
     @Override
     public void onValidationSucceeded() {
-        dialog.show();
-        mPresenter.getToken();
+//        dialog.show();
+        Intent intent = new Intent(parentActivity(), TermsAndConditionActivity.class);
+        startActivityForResult(intent, 1);
+//        mPresenter.getToken();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK)
+                dialog.show();
+                mPresenter.getToken();
+        }
     }
 
     @Override

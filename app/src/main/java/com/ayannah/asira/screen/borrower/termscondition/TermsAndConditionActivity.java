@@ -1,5 +1,6 @@
 package com.ayannah.asira.screen.borrower.termscondition;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
@@ -66,6 +67,19 @@ public class TermsAndConditionActivity extends AppCompatActivity {
                 } else {
                     btnTnc.setEnabled(false);
                 }
+            }
+        });
+
+        btnTnc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                if (tncCB.isChecked()) {
+                    setResult(RESULT_OK, intent);
+                } else {
+                    setResult(RESULT_CANCELED, intent);
+                }
+                finish();
             }
         });
 
