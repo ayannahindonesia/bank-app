@@ -25,5 +25,9 @@ public interface ProfileContract {
         void doLogout();
 
         void requestDeleteAccount(JsonObject jsonObject);
+
+        boolean isRequestDeleteShow();
+
+        boolean isLoanStatusActive();
     }
 }

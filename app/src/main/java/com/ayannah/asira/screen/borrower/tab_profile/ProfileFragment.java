@@ -20,6 +20,7 @@ import com.ayannah.asira.R;
 import com.ayannah.asira.base.BaseFragment;
 import com.ayannah.asira.data.local.PreferenceRepository;
 import com.ayannah.asira.dialog.BottomInputPassword;
+import com.ayannah.asira.dialog.BottomSheetDialogGlobal;
 import com.ayannah.asira.screen.bantuan.BantuanActivity;
 import com.ayannah.asira.screen.borrower.login.LoginActivity;
 import com.ayannah.asira.util.CommonUtils;
@@ -51,6 +52,9 @@ public class ProfileFragment extends BaseFragment implements ProfileContract.Vie
     @BindView(R.id.phoneUser)
     TextView phoneUser;
 
+    @BindView(R.id.btnDeleteAcc)
+    TextView btnDeleteAcc;
+
     @Inject
     public ProfileFragment() {
     }
@@ -65,6 +69,9 @@ public class ProfileFragment extends BaseFragment implements ProfileContract.Vie
         super.onResume();
         mPresenter.takeView(this);
 
+        //show or hide button request delete  account
+        if (mPresenter.isRequestDeleteShow())
+            btnDeleteAcc.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -219,26 +226,55 @@ public class ProfileFragment extends BaseFragment implements ProfileContract.Vie
 
     @OnClick(R.id.btnDeleteAcc)
     void requestDeleteClick() {
-        BottomInputPassword bottomInputPassword = new BottomInputPassword();
-        bottomInputPassword.showNow(parentActivity().getSupportFragmentManager(), "BottomDialogShow");
-        bottomInputPassword.setOnClickButtonListener(new BottomInputPassword.DialogInputPassListener() {
-            @Override
-            public void onClickYes(String pass) {
-                if (!pass.equals("")) {
-                    JsonObject request = new JsonObject();
-                    request.addProperty("password", pass);
+        if (mPresenter.isLoanStatusActive()) {
+            BottomSheetDialogGlobal bottomSheetDialogGlobal = new BottomSheetDialogGlobal().show(parentActivity().getSupportFragmentManager(),
+                    BottomSheetDialogGlobal.FORBIDDEN_LOAN_PNS,
+                    "Pengajuan Pinjaman Terakhir Sedang Proses",
+                    "Kamu belum bisa mengajukan hapus akun hingga pengajuan sebelumnya telah selesai dari proses.",
+                    R.drawable.img_processing);
+            bottomSheetDialogGlobal.setOnClickBottomSheetInstruction(new BottomSheetDialogGlobal.BottomSheetInstructionListener() {
+                @Override
+                public void onClickButtonDismiss() {
 
-                    mPresenter.requestDeleteAccount(request);
-                } else {
-                    Toast.makeText(parentActivity(), "Masukan password Anda terlebih dahulu", Toast.LENGTH_LONG).show();
+                    bottomSheetDialogGlobal.dismiss();
+
                 }
-            }
 
-            @Override
-            public void onClickNo() {
-                bottomInputPassword.dismiss();
-            }
-        });
+                @Override
+                public void onClickButtonYes() {
+                    //nothing to do
+
+                }
+
+                @Override
+                public void closeApps() {
+                    //nothing to do
+
+                }
+            });
+        }
+        else {
+            BottomInputPassword bottomInputPassword = new BottomInputPassword();
+            bottomInputPassword.showNow(parentActivity().getSupportFragmentManager(), "BottomDialogShow");
+            bottomInputPassword.setOnClickButtonListener(new BottomInputPassword.DialogInputPassListener() {
+                @Override
+                public void onClickYes(String pass) {
+                    if (!pass.equals("")) {
+                        JsonObject request = new JsonObject();
+                        request.addProperty("password", pass);
+
+                        mPresenter.requestDeleteAccount(request);
+                    } else {
+                        Toast.makeText(parentActivity(), "Masukan password Anda terlebih dahulu", Toast.LENGTH_LONG).show();
+                    }
+                }
+
+                @Override
+                public void onClickNo() {
+                    bottomInputPassword.dismiss();
+                }
+            });
+        }
     }
 
 }

@@ -5,7 +5,6 @@ import androidx.annotation.Nullable;
 import com.androidnetworking.error.ANError;
 import com.ayannah.asira.data.local.PreferenceRepository;
 import com.ayannah.asira.data.remote.RemoteRepository;
-import com.ayannah.asira.util.CommonUtils;
 import com.google.gson.JsonObject;
 
 import javax.inject.Inject;
@@ -83,6 +82,16 @@ public class ProfilePresenter implements ProfileContract.Presenter {
             ANError anError = (ANError) err;
             mView.showErrorMessage(err.getMessage());
         }));
+    }
+
+    @Override
+    public boolean isRequestDeleteShow() {
+        return preferenceRepository.getBankID() != 0;
+    }
+
+    @Override
+    public boolean isLoanStatusActive() {
+        return preferenceRepository.getLoanStatus().toLowerCase().equals("active");
     }
 
     @Override

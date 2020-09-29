@@ -180,12 +180,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_20sdp"
+                android:layout_marginTop="@dimen/_20sdp"
                 android:background="@color/textColorAsiraRed"
                 android:gravity="center"
-                android:layout_marginTop="@dimen/_20sdp"
                 android:padding="@dimen/_5sdp"
                 android:text="Hapus Akun"
-                android:textColor="#FFF" />
+                android:textColor="#FFF"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/btnLogout"
